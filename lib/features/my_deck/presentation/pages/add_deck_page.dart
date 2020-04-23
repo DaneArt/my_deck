@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mydeck/core/extensions/widget_extensions.dart';
+import 'package:mydeck/core/meta/my_deck_routes.dart';
 import 'package:mydeck/features/my_deck/data/models/category_model.dart';
 import 'package:mydeck/features/my_deck/domain/entities/card.dart' as Entity;
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
@@ -100,15 +101,15 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
         children: <Widget>[
           isValid
               ? Icon(
-            Icons.check,
-            color: Colors.green,
-            size: 32,
-          )
+                  Icons.check,
+                  color: Colors.green,
+                  size: 32,
+                )
               : Icon(
-            Icons.clear,
-            color: Colors.red,
-            size: 32,
-          ),
+                  Icons.clear,
+                  color: Colors.red,
+                  size: 32,
+                ),
           Text(text,
               textAlign: TextAlign.right,
               style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600))
@@ -121,8 +122,7 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
       {@required BuildContext context, @required AddDeckState state}) {
     showDialog(
         context: context,
-        builder: (context) =>
-            AlertDialog(
+        builder: (context) => AlertDialog(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(8))),
               title: Text("Can't save deck. Correct mistakes and try again.",
@@ -132,7 +132,7 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                 children: <Widget>[
                   fieldCheckItem(
                       text:
-                      "Title doesn't contain  \\\^\$\.\!\? and \nlonger than 6 characters.",
+                          "Title doesn't contain  \\\^\$\.\!\? and \nlonger than 6 characters.",
                       isValid: state.title.value.isRight()),
                   fieldCheckItem(
                       text: "Deck has avatar.",
@@ -161,13 +161,11 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
         body: BlocListener<AddDeckBloc, AddDeckState>(
           listener: (context, state) {
             state.saveFailureOrSuccessOption.fold(
-                    () => null,
-                    (some) =>
-                    some.fold((failure) {
+                () => null,
+                (some) => some.fold((failure) {
                       failure.maybeMap(
-                          fieldsInvalid: (f) =>
-                              _showInvalidFieldsDialog(
-                                  context: context, state: state),
+                          fieldsInvalid: (f) => _showInvalidFieldsDialog(
+                              context: context, state: state),
                           insertFailure: (f) {
                             Scaffold.of(context).showSnackBar(
                               SnackBar(
@@ -216,8 +214,7 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                     }, (success) => Navigator.of(context).pop()));
           },
           child: NestedScrollView(
-            headerSliverBuilder: (context, value) =>
-            [
+            headerSliverBuilder: (context, value) => [
               SliverAppBar(
                 title: Text("Edit deck"),
                 snap: true,
@@ -316,10 +313,9 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
         : 0;
     initialized = false;
     _titleController.text =
-    widget.arguments != null ? widget.arguments.deck.title : '';
+        widget.arguments != null ? widget.arguments.deck.title : '';
     _descriptionController.text =
-    widget.arguments != null ? widget.arguments.deck.description : '';
-
+        widget.arguments != null ? widget.arguments.deck.description : '';
 
     super.initState();
   }
@@ -345,8 +341,8 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
       key: UniqueKey(),
       child: BlocBuilder<AddDeckBloc, AddDeckState>(builder: (context, state) {
         if (!initialized) {
-          final titleText = state.title.value.fold((f) => f.failedValue, (
-              v) => v);
+          final titleText =
+              state.title.value.fold((f) => f.failedValue, (v) => v);
           _titleController.text = titleText;
 
           _descriptionController.text =
@@ -363,9 +359,9 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
                   child: ImagePickerWidget(
                     onImagePicked: isEditing
                         ? (image) {
-                      BlocProvider.of<AddDeckBloc>(context)
-                          .add(AddDeckEvent.avatarChanged(image));
-                    }
+                            BlocProvider.of<AddDeckBloc>(context)
+                                .add(AddDeckEvent.avatarChanged(image));
+                          }
                         : null,
                     defaultImage: state.avatar,
                   ),
@@ -386,45 +382,42 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
                       children: <Widget>[
                         isEditing
                             ? TextFormField(
-                          key: _titleFieldKey,
-                          autovalidate: true,
-                          controller: _titleController,
-                          onChanged: (input) {
-                            BlocProvider.of<AddDeckBloc>(context)
-                                .add(AddDeckEvent.titleChanged(input));
-                          },
-                          textInputAction: TextInputAction.done,
-                          textCapitalization:
-                          TextCapitalization.sentences,
-                          decoration: InputDecoration(
-                            hintText: 'Enter title',
-                            labelText: 'Title*',
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 4, vertical: 8),
-                          ),
-                          inputFormatters: [
-                            LengthLimitingTextInputFormatter(
-                                _maxTitleCount),
-                          ],
-                        )
+                                key: _titleFieldKey,
+                                autovalidate: true,
+                                controller: _titleController,
+                                onChanged: (input) {
+                                  BlocProvider.of<AddDeckBloc>(context)
+                                      .add(AddDeckEvent.titleChanged(input));
+                                },
+                                textInputAction: TextInputAction.done,
+                                textCapitalization:
+                                    TextCapitalization.sentences,
+                                decoration: InputDecoration(
+                                  hintText: 'Enter title',
+                                  labelText: 'Title*',
+                                  contentPadding: EdgeInsets.symmetric(
+                                      horizontal: 4, vertical: 8),
+                                ),
+                                inputFormatters: [
+                                  LengthLimitingTextInputFormatter(
+                                      _maxTitleCount),
+                                ],
+                              )
                             : Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              'Title:',
-                              style: Theme
-                                  .of(context)
-                                  .textTheme
-                                  .title,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(4),
-                            ),
-                            Text(widget.arguments.deck != null
-                                ? widget.arguments.deck.title
-                                : ''),
-                          ],
-                        ),
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    'Title:',
+                                    style: Theme.of(context).textTheme.title,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(4),
+                                  ),
+                                  Text(widget.arguments.deck != null
+                                      ? widget.arguments.deck.title
+                                      : ''),
+                                ],
+                              ),
                         Padding(
                           padding: const EdgeInsets.all(8),
                         ),
@@ -447,9 +440,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
                             labelText: 'Description',
                             contentPadding: EdgeInsets.symmetric(
                                 horizontal: 4, vertical: 8),
-                            hoverColor: Theme
-                                .of(context)
-                                .accentColor,
+                            hoverColor: Theme.of(context).accentColor,
                             counterText: !isEditing
                                 ? ''
                                 : '$_currentDescriptionCount/$_maxDescriptionCount',
@@ -468,29 +459,26 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
             ),
             isEditing
                 ? Padding(
-              padding:
-              const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Share with community?',
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .body2,
-                  ),
-                  Switch(
-                    value: state.isShared,
-                    onChanged: (isChecked) {
-                      context
-                          .bloc<AddDeckBloc>()
-                          .add(AddDeckEvent.privacyChanged(isChecked));
-                    },
-                  ),
-                ],
-              ),
-            )
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          'Share with community?',
+                          style: Theme.of(context).textTheme.body2,
+                        ),
+                        Switch(
+                          value: state.isShared,
+                          onChanged: (isChecked) {
+                            context
+                                .bloc<AddDeckBloc>()
+                                .add(AddDeckEvent.privacyChanged(isChecked));
+                          },
+                        ),
+                      ],
+                    ),
+                  )
                 : Container(),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -508,8 +496,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
                       onPressed: () async {
                         final CategoryModel category = await showDialog(
                             context: context,
-                            builder: (context) =>
-                                CategoryPicker(
+                            builder: (context) => CategoryPicker(
                                   baseCategory: state.category,
                                 ));
                         if (category != null)
@@ -545,39 +532,44 @@ class _CardsPageState extends State<_CardsPage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AddDeckBloc, AddDeckState>(
-      builder: (context, state) =>
-          CustomScrollView(
-            controller: widget.scrollController,
-            slivers: <Widget>[
-              state.cardslist.isNotEmpty
-                  ? SliverGrid.count(
-                crossAxisCount: 2,
-                childAspectRatio: 0.8,
-                children: List.generate(
-                  state.cardslist.length,
-                      (index) =>
-                      InDeckCardView(
-                        sourceCard: state.cardslist[index],
-                      ),
-                ),
-              )
-                  : SliverFillRemaining(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text('Oops, card collection is Empty.'),
-                    MaterialButton(
-                      onPressed: () =>
-                          BlocProvider.of<AddDeckBloc>(context)
-                              .add(AddDeckEvent.cardAdded(
-                              Entity.Card.createDefault())),
-                      child: Text("Let's create a new one!"),
+      builder: (context, state) => CustomScrollView(
+        controller: widget.scrollController,
+        slivers: <Widget>[
+          state.cardslist.isNotEmpty
+              ? SliverGrid.count(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.8,
+                  children: List.generate(
+                    state.cardslist.length,
+                    (index) => InDeckCardView(
+                      onTap: () async {
+                        final changedCard = await context.navigator.pushNamed(
+                            MyDeckRoutes.addCard,
+                            arguments: state.cardslist[index]);
+                        context
+                            .bloc<AddDeckBloc>()
+                            .add(AddDeckEvent.cardChanged(changedCard));
+                      },
+                      sourceCard: state.cardslist[index],
                     ),
-                  ],
-                ),
-              )
-            ],
-          ),
+                  ),
+                )
+              : SliverFillRemaining(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text('Oops, card collection is Empty.'),
+                      MaterialButton(
+                        onPressed: () => BlocProvider.of<AddDeckBloc>(context)
+                            .add(AddDeckEvent.cardAdded(
+                                Entity.Card.createDefault())),
+                        child: Text("Let's create a new one!"),
+                      ),
+                    ],
+                  ),
+                )
+        ],
+      ),
     );
   }
 }

@@ -7,7 +7,9 @@ import 'package:mydeck/core/injection/dependency_injection.dart' as di;
 
 import 'core/injection/dependency_injection.dart';
 import 'core/meta/my_deck_routes.dart';
+import 'features/my_deck/presentation/bloc/add_card/add_card_bloc.dart';
 import 'features/my_deck/presentation/bloc/add_deck/add_deck_bloc.dart';
+import 'features/my_deck/presentation/bloc/add_deck/card_editor.dart';
 import 'features/my_deck/presentation/bloc/library/library_bloc.dart';
 import 'features/my_deck/presentation/bloc/tab/tab_bloc.dart';
 import 'features/my_deck/presentation/bloc/train/train_bloc.dart';
@@ -61,6 +63,12 @@ class MyDeckApp extends StatelessWidget {
           MyDeckRoutes.login: (context) {
             return BlocProvider<SignInBloc>(
                 create: (context) => sl.get<SignInBloc>(), child: LoginPage());
+          },
+          MyDeckRoutes.addCard: (context){
+            return BlocProvider<AddCardBloc>(
+              create: (context)=>AddCardBloc(),
+              child: CardEditor(),
+            );
           },
           MyDeckRoutes.home: (context) {
             return MultiBlocProvider(

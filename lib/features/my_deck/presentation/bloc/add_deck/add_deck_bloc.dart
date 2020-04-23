@@ -149,7 +149,7 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
           newList[cardIndex] = e.card;
           yield state.copyWith(
               cardslist: newList, saveFailureOrSuccessOption: none());
-          yield state;
+
         },
         cardAdded: (e) async* {
           final newList = List<Card>.from(state.cardslist);

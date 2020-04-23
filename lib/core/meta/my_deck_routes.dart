@@ -5,6 +5,5 @@ class MyDeckRoutes {
   static String get train => '/train';
   static String get addDeck => '/addDeck';
   static String get addCard => '/addCard';
-
   static String get social => '/social';
 }
