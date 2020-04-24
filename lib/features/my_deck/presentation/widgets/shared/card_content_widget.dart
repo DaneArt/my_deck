@@ -1,5 +1,6 @@
 import 'package:mydeck/features/my_deck/domain/entities/card_content.dart';
 import 'package:flutter/material.dart';
+import 'package:mydeck/features/my_deck/presentation/widgets/shared/ensure_field_visibility.dart';
 
 class TextCardContextWidget extends StatefulWidget {
   final TextContent content;
@@ -15,25 +16,21 @@ class TextCardContextWidget extends StatefulWidget {
 }
 
 class _TextCardContextWidgetState extends State<TextCardContextWidget> {
-  TextEditingController contentController;
   FocusNode contentFocusNode;
+  GlobalKey<FormFieldState> formState;
 
   @override
   void initState() {
     super.initState();
-    contentController = TextEditingController();
-    contentController.text = widget.content.text;
-    contentController.addListener(() {
-      widget.onTextChanged(contentController.text);
-    });
 
     contentFocusNode = FocusNode();
+    formState = GlobalKey<FormFieldState>();
+
   }
 
   @override
   void dispose() {
     contentFocusNode.dispose();
-    contentController.dispose();
 
     super.dispose();
   }
@@ -42,8 +39,8 @@ class _TextCardContextWidgetState extends State<TextCardContextWidget> {
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
     return Container(
-      height: screenSize.height / 2.2,
-      width: screenSize.width / 1.5,
+      height: screenSize.height * 0.65,
+      width: screenSize.width * 0.9,
       child: InkWell(
         onTap: () {
           contentFocusNode.requestFocus();
@@ -52,15 +49,23 @@ class _TextCardContextWidgetState extends State<TextCardContextWidget> {
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: widget.isEditing
-                ? TextField(
-                    textInputAction: TextInputAction.newline,
+                ? EnsureVisibleWhenFocused(
                     focusNode: contentFocusNode,
-                    controller: contentController,
-                    textAlign: TextAlign.center,
-                    maxLines: null,
-                    style: Theme.of(context).textTheme.body2,
+                    child: TextFormField(
+                      initialValue: widget.content.model,
+                      textInputAction: TextInputAction.newline,
+                      focusNode: contentFocusNode,
+                      textAlign: TextAlign.center,
+                      onChanged: (input) {
+                        setState(() {
+                          widget.onTextChanged(input);
+                        });
+                      },
+                      maxLines: null,
+                      style: Theme.of(context).textTheme.body2,
+                    ),
                   )
-                : Text(contentController.text),
+                : Text(widget.content.model),
           ),
         ),
       ),

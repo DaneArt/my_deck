@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mydeck/features/my_deck/domain/entities/card.dart';
@@ -35,6 +37,18 @@ class AddCardBloc extends Bloc<AddCardEvent, AddCardState> {
       yield state.copyWith(
         saveChangesAndExit: true,
       );
+    }, setImageContent: (e) async* {
+      yield state.copyWith(
+          card: state.isQuestion
+              ? state.card
+                  .copyWith(question: CardContent.imageContent(image: e.image))
+              : state.card
+                  .copyWith(answer: CardContent.imageContent(image: e.image)));
+    }, setTextContent: (e) async* {
+      yield state.copyWith(
+          card: state.isQuestion
+              ? state.card.copyWith(question: CardContent.textContent(text: ''))
+              : state.card.copyWith(answer: CardContent.textContent(text: '')));
     });
   }
 }

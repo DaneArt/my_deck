@@ -8,7 +8,7 @@ class ImagesUtil {
         source: ImageSource.gallery,
         imageQuality: 85,
         maxHeight: 1000,
-        maxWidth: 1000,
+        maxWidth: 1000,   
       );
 
   static Future<File> pickImageFromCamera() => ImagePicker.pickImage(

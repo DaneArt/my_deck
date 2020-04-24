@@ -9,7 +9,7 @@ abstract class AddCardState with _$AddCardState {
 
   factory AddCardState.initial() => AddCardState(
         card: Card.createDefault(),
-        isQuestion: false,
+        isQuestion: true,
         saveChangesAndExit: false,
       );
 }

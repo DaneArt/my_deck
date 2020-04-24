@@ -1,5 +1,4 @@
-import 'package:mydeck/features/my_deck/domain/entities/card.dart'
-    as Entity;
+import 'package:mydeck/features/my_deck/domain/entities/card.dart' as Entity;
 import 'package:mydeck/features/my_deck/domain/entities/card_content.dart';
 import 'package:flutter/material.dart';
 
@@ -83,12 +82,9 @@ class _InDeckCardViewState extends State<InDeckCardView>
                     ),
                   ),
                   Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: isQuestion
-                        ? createWidgetFromContent(widget.sourceCard.question)
-                        : createWidgetFromContent(widget.sourceCard.answer),
-                  ),
+                  isQuestion
+                      ? createWidgetFromContent(widget.sourceCard.question)
+                      : createWidgetFromContent(widget.sourceCard.answer),
                   Spacer(),
                 ],
               ),

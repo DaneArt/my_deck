@@ -221,24 +221,33 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                 floating: true,
                 pinned: true,
                 leading: IconButton(
-                  icon: Icon(Icons.clear),
+                  icon: Icon(
+                      widget.arguments != null && widget.arguments.isEditing
+                          ? Icons.clear
+                          : Icons.arrow_back),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
                 actions: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.delete),
-                    onPressed: () {
-                      BlocProvider.of<AddDeckBloc>(context)
-                          .add(AddDeckEvent.deleteDeck());
-                    },
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.check),
-                    onPressed: () {
-                      BlocProvider.of<AddDeckBloc>(context)
-                          .add(AddDeckEvent.saveChanges());
-                    },
-                  ),
+                  widget.arguments != null &&
+                          widget.arguments.deck != null &&
+                          widget.arguments.isEditing
+                      ? IconButton(
+                          icon: Icon(Icons.delete),
+                          onPressed: () {
+                            BlocProvider.of<AddDeckBloc>(context)
+                                .add(AddDeckEvent.deleteDeck());
+                          },
+                        )
+                      : Spacer(),
+                  widget.arguments != null && widget.arguments.isEditing
+                      ? IconButton(
+                          icon: Icon(Icons.check),
+                          onPressed: () {
+                            BlocProvider.of<AddDeckBloc>(context)
+                                .add(AddDeckEvent.saveChanges());
+                          },
+                        )
+                      : Spacer(),
                 ],
                 bottom: TabBar(
                   tabs: [
@@ -268,10 +277,14 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
             scale: _fabAnimation,
             child: FloatingActionButton(
               child: Icon(Icons.add),
-              onPressed: () {
-                context
-                    .bloc<AddDeckBloc>()
-                    .add(AddDeckEvent.cardAdded(Entity.Card.createDefault()));
+              onPressed: () async {
+                final newCard =
+                    await context.navigator.pushNamed(MyDeckRoutes.addCard);
+                if (newCard != null) {
+                  context
+                      .bloc<AddDeckBloc>()
+                      .add(AddDeckEvent.cardAdded(newCard));
+                }
               },
             ),
           ),
@@ -302,7 +315,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
   static const _maxDescriptionCount = 70;
   static const _maxTitleCount = 30;
   int _currentDescriptionCount = 0;
-  bool initialized = false;
+  bool initialized;
 
   @override
   void initState() {
@@ -313,9 +326,13 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
         : 0;
     initialized = false;
     _titleController.text =
-        widget.arguments != null ? widget.arguments.deck.title : '';
+        widget.arguments != null && widget.arguments.deck != null
+            ? widget.arguments.deck.title
+            : '';
     _descriptionController.text =
-        widget.arguments != null ? widget.arguments.deck.description : '';
+        widget.arguments != null && widget.arguments.deck != null
+            ? widget.arguments.deck.description
+            : '';
 
     super.initState();
   }
@@ -546,9 +563,11 @@ class _CardsPageState extends State<_CardsPage> {
                         final changedCard = await context.navigator.pushNamed(
                             MyDeckRoutes.addCard,
                             arguments: state.cardslist[index]);
-                        context
-                            .bloc<AddDeckBloc>()
-                            .add(AddDeckEvent.cardChanged(changedCard));
+                        if (changedCard != null) {
+                          context
+                              .bloc<AddDeckBloc>()
+                              .add(AddDeckEvent.cardChanged(changedCard));
+                        }
                       },
                       sourceCard: state.cardslist[index],
                     ),
@@ -559,10 +578,13 @@ class _CardsPageState extends State<_CardsPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text('Oops, card collection is Empty.'),
-                      MaterialButton(
-                        onPressed: () => BlocProvider.of<AddDeckBloc>(context)
-                            .add(AddDeckEvent.cardAdded(
-                                Entity.Card.createDefault())),
+                      RaisedButton(
+                        color: Theme.of(context).accentColor,
+                        onPressed: ()async{
+                          final card = await context.navigator.pushNamed(MyDeckRoutes.addCard);
+                          if(card != null)
+                          context.bloc<AddDeckBloc>().add(AddDeckEvent.cardAdded(card));
+                        },
                         child: Text("Let's create a new one!"),
                       ),
                     ],
@@ -571,5 +593,11 @@ class _CardsPageState extends State<_CardsPage> {
         ],
       ),
     );
+
+    _addCard(){
+      BlocProvider.of<AddDeckBloc>(context)
+          .add(AddDeckEvent.cardAdded(
+          Entity.Card.createDefault()));
+    }
   }
 }
