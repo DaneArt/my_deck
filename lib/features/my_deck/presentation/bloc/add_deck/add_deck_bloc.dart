@@ -11,7 +11,9 @@ import 'package:mydeck/features/my_deck/domain/entities/card.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/add_deck_usecase.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/delete_deck_usecase.dart';
-import 'package:mydeck/features/my_deck/domain/usecases/save_deck_changes_usecase.dart' as save;
+import 'package:mydeck/features/my_deck/domain/usecases/save_deck_changes_usecase.dart'
+    as save;
+import 'package:mydeck/features/sign_in/data/datasources/user_service.dart';
 import 'package:uuid/uuid.dart';
 
 import 'deck_avatar.dart';
@@ -19,7 +21,9 @@ import 'deck_description.dart';
 import 'deck_title.dart';
 
 part 'add_deck_state.dart';
+
 part 'add_deck_event.dart';
+
 part "add_deck_bloc.freezed.dart";
 
 class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
@@ -74,8 +78,8 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
                   icon: state.avatar.value.fold((f) => f.failedValue, (r) => r),
                   isPrivate: !state.isShared,
                   subscribersCount: 0,
-                  title:
-                      state.title.value.fold((f) => f.failedValue, (r) => r))));
+                  title: state.title.value.fold((f) => f.failedValue, (r) => r),
+                  author: await UserService().currentUser)));
               yield saveResult.fold(
                   (failure) => state.copyWith(
                       saveFailureOrSuccessOption: some(left(failure))),
@@ -85,6 +89,7 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
               final saveResult = await saveDeckChangesUsecase(save.Params(
                   _deck,
                   _deck.copyWith(
+                      author: await UserService().currentUser,
                       cardsList: state.cardslist,
                       category: state.category,
                       deckId: _deck.deckId,
@@ -149,7 +154,6 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
           newList[cardIndex] = e.card;
           yield state.copyWith(
               cardslist: newList, saveFailureOrSuccessOption: none());
-
         },
         cardAdded: (e) async* {
           final newList = List<Card>.from(state.cardslist);

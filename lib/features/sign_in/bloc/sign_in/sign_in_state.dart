@@ -15,6 +15,7 @@ abstract class SignInState with _$SignInState {
       isSubmitting: false,
       authFailureOrSuccessOption: none());
 
+
   const factory SignInState.emailInput({
     @required EmailAddress emailAddress,
     @required bool showErrorMessages,

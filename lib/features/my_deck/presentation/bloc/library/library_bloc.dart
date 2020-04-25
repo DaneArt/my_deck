@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 
-
 import 'package:meta/meta.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/get_all_current_user_decks_usecase.dart';
@@ -36,11 +35,7 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
     LibraryEvent event,
   ) async* {
     if (event is GetAllUsersDecks) {
-      yield LoadingState();
-      var decks;
-      await Future.delayed(Duration(seconds: 1), () async {
-        decks = await getAllCurrentUserDecks(NoParams());
-      });
+      final  decks = await getAllCurrentUserDecks(NoParams());
       yield decks.fold((failure) => ErrorState(CacheFailureMessage),
           (deckList) {
         if (deckList != decksSourceList) {
@@ -54,8 +49,8 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
         }
       });
     } else if (event is TryToStartTrain) {
-      final decksForTrain = await getDecksForTrain(
-          Params(List<Deck>.from(decksSourceList)));
+      final decksForTrain =
+          await getDecksForTrain(Params(List<Deck>.from(decksSourceList)));
       yield decksForTrain.fold((failure) {
         return NoTrainableDecksState(NoTrainableDecks);
       }, (deckList) {

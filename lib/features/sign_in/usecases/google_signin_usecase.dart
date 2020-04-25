@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:chopper/chopper.dart';
 import 'package:mydeck/core/error/auth_failure.dart';
+import 'package:mydeck/features/sign_in/data/datasources/user_service.dart';
 import 'package:mydeck/features/sign_in/data/models/user_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -17,6 +19,7 @@ const String kCheckInternetError = 'Check internet connection and try again.';
 class GoogleSignInUsecase extends UseCase<AuthFailure, UserModel, NoParams> {
   final GoogleSignIn _googleSignIn;
   final NetworkConnection _networkConnection;
+  final UserService _userService;
 
   final String kSecretKey =
       'tLECRAH5TZ7e9ktUUGct2tvPdcsE98luk55wIUvPTegOnOkwficlKZWlXauoUeFs';
@@ -24,6 +27,7 @@ class GoogleSignInUsecase extends UseCase<AuthFailure, UserModel, NoParams> {
   GoogleSignInUsecase(
     this._googleSignIn,
     this._networkConnection,
+    this._userService,
   );
 
   Future<Either<AuthFailure, UserModel>> authOnServer(
@@ -33,6 +37,8 @@ class GoogleSignInUsecase extends UseCase<AuthFailure, UserModel, NoParams> {
     final userResponse = await sendGoogleSignInToken(userToken);
     if (userResponse.statusCode == 200) {
       final userId = json.decode(userResponse.body)['userid'];
+      final accessToken = json.decode(userResponse.body)['access_token'];
+      final refreshToken = json.decode(userResponse.body)['refresh_token'];
       final userGet = await http.get(
           'http://nypifok-001-site1.gtempurl.com/mydeckapi/user/findbyid/$userId',
           headers: {
@@ -41,7 +47,9 @@ class GoogleSignInUsecase extends UseCase<AuthFailure, UserModel, NoParams> {
           });
 
       final user = UserModel.fromJson(json.decode(userGet.body)['value']);
-
+      _userService.setCurrentUser(user);
+      _userService.setAccessToken(accessToken);
+      _userService.setRefreshToken(refreshToken);
       return right(user);
     } else {
       return Left(AuthFailure.serverError());

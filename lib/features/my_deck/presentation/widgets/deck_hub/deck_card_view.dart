@@ -7,6 +7,7 @@ import 'package:mydeck/features/my_deck/domain/entities/card_content.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/my_deck/presentation/bloc/add_deck/add_deck_bloc.dart';
 import 'package:mydeck/features/my_deck/presentation/bloc/bloc.dart';
+import 'package:mydeck/core/extensions/widget_extensions.dart';
 import 'package:mydeck/features/my_deck/presentation/pages/add_deck_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,6 +51,7 @@ class _DeckCardState extends State<DeckCard> {
             borderRadius: BorderRadius.all(Radius.circular(8))),
         closedElevation: 4.0,
         closedBuilder: (BuildContext _, VoidCallback openContainer) {
+          _.bloc<LibraryBloc>().add(GetAllUsersDecks());
           return InkWell(
               child: Stack(
                 children: <Widget>[

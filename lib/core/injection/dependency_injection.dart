@@ -1,4 +1,5 @@
 import 'package:chopper/chopper.dart';
+import 'package:dio/dio.dart';
 import 'package:mydeck/features/my_deck/data/datasources/media/entities_separator.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:get_it/get_it.dart';
@@ -10,7 +11,6 @@ import 'package:mydeck/features/my_deck/data/datasources/media/my_deck_media_dat
 import 'package:mydeck/features/my_deck/data/datasources/my_deck_local_datasource.dart';
 import 'package:mydeck/features/my_deck/data/datasources/my_deck_network_datasource.dart';
 import 'package:mydeck/features/my_deck/data/datasources/retrofit/json_serializer.dart';
-import 'package:mydeck/features/my_deck/data/datasources/retrofit/my_deck_api.dart';
 import 'package:mydeck/features/my_deck/data/models/card_model.dart';
 import 'package:mydeck/features/my_deck/data/models/deck_model.dart';
 import 'package:mydeck/features/my_deck/data/repositories/my_deck_repository.dart';
@@ -34,18 +34,8 @@ final sl = GetIt.I;
 
 void setUp() {
   //RestApi
-  sl.registerLazySingleton(() => ChopperClient(
-          baseUrl: "http://nypifok-001-site1.gtempurl.com/mydeckapi/",
-          converter: JsonSerializableConverter({
-            DeckModel: DeckModel.fromJson,
-            CardModel: CardModel.fromJson,
-            UserModel: UserModel.fromJson
-          }),
-          errorConverter: JsonConverter(),
-          services: [
-            MyDeckApiService.create(),
-            UserService.create(),
-          ]));
+  sl.registerFactory(() => UserService());
+  sl.registerFactory(() => Dio());
   sl.registerFactory(() => DataConnectionChecker());
   sl.registerFactory<IAuthFacade>(() => AuthFacadeImpl(sl()));
   sl.registerFactory<NetworkConnection>(() => NetworkConnectionImpl(sl()));
@@ -55,7 +45,7 @@ void setUp() {
   sl.registerLazySingleton<MyDeckLocalDataSource>(
       () => MyDeckLocalDataSourceImpl());
   sl.registerLazySingleton<MyDeckNetworkDataSource>(
-      () => MyDeckNetworkDataSourceImpl(sl()));
+      () => MyDeckNetworkDataSourceImpl(client: sl(), userService: sl()));
   sl.registerLazySingleton<MyDeckMediaDataSource>(
       () => MyDeckMediaDataSourceImpl());
   //repository
@@ -65,7 +55,7 @@ void setUp() {
       networkDataSource: sl(),
       mediaDataSource: sl()));
   //use cases
-  sl.registerFactory(() => GoogleSignInUsecase(sl(), sl()));
+  sl.registerFactory(() => GoogleSignInUsecase(sl(), sl(), sl()));
   sl.registerFactory(() => SaveDeckChangesUsecase(sl()));
   sl.registerFactory(() => DeleteDeckUseCase(sl()));
   sl.registerFactory(() => UpdateDeckUsecase(myDeckRepository: sl()));

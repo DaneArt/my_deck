@@ -4,7 +4,9 @@ import 'package:mydeck/core/extensions/widget_extensions.dart';
 
 class CategoryPicker extends StatefulWidget {
   final CategoryModel baseCategory;
+
   const CategoryPicker({Key key, this.baseCategory}) : super(key: key);
+
   @override
   _CategoryPickerState createState() => _CategoryPickerState();
 }
@@ -45,11 +47,20 @@ class _CategoryPickerState extends State<CategoryPicker> {
         return false;
       },
       child: StatefulBuilder(
-        builder: (context, setState) => AlertDialog(
-          content: ListView.builder(
-              shrinkWrap: true,
-              itemCount: 6,
-              itemBuilder: (context, index) => Row(
+        builder: (context, setState) => Container(
+          child: AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8))),
+            title: Text('Pick a category'),
+            content: Container(
+              height: 280,
+              width: 300,
+              child: ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: 6,
+                itemBuilder: (context, index) => Container(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Padding(
@@ -71,17 +82,21 @@ class _CategoryPickerState extends State<CategoryPicker> {
                         value: categories[index],
                       ),
                     ],
-                  )),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('CANCEL'),
-              onPressed: () => context.navigator.pop(),
+                  ),
+                ),
+              ),
             ),
-            FlatButton(
-              child: Text('OK'),
-              onPressed: () => context.navigator.pop(pickedCategory),
-            ),
-          ],
+            actions: <Widget>[
+              FlatButton(
+                child: Text('CANCEL'),
+                onPressed: () => context.navigator.pop(),
+              ),
+              FlatButton(
+                child: Text('OK'),
+                onPressed: () => context.navigator.pop(pickedCategory),
+              ),
+            ],
+          ),
         ),
       ),
     );

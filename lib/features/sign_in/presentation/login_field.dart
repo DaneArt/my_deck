@@ -13,6 +13,7 @@ class LoginField extends StatefulWidget {
   final bool isObscureText;
   final bool autovalidate;
   final GlobalKey<FormFieldState> fieldKey;
+
   LoginField({
     Key key,
     this.controller,
@@ -53,6 +54,7 @@ class _LoginFieldState extends State<LoginField> {
             ]),
       ),
       EnsureVisibleWhenFocused(
+        focusNode: fieldFocusNode,
         child: TextFormField(
           key: widget.fieldKey,
           focusNode: fieldFocusNode,
@@ -97,7 +99,6 @@ class _LoginFieldState extends State<LoginField> {
                   Theme.of(context).colorScheme.brightness != Brightness.dark,
               hintText: widget.hint),
         ),
-        focusNode: fieldFocusNode,
       ),
     ]);
   }

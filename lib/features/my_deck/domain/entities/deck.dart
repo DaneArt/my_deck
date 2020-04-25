@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:mydeck/features/my_deck/data/models/category_model.dart';
 import 'package:mydeck/features/my_deck/data/models/deck_model.dart';
+import 'package:mydeck/features/sign_in/data/models/user_model.dart';
 
 
 import 'card.dart';
@@ -15,6 +16,7 @@ class Deck extends Equatable {
   final String description;
   final int subscribersCount;
   final CategoryModel category;
+  final UserModel author;
   final bool isPrivate;
   final List<Card> cardsList;
 
@@ -23,6 +25,7 @@ class Deck extends Equatable {
     @required this.title,
     @required this.icon,
     @required this.description,
+    @required this.author,
     this.subscribersCount = 0,
     @required this.category,
     @required this.isPrivate,
@@ -49,7 +52,8 @@ class Deck extends Equatable {
       category: CategoryModel(model.categoryName),
       description: model.description,
       subscribersCount: model.subscribersCount,
-      isPrivate: model.isPrivate);
+      isPrivate: model.isPrivate,
+      author: UserModel(model.author,null,null,null));
 
   DeckModel toModel() =>
       DeckModel(
@@ -59,12 +63,14 @@ class Deck extends Equatable {
         description,
         category.categoryName,
         isPrivate,
+        author.userId,
       );
 
   Deck copyWith({
     String deckId,
     String title,
     File icon,
+    UserModel author,
     String description,
     int subscribersCount,
     CategoryModel category,
@@ -80,6 +86,7 @@ class Deck extends Equatable {
       category: category ?? this.category,
       isPrivate: isPrivate ?? this.isPrivate,
       cardsList: cardsList ?? this.cardsList,
+      author: author ?? this.author,
     );
   }
 

@@ -79,6 +79,8 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         }
       },
       signInWithGooglePressed: (e) async* {
+
+
         yield (_statesStack.top() as _SignInState).copyWith(
           isSubmitting: true,
           authFailureOrSuccessOption: none(),

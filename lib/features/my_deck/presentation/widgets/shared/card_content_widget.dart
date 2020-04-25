@@ -25,7 +25,6 @@ class _TextCardContextWidgetState extends State<TextCardContextWidget> {
 
     contentFocusNode = FocusNode();
     formState = GlobalKey<FormFieldState>();
-
   }
 
   @override

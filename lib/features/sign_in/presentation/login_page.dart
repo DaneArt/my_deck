@@ -19,23 +19,33 @@ class LoginPage extends StatelessWidget {
   Widget buildForm() => BlocBuilder<SignInBloc, SignInState>(
         builder: (context, state) {
           return state.map(
-              (s) => InitialLoginForm(
-                  userInput: s.emailOrLogin,
-                  authFailureOrSuccess: s.authFailureOrSuccessOption),
-              emailInput: (s) => EmailInputForm(
-                    authFailureOrSuccess: s.authFailureOrSuccessOption,
-                    emailAddress: s.emailAddress,
-                  ),
-              loginInput: (s) => LoginInputForm(
-                    authFailureOrSuccess: s.authFailureOrSuccessOption,
-                    login: s.login,
-                  ),
-              passwordInput: (s) => PasswordInputForm(),
-              signInCredInput: (s) => SignInForm(
-                    emailOrLogin: s.emailOrLogin,
-                    password: s.password,
-                    authFailureOrSuccess: s.authFailureOrSuccessOption,
-                  ));
+              (s) => s.isSubmitting
+                  ? Center(child: CircularProgressIndicator())
+                  : InitialLoginForm(
+                      userInput: s.emailOrLogin,
+                      authFailureOrSuccess: s.authFailureOrSuccessOption),
+              emailInput: (s) => s.isSubmitting
+                  ? Center(child: CircularProgressIndicator())
+                  : EmailInputForm(
+                      authFailureOrSuccess: s.authFailureOrSuccessOption,
+                      emailAddress: s.emailAddress,
+                    ),
+              loginInput: (s) => s.isSubmitting
+                  ? Center(child: CircularProgressIndicator())
+                  : LoginInputForm(
+                      authFailureOrSuccess: s.authFailureOrSuccessOption,
+                      login: s.login,
+                    ),
+              passwordInput: (s) => s.isSubmitting
+                  ? Center(child: CircularProgressIndicator())
+                  : PasswordInputForm(),
+              signInCredInput: (s) => s.isSubmitting
+                  ? Center(child: CircularProgressIndicator())
+                  : SignInForm(
+                      emailOrLogin: s.emailOrLogin,
+                      password: s.password,
+                      authFailureOrSuccess: s.authFailureOrSuccessOption,
+                    ));
         },
       );
 
@@ -593,6 +603,7 @@ class _SignInFormState extends State<SignInForm> with WidgetsBindingObserver {
 class InitialLoginForm extends StatefulWidget {
   final d.Option<d.Either<AuthFailure, d.Unit>> authFailureOrSuccess;
   final ValueObject<String> userInput;
+
   const InitialLoginForm({Key key, this.userInput, this.authFailureOrSuccess})
       : super(key: key);
 

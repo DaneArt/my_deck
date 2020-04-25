@@ -135,7 +135,7 @@ packages:
     source: hosted
     version: "1.0.2"
   chopper:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: chopper
       url: "https://pub.dartlang.org"
@@ -225,6 +225,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.4"
+  dio:
+    dependency: "direct main"
+    description:
+      name: dio
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.9"
   equatable:
     dependency: "direct main"
     description:
@@ -368,7 +375,7 @@ packages:
       name: google_sign_in
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.4.3"
+    version: "4.4.4"
   google_sign_in_platform_interface:
     dependency: transitive
     description:

@@ -40,7 +40,7 @@ class AddDeckTabView extends StatefulWidget {
 }
 
 class _AddDeckTabViewState extends State<AddDeckTabView>
-    with TickerProviderStateMixin<AddDeckTabView> {
+    with TickerProviderStateMixin<AddDeckTabView>,WidgetsBindingObserver {
   TabController controller;
   ScrollController scrollController;
   AnimationController _animationController;
@@ -63,7 +63,7 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
       vsync: this,
     );
     controller.addListener(() {
-      setState(() {});
+      FocusScope.of(context).unfocus();
       if (controller.index == 1) {
         _animationController.forward();
       } else {
@@ -364,7 +364,11 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
 
           _descriptionController.text =
               state.description.value.fold((f) => f.failedValue, (v) => v);
-          if (titleText.isNotEmpty) initialized = true;
+          Future.delayed(Duration(milliseconds: 300),(){
+            setState(() {
+              initialized = true;
+            });
+          });
         }
         return Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -593,11 +597,5 @@ class _CardsPageState extends State<_CardsPage> {
         ],
       ),
     );
-
-    _addCard(){
-      BlocProvider.of<AddDeckBloc>(context)
-          .add(AddDeckEvent.cardAdded(
-          Entity.Card.createDefault()));
-    }
   }
 }

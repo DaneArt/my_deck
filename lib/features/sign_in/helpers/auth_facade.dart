@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:mydeck/core/error/auth_failure.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/usecase.dart';
 
@@ -12,10 +14,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class IAuthFacade {
   Future<Either<AuthFailure, Unit>> signInWithGoogle();
+
   Future<Either<AuthFailure, UserModel>> signInWithLoginAndPassword(
       {@required Login login, @required Password password});
+
   Future<Either<AuthFailure, UserModel>> signInWithEmailAndPassword(
       {@required EmailAddress emailAddress, @required Password password});
+
   Future<Either<AuthFailure, UserModel>> signUpWithCredentials(
       {@required EmailAddress emailAddress,
       @required Login login,
@@ -26,6 +31,7 @@ class AuthFacadeImpl implements IAuthFacade {
   final GoogleSignInUsecase googleSignInUsecase;
 
   AuthFacadeImpl(this.googleSignInUsecase);
+
   @override
   Future<Either<AuthFailure, UserModel>> signInWithEmailAndPassword(
       {EmailAddress emailAddress, Password password}) {

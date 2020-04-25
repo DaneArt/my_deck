@@ -1,5 +1,6 @@
 import 'package:floor/floor.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mydeck/features/sign_in/data/models/user_model.dart';
 
 import 'category_model.dart';
 
@@ -34,9 +35,10 @@ class DeckModel {
   final String categoryName;
   @ColumnInfo(nullable: false, name: 'is_private')
   final bool isPrivate;
+  final String author;
 
   DeckModel(this.deckId, this.title, this.icon, this.description,
-      this.categoryName, this.isPrivate);
+      this.categoryName, this.isPrivate, this.author);
 
   static DeckModel fromJson(Map<String, dynamic> json) =>
       _$DeckModelFromJson(json);
@@ -50,19 +52,22 @@ class DeckModel {
       String description,
       int subscribersCount,
       String categoryName,
+      UserModel author,
       bool isPrivate}) {
     return DeckModel(
-        deckId ?? this.deckId,
-        title ?? this.title,
-        icon ?? this.icon,
-        description ?? this.description,
-        categoryName ?? this.categoryName,
-        isPrivate ?? this.isPrivate);
+      deckId ?? this.deckId,
+      title ?? this.title,
+      icon ?? this.icon,
+      description ?? this.description,
+      categoryName ?? this.categoryName,
+      isPrivate ?? this.isPrivate,
+      author ?? this.author,
+    );
   }
 
   @override
   String toString() {
-    return 'DeckModel deckId: $deckId, title: $title, icon: $icon, description: $description, categoryName: $categoryName, subscribersCount: $subscribersCount';
+    return 'DeckModel deckId: $deckId, title: $title, icon: $icon, description: $description, categoryName: $categoryName, subscribersCount: $subscribersCount, author: $author';
   }
 
   @override
@@ -75,7 +80,8 @@ class DeckModel {
         o.icon == icon &&
         o.description == description &&
         o.subscribersCount == subscribersCount &&
-        o.categoryName == categoryName;
+        o.categoryName == categoryName &&
+        o.author == author;
   }
 
   @override
@@ -85,6 +91,7 @@ class DeckModel {
         icon.hashCode ^
         description.hashCode ^
         subscribersCount.hashCode ^
-        categoryName.hashCode;
+        categoryName.hashCode ^
+        author.hashCode;
   }
 }

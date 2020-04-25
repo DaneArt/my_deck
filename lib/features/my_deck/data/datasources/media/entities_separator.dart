@@ -44,7 +44,7 @@ class EntitiesSeparatorImpl implements EntitiesSeparator {
 
     if (answerFile.existsSync()) {
       final newPath =
-          "$path/CA_${card.cardId}_${Random().nextInt(200)}.${card.answer.split('.').last}";
+          "$path/CA_${card.cardId}.${card.answer.split('.').last}";
       files.add(
         Both(left: newPath, right: answerFile),
       );
@@ -52,7 +52,7 @@ class EntitiesSeparatorImpl implements EntitiesSeparator {
     }
     if (questionFile.existsSync()) {
       final newPath =
-          "$path/${card.parentDeckId}/CQ_${card.cardId}_${Random().nextInt(200)}.${card.question.split('.').last}";
+          "$path/${card.parentDeckId}/CQ_${card.cardId}.${card.question.split('.').last}";
       files.add(
         Both(left: newPath, right: questionFile),
       );
@@ -84,7 +84,7 @@ class EntitiesSeparatorImpl implements EntitiesSeparator {
     final File avatarFile = deck.icon;
 
     final String newPath =
-        "$path/DA_${deck.deckId}_${Random().nextInt(200)}.${avatarFile.path.split('.').last}";
+        "$path/DA_${deck.deckId}.${avatarFile.path.split('.').last}";
     final fileBoth = Both(
       left: newPath,
       right: avatarFile,

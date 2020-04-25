@@ -91,6 +91,7 @@ class _LibraryPageState extends State<LibraryPage>
                 ),
               ),
               closedBuilder: (BuildContext _, VoidCallback openContainer) {
+                _loadDecksData(context);
                 return FloatingActionButton(
                     key: Key(MyDeckTestKeys.addDeckFab),
                     heroTag: MyDeckHeroTags.addDeckFab,
