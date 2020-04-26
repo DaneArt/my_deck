@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 import 'package:mydeck/core/injection/dependency_injection.dart' as di;
+import 'package:mydeck/features/sign_in/data/datasources/user_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/injection/dependency_injection.dart';
 import 'core/meta/my_deck_routes.dart';
@@ -20,11 +22,20 @@ import 'features/my_deck/presentation/pages/training_page.dart';
 import 'features/sign_in/bloc/sign_in/sign_in_bloc.dart';
 import 'features/sign_in/presentation/login_page.dart';
 
+class App {
+  static SharedPreferences localStorage;
+
+  static Future init() async {
+    localStorage = await SharedPreferences.getInstance();
+  }
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   di.setUp();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  await App.init();
   runApp(MyDeckApp());
 }
 
@@ -46,7 +57,7 @@ class MyDeckApp extends StatelessWidget {
         title: 'MyDeck',
         theme: ThemeData(
           primarySwatch: Colors.indigo,
-          accentColor: Colors.deepOrange,
+          accentColor: Colors.lightBlueAccent,
           buttonTheme: ButtonThemeData(buttonColor: Colors.white),
           iconTheme: IconThemeData(
             color: Colors.white,
@@ -57,16 +68,36 @@ class MyDeckApp extends StatelessWidget {
         darkTheme: ThemeData(
           brightness: Brightness.dark,
           primaryColor: Color(0x121212),
-          accentColor: Colors.deepOrange,
         ),
         routes: {
           MyDeckRoutes.login: (context) {
-            return BlocProvider<SignInBloc>(
-                create: (context) => sl.get<SignInBloc>(), child: LoginPage());
+            if (UserService().currentUser != null) {
+              return BlocProvider<SignInBloc>(
+                  create: (context) => sl.get<SignInBloc>(),
+                  child: LoginPage());
+              return MultiBlocProvider(
+                providers: [
+                  BlocProvider<LibraryBloc>(
+                    create: (context) => sl.get<LibraryBloc>(),
+                  ),
+                  BlocProvider<TabBloc>(
+                    create: (context) => TabBloc(),
+                  ),
+                  BlocProvider<TrainBloc>(
+                    create: (context) => sl.get<TrainBloc>(),
+                  ),
+                ],
+                child: HomePage(),
+              );
+            } else {
+              return BlocProvider<SignInBloc>(
+                  create: (context) => sl.get<SignInBloc>(),
+                  child: LoginPage());
+            }
           },
-          MyDeckRoutes.addCard: (context){
+          MyDeckRoutes.addCard: (context) {
             return BlocProvider<AddCardBloc>(
-              create: (context)=>AddCardBloc(),
+              create: (context) => AddCardBloc(),
               child: CardEditor(),
             );
           },

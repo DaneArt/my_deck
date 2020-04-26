@@ -4,22 +4,18 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'card_model.g.dart';
 
-@Entity(
-    foreignKeys: [
-      ForeignKey(
-          entity: DeckModel,
-          parentColumns: ['deck_id'],
-          childColumns: ['parent_deck_id']
-      )
-    ]
-)
+@Entity(foreignKeys: [
+  ForeignKey(
+      entity: DeckModel,
+      parentColumns: ['deck_id'],
+      childColumns: ['parent_deck_id'])
+])
 @JsonSerializable(nullable: false)
 class CardModel {
   @primaryKey
   @ColumnInfo(name: 'card_id')
   @JsonKey(name: 'card_id')
   final String cardId;
-
   @ColumnInfo(nullable: false)
   final String answer;
   @ColumnInfo(nullable: false)
@@ -37,14 +33,16 @@ class CardModel {
   @JsonKey(name: 'parent_deck_id')
   final String parentDeckId;
 
-  CardModel(this.cardId,
-      this.answer,
-      this.question,
-      this.wins,
-      this.trains,
-      this.lvl,
-      this.lastTrain,
-      this.parentDeckId,);
+  CardModel(
+    this.cardId,
+    this.answer,
+    this.question,
+    this.wins,
+    this.trains,
+    this.lvl,
+    this.lastTrain,
+    this.parentDeckId,
+  );
 
   static CardModel fromJson(Map<String, dynamic> json) =>
       _$CardModelFromJson(json);
@@ -96,12 +94,12 @@ class CardModel {
   @override
   int get hashCode {
     return cardId.hashCode ^
-    answer.hashCode ^
-    question.hashCode ^
-    wins.hashCode ^
-    trains.hashCode ^
-    lvl.hashCode ^
-    lastTrain.hashCode ^
-    parentDeckId.hashCode;
+        answer.hashCode ^
+        question.hashCode ^
+        wins.hashCode ^
+        trains.hashCode ^
+        lvl.hashCode ^
+        lastTrain.hashCode ^
+        parentDeckId.hashCode;
   }
 }

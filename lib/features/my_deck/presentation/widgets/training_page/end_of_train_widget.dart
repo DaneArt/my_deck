@@ -71,11 +71,9 @@ class _EndOfTrainViewState extends State<EndOfTrainView> {
             borderRadius: BorderRadius.circular(10),
             child: FittedBox(
               fit: BoxFit.cover,
-              child: FadeInImage.memoryNetwork(
+              child: widget.deck != null? Image.file(widget.deck.icon): FadeInImage.memoryNetwork(
                 placeholder: kTransparentImage,
-                image: widget.deck != null
-                    ? widget.deck.icon
-                    : 'https://zdshi.ru/media/2019/11/29/1264597622/1544343072.jpg',
+                image:'https://zdshi.ru/media/2019/11/29/1264597622/1544343072.jpg',
                 fit: BoxFit.cover,
               ),
             ),
@@ -136,7 +134,7 @@ class _EndOfTrainViewState extends State<EndOfTrainView> {
         BlocListener<TrainBloc, TrainState>(
             listener: (context, state) {
               if (state is TrainStopped) {
-                Navigator.pop(context);
+                Navigator.pop(context, state.trainedCards);
               }
             },
             child: Container())

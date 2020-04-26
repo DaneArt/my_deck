@@ -9,11 +9,14 @@ import 'package:mydeck/features/my_deck/data/models/card_model.dart';
 
 import 'package:mydeck/features/my_deck/data/models/deck_model.dart';
 import 'package:mydeck/features/my_deck/domain/entities/card.dart';
+import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/sign_in/data/datasources/user_service.dart';
 import 'package:mydeck/features/sign_in/presentation/entities/user.dart';
 
 abstract class MyDeckNetworkDataSource {
   Future<List<DeckModel>> getAllDecks();
+
+  Future<List<Deck>> getAllDecksOfCurrentUser();
 
   Future<DeckModel> getDeckById(String deckUuid);
 
@@ -56,9 +59,8 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
     final response = await client.post(
       _kBaseUrl + '/card/insert',
       data: jsonEncode([cardModel.toJson()]),
-      options: Options(headers: {
-        HttpHeaders.authorizationHeader: await userService.accessToken
-      }),
+      options: Options(
+          headers: {HttpHeaders.authorizationHeader: userService.accessToken}),
     );
     if (response.statusCode != 200) {
       throw NetworkException();
@@ -70,9 +72,8 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
     final response = await client.post(
       _kBaseUrl + '/card/insert',
       data: json.encode(cardModels.map((c) => c.toJson()).toList()),
-      options: Options(headers: {
-        HttpHeaders.authorizationHeader: await userService.accessToken
-      }),
+      options: Options(
+          headers: {HttpHeaders.authorizationHeader: userService.accessToken}),
     );
     if (response.statusCode != 200) {
       throw NetworkException();
@@ -84,9 +85,8 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
     final response = await client.post(
       _kBaseUrl + '/deck/insert',
       data: jsonEncode([deckModel.toJson()]),
-      options: Options(headers: {
-        HttpHeaders.authorizationHeader: await userService.accessToken
-      }),
+      options: Options(
+          headers: {HttpHeaders.authorizationHeader: userService.accessToken}),
     );
     if (response.statusCode != 200) {
       throw NetworkException();
@@ -97,9 +97,8 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
   Future<void> deleteCard(CardModel cardModel) async {
     final response = await client.delete(
       _kBaseUrl + '/card/deletebyid/${cardModel.cardId}',
-      options: Options(headers: {
-        HttpHeaders.authorizationHeader: await userService.accessToken
-      }),
+      options: Options(
+          headers: {HttpHeaders.authorizationHeader: userService.accessToken}),
     );
     if (response.statusCode != 200) {
       throw NetworkException();
@@ -200,9 +199,8 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
     final response = await client.put(
       _kBaseUrl + '/card/update',
       data: jsonEncode([cardModel.toJson()]),
-      options: Options(headers: {
-        HttpHeaders.authorizationHeader: await userService.accessToken
-      }),
+      options: Options(
+          headers: {HttpHeaders.authorizationHeader: userService.accessToken}),
     );
     if (response.statusCode != 200) {
       throw NetworkException();
@@ -214,9 +212,8 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
     final response = await client.put(
       _kBaseUrl + '/deck/update',
       data: jsonEncode([deckModel.toJson()]),
-      options: Options(headers: {
-        HttpHeaders.authorizationHeader: await userService.accessToken
-      }),
+      options: Options(
+          headers: {HttpHeaders.authorizationHeader: userService.accessToken}),
     );
     if (response.statusCode != 200) {
       throw NetworkException();
@@ -235,5 +232,29 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
     if (response.statusCode != 200) {
       throw NetworkException();
     }
+  }
+
+  @override
+  Future<List<Deck>> getAllDecksOfCurrentUser() async {
+    final response = await client.get(
+      _kBaseUrl +
+          '/deck/AllCurrentUserDecksWithCards/${userService.currentUser.username}',
+      options: Options(
+          headers: {HttpHeaders.authorizationHeader: userService.accessToken}),
+    );
+    if (response.statusCode != 200) {
+      throw NetworkException();
+    }
+    final List decks = jsonDecode(response.data);
+
+    final mappedDecks = decks.map((dJ) {
+      final deck = Deck.fromModel(DeckModel.fromJson(dJ));
+      final cards = (dJ["Cards"] as List)
+          .map((c) => Card.fromModel(CardModel.fromJson(c)))
+          .toList();
+      return deck.copyWith(cardsList: cards);
+    }).toList();
+
+    return mappedDecks;
   }
 }

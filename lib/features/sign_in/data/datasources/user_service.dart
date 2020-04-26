@@ -5,34 +5,30 @@ import 'package:mydeck/features/sign_in/data/models/user_model.dart';
 import 'package:mydeck/features/sign_in/helpers/auth_facade.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../main.dart';
+
 const String kUserDataKey = 'current_user_shared_prefs';
 const String kAccessTokenKey = 'current_user_access_token';
 const String kRefreshToken = 'current_user_refresh_token';
 
 class UserService {
-  setCurrentUser(UserModel userModel) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString(kUserDataKey, json.encode(userModel.toJson()));
-  }
+  set currentUser(UserModel userModel) =>
+      App.localStorage.setString(kUserDataKey, json.encode(userModel.toJson()));
 
-  Future<UserModel> get currentUser async => UserModel.fromJson(json
-      .decode((await SharedPreferences.getInstance()).getString(kUserDataKey)));
+  UserModel get currentUser => App.localStorage.getString(kUserDataKey) != null
+      ? UserModel.fromJson(
+          json.decode(App.localStorage.getString(kUserDataKey)))
+      : null;
 
-  setAccessToken(String newToken) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString(kAccessTokenKey, newToken);
-  }
+  set accessToken(String newToken) =>
+      App.localStorage.setString(kAccessTokenKey, newToken);
 
-  Future<String> get accessToken async =>
-      'Bearer ' +
-      (await SharedPreferences.getInstance()).getString(kAccessTokenKey);
+  String get accessToken =>
+      'Bearer ' + App.localStorage.getString(kAccessTokenKey);
 
-  setRefreshToken(String newToken) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString(kRefreshToken, newToken);
-  }
+  set refreshToken(String newToken) =>
+      App.localStorage.setString(kRefreshToken, newToken);
 
-  Future<String> get refreshToken async =>
-      'Bearer' +
-      (await SharedPreferences.getInstance()).getString(kRefreshToken);
+  String get refreshToken =>
+      'Bearer' + App.localStorage.getString(kRefreshToken);
 }

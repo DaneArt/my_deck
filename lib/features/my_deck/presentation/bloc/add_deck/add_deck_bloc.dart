@@ -14,6 +14,7 @@ import 'package:mydeck/features/my_deck/domain/usecases/delete_deck_usecase.dart
 import 'package:mydeck/features/my_deck/domain/usecases/save_deck_changes_usecase.dart'
     as save;
 import 'package:mydeck/features/sign_in/data/datasources/user_service.dart';
+import 'package:mydeck/features/sign_in/data/models/user_model.dart';
 import 'package:uuid/uuid.dart';
 
 import 'deck_avatar.dart';
@@ -56,14 +57,20 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
           if (_deck == null) {
             _deck = e.deck;
             _saveDeck = false;
+            final deckAuthor = _deck.author;
+            final currentUser = UserService().currentUser;
             yield state.copyWith(
-              title: DeckTitle(_deck.title),
-              description: DeckDescription(_deck.description),
-              avatar: DeckAvatar(_deck.icon),
-              isShared: !_deck.isPrivate,
-              category: _deck.category,
-              cardslist: _deck.cardsList,
-            );
+                title: DeckTitle(_deck.title),
+                description: DeckDescription(_deck.description),
+                avatar: DeckAvatar(_deck.icon),
+                isShared: !_deck.isPrivate,
+                category: _deck.category,
+                cardslist: _deck.cardsList,
+                author: deckAuthor.username == currentUser.username
+                    ? deckAuthor.copyWith(
+                        username: 'you',
+                      )
+                    : deckAuthor);
           }
         },
         saveChanges: (e) async* {
@@ -79,7 +86,7 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
                   isPrivate: !state.isShared,
                   subscribersCount: 0,
                   title: state.title.value.fold((f) => f.failedValue, (r) => r),
-                  author: await UserService().currentUser)));
+                  author: UserService().currentUser)));
               yield saveResult.fold(
                   (failure) => state.copyWith(
                       saveFailureOrSuccessOption: some(left(failure))),
@@ -89,7 +96,7 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
               final saveResult = await saveDeckChangesUsecase(save.Params(
                   _deck,
                   _deck.copyWith(
-                      author: await UserService().currentUser,
+                      author: UserService().currentUser,
                       cardsList: state.cardslist,
                       category: state.category,
                       deckId: _deck.deckId,

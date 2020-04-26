@@ -40,6 +40,7 @@ class _LibraryPageState extends State<LibraryPage>
     _controller = ScrollController();
     _controller.addListener(_onDeckListScrollListener);
     super.initState();
+
   }
 
   @override
@@ -160,7 +161,7 @@ class _LibraryPageState extends State<LibraryPage>
         return DeckHubIdleView(
           refreshKey: _refreshIndicatorKey,
           onRefresh: () => _loadDecksData(context),
-          errorMessage: "Unhandled error",
+          errorMessage: "No decks",
         );
       },
     );

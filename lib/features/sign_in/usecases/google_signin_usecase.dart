@@ -47,9 +47,9 @@ class GoogleSignInUsecase extends UseCase<AuthFailure, UserModel, NoParams> {
           });
 
       final user = UserModel.fromJson(json.decode(userGet.body)['value']);
-      _userService.setCurrentUser(user);
-      _userService.setAccessToken(accessToken);
-      _userService.setRefreshToken(refreshToken);
+      _userService.currentUser = user;
+      _userService.accessToken = accessToken;
+      _userService.refreshToken = refreshToken;
       return right(user);
     } else {
       return Left(AuthFailure.serverError());

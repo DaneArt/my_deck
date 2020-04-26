@@ -1,9 +1,13 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mydeck/core/extensions/widget_extensions.dart';
+import 'package:mydeck/core/icons/custom_icons_icons.dart';
 import 'package:mydeck/core/meta/my_deck_routes.dart';
+import 'package:mydeck/features/my_deck/data/models/card_model.dart';
 import 'package:mydeck/features/my_deck/data/models/category_model.dart';
 import 'package:mydeck/features/my_deck/domain/entities/card.dart' as Entity;
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
@@ -11,6 +15,7 @@ import 'package:mydeck/features/my_deck/presentation/bloc/add_deck/add_deck_bloc
 import 'package:mydeck/features/my_deck/presentation/widgets/add_deck/category_picker.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/add_deck/in_deck_card_view.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/add_deck/pick_image_view.dart';
+import 'package:mydeck/features/sign_in/data/datasources/user_service.dart';
 
 class AddDeckArguments {
   final bool isEditing;
@@ -40,11 +45,15 @@ class AddDeckTabView extends StatefulWidget {
 }
 
 class _AddDeckTabViewState extends State<AddDeckTabView>
-    with TickerProviderStateMixin<AddDeckTabView>,WidgetsBindingObserver {
+    with TickerProviderStateMixin<AddDeckTabView>, WidgetsBindingObserver {
   TabController controller;
   ScrollController scrollController;
   AnimationController _animationController;
   Animation _fabAnimation;
+
+  bool get isEditing => widget.arguments != null && widget.arguments.isEditing;
+
+  Deck get deck => widget.arguments != null ? widget.arguments.deck : null;
 
   @override
   void initState() {
@@ -144,8 +153,14 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
               ),
               actions: <Widget>[
                 FlatButton(
+                    onPressed: () {
+                      //TODO: implement drafts saving
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('SAVE ANYWAY')),
+                FlatButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: Text('OK'))
+                    child: Text('FIX'))
               ],
             ));
   }
@@ -154,7 +169,11 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        BlocProvider.of<AddDeckBloc>(context).add(AddDeckEvent.saveChanges());
+        if (isEditing) {
+          BlocProvider.of<AddDeckBloc>(context).add(AddDeckEvent.saveChanges());
+        } else {
+          return true;
+        }
         return false;
       },
       child: Scaffold(
@@ -217,20 +236,15 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
             headerSliverBuilder: (context, value) => [
               SliverAppBar(
                 title: Text("Edit deck"),
-                snap: true,
+                snap: false,
                 floating: true,
                 pinned: true,
                 leading: IconButton(
-                  icon: Icon(
-                      widget.arguments != null && widget.arguments.isEditing
-                          ? Icons.clear
-                          : Icons.arrow_back),
+                  icon: Icon(isEditing ? Icons.clear : Icons.arrow_back),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
                 actions: <Widget>[
-                  widget.arguments != null &&
-                          widget.arguments.deck != null &&
-                          widget.arguments.isEditing
+                  isEditing && widget.arguments.deck != null
                       ? IconButton(
                           icon: Icon(Icons.delete),
                           onPressed: () {
@@ -238,8 +252,8 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                                 .add(AddDeckEvent.deleteDeck());
                           },
                         )
-                      : Spacer(),
-                  widget.arguments != null && widget.arguments.isEditing
+                      : Container(),
+                  isEditing
                       ? IconButton(
                           icon: Icon(Icons.check),
                           onPressed: () {
@@ -250,9 +264,22 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                       : Spacer(),
                 ],
                 bottom: TabBar(
+                  dragStartBehavior: DragStartBehavior.down,
+                  indicatorSize: TabBarIndicatorSize.label,
+                  labelColor: Colors.white,
+                  unselectedLabelColor: Colors.white.withAlpha(125),
                   tabs: [
-                    Tab(text: 'Deck'),
-                    Tab(text: 'Cards'),
+                    Tab(
+                      text: 'Deck',
+                      icon: Icon(
+                        Icons.book,
+                      ),
+                    ),
+                    Tab(
+                        text: 'Cards',
+                        icon: Icon(
+                          Icons.library_books,
+                        )),
                   ],
                   controller: controller,
                 ),
@@ -357,19 +384,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
     return Container(
       key: UniqueKey(),
       child: BlocBuilder<AddDeckBloc, AddDeckState>(builder: (context, state) {
-        if (!initialized) {
-          final titleText =
-              state.title.value.fold((f) => f.failedValue, (v) => v);
-          _titleController.text = titleText;
-
-          _descriptionController.text =
-              state.description.value.fold((f) => f.failedValue, (v) => v);
-          Future.delayed(Duration(milliseconds: 300),(){
-            setState(() {
-              initialized = true;
-            });
-          });
-        }
+        if (!initialized) initializePage(state);
         return Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
@@ -401,120 +416,178 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        isEditing
-                            ? TextFormField(
-                                key: _titleFieldKey,
-                                autovalidate: true,
-                                controller: _titleController,
-                                onChanged: (input) {
-                                  BlocProvider.of<AddDeckBloc>(context)
-                                      .add(AddDeckEvent.titleChanged(input));
-                                },
-                                textInputAction: TextInputAction.done,
-                                textCapitalization:
-                                    TextCapitalization.sentences,
-                                decoration: InputDecoration(
-                                  hintText: 'Enter title',
-                                  labelText: 'Title*',
-                                  contentPadding: EdgeInsets.symmetric(
-                                      horizontal: 4, vertical: 8),
-                                ),
-                                inputFormatters: [
-                                  LengthLimitingTextInputFormatter(
-                                      _maxTitleCount),
-                                ],
-                              )
-                            : Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    'Title:',
-                                    style: Theme.of(context).textTheme.title,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(4),
-                                  ),
-                                  Text(widget.arguments.deck != null
-                                      ? widget.arguments.deck.title
-                                      : ''),
-                                ],
-                              ),
-                        Padding(
-                          padding: const EdgeInsets.all(8),
-                        ),
-                        TextFormField(
-                          key: _descriptionFieldKey,
-                          autovalidate: true,
-                          controller: _descriptionController,
-                          textInputAction: TextInputAction.done,
-                          onChanged: (input) {
-                            setState(() {
-                              _currentDescriptionCount = input.length;
-                            });
-                            BlocProvider.of<AddDeckBloc>(context)
-                                .add(AddDeckEvent.descriptionChanged(input));
-                          },
-                          textCapitalization: TextCapitalization.sentences,
-                          decoration: InputDecoration(
-                            hintText: 'Enter description(optional)',
-                            hintMaxLines: 2,
-                            labelText: 'Description',
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 4, vertical: 8),
-                            hoverColor: Theme.of(context).accentColor,
-                            counterText: !isEditing
-                                ? ''
-                                : '$_currentDescriptionCount/$_maxDescriptionCount',
-                          ),
-                          inputFormatters: [
-                            new LengthLimitingTextInputFormatter(
-                                _maxDescriptionCount),
-                          ],
-                          maxLines: null,
-                        ),
+                        titleWidget(state),
+                        descriptionWidget(state),
                       ],
                     ),
                   ),
                 ),
               ],
             ),
-            isEditing
-                ? Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          'Share with community?',
-                          style: Theme.of(context).textTheme.body2,
-                        ),
-                        Switch(
-                          value: state.isShared,
-                          onChanged: (isChecked) {
-                            context
-                                .bloc<AddDeckBloc>()
-                                .add(AddDeckEvent.privacyChanged(isChecked));
-                          },
-                        ),
-                      ],
-                    ),
-                  )
-                : Container(),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(right: 16.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('Category'),
                   FlatButton(
-                      child: Row(
-                        children: <Widget>[
-                          Text(state.category.categoryName),
-                          Icon(Icons.arrow_drop_down)
-                        ],
-                      ),
-                      onPressed: () async {
+                    child: Text('Author: ${state.author.username}'),
+                    onPressed: () {
+                      //TODO: implement link to userProfile
+                    },
+                  ),
+                  trainWidget()
+                ],
+              ),
+            ),
+            shareWidget(state),
+            categoryWidget(state),
+          ],
+        );
+      }),
+    );
+  }
+
+  initializePage(AddDeckState state) {
+    final titleText = state.title.value.fold((f) => f.failedValue, (v) => v);
+    _titleController.text = titleText;
+
+    _descriptionController.text =
+        state.description.value.fold((f) => f.failedValue, (v) => v);
+    Future.delayed(Duration(milliseconds: 300), () {
+      setState(() {
+        initialized = true;
+      });
+    });
+  }
+
+  Widget descriptionWidget(AddDeckState state) => TextFormField(
+        key: _descriptionFieldKey,
+        autovalidate: true,
+        controller: _descriptionController,
+        textInputAction: TextInputAction.done,
+        onChanged: (input) {
+          setState(() {
+            _currentDescriptionCount = input.length;
+          });
+          BlocProvider.of<AddDeckBloc>(context)
+              .add(AddDeckEvent.descriptionChanged(input));
+        },
+        textCapitalization: TextCapitalization.sentences,
+        decoration: InputDecoration(
+          hintText: 'Enter description(optional)',
+          hintMaxLines: 2,
+          labelText: 'Description',
+          contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+          hoverColor: Theme.of(context).accentColor,
+          counterText: !isEditing
+              ? ''
+              : '$_currentDescriptionCount/$_maxDescriptionCount',
+        ),
+        inputFormatters: [
+          new LengthLimitingTextInputFormatter(_maxDescriptionCount),
+        ],
+        maxLines: null,
+      );
+
+  Widget titleWidget(AddDeckState state) => isEditing
+      ? TextFormField(
+          key: _titleFieldKey,
+          autovalidate: true,
+          controller: _titleController,
+          onChanged: (input) {
+            BlocProvider.of<AddDeckBloc>(context)
+                .add(AddDeckEvent.titleChanged(input));
+          },
+          textInputAction: TextInputAction.done,
+          textCapitalization: TextCapitalization.sentences,
+          decoration: InputDecoration(
+            hintText: 'Enter title',
+            labelText: 'Title*',
+            contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+          ),
+          inputFormatters: [
+            LengthLimitingTextInputFormatter(_maxTitleCount),
+          ],
+        )
+      : Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'Title:',
+              style: Theme.of(context).textTheme.title,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(4),
+            ),
+            Text(widget.arguments.deck != null
+                ? widget.arguments.deck.title
+                : ''),
+          ],
+        );
+
+  Widget trainWidget() =>
+      widget.arguments != null && widget.arguments.deck != null
+          ? RaisedButton(
+              onPressed: () async {
+                widget.arguments.deck.cardsList.removeWhere(
+                    (c) => c.answer.model.isEmpty || c.question.model.isEmpty);
+
+                final trainedCards = await Navigator.of(context).pushNamed(
+                    MyDeckRoutes.train,
+                    arguments: [widget.arguments.deck]);
+                if (trainedCards != null) {
+                  for (CardModel card in trainedCards) {
+                    context.bloc<AddDeckBloc>().add(
+                        AddDeckEvent.cardChanged(Entity.Card.fromModel(card)));
+                  }
+                }
+              },
+              color: Colors.white,
+              elevation: 4,
+              child: Row(
+                children: <Widget>[Text('TRAIN'), Icon(CustomIcons.dumbbell)],
+              ),
+            )
+          : Spacer();
+
+  Widget shareWidget(AddDeckState state) => isEditing
+      ? Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                'Share with community?',
+                style: Theme.of(context).textTheme.body2,
+              ),
+              Switch(
+                value: state.isShared,
+                onChanged: (isChecked) {
+                  context
+                      .bloc<AddDeckBloc>()
+                      .add(AddDeckEvent.privacyChanged(isChecked));
+                },
+              ),
+            ],
+          ),
+        )
+      : Container();
+
+  Widget categoryWidget(AddDeckState state) => Padding(
+        padding: const EdgeInsets.only(top: 4, left: 16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text('Category'),
+            FlatButton(
+                child: Row(
+                  children: <Widget>[
+                    Text(state.category.categoryName),
+                    isEditing ? Icon(Icons.arrow_drop_down) : Spacer()
+                  ],
+                ),
+                onPressed: isEditing
+                    ? () async {
                         final CategoryModel category = await showDialog(
                             context: context,
                             builder: (context) => CategoryPicker(
@@ -524,15 +597,11 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
                           context
                               .bloc<AddDeckBloc>()
                               .add(AddDeckEvent.categoryChanged(category));
-                      }),
-                ],
-              ),
-            ),
+                      }
+                    : null),
           ],
-        );
-      }),
-    );
-  }
+        ),
+      );
 }
 
 class _CardsPage extends StatefulWidget {
@@ -563,15 +632,23 @@ class _CardsPageState extends State<_CardsPage> {
                   children: List.generate(
                     state.cardslist.length,
                     (index) => InDeckCardView(
+                      key: ValueKey(state.cardslist[index].cardId),
                       onTap: () async {
                         final changedCard = await context.navigator.pushNamed(
                             MyDeckRoutes.addCard,
                             arguments: state.cardslist[index]);
-                        if (changedCard != null) {
+                        if(changedCard is Entity.Card){
+                          if (changedCard != null) {
+                            context
+                                .bloc<AddDeckBloc>()
+                                .add(AddDeckEvent.cardChanged(changedCard));
+                          }
+                        }else if(changedCard){
                           context
                               .bloc<AddDeckBloc>()
-                              .add(AddDeckEvent.cardChanged(changedCard));
+                              .add(AddDeckEvent.cardDeleted(state.cardslist[index]));
                         }
+
                       },
                       sourceCard: state.cardslist[index],
                     ),
@@ -584,10 +661,13 @@ class _CardsPageState extends State<_CardsPage> {
                       Text('Oops, card collection is Empty.'),
                       RaisedButton(
                         color: Theme.of(context).accentColor,
-                        onPressed: ()async{
-                          final card = await context.navigator.pushNamed(MyDeckRoutes.addCard);
-                          if(card != null)
-                          context.bloc<AddDeckBloc>().add(AddDeckEvent.cardAdded(card));
+                        onPressed: () async {
+                          final card = await context.navigator
+                              .pushNamed(MyDeckRoutes.addCard);
+                          if (card != null)
+                            context
+                                .bloc<AddDeckBloc>()
+                                .add(AddDeckEvent.cardAdded(card));
                         },
                         child: Text("Let's create a new one!"),
                       ),

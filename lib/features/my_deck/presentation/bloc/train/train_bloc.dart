@@ -8,6 +8,7 @@ import 'package:mydeck/features/my_deck/data/models/card_model.dart';
 import 'package:mydeck/features/my_deck/domain/entities/card.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/update_trained_cards.dart';
+import 'package:mydeck/core/extensions/collections_extension.dart';
 import 'package:stack/stack.dart';
 
 import '../bloc.dart';
@@ -73,7 +74,8 @@ class TrainBloc extends Bloc<TrainEvent, TrainState> {
 
   Stream<TrainState> _stopTraining() async* {
     final result = await updateTrainedCards(Params(cards: trainedCards));
-    yield result.fold((failure) => TrainStopped(), (result) => TrainStopped());
+    yield result.fold((failure) => TrainStopped(trainedCards.toListSync()),
+        (result) => TrainStopped(trainedCards.toListSync()));
   }
 
   Stream<TrainState> _applyAnswer(bool isCorrect) async* {
@@ -100,12 +102,11 @@ class TrainBloc extends Bloc<TrainEvent, TrainState> {
       oldCard.question.model,
       oldCard.wins + 1,
       oldCard.trains + 1,
-      DateTime
-          .now()
-          .difference(
-          oldCard.lastTrain.add(Duration(days: oldCard.level)))
-          .inDays >
-          0
+      DateTime.now()
+                  .difference(
+                      oldCard.lastTrain.add(Duration(days: oldCard.level)))
+                  .inDays >
+              0
           ? (oldCard.level + 1) % 7 != 0 ? (oldCard.level + 1) % 7 : 7
           : oldCard.level,
       DateTime.now().toIso8601String(),
@@ -151,8 +152,7 @@ class TrainBloc extends Bloc<TrainEvent, TrainState> {
   }
 
   Stream<TrainState> _endOfTrain() async* {
-    yield TrainEnded(
-        decksCount: _successfulTrainedDecksTotal,
-        successfullTrainedCardsCount: _successfulTrainedCardsTotal);
+    yield TrainEnded(_successfulTrainedCardsTotal, _successfulTrainedDecksTotal,
+        trainedCards.toListSync());
   }
 }

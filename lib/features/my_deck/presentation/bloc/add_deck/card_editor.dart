@@ -41,7 +41,9 @@ class _CardEditorState extends State<CardEditor> {
           actions: <Widget>[
             ModalRoute.of(context).settings.arguments != null
                 ? IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.navigator.pop(true);
+                    },
                     icon: Icon(Icons.delete, color: Colors.black),
                   )
                 : Spacer(),
@@ -83,7 +85,7 @@ class _CardEditorState extends State<CardEditor> {
   _getImage(ImageSource source) async {
     final image = source == ImageSource.camera
         ? await ImagesUtil.pickImageFromCamera()
-        :await ImagesUtil.pickImageFromGallery();
+        : await ImagesUtil.pickImageFromGallery();
     if (image != null) {
       context
           .bloc<AddCardBloc>()
@@ -207,7 +209,7 @@ class _CardEditorState extends State<CardEditor> {
                         onTap: () {
                           _showImagePickerDialog();
                         },
-                        child: Image.file(File(s.model)))),
+                        child: Image.file(File(s.model),fit: BoxFit.cover))),
               ));
 
   Widget _renderAnswer(BuildContext context, Entity.Card card) =>
@@ -243,7 +245,7 @@ class _CardEditorState extends State<CardEditor> {
                         onTap: () {
                           _showImagePickerDialog();
                         },
-                        child: Image.file(File(s.model)))),
+                        child: Image.file(File(s.model),fit: BoxFit.cover))),
               ));
 
   Widget _renderCard(BuildContext context, AddCardState state) {
@@ -268,6 +270,7 @@ class _CardEditorState extends State<CardEditor> {
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: Card(
+            elevation: 8,
             child: Column(
               children: <Widget>[
                 Padding(
@@ -275,13 +278,17 @@ class _CardEditorState extends State<CardEditor> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text(state.isQuestion ? 'Question' : 'Answer'),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16.0),
+                        child: Text(state.isQuestion ? 'Question' : 'Answer',style: Theme.of(context).textTheme.headline),
+                      ),
                       IconButton(
                         icon: Icon(
                           CustomIcons.drop_progress,
                           color: Colors.black,
                         ),
                         onPressed: () {
+                          FocusScope.of(context).unfocus();
                           context
                               .bloc<AddCardBloc>()
                               .add(AddCardEvent.rotateCard());

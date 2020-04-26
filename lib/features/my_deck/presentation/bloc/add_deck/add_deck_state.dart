@@ -8,6 +8,7 @@ abstract class AddDeckState with _$AddDeckState {
     @required DeckAvatar avatar,
     @required bool isShared,
     @required CategoryModel category,
+    @required UserModel author,
     @required List<Card> cardslist,
     @required Option<Either<StorageFailure, Unit>> saveFailureOrSuccessOption,
   }) = _AddDeckState;
@@ -19,5 +20,8 @@ abstract class AddDeckState with _$AddDeckState {
       description: DeckDescription(''),
       isShared: false,
       title: DeckTitle(''),
-      saveFailureOrSuccessOption: none());
+      saveFailureOrSuccessOption: none(),
+      author: UserService().currentUser.copyWith(
+        username: 'you'
+      ));
 }

@@ -1,6 +1,5 @@
 part of 'add_card_bloc.dart';
 
-
 @freezed
 abstract class AddCardEvent with _$AddCardEvent {
   factory AddCardEvent.initWithCard(Card card) = InitWithCard;
@@ -12,7 +11,10 @@ abstract class AddCardEvent with _$AddCardEvent {
 
   factory AddCardEvent.answerChanged({@required CardContent newAnswer}) =
       AnswerChanged;
+
   factory AddCardEvent.setTextContent() = SetText;
+
   factory AddCardEvent.setImageContent({@required File image}) = SetImage;
+
   factory AddCardEvent.saveChangesAndExit() = SaveChangesAndExit;
 }

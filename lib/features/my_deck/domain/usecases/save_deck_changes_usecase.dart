@@ -1,4 +1,3 @@
-
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mydeck/core/error/storage_failure.dart';
@@ -18,7 +17,8 @@ class SaveDeckChangesUsecase extends UseCase<StorageFailure, Deck, Params> {
     final newCards = params.newDeck.cardsList;
     final cardsToDelete = _sortCardsToDelete(oldCards, newCards);
     final cardsToAdd = _sortCardsToAdd(oldCards, newCards);
-    final cardsToUpdate = _sortCardsToUpdate(oldCards, newCards);
+    final cardsToUpdate =
+        _sortCardsToUpdate(oldCards..addAll(cardsToAdd), newCards);
 
     final updateDeckResult = await myDeckRepository.updateDeck(params.newDeck);
     return updateDeckResult.fold((failure) => left(failure),
@@ -28,22 +28,25 @@ class SaveDeckChangesUsecase extends UseCase<StorageFailure, Deck, Params> {
             cardsToDelete
                 .map((c) => c.toModel(params.newDeck.deckId))
                 .toList());
-        return deleteCardsResult.fold(
-            () => right(updatedDeck), (failure) => left(failure));
+        if (deleteCardsResult.isSome())
+          return deleteCardsResult.fold(
+              () => right(updatedDeck), (failure) => left(failure));
       }
       if (cardsToAdd.isNotEmpty) {
         final addCardsResult = await myDeckRepository.addCards(
             cardsToAdd.map((c) => c.toModel(params.newDeck.deckId)).toList());
-        return addCardsResult.fold(
-            (failure) => left(failure), (result) => right(updatedDeck));
+        if (addCardsResult.isLeft())
+          return addCardsResult.fold(
+              (failure) => left(failure), (result) => right(updatedDeck));
       }
       if (cardsToUpdate.isNotEmpty) {
         final updateCardsResult = await myDeckRepository.updateCards(
             cardsToUpdate
                 .map((c) => c.toModel(params.newDeck.deckId))
                 .toList());
-        return updateCardsResult.fold(
-            (failure) => left(failure), (result) => right(updatedDeck));
+        if (updateCardsResult.isLeft())
+          return updateCardsResult.fold(
+              (failure) => left(failure), (result) => right(updatedDeck));
       }
 
       return right(updatedDeck);

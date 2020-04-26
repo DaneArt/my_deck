@@ -24,6 +24,8 @@ class _$AddDeckStateTearOff {
       @required
           CategoryModel category,
       @required
+          UserModel author,
+      @required
           List<Card> cardslist,
       @required
           Option<Either<StorageFailure<dynamic>, Unit>>
@@ -34,6 +36,7 @@ class _$AddDeckStateTearOff {
       avatar: avatar,
       isShared: isShared,
       category: category,
+      author: author,
       cardslist: cardslist,
       saveFailureOrSuccessOption: saveFailureOrSuccessOption,
     );
@@ -49,6 +52,7 @@ mixin _$AddDeckState {
   DeckAvatar get avatar;
   bool get isShared;
   CategoryModel get category;
+  UserModel get author;
   List<Card> get cardslist;
   Option<Either<StorageFailure<dynamic>, Unit>> get saveFailureOrSuccessOption;
 
@@ -65,6 +69,7 @@ abstract class $AddDeckStateCopyWith<$Res> {
       DeckAvatar avatar,
       bool isShared,
       CategoryModel category,
+      UserModel author,
       List<Card> cardslist,
       Option<Either<StorageFailure<dynamic>, Unit>>
           saveFailureOrSuccessOption});
@@ -84,6 +89,7 @@ class _$AddDeckStateCopyWithImpl<$Res> implements $AddDeckStateCopyWith<$Res> {
     Object avatar = freezed,
     Object isShared = freezed,
     Object category = freezed,
+    Object author = freezed,
     Object cardslist = freezed,
     Object saveFailureOrSuccessOption = freezed,
   }) {
@@ -96,6 +102,7 @@ class _$AddDeckStateCopyWithImpl<$Res> implements $AddDeckStateCopyWith<$Res> {
       isShared: isShared == freezed ? _value.isShared : isShared as bool,
       category:
           category == freezed ? _value.category : category as CategoryModel,
+      author: author == freezed ? _value.author : author as UserModel,
       cardslist:
           cardslist == freezed ? _value.cardslist : cardslist as List<Card>,
       saveFailureOrSuccessOption: saveFailureOrSuccessOption == freezed
@@ -118,6 +125,7 @@ abstract class _$AddDeckStateCopyWith<$Res>
       DeckAvatar avatar,
       bool isShared,
       CategoryModel category,
+      UserModel author,
       List<Card> cardslist,
       Option<Either<StorageFailure<dynamic>, Unit>>
           saveFailureOrSuccessOption});
@@ -139,6 +147,7 @@ class __$AddDeckStateCopyWithImpl<$Res> extends _$AddDeckStateCopyWithImpl<$Res>
     Object avatar = freezed,
     Object isShared = freezed,
     Object category = freezed,
+    Object author = freezed,
     Object cardslist = freezed,
     Object saveFailureOrSuccessOption = freezed,
   }) {
@@ -151,6 +160,7 @@ class __$AddDeckStateCopyWithImpl<$Res> extends _$AddDeckStateCopyWithImpl<$Res>
       isShared: isShared == freezed ? _value.isShared : isShared as bool,
       category:
           category == freezed ? _value.category : category as CategoryModel,
+      author: author == freezed ? _value.author : author as UserModel,
       cardslist:
           cardslist == freezed ? _value.cardslist : cardslist as List<Card>,
       saveFailureOrSuccessOption: saveFailureOrSuccessOption == freezed
@@ -168,6 +178,7 @@ class _$_AddDeckState implements _AddDeckState {
       @required this.avatar,
       @required this.isShared,
       @required this.category,
+      @required this.author,
       @required this.cardslist,
       @required this.saveFailureOrSuccessOption})
       : assert(title != null),
@@ -175,6 +186,7 @@ class _$_AddDeckState implements _AddDeckState {
         assert(avatar != null),
         assert(isShared != null),
         assert(category != null),
+        assert(author != null),
         assert(cardslist != null),
         assert(saveFailureOrSuccessOption != null);
 
@@ -189,6 +201,8 @@ class _$_AddDeckState implements _AddDeckState {
   @override
   final CategoryModel category;
   @override
+  final UserModel author;
+  @override
   final List<Card> cardslist;
   @override
   final Option<Either<StorageFailure<dynamic>, Unit>>
@@ -196,7 +210,7 @@ class _$_AddDeckState implements _AddDeckState {
 
   @override
   String toString() {
-    return 'AddDeckState(title: $title, description: $description, avatar: $avatar, isShared: $isShared, category: $category, cardslist: $cardslist, saveFailureOrSuccessOption: $saveFailureOrSuccessOption)';
+    return 'AddDeckState(title: $title, description: $description, avatar: $avatar, isShared: $isShared, category: $category, author: $author, cardslist: $cardslist, saveFailureOrSuccessOption: $saveFailureOrSuccessOption)';
   }
 
   @override
@@ -216,6 +230,8 @@ class _$_AddDeckState implements _AddDeckState {
             (identical(other.category, category) ||
                 const DeepCollectionEquality()
                     .equals(other.category, category)) &&
+            (identical(other.author, author) ||
+                const DeepCollectionEquality().equals(other.author, author)) &&
             (identical(other.cardslist, cardslist) ||
                 const DeepCollectionEquality()
                     .equals(other.cardslist, cardslist)) &&
@@ -234,6 +250,7 @@ class _$_AddDeckState implements _AddDeckState {
       const DeepCollectionEquality().hash(avatar) ^
       const DeepCollectionEquality().hash(isShared) ^
       const DeepCollectionEquality().hash(category) ^
+      const DeepCollectionEquality().hash(author) ^
       const DeepCollectionEquality().hash(cardslist) ^
       const DeepCollectionEquality().hash(saveFailureOrSuccessOption);
 
@@ -255,6 +272,8 @@ abstract class _AddDeckState implements AddDeckState {
       @required
           CategoryModel category,
       @required
+          UserModel author,
+      @required
           List<Card> cardslist,
       @required
           Option<Either<StorageFailure<dynamic>, Unit>>
@@ -270,6 +289,8 @@ abstract class _AddDeckState implements AddDeckState {
   bool get isShared;
   @override
   CategoryModel get category;
+  @override
+  UserModel get author;
   @override
   List<Card> get cardslist;
   @override

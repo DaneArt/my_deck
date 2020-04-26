@@ -66,6 +66,7 @@ class MyDeckRepositoryImpl extends MyDeckRepository {
       final decks = await localDataSource.getAllDecks();
       final cards = await localDataSource.getAllCards();
       final filledDecks = await _fillDecksWithCards(decks, cards);
+      //final networkDecks = await networkDataSource.getAllDecksOfCurrentUser();
       return right(filledDecks);
     } on CacheException {
       return left(StorageFailure.getFailure());
