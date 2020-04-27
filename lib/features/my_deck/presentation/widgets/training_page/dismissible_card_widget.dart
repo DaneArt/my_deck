@@ -131,7 +131,6 @@ class _DismissibleCardState extends State<DismissibleCard>
   _dropParameters() {
     _angle = 0;
     _swipeOffset = Offset(0, 0);
-    _isAnswer = false;
     _trueAnswerOpacity = 0;
     _falseAnswerOpacity = 0;
   }
@@ -152,6 +151,7 @@ class _DismissibleCardState extends State<DismissibleCard>
               widget.onDismiss(_userGuess);
 
               setState(() {
+                _isAnswer = false;
                 _dropParameters();
               });
             }
@@ -176,10 +176,13 @@ class _DismissibleCardState extends State<DismissibleCard>
       noContent: (noContent) => Text(''),
       textContent: (textContent) => Text(textContent.text,
           style: TextStyle(color: Colors.black, fontSize: 18)),
-      imageContent: (imageContent) => Image.file(
-            imageContent.image,
-            fit: BoxFit.contain,
-          ));
+      imageContent: (imageContent) => Padding(
+        padding: const EdgeInsets.only(top:16.0 ),
+        child: Image.file(
+              imageContent.image,
+              fit: BoxFit.contain,
+            ),
+      ));
 
   @override
   Widget build(BuildContext context) {
@@ -241,18 +244,18 @@ class _DismissibleCardState extends State<DismissibleCard>
                               Align(
                                 alignment: Alignment.center,
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: AnimatedOpacity(
-                                    curve: Curves.easeInQuart,
-                                    duration: Duration(milliseconds: 100),
-                                    opacity: _contentOpacity,
-                                    child: _isAnswer
-                                        ? createWidgetFromContent(
-                                            widget.card.answer)
-                                        : createWidgetFromContent(
-                                            widget.card.question),
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: AnimatedOpacity(
+                                      curve: Curves.easeInQuart,
+                                      duration: Duration(milliseconds: 100),
+                                      opacity: _contentOpacity,
+                                      child: _isAnswer
+                                          ? createWidgetFromContent(
+                                              widget.card.answer)
+                                          : createWidgetFromContent(
+                                              widget.card.question),
+                                    ),
                                   ),
-                                ),
                               ),
                               Row(
                                 children: <Widget>[

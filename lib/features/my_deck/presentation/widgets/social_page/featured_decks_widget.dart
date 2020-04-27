@@ -65,10 +65,10 @@ class _FeaturedDeckList extends State<FeaturedDeckList> {
             child: SmoothPageIndicator(
               controller: _pageController, // PageController
               count: widget.decks.length,
-              effect: ScaleEffect(
+              effect: ExpandingDotsEffect(
                   dotHeight: 12,
                   dotWidth: 12,
-                  dotColor: Colors.white
+                  dotColor: Colors.blueAccent
               ), // your preferred effect
             ),
           ),

@@ -65,6 +65,12 @@ class _$ValueFailureTearOff {
       failedValue: failedValue,
     );
   }
+
+  ExpiredToken<T> expiredToken<T>({@required T failedValue}) {
+    return ExpiredToken<T>(
+      failedValue: failedValue,
+    );
+  }
 }
 
 // ignore: unused_element
@@ -84,6 +90,7 @@ mixin _$ValueFailure<T> {
     @required Result fileDoesNotExists(T failedValue),
     @required Result shortDeckTitle(T failedValue),
     @required Result invalidDeckTitle(T failedValue),
+    @required Result expiredToken(T failedValue),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
@@ -96,6 +103,7 @@ mixin _$ValueFailure<T> {
     Result fileDoesNotExists(T failedValue),
     Result shortDeckTitle(T failedValue),
     Result invalidDeckTitle(T failedValue),
+    Result expiredToken(T failedValue),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -109,6 +117,7 @@ mixin _$ValueFailure<T> {
     @required Result fileDoesNotExists(FileDoesNotExists<T> value),
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
     @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    @required Result expiredToken(ExpiredToken<T> value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
@@ -121,6 +130,7 @@ mixin _$ValueFailure<T> {
     Result fileDoesNotExists(FileDoesNotExists<T> value),
     Result shortDeckTitle(ShortDeckTitle<T> value),
     Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    Result expiredToken(ExpiredToken<T> value),
     @required Result orElse(),
   });
 
@@ -210,7 +220,8 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
           fileDoesNotExists: (value) => "File doesn't exists.",
           invalidDeckTitle: (value) =>
               "Title could contain letters, numbers, '.' or '_'.",
-          shortDeckTitle: (value) => 'Title must be longer than 6 characters.');
+          shortDeckTitle: (value) => 'Title must be longer than 6 characters.',
+          expiredToken: (value) => 'Token expired.');
     }
     return _message;
   }
@@ -249,6 +260,7 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
     @required Result fileDoesNotExists(T failedValue),
     @required Result shortDeckTitle(T failedValue),
     @required Result invalidDeckTitle(T failedValue),
+    @required Result expiredToken(T failedValue),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -259,6 +271,7 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
     return invalidEmail(failedValue);
   }
 
@@ -274,6 +287,7 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
     Result fileDoesNotExists(T failedValue),
     Result shortDeckTitle(T failedValue),
     Result invalidDeckTitle(T failedValue),
+    Result expiredToken(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -295,6 +309,7 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
     @required Result fileDoesNotExists(FileDoesNotExists<T> value),
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
     @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    @required Result expiredToken(ExpiredToken<T> value),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -305,6 +320,7 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
     return invalidEmail(this);
   }
 
@@ -320,6 +336,7 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
     Result fileDoesNotExists(FileDoesNotExists<T> value),
     Result shortDeckTitle(ShortDeckTitle<T> value),
     Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    Result expiredToken(ExpiredToken<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -396,7 +413,8 @@ class _$ShortPassword<T> implements ShortPassword<T> {
           fileDoesNotExists: (value) => "File doesn't exists.",
           invalidDeckTitle: (value) =>
               "Title could contain letters, numbers, '.' or '_'.",
-          shortDeckTitle: (value) => 'Title must be longer than 6 characters.');
+          shortDeckTitle: (value) => 'Title must be longer than 6 characters.',
+          expiredToken: (value) => 'Token expired.');
     }
     return _message;
   }
@@ -435,6 +453,7 @@ class _$ShortPassword<T> implements ShortPassword<T> {
     @required Result fileDoesNotExists(T failedValue),
     @required Result shortDeckTitle(T failedValue),
     @required Result invalidDeckTitle(T failedValue),
+    @required Result expiredToken(T failedValue),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -445,6 +464,7 @@ class _$ShortPassword<T> implements ShortPassword<T> {
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
     return shortPassword(failedValue);
   }
 
@@ -460,6 +480,7 @@ class _$ShortPassword<T> implements ShortPassword<T> {
     Result fileDoesNotExists(T failedValue),
     Result shortDeckTitle(T failedValue),
     Result invalidDeckTitle(T failedValue),
+    Result expiredToken(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -481,6 +502,7 @@ class _$ShortPassword<T> implements ShortPassword<T> {
     @required Result fileDoesNotExists(FileDoesNotExists<T> value),
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
     @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    @required Result expiredToken(ExpiredToken<T> value),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -491,6 +513,7 @@ class _$ShortPassword<T> implements ShortPassword<T> {
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
     return shortPassword(this);
   }
 
@@ -506,6 +529,7 @@ class _$ShortPassword<T> implements ShortPassword<T> {
     Result fileDoesNotExists(FileDoesNotExists<T> value),
     Result shortDeckTitle(ShortDeckTitle<T> value),
     Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    Result expiredToken(ExpiredToken<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -582,7 +606,8 @@ class _$LongPassword<T> implements LongPassword<T> {
           fileDoesNotExists: (value) => "File doesn't exists.",
           invalidDeckTitle: (value) =>
               "Title could contain letters, numbers, '.' or '_'.",
-          shortDeckTitle: (value) => 'Title must be longer than 6 characters.');
+          shortDeckTitle: (value) => 'Title must be longer than 6 characters.',
+          expiredToken: (value) => 'Token expired.');
     }
     return _message;
   }
@@ -621,6 +646,7 @@ class _$LongPassword<T> implements LongPassword<T> {
     @required Result fileDoesNotExists(T failedValue),
     @required Result shortDeckTitle(T failedValue),
     @required Result invalidDeckTitle(T failedValue),
+    @required Result expiredToken(T failedValue),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -631,6 +657,7 @@ class _$LongPassword<T> implements LongPassword<T> {
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
     return longPassword(failedValue);
   }
 
@@ -646,6 +673,7 @@ class _$LongPassword<T> implements LongPassword<T> {
     Result fileDoesNotExists(T failedValue),
     Result shortDeckTitle(T failedValue),
     Result invalidDeckTitle(T failedValue),
+    Result expiredToken(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -667,6 +695,7 @@ class _$LongPassword<T> implements LongPassword<T> {
     @required Result fileDoesNotExists(FileDoesNotExists<T> value),
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
     @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    @required Result expiredToken(ExpiredToken<T> value),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -677,6 +706,7 @@ class _$LongPassword<T> implements LongPassword<T> {
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
     return longPassword(this);
   }
 
@@ -692,6 +722,7 @@ class _$LongPassword<T> implements LongPassword<T> {
     Result fileDoesNotExists(FileDoesNotExists<T> value),
     Result shortDeckTitle(ShortDeckTitle<T> value),
     Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    Result expiredToken(ExpiredToken<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -768,7 +799,8 @@ class _$InvalidLogin<T> implements InvalidLogin<T> {
           fileDoesNotExists: (value) => "File doesn't exists.",
           invalidDeckTitle: (value) =>
               "Title could contain letters, numbers, '.' or '_'.",
-          shortDeckTitle: (value) => 'Title must be longer than 6 characters.');
+          shortDeckTitle: (value) => 'Title must be longer than 6 characters.',
+          expiredToken: (value) => 'Token expired.');
     }
     return _message;
   }
@@ -807,6 +839,7 @@ class _$InvalidLogin<T> implements InvalidLogin<T> {
     @required Result fileDoesNotExists(T failedValue),
     @required Result shortDeckTitle(T failedValue),
     @required Result invalidDeckTitle(T failedValue),
+    @required Result expiredToken(T failedValue),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -817,6 +850,7 @@ class _$InvalidLogin<T> implements InvalidLogin<T> {
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
     return invalidLogin(failedValue);
   }
 
@@ -832,6 +866,7 @@ class _$InvalidLogin<T> implements InvalidLogin<T> {
     Result fileDoesNotExists(T failedValue),
     Result shortDeckTitle(T failedValue),
     Result invalidDeckTitle(T failedValue),
+    Result expiredToken(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -853,6 +888,7 @@ class _$InvalidLogin<T> implements InvalidLogin<T> {
     @required Result fileDoesNotExists(FileDoesNotExists<T> value),
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
     @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    @required Result expiredToken(ExpiredToken<T> value),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -863,6 +899,7 @@ class _$InvalidLogin<T> implements InvalidLogin<T> {
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
     return invalidLogin(this);
   }
 
@@ -878,6 +915,7 @@ class _$InvalidLogin<T> implements InvalidLogin<T> {
     Result fileDoesNotExists(FileDoesNotExists<T> value),
     Result shortDeckTitle(ShortDeckTitle<T> value),
     Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    Result expiredToken(ExpiredToken<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -954,7 +992,8 @@ class _$LongLogin<T> implements LongLogin<T> {
           fileDoesNotExists: (value) => "File doesn't exists.",
           invalidDeckTitle: (value) =>
               "Title could contain letters, numbers, '.' or '_'.",
-          shortDeckTitle: (value) => 'Title must be longer than 6 characters.');
+          shortDeckTitle: (value) => 'Title must be longer than 6 characters.',
+          expiredToken: (value) => 'Token expired.');
     }
     return _message;
   }
@@ -993,6 +1032,7 @@ class _$LongLogin<T> implements LongLogin<T> {
     @required Result fileDoesNotExists(T failedValue),
     @required Result shortDeckTitle(T failedValue),
     @required Result invalidDeckTitle(T failedValue),
+    @required Result expiredToken(T failedValue),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -1003,6 +1043,7 @@ class _$LongLogin<T> implements LongLogin<T> {
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
     return longLogin(failedValue);
   }
 
@@ -1018,6 +1059,7 @@ class _$LongLogin<T> implements LongLogin<T> {
     Result fileDoesNotExists(T failedValue),
     Result shortDeckTitle(T failedValue),
     Result invalidDeckTitle(T failedValue),
+    Result expiredToken(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1039,6 +1081,7 @@ class _$LongLogin<T> implements LongLogin<T> {
     @required Result fileDoesNotExists(FileDoesNotExists<T> value),
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
     @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    @required Result expiredToken(ExpiredToken<T> value),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -1049,6 +1092,7 @@ class _$LongLogin<T> implements LongLogin<T> {
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
     return longLogin(this);
   }
 
@@ -1064,6 +1108,7 @@ class _$LongLogin<T> implements LongLogin<T> {
     Result fileDoesNotExists(FileDoesNotExists<T> value),
     Result shortDeckTitle(ShortDeckTitle<T> value),
     Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    Result expiredToken(ExpiredToken<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1140,7 +1185,8 @@ class _$InvalidPassword<T> implements InvalidPassword<T> {
           fileDoesNotExists: (value) => "File doesn't exists.",
           invalidDeckTitle: (value) =>
               "Title could contain letters, numbers, '.' or '_'.",
-          shortDeckTitle: (value) => 'Title must be longer than 6 characters.');
+          shortDeckTitle: (value) => 'Title must be longer than 6 characters.',
+          expiredToken: (value) => 'Token expired.');
     }
     return _message;
   }
@@ -1179,6 +1225,7 @@ class _$InvalidPassword<T> implements InvalidPassword<T> {
     @required Result fileDoesNotExists(T failedValue),
     @required Result shortDeckTitle(T failedValue),
     @required Result invalidDeckTitle(T failedValue),
+    @required Result expiredToken(T failedValue),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -1189,6 +1236,7 @@ class _$InvalidPassword<T> implements InvalidPassword<T> {
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
     return invalidPassword(failedValue);
   }
 
@@ -1204,6 +1252,7 @@ class _$InvalidPassword<T> implements InvalidPassword<T> {
     Result fileDoesNotExists(T failedValue),
     Result shortDeckTitle(T failedValue),
     Result invalidDeckTitle(T failedValue),
+    Result expiredToken(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1225,6 +1274,7 @@ class _$InvalidPassword<T> implements InvalidPassword<T> {
     @required Result fileDoesNotExists(FileDoesNotExists<T> value),
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
     @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    @required Result expiredToken(ExpiredToken<T> value),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -1235,6 +1285,7 @@ class _$InvalidPassword<T> implements InvalidPassword<T> {
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
     return invalidPassword(this);
   }
 
@@ -1250,6 +1301,7 @@ class _$InvalidPassword<T> implements InvalidPassword<T> {
     Result fileDoesNotExists(FileDoesNotExists<T> value),
     Result shortDeckTitle(ShortDeckTitle<T> value),
     Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    Result expiredToken(ExpiredToken<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1327,7 +1379,8 @@ class _$FileDoesNotExists<T> implements FileDoesNotExists<T> {
           fileDoesNotExists: (value) => "File doesn't exists.",
           invalidDeckTitle: (value) =>
               "Title could contain letters, numbers, '.' or '_'.",
-          shortDeckTitle: (value) => 'Title must be longer than 6 characters.');
+          shortDeckTitle: (value) => 'Title must be longer than 6 characters.',
+          expiredToken: (value) => 'Token expired.');
     }
     return _message;
   }
@@ -1367,6 +1420,7 @@ class _$FileDoesNotExists<T> implements FileDoesNotExists<T> {
     @required Result fileDoesNotExists(T failedValue),
     @required Result shortDeckTitle(T failedValue),
     @required Result invalidDeckTitle(T failedValue),
+    @required Result expiredToken(T failedValue),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -1377,6 +1431,7 @@ class _$FileDoesNotExists<T> implements FileDoesNotExists<T> {
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
     return fileDoesNotExists(failedValue);
   }
 
@@ -1392,6 +1447,7 @@ class _$FileDoesNotExists<T> implements FileDoesNotExists<T> {
     Result fileDoesNotExists(T failedValue),
     Result shortDeckTitle(T failedValue),
     Result invalidDeckTitle(T failedValue),
+    Result expiredToken(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1413,6 +1469,7 @@ class _$FileDoesNotExists<T> implements FileDoesNotExists<T> {
     @required Result fileDoesNotExists(FileDoesNotExists<T> value),
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
     @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    @required Result expiredToken(ExpiredToken<T> value),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -1423,6 +1480,7 @@ class _$FileDoesNotExists<T> implements FileDoesNotExists<T> {
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
     return fileDoesNotExists(this);
   }
 
@@ -1438,6 +1496,7 @@ class _$FileDoesNotExists<T> implements FileDoesNotExists<T> {
     Result fileDoesNotExists(FileDoesNotExists<T> value),
     Result shortDeckTitle(ShortDeckTitle<T> value),
     Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    Result expiredToken(ExpiredToken<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1514,7 +1573,8 @@ class _$ShortDeckTitle<T> implements ShortDeckTitle<T> {
           fileDoesNotExists: (value) => "File doesn't exists.",
           invalidDeckTitle: (value) =>
               "Title could contain letters, numbers, '.' or '_'.",
-          shortDeckTitle: (value) => 'Title must be longer than 6 characters.');
+          shortDeckTitle: (value) => 'Title must be longer than 6 characters.',
+          expiredToken: (value) => 'Token expired.');
     }
     return _message;
   }
@@ -1553,6 +1613,7 @@ class _$ShortDeckTitle<T> implements ShortDeckTitle<T> {
     @required Result fileDoesNotExists(T failedValue),
     @required Result shortDeckTitle(T failedValue),
     @required Result invalidDeckTitle(T failedValue),
+    @required Result expiredToken(T failedValue),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -1563,6 +1624,7 @@ class _$ShortDeckTitle<T> implements ShortDeckTitle<T> {
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
     return shortDeckTitle(failedValue);
   }
 
@@ -1578,6 +1640,7 @@ class _$ShortDeckTitle<T> implements ShortDeckTitle<T> {
     Result fileDoesNotExists(T failedValue),
     Result shortDeckTitle(T failedValue),
     Result invalidDeckTitle(T failedValue),
+    Result expiredToken(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1599,6 +1662,7 @@ class _$ShortDeckTitle<T> implements ShortDeckTitle<T> {
     @required Result fileDoesNotExists(FileDoesNotExists<T> value),
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
     @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    @required Result expiredToken(ExpiredToken<T> value),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -1609,6 +1673,7 @@ class _$ShortDeckTitle<T> implements ShortDeckTitle<T> {
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
     return shortDeckTitle(this);
   }
 
@@ -1624,6 +1689,7 @@ class _$ShortDeckTitle<T> implements ShortDeckTitle<T> {
     Result fileDoesNotExists(FileDoesNotExists<T> value),
     Result shortDeckTitle(ShortDeckTitle<T> value),
     Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    Result expiredToken(ExpiredToken<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1701,7 +1767,8 @@ class _$InvalidDeckTitle<T> implements InvalidDeckTitle<T> {
           fileDoesNotExists: (value) => "File doesn't exists.",
           invalidDeckTitle: (value) =>
               "Title could contain letters, numbers, '.' or '_'.",
-          shortDeckTitle: (value) => 'Title must be longer than 6 characters.');
+          shortDeckTitle: (value) => 'Title must be longer than 6 characters.',
+          expiredToken: (value) => 'Token expired.');
     }
     return _message;
   }
@@ -1740,6 +1807,7 @@ class _$InvalidDeckTitle<T> implements InvalidDeckTitle<T> {
     @required Result fileDoesNotExists(T failedValue),
     @required Result shortDeckTitle(T failedValue),
     @required Result invalidDeckTitle(T failedValue),
+    @required Result expiredToken(T failedValue),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -1750,6 +1818,7 @@ class _$InvalidDeckTitle<T> implements InvalidDeckTitle<T> {
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
     return invalidDeckTitle(failedValue);
   }
 
@@ -1765,6 +1834,7 @@ class _$InvalidDeckTitle<T> implements InvalidDeckTitle<T> {
     Result fileDoesNotExists(T failedValue),
     Result shortDeckTitle(T failedValue),
     Result invalidDeckTitle(T failedValue),
+    Result expiredToken(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1786,6 +1856,7 @@ class _$InvalidDeckTitle<T> implements InvalidDeckTitle<T> {
     @required Result fileDoesNotExists(FileDoesNotExists<T> value),
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
     @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    @required Result expiredToken(ExpiredToken<T> value),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -1796,6 +1867,7 @@ class _$InvalidDeckTitle<T> implements InvalidDeckTitle<T> {
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
     return invalidDeckTitle(this);
   }
 
@@ -1811,6 +1883,7 @@ class _$InvalidDeckTitle<T> implements InvalidDeckTitle<T> {
     Result fileDoesNotExists(FileDoesNotExists<T> value),
     Result shortDeckTitle(ShortDeckTitle<T> value),
     Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    Result expiredToken(ExpiredToken<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1828,4 +1901,197 @@ abstract class InvalidDeckTitle<T> implements ValueFailure<T> {
   T get failedValue;
   @override
   $InvalidDeckTitleCopyWith<T, InvalidDeckTitle<T>> get copyWith;
+}
+
+abstract class $ExpiredTokenCopyWith<T, $Res>
+    implements $ValueFailureCopyWith<T, $Res> {
+  factory $ExpiredTokenCopyWith(
+          ExpiredToken<T> value, $Res Function(ExpiredToken<T>) then) =
+      _$ExpiredTokenCopyWithImpl<T, $Res>;
+  @override
+  $Res call({T failedValue});
+}
+
+class _$ExpiredTokenCopyWithImpl<T, $Res>
+    extends _$ValueFailureCopyWithImpl<T, $Res>
+    implements $ExpiredTokenCopyWith<T, $Res> {
+  _$ExpiredTokenCopyWithImpl(
+      ExpiredToken<T> _value, $Res Function(ExpiredToken<T>) _then)
+      : super(_value, (v) => _then(v as ExpiredToken<T>));
+
+  @override
+  ExpiredToken<T> get _value => super._value as ExpiredToken<T>;
+
+  @override
+  $Res call({
+    Object failedValue = freezed,
+  }) {
+    return _then(ExpiredToken<T>(
+      failedValue:
+          failedValue == freezed ? _value.failedValue : failedValue as T,
+    ));
+  }
+}
+
+class _$ExpiredToken<T> implements ExpiredToken<T> {
+  _$ExpiredToken({@required this.failedValue}) : assert(failedValue != null);
+
+  @override
+  final T failedValue;
+
+  bool _didmessage = false;
+  String _message;
+
+  @override
+  String get message {
+    if (_didmessage == false) {
+      _didmessage = true;
+      _message = this.map(
+          invalidEmail: (value) => 'Email is incorrect.',
+          shortPassword: (value) =>
+              'Password must be longer than 8 characters.',
+          invalidLogin: (value) =>
+              "Login could contain letters, numbers, '.' or '_'.",
+          longLogin: (value) => 'Login must be shorter than 30 characters.',
+          invalidPassword: (value) =>
+              'Pasword must contain at least 1 number, 1 uppercase letter and 1 bottomcase letter.',
+          longPassword: (value) =>
+              'Password must be shorter than 24 characters.',
+          fileDoesNotExists: (value) => "File doesn't exists.",
+          invalidDeckTitle: (value) =>
+              "Title could contain letters, numbers, '.' or '_'.",
+          shortDeckTitle: (value) => 'Title must be longer than 6 characters.',
+          expiredToken: (value) => 'Token expired.');
+    }
+    return _message;
+  }
+
+  @override
+  String toString() {
+    return 'ValueFailure<$T>.expiredToken(failedValue: $failedValue, message: $message)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is ExpiredToken<T> &&
+            (identical(other.failedValue, failedValue) ||
+                const DeepCollectionEquality()
+                    .equals(other.failedValue, failedValue)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(failedValue);
+
+  @override
+  $ExpiredTokenCopyWith<T, ExpiredToken<T>> get copyWith =>
+      _$ExpiredTokenCopyWithImpl<T, ExpiredToken<T>>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result invalidEmail(T failedValue),
+    @required Result shortPassword(T failedValue),
+    @required Result longPassword(T failedValue),
+    @required Result invalidLogin(T failedValue),
+    @required Result longLogin(T failedValue),
+    @required Result invalidPassword(T failedValue),
+    @required Result fileDoesNotExists(T failedValue),
+    @required Result shortDeckTitle(T failedValue),
+    @required Result invalidDeckTitle(T failedValue),
+    @required Result expiredToken(T failedValue),
+  }) {
+    assert(invalidEmail != null);
+    assert(shortPassword != null);
+    assert(longPassword != null);
+    assert(invalidLogin != null);
+    assert(longLogin != null);
+    assert(invalidPassword != null);
+    assert(fileDoesNotExists != null);
+    assert(shortDeckTitle != null);
+    assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
+    return expiredToken(failedValue);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result invalidEmail(T failedValue),
+    Result shortPassword(T failedValue),
+    Result longPassword(T failedValue),
+    Result invalidLogin(T failedValue),
+    Result longLogin(T failedValue),
+    Result invalidPassword(T failedValue),
+    Result fileDoesNotExists(T failedValue),
+    Result shortDeckTitle(T failedValue),
+    Result invalidDeckTitle(T failedValue),
+    Result expiredToken(T failedValue),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (expiredToken != null) {
+      return expiredToken(failedValue);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result invalidEmail(InvalidEmail<T> value),
+    @required Result shortPassword(ShortPassword<T> value),
+    @required Result longPassword(LongPassword<T> value),
+    @required Result invalidLogin(InvalidLogin<T> value),
+    @required Result longLogin(LongLogin<T> value),
+    @required Result invalidPassword(InvalidPassword<T> value),
+    @required Result fileDoesNotExists(FileDoesNotExists<T> value),
+    @required Result shortDeckTitle(ShortDeckTitle<T> value),
+    @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    @required Result expiredToken(ExpiredToken<T> value),
+  }) {
+    assert(invalidEmail != null);
+    assert(shortPassword != null);
+    assert(longPassword != null);
+    assert(invalidLogin != null);
+    assert(longLogin != null);
+    assert(invalidPassword != null);
+    assert(fileDoesNotExists != null);
+    assert(shortDeckTitle != null);
+    assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
+    return expiredToken(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result invalidEmail(InvalidEmail<T> value),
+    Result shortPassword(ShortPassword<T> value),
+    Result longPassword(LongPassword<T> value),
+    Result invalidLogin(InvalidLogin<T> value),
+    Result longLogin(LongLogin<T> value),
+    Result invalidPassword(InvalidPassword<T> value),
+    Result fileDoesNotExists(FileDoesNotExists<T> value),
+    Result shortDeckTitle(ShortDeckTitle<T> value),
+    Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    Result expiredToken(ExpiredToken<T> value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (expiredToken != null) {
+      return expiredToken(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ExpiredToken<T> implements ValueFailure<T> {
+  factory ExpiredToken({@required T failedValue}) = _$ExpiredToken<T>;
+
+  @override
+  T get failedValue;
+  @override
+  $ExpiredTokenCopyWith<T, ExpiredToken<T>> get copyWith;
 }

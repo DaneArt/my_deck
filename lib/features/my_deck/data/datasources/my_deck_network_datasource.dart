@@ -11,7 +11,10 @@ import 'package:mydeck/features/my_deck/data/models/deck_model.dart';
 import 'package:mydeck/features/my_deck/domain/entities/card.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/sign_in/data/datasources/user_service.dart';
+import 'package:mydeck/features/sign_in/helpers/value_validators.dart';
 import 'package:mydeck/features/sign_in/presentation/entities/user.dart';
+
+typedef dynamic HttpRequest();
 
 abstract class MyDeckNetworkDataSource {
   Future<List<DeckModel>> getAllDecks();
@@ -54,55 +57,79 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
   MyDeckNetworkDataSourceImpl(
       {@required this.client, @required this.userService});
 
+  bool _validateTokens() =>
+      validateToken(userService.accessToken).isLeft() &&
+      validateToken(userService.refreshToken).isLeft();
+
+  dynamic _makeRequest(HttpRequest request) {
+    if (_validateTokens()) {
+      return request();
+    } else {
+      //TODO: implement tokens refresh
+    }
+  }
+
   @override
   Future<void> addCard(CardModel cardModel) async {
-    final response = await client.post(
-      _kBaseUrl + '/card/insert',
-      data: jsonEncode([cardModel.toJson()]),
-      options: Options(
-          headers: {HttpHeaders.authorizationHeader: userService.accessToken}),
-    );
-    if (response.statusCode != 200) {
-      throw NetworkException();
-    }
+    _makeRequest(() async {
+      final response = await client.post(
+        _kBaseUrl + '/card/insert',
+        data: jsonEncode([cardModel.toJson()]),
+        options: Options(headers: {
+          HttpHeaders.authorizationHeader: 'Bearer ' + userService.accessToken
+        }),
+      );
+      if (response.statusCode != 200) {
+        throw NetworkException();
+      }
+    });
   }
 
   @override
   Future<void> addCards(List<CardModel> cardModels) async {
-    final response = await client.post(
-      _kBaseUrl + '/card/insert',
-      data: json.encode(cardModels.map((c) => c.toJson()).toList()),
-      options: Options(
-          headers: {HttpHeaders.authorizationHeader: userService.accessToken}),
-    );
-    if (response.statusCode != 200) {
-      throw NetworkException();
-    }
+    _makeRequest(() async {
+      final response = await client.post(
+        _kBaseUrl + '/card/insert',
+        data: json.encode(cardModels.map((c) => c.toJson()).toList()),
+        options: Options(headers: {
+          HttpHeaders.authorizationHeader: userService.accessToken
+        }),
+      );
+      if (response.statusCode != 200) {
+        throw NetworkException();
+      }
+    });
   }
 
   @override
   Future<void> addDeck(DeckModel deckModel) async {
-    final response = await client.post(
-      _kBaseUrl + '/deck/insert',
-      data: jsonEncode([deckModel.toJson()]),
-      options: Options(
-          headers: {HttpHeaders.authorizationHeader: userService.accessToken}),
-    );
-    if (response.statusCode != 200) {
-      throw NetworkException();
-    }
+    _makeRequest(() async {
+      final response = await client.post(
+        _kBaseUrl + '/deck/insert',
+        data: jsonEncode([deckModel.toJson()]),
+        options: Options(headers: {
+          HttpHeaders.authorizationHeader: userService.accessToken
+        }),
+      );
+      if (response.statusCode != 200) {
+        throw NetworkException();
+      }
+    });
   }
 
   @override
   Future<void> deleteCard(CardModel cardModel) async {
-    final response = await client.delete(
-      _kBaseUrl + '/card/deletebyid/${cardModel.cardId}',
-      options: Options(
-          headers: {HttpHeaders.authorizationHeader: userService.accessToken}),
-    );
-    if (response.statusCode != 200) {
-      throw NetworkException();
-    }
+    _makeRequest(() async {
+      final response = await client.delete(
+        _kBaseUrl + '/card/deletebyid/${cardModel.cardId}',
+        options: Options(headers: {
+          HttpHeaders.authorizationHeader: userService.accessToken
+        }),
+      );
+      if (response.statusCode != 200) {
+        throw NetworkException();
+      }
+    });
   }
 
   @override
@@ -113,64 +140,72 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
 
   @override
   Future<void> deleteDeck(DeckModel deckModel) async {
-    final response = await client.delete(
-      _kBaseUrl + '/deck/deletebyid/${deckModel.deckId}',
-      options: Options(headers: {
-        HttpHeaders.authorizationHeader: await userService.accessToken
-      }),
-    );
-    if (response.statusCode != 200) {
-      throw NetworkException();
-    }
+    _makeRequest(() async {
+      final response = await client.delete(
+        _kBaseUrl + '/deck/deletebyid/${deckModel.deckId}',
+        options: Options(headers: {
+          HttpHeaders.authorizationHeader: userService.accessToken
+        }),
+      );
+      if (response.statusCode != 200) {
+        throw NetworkException();
+      }
+    });
   }
 
   @override
   Future<List<CardModel>> getAllCards() async {
-    final response = await client.get(
-      _kBaseUrl + '/card/findAll',
-      options: Options(headers: {
-        HttpHeaders.authorizationHeader: await userService.accessToken
-      }),
-    );
-    if (response.statusCode != 200) {
-      throw NetworkException();
-    }
-    final List cardsArray = jsonDecode(response.data);
-    final List<CardModel> cards =
-        cardsArray.map((c) => CardModel.fromJson(c)).toList();
-    return cards;
+    return _makeRequest(() async {
+      final response = await client.get(
+        _kBaseUrl + '/card/findAll',
+        options: Options(headers: {
+          HttpHeaders.authorizationHeader: userService.accessToken
+        }),
+      );
+      if (response.statusCode != 200) {
+        throw NetworkException();
+      }
+      final List cardsArray = jsonDecode(response.data);
+      final List<CardModel> cards =
+          cardsArray.map((c) => CardModel.fromJson(c)).toList();
+      return cards;
+    });
   }
 
   @override
   Future<List<DeckModel>> getAllDecks() async {
-    final response = await client.get(
-      _kBaseUrl + '/deck/findAll',
-      options: Options(headers: {
-        HttpHeaders.authorizationHeader: await userService.accessToken
-      }),
-    );
-    if (response.statusCode != 200) {
-      throw NetworkException();
-    }
-    final List decksArray = jsonDecode(response.data);
-    final List<DeckModel> decks =
-        decksArray.map((c) => DeckModel.fromJson(c)).toList();
-    return decks;
+    return _makeRequest(() async {
+      final response = await client.get(
+        _kBaseUrl + '/deck/findAll',
+        options: Options(headers: {
+          HttpHeaders.authorizationHeader: await userService.accessToken
+        }),
+      );
+      if (response.statusCode != 200) {
+        throw NetworkException();
+      }
+      final List decksArray = jsonDecode(response.data);
+      final List<DeckModel> decks =
+          decksArray.map((c) => DeckModel.fromJson(c)).toList();
+      return decks;
+    });
   }
 
   @override
   Future<CardModel> getCardById(String cardUuid) async {
-    final response = await client.get(
-      _kBaseUrl + '/card/findbyid',
-      options: Options(headers: {
-        HttpHeaders.authorizationHeader: await userService.accessToken
-      }),
-    );
-    if (response.statusCode != 200) {
-      throw NetworkException();
-    }
-    final CardModel card = CardModel.fromJson(jsonDecode(response.data));
-    return card;
+    return _makeRequest(() async {
+      final response = await client.get(
+        _kBaseUrl + '/card/findbyid',
+        options: Options(headers: {
+          HttpHeaders.authorizationHeader: userService.accessToken
+        }),
+      );
+      if (response.statusCode != 200) {
+        throw NetworkException();
+      }
+      final CardModel card = CardModel.fromJson(jsonDecode(response.data));
+      return card;
+    });
   }
 
   @override
@@ -181,80 +216,93 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
 
   @override
   Future<DeckModel> getDeckById(String deckUuid) async {
-    final response = await client.get(
-      _kBaseUrl + '/deck/findbyid',
-      options: Options(headers: {
-        HttpHeaders.authorizationHeader: await userService.accessToken
-      }),
-    );
-    if (response.statusCode != 200) {
-      throw NetworkException();
-    }
-    final DeckModel deck = DeckModel.fromJson(jsonDecode(response.data));
-    return deck;
+    return _makeRequest(() async {
+      final response = await client.get(
+        _kBaseUrl + '/deck/findbyid',
+        options: Options(headers: {
+          HttpHeaders.authorizationHeader: userService.accessToken
+        }),
+      );
+      if (response.statusCode != 200) {
+        throw NetworkException();
+      }
+      final DeckModel deck = DeckModel.fromJson(jsonDecode(response.data));
+      return deck;
+    });
   }
 
   @override
   Future<void> updateCard(CardModel cardModel) async {
-    final response = await client.put(
-      _kBaseUrl + '/card/update',
-      data: jsonEncode([cardModel.toJson()]),
-      options: Options(
-          headers: {HttpHeaders.authorizationHeader: userService.accessToken}),
-    );
-    if (response.statusCode != 200) {
-      throw NetworkException();
-    }
+    _makeRequest(() async {
+      final response = await client.put(
+        _kBaseUrl + '/card/update',
+        data: jsonEncode([cardModel.toJson()]),
+        options: Options(headers: {
+          HttpHeaders.authorizationHeader: userService.accessToken
+        }),
+      );
+      if (response.statusCode != 200) {
+        throw NetworkException();
+      }
+    });
   }
 
   @override
   Future<void> updateDeck(DeckModel deckModel) async {
-    final response = await client.put(
-      _kBaseUrl + '/deck/update',
-      data: jsonEncode([deckModel.toJson()]),
-      options: Options(
-          headers: {HttpHeaders.authorizationHeader: userService.accessToken}),
-    );
-    if (response.statusCode != 200) {
-      throw NetworkException();
-    }
+    _makeRequest(() async {
+      final response = await client.put(
+        _kBaseUrl + '/deck/update',
+        data: jsonEncode([deckModel.toJson()]),
+        options: Options(headers: {
+          HttpHeaders.authorizationHeader: userService.accessToken
+        }),
+      );
+      if (response.statusCode != 200) {
+        throw NetworkException();
+      }
+    });
   }
 
   @override
   Future<void> updateCards(List<CardModel> cardModels) async {
-    final response = await client.put(
-      _kBaseUrl + '/card/update',
-      data: jsonEncode(cardModels.map((c) => c.toJson()).toList()),
-      options: Options(headers: {
-        HttpHeaders.authorizationHeader: await userService.accessToken
-      }),
-    );
-    if (response.statusCode != 200) {
-      throw NetworkException();
-    }
+    _makeRequest(() async {
+      final response = await client.put(
+        _kBaseUrl + '/card/update',
+        data: jsonEncode(cardModels.map((c) => c.toJson()).toList()),
+        options: Options(headers: {
+          HttpHeaders.authorizationHeader: userService.accessToken
+        }),
+      );
+      if (response.statusCode != 200) {
+        throw NetworkException();
+      }
+    });
   }
 
   @override
   Future<List<Deck>> getAllDecksOfCurrentUser() async {
-    final response = await client.get(
-      _kBaseUrl +
-          '/deck/AllCurrentUserDecksWithCards/${userService.currentUser.username}',
-      options: Options(
-          headers: {HttpHeaders.authorizationHeader: userService.accessToken}),
-    );
-    if (response.statusCode != 200) {
-      throw NetworkException();
-    }
-    final List decks = jsonDecode(response.data);
+    return _makeRequest(() async {
+      final response = await client.get(
+        _kBaseUrl +
+            '/deck/AllCurrentUserDecksWithCards/${userService.currentUser.username}',
+        options: Options(headers: {
+          HttpHeaders.authorizationHeader: userService.accessToken
+        }),
+      );
+      if (response.statusCode != 200) {
+        throw NetworkException();
+      }
+      final List decks = jsonDecode(response.data);
 
-    final mappedDecks = decks.map((dJ) {
-      final deck = Deck.fromModel(DeckModel.fromJson(dJ));
-      final cards = (dJ["Cards"] as List)
-          .map((c) => Card.fromModel(CardModel.fromJson(c)))
-          .toList();
-      return deck.copyWith(cardsList: cards);
-    }).toList();
+      final mappedDecks = decks.map((dJ) {
+        final deck = Deck.fromModel(DeckModel.fromJson(dJ));
+        final cards = (dJ["Cards"] as List)
+            .map((c) => Card.fromModel(CardModel.fromJson(c)))
+            .toList();
+        return deck.copyWith(cardsList: cards);
+      }).toList();
 
-    return mappedDecks;
+      return mappedDecks;
+    });
   }
 }

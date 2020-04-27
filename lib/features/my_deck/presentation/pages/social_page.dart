@@ -1,12 +1,17 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:mydeck/features/my_deck/data/models/category_model.dart';
+import 'package:mydeck/features/my_deck/data/models/deck_model.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
+import 'package:mydeck/features/my_deck/presentation/widgets/shared/custom_page_scroll_physics.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/social_page/deck_chart_tile.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/social_page/featured_decks_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:mydeck/features/my_deck/presentation/widgets/training_page/custom_stack_list_widget.dart';
+import 'package:mydeck/features/sign_in/data/models/user_model.dart';
 
 class SocialPage extends StatelessWidget {
   @override
@@ -32,26 +37,18 @@ class _SocialPageBodyState extends State<_SocialPageBody> {
           Stack(
             children: <Widget>[
               FeaturedDeckList(
-                decks: [
-                  Deck(
-                      deckId: 'test',
-                      category: CategoryModel('No category'),
-                      description: 'her tam',
-                      icon: File(''),
-                      isPrivate: true,
-                      subscribersCount: 200,
-                      title: 'Test title',
-                      cardsList: []),
-                  Deck(
-                      deckId: 'test',
-                      category: CategoryModel('No category'),
-                      description: 'her tam',
-                      icon: File(''),
-                      isPrivate: true,
-                      subscribersCount: 200,
-                      title: 'Test title',
-                      cardsList: []),
-                ],
+                decks: List.generate(
+                    5,
+                    (index) => Deck(
+                        cardsList: [],
+                        author: UserModel('', ',', ',', ','),
+                        category: CategoryModel(''),
+                        description: 'null',
+                        deckId: ',',
+                        icon: File(''),
+                        isPrivate: false,
+                        title: '',
+                        subscribersCount: 0)),
               ),
               Align(
                 alignment: Alignment.topCenter,
@@ -82,28 +79,21 @@ class _SocialPageBodyState extends State<_SocialPageBody> {
                 delegate: SliverChildListDelegate(
                   [
                     Container(
-                      width: size.width,
-                      height: size.height,
-                      child: RotatedBox(
-                        quarterTurns: 3,
-                        child: ListWheelScrollView.useDelegate(
-                          itemExtent: 250,
-                          diameterRatio: 2.3,
-                          physics: FixedExtentScrollPhysics(),
-                          childDelegate: ListWheelChildBuilderDelegate(
-                            childCount: 5,
-                            builder: (context, index) {
-                              return RotatedBox(
-                                quarterTurns: 1,
-                                child: Card(
-                                  child: Container(
-                                    color: Colors.green,
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
+                      width: 300,
+                      height: 250,
+                      child: FeaturedDeckList(
+                        decks: List.generate(
+                            5,
+                                (index) => Deck(
+                                cardsList: [],
+                                author: UserModel('', ',', ',', ','),
+                                category: CategoryModel(''),
+                                description: 'null',
+                                deckId: ',',
+                                icon: File(''),
+                                isPrivate: false,
+                                title: '',
+                                subscribersCount: 0)),
                       ),
                     ),
                     Padding(

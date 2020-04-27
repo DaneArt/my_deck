@@ -9,21 +9,32 @@ part "value_failure.freezed.dart";
 abstract class ValueFailure<T> with _$ValueFailure<T> {
   factory ValueFailure.invalidEmail({@required T failedValue}) =
       InvalidEmail<T>;
+
   factory ValueFailure.shortPassword({@required T failedValue}) =
       ShortPassword<T>;
+
   factory ValueFailure.longPassword({@required T failedValue}) =
       LongPassword<T>;
+
   factory ValueFailure.invalidLogin({@required T failedValue}) =
       InvalidLogin<T>;
+
   factory ValueFailure.longLogin({@required T failedValue}) = LongLogin<T>;
+
   factory ValueFailure.invalidPassword({@required T failedValue}) =
       InvalidPassword<T>;
+
   factory ValueFailure.fileDoesNotExists({@required T failedValue}) =
       FileDoesNotExists<T>;
+
   factory ValueFailure.shortDeckTitle({@required T failedValue}) =
       ShortDeckTitle<T>;
+
   factory ValueFailure.invalidDeckTitle({@required T failedValue}) =
       InvalidDeckTitle<T>;
+
+  factory ValueFailure.expiredToken({@required T failedValue}) =
+      ExpiredToken<T>;
 
   @late
   String get message => this.map(
@@ -38,5 +49,6 @@ abstract class ValueFailure<T> with _$ValueFailure<T> {
       fileDoesNotExists: (value) => "File doesn't exists.",
       invalidDeckTitle: (value) =>
           "Title could contain letters, numbers, '.' or '_'.",
-      shortDeckTitle: (value) => 'Title must be longer than 6 characters.');
+      shortDeckTitle: (value) => 'Title must be longer than 6 characters.',
+      expiredToken: (value) => 'Token expired.');
 }

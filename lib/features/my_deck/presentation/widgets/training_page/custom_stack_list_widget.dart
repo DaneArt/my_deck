@@ -1,5 +1,4 @@
-import 'package:mydeck/features/my_deck/domain/entities/card.dart'
-    as Entity;
+import 'package:mydeck/features/my_deck/domain/entities/card.dart' as Entity;
 import 'package:mydeck/features/my_deck/domain/entities/card_content.dart';
 import 'package:mydeck/features/my_deck/presentation/bloc/bloc.dart';
 import 'package:flutter/material.dart';
@@ -117,14 +116,27 @@ class _CustomStackListState extends State<CustomStackList>
                       elevation: _cardOffsety != 5 ? 4 : 2,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 0.9,
-                          height: MediaQuery.of(context).size.height * 0.75,
-                          color: Colors.white,
-                          child: Center(
-                            child: createWidgetFromContent(
-                                _cards[_currentIndex + 1].question),
-                          ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'Question',
+                                style: Theme.of(context).textTheme.subtitle,
+                                textAlign: TextAlign.start,
+                              ),
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.9,
+                              height: MediaQuery.of(context).size.height * 0.708,
+                              color: Colors.white,
+                              child: Center(
+                                child: createWidgetFromContent(
+                                    _cards[_currentIndex + 1].question),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),

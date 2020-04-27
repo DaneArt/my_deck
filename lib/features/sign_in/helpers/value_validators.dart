@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:jose/jose.dart';
 import 'package:mydeck/core/error/auth_failure.dart';
 import 'package:mydeck/core/error/value_failure.dart';
 import 'package:dartz/dartz.dart';
@@ -15,6 +17,17 @@ Either<ValueFailure<String>, String> validateEmailAddress(String input) {
     return right(input);
   } else {
     return left(ValueFailure.invalidEmail(failedValue: input));
+  }
+}
+
+Either<ValueFailure<String>, String> validateToken(String input) {
+  var jws = JsonWebSignature.fromCompactSerialization(input);
+  if (int.parse(
+          jsonDecode(jws.unverifiedPayload.jsonContent)['exp'].toString()) <
+      DateTime.now().millisecondsSinceEpoch)
+    return right(input);
+  else {
+    return left(ValueFailure.invalidDeckTitle(failedValue: input));
   }
 }
 

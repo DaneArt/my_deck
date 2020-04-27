@@ -24,11 +24,11 @@ class UserService {
       App.localStorage.setString(kAccessTokenKey, newToken);
 
   String get accessToken =>
-      'Bearer ' + App.localStorage.getString(kAccessTokenKey);
+      App.localStorage.getString(kAccessTokenKey);
 
   set refreshToken(String newToken) =>
       App.localStorage.setString(kRefreshToken, newToken);
 
   String get refreshToken =>
-      'Bearer' + App.localStorage.getString(kRefreshToken);
+     App.localStorage.getString(kRefreshToken);
 }
