@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 
 import 'package:meta/meta.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
@@ -19,8 +20,6 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
   final GetAllCurrentUserDecks getAllCurrentUserDecks;
   final GetDecksForTrain getDecksForTrain;
 
-  final List<Deck> decksSourceList = List<Deck>();
-
   LibraryBloc(
       {@required this.getDecksForTrain,
       @required GetAllCurrentUserDecks allUserDecks})
@@ -28,38 +27,66 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
         getAllCurrentUserDecks = allUserDecks;
 
   @override
-  LibraryState get initialState => InitialState();
+  LibraryState get initialState => LibraryState.initial();
 
   @override
   Stream<LibraryState> mapEventToState(
     LibraryEvent event,
   ) async* {
-    if (event is GetAllUsersDecks) {
-      final  decks = await getAllCurrentUserDecks(NoParams());
-      yield decks.fold((failure) => ErrorState(CacheFailureMessage),
-          (deckList) {
-        if (deckList != decksSourceList) {
-          decksSourceList.clear();
-          decksSourceList.addAll(deckList);
-        }
-        if (decksSourceList.isEmpty) {
-          return ErrorState(NoDecksMessage);
-        } else {
-          return LoadedState(decksSourceList);
-        }
+    yield* event.map(getAllUsersDecks: (e) async* {
+      final decks = await getAllCurrentUserDecks(NoParams());
+      yield decks.fold(
+          (failure) => state.copyWith(
+                loadingFailureOrSuccess: some(left(CacheFailureMessage)),
+              ), (deckList) {
+        return state.copyWith(
+          decksSourceList: deckList,
+          trainStartFailureOrSuccess: none(),
+          loadingFailureOrSuccess: none(),
+          isLoading: false,
+        );
       });
-    } else if (event is TryToStartTrain) {
-      final decksForTrain =
-          await getDecksForTrain(Params(List<Deck>.from(decksSourceList)));
+    }, tryToStartTrain: (e) async* {
+      final decksForTrain = await getDecksForTrain(
+          Params(List<Deck>.from(state.decksSourceList)));
       yield decksForTrain.fold((failure) {
-        return NoTrainableDecksState(NoTrainableDecks);
+        return state.copyWith(
+            loadingFailureOrSuccess: none(),
+            isLoading: false,
+            trainStartFailureOrSuccess: some(left(NoTrainableDecks)));
       }, (deckList) {
         if (deckList.isNotEmpty) {
-          return StartTrainState(deckList);
+          return state.copyWith(
+              loadingFailureOrSuccess: none(),
+              isLoading: false,
+              trainStartFailureOrSuccess: some(right(deckList)));
         } else {
-          return NoTrainableDecksState(NoTrainableDecks);
+          return state.copyWith(
+              loadingFailureOrSuccess: none(),
+              isLoading: false,
+              trainStartFailureOrSuccess: some(left(NoTrainableDecks)));
         }
       });
-    }
+    }, addDeck: (e) async* {
+      final decks = [e.deck];
+      decks.addAll(state.decksSourceList);
+      yield state.copyWith(decksSourceList: decks);
+    }, updateDeck: (e) async* {
+      final updateIndex =
+          state.decksSourceList.indexWhere((d) => d.deckId == e.deck.deckId);
+      final decks = List<Deck>.from(state.decksSourceList);
+      decks[updateIndex] = e.deck;
+      yield state.copyWith(decksSourceList: decks);
+    }, deleteDeck: (e) async* {
+      final decks = List<Deck>.from(state.decksSourceList);
+      decks.remove(e.deck);
+      yield state.copyWith(decksSourceList: decks);
+    }, trainStarted: (e) async* {
+      yield state.copyWith(
+        trainStartFailureOrSuccess: none(),
+        loadingFailureOrSuccess: none(),
+        isLoading: false,
+      );
+    });
   }
 }

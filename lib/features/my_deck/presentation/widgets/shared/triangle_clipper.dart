@@ -12,6 +12,6 @@ class TriangleClipper extends CustomClipper<Path> {
 
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return null;
+    return true;
   }
 }

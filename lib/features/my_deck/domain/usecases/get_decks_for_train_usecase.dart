@@ -10,7 +10,15 @@ import 'package:mydeck/features/my_deck/domain/usecases/usecase.dart';
 class GetDecksForTrain extends UseCase<StorageFailure, List<Deck>, Params> {
   @override
   Future<Either<StorageFailure, List<Deck>>> call(Params params) async {
-    return _filterDecksForTrain(params.decks);
+    params.decks.removeWhere((d) =>
+    d.title.isEmpty ||
+        d.icon.path.isEmpty ||
+        d.cardsList
+            .any((c) => c.answer is NoContent || c.question is NoContent));
+    params.decks.removeWhere((d)=>d.cardsList.isEmpty);
+    params.decks.forEach((d)=>d.cardsList.sort((c1, c2) => compareR(c1, c2)));
+    return Future.value(
+        params.decks.isNotEmpty ? right(params.decks) : left(StorageFailure.getFailure()));
   }
 
   int compareR(Card c1, Card c2) {
@@ -39,27 +47,7 @@ class GetDecksForTrain extends UseCase<StorageFailure, List<Deck>, Params> {
     return 0;
   }
 
-  Future<Either<StorageFailure<List<Deck>>, List<Deck>>> _filterDecksForTrain(
-      List<Deck> decks) {
-    final List<Deck> result = [];
-    decks.removeWhere((d) =>
-        d.title.isEmpty ||
-        d.icon.path.isEmpty ||
-        d.cardsList
-            .any((c) => c.answer is NoContent || c.question is NoContent));
-    for (Deck deck in decks) {
-      final List<Card> trainableCards = List.from(deck.cardsList);
-      if (trainableCards.isNotEmpty) {
-        final temp = deck;
-        trainableCards.sort((c1, c2) => compareR(c1, c2));
-        temp.cardsList.clear();
-        temp.cardsList.addAll(trainableCards);
-        result.add(temp);
-      }
-    }
-    return Future.value(
-        result.isNotEmpty ? right(result) : left(StorageFailure.getFailure()));
-  }
+
 }
 
 class Params extends Equatable {

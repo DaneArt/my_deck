@@ -39,6 +39,10 @@ class _$AuthFailureTearOff {
   NoInternetConnection noInternetConnection() {
     return NoInternetConnection();
   }
+
+  TokenExpired tokenExpired() {
+    return TokenExpired();
+  }
 }
 
 // ignore: unused_element
@@ -54,6 +58,7 @@ mixin _$AuthFailure {
     @required Result userNotFound(),
     @required Result wrongPassword(),
     @required Result noInternetConnection(),
+    @required Result tokenExpired(),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
@@ -64,6 +69,7 @@ mixin _$AuthFailure {
     Result userNotFound(),
     Result wrongPassword(),
     Result noInternetConnection(),
+    Result tokenExpired(),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -75,6 +81,7 @@ mixin _$AuthFailure {
     @required Result userNotFound(UserNotFound value),
     @required Result wrongPassword(WrongPassword value),
     @required Result noInternetConnection(NoInternetConnection value),
+    @required Result tokenExpired(TokenExpired value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
@@ -85,6 +92,7 @@ mixin _$AuthFailure {
     Result userNotFound(UserNotFound value),
     Result wrongPassword(WrongPassword value),
     Result noInternetConnection(NoInternetConnection value),
+    Result tokenExpired(TokenExpired value),
     @required Result orElse(),
   });
 }
@@ -137,7 +145,8 @@ class _$CanselledByUser implements CanselledByUser {
           loginAreadyInUse: null,
           userNotFound: null,
           wrongPassword: null,
-          noInternetConnection: null);
+          noInternetConnection: null,
+          tokenExpired: null);
     }
     return _message;
   }
@@ -165,6 +174,7 @@ class _$CanselledByUser implements CanselledByUser {
     @required Result userNotFound(),
     @required Result wrongPassword(),
     @required Result noInternetConnection(),
+    @required Result tokenExpired(),
   }) {
     assert(canselledByuser != null);
     assert(serverError != null);
@@ -173,6 +183,7 @@ class _$CanselledByUser implements CanselledByUser {
     assert(userNotFound != null);
     assert(wrongPassword != null);
     assert(noInternetConnection != null);
+    assert(tokenExpired != null);
     return canselledByuser();
   }
 
@@ -186,6 +197,7 @@ class _$CanselledByUser implements CanselledByUser {
     Result userNotFound(),
     Result wrongPassword(),
     Result noInternetConnection(),
+    Result tokenExpired(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -205,6 +217,7 @@ class _$CanselledByUser implements CanselledByUser {
     @required Result userNotFound(UserNotFound value),
     @required Result wrongPassword(WrongPassword value),
     @required Result noInternetConnection(NoInternetConnection value),
+    @required Result tokenExpired(TokenExpired value),
   }) {
     assert(canselledByuser != null);
     assert(serverError != null);
@@ -213,6 +226,7 @@ class _$CanselledByUser implements CanselledByUser {
     assert(userNotFound != null);
     assert(wrongPassword != null);
     assert(noInternetConnection != null);
+    assert(tokenExpired != null);
     return canselledByuser(this);
   }
 
@@ -226,6 +240,7 @@ class _$CanselledByUser implements CanselledByUser {
     Result userNotFound(UserNotFound value),
     Result wrongPassword(WrongPassword value),
     Result noInternetConnection(NoInternetConnection value),
+    Result tokenExpired(TokenExpired value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -273,7 +288,8 @@ class _$ServerError implements ServerError {
           loginAreadyInUse: null,
           userNotFound: null,
           wrongPassword: null,
-          noInternetConnection: null);
+          noInternetConnection: null,
+          tokenExpired: null);
     }
     return _message;
   }
@@ -301,6 +317,7 @@ class _$ServerError implements ServerError {
     @required Result userNotFound(),
     @required Result wrongPassword(),
     @required Result noInternetConnection(),
+    @required Result tokenExpired(),
   }) {
     assert(canselledByuser != null);
     assert(serverError != null);
@@ -309,6 +326,7 @@ class _$ServerError implements ServerError {
     assert(userNotFound != null);
     assert(wrongPassword != null);
     assert(noInternetConnection != null);
+    assert(tokenExpired != null);
     return serverError();
   }
 
@@ -322,6 +340,7 @@ class _$ServerError implements ServerError {
     Result userNotFound(),
     Result wrongPassword(),
     Result noInternetConnection(),
+    Result tokenExpired(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -341,6 +360,7 @@ class _$ServerError implements ServerError {
     @required Result userNotFound(UserNotFound value),
     @required Result wrongPassword(WrongPassword value),
     @required Result noInternetConnection(NoInternetConnection value),
+    @required Result tokenExpired(TokenExpired value),
   }) {
     assert(canselledByuser != null);
     assert(serverError != null);
@@ -349,6 +369,7 @@ class _$ServerError implements ServerError {
     assert(userNotFound != null);
     assert(wrongPassword != null);
     assert(noInternetConnection != null);
+    assert(tokenExpired != null);
     return serverError(this);
   }
 
@@ -362,6 +383,7 @@ class _$ServerError implements ServerError {
     Result userNotFound(UserNotFound value),
     Result wrongPassword(WrongPassword value),
     Result noInternetConnection(NoInternetConnection value),
+    Result tokenExpired(TokenExpired value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -410,7 +432,8 @@ class _$EmailAlreadyInUse implements EmailAlreadyInUse {
           loginAreadyInUse: null,
           userNotFound: null,
           wrongPassword: null,
-          noInternetConnection: null);
+          noInternetConnection: null,
+          tokenExpired: null);
     }
     return _message;
   }
@@ -438,6 +461,7 @@ class _$EmailAlreadyInUse implements EmailAlreadyInUse {
     @required Result userNotFound(),
     @required Result wrongPassword(),
     @required Result noInternetConnection(),
+    @required Result tokenExpired(),
   }) {
     assert(canselledByuser != null);
     assert(serverError != null);
@@ -446,6 +470,7 @@ class _$EmailAlreadyInUse implements EmailAlreadyInUse {
     assert(userNotFound != null);
     assert(wrongPassword != null);
     assert(noInternetConnection != null);
+    assert(tokenExpired != null);
     return emailAreadyInUse();
   }
 
@@ -459,6 +484,7 @@ class _$EmailAlreadyInUse implements EmailAlreadyInUse {
     Result userNotFound(),
     Result wrongPassword(),
     Result noInternetConnection(),
+    Result tokenExpired(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -478,6 +504,7 @@ class _$EmailAlreadyInUse implements EmailAlreadyInUse {
     @required Result userNotFound(UserNotFound value),
     @required Result wrongPassword(WrongPassword value),
     @required Result noInternetConnection(NoInternetConnection value),
+    @required Result tokenExpired(TokenExpired value),
   }) {
     assert(canselledByuser != null);
     assert(serverError != null);
@@ -486,6 +513,7 @@ class _$EmailAlreadyInUse implements EmailAlreadyInUse {
     assert(userNotFound != null);
     assert(wrongPassword != null);
     assert(noInternetConnection != null);
+    assert(tokenExpired != null);
     return emailAreadyInUse(this);
   }
 
@@ -499,6 +527,7 @@ class _$EmailAlreadyInUse implements EmailAlreadyInUse {
     Result userNotFound(UserNotFound value),
     Result wrongPassword(WrongPassword value),
     Result noInternetConnection(NoInternetConnection value),
+    Result tokenExpired(TokenExpired value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -547,7 +576,8 @@ class _$LoginAlreadyInUse implements LoginAlreadyInUse {
           loginAreadyInUse: null,
           userNotFound: null,
           wrongPassword: null,
-          noInternetConnection: null);
+          noInternetConnection: null,
+          tokenExpired: null);
     }
     return _message;
   }
@@ -575,6 +605,7 @@ class _$LoginAlreadyInUse implements LoginAlreadyInUse {
     @required Result userNotFound(),
     @required Result wrongPassword(),
     @required Result noInternetConnection(),
+    @required Result tokenExpired(),
   }) {
     assert(canselledByuser != null);
     assert(serverError != null);
@@ -583,6 +614,7 @@ class _$LoginAlreadyInUse implements LoginAlreadyInUse {
     assert(userNotFound != null);
     assert(wrongPassword != null);
     assert(noInternetConnection != null);
+    assert(tokenExpired != null);
     return loginAreadyInUse();
   }
 
@@ -596,6 +628,7 @@ class _$LoginAlreadyInUse implements LoginAlreadyInUse {
     Result userNotFound(),
     Result wrongPassword(),
     Result noInternetConnection(),
+    Result tokenExpired(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -615,6 +648,7 @@ class _$LoginAlreadyInUse implements LoginAlreadyInUse {
     @required Result userNotFound(UserNotFound value),
     @required Result wrongPassword(WrongPassword value),
     @required Result noInternetConnection(NoInternetConnection value),
+    @required Result tokenExpired(TokenExpired value),
   }) {
     assert(canselledByuser != null);
     assert(serverError != null);
@@ -623,6 +657,7 @@ class _$LoginAlreadyInUse implements LoginAlreadyInUse {
     assert(userNotFound != null);
     assert(wrongPassword != null);
     assert(noInternetConnection != null);
+    assert(tokenExpired != null);
     return loginAreadyInUse(this);
   }
 
@@ -636,6 +671,7 @@ class _$LoginAlreadyInUse implements LoginAlreadyInUse {
     Result userNotFound(UserNotFound value),
     Result wrongPassword(WrongPassword value),
     Result noInternetConnection(NoInternetConnection value),
+    Result tokenExpired(TokenExpired value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -683,7 +719,8 @@ class _$UserNotFound implements UserNotFound {
           loginAreadyInUse: null,
           userNotFound: null,
           wrongPassword: null,
-          noInternetConnection: null);
+          noInternetConnection: null,
+          tokenExpired: null);
     }
     return _message;
   }
@@ -711,6 +748,7 @@ class _$UserNotFound implements UserNotFound {
     @required Result userNotFound(),
     @required Result wrongPassword(),
     @required Result noInternetConnection(),
+    @required Result tokenExpired(),
   }) {
     assert(canselledByuser != null);
     assert(serverError != null);
@@ -719,6 +757,7 @@ class _$UserNotFound implements UserNotFound {
     assert(userNotFound != null);
     assert(wrongPassword != null);
     assert(noInternetConnection != null);
+    assert(tokenExpired != null);
     return userNotFound();
   }
 
@@ -732,6 +771,7 @@ class _$UserNotFound implements UserNotFound {
     Result userNotFound(),
     Result wrongPassword(),
     Result noInternetConnection(),
+    Result tokenExpired(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -751,6 +791,7 @@ class _$UserNotFound implements UserNotFound {
     @required Result userNotFound(UserNotFound value),
     @required Result wrongPassword(WrongPassword value),
     @required Result noInternetConnection(NoInternetConnection value),
+    @required Result tokenExpired(TokenExpired value),
   }) {
     assert(canselledByuser != null);
     assert(serverError != null);
@@ -759,6 +800,7 @@ class _$UserNotFound implements UserNotFound {
     assert(userNotFound != null);
     assert(wrongPassword != null);
     assert(noInternetConnection != null);
+    assert(tokenExpired != null);
     return userNotFound(this);
   }
 
@@ -772,6 +814,7 @@ class _$UserNotFound implements UserNotFound {
     Result userNotFound(UserNotFound value),
     Result wrongPassword(WrongPassword value),
     Result noInternetConnection(NoInternetConnection value),
+    Result tokenExpired(TokenExpired value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -819,7 +862,8 @@ class _$WrongPassword implements WrongPassword {
           loginAreadyInUse: null,
           userNotFound: null,
           wrongPassword: null,
-          noInternetConnection: null);
+          noInternetConnection: null,
+          tokenExpired: null);
     }
     return _message;
   }
@@ -847,6 +891,7 @@ class _$WrongPassword implements WrongPassword {
     @required Result userNotFound(),
     @required Result wrongPassword(),
     @required Result noInternetConnection(),
+    @required Result tokenExpired(),
   }) {
     assert(canselledByuser != null);
     assert(serverError != null);
@@ -855,6 +900,7 @@ class _$WrongPassword implements WrongPassword {
     assert(userNotFound != null);
     assert(wrongPassword != null);
     assert(noInternetConnection != null);
+    assert(tokenExpired != null);
     return wrongPassword();
   }
 
@@ -868,6 +914,7 @@ class _$WrongPassword implements WrongPassword {
     Result userNotFound(),
     Result wrongPassword(),
     Result noInternetConnection(),
+    Result tokenExpired(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -887,6 +934,7 @@ class _$WrongPassword implements WrongPassword {
     @required Result userNotFound(UserNotFound value),
     @required Result wrongPassword(WrongPassword value),
     @required Result noInternetConnection(NoInternetConnection value),
+    @required Result tokenExpired(TokenExpired value),
   }) {
     assert(canselledByuser != null);
     assert(serverError != null);
@@ -895,6 +943,7 @@ class _$WrongPassword implements WrongPassword {
     assert(userNotFound != null);
     assert(wrongPassword != null);
     assert(noInternetConnection != null);
+    assert(tokenExpired != null);
     return wrongPassword(this);
   }
 
@@ -908,6 +957,7 @@ class _$WrongPassword implements WrongPassword {
     Result userNotFound(UserNotFound value),
     Result wrongPassword(WrongPassword value),
     Result noInternetConnection(NoInternetConnection value),
+    Result tokenExpired(TokenExpired value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -956,7 +1006,8 @@ class _$NoInternetConnection implements NoInternetConnection {
           loginAreadyInUse: null,
           userNotFound: null,
           wrongPassword: null,
-          noInternetConnection: null);
+          noInternetConnection: null,
+          tokenExpired: null);
     }
     return _message;
   }
@@ -984,6 +1035,7 @@ class _$NoInternetConnection implements NoInternetConnection {
     @required Result userNotFound(),
     @required Result wrongPassword(),
     @required Result noInternetConnection(),
+    @required Result tokenExpired(),
   }) {
     assert(canselledByuser != null);
     assert(serverError != null);
@@ -992,6 +1044,7 @@ class _$NoInternetConnection implements NoInternetConnection {
     assert(userNotFound != null);
     assert(wrongPassword != null);
     assert(noInternetConnection != null);
+    assert(tokenExpired != null);
     return noInternetConnection();
   }
 
@@ -1005,6 +1058,7 @@ class _$NoInternetConnection implements NoInternetConnection {
     Result userNotFound(),
     Result wrongPassword(),
     Result noInternetConnection(),
+    Result tokenExpired(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1024,6 +1078,7 @@ class _$NoInternetConnection implements NoInternetConnection {
     @required Result userNotFound(UserNotFound value),
     @required Result wrongPassword(WrongPassword value),
     @required Result noInternetConnection(NoInternetConnection value),
+    @required Result tokenExpired(TokenExpired value),
   }) {
     assert(canselledByuser != null);
     assert(serverError != null);
@@ -1032,6 +1087,7 @@ class _$NoInternetConnection implements NoInternetConnection {
     assert(userNotFound != null);
     assert(wrongPassword != null);
     assert(noInternetConnection != null);
+    assert(tokenExpired != null);
     return noInternetConnection(this);
   }
 
@@ -1045,6 +1101,7 @@ class _$NoInternetConnection implements NoInternetConnection {
     Result userNotFound(UserNotFound value),
     Result wrongPassword(WrongPassword value),
     Result noInternetConnection(NoInternetConnection value),
+    Result tokenExpired(TokenExpired value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1057,4 +1114,147 @@ class _$NoInternetConnection implements NoInternetConnection {
 
 abstract class NoInternetConnection implements AuthFailure {
   factory NoInternetConnection() = _$NoInternetConnection;
+}
+
+abstract class $TokenExpiredCopyWith<$Res> {
+  factory $TokenExpiredCopyWith(
+          TokenExpired value, $Res Function(TokenExpired) then) =
+      _$TokenExpiredCopyWithImpl<$Res>;
+}
+
+class _$TokenExpiredCopyWithImpl<$Res> extends _$AuthFailureCopyWithImpl<$Res>
+    implements $TokenExpiredCopyWith<$Res> {
+  _$TokenExpiredCopyWithImpl(
+      TokenExpired _value, $Res Function(TokenExpired) _then)
+      : super(_value, (v) => _then(v as TokenExpired));
+
+  @override
+  TokenExpired get _value => super._value as TokenExpired;
+}
+
+class _$TokenExpired implements TokenExpired {
+  _$TokenExpired();
+
+  bool _didmessage = false;
+  String _message;
+
+  @override
+  String get message {
+    if (_didmessage == false) {
+      _didmessage = true;
+      _message = this.map(
+          canselledByuser: null,
+          serverError: null,
+          emailAreadyInUse: null,
+          loginAreadyInUse: null,
+          userNotFound: null,
+          wrongPassword: null,
+          noInternetConnection: null,
+          tokenExpired: null);
+    }
+    return _message;
+  }
+
+  @override
+  String toString() {
+    return 'AuthFailure.tokenExpired(message: $message)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is TokenExpired);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result canselledByuser(),
+    @required Result serverError(),
+    @required Result emailAreadyInUse(),
+    @required Result loginAreadyInUse(),
+    @required Result userNotFound(),
+    @required Result wrongPassword(),
+    @required Result noInternetConnection(),
+    @required Result tokenExpired(),
+  }) {
+    assert(canselledByuser != null);
+    assert(serverError != null);
+    assert(emailAreadyInUse != null);
+    assert(loginAreadyInUse != null);
+    assert(userNotFound != null);
+    assert(wrongPassword != null);
+    assert(noInternetConnection != null);
+    assert(tokenExpired != null);
+    return tokenExpired();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result canselledByuser(),
+    Result serverError(),
+    Result emailAreadyInUse(),
+    Result loginAreadyInUse(),
+    Result userNotFound(),
+    Result wrongPassword(),
+    Result noInternetConnection(),
+    Result tokenExpired(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (tokenExpired != null) {
+      return tokenExpired();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result canselledByuser(CanselledByUser value),
+    @required Result serverError(ServerError value),
+    @required Result emailAreadyInUse(EmailAlreadyInUse value),
+    @required Result loginAreadyInUse(LoginAlreadyInUse value),
+    @required Result userNotFound(UserNotFound value),
+    @required Result wrongPassword(WrongPassword value),
+    @required Result noInternetConnection(NoInternetConnection value),
+    @required Result tokenExpired(TokenExpired value),
+  }) {
+    assert(canselledByuser != null);
+    assert(serverError != null);
+    assert(emailAreadyInUse != null);
+    assert(loginAreadyInUse != null);
+    assert(userNotFound != null);
+    assert(wrongPassword != null);
+    assert(noInternetConnection != null);
+    assert(tokenExpired != null);
+    return tokenExpired(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result canselledByuser(CanselledByUser value),
+    Result serverError(ServerError value),
+    Result emailAreadyInUse(EmailAlreadyInUse value),
+    Result loginAreadyInUse(LoginAlreadyInUse value),
+    Result userNotFound(UserNotFound value),
+    Result wrongPassword(WrongPassword value),
+    Result noInternetConnection(NoInternetConnection value),
+    Result tokenExpired(TokenExpired value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (tokenExpired != null) {
+      return tokenExpired(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class TokenExpired implements AuthFailure {
+  factory TokenExpired() = _$TokenExpired;
 }

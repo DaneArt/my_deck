@@ -6,6 +6,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mydeck/core/error/storage_failure.dart';
+import 'package:mydeck/core/injection/dependency_injection.dart';
 import 'package:mydeck/features/my_deck/data/models/category_model.dart';
 import 'package:mydeck/features/my_deck/domain/entities/card.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
@@ -31,11 +32,13 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
   final AddDeckUseCase addDeckUseCase;
   final save.SaveDeckChangesUsecase saveDeckChangesUsecase;
   final DeleteDeckUseCase deleteDeckUsecase;
+  final UserService userService;
   Deck _deck;
   bool _saveDeck = true;
 
   AddDeckBloc(
-      {this.saveDeckChangesUsecase,
+      {this.userService,
+      this.saveDeckChangesUsecase,
       this.addDeckUseCase,
       this.deleteDeckUsecase});
 
@@ -58,7 +61,7 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
             _deck = e.deck;
             _saveDeck = false;
             final deckAuthor = _deck.author;
-            final currentUser = UserService().currentUser;
+            final currentUser = userService.currentUser;
             yield state.copyWith(
                 title: DeckTitle(_deck.title),
                 description: DeckDescription(_deck.description),
@@ -66,10 +69,8 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
                 isShared: !_deck.isPrivate,
                 category: _deck.category,
                 cardslist: _deck.cardsList,
-                author: deckAuthor.username == currentUser.username
-                    ? deckAuthor.copyWith(
-                        username: 'you',
-                      )
+                author: deckAuthor.userId == currentUser.userId
+                    ? deckAuthor.copyWith(username: 'you')
                     : deckAuthor);
           }
         },
@@ -86,17 +87,17 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
                   isPrivate: !state.isShared,
                   subscribersCount: 0,
                   title: state.title.value.fold((f) => f.failedValue, (r) => r),
-                  author: UserService().currentUser)));
+                  author:userService.currentUser)));
               yield saveResult.fold(
                   (failure) => state.copyWith(
                       saveFailureOrSuccessOption: some(left(failure))),
                   (success) => state.copyWith(
-                      saveFailureOrSuccessOption: some(right(unit))));
+                      saveFailureOrSuccessOption: some(right(success))));
             } else {
               final saveResult = await saveDeckChangesUsecase(save.Params(
                   _deck,
                   _deck.copyWith(
-                      author: UserService().currentUser,
+                      author: userService.currentUser,
                       cardsList: state.cardslist,
                       category: state.category,
                       deckId: _deck.deckId,
@@ -112,7 +113,7 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
                   (failure) => state.copyWith(
                       saveFailureOrSuccessOption: some(left(failure))),
                   (success) => state.copyWith(
-                      saveFailureOrSuccessOption: some(right(unit))));
+                      saveFailureOrSuccessOption: some(right(success))));
             }
           } else {
             yield state.copyWith(
@@ -131,7 +132,7 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
               (failure) => state.copyWith(
                   saveFailureOrSuccessOption: some(left(failure))),
               (success) => state.copyWith(
-                  saveFailureOrSuccessOption: some(right(unit))));
+                  saveFailureOrSuccessOption: some(right(null))));
         },
         titleChanged: (e) async* {
           yield state.copyWith(

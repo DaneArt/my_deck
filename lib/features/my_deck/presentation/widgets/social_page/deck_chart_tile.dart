@@ -30,21 +30,22 @@ class DeckChartTile extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(16)),
             ),
-            child: ListView(
+            child: ListView.builder(
+              itemCount: 5,
+              physics: BouncingScrollPhysics()  ,
               scrollDirection: Axis.horizontal,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(16)),
-                    child: Container(
-                      width: screenSize.height / 6,
-                      height: screenSize.height / 6,
-                      color: Colors.green,
-                    ),
+              itemBuilder: (context,index)=>Padding(
+                padding: const EdgeInsets.all(8),
+                child: ClipRRect(
+
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                  child: Container(
+                    width: screenSize.height / 6,
+                    height: screenSize.height / 6,
+                    color: Colors.green,
                   ),
                 ),
-              ],
+              ),
             ),
           ),
         ),

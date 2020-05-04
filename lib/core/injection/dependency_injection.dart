@@ -34,7 +34,7 @@ final sl = GetIt.I;
 
 void setUp() {
   //RestApi
-  sl.registerFactory(() => UserService());
+  sl.registerFactory(() => UserService(sl()));
   sl.registerFactory(() => Dio());
   sl.registerFactory(() => DataConnectionChecker());
   sl.registerFactory<IAuthFacade>(() => AuthFacadeImpl(sl()));
@@ -66,6 +66,7 @@ void setUp() {
   //blocs
   sl.registerFactory(() => SignInBloc(sl()));
   sl.registerFactory(() => AddDeckBloc(
+      userService: sl(),
       saveDeckChangesUsecase: sl(),
       deleteDeckUsecase: sl(),
       addDeckUseCase: sl()));

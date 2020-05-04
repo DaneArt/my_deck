@@ -25,12 +25,12 @@ class AddDeckArguments {
 }
 
 class AddDeckPage extends StatelessWidget {
-  final AddDeckArguments arguments;
-
-  const AddDeckPage({Key key, @required this.arguments}) : super(key: key);
+  const AddDeckPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final AddDeckArguments arguments =
+        ModalRoute.of(context).settings.arguments;
     return AddDeckTabView(arguments: arguments);
   }
 }
@@ -57,7 +57,7 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
 
   @override
   void initState() {
-    if (widget.arguments.deck != null) {
+    if (deck != null) {
       BlocProvider.of<AddDeckBloc>(context)
           .add(AddDeckEvent.initWithDeck(widget.arguments.deck));
     }
@@ -230,7 +230,7 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                               ),
                             );
                           });
-                    }, (success) => Navigator.of(context).pop()));
+                    }, (success) => Navigator.of(context).pop(success!=null?success:true)));
           },
           child: NestedScrollView(
             headerSliverBuilder: (context, value) => [
@@ -244,7 +244,7 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                   onPressed: () => Navigator.of(context).pop(),
                 ),
                 actions: <Widget>[
-                  isEditing && widget.arguments.deck != null
+                  isEditing && deck != null
                       ? IconButton(
                           icon: Icon(Icons.delete),
                           onPressed: () {
@@ -303,7 +303,7 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
           child: ScaleTransition(
             scale: _fabAnimation,
             child: FloatingActionButton(
-              child: Icon(Icons.add),
+              child: Icon(Icons.add, color:Colors.white),
               onPressed: () async {
                 final newCard =
                     await context.navigator.pushNamed(MyDeckRoutes.addCard);
@@ -525,30 +525,35 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
           ],
         );
 
-  Widget trainWidget() =>
-      widget.arguments != null && widget.arguments.deck != null
-          ? RaisedButton(
-              onPressed: () async {
-                widget.arguments.deck.cardsList.removeWhere(
-                    (c) => c.answer.model.isEmpty || c.question.model.isEmpty);
-
-                final trainedCards = await Navigator.of(context).pushNamed(
-                    MyDeckRoutes.train,
-                    arguments: [widget.arguments.deck]);
-                if (trainedCards != null) {
-                  for (CardModel card in trainedCards) {
-                    context.bloc<AddDeckBloc>().add(
-                        AddDeckEvent.cardChanged(Entity.Card.fromModel(card)));
-                  }
+  Widget trainWidget() => widget.arguments != null &&
+          widget.arguments.deck != null
+      ? RaisedButton(
+          onPressed: () async {
+            widget.arguments.deck.cardsList.removeWhere(
+                (c) => c.answer.model.isEmpty || c.question.model.isEmpty);
+            if (widget.arguments.deck.cardsList.isNotEmpty) {
+              final trainedCards = await Navigator.of(context).pushNamed(
+                  MyDeckRoutes.train,
+                  arguments: [widget.arguments.deck]);
+              if (trainedCards != null) {
+                for (CardModel card in trainedCards) {
+                  context.bloc<AddDeckBloc>().add(
+                      AddDeckEvent.cardChanged(Entity.Card.fromModel(card)));
                 }
-              },
-              color: Colors.white,
-              elevation: 4,
-              child: Row(
-                children: <Widget>[Text('TRAIN'), Icon(CustomIcons.dumbbell)],
-              ),
-            )
-          : Spacer();
+              }
+            }else{
+              Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text('No trainable cards. Create cards and save deck.'),
+              ));
+            }
+          },
+          color: Colors.white,
+          elevation: 4,
+          child: Row(
+            children: <Widget>[Text('TRAIN'), Icon(CustomIcons.dumbbell)],
+          ),
+        )
+      : Spacer();
 
   Widget shareWidget(AddDeckState state) => isEditing
       ? Padding(
@@ -637,18 +642,16 @@ class _CardsPageState extends State<_CardsPage> {
                         final changedCard = await context.navigator.pushNamed(
                             MyDeckRoutes.addCard,
                             arguments: state.cardslist[index]);
-                        if(changedCard is Entity.Card){
+                        if (changedCard is Entity.Card) {
                           if (changedCard != null) {
                             context
                                 .bloc<AddDeckBloc>()
                                 .add(AddDeckEvent.cardChanged(changedCard));
                           }
-                        }else if(changedCard){
-                          context
-                              .bloc<AddDeckBloc>()
-                              .add(AddDeckEvent.cardDeleted(state.cardslist[index]));
+                        } else if (changedCard) {
+                          context.bloc<AddDeckBloc>().add(
+                              AddDeckEvent.cardDeleted(state.cardslist[index]));
                         }
-
                       },
                       sourceCard: state.cardslist[index],
                     ),

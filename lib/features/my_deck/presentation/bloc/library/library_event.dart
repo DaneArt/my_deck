@@ -1,19 +1,17 @@
 import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 
-abstract class LibraryEvent extends Equatable {
-  const LibraryEvent();
+part 'library_event.freezed.dart';
+
+@freezed
+abstract class LibraryEvent with _$LibraryEvent{
+  factory LibraryEvent.getAllUsersDecks() = GetAllUsersDecks;
+  factory LibraryEvent.tryToStartTrain() =TryToStartTrain;
+  factory LibraryEvent.addDeck({@required Deck deck}) =AddDeck;
+  factory LibraryEvent.updateDeck({@required Deck deck}) = UpdateDeck;
+  factory LibraryEvent.deleteDeck({@required Deck deck}) = DeleteDeck;
+  factory LibraryEvent.trainStarted() = TrainStarted;
+
 }
 
-class GetAllUsersDecks extends LibraryEvent {
-  const GetAllUsersDecks();
-
-  @override
-  List<Object> get props => [];
-}
-
-class TryToStartTrain extends LibraryEvent {
-  TryToStartTrain();
-
-  @override
-  List<Object> get props => [];
-}

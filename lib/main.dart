@@ -20,7 +20,7 @@ import 'features/my_deck/presentation/pages/home_page.dart';
 import 'features/my_deck/presentation/pages/social_page.dart';
 import 'features/my_deck/presentation/pages/training_page.dart';
 import 'features/sign_in/bloc/sign_in/sign_in_bloc.dart';
-import 'features/sign_in/presentation/login_page.dart';
+import 'features/sign_in/presentation/pages/login_page.dart';
 
 class App {
   static SharedPreferences localStorage;
@@ -71,7 +71,7 @@ class MyDeckApp extends StatelessWidget {
         ),
         routes: {
           MyDeckRoutes.login: (context) {
-            if (UserService().currentUser != null) {
+            if (sl.get<UserService>().currentUser != null) {
               return BlocProvider<SignInBloc>(
                   create: (context) => sl.get<SignInBloc>(),
                   child: LoginPage());

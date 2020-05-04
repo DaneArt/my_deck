@@ -28,7 +28,7 @@ class _$AddDeckStateTearOff {
       @required
           List<Card> cardslist,
       @required
-          Option<Either<StorageFailure<dynamic>, Unit>>
+          Option<Either<StorageFailure<dynamic>, Deck>>
               saveFailureOrSuccessOption}) {
     return _AddDeckState(
       title: title,
@@ -54,7 +54,7 @@ mixin _$AddDeckState {
   CategoryModel get category;
   UserModel get author;
   List<Card> get cardslist;
-  Option<Either<StorageFailure<dynamic>, Unit>> get saveFailureOrSuccessOption;
+  Option<Either<StorageFailure<dynamic>, Deck>> get saveFailureOrSuccessOption;
 
   $AddDeckStateCopyWith<AddDeckState> get copyWith;
 }
@@ -71,7 +71,7 @@ abstract class $AddDeckStateCopyWith<$Res> {
       CategoryModel category,
       UserModel author,
       List<Card> cardslist,
-      Option<Either<StorageFailure<dynamic>, Unit>>
+      Option<Either<StorageFailure<dynamic>, Deck>>
           saveFailureOrSuccessOption});
 }
 
@@ -108,7 +108,7 @@ class _$AddDeckStateCopyWithImpl<$Res> implements $AddDeckStateCopyWith<$Res> {
       saveFailureOrSuccessOption: saveFailureOrSuccessOption == freezed
           ? _value.saveFailureOrSuccessOption
           : saveFailureOrSuccessOption
-              as Option<Either<StorageFailure<dynamic>, Unit>>,
+              as Option<Either<StorageFailure<dynamic>, Deck>>,
     ));
   }
 }
@@ -127,7 +127,7 @@ abstract class _$AddDeckStateCopyWith<$Res>
       CategoryModel category,
       UserModel author,
       List<Card> cardslist,
-      Option<Either<StorageFailure<dynamic>, Unit>>
+      Option<Either<StorageFailure<dynamic>, Deck>>
           saveFailureOrSuccessOption});
 }
 
@@ -166,7 +166,7 @@ class __$AddDeckStateCopyWithImpl<$Res> extends _$AddDeckStateCopyWithImpl<$Res>
       saveFailureOrSuccessOption: saveFailureOrSuccessOption == freezed
           ? _value.saveFailureOrSuccessOption
           : saveFailureOrSuccessOption
-              as Option<Either<StorageFailure<dynamic>, Unit>>,
+              as Option<Either<StorageFailure<dynamic>, Deck>>,
     ));
   }
 }
@@ -205,7 +205,7 @@ class _$_AddDeckState implements _AddDeckState {
   @override
   final List<Card> cardslist;
   @override
-  final Option<Either<StorageFailure<dynamic>, Unit>>
+  final Option<Either<StorageFailure<dynamic>, Deck>>
       saveFailureOrSuccessOption;
 
   @override
@@ -276,7 +276,7 @@ abstract class _AddDeckState implements AddDeckState {
       @required
           List<Card> cardslist,
       @required
-          Option<Either<StorageFailure<dynamic>, Unit>>
+          Option<Either<StorageFailure<dynamic>, Deck>>
               saveFailureOrSuccessOption}) = _$_AddDeckState;
 
   @override
@@ -294,7 +294,7 @@ abstract class _AddDeckState implements AddDeckState {
   @override
   List<Card> get cardslist;
   @override
-  Option<Either<StorageFailure<dynamic>, Unit>> get saveFailureOrSuccessOption;
+  Option<Either<StorageFailure<dynamic>, Deck>> get saveFailureOrSuccessOption;
   @override
   _$AddDeckStateCopyWith<_AddDeckState> get copyWith;
 }

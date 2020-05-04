@@ -58,14 +58,17 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
       {@required this.client, @required this.userService});
 
   bool _validateTokens() =>
-      validateToken(userService.accessToken).isLeft() &&
-      validateToken(userService.refreshToken).isLeft();
-
-  dynamic _makeRequest(HttpRequest request) {
+      validateToken(userService.accessToken).isRight();
+  dynamic _makeRequest(HttpRequest request, [int requestCount = 1]) async {
     if (_validateTokens()) {
       return request();
     } else {
-      //TODO: implement tokens refresh
+      final refreshResult = await userService.refreshTokens();
+      if (refreshResult.isSome() && requestCount == 4) {
+        throw NetworkException();
+      }
+
+      return _makeRequest(request, ++requestCount);
     }
   }
 
@@ -92,7 +95,7 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
         _kBaseUrl + '/card/insert',
         data: json.encode(cardModels.map((c) => c.toJson()).toList()),
         options: Options(headers: {
-          HttpHeaders.authorizationHeader: userService.accessToken
+          HttpHeaders.authorizationHeader:'Bearer '+ userService.accessToken
         }),
       );
       if (response.statusCode != 200) {
@@ -108,7 +111,7 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
         _kBaseUrl + '/deck/insert',
         data: jsonEncode([deckModel.toJson()]),
         options: Options(headers: {
-          HttpHeaders.authorizationHeader: userService.accessToken
+          HttpHeaders.authorizationHeader: 'Bearer '+userService.accessToken
         }),
       );
       if (response.statusCode != 200) {
@@ -123,7 +126,7 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
       final response = await client.delete(
         _kBaseUrl + '/card/deletebyid/${cardModel.cardId}',
         options: Options(headers: {
-          HttpHeaders.authorizationHeader: userService.accessToken
+          HttpHeaders.authorizationHeader:'Bearer '+ userService.accessToken
         }),
       );
       if (response.statusCode != 200) {
@@ -144,7 +147,7 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
       final response = await client.delete(
         _kBaseUrl + '/deck/deletebyid/${deckModel.deckId}',
         options: Options(headers: {
-          HttpHeaders.authorizationHeader: userService.accessToken
+          HttpHeaders.authorizationHeader:'Bearer '+ userService.accessToken
         }),
       );
       if (response.statusCode != 200) {
@@ -159,7 +162,7 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
       final response = await client.get(
         _kBaseUrl + '/card/findAll',
         options: Options(headers: {
-          HttpHeaders.authorizationHeader: userService.accessToken
+          HttpHeaders.authorizationHeader:'Bearer '+ userService.accessToken
         }),
       );
       if (response.statusCode != 200) {
@@ -178,7 +181,7 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
       final response = await client.get(
         _kBaseUrl + '/deck/findAll',
         options: Options(headers: {
-          HttpHeaders.authorizationHeader: await userService.accessToken
+          HttpHeaders.authorizationHeader: 'Bearer '+ userService.accessToken
         }),
       );
       if (response.statusCode != 200) {
@@ -197,7 +200,7 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
       final response = await client.get(
         _kBaseUrl + '/card/findbyid',
         options: Options(headers: {
-          HttpHeaders.authorizationHeader: userService.accessToken
+          HttpHeaders.authorizationHeader:'Bearer '+ userService.accessToken
         }),
       );
       if (response.statusCode != 200) {
@@ -220,7 +223,7 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
       final response = await client.get(
         _kBaseUrl + '/deck/findbyid',
         options: Options(headers: {
-          HttpHeaders.authorizationHeader: userService.accessToken
+          HttpHeaders.authorizationHeader:'Bearer '+ userService.accessToken
         }),
       );
       if (response.statusCode != 200) {
@@ -238,7 +241,7 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
         _kBaseUrl + '/card/update',
         data: jsonEncode([cardModel.toJson()]),
         options: Options(headers: {
-          HttpHeaders.authorizationHeader: userService.accessToken
+          HttpHeaders.authorizationHeader:'Bearer '+ userService.accessToken
         }),
       );
       if (response.statusCode != 200) {
@@ -254,7 +257,7 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
         _kBaseUrl + '/deck/update',
         data: jsonEncode([deckModel.toJson()]),
         options: Options(headers: {
-          HttpHeaders.authorizationHeader: userService.accessToken
+          HttpHeaders.authorizationHeader:'Bearer '+ userService.accessToken
         }),
       );
       if (response.statusCode != 200) {
@@ -270,7 +273,7 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
         _kBaseUrl + '/card/update',
         data: jsonEncode(cardModels.map((c) => c.toJson()).toList()),
         options: Options(headers: {
-          HttpHeaders.authorizationHeader: userService.accessToken
+          HttpHeaders.authorizationHeader:'Bearer '+ userService.accessToken
         }),
       );
       if (response.statusCode != 200) {
@@ -286,7 +289,7 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
         _kBaseUrl +
             '/deck/AllCurrentUserDecksWithCards/${userService.currentUser.username}',
         options: Options(headers: {
-          HttpHeaders.authorizationHeader: userService.accessToken
+          HttpHeaders.authorizationHeader:'Bearer '+ userService.accessToken
         }),
       );
       if (response.statusCode != 200) {

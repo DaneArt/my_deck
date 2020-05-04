@@ -53,7 +53,7 @@ class Deck extends Equatable {
       description: model.description,
       subscribersCount: model.subscribersCount,
       isPrivate: model.isPrivate,
-      author: UserModel('',model.author,'',''));
+      author: UserModel(model.author,'','',''));
 
   DeckModel toModel() =>
       DeckModel(
@@ -63,7 +63,7 @@ class Deck extends Equatable {
         description,
         category.categoryName,
         isPrivate,
-        author.username,
+        author.userId,
       );
 
   Deck copyWith({

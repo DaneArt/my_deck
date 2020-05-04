@@ -22,8 +22,7 @@ Either<ValueFailure<String>, String> validateEmailAddress(String input) {
 
 Either<ValueFailure<String>, String> validateToken(String input) {
   var jws = JsonWebSignature.fromCompactSerialization(input);
-  if (int.parse(
-          jsonDecode(jws.unverifiedPayload.jsonContent)['exp'].toString()) <
+  if (jws.unverifiedPayload.jsonContent['exp'] <
       DateTime.now().millisecondsSinceEpoch)
     return right(input);
   else {

@@ -10,7 +10,7 @@ abstract class AddDeckState with _$AddDeckState {
     @required CategoryModel category,
     @required UserModel author,
     @required List<Card> cardslist,
-    @required Option<Either<StorageFailure, Unit>> saveFailureOrSuccessOption,
+    @required Option<Either<StorageFailure, Deck>> saveFailureOrSuccessOption,
   }) = _AddDeckState;
 
   factory AddDeckState.initial() => AddDeckState(
@@ -21,7 +21,7 @@ abstract class AddDeckState with _$AddDeckState {
       isShared: false,
       title: DeckTitle(''),
       saveFailureOrSuccessOption: none(),
-      author: UserService().currentUser.copyWith(
+      author: sl.get<UserService>().currentUser.copyWith(
         username: 'you'
       ));
 }

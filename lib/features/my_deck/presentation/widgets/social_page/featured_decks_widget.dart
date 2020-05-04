@@ -68,7 +68,7 @@ class _FeaturedDeckList extends State<FeaturedDeckList> {
               effect: ExpandingDotsEffect(
                   dotHeight: 12,
                   dotWidth: 12,
-                  dotColor: Colors.blueAccent
+                  dotColor: Colors.white.withAlpha(150)
               ), // your preferred effect
             ),
           ),
