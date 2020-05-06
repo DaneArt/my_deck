@@ -33,7 +33,7 @@ class _LibraryPageState extends State<LibraryPage>
 
   GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
-bool initialized = false;
+  bool initialized = false;
   @override
   void initState() {
     _animationController =
@@ -43,7 +43,7 @@ bool initialized = false;
     _controller = ScrollController();
     _controller.addListener(_onDeckListScrollListener);
     super.initState();
-    if(!initialized){
+    if (!initialized) {
       _loadDecksData(context);
       setState(() {
         initialized = true;
@@ -86,7 +86,7 @@ bool initialized = false;
                   heroTag: MyDeckHeroTags.addDeckFab,
                   elevation: 4,
                   child: Icon(
-                    Icons.library_add,
+                    Icons.add,
                     color: Theme.of(context).iconTheme.color,
                   ),
                   onPressed: () async {
@@ -127,9 +127,9 @@ bool initialized = false;
         slivers: <Widget>[
           SliverList(
             delegate: SliverChildBuilderDelegate(
-                (context,index)=>DeckCard(decks[index], key: ValueKey(decks[index].deckId)),
-              childCount: decks.length
-            ),
+                (context, index) =>
+                    DeckCard(decks[index], key: ValueKey(decks[index].deckId)),
+                childCount: decks.length),
           ),
         ],
       );
@@ -137,7 +137,6 @@ bool initialized = false;
   BlocBuilder<LibraryBloc, LibraryState> _buildBody(BuildContext context) {
     return BlocBuilder<LibraryBloc, LibraryState>(
       builder: (context, state) {
-
         if (state.isLoading) {
           return CircularProgressIndicator();
         } else if (state.decksSourceList.isEmpty ||
@@ -190,10 +189,11 @@ bool initialized = false;
                           ),
                         );
                       }, (result) async {
-                    context.bloc<LibraryBloc>().add(LibraryEvent.trainStarted());
+                        context
+                            .bloc<LibraryBloc>()
+                            .add(LibraryEvent.trainStarted());
                         final trainResult = await Navigator.of(context)
                             .pushNamed(MyDeckRoutes.train, arguments: result);
-
                       }));
             },
             child: _buildBody(context),

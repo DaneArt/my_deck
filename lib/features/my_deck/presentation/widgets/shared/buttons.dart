@@ -46,10 +46,11 @@ class LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
+      color: Theme.of(context).accentColor,
       onPressed: enabled ? onPressed : null,
       elevation: 8,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+        borderRadius: BorderRadius.all(Radius.circular(16.0)),
       ),
       child: content,
     );

@@ -4,6 +4,7 @@ part of 'sign_in_bloc.dart';
 abstract class SignInState with _$SignInState {
   const factory SignInState({
     @required ValueObject<String> emailOrLogin,
+    @required ValueObject<String> password,
     @required bool showErrorMessages,
     @required bool isSubmitting,
     @required Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption,
@@ -13,8 +14,8 @@ abstract class SignInState with _$SignInState {
       emailOrLogin: EmailAddress(''),
       showErrorMessages: false,
       isSubmitting: false,
-      authFailureOrSuccessOption: none());
-
+      authFailureOrSuccessOption: none(),
+      password: Password(''));
 
   const factory SignInState.emailInput({
     @required EmailAddress emailAddress,

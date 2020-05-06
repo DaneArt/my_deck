@@ -230,23 +230,29 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                               ),
                             );
                           });
-                    }, (success) => Navigator.of(context).pop(success!=null?success:true)));
+                    },
+                        (success) => Navigator.of(context)
+                            .pop(success != null ? success : true)));
           },
           child: NestedScrollView(
             headerSliverBuilder: (context, value) => [
               SliverAppBar(
-                title: Text("Edit deck"),
+                title: Text(
+                  "Edit deck",
+                  style: TextStyle(color: Colors.white),
+                ),
                 snap: false,
                 floating: true,
                 pinned: true,
                 leading: IconButton(
-                  icon: Icon(isEditing ? Icons.clear : Icons.arrow_back),
+                  icon: Icon(isEditing ? Icons.clear : Icons.arrow_back,
+                      color: Colors.white),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
                 actions: <Widget>[
                   isEditing && deck != null
                       ? IconButton(
-                          icon: Icon(Icons.delete),
+                          icon: Icon(Icons.delete, color: Colors.white),
                           onPressed: () {
                             BlocProvider.of<AddDeckBloc>(context)
                                 .add(AddDeckEvent.deleteDeck());
@@ -255,7 +261,7 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                       : Container(),
                   isEditing
                       ? IconButton(
-                          icon: Icon(Icons.check),
+                          icon: Icon(Icons.check, color: Colors.white),
                           onPressed: () {
                             BlocProvider.of<AddDeckBloc>(context)
                                 .add(AddDeckEvent.saveChanges());
@@ -278,7 +284,7 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                     Tab(
                         text: 'Cards',
                         icon: Icon(
-                          Icons.library_books,
+                          CustomIcons.cards,
                         )),
                   ],
                   controller: controller,
@@ -303,7 +309,7 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
           child: ScaleTransition(
             scale: _fabAnimation,
             child: FloatingActionButton(
-              child: Icon(Icons.add, color:Colors.white),
+              child: Icon(Icons.add, color: Colors.white),
               onPressed: () async {
                 final newCard =
                     await context.navigator.pushNamed(MyDeckRoutes.addCard);
@@ -541,9 +547,10 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
                       AddDeckEvent.cardChanged(Entity.Card.fromModel(card)));
                 }
               }
-            }else{
+            } else {
               Scaffold.of(context).showSnackBar(SnackBar(
-                content: Text('No trainable cards. Create cards and save deck.'),
+                content:
+                    Text('No trainable cards. Create cards and save deck.'),
               ));
             }
           },
@@ -661,7 +668,8 @@ class _CardsPageState extends State<_CardsPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text('Oops, card collection is Empty.'),
+                      Text('Oops, card collection is Empty.',
+                          style: Theme.of(context).textTheme.bodyText1),
                       RaisedButton(
                         color: Theme.of(context).accentColor,
                         onPressed: () async {
@@ -672,7 +680,10 @@ class _CardsPageState extends State<_CardsPage> {
                                 .bloc<AddDeckBloc>()
                                 .add(AddDeckEvent.cardAdded(card));
                         },
-                        child: Text("Let's create a new one!"),
+                        child: Text(
+                          "Let's create a new one!",
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ],
                   ),

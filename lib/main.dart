@@ -56,19 +56,22 @@ class MyDeckApp extends StatelessWidget {
       child: MaterialApp(
         title: 'MyDeck',
         theme: ThemeData(
-          primarySwatch: Colors.indigo,
-          accentColor: Colors.lightBlueAccent,
+          primaryColor: Color(0xFF03A9F4),
+          primaryColorDark: Color(0xFF0288D1),
+          primaryColorLight: Color(0xFFB3E5FC),
+          accentColor: Color(0xFFFFC107),
           buttonTheme: ButtonThemeData(buttonColor: Colors.white),
           iconTheme: IconThemeData(
             color: Colors.white,
             opacity: 1,
           ),
-          textTheme: TextTheme(button: TextStyle(letterSpacing: 1.2)),
+          textTheme: TextTheme(
+              button: TextStyle(letterSpacing: 1.2, color: Colors.white)),
         ),
         darkTheme: ThemeData(
-          brightness: Brightness.dark,
-          primaryColor: Color(0x121212),
-        ),
+            brightness: Brightness.dark,
+            primaryColor: Color(0xFF121212),
+            accentColor: Color(0xFFFFC107)),
         routes: {
           MyDeckRoutes.login: (context) {
             if (sl.get<UserService>().currentUser != null) {

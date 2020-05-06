@@ -2310,11 +2310,13 @@ class _$SignInStateTearOff {
 
   _SignInState call(
       {@required ValueObject<String> emailOrLogin,
+      @required ValueObject<String> password,
       @required bool showErrorMessages,
       @required bool isSubmitting,
       @required Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption}) {
     return _SignInState(
       emailOrLogin: emailOrLogin,
+      password: password,
       showErrorMessages: showErrorMessages,
       isSubmitting: isSubmitting,
       authFailureOrSuccessOption: authFailureOrSuccessOption,
@@ -2390,6 +2392,7 @@ mixin _$SignInState {
   Result when<Result extends Object>(
     Result $default(
         ValueObject<String> emailOrLogin,
+        ValueObject<String> password,
         bool showErrorMessages,
         bool isSubmitting,
         Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption), {
@@ -2424,6 +2427,7 @@ mixin _$SignInState {
   Result maybeWhen<Result extends Object>(
     Result $default(
         ValueObject<String> emailOrLogin,
+        ValueObject<String> password,
         bool showErrorMessages,
         bool isSubmitting,
         Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption), {
@@ -2513,6 +2517,7 @@ abstract class _$SignInStateCopyWith<$Res>
   @override
   $Res call(
       {ValueObject<String> emailOrLogin,
+      ValueObject<String> password,
       bool showErrorMessages,
       bool isSubmitting,
       Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption});
@@ -2530,6 +2535,7 @@ class __$SignInStateCopyWithImpl<$Res> extends _$SignInStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object emailOrLogin = freezed,
+    Object password = freezed,
     Object showErrorMessages = freezed,
     Object isSubmitting = freezed,
     Object authFailureOrSuccessOption = freezed,
@@ -2538,6 +2544,9 @@ class __$SignInStateCopyWithImpl<$Res> extends _$SignInStateCopyWithImpl<$Res>
       emailOrLogin: emailOrLogin == freezed
           ? _value.emailOrLogin
           : emailOrLogin as ValueObject<String>,
+      password: password == freezed
+          ? _value.password
+          : password as ValueObject<String>,
       showErrorMessages: showErrorMessages == freezed
           ? _value.showErrorMessages
           : showErrorMessages as bool,
@@ -2553,16 +2562,20 @@ class __$SignInStateCopyWithImpl<$Res> extends _$SignInStateCopyWithImpl<$Res>
 class _$_SignInState implements _SignInState {
   const _$_SignInState(
       {@required this.emailOrLogin,
+      @required this.password,
       @required this.showErrorMessages,
       @required this.isSubmitting,
       @required this.authFailureOrSuccessOption})
       : assert(emailOrLogin != null),
+        assert(password != null),
         assert(showErrorMessages != null),
         assert(isSubmitting != null),
         assert(authFailureOrSuccessOption != null);
 
   @override
   final ValueObject<String> emailOrLogin;
+  @override
+  final ValueObject<String> password;
   @override
   final bool showErrorMessages;
   @override
@@ -2572,7 +2585,7 @@ class _$_SignInState implements _SignInState {
 
   @override
   String toString() {
-    return 'SignInState(emailOrLogin: $emailOrLogin, showErrorMessages: $showErrorMessages, isSubmitting: $isSubmitting, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
+    return 'SignInState(emailOrLogin: $emailOrLogin, password: $password, showErrorMessages: $showErrorMessages, isSubmitting: $isSubmitting, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
   }
 
   @override
@@ -2582,6 +2595,9 @@ class _$_SignInState implements _SignInState {
             (identical(other.emailOrLogin, emailOrLogin) ||
                 const DeepCollectionEquality()
                     .equals(other.emailOrLogin, emailOrLogin)) &&
+            (identical(other.password, password) ||
+                const DeepCollectionEquality()
+                    .equals(other.password, password)) &&
             (identical(other.showErrorMessages, showErrorMessages) ||
                 const DeepCollectionEquality()
                     .equals(other.showErrorMessages, showErrorMessages)) &&
@@ -2599,6 +2615,7 @@ class _$_SignInState implements _SignInState {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(emailOrLogin) ^
+      const DeepCollectionEquality().hash(password) ^
       const DeepCollectionEquality().hash(showErrorMessages) ^
       const DeepCollectionEquality().hash(isSubmitting) ^
       const DeepCollectionEquality().hash(authFailureOrSuccessOption);
@@ -2612,6 +2629,7 @@ class _$_SignInState implements _SignInState {
   Result when<Result extends Object>(
     Result $default(
         ValueObject<String> emailOrLogin,
+        ValueObject<String> password,
         bool showErrorMessages,
         bool isSubmitting,
         Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption), {
@@ -2647,7 +2665,7 @@ class _$_SignInState implements _SignInState {
     assert(loginInput != null);
     assert(passwordInput != null);
     assert(signInCredInput != null);
-    return $default(emailOrLogin, showErrorMessages, isSubmitting,
+    return $default(emailOrLogin, password, showErrorMessages, isSubmitting,
         authFailureOrSuccessOption);
   }
 
@@ -2656,6 +2674,7 @@ class _$_SignInState implements _SignInState {
   Result maybeWhen<Result extends Object>(
     Result $default(
         ValueObject<String> emailOrLogin,
+        ValueObject<String> password,
         bool showErrorMessages,
         bool isSubmitting,
         Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption), {
@@ -2682,7 +2701,7 @@ class _$_SignInState implements _SignInState {
   }) {
     assert(orElse != null);
     if ($default != null) {
-      return $default(emailOrLogin, showErrorMessages, isSubmitting,
+      return $default(emailOrLogin, password, showErrorMessages, isSubmitting,
           authFailureOrSuccessOption);
     }
     return orElse();
@@ -2728,6 +2747,8 @@ abstract class _SignInState implements SignInState {
           {@required
               ValueObject<String> emailOrLogin,
           @required
+              ValueObject<String> password,
+          @required
               bool showErrorMessages,
           @required
               bool isSubmitting,
@@ -2736,6 +2757,7 @@ abstract class _SignInState implements SignInState {
       _$_SignInState;
 
   ValueObject<String> get emailOrLogin;
+  ValueObject<String> get password;
   @override
   bool get showErrorMessages;
   @override
@@ -2851,6 +2873,7 @@ class _$EmailInput implements EmailInput {
   Result when<Result extends Object>(
     Result $default(
         ValueObject<String> emailOrLogin,
+        ValueObject<String> password,
         bool showErrorMessages,
         bool isSubmitting,
         Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption), {
@@ -2895,6 +2918,7 @@ class _$EmailInput implements EmailInput {
   Result maybeWhen<Result extends Object>(
     Result $default(
         ValueObject<String> emailOrLogin,
+        ValueObject<String> password,
         bool showErrorMessages,
         bool isSubmitting,
         Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption), {
@@ -3087,6 +3111,7 @@ class _$LoginInput implements LoginInput {
   Result when<Result extends Object>(
     Result $default(
         ValueObject<String> emailOrLogin,
+        ValueObject<String> password,
         bool showErrorMessages,
         bool isSubmitting,
         Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption), {
@@ -3131,6 +3156,7 @@ class _$LoginInput implements LoginInput {
   Result maybeWhen<Result extends Object>(
     Result $default(
         ValueObject<String> emailOrLogin,
+        ValueObject<String> password,
         bool showErrorMessages,
         bool isSubmitting,
         Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption), {
@@ -3339,6 +3365,7 @@ class _$PasswordInput implements PasswordInput {
   Result when<Result extends Object>(
     Result $default(
         ValueObject<String> emailOrLogin,
+        ValueObject<String> password,
         bool showErrorMessages,
         bool isSubmitting,
         Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption), {
@@ -3383,6 +3410,7 @@ class _$PasswordInput implements PasswordInput {
   Result maybeWhen<Result extends Object>(
     Result $default(
         ValueObject<String> emailOrLogin,
+        ValueObject<String> password,
         bool showErrorMessages,
         bool isSubmitting,
         Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption), {
@@ -3595,6 +3623,7 @@ class _$SignInCredInput implements SignInCredInput {
   Result when<Result extends Object>(
     Result $default(
         ValueObject<String> emailOrLogin,
+        ValueObject<String> password,
         bool showErrorMessages,
         bool isSubmitting,
         Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption), {
@@ -3639,6 +3668,7 @@ class _$SignInCredInput implements SignInCredInput {
   Result maybeWhen<Result extends Object>(
     Result $default(
         ValueObject<String> emailOrLogin,
+        ValueObject<String> password,
         bool showErrorMessages,
         bool isSubmitting,
         Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption), {

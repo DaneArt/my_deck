@@ -79,8 +79,6 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         }
       },
       signInWithGooglePressed: (e) async* {
-
-
         yield (_statesStack.top() as _SignInState).copyWith(
           isSubmitting: true,
           authFailureOrSuccessOption: none(),
@@ -94,27 +92,25 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         );
       },
       signInPressed: (e) async* {
-        if (_userEmail.isValid) {
-          _statesStack.push(SignInState.signInCredInput(
+        if (_userEmail.isValid && _userPassword.isValid) {
+          yield (_statesStack.top() as _SignInState).copyWith(
               emailOrLogin: _userEmail,
               password: _userPassword,
               showErrorMessages: false,
               isSubmitting: false,
-              authFailureOrSuccessOption: none()));
+              authFailureOrSuccessOption: some(right(unit)));
         } else {
-          _statesStack.push(SignInState.signInCredInput(
+          yield (_statesStack.top() as _SignInState).copyWith(
               emailOrLogin: _userLogin,
               password: _userPassword,
               showErrorMessages: false,
               isSubmitting: false,
-              authFailureOrSuccessOption: none()));
+              authFailureOrSuccessOption: none());
         }
-        yield _statesStack.top();
       },
       signUpPressed: (e) async* {
         if (_userLogin.isValid) {
           _userEmail = EmailAddress('');
-
           _statesStack.push(SignInState.emailInput(
               emailAddress: _userEmail,
               showErrorMessages: false,
@@ -122,7 +118,6 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
               authFailureOrSuccessOption: none()));
         } else if (_userEmail.isValid) {
           _userLogin = Login('');
-
           _statesStack.push(SignInState.loginInput(
               login: _userLogin,
               showErrorMessages: false,
@@ -171,16 +166,11 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       },
       confirmEmailCodePressed: (e) async* {},
       confirmPasswordPressed: (e) async* {
-        yield (_statesStack.top() as PasswordInput).copyWith(
-          isSubmitting:true,
-          authFailureOrSuccessOption: none()
-        );
+        yield (_statesStack.top() as PasswordInput)
+            .copyWith(isSubmitting: true, authFailureOrSuccessOption: none());
 
         yield (_statesStack.top() as PasswordInput).copyWith(
-          isSubmitting:false,
-          authFailureOrSuccessOption: some(right(unit))
-        );
-
+            isSubmitting: false, authFailureOrSuccessOption: some(right(unit)));
       },
       confirmSignInCredentialsPressed: (e) async* {},
       popStatesStack: (e) async* {
@@ -210,94 +200,3 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     }
   }
 }
-
-/* class LoginBloc extends Bloc<LoginEvent, SignInState> {
-  final GoogleSignInUsecase _googleSignInUsecase;
-  EmailAddress _userEmail;
-  Password _userPassword;
-  Login _userLogin;
-  Stack<SignInState> _statesStack = Stack();
-
-  LoginBloc(this._googleSignInUsecase);
-
-  @override
-  SignInState get initialState => SignInState(_userEmail ?? _userLogin);
-
-  @override
-  Stream<SignInState> mapEventToState(
-    SignInEvent event,
-  ) async* {
-    if (event is BackToPreviousStateEvent) {
-      if (_statesStack.isNotEmpty) _statesStack.pop();
-      if (_statesStack.isNotEmpty) {
-        yield _statesStack.top();
-      } else {
-        yield SignInState(_userLogin ?? _userEmail);
-      }
-    } else if (event is SignInEvent) {
-      yield event.mailOrLogin.value.fold((failure) => SignInState(null),
-          (value) {
-        if (event.mailOrLogin is EmailAddress) {
-          _userEmail = EmailAddress(value);
-        } else {
-          _userLogin = Login(value);
-        }
-        _statesStack.push(SignInState(_userLogin ?? _userEmail));
-        return SignInState(_userLogin ?? _userEmail);
-      });
-    } else if (event is SignUpEvent) {
-      yield event.mailOrLogin.value.fold((failure) => LoginInputState(),
-          (value) {
-        if (event.mailOrLogin is EmailAddress) {
-          _userEmail = EmailAddress(value);
-          _statesStack.push(LoginInputState());
-          return LoginInputState();
-        } else {
-          _userLogin = Login(value);
-          _statesStack.push(EmailInputState());
-          return EmailInputState();
-        }
-      });
-    } else if (event is InputLoginEvent) {
-      yield LoadingState();
-      _userLogin = event.login;
-      _statesStack.push(PasswordInputState());
-      yield PasswordInputState();
-    } else if (event is InputEmailEvent) {
-      yield LoadingState();
-      _userEmail = event.email;
-      _statesStack.push(PasswordInputState());
-      yield PasswordInputState();
-    } else if (event is InputPasswordEvent) {
-      yield LoadingState();
-
-      yield _userLogin.value.fold((failure) => PasswordInputState(),
-          (username) => LoggedInState(username));
-    } else if (event is SignInWithGoogleEvent) {
-      yield LoadingState();
-
-      final singInResult = await _googleSignInUsecase(NoParams());
-
-      yield singInResult.fold(
-          (failure) => AuthErrorState(mapFailureToMessage(failure)),
-          (user) => LoggedInState(user.username));
-    }
-  }
-
-  String mapFailureToMessage(AuthFailure failure) {
-    return failure.map(
-        canselledByuser: (canselledByuser) => 'Authentification canselled.',
-        serverError: (serverError) => 'Something went wrong.Try again.',
-        emailAreadyInUse: (emailAreadyInUse) =>
-            'Email address already in use. Try another one or sign in.',
-        loginAreadyInUse: (loginAreadyInUse) =>
-            'Username already in use. Try another one or sign in.',
-        userNotFound: (userNotFound) =>
-            'User with entered email/username not found. Check input and try again.',
-        wrongPassword: (wrongPassword) =>
-            'Wrong password. Check input and try again.',
-        noInternetConnection: (noInternetConnection) =>
-            'Network error. Check internet connection and try again.');
-  }
-}
- */
