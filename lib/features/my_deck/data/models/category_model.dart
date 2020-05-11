@@ -2,6 +2,15 @@ import 'dart:convert';
 
 import 'package:floor/floor.dart';
 
+final List<CategoryModel> kDefaultCategories = [
+  CategoryModel('Math'),
+  CategoryModel('Foreign Languages'),
+  CategoryModel('Chemistry'),
+  CategoryModel('Art'),
+  CategoryModel('IT'),
+  CategoryModel('Others'),
+];
+
 @entity
 class CategoryModel {
   @primaryKey

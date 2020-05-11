@@ -535,9 +535,10 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
           widget.arguments.deck != null
       ? RaisedButton(
           onPressed: () async {
-            widget.arguments.deck.cardsList.removeWhere(
+            final cards = List.from(widget.arguments.deck.cardsList);
+            cards.removeWhere(
                 (c) => c.answer.model.isEmpty || c.question.model.isEmpty);
-            if (widget.arguments.deck.cardsList.isNotEmpty) {
+            if (cards.length >= 2) {
               final trainedCards = await Navigator.of(context).pushNamed(
                   MyDeckRoutes.train,
                   arguments: [widget.arguments.deck]);
@@ -549,8 +550,8 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
               }
             } else {
               Scaffold.of(context).showSnackBar(SnackBar(
-                content:
-                    Text('No trainable cards. Create cards and save deck.'),
+                content: Text(
+                    'Deck must have two filled cards at least. Create cards and save deck.'),
               ));
             }
           },

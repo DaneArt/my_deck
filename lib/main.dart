@@ -5,6 +5,7 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 import 'package:mydeck/core/injection/dependency_injection.dart' as di;
 import 'package:mydeck/features/sign_in/data/datasources/user_service.dart';
+import 'package:mydeck/features/sign_in/presentation/pages/profile_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/injection/dependency_injection.dart';
@@ -65,6 +66,7 @@ class MyDeckApp extends StatelessWidget {
             color: Colors.white,
             opacity: 1,
           ),
+          primaryIconTheme: IconThemeData(color: Colors.white),
           textTheme: TextTheme(
               button: TextStyle(letterSpacing: 1.2, color: Colors.white)),
         ),
@@ -73,11 +75,11 @@ class MyDeckApp extends StatelessWidget {
             primaryColor: Color(0xFF121212),
             accentColor: Color(0xFFFFC107)),
         routes: {
+          MyDeckRoutes.profile: (context) => ProfilePage(),
           MyDeckRoutes.login: (context) {
-            if (sl.get<UserService>().currentUser != null) {
-              return BlocProvider<SignInBloc>(
-                  create: (context) => sl.get<SignInBloc>(),
-                  child: LoginPage());
+            if (UserService.currentUser != null &&
+                UserService.accessToken != null &&
+                UserService.refreshToken != null) {
               return MultiBlocProvider(
                 providers: [
                   BlocProvider<LibraryBloc>(

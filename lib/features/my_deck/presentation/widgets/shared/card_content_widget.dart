@@ -1,5 +1,8 @@
-import 'package:mydeck/features/my_deck/domain/entities/card_content.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+
+import 'package:mydeck/features/my_deck/domain/entities/card_content.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/shared/ensure_field_visibility.dart';
 
 class TextCardContextWidget extends StatefulWidget {
@@ -68,6 +71,42 @@ class _TextCardContextWidgetState extends State<TextCardContextWidget> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class ImageCardContentWidget extends StatefulWidget {
+  final File imageFile;
+  final double width;
+  final double heigth;
+  final BorderRadius radius;
+  ImageCardContentWidget({
+    Key key,
+    @required this.imageFile,
+    this.width,
+    this.heigth,
+    this.radius,
+  }) : super(key: key);
+
+  @override
+  _ImageCardContentWidgetState createState() => _ImageCardContentWidgetState();
+}
+
+class _ImageCardContentWidgetState extends State<ImageCardContentWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: ClipRRect(
+          borderRadius: widget.radius ??
+              BorderRadius.only(
+                  bottomRight: Radius.circular(4),
+                  bottomLeft: Radius.circular(4)),
+          child: Image.file(
+            widget.imageFile,
+            fit: BoxFit.cover,
+            height: widget.heigth ?? MediaQuery.of(context).size.height * 0.65,
+            width: widget.width ?? MediaQuery.of(context).size.width,
+          )),
     );
   }
 }

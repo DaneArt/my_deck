@@ -1,0 +1,10 @@
+{
+    "Card_Id": "test_Id",
+    "Wins": 2,
+    "Trains": 0,
+    "Answer": "string",
+    "Question": "string",
+    "Lvl": 2,
+    "Last_Train": "0000-01-01 00:00:00.000",
+    "Parent_Deck_Id": "test_parent_id"
+}

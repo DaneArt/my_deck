@@ -2363,21 +2363,6 @@ class _$SignInStateTearOff {
       authFailureOrSuccessOption: authFailureOrSuccessOption,
     );
   }
-
-  SignInCredInput signInCredInput(
-      {@required ValueObject<String> emailOrLogin,
-      @required Password password,
-      @required bool showErrorMessages,
-      @required bool isSubmitting,
-      @required Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption}) {
-    return SignInCredInput(
-      emailOrLogin: emailOrLogin,
-      password: password,
-      showErrorMessages: showErrorMessages,
-      isSubmitting: isSubmitting,
-      authFailureOrSuccessOption: authFailureOrSuccessOption,
-    );
-  }
 }
 
 // ignore: unused_element
@@ -2415,13 +2400,6 @@ mixin _$SignInState {
             bool showErrorMessages,
             bool isSubmitting,
             Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption),
-    @required
-        Result signInCredInput(
-            ValueObject<String> emailOrLogin,
-            Password password,
-            bool showErrorMessages,
-            bool isSubmitting,
-            Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>(
@@ -2444,12 +2422,6 @@ mixin _$SignInState {
         bool showErrorMessages,
         bool isSubmitting,
         Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption),
-    Result signInCredInput(
-        ValueObject<String> emailOrLogin,
-        Password password,
-        bool showErrorMessages,
-        bool isSubmitting,
-        Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -2458,7 +2430,6 @@ mixin _$SignInState {
     @required Result emailInput(EmailInput value),
     @required Result loginInput(LoginInput value),
     @required Result passwordInput(PasswordInput value),
-    @required Result signInCredInput(SignInCredInput value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>(
@@ -2466,7 +2437,6 @@ mixin _$SignInState {
     Result emailInput(EmailInput value),
     Result loginInput(LoginInput value),
     Result passwordInput(PasswordInput value),
-    Result signInCredInput(SignInCredInput value),
     @required Result orElse(),
   });
 
@@ -2652,19 +2622,11 @@ class _$_SignInState implements _SignInState {
             bool showErrorMessages,
             bool isSubmitting,
             Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption),
-    @required
-        Result signInCredInput(
-            ValueObject<String> emailOrLogin,
-            Password password,
-            bool showErrorMessages,
-            bool isSubmitting,
-            Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption),
   }) {
     assert($default != null);
     assert(emailInput != null);
     assert(loginInput != null);
     assert(passwordInput != null);
-    assert(signInCredInput != null);
     return $default(emailOrLogin, password, showErrorMessages, isSubmitting,
         authFailureOrSuccessOption);
   }
@@ -2691,12 +2653,6 @@ class _$_SignInState implements _SignInState {
         bool showErrorMessages,
         bool isSubmitting,
         Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption),
-    Result signInCredInput(
-        ValueObject<String> emailOrLogin,
-        Password password,
-        bool showErrorMessages,
-        bool isSubmitting,
-        Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -2714,13 +2670,11 @@ class _$_SignInState implements _SignInState {
     @required Result emailInput(EmailInput value),
     @required Result loginInput(LoginInput value),
     @required Result passwordInput(PasswordInput value),
-    @required Result signInCredInput(SignInCredInput value),
   }) {
     assert($default != null);
     assert(emailInput != null);
     assert(loginInput != null);
     assert(passwordInput != null);
-    assert(signInCredInput != null);
     return $default(this);
   }
 
@@ -2731,7 +2685,6 @@ class _$_SignInState implements _SignInState {
     Result emailInput(EmailInput value),
     Result loginInput(LoginInput value),
     Result passwordInput(PasswordInput value),
-    Result signInCredInput(SignInCredInput value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -2896,19 +2849,11 @@ class _$EmailInput implements EmailInput {
             bool showErrorMessages,
             bool isSubmitting,
             Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption),
-    @required
-        Result signInCredInput(
-            ValueObject<String> emailOrLogin,
-            Password password,
-            bool showErrorMessages,
-            bool isSubmitting,
-            Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption),
   }) {
     assert($default != null);
     assert(emailInput != null);
     assert(loginInput != null);
     assert(passwordInput != null);
-    assert(signInCredInput != null);
     return emailInput(emailAddress, showErrorMessages, isSubmitting,
         authFailureOrSuccessOption);
   }
@@ -2935,12 +2880,6 @@ class _$EmailInput implements EmailInput {
         bool showErrorMessages,
         bool isSubmitting,
         Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption),
-    Result signInCredInput(
-        ValueObject<String> emailOrLogin,
-        Password password,
-        bool showErrorMessages,
-        bool isSubmitting,
-        Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -2958,13 +2897,11 @@ class _$EmailInput implements EmailInput {
     @required Result emailInput(EmailInput value),
     @required Result loginInput(LoginInput value),
     @required Result passwordInput(PasswordInput value),
-    @required Result signInCredInput(SignInCredInput value),
   }) {
     assert($default != null);
     assert(emailInput != null);
     assert(loginInput != null);
     assert(passwordInput != null);
-    assert(signInCredInput != null);
     return emailInput(this);
   }
 
@@ -2975,7 +2912,6 @@ class _$EmailInput implements EmailInput {
     Result emailInput(EmailInput value),
     Result loginInput(LoginInput value),
     Result passwordInput(PasswordInput value),
-    Result signInCredInput(SignInCredInput value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -3134,19 +3070,11 @@ class _$LoginInput implements LoginInput {
             bool showErrorMessages,
             bool isSubmitting,
             Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption),
-    @required
-        Result signInCredInput(
-            ValueObject<String> emailOrLogin,
-            Password password,
-            bool showErrorMessages,
-            bool isSubmitting,
-            Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption),
   }) {
     assert($default != null);
     assert(emailInput != null);
     assert(loginInput != null);
     assert(passwordInput != null);
-    assert(signInCredInput != null);
     return loginInput(
         login, showErrorMessages, isSubmitting, authFailureOrSuccessOption);
   }
@@ -3173,12 +3101,6 @@ class _$LoginInput implements LoginInput {
         bool showErrorMessages,
         bool isSubmitting,
         Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption),
-    Result signInCredInput(
-        ValueObject<String> emailOrLogin,
-        Password password,
-        bool showErrorMessages,
-        bool isSubmitting,
-        Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -3196,13 +3118,11 @@ class _$LoginInput implements LoginInput {
     @required Result emailInput(EmailInput value),
     @required Result loginInput(LoginInput value),
     @required Result passwordInput(PasswordInput value),
-    @required Result signInCredInput(SignInCredInput value),
   }) {
     assert($default != null);
     assert(emailInput != null);
     assert(loginInput != null);
     assert(passwordInput != null);
-    assert(signInCredInput != null);
     return loginInput(this);
   }
 
@@ -3213,7 +3133,6 @@ class _$LoginInput implements LoginInput {
     Result emailInput(EmailInput value),
     Result loginInput(LoginInput value),
     Result passwordInput(PasswordInput value),
-    Result signInCredInput(SignInCredInput value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -3388,19 +3307,11 @@ class _$PasswordInput implements PasswordInput {
             bool showErrorMessages,
             bool isSubmitting,
             Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption),
-    @required
-        Result signInCredInput(
-            ValueObject<String> emailOrLogin,
-            Password password,
-            bool showErrorMessages,
-            bool isSubmitting,
-            Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption),
   }) {
     assert($default != null);
     assert(emailInput != null);
     assert(loginInput != null);
     assert(passwordInput != null);
-    assert(signInCredInput != null);
     return passwordInput(password, confirmPassword, showErrorMessages,
         isSubmitting, authFailureOrSuccessOption);
   }
@@ -3427,12 +3338,6 @@ class _$PasswordInput implements PasswordInput {
         bool showErrorMessages,
         bool isSubmitting,
         Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption),
-    Result signInCredInput(
-        ValueObject<String> emailOrLogin,
-        Password password,
-        bool showErrorMessages,
-        bool isSubmitting,
-        Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -3450,13 +3355,11 @@ class _$PasswordInput implements PasswordInput {
     @required Result emailInput(EmailInput value),
     @required Result loginInput(LoginInput value),
     @required Result passwordInput(PasswordInput value),
-    @required Result signInCredInput(SignInCredInput value),
   }) {
     assert($default != null);
     assert(emailInput != null);
     assert(loginInput != null);
     assert(passwordInput != null);
-    assert(signInCredInput != null);
     return passwordInput(this);
   }
 
@@ -3467,7 +3370,6 @@ class _$PasswordInput implements PasswordInput {
     Result emailInput(EmailInput value),
     Result loginInput(LoginInput value),
     Result passwordInput(PasswordInput value),
-    Result signInCredInput(SignInCredInput value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -3502,262 +3404,4 @@ abstract class PasswordInput implements SignInState {
   Option<Either<AuthFailure, Unit>> get authFailureOrSuccessOption;
   @override
   $PasswordInputCopyWith<PasswordInput> get copyWith;
-}
-
-abstract class $SignInCredInputCopyWith<$Res>
-    implements $SignInStateCopyWith<$Res> {
-  factory $SignInCredInputCopyWith(
-          SignInCredInput value, $Res Function(SignInCredInput) then) =
-      _$SignInCredInputCopyWithImpl<$Res>;
-  @override
-  $Res call(
-      {ValueObject<String> emailOrLogin,
-      Password password,
-      bool showErrorMessages,
-      bool isSubmitting,
-      Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption});
-}
-
-class _$SignInCredInputCopyWithImpl<$Res>
-    extends _$SignInStateCopyWithImpl<$Res>
-    implements $SignInCredInputCopyWith<$Res> {
-  _$SignInCredInputCopyWithImpl(
-      SignInCredInput _value, $Res Function(SignInCredInput) _then)
-      : super(_value, (v) => _then(v as SignInCredInput));
-
-  @override
-  SignInCredInput get _value => super._value as SignInCredInput;
-
-  @override
-  $Res call({
-    Object emailOrLogin = freezed,
-    Object password = freezed,
-    Object showErrorMessages = freezed,
-    Object isSubmitting = freezed,
-    Object authFailureOrSuccessOption = freezed,
-  }) {
-    return _then(SignInCredInput(
-      emailOrLogin: emailOrLogin == freezed
-          ? _value.emailOrLogin
-          : emailOrLogin as ValueObject<String>,
-      password: password == freezed ? _value.password : password as Password,
-      showErrorMessages: showErrorMessages == freezed
-          ? _value.showErrorMessages
-          : showErrorMessages as bool,
-      isSubmitting:
-          isSubmitting == freezed ? _value.isSubmitting : isSubmitting as bool,
-      authFailureOrSuccessOption: authFailureOrSuccessOption == freezed
-          ? _value.authFailureOrSuccessOption
-          : authFailureOrSuccessOption as Option<Either<AuthFailure, Unit>>,
-    ));
-  }
-}
-
-class _$SignInCredInput implements SignInCredInput {
-  const _$SignInCredInput(
-      {@required this.emailOrLogin,
-      @required this.password,
-      @required this.showErrorMessages,
-      @required this.isSubmitting,
-      @required this.authFailureOrSuccessOption})
-      : assert(emailOrLogin != null),
-        assert(password != null),
-        assert(showErrorMessages != null),
-        assert(isSubmitting != null),
-        assert(authFailureOrSuccessOption != null);
-
-  @override
-  final ValueObject<String> emailOrLogin;
-  @override
-  final Password password;
-  @override
-  final bool showErrorMessages;
-  @override
-  final bool isSubmitting;
-  @override
-  final Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption;
-
-  @override
-  String toString() {
-    return 'SignInState.signInCredInput(emailOrLogin: $emailOrLogin, password: $password, showErrorMessages: $showErrorMessages, isSubmitting: $isSubmitting, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is SignInCredInput &&
-            (identical(other.emailOrLogin, emailOrLogin) ||
-                const DeepCollectionEquality()
-                    .equals(other.emailOrLogin, emailOrLogin)) &&
-            (identical(other.password, password) ||
-                const DeepCollectionEquality()
-                    .equals(other.password, password)) &&
-            (identical(other.showErrorMessages, showErrorMessages) ||
-                const DeepCollectionEquality()
-                    .equals(other.showErrorMessages, showErrorMessages)) &&
-            (identical(other.isSubmitting, isSubmitting) ||
-                const DeepCollectionEquality()
-                    .equals(other.isSubmitting, isSubmitting)) &&
-            (identical(other.authFailureOrSuccessOption,
-                    authFailureOrSuccessOption) ||
-                const DeepCollectionEquality().equals(
-                    other.authFailureOrSuccessOption,
-                    authFailureOrSuccessOption)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(emailOrLogin) ^
-      const DeepCollectionEquality().hash(password) ^
-      const DeepCollectionEquality().hash(showErrorMessages) ^
-      const DeepCollectionEquality().hash(isSubmitting) ^
-      const DeepCollectionEquality().hash(authFailureOrSuccessOption);
-
-  @override
-  $SignInCredInputCopyWith<SignInCredInput> get copyWith =>
-      _$SignInCredInputCopyWithImpl<SignInCredInput>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  Result when<Result extends Object>(
-    Result $default(
-        ValueObject<String> emailOrLogin,
-        ValueObject<String> password,
-        bool showErrorMessages,
-        bool isSubmitting,
-        Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption), {
-    @required
-        Result emailInput(
-            EmailAddress emailAddress,
-            bool showErrorMessages,
-            bool isSubmitting,
-            Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption),
-    @required
-        Result loginInput(
-            Login login,
-            bool showErrorMessages,
-            bool isSubmitting,
-            Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption),
-    @required
-        Result passwordInput(
-            Password password,
-            Password confirmPassword,
-            bool showErrorMessages,
-            bool isSubmitting,
-            Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption),
-    @required
-        Result signInCredInput(
-            ValueObject<String> emailOrLogin,
-            Password password,
-            bool showErrorMessages,
-            bool isSubmitting,
-            Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption),
-  }) {
-    assert($default != null);
-    assert(emailInput != null);
-    assert(loginInput != null);
-    assert(passwordInput != null);
-    assert(signInCredInput != null);
-    return signInCredInput(emailOrLogin, password, showErrorMessages,
-        isSubmitting, authFailureOrSuccessOption);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>(
-    Result $default(
-        ValueObject<String> emailOrLogin,
-        ValueObject<String> password,
-        bool showErrorMessages,
-        bool isSubmitting,
-        Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption), {
-    Result emailInput(
-        EmailAddress emailAddress,
-        bool showErrorMessages,
-        bool isSubmitting,
-        Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption),
-    Result loginInput(Login login, bool showErrorMessages, bool isSubmitting,
-        Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption),
-    Result passwordInput(
-        Password password,
-        Password confirmPassword,
-        bool showErrorMessages,
-        bool isSubmitting,
-        Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption),
-    Result signInCredInput(
-        ValueObject<String> emailOrLogin,
-        Password password,
-        bool showErrorMessages,
-        bool isSubmitting,
-        Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (signInCredInput != null) {
-      return signInCredInput(emailOrLogin, password, showErrorMessages,
-          isSubmitting, authFailureOrSuccessOption);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result map<Result extends Object>(
-    Result $default(_SignInState value), {
-    @required Result emailInput(EmailInput value),
-    @required Result loginInput(LoginInput value),
-    @required Result passwordInput(PasswordInput value),
-    @required Result signInCredInput(SignInCredInput value),
-  }) {
-    assert($default != null);
-    assert(emailInput != null);
-    assert(loginInput != null);
-    assert(passwordInput != null);
-    assert(signInCredInput != null);
-    return signInCredInput(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>(
-    Result $default(_SignInState value), {
-    Result emailInput(EmailInput value),
-    Result loginInput(LoginInput value),
-    Result passwordInput(PasswordInput value),
-    Result signInCredInput(SignInCredInput value),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (signInCredInput != null) {
-      return signInCredInput(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class SignInCredInput implements SignInState {
-  const factory SignInCredInput(
-          {@required
-              ValueObject<String> emailOrLogin,
-          @required
-              Password password,
-          @required
-              bool showErrorMessages,
-          @required
-              bool isSubmitting,
-          @required
-              Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption}) =
-      _$SignInCredInput;
-
-  ValueObject<String> get emailOrLogin;
-  Password get password;
-  @override
-  bool get showErrorMessages;
-  @override
-  bool get isSubmitting;
-  @override
-  Option<Either<AuthFailure, Unit>> get authFailureOrSuccessOption;
-  @override
-  $SignInCredInputCopyWith<SignInCredInput> get copyWith;
 }

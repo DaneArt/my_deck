@@ -8,22 +8,22 @@ part of 'deck_model.dart';
 
 DeckModel _$DeckModelFromJson(Map<String, dynamic> json) {
   return DeckModel(
-    json['deck_id'] as String,
-    json['title'] as String,
-    json['icon'] as String,
-    json['description'] as String,
-    json['category_name'] as String,
-    json['isPrivate'] as bool,
-    json['author'] as String,
+    json['Deck_Id'] as String,
+    json['Title'] as String,
+    json['Icon'] as String,
+    json['Description'] as String,
+    json['Category_Name'] as String,
+    json['IsPrivate'] as bool,
+    json['Author'] as String,
   );
 }
 
 Map<String, dynamic> _$DeckModelToJson(DeckModel instance) => <String, dynamic>{
-      'deck_id': instance.deckId,
-      'title': instance.title,
-      'icon': instance.icon,
-      'description': instance.description,
-      'category_name': instance.categoryName,
-      'isPrivate': instance.isPrivate,
-      'author': instance.author,
+      'Deck_Id': instance.deckId,
+      'Title': instance.title,
+      'Icon': instance.icon,
+      'Description': instance.description,
+      'Category_Name': instance.categoryName,
+      'IsPrivate': instance.isPrivate,
+      'Author': instance.author,
     };

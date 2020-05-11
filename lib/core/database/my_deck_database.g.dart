@@ -85,7 +85,7 @@ class _$MyDeckDatabase extends MyDeckDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `DeckModel` (`deck_id` TEXT, `title` TEXT NOT NULL, `icon` TEXT NOT NULL, `description` TEXT NOT NULL, `subscribers_count` INTEGER NOT NULL, `category_name` TEXT NOT NULL, `is_private` INTEGER NOT NULL, `author` TEXT, FOREIGN KEY (`category_name`) REFERENCES `CategoryModel` (`category_name`) ON UPDATE NO ACTION ON DELETE NO ACTION, PRIMARY KEY (`deck_id`))');
+            'CREATE TABLE IF NOT EXISTS `DeckModel` (`deck_id` TEXT, `title` TEXT NOT NULL, `icon` TEXT NOT NULL, `description` TEXT NOT NULL, `subscribers_count` INTEGER NOT NULL, `category_name` TEXT NOT NULL, `is_private` INTEGER NOT NULL, `author` TEXT NOT NULL, FOREIGN KEY (`category_name`) REFERENCES `CategoryModel` (`category_name`) ON UPDATE NO ACTION ON DELETE NO ACTION, PRIMARY KEY (`deck_id`))');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `CardModel` (`card_id` TEXT, `answer` TEXT NOT NULL, `question` TEXT NOT NULL, `wins` INTEGER NOT NULL, `trains` INTEGER NOT NULL, `lvl` INTEGER NOT NULL, `last_train` TEXT NOT NULL, `parent_deck_id` TEXT NOT NULL, FOREIGN KEY (`parent_deck_id`) REFERENCES `DeckModel` (`deck_id`) ON UPDATE NO ACTION ON DELETE NO ACTION, PRIMARY KEY (`card_id`))');
         await database.execute(

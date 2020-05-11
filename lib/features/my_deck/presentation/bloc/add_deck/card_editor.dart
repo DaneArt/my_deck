@@ -178,75 +178,62 @@ class _CardEditorState extends State<CardEditor> {
 
   Widget _renderQuestion(BuildContext context, Entity.Card card) =>
       card.question.map(
-          noContent: (s) => TextCardContextWidget(
-                key: Key('CNoQue'),
-                content: CardContent.textContent(text: ''),
-                isEditing: true,
-                onTextChanged: (input) {
-                  context.bloc<AddCardBloc>().add(AddCardEvent.questionChanged(
-                      newQuestion: CardContent.textContent(text: input)));
-                },
-              ),
-          textContent: (s) => TextCardContextWidget(
-                key: Key('CNoQue'),
-                content: CardContent.textContent(text: s.model),
-                isEditing: true,
-                onTextChanged: (input) {
-                  context.bloc<AddCardBloc>().add(AddCardEvent.questionChanged(
-                      newQuestion: CardContent.textContent(text: input)));
-                },
-              ),
-          imageContent: (s) => ClipRRect(
-                borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(4),
-                    bottomLeft: Radius.circular(4)),
-                child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                      maxHeight: MediaQuery.of(context).size.height * 0.65,
-                      minWidth: MediaQuery.of(context).size.width * 0.8,
-                    ),
-                    child: InkWell(
-                        onTap: () {
-                          _showImagePickerDialog();
-                        },
-                        child: Image.file(File(s.model),fit: BoxFit.cover))),
-              ));
+        noContent: (s) => TextCardContextWidget(
+          key: Key('CNoQue'),
+          content: CardContent.textContent(text: ''),
+          isEditing: true,
+          onTextChanged: (input) {
+            context.bloc<AddCardBloc>().add(AddCardEvent.questionChanged(
+                newQuestion: CardContent.textContent(text: input)));
+          },
+        ),
+        textContent: (s) => TextCardContextWidget(
+          key: Key('CNoQue'),
+          content: CardContent.textContent(text: s.model),
+          isEditing: true,
+          onTextChanged: (input) {
+            context.bloc<AddCardBloc>().add(AddCardEvent.questionChanged(
+                newQuestion: CardContent.textContent(text: input)));
+          },
+        ),
+        imageContent: (s) => ImageCardContentWidget(imageFile: s.image),
+      );
 
   Widget _renderAnswer(BuildContext context, Entity.Card card) =>
       card.answer.map(
-          noContent: (s) => TextCardContextWidget(
-                key: Key('CNoAns'),
-                content: CardContent.textContent(text: ''),
-                isEditing: true,
-                onTextChanged: (input) {
-                  context.bloc<AddCardBloc>().add(AddCardEvent.answerChanged(
-                      newAnswer: CardContent.textContent(text: input)));
+        noContent: (s) => TextCardContextWidget(
+          key: Key('CNoAns'),
+          content: CardContent.textContent(text: ''),
+          isEditing: true,
+          onTextChanged: (input) {
+            context.bloc<AddCardBloc>().add(AddCardEvent.answerChanged(
+                newAnswer: CardContent.textContent(text: input)));
+          },
+        ),
+        textContent: (s) => TextCardContextWidget(
+          key: Key('CTAns'),
+          content: s,
+          isEditing: true,
+          onTextChanged: (input) {
+            context.bloc<AddCardBloc>().add(AddCardEvent.answerChanged(
+                newAnswer: CardContent.textContent(text: input)));
+          },
+        ),
+        imageContent: (s) => ClipRRect(
+            borderRadius: BorderRadius.only(
+                bottomRight: Radius.circular(4),
+                bottomLeft: Radius.circular(4)),
+            child: InkWell(
+                onTap: () {
+                  _showImagePickerDialog();
                 },
-              ),
-          textContent: (s) => TextCardContextWidget(
-                key: Key('CTAns'),
-                content: s,
-                isEditing: true,
-                onTextChanged: (input) {
-                  context.bloc<AddCardBloc>().add(AddCardEvent.answerChanged(
-                      newAnswer: CardContent.textContent(text: input)));
-                },
-              ),
-          imageContent: (s) => ClipRRect(
-                borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(4),
-                    bottomLeft: Radius.circular(4)),
-                child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                      maxHeight: MediaQuery.of(context).size.height * 0.65,
-                      minWidth: MediaQuery.of(context).size.width * 0.8,
-                    ),
-                    child: InkWell(
-                        onTap: () {
-                          _showImagePickerDialog();
-                        },
-                        child: Image.file(File(s.model),fit: BoxFit.cover))),
-              ));
+                child: Image.file(
+                  File(s.model),
+                  fit: BoxFit.cover,
+                  height: MediaQuery.of(context).size.height * 0.65,
+                  width: MediaQuery.of(context).size.width,
+                ))),
+      );
 
   Widget _renderCard(BuildContext context, AddCardState state) {
     if (!initialized) {
@@ -280,7 +267,8 @@ class _CardEditorState extends State<CardEditor> {
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.only(left: 16.0),
-                        child: Text(state.isQuestion ? 'Question' : 'Answer',style: Theme.of(context).textTheme.headline),
+                        child: Text(state.isQuestion ? 'Question' : 'Answer',
+                            style: Theme.of(context).textTheme.headline5),
                       ),
                       IconButton(
                         icon: Icon(

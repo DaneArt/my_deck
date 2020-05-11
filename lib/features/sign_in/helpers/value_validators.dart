@@ -22,11 +22,11 @@ Either<ValueFailure<String>, String> validateEmailAddress(String input) {
 
 Either<ValueFailure<String>, String> validateToken(String input) {
   var jws = JsonWebSignature.fromCompactSerialization(input);
-  if (jws.unverifiedPayload.jsonContent['exp'] <
-      DateTime.now().millisecondsSinceEpoch)
+  if (jws.unverifiedPayload.jsonContent['exp'] >
+      DateTime.now().millisecondsSinceEpoch ~/ 1000)
     return right(input);
   else {
-    return left(ValueFailure.invalidDeckTitle(failedValue: input));
+    return left(ValueFailure.expiredToken(failedValue: input));
   }
 }
 

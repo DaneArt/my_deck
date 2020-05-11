@@ -39,20 +39,14 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
           _userLogin = Login(e.emailOrLoginStr);
 
           final topState = _statesStack.top();
-          if (topState is SignInCredInput) {
-            yield topState.copyWith(emailOrLogin: _userLogin);
-          } else {
-            yield (topState as _SignInState).copyWith(emailOrLogin: _userLogin);
-          }
+
+          yield (topState as _SignInState).copyWith(emailOrLogin: _userLogin);
         }, (value) async* {
           _userEmail = EmailAddress(value);
 
           final topState = _statesStack.top();
-          if (topState is SignInCredInput) {
-            yield topState.copyWith(emailOrLogin: _userEmail);
-          } else {
-            yield (topState as _SignInState).copyWith(emailOrLogin: _userEmail);
-          }
+
+          yield (topState as _SignInState).copyWith(emailOrLogin: _userEmail);
         });
       },
       emailChanged: (e) async* {
@@ -129,12 +123,12 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       },
       confirmLoginPressed: (e) async* {
         if (_userEmail.isValid) {
-          _statesStack.push(SignInState.passwordInput(
-              password: _userPassword,
-              confirmPassword: _userPassword,
-              showErrorMessages: false,
-              isSubmitting: false,
-              authFailureOrSuccessOption: none()));
+          // _statesStack.push(SignInState.passwordInput(
+          //     password: _userPassword,
+          //     confirmPassword: _userPassword,
+          //     showErrorMessages: false,
+          //     isSubmitting: false,
+          //     authFailureOrSuccessOption: none()));
         } else {
           _userEmail = EmailAddress('');
           _statesStack.push(SignInState.emailInput(
@@ -148,12 +142,12 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       },
       confirmEmailPressed: (e) async* {
         if (_userLogin.isValid) {
-          _statesStack.push(SignInState.passwordInput(
-              password: _userPassword,
-              confirmPassword: _userPassword,
-              showErrorMessages: false,
-              isSubmitting: false,
-              authFailureOrSuccessOption: none()));
+          // _statesStack.push(SignInState.passwordInput(
+          //     password: _userPassword,
+          //     confirmPassword: _userPassword,
+          //     showErrorMessages: false,
+          //     isSubmitting: false,
+          //     authFailureOrSuccessOption: none()));
         } else {
           _userLogin = Login('');
           _statesStack.push(SignInState.loginInput(
@@ -166,11 +160,11 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       },
       confirmEmailCodePressed: (e) async* {},
       confirmPasswordPressed: (e) async* {
-        yield (_statesStack.top() as PasswordInput)
-            .copyWith(isSubmitting: true, authFailureOrSuccessOption: none());
+        // yield (_statesStack.top() as PasswordInput)
+        //     .copyWith(isSubmitting: true, authFailureOrSuccessOption: none());
 
-        yield (_statesStack.top() as PasswordInput).copyWith(
-            isSubmitting: false, authFailureOrSuccessOption: some(right(unit)));
+        // yield (_statesStack.top() as PasswordInput).copyWith(
+        //     isSubmitting: false, authFailureOrSuccessOption: some(right(unit)));
       },
       confirmSignInCredentialsPressed: (e) async* {},
       popStatesStack: (e) async* {
@@ -188,15 +182,15 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
 
   Stream<SignInState> updateTopStatePassword() async* {
     final topState = _statesStack.top();
-    if (topState is PasswordInput) {
-      yield topState.copyWith(
-        password: _userPassword,
-      );
-    } else if (topState is SignInCredInput) {
-      yield topState.copyWith(
-        password: _userPassword,
-        authFailureOrSuccessOption: none(),
-      );
-    }
+    // if (topState is PasswordInput) {
+    //   yield topState.copyWith(
+    //     password: _userPassword,
+    //   );
+    // } else if (topState is SignInCredInput) {
+    //   yield topState.copyWith(
+    //     password: _userPassword,
+    //     authFailureOrSuccessOption: none(),
+    //   );
+    // }
   }
 }

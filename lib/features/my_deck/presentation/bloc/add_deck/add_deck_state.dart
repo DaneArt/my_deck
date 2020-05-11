@@ -16,12 +16,10 @@ abstract class AddDeckState with _$AddDeckState {
   factory AddDeckState.initial() => AddDeckState(
       avatar: DeckAvatar(null),
       cardslist: <Card>[],
-      category: CategoryModel('No category'),
+      category: CategoryModel('Others'),
       description: DeckDescription(''),
       isShared: false,
       title: DeckTitle(''),
       saveFailureOrSuccessOption: none(),
-      author: sl.get<UserService>().currentUser.copyWith(
-        username: 'you'
-      ));
+      author: UserService.currentUser.copyWith(username: 'you'));
 }

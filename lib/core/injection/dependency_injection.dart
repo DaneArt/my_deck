@@ -18,6 +18,7 @@ import 'package:mydeck/features/my_deck/domain/usecases/add_deck_usecase.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/delete_deck_usecase.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/get_all_current_user_decks_usecase.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/get_decks_for_train_usecase.dart';
+import 'package:mydeck/features/my_deck/domain/usecases/load_decks_page_for_category_usecase.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/save_deck_changes_usecase.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/update_deck_usecase.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/update_trained_cards.dart';
@@ -34,7 +35,7 @@ final sl = GetIt.I;
 
 void setUp() {
   //RestApi
-  sl.registerFactory(() => UserService(sl()));
+
   sl.registerFactory(() => Dio());
   sl.registerFactory(() => DataConnectionChecker());
   sl.registerFactory<IAuthFacade>(() => AuthFacadeImpl(sl()));
@@ -45,7 +46,7 @@ void setUp() {
   sl.registerLazySingleton<MyDeckLocalDataSource>(
       () => MyDeckLocalDataSourceImpl());
   sl.registerLazySingleton<MyDeckNetworkDataSource>(
-      () => MyDeckNetworkDataSourceImpl(client: sl(), userService: sl()));
+      () => MyDeckNetworkDataSourceImpl(client: sl()));
   sl.registerLazySingleton<MyDeckMediaDataSource>(
       () => MyDeckMediaDataSourceImpl());
   //repository
@@ -53,20 +54,21 @@ void setUp() {
       entitiesSeparator: sl(),
       localDataSource: sl(),
       networkDataSource: sl(),
-      mediaDataSource: sl()));
+      mediaDataSource: sl(),
+      networkConnection: sl()));
   //use cases
-  sl.registerFactory(() => GoogleSignInUsecase(sl(), sl(), sl()));
+  sl.registerFactory(() => GoogleSignInUsecase(sl(), sl()));
+  sl.registerFactory(() => LoadDecksPageForCategoryUsecase(sl()));
   sl.registerFactory(() => SaveDeckChangesUsecase(sl()));
   sl.registerFactory(() => DeleteDeckUseCase(sl()));
   sl.registerFactory(() => UpdateDeckUsecase(myDeckRepository: sl()));
   sl.registerFactory(() => GetDecksForTrain());
-  sl.registerFactory(() => GetAllCurrentUserDecks(repository: sl()));
+  sl.registerFactory(() => GetAllCurrentUserDecksUsecase(repository: sl()));
   sl.registerFactory(() => AddDeckUseCase(myDeckRepository: sl()));
   sl.registerFactory(() => UpdateTrainedCards(repository: sl()));
   //blocs
   sl.registerFactory(() => SignInBloc(sl()));
   sl.registerFactory(() => AddDeckBloc(
-      userService: sl(),
       saveDeckChangesUsecase: sl(),
       deleteDeckUsecase: sl(),
       addDeckUseCase: sl()));

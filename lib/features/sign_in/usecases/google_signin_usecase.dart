@@ -19,7 +19,6 @@ const String kCheckInternetError = 'Check internet connection and try again.';
 class GoogleSignInUsecase extends UseCase<AuthFailure, UserModel, NoParams> {
   final GoogleSignIn _googleSignIn;
   final NetworkConnection _networkConnection;
-  final UserService _userService;
 
   final String kSecretKey =
       'tLECRAH5TZ7e9ktUUGct2tvPdcsE98luk55wIUvPTegOnOkwficlKZWlXauoUeFs';
@@ -27,7 +26,6 @@ class GoogleSignInUsecase extends UseCase<AuthFailure, UserModel, NoParams> {
   GoogleSignInUsecase(
     this._googleSignIn,
     this._networkConnection,
-    this._userService,
   );
 
   Future<Either<AuthFailure, UserModel>> authOnServer(
@@ -47,9 +45,9 @@ class GoogleSignInUsecase extends UseCase<AuthFailure, UserModel, NoParams> {
           });
 
       final user = UserModel.fromJson(json.decode(userGet.body)['value']);
-      _userService.currentUser = user;
-      _userService.accessToken = accessToken;
-      _userService.refreshToken = refreshToken;
+      UserService.currentUser = user;
+      UserService.accessToken = accessToken;
+      UserService.refreshToken = refreshToken;
       return right(user);
     } else {
       return Left(AuthFailure.serverError());

@@ -129,7 +129,7 @@ class _DeckCardState extends State<DeckCard> {
                         Text(deck.title,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline
+                                .headline5
                                 .copyWith(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold)),

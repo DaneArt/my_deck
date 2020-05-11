@@ -16,6 +16,7 @@ import 'package:mydeck/core/extensions/widget_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mydeck/features/sign_in/data/datasources/user_service.dart';
 
 class LibraryPage extends StatefulWidget {
   LibraryPage({Key key}) : super(key: key);
@@ -167,6 +168,14 @@ class _LibraryPageState extends State<LibraryPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: Container(),
+        title: Text("${UserService.currentUser.username}'s library",
+            style: Theme.of(context)
+                .textTheme
+                .headline6
+                .copyWith(color: Colors.white)),
+      ),
       body: Center(
         child: SafeArea(
           top: true,

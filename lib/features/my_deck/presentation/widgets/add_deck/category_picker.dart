@@ -12,16 +12,6 @@ class CategoryPicker extends StatefulWidget {
 }
 
 class _CategoryPickerState extends State<CategoryPicker> {
-  final List<CategoryModel> categories = [
-    CategoryModel('Math'),
-    CategoryModel('Foreign Languages'),
-    CategoryModel('Chemistry'),
-    CategoryModel('Art'),
-    CategoryModel('IT'),
-    CategoryModel('Others'),
-    CategoryModel('No category'),
-  ];
-
   final List<Color> colors = [
     Colors.redAccent,
     Colors.orangeAccent,
@@ -36,7 +26,7 @@ class _CategoryPickerState extends State<CategoryPicker> {
   @override
   void initState() {
     super.initState();
-    pickedCategory = widget.baseCategory ?? CategoryModel('No category');
+    pickedCategory = widget.baseCategory ?? kDefaultCategories.last;
   }
 
   @override
@@ -65,21 +55,21 @@ class _CategoryPickerState extends State<CategoryPicker> {
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(categories[index].categoryName),
+                        child: Text(kDefaultCategories[index].categoryName),
                       ),
                       Radio(
                         activeColor: colors[index],
                         onChanged: (CategoryModel value) {
                           setState(() {
                             if (value == pickedCategory) {
-                              pickedCategory = categories.last;
+                              pickedCategory = kDefaultCategories.last;
                             } else {
                               pickedCategory = value;
                             }
                           });
                         },
                         groupValue: pickedCategory,
-                        value: categories[index],
+                        value: kDefaultCategories[index],
                       ),
                     ],
                   ),

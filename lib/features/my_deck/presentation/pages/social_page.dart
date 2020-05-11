@@ -10,6 +10,7 @@ import 'package:mydeck/features/my_deck/presentation/widgets/social_page/feature
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:mydeck/features/my_deck/presentation/widgets/social_page/featured_decks_widget_small.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/training_page/custom_stack_list_widget.dart';
 import 'package:mydeck/features/sign_in/data/models/user_model.dart';
 
@@ -55,21 +56,16 @@ class _SocialPageBodyState extends State<_SocialPageBody> {
                 child: Padding(
                   padding: const EdgeInsets.all(48),
                   child: Text(
-                    'Featured decks',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline
-                        .copyWith(color: Colors.white),
+                    'FEATURED DECKS',
+                    style: Theme.of(context).textTheme.headline5.copyWith(
+                        color: Colors.white, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                 ),
               ),
               Align(
                 alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.all(4),
-                  child: Icon(Icons.keyboard_arrow_down),
-                ),
+                child: Icon(Icons.keyboard_arrow_down),
               ),
             ],
           ),
@@ -81,10 +77,10 @@ class _SocialPageBodyState extends State<_SocialPageBody> {
                     Container(
                       width: 300,
                       height: 250,
-                      child: FeaturedDeckList(
+                      child: FeaturedDeckListSmall(
                         decks: List.generate(
                             5,
-                                (index) => Deck(
+                            (index) => Deck(
                                 cardsList: [],
                                 author: UserModel('', ',', ',', ','),
                                 category: CategoryModel(''),
@@ -100,7 +96,7 @@ class _SocialPageBodyState extends State<_SocialPageBody> {
                       padding: const EdgeInsets.all(8),
                       child: Text(
                         'Decks chart',
-                        style: Theme.of(context).textTheme.headline,
+                        style: Theme.of(context).textTheme.headline3,
                       ),
                     ),
                     Padding(

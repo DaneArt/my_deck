@@ -3,6 +3,7 @@ import 'package:mydeck/features/my_deck/domain/entities/card_content.dart';
 import 'package:mydeck/features/my_deck/presentation/bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mydeck/features/my_deck/presentation/widgets/shared/card_content_widget.dart';
 
 import 'dismissible_card_widget.dart';
 
@@ -71,14 +72,16 @@ class _CustomStackListState extends State<CustomStackList>
     };
   }
 
-  Widget createWidgetFromContent(CardContent content) => content.map(
-      noContent: (noContent) => Text(''),
-      textContent: (textContent) => Text(textContent.text,
-          style: TextStyle(color: Colors.black, fontSize: 18)),
-      imageContent: (imageContent) => Image.file(
-            imageContent.image,
-            fit: BoxFit.contain,
-          ));
+  Widget createWidgetFromContent(CardContent content, BuildContext context) =>
+      content.map(
+        noContent: (noContent) => Text(''),
+        textContent: (textContent) => Text(textContent.text,
+            style: TextStyle(color: Colors.black, fontSize: 18)),
+        imageContent: (imageContent) => ImageCardContentWidget(
+          imageFile: imageContent.image,
+          heigth: MediaQuery.of(context).size.height,
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -97,14 +100,37 @@ class _CustomStackListState extends State<CustomStackList>
             child: Card(
               elevation: _cardOffsety != 5 ? 2 : 0,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  height: MediaQuery.of(context).size.height * 0.75,
-                  color: _currentIndex < _cards.length - 2
-                      ? Colors.white
-                      : Color.fromRGBO(0, 0, 0, 0),
-                ),
+                borderRadius: BorderRadius.circular(4),
+                child: _currentIndex < _cards.length - 2
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Text(
+                              'Question',
+                              style: Theme.of(context).textTheme.headline6,
+                              textAlign: TextAlign.start,
+                            ),
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            height: MediaQuery.of(context).size.height * 0.699,
+                            color: Colors.white,
+                            child: Center(
+                              child: createWidgetFromContent(
+                                  _cards[_currentIndex + 2].question, context),
+                            ),
+                          ),
+                        ],
+                      )
+                    : Container(
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: MediaQuery.of(context).size.height * 0.75,
+                        color: _currentIndex < _cards.length - 2
+                            ? Colors.white
+                            : Color.fromRGBO(0, 0, 0, 0),
+                      ),
               ),
             ),
           ),
@@ -115,7 +141,7 @@ class _CustomStackListState extends State<CustomStackList>
                     child: Card(
                       elevation: _cardOffsety != 5 ? 4 : 2,
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(4),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
@@ -123,17 +149,19 @@ class _CustomStackListState extends State<CustomStackList>
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
                                 'Question',
-                                style: Theme.of(context).textTheme.subtitle,
+                                style: Theme.of(context).textTheme.headline6,
                                 textAlign: TextAlign.start,
                               ),
                             ),
                             Container(
                               width: MediaQuery.of(context).size.width * 0.9,
-                              height: MediaQuery.of(context).size.height * 0.708,
+                              height:
+                                  MediaQuery.of(context).size.height * 0.699,
                               color: Colors.white,
                               child: Center(
                                 child: createWidgetFromContent(
-                                    _cards[_currentIndex + 1].question),
+                                    _cards[_currentIndex + 1].question,
+                                    context),
                               ),
                             ),
                           ],

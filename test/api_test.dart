@@ -23,12 +23,13 @@ main() {
   MyDeckNetworkDataSource myDeckNetworkDataSource;
 
   setUp(() {
-    dio =  Dio();
+    dio = Dio();
     mockDioAdapter = MockDioAdapter();
     mockUserService = MockUserService();
     dio.httpClientAdapter = mockDioAdapter;
     myDeckNetworkDataSource = MyDeckNetworkDataSourceImpl(
-        client: dio, userService: mockUserService);
+      client: dio,
+    );
   });
 
   test('Should return correct list of cards when request is successfull',
@@ -36,10 +37,10 @@ main() {
     //arrange
 
     final List<CardModel> tCards = [Card.createDefault().toModel('as')];
-    final responsePayload = jsonEncode(tCards.map((c)=>c.toJson()).toList());
+    final responsePayload = jsonEncode(tCards.map((c) => c.toJson()).toList());
     final httpResponse = ResponseBody.fromString(responsePayload, 200);
     when(mockDioAdapter.fetch(any, any, any))
-    .thenAnswer((_)async=>httpResponse);
+        .thenAnswer((_) async => httpResponse);
     //act
     final result = await myDeckNetworkDataSource.getAllCards();
     //assert

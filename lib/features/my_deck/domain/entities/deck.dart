@@ -6,7 +6,6 @@ import 'package:mydeck/features/my_deck/data/models/category_model.dart';
 import 'package:mydeck/features/my_deck/data/models/deck_model.dart';
 import 'package:mydeck/features/sign_in/data/models/user_model.dart';
 
-
 import 'card.dart';
 
 class Deck extends Equatable {
@@ -41,7 +40,8 @@ class Deck extends Equatable {
         subscribersCount,
         cardsList,
         category,
-        isPrivate
+        isPrivate,
+        author
       ];
 
   factory Deck.fromModel(DeckModel model) => Deck(
@@ -53,10 +53,9 @@ class Deck extends Equatable {
       description: model.description,
       subscribersCount: model.subscribersCount,
       isPrivate: model.isPrivate,
-      author: UserModel(model.author,'','',''));
+      author: UserModel(model.author, '', '', ''));
 
-  DeckModel toModel() =>
-      DeckModel(
+  DeckModel toModel() => DeckModel(
         deckId,
         title,
         icon.path,

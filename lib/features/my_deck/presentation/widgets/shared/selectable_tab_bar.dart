@@ -26,16 +26,11 @@ class SelectableTabBar extends StatelessWidget {
               return BottomNavigationBarItem(
                 icon: Icon(
                   CustomIcons.search,
-                  color: Theme
-                      .of(context)
-                      .accentColor
-                      .withOpacity(0.5),
+                  color: Theme.of(context).accentColor.withOpacity(0.5),
                 ),
                 activeIcon: Icon(
                   CustomIcons.search,
-                  color: Theme
-                      .of(context)
-                      .accentColor,
+                  color: Theme.of(context).accentColor,
                 ),
                 title: Text(''),
               );
@@ -43,16 +38,11 @@ class SelectableTabBar extends StatelessWidget {
               return BottomNavigationBarItem(
                 icon: Icon(
                   CustomIcons.cards,
-                  color: Theme
-                      .of(context)
-                      .accentColor
-                      .withOpacity(0.5),
+                  color: Theme.of(context).accentColor.withOpacity(0.5),
                 ),
                 activeIcon: Icon(
                   CustomIcons.cards,
-                  color: Theme
-                      .of(context)
-                      .accentColor,
+                  color: Theme.of(context).accentColor,
                 ),
                 title: Text(''),
               );
@@ -60,33 +50,23 @@ class SelectableTabBar extends StatelessWidget {
               return BottomNavigationBarItem(
                 icon: Icon(
                   CustomIcons.chart_bar,
-                  color: Theme
-                      .of(context)
-                      .accentColor
-                      .withOpacity(0.5),
+                  color: Theme.of(context).accentColor.withOpacity(0.5),
                 ),
                 activeIcon: Icon(
                   CustomIcons.chart_bar,
-                  color: Theme
-                      .of(context)
-                      .accentColor,
+                  color: Theme.of(context).accentColor,
                 ),
                 title: Text(''),
               );
             case AppTab.profile:
               return BottomNavigationBarItem(
                 icon: Icon(
-                  CustomIcons.user,
-                  color: Theme
-                      .of(context)
-                      .accentColor
-                      .withOpacity(0.5),
+                  Icons.person,
+                  color: Theme.of(context).accentColor.withOpacity(0.5),
                 ),
                 activeIcon: Icon(
-                  CustomIcons.user,
-                  color: Theme
-                      .of(context)
-                      .accentColor,
+                  Icons.person,
+                  color: Theme.of(context).accentColor,
                 ),
                 title: Text(''),
               );

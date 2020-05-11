@@ -16,7 +16,13 @@ class TrainingPage extends StatelessWidget {
         title: BlocBuilder<TrainBloc, TrainState>(
           builder: (context, state) {
             if (state is TrainInProgress) {
-              return Text(state.currentDeck.title.toString());
+              return Text(
+                state.currentDeck.title.toString(),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6
+                    .copyWith(color: Colors.white),
+              );
             }
             return (Text(''));
           },

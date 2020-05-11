@@ -14,23 +14,28 @@ part 'card_model.g.dart';
 class CardModel {
   @primaryKey
   @ColumnInfo(name: 'card_id')
-  @JsonKey(name: 'card_id')
+  @JsonKey(name: 'Card_Id')
   final String cardId;
   @ColumnInfo(nullable: false)
+  @JsonKey(name: 'Answer')
   final String answer;
   @ColumnInfo(nullable: false)
+  @JsonKey(name: 'Question')
   final String question;
   @ColumnInfo(nullable: false)
+  @JsonKey(name: 'Wins')
   final int wins;
   @ColumnInfo(nullable: false)
+  @JsonKey(name: 'Trains')
   final int trains;
   @ColumnInfo(nullable: false)
+  @JsonKey(name: 'Lvl')
   final int lvl;
   @ColumnInfo(nullable: false, name: "last_train")
-  @JsonKey(name: 'last_train')
+  @JsonKey(name: 'Last_Train')
   final String lastTrain;
   @ColumnInfo(nullable: false, name: 'parent_deck_id')
-  @JsonKey(name: 'parent_deck_id')
+  @JsonKey(name: 'Parent_Deck_Id')
   final String parentDeckId;
 
   CardModel(

@@ -22,33 +22,27 @@ class LoginPage extends StatelessWidget {
   Widget buildForm() => BlocBuilder<SignInBloc, SignInState>(
         builder: (context, state) {
           return state.map(
-              (s) => s.isSubmitting
-                  ? Center(child: CircularProgressIndicator())
-                  : InitialLoginForm(
-                      userInput: s.emailOrLogin,
-                      authFailureOrSuccess: s.authFailureOrSuccessOption),
-              emailInput: (s) => s.isSubmitting
-                  ? Center(child: CircularProgressIndicator())
-                  : EmailInputForm(
-                      authFailureOrSuccess: s.authFailureOrSuccessOption,
-                      emailAddress: s.emailAddress,
-                    ),
-              loginInput: (s) => s.isSubmitting
-                  ? Center(child: CircularProgressIndicator())
-                  : LoginInputForm(
-                      authFailureOrSuccess: s.authFailureOrSuccessOption,
-                      login: s.login,
-                    ),
-              passwordInput: (s) => s.isSubmitting
-                  ? Center(child: CircularProgressIndicator())
-                  : PasswordInputForm(),
-              signInCredInput: (s) => s.isSubmitting
-                  ? Center(child: CircularProgressIndicator())
-                  : SignInForm(
-                      emailOrLogin: s.emailOrLogin,
-                      password: s.password,
-                      authFailureOrSuccess: s.authFailureOrSuccessOption,
-                    ));
+            (s) => s.isSubmitting
+                ? Center(child: CircularProgressIndicator())
+                : InitialLoginForm(
+                    userInput: s.emailOrLogin,
+                    authFailureOrSuccess: s.authFailureOrSuccessOption),
+            emailInput: (s) => s.isSubmitting
+                ? Center(child: CircularProgressIndicator())
+                : EmailInputForm(
+                    authFailureOrSuccess: s.authFailureOrSuccessOption,
+                    emailAddress: s.emailAddress,
+                  ),
+            loginInput: (s) => s.isSubmitting
+                ? Center(child: CircularProgressIndicator())
+                : LoginInputForm(
+                    authFailureOrSuccess: s.authFailureOrSuccessOption,
+                    login: s.login,
+                  ),
+            passwordInput: (s) => s.isSubmitting
+                ? Center(child: CircularProgressIndicator())
+                : PasswordInputForm(),
+          );
         },
       );
 
@@ -265,25 +259,38 @@ class _EmailInputFormState extends State<EmailInputForm>
           ),
           Padding(
             padding: const EdgeInsets.only(top: 24, left: 8, right: 8),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              child: LoginButton(
-                content: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text('Confirm',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500, color: Colors.white)),
-                ),
-                onPressed: () {
-                  setState(() {
-                    autovalidate = true;
-                  });
-                  if (emailFieldKey.currentState.validate()) {
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                LoginButton(
+                  content: Icon(Icons.arrow_back, color: Colors.white),
+                  onPressed: () {
+                    setState(() {
+                      autovalidate = true;
+                    });
+
                     BlocProvider.of<SignInBloc>(context)
-                        .add(SignInEvent.confirmEmailPressed());
-                  }
-                },
-              ),
+                        .add(SignInEvent.popStatesStack());
+                  },
+                ),
+                LoginButton(
+                  content: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('Confirm',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, color: Colors.white)),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      autovalidate = true;
+                    });
+                    if (emailFieldKey.currentState.validate()) {
+                      BlocProvider.of<SignInBloc>(context)
+                          .add(SignInEvent.confirmEmailPressed());
+                    }
+                  },
+                ),
+              ],
             ),
           ),
         ],

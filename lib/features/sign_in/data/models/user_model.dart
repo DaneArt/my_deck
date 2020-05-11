@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user_model.g.dart';
@@ -25,11 +27,36 @@ class UserModel {
     String username,
     String email,
     String avatarPath,
-  }) =>
-      UserModel(
-        userId ?? this.userId,
-        username ?? this.username,
-        email ?? this.email,
-        avatarPath ?? this.avatarPath,
-      );
+  }) {
+    return UserModel(
+      userId ?? this.userId,
+      username ?? this.username,
+      email ?? this.email,
+      avatarPath ?? this.avatarPath,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'UserModel(userId: $userId, username: $username, email: $email, avatarPath: $avatarPath)';
+  }
+
+  @override
+  bool operator ==(Object o) {
+    if (identical(this, o)) return true;
+
+    return o is UserModel &&
+        o.userId == userId &&
+        o.username == username &&
+        o.email == email &&
+        o.avatarPath == avatarPath;
+  }
+
+  @override
+  int get hashCode {
+    return userId.hashCode ^
+        username.hashCode ^
+        email.hashCode ^
+        avatarPath.hashCode;
+  }
 }

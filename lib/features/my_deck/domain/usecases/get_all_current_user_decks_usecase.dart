@@ -5,11 +5,11 @@ import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/usecase.dart';
 
 
-class GetAllCurrentUserDecks
+class GetAllCurrentUserDecksUsecase
     extends UseCase<StorageFailure, List<Deck>, NoParams> {
   final MyDeckRepository repository;
 
-  GetAllCurrentUserDecks({this.repository});
+  GetAllCurrentUserDecksUsecase({this.repository});
   @override
   Future<Either<StorageFailure, List<Deck>>> call(NoParams params) async {
     return repository.getCurrentUserAllDecks();

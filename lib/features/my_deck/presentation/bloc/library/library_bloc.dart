@@ -17,12 +17,12 @@ const String CacheFailureMessage = 'Cache error.';
 const String NoDecksMessage = "No decks.";
 
 class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
-  final GetAllCurrentUserDecks getAllCurrentUserDecks;
+  final GetAllCurrentUserDecksUsecase getAllCurrentUserDecks;
   final GetDecksForTrain getDecksForTrain;
 
   LibraryBloc(
       {@required this.getDecksForTrain,
-      @required GetAllCurrentUserDecks allUserDecks})
+      @required GetAllCurrentUserDecksUsecase allUserDecks})
       : assert(allUserDecks != null),
         getAllCurrentUserDecks = allUserDecks;
 
@@ -34,10 +34,14 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
     LibraryEvent event,
   ) async* {
     yield* event.map(getAllUsersDecks: (e) async* {
+      yield state.copyWith(
+        isLoading: true,
+      );
       final decks = await getAllCurrentUserDecks(NoParams());
       yield decks.fold(
           (failure) => state.copyWith(
                 loadingFailureOrSuccess: some(left(CacheFailureMessage)),
+                isLoading: false,
               ), (deckList) {
         return state.copyWith(
           decksSourceList: deckList,

@@ -36,13 +36,6 @@ abstract class SignInState with _$SignInState {
     @required bool isSubmitting,
     @required Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption,
   }) = PasswordInput;
-  const factory SignInState.signInCredInput({
-    @required ValueObject<String> emailOrLogin,
-    @required Password password,
-    @required bool showErrorMessages,
-    @required bool isSubmitting,
-    @required Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption,
-  }) = SignInCredInput;
 }
 
 // class LoginInitial extends LoginState {

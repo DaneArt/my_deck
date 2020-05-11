@@ -1,12 +1,12 @@
 import 'dart:math';
 
-import 'package:mydeck/features/my_deck/domain/entities/card.dart'
-    as Entity;
+import 'package:mydeck/features/my_deck/domain/entities/card.dart' as Entity;
 import 'package:mydeck/features/my_deck/domain/entities/card_content.dart';
 import 'package:mydeck/features/my_deck/presentation/bloc/train/train_bloc.dart';
 import 'package:mydeck/features/my_deck/presentation/bloc/train/train_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mydeck/features/my_deck/presentation/widgets/shared/card_content_widget.dart';
 
 enum Guess { left, center, right }
 
@@ -172,17 +172,19 @@ class _DismissibleCardState extends State<DismissibleCard>
     _dismissController.forward();
   }
 
-  Widget createWidgetFromContent(CardContent content) => content.map(
-      noContent: (noContent) => Text(''),
-      textContent: (textContent) => Text(textContent.text,
-          style: TextStyle(color: Colors.black, fontSize: 18)),
-      imageContent: (imageContent) => Padding(
-        padding: const EdgeInsets.only(top:16.0 ),
-        child: Image.file(
-              imageContent.image,
-              fit: BoxFit.contain,
-            ),
-      ));
+  Widget createWidgetFromContent(CardContent content, BuildContext context) =>
+      content.map(
+          noContent: (noContent) => Text(''),
+          textContent: (textContent) => Text(textContent.text,
+              style: TextStyle(color: Colors.black, fontSize: 18)),
+          imageContent: (imageContent) => Padding(
+                padding: const EdgeInsets.only(top: 40.0),
+                child: ImageCardContentWidget(
+                  imageFile: imageContent.image,
+                  heigth: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                ),
+              ));
 
   @override
   Widget build(BuildContext context) {
@@ -231,33 +233,30 @@ class _DismissibleCardState extends State<DismissibleCard>
                 child: Card(
                   elevation: 4,
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
+                    borderRadius: BorderRadius.circular(4.0),
                     child: Container(
                       width: _flipAnimation.value,
                       height: screenSize.height * 0.75,
                       child: InkWell(
                         onTap: _onFlipCard,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Stack(
-                            children: <Widget>[
-                              Align(
-                                alignment: Alignment.center,
-                                child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: AnimatedOpacity(
-                                      curve: Curves.easeInQuart,
-                                      duration: Duration(milliseconds: 100),
-                                      opacity: _contentOpacity,
-                                      child: _isAnswer
-                                          ? createWidgetFromContent(
-                                              widget.card.answer)
-                                          : createWidgetFromContent(
-                                              widget.card.question),
-                                    ),
-                                  ),
+                        child: Stack(
+                          children: <Widget>[
+                            Align(
+                              alignment: Alignment.center,
+                              child: AnimatedOpacity(
+                                curve: Curves.easeInQuart,
+                                duration: Duration(milliseconds: 100),
+                                opacity: _contentOpacity,
+                                child: _isAnswer
+                                    ? createWidgetFromContent(
+                                        widget.card.answer, context)
+                                    : createWidgetFromContent(
+                                        widget.card.question, context),
                               ),
-                              Row(
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
                                 children: <Widget>[
                                   AnimatedOpacity(
                                     curve: Curves.easeInQuart,
@@ -266,38 +265,38 @@ class _DismissibleCardState extends State<DismissibleCard>
                                     child: Text(
                                       _isAnswer ? 'Answer' : 'Question',
                                       style:
-                                          Theme.of(context).textTheme.subtitle,
+                                          Theme.of(context).textTheme.headline6,
                                       textAlign: TextAlign.start,
                                     ),
                                   ),
                                 ],
                               ),
-                              Align(
-                                alignment: Alignment.center,
-                                child: AnimatedOpacity(
-                                  duration: kThemeAnimationDuration,
-                                  opacity: _trueAnswerOpacity,
-                                  child: Icon(
-                                    Icons.check,
-                                    color: Colors.green,
-                                    size: screenSize.width * 0.8,
-                                  ),
+                            ),
+                            Align(
+                              alignment: Alignment.center,
+                              child: AnimatedOpacity(
+                                duration: kThemeAnimationDuration,
+                                opacity: _trueAnswerOpacity,
+                                child: Icon(
+                                  Icons.check,
+                                  color: Colors.green,
+                                  size: screenSize.width * 0.8,
                                 ),
                               ),
-                              Align(
-                                alignment: Alignment.center,
-                                child: AnimatedOpacity(
-                                  duration: kThemeAnimationDuration,
-                                  opacity: _falseAnswerOpacity,
-                                  child: Icon(
-                                    Icons.clear,
-                                    color: Colors.red,
-                                    size: screenSize.width * 0.8,
-                                  ),
+                            ),
+                            Align(
+                              alignment: Alignment.center,
+                              child: AnimatedOpacity(
+                                duration: kThemeAnimationDuration,
+                                opacity: _falseAnswerOpacity,
+                                child: Icon(
+                                  Icons.clear,
+                                  color: Colors.red,
+                                  size: screenSize.width * 0.8,
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -306,7 +305,7 @@ class _DismissibleCardState extends State<DismissibleCard>
               ),
             ),
           ),
-        )
+        ),
       ],
     );
   }

@@ -40,7 +40,7 @@ class _EndOfTrainViewState extends State<EndOfTrainView> {
       children: <Widget>[
         Text(
           'Congratulations!',
-          style: Theme.of(context).textTheme.headline,
+          style: Theme.of(context).textTheme.headline4,
         ),
         Padding(
           padding: const EdgeInsets.all(16),

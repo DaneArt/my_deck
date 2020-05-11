@@ -1,4 +1,3 @@
-
 import 'package:floor/floor.dart';
 import 'package:mydeck/core/database/my_deck_database.dart';
 import 'package:mydeck/core/error/exception.dart';
@@ -53,13 +52,10 @@ class MyDeckLocalDataSourceImpl implements MyDeckLocalDataSource {
           .databaseBuilder('flutter_database.db')
           .addCallback(Callback(onCreate: (db, version) {
         db.delete('CategoryModel');
-        db.insert('CategoryModel', {'category_name': 'No category'});
-        db.insert('CategoryModel', {'category_name': 'Math'});
-        db.insert('CategoryModel', {'category_name': 'Foreign Languages'});
-        db.insert('CategoryModel', {'category_name': 'Chemistry'});
-        db.insert('CategoryModel', {'category_name': 'Art'});
-        db.insert('CategoryModel', {'category_name': 'IT'});
-        db.insert('CategoryModel', {'category_name': 'Others'});
+        for (CategoryModel category in kDefaultCategories) {
+          db.insert(
+              'CategoryModel', {'category_name': '${category.categoryName}'});
+        }
       })).build();
 
   @override
