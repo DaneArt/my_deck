@@ -6,13 +6,14 @@ import 'package:mydeck/features/my_deck/domain/entities/card.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/usecase.dart';
 
-class SaveDeckChangesUsecase extends UseCase<StorageFailure, Deck, Params> {
+class SaveDeckChangesUsecase
+    extends UseCase<StorageFailure, DeckLibrary, Params> {
   final MyDeckRepository myDeckRepository;
 
   SaveDeckChangesUsecase(this.myDeckRepository);
 
   @override
-  Future<Either<StorageFailure, Deck>> call(Params params) async {
+  Future<Either<StorageFailure, DeckLibrary>> call(Params params) async {
     final oldCards = params.oldDeck.cardsList;
     final newCards = params.newDeck.cardsList;
     final cardsToDelete = _sortCardsToDelete(oldCards, newCards);
@@ -75,8 +76,8 @@ class SaveDeckChangesUsecase extends UseCase<StorageFailure, Deck, Params> {
 }
 
 class Params extends Equatable {
-  final Deck oldDeck;
-  final Deck newDeck;
+  final DeckLibrary oldDeck;
+  final DeckLibrary newDeck;
 
   Params(this.oldDeck, this.newDeck);
 

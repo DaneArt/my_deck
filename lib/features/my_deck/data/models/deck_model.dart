@@ -31,8 +31,10 @@ class DeckModel {
     nullable: false,
     name: 'subscribers_count',
   )
-  @JsonKey(ignore: true)
-  final int subscribersCount = 0;
+  @JsonKey(name: 'Subscribers_Count')
+  final int subscribersCount;
+  @JsonKey(name: 'Cards_Count')
+  final int cardsCount;
   @ColumnInfo(nullable: false, name: 'category_name')
   @JsonKey(name: 'Category_Name')
   final String categoryName;
@@ -43,8 +45,16 @@ class DeckModel {
   @JsonKey(name: 'Author')
   final String author;
 
-  DeckModel(this.deckId, this.title, this.icon, this.description,
-      this.categoryName, this.isPrivate, this.author);
+  DeckModel(
+      this.deckId,
+      this.title,
+      this.icon,
+      this.description,
+      this.categoryName,
+      this.isPrivate,
+      this.author,
+      this.subscribersCount,
+      this.cardsCount);
 
   static DeckModel fromJson(Map<String, dynamic> json) =>
       _$DeckModelFromJson(json);
@@ -56,19 +66,21 @@ class DeckModel {
       String title,
       String icon,
       String description,
-      int subscribersCount,
       String categoryName,
       String author,
-      bool isPrivate}) {
+      bool isPrivate,
+      int subscribersCount,
+      int cardsCount}) {
     return DeckModel(
-      deckId ?? this.deckId,
-      title ?? this.title,
-      icon ?? this.icon,
-      description ?? this.description,
-      categoryName ?? this.categoryName,
-      isPrivate ?? this.isPrivate,
-      author ?? this.author,
-    );
+        deckId ?? this.deckId,
+        title ?? this.title,
+        icon ?? this.icon,
+        description ?? this.description,
+        categoryName ?? this.categoryName,
+        isPrivate ?? this.isPrivate,
+        author ?? this.author,
+        subscribersCount ?? this.subscribersCount,
+        cardsCount ?? this.cardsCount);
   }
 
   @override

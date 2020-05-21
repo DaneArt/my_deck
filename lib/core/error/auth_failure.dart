@@ -22,12 +22,12 @@ abstract class AuthFailure with _$AuthFailure {
 
   @late
   String get message => this.map(
-      canselledByuser: null,
-      serverError: null,
-      emailAreadyInUse: null,
-      loginAreadyInUse: null,
-      userNotFound: null,
-      wrongPassword: null,
-      noInternetConnection: null,
-      tokenExpired: null);
+      canselledByuser: (v) => '',
+      serverError: (v) => '',
+      emailAreadyInUse: (v) => '',
+      loginAreadyInUse: (v) => '',
+      userNotFound: (v) => '',
+      wrongPassword: (v) => '',
+      noInternetConnection: (v) => '',
+      tokenExpired: (v) => '');
 }

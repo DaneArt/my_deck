@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:chopper/chopper.dart';
 import 'package:mydeck/core/error/auth_failure.dart';
 import 'package:mydeck/features/sign_in/data/datasources/user_service.dart';
 import 'package:mydeck/features/sign_in/data/models/user_model.dart';
@@ -32,26 +31,7 @@ class GoogleSignInUsecase extends UseCase<AuthFailure, UserModel, NoParams> {
       GoogleSignInAccount account) async {
     final authData = await account.authentication;
     final userToken = await generateTokenFromGoogleIdToken(authData.idToken);
-    final userResponse = await sendGoogleSignInToken(userToken);
-    if (userResponse.statusCode == 200) {
-      final userId = json.decode(userResponse.body)['userid'];
-      final accessToken = json.decode(userResponse.body)['access_token'];
-      final refreshToken = json.decode(userResponse.body)['refresh_token'];
-      final userGet = await http.get(
-          'http://nypifok-001-site1.gtempurl.com/mydeckapi/user/findbyid/$userId',
-          headers: {
-            'Authorization':
-                'Bearer ${json.decode(userResponse.body)['access_token']}',
-          });
-
-      final user = UserModel.fromJson(json.decode(userGet.body)['value']);
-      UserService.currentUser = user;
-      UserService.accessToken = accessToken;
-      UserService.refreshToken = refreshToken;
-      return right(user);
-    } else {
-      return Left(AuthFailure.serverError());
-    }
+    return UserService.authWithGoogleCreds(userToken);
   }
 
   Future<String> generateTokenFromGoogleIdToken(String idToken) async {
@@ -75,10 +55,6 @@ class GoogleSignInUsecase extends UseCase<AuthFailure, UserModel, NoParams> {
     var jws = builder.build();
     return jws.toCompactSerialization();
   }
-
-  Future<http.Response> sendGoogleSignInToken(String idtoken) => http.post(
-      'http://nypifok-001-site1.gtempurl.com/mydeckapi/user/signinbygoogle',
-      headers: {'idtoken': idtoken});
 
   @override
   Future<Either<AuthFailure, UserModel>> call(NoParams params) async {

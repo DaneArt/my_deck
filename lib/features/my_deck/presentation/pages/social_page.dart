@@ -1,9 +1,13 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mydeck/core/injection/dependency_injection.dart';
 import 'package:mydeck/features/my_deck/data/models/category_model.dart';
 import 'package:mydeck/features/my_deck/data/models/deck_model.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
+import 'package:mydeck/features/my_deck/domain/usecases/load_decks_page_for_category_usecase.dart';
+import 'package:mydeck/features/my_deck/presentation/bloc/decks_feed_tile/decks_feed_tile_bloc.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/shared/custom_page_scroll_physics.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/social_page/deck_chart_tile.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/social_page/featured_decks_widget.dart';
@@ -40,8 +44,8 @@ class _SocialPageBodyState extends State<_SocialPageBody> {
               FeaturedDeckList(
                 decks: List.generate(
                     5,
-                    (index) => Deck(
-                        cardsList: [],
+                    (index) => Deck.online(
+                        cardsCount: 0,
                         author: UserModel('', ',', ',', ','),
                         category: CategoryModel(''),
                         description: 'null',
@@ -72,39 +76,45 @@ class _SocialPageBodyState extends State<_SocialPageBody> {
           CustomScrollView(
             slivers: <Widget>[
               SliverList(
-                delegate: SliverChildListDelegate(
-                  [
-                    Container(
-                      width: 300,
-                      height: 250,
-                      child: FeaturedDeckListSmall(
-                        decks: List.generate(
-                            5,
-                            (index) => Deck(
-                                cardsList: [],
-                                author: UserModel('', ',', ',', ','),
-                                category: CategoryModel(''),
-                                description: 'null',
-                                deckId: ',',
-                                icon: File(''),
-                                isPrivate: false,
-                                title: '',
-                                subscribersCount: 0)),
-                      ),
+                delegate: SliverChildListDelegate([
+                  Container(
+                    width: 300,
+                    height: 250,
+                    child: FeaturedDeckListSmall(
+                      decks: List.generate(
+                          5,
+                          (index) => Deck.online(
+                              author: UserModel('', ',', ',', ','),
+                              category: CategoryModel(''),
+                              description: 'null',
+                              deckId: ',',
+                              icon: File(''),
+                              isPrivate: false,
+                              title: '',
+                              subscribersCount: 0,
+                              cardsCount: 0)),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Text(
-                        'Decks chart',
-                        style: Theme.of(context).textTheme.headline3,
-                      ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      'Decks chart',
+                      style: Theme.of(context).textTheme.headline3,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: DeckChartTile(),
-                    ),
-                  ],
-                ),
+                  ),
+                ]),
+              ),
+              SliverList(
+                delegate: SliverChildListDelegate(kDefaultCategories
+                    .map((category) => BlocProvider(
+                          create: (context) => FeedTileBloc(
+                            categoryModel: category,
+                            loadDecksPageForCategoryUsecase:
+                                sl.get<LoadDecksPageForCategoryUsecase>(),
+                          ),
+                          child: DeckChartTile(),
+                        ))
+                    .toList()),
               ),
             ],
           ),

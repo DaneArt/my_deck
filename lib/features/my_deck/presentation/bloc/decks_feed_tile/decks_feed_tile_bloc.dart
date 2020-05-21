@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:html';
-import 'dart:ui';
 
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
@@ -10,18 +8,17 @@ import 'package:mydeck/core/error/failures.dart';
 import 'package:mydeck/features/my_deck/data/models/category_model.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/load_decks_page_for_category_usecase.dart';
-import 'package:meta/meta.dart';
-
+import 'package:mydeck/features/sign_in/data/datasources/user_service.dart';
 part 'decks_feed_tile_event.dart';
 part 'decks_feed_tile_state.dart';
 
 part 'decks_feed_tile_bloc.freezed.dart';
 
-class DecksFeedTileBloc extends Bloc<DecksFeedTileEvent, DecksFeedTileState> {
+class FeedTileBloc extends Bloc<FeedTileEvent, FeedTileState> {
   final LoadDecksPageForCategoryUsecase _loadDecksPageForCategoryUsecase;
   final CategoryModel _category;
 
-  DecksFeedTileBloc(
+  FeedTileBloc(
       {@required
           LoadDecksPageForCategoryUsecase loadDecksPageForCategoryUsecase,
       @required
@@ -32,30 +29,32 @@ class DecksFeedTileBloc extends Bloc<DecksFeedTileEvent, DecksFeedTileState> {
         _loadDecksPageForCategoryUsecase = loadDecksPageForCategoryUsecase;
 
   @override
-  DecksFeedTileState get initialState =>
-      DecksFeedTileState.initial(category: _category);
+  FeedTileState get initialState => FeedTileState.initial(category: _category);
 
-  static const int _kDecksPerPageCount = 15;
+  final int _kDecksPerPage = 15;
 
   @override
-  Stream<DecksFeedTileState> mapEventToState(
-    DecksFeedTileEvent event,
+  Stream<FeedTileState> mapEventToState(
+    FeedTileEvent event,
   ) async* {
-    if (event is LoadNewPageForCategory && !state.isLoading) {
+    if (event is LoadNewPageForCurrentCategory &&
+        !state.isLoading &&
+        state.decksList.length % _kDecksPerPage == 0) {
+      print('Load page:${state.decksList.length ~/ _kDecksPerPage}');
       yield state.copyWith(
         isLoading: true,
         loadingPageFailureOrSuccess: none(),
       );
       final result = await _loadDecksPageForCategoryUsecase(Params(
         category: state.categoryModel,
-        pageCount: state.decksList.length ~/ _kDecksPerPageCount,
+        pageCount: state.decksList.length ~/ _kDecksPerPage,
       ));
       yield result.fold(
           (failure) => state.copyWith(
                 isLoading: false,
                 loadingPageFailureOrSuccess: some(failure),
               ), (result) {
-        final decks = List.from(state.decksList);
+        final decks = List<Deck>.from(state.decksList);
         decks.addAll(result);
         return state.copyWith(
           isLoading: false,

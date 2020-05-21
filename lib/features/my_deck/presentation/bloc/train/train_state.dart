@@ -15,7 +15,7 @@ class InitialTrainState extends TrainState {
 
 class TrainInProgress extends TrainState {
   Card get currentCard => currentDeck.cardsList[currentCardIndex];
-  final Deck currentDeck;
+  final DeckLibrary currentDeck;
   final int currentCardIndex;
 
   TrainInProgress(this.currentDeck, this.currentCardIndex);

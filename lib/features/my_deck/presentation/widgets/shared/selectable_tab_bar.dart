@@ -46,18 +46,18 @@ class SelectableTabBar extends StatelessWidget {
                 ),
                 title: Text(''),
               );
-            case AppTab.stats:
-              return BottomNavigationBarItem(
-                icon: Icon(
-                  CustomIcons.chart_bar,
-                  color: Theme.of(context).accentColor.withOpacity(0.5),
-                ),
-                activeIcon: Icon(
-                  CustomIcons.chart_bar,
-                  color: Theme.of(context).accentColor,
-                ),
-                title: Text(''),
-              );
+  //            case AppTab.stats:
+  //              return BottomNavigationBarItem(
+  //                icon: Icon(
+  //                  CustomIcons.chart_bar,
+  //                  color: Theme.of(context).accentColor.withOpacity(0.5),
+  //                ),
+  //                activeIcon: Icon(
+  //                  CustomIcons.chart_bar,
+  //                  color: Theme.of(context).accentColor,
+  //                ),
+  //                title: Text(''),
+  //              );
             case AppTab.profile:
               return BottomNavigationBarItem(
                 icon: Icon(

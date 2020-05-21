@@ -12,17 +12,14 @@ import 'package:mydeck/features/my_deck/presentation/bloc/add_card/add_card_bloc
 import 'package:mydeck/features/my_deck/presentation/widgets/shared/card_content_widget.dart';
 
 class CardEditor extends StatefulWidget {
-  final Entity.Card card;
-
-  const CardEditor({Key key, this.card}) : super(key: key);
+  final bool isCreating;
+  const CardEditor({Key key, this.isCreating}) : super(key: key);
 
   @override
   _CardEditorState createState() => _CardEditorState();
 }
 
 class _CardEditorState extends State<CardEditor> {
-  bool initialized = false;
-
   @override
   void initState() {
     super.initState();
@@ -39,29 +36,32 @@ class _CardEditorState extends State<CardEditor> {
         appBar: AppBar(
           elevation: 0,
           actions: <Widget>[
-            ModalRoute.of(context).settings.arguments != null
+            widget.isCreating
                 ? IconButton(
                     onPressed: () {
                       context.navigator.pop(true);
                     },
-                    icon: Icon(Icons.delete, color: Colors.black),
+                    icon: Icon(Icons.delete,
+                        color: Theme.of(context).accentIconTheme.color),
                   )
-                : Spacer(),
+                : Container(),
             IconButton(
               onPressed: () {
                 context
                     .bloc<AddCardBloc>()
                     .add(AddCardEvent.saveChangesAndExit());
               },
-              icon: Icon(Icons.check, color: Colors.black),
+              icon: Icon(Icons.check,
+                  color: Theme.of(context).accentIconTheme.color),
             ),
           ],
           leading: IconButton(
             onPressed: () {
               context.navigator.pop();
             },
-            icon: Icon(Icons.clear, color: Colors.black),
-          ),
+            icon: Icon(Icons.clear,
+                color: Theme.of(context).accentIconTheme.color),
+          ),  
           backgroundColor: Colors.transparent,
         ),
         body: BlocListener<AddCardBloc, AddCardState>(
@@ -150,7 +150,7 @@ class _CardEditorState extends State<CardEditor> {
             IconButton(
               icon: Icon(
                 Icons.photo,
-                color: Colors.black,
+                color: Theme.of(context).accentIconTheme.color,
               ),
               onPressed: () {
                 _showImagePickerDialog();
@@ -159,7 +159,7 @@ class _CardEditorState extends State<CardEditor> {
             IconButton(
               icon: Icon(
                 Icons.text_fields,
-                color: Colors.black,
+                color: Theme.of(context).accentIconTheme.color,
               ),
               onPressed: () {
                 context.bloc<AddCardBloc>().add(AddCardEvent.setTextContent());
@@ -168,7 +168,7 @@ class _CardEditorState extends State<CardEditor> {
             IconButton(
               icon: Icon(
                 Icons.brush,
-                color: Colors.black,
+                color: Theme.of(context).accentIconTheme.color,
               ),
               onPressed: () {},
             ),
@@ -179,7 +179,7 @@ class _CardEditorState extends State<CardEditor> {
   Widget _renderQuestion(BuildContext context, Entity.Card card) =>
       card.question.map(
         noContent: (s) => TextCardContextWidget(
-          key: Key('CNoQue'),
+          key: Key('CQue'),
           content: CardContent.textContent(text: ''),
           isEditing: true,
           onTextChanged: (input) {
@@ -188,7 +188,7 @@ class _CardEditorState extends State<CardEditor> {
           },
         ),
         textContent: (s) => TextCardContextWidget(
-          key: Key('CNoQue'),
+          key: Key('CQue'),
           content: CardContent.textContent(text: s.model),
           isEditing: true,
           onTextChanged: (input) {
@@ -202,7 +202,7 @@ class _CardEditorState extends State<CardEditor> {
   Widget _renderAnswer(BuildContext context, Entity.Card card) =>
       card.answer.map(
         noContent: (s) => TextCardContextWidget(
-          key: Key('CNoAns'),
+          key: Key('CAns'),
           content: CardContent.textContent(text: ''),
           isEditing: true,
           onTextChanged: (input) {
@@ -211,7 +211,7 @@ class _CardEditorState extends State<CardEditor> {
           },
         ),
         textContent: (s) => TextCardContextWidget(
-          key: Key('CTAns'),
+          key: Key('CAns'),
           content: s,
           isEditing: true,
           onTextChanged: (input) {
@@ -236,17 +236,6 @@ class _CardEditorState extends State<CardEditor> {
       );
 
   Widget _renderCard(BuildContext context, AddCardState state) {
-    if (!initialized) {
-      final Entity.Card defaultCard = ModalRoute.of(context).settings.arguments;
-      initialized = true;
-      if (defaultCard != null) {
-        context.bloc<AddCardBloc>().add(AddCardEvent.initWithCard(defaultCard));
-        return state.isQuestion
-            ? _renderQuestion(context, defaultCard)
-            : _renderAnswer(context, defaultCard);
-      }
-    }
-
     return state.isQuestion
         ? _renderQuestion(context, state.card)
         : _renderAnswer(context, state.card);
@@ -273,7 +262,7 @@ class _CardEditorState extends State<CardEditor> {
                       IconButton(
                         icon: Icon(
                           CustomIcons.drop_progress,
-                          color: Colors.black,
+                          color: Theme.of(context).accentIconTheme.color,
                         ),
                         onPressed: () {
                           FocusScope.of(context).unfocus();

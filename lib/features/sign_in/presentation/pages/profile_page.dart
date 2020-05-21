@@ -62,7 +62,7 @@ class _DecksListWidgetState extends State<DecksListWidget> {
         SliverList(
           delegate: SliverChildBuilderDelegate(
               (context, index) =>
-                  DeckCard(decks[index], key: ValueKey(decks[index].deckId)),
+                  DeckCard(deck: decks[index], key: ValueKey(decks[index].deckId), isEditing: false,),
               childCount: decks.length),
         ),
       ],

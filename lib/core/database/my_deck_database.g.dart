@@ -85,7 +85,7 @@ class _$MyDeckDatabase extends MyDeckDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `DeckModel` (`deck_id` TEXT, `title` TEXT NOT NULL, `icon` TEXT NOT NULL, `description` TEXT NOT NULL, `subscribers_count` INTEGER NOT NULL, `category_name` TEXT NOT NULL, `is_private` INTEGER NOT NULL, `author` TEXT NOT NULL, FOREIGN KEY (`category_name`) REFERENCES `CategoryModel` (`category_name`) ON UPDATE NO ACTION ON DELETE NO ACTION, PRIMARY KEY (`deck_id`))');
+            'CREATE TABLE IF NOT EXISTS `DeckModel` (`deck_id` TEXT, `title` TEXT NOT NULL, `icon` TEXT NOT NULL, `description` TEXT NOT NULL, `subscribers_count` INTEGER NOT NULL, `cardsCount` INTEGER, `category_name` TEXT NOT NULL, `is_private` INTEGER NOT NULL, `author` TEXT NOT NULL, FOREIGN KEY (`category_name`) REFERENCES `CategoryModel` (`category_name`) ON UPDATE NO ACTION ON DELETE NO ACTION, PRIMARY KEY (`deck_id`))');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `CardModel` (`card_id` TEXT, `answer` TEXT NOT NULL, `question` TEXT NOT NULL, `wins` INTEGER NOT NULL, `trains` INTEGER NOT NULL, `lvl` INTEGER NOT NULL, `last_train` TEXT NOT NULL, `parent_deck_id` TEXT NOT NULL, FOREIGN KEY (`parent_deck_id`) REFERENCES `DeckModel` (`deck_id`) ON UPDATE NO ACTION ON DELETE NO ACTION, PRIMARY KEY (`card_id`))');
         await database.execute(
@@ -255,6 +255,7 @@ class _$DeckDao extends DeckDao {
                   'icon': item.icon,
                   'description': item.description,
                   'subscribers_count': item.subscribersCount,
+                  'cardsCount': item.cardsCount,
                   'category_name': item.categoryName,
                   'is_private': item.isPrivate ? 1 : 0,
                   'author': item.author
@@ -270,6 +271,7 @@ class _$DeckDao extends DeckDao {
                   'icon': item.icon,
                   'description': item.description,
                   'subscribers_count': item.subscribersCount,
+                  'cardsCount': item.cardsCount,
                   'category_name': item.categoryName,
                   'is_private': item.isPrivate ? 1 : 0,
                   'author': item.author
@@ -285,6 +287,7 @@ class _$DeckDao extends DeckDao {
                   'icon': item.icon,
                   'description': item.description,
                   'subscribers_count': item.subscribersCount,
+                  'cardsCount': item.cardsCount,
                   'category_name': item.categoryName,
                   'is_private': item.isPrivate ? 1 : 0,
                   'author': item.author
@@ -304,7 +307,9 @@ class _$DeckDao extends DeckDao {
       row['description'] as String,
       row['category_name'] as String,
       (row['is_private'] as int) != 0,
-      row['author'] as String);
+      row['author'] as String,
+      row['subscribers_count'] as int,
+      row['cardsCount'] as int);
 
   final InsertionAdapter<DeckModel> _deckModelInsertionAdapter;
 

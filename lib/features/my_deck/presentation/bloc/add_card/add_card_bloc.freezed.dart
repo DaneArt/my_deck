@@ -12,12 +12,6 @@ T _$identity<T>(T value) => value;
 class _$AddCardEventTearOff {
   const _$AddCardEventTearOff();
 
-  InitWithCard initWithCard(Card card) {
-    return InitWithCard(
-      card,
-    );
-  }
-
   RotateCard rotateCard() {
     return RotateCard();
   }
@@ -55,7 +49,6 @@ const $AddCardEvent = _$AddCardEventTearOff();
 mixin _$AddCardEvent {
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result initWithCard(Card card),
     @required Result rotateCard(),
     @required Result questionChanged(CardContent newQuestion),
     @required Result answerChanged(CardContent newAnswer),
@@ -65,7 +58,6 @@ mixin _$AddCardEvent {
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result initWithCard(Card card),
     Result rotateCard(),
     Result questionChanged(CardContent newQuestion),
     Result answerChanged(CardContent newAnswer),
@@ -76,7 +68,6 @@ mixin _$AddCardEvent {
   });
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result initWithCard(InitWithCard value),
     @required Result rotateCard(RotateCard value),
     @required Result questionChanged(QuestionChanged value),
     @required Result answerChanged(AnswerChanged value),
@@ -86,7 +77,6 @@ mixin _$AddCardEvent {
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result initWithCard(InitWithCard value),
     Result rotateCard(RotateCard value),
     Result questionChanged(QuestionChanged value),
     Result answerChanged(AnswerChanged value),
@@ -109,147 +99,6 @@ class _$AddCardEventCopyWithImpl<$Res> implements $AddCardEventCopyWith<$Res> {
   final AddCardEvent _value;
   // ignore: unused_field
   final $Res Function(AddCardEvent) _then;
-}
-
-abstract class $InitWithCardCopyWith<$Res> {
-  factory $InitWithCardCopyWith(
-          InitWithCard value, $Res Function(InitWithCard) then) =
-      _$InitWithCardCopyWithImpl<$Res>;
-  $Res call({Card card});
-}
-
-class _$InitWithCardCopyWithImpl<$Res> extends _$AddCardEventCopyWithImpl<$Res>
-    implements $InitWithCardCopyWith<$Res> {
-  _$InitWithCardCopyWithImpl(
-      InitWithCard _value, $Res Function(InitWithCard) _then)
-      : super(_value, (v) => _then(v as InitWithCard));
-
-  @override
-  InitWithCard get _value => super._value as InitWithCard;
-
-  @override
-  $Res call({
-    Object card = freezed,
-  }) {
-    return _then(InitWithCard(
-      card == freezed ? _value.card : card as Card,
-    ));
-  }
-}
-
-class _$InitWithCard implements InitWithCard {
-  _$InitWithCard(this.card) : assert(card != null);
-
-  @override
-  final Card card;
-
-  @override
-  String toString() {
-    return 'AddCardEvent.initWithCard(card: $card)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is InitWithCard &&
-            (identical(other.card, card) ||
-                const DeepCollectionEquality().equals(other.card, card)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(card);
-
-  @override
-  $InitWithCardCopyWith<InitWithCard> get copyWith =>
-      _$InitWithCardCopyWithImpl<InitWithCard>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result initWithCard(Card card),
-    @required Result rotateCard(),
-    @required Result questionChanged(CardContent newQuestion),
-    @required Result answerChanged(CardContent newAnswer),
-    @required Result setTextContent(),
-    @required Result setImageContent(File image),
-    @required Result saveChangesAndExit(),
-  }) {
-    assert(initWithCard != null);
-    assert(rotateCard != null);
-    assert(questionChanged != null);
-    assert(answerChanged != null);
-    assert(setTextContent != null);
-    assert(setImageContent != null);
-    assert(saveChangesAndExit != null);
-    return initWithCard(card);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result initWithCard(Card card),
-    Result rotateCard(),
-    Result questionChanged(CardContent newQuestion),
-    Result answerChanged(CardContent newAnswer),
-    Result setTextContent(),
-    Result setImageContent(File image),
-    Result saveChangesAndExit(),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (initWithCard != null) {
-      return initWithCard(card);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result initWithCard(InitWithCard value),
-    @required Result rotateCard(RotateCard value),
-    @required Result questionChanged(QuestionChanged value),
-    @required Result answerChanged(AnswerChanged value),
-    @required Result setTextContent(SetText value),
-    @required Result setImageContent(SetImage value),
-    @required Result saveChangesAndExit(SaveChangesAndExit value),
-  }) {
-    assert(initWithCard != null);
-    assert(rotateCard != null);
-    assert(questionChanged != null);
-    assert(answerChanged != null);
-    assert(setTextContent != null);
-    assert(setImageContent != null);
-    assert(saveChangesAndExit != null);
-    return initWithCard(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result initWithCard(InitWithCard value),
-    Result rotateCard(RotateCard value),
-    Result questionChanged(QuestionChanged value),
-    Result answerChanged(AnswerChanged value),
-    Result setTextContent(SetText value),
-    Result setImageContent(SetImage value),
-    Result saveChangesAndExit(SaveChangesAndExit value),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (initWithCard != null) {
-      return initWithCard(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class InitWithCard implements AddCardEvent {
-  factory InitWithCard(Card card) = _$InitWithCard;
-
-  Card get card;
-  $InitWithCardCopyWith<InitWithCard> get copyWith;
 }
 
 abstract class $RotateCardCopyWith<$Res> {
@@ -286,7 +135,6 @@ class _$RotateCard implements RotateCard {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result initWithCard(Card card),
     @required Result rotateCard(),
     @required Result questionChanged(CardContent newQuestion),
     @required Result answerChanged(CardContent newAnswer),
@@ -294,7 +142,6 @@ class _$RotateCard implements RotateCard {
     @required Result setImageContent(File image),
     @required Result saveChangesAndExit(),
   }) {
-    assert(initWithCard != null);
     assert(rotateCard != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
@@ -307,7 +154,6 @@ class _$RotateCard implements RotateCard {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result initWithCard(Card card),
     Result rotateCard(),
     Result questionChanged(CardContent newQuestion),
     Result answerChanged(CardContent newAnswer),
@@ -326,7 +172,6 @@ class _$RotateCard implements RotateCard {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result initWithCard(InitWithCard value),
     @required Result rotateCard(RotateCard value),
     @required Result questionChanged(QuestionChanged value),
     @required Result answerChanged(AnswerChanged value),
@@ -334,7 +179,6 @@ class _$RotateCard implements RotateCard {
     @required Result setImageContent(SetImage value),
     @required Result saveChangesAndExit(SaveChangesAndExit value),
   }) {
-    assert(initWithCard != null);
     assert(rotateCard != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
@@ -347,7 +191,6 @@ class _$RotateCard implements RotateCard {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result initWithCard(InitWithCard value),
     Result rotateCard(RotateCard value),
     Result questionChanged(QuestionChanged value),
     Result answerChanged(AnswerChanged value),
@@ -440,7 +283,6 @@ class _$QuestionChanged implements QuestionChanged {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result initWithCard(Card card),
     @required Result rotateCard(),
     @required Result questionChanged(CardContent newQuestion),
     @required Result answerChanged(CardContent newAnswer),
@@ -448,7 +290,6 @@ class _$QuestionChanged implements QuestionChanged {
     @required Result setImageContent(File image),
     @required Result saveChangesAndExit(),
   }) {
-    assert(initWithCard != null);
     assert(rotateCard != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
@@ -461,7 +302,6 @@ class _$QuestionChanged implements QuestionChanged {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result initWithCard(Card card),
     Result rotateCard(),
     Result questionChanged(CardContent newQuestion),
     Result answerChanged(CardContent newAnswer),
@@ -480,7 +320,6 @@ class _$QuestionChanged implements QuestionChanged {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result initWithCard(InitWithCard value),
     @required Result rotateCard(RotateCard value),
     @required Result questionChanged(QuestionChanged value),
     @required Result answerChanged(AnswerChanged value),
@@ -488,7 +327,6 @@ class _$QuestionChanged implements QuestionChanged {
     @required Result setImageContent(SetImage value),
     @required Result saveChangesAndExit(SaveChangesAndExit value),
   }) {
-    assert(initWithCard != null);
     assert(rotateCard != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
@@ -501,7 +339,6 @@ class _$QuestionChanged implements QuestionChanged {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result initWithCard(InitWithCard value),
     Result rotateCard(RotateCard value),
     Result questionChanged(QuestionChanged value),
     Result answerChanged(AnswerChanged value),
@@ -596,7 +433,6 @@ class _$AnswerChanged implements AnswerChanged {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result initWithCard(Card card),
     @required Result rotateCard(),
     @required Result questionChanged(CardContent newQuestion),
     @required Result answerChanged(CardContent newAnswer),
@@ -604,7 +440,6 @@ class _$AnswerChanged implements AnswerChanged {
     @required Result setImageContent(File image),
     @required Result saveChangesAndExit(),
   }) {
-    assert(initWithCard != null);
     assert(rotateCard != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
@@ -617,7 +452,6 @@ class _$AnswerChanged implements AnswerChanged {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result initWithCard(Card card),
     Result rotateCard(),
     Result questionChanged(CardContent newQuestion),
     Result answerChanged(CardContent newAnswer),
@@ -636,7 +470,6 @@ class _$AnswerChanged implements AnswerChanged {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result initWithCard(InitWithCard value),
     @required Result rotateCard(RotateCard value),
     @required Result questionChanged(QuestionChanged value),
     @required Result answerChanged(AnswerChanged value),
@@ -644,7 +477,6 @@ class _$AnswerChanged implements AnswerChanged {
     @required Result setImageContent(SetImage value),
     @required Result saveChangesAndExit(SaveChangesAndExit value),
   }) {
-    assert(initWithCard != null);
     assert(rotateCard != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
@@ -657,7 +489,6 @@ class _$AnswerChanged implements AnswerChanged {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result initWithCard(InitWithCard value),
     Result rotateCard(RotateCard value),
     Result questionChanged(QuestionChanged value),
     Result answerChanged(AnswerChanged value),
@@ -714,7 +545,6 @@ class _$SetText implements SetText {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result initWithCard(Card card),
     @required Result rotateCard(),
     @required Result questionChanged(CardContent newQuestion),
     @required Result answerChanged(CardContent newAnswer),
@@ -722,7 +552,6 @@ class _$SetText implements SetText {
     @required Result setImageContent(File image),
     @required Result saveChangesAndExit(),
   }) {
-    assert(initWithCard != null);
     assert(rotateCard != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
@@ -735,7 +564,6 @@ class _$SetText implements SetText {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result initWithCard(Card card),
     Result rotateCard(),
     Result questionChanged(CardContent newQuestion),
     Result answerChanged(CardContent newAnswer),
@@ -754,7 +582,6 @@ class _$SetText implements SetText {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result initWithCard(InitWithCard value),
     @required Result rotateCard(RotateCard value),
     @required Result questionChanged(QuestionChanged value),
     @required Result answerChanged(AnswerChanged value),
@@ -762,7 +589,6 @@ class _$SetText implements SetText {
     @required Result setImageContent(SetImage value),
     @required Result saveChangesAndExit(SaveChangesAndExit value),
   }) {
-    assert(initWithCard != null);
     assert(rotateCard != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
@@ -775,7 +601,6 @@ class _$SetText implements SetText {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result initWithCard(InitWithCard value),
     Result rotateCard(RotateCard value),
     Result questionChanged(QuestionChanged value),
     Result answerChanged(AnswerChanged value),
@@ -850,7 +675,6 @@ class _$SetImage implements SetImage {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result initWithCard(Card card),
     @required Result rotateCard(),
     @required Result questionChanged(CardContent newQuestion),
     @required Result answerChanged(CardContent newAnswer),
@@ -858,7 +682,6 @@ class _$SetImage implements SetImage {
     @required Result setImageContent(File image),
     @required Result saveChangesAndExit(),
   }) {
-    assert(initWithCard != null);
     assert(rotateCard != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
@@ -871,7 +694,6 @@ class _$SetImage implements SetImage {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result initWithCard(Card card),
     Result rotateCard(),
     Result questionChanged(CardContent newQuestion),
     Result answerChanged(CardContent newAnswer),
@@ -890,7 +712,6 @@ class _$SetImage implements SetImage {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result initWithCard(InitWithCard value),
     @required Result rotateCard(RotateCard value),
     @required Result questionChanged(QuestionChanged value),
     @required Result answerChanged(AnswerChanged value),
@@ -898,7 +719,6 @@ class _$SetImage implements SetImage {
     @required Result setImageContent(SetImage value),
     @required Result saveChangesAndExit(SaveChangesAndExit value),
   }) {
-    assert(initWithCard != null);
     assert(rotateCard != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
@@ -911,7 +731,6 @@ class _$SetImage implements SetImage {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result initWithCard(InitWithCard value),
     Result rotateCard(RotateCard value),
     Result questionChanged(QuestionChanged value),
     Result answerChanged(AnswerChanged value),
@@ -971,7 +790,6 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result initWithCard(Card card),
     @required Result rotateCard(),
     @required Result questionChanged(CardContent newQuestion),
     @required Result answerChanged(CardContent newAnswer),
@@ -979,7 +797,6 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
     @required Result setImageContent(File image),
     @required Result saveChangesAndExit(),
   }) {
-    assert(initWithCard != null);
     assert(rotateCard != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
@@ -992,7 +809,6 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result initWithCard(Card card),
     Result rotateCard(),
     Result questionChanged(CardContent newQuestion),
     Result answerChanged(CardContent newAnswer),
@@ -1011,7 +827,6 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result initWithCard(InitWithCard value),
     @required Result rotateCard(RotateCard value),
     @required Result questionChanged(QuestionChanged value),
     @required Result answerChanged(AnswerChanged value),
@@ -1019,7 +834,6 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
     @required Result setImageContent(SetImage value),
     @required Result saveChangesAndExit(SaveChangesAndExit value),
   }) {
-    assert(initWithCard != null);
     assert(rotateCard != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
@@ -1032,7 +846,6 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result initWithCard(InitWithCard value),
     Result rotateCard(RotateCard value),
     Result questionChanged(QuestionChanged value),
     Result answerChanged(AnswerChanged value),

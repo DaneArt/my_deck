@@ -7,8 +7,8 @@ abstract class AddCardState with _$AddCardState {
       @required bool isQuestion,
       @required bool saveChangesAndExit}) = _AddCardState;
 
-  factory AddCardState.initial() => AddCardState(
-        card: Card.createDefault(),
+  factory AddCardState.initial({@required Card initialCard}) => AddCardState(
+        card: initialCard ?? Card.createDefault(),
         isQuestion: true,
         saveChangesAndExit: false,
       );

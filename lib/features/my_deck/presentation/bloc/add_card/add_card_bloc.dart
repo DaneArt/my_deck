@@ -12,14 +12,16 @@ part 'add_card_event.dart';
 part 'add_card_state.dart';
 
 class AddCardBloc extends Bloc<AddCardEvent, AddCardState> {
+  final Card initialCard;
+
+  AddCardBloc(this.initialCard);
   @override
-  AddCardState get initialState => AddCardState.initial();
+  AddCardState get initialState =>
+      AddCardState.initial(initialCard: initialCard);
 
   @override
   Stream<AddCardState> mapEventToState(AddCardEvent event) async* {
-    yield* event.map(initWithCard: (e) async* {
-      yield state.copyWith(card: e.card, isQuestion: true);
-    }, rotateCard: (e) async* {
+    yield* event.map(rotateCard: (e) async* {
       yield state.copyWith(
         isQuestion: !state.isQuestion,
       );

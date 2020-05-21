@@ -139,14 +139,14 @@ class _$CanselledByUser implements CanselledByUser {
     if (_didmessage == false) {
       _didmessage = true;
       _message = this.map(
-          canselledByuser: null,
-          serverError: null,
-          emailAreadyInUse: null,
-          loginAreadyInUse: null,
-          userNotFound: null,
-          wrongPassword: null,
-          noInternetConnection: null,
-          tokenExpired: null);
+          canselledByuser: (v) => '',
+          serverError: (v) => '',
+          emailAreadyInUse: (v) => '',
+          loginAreadyInUse: (v) => '',
+          userNotFound: (v) => '',
+          wrongPassword: (v) => '',
+          noInternetConnection: (v) => '',
+          tokenExpired: (v) => '');
     }
     return _message;
   }
@@ -282,14 +282,14 @@ class _$ServerError implements ServerError {
     if (_didmessage == false) {
       _didmessage = true;
       _message = this.map(
-          canselledByuser: null,
-          serverError: null,
-          emailAreadyInUse: null,
-          loginAreadyInUse: null,
-          userNotFound: null,
-          wrongPassword: null,
-          noInternetConnection: null,
-          tokenExpired: null);
+          canselledByuser: (v) => '',
+          serverError: (v) => '',
+          emailAreadyInUse: (v) => '',
+          loginAreadyInUse: (v) => '',
+          userNotFound: (v) => '',
+          wrongPassword: (v) => '',
+          noInternetConnection: (v) => '',
+          tokenExpired: (v) => '');
     }
     return _message;
   }
@@ -426,14 +426,14 @@ class _$EmailAlreadyInUse implements EmailAlreadyInUse {
     if (_didmessage == false) {
       _didmessage = true;
       _message = this.map(
-          canselledByuser: null,
-          serverError: null,
-          emailAreadyInUse: null,
-          loginAreadyInUse: null,
-          userNotFound: null,
-          wrongPassword: null,
-          noInternetConnection: null,
-          tokenExpired: null);
+          canselledByuser: (v) => '',
+          serverError: (v) => '',
+          emailAreadyInUse: (v) => '',
+          loginAreadyInUse: (v) => '',
+          userNotFound: (v) => '',
+          wrongPassword: (v) => '',
+          noInternetConnection: (v) => '',
+          tokenExpired: (v) => '');
     }
     return _message;
   }
@@ -570,14 +570,14 @@ class _$LoginAlreadyInUse implements LoginAlreadyInUse {
     if (_didmessage == false) {
       _didmessage = true;
       _message = this.map(
-          canselledByuser: null,
-          serverError: null,
-          emailAreadyInUse: null,
-          loginAreadyInUse: null,
-          userNotFound: null,
-          wrongPassword: null,
-          noInternetConnection: null,
-          tokenExpired: null);
+          canselledByuser: (v) => '',
+          serverError: (v) => '',
+          emailAreadyInUse: (v) => '',
+          loginAreadyInUse: (v) => '',
+          userNotFound: (v) => '',
+          wrongPassword: (v) => '',
+          noInternetConnection: (v) => '',
+          tokenExpired: (v) => '');
     }
     return _message;
   }
@@ -713,14 +713,14 @@ class _$UserNotFound implements UserNotFound {
     if (_didmessage == false) {
       _didmessage = true;
       _message = this.map(
-          canselledByuser: null,
-          serverError: null,
-          emailAreadyInUse: null,
-          loginAreadyInUse: null,
-          userNotFound: null,
-          wrongPassword: null,
-          noInternetConnection: null,
-          tokenExpired: null);
+          canselledByuser: (v) => '',
+          serverError: (v) => '',
+          emailAreadyInUse: (v) => '',
+          loginAreadyInUse: (v) => '',
+          userNotFound: (v) => '',
+          wrongPassword: (v) => '',
+          noInternetConnection: (v) => '',
+          tokenExpired: (v) => '');
     }
     return _message;
   }
@@ -856,14 +856,14 @@ class _$WrongPassword implements WrongPassword {
     if (_didmessage == false) {
       _didmessage = true;
       _message = this.map(
-          canselledByuser: null,
-          serverError: null,
-          emailAreadyInUse: null,
-          loginAreadyInUse: null,
-          userNotFound: null,
-          wrongPassword: null,
-          noInternetConnection: null,
-          tokenExpired: null);
+          canselledByuser: (v) => '',
+          serverError: (v) => '',
+          emailAreadyInUse: (v) => '',
+          loginAreadyInUse: (v) => '',
+          userNotFound: (v) => '',
+          wrongPassword: (v) => '',
+          noInternetConnection: (v) => '',
+          tokenExpired: (v) => '');
     }
     return _message;
   }
@@ -1000,14 +1000,14 @@ class _$NoInternetConnection implements NoInternetConnection {
     if (_didmessage == false) {
       _didmessage = true;
       _message = this.map(
-          canselledByuser: null,
-          serverError: null,
-          emailAreadyInUse: null,
-          loginAreadyInUse: null,
-          userNotFound: null,
-          wrongPassword: null,
-          noInternetConnection: null,
-          tokenExpired: null);
+          canselledByuser: (v) => '',
+          serverError: (v) => '',
+          emailAreadyInUse: (v) => '',
+          loginAreadyInUse: (v) => '',
+          userNotFound: (v) => '',
+          wrongPassword: (v) => '',
+          noInternetConnection: (v) => '',
+          tokenExpired: (v) => '');
     }
     return _message;
   }
@@ -1143,14 +1143,14 @@ class _$TokenExpired implements TokenExpired {
     if (_didmessage == false) {
       _didmessage = true;
       _message = this.map(
-          canselledByuser: null,
-          serverError: null,
-          emailAreadyInUse: null,
-          loginAreadyInUse: null,
-          userNotFound: null,
-          wrongPassword: null,
-          noInternetConnection: null,
-          tokenExpired: null);
+          canselledByuser: (v) => '',
+          serverError: (v) => '',
+          emailAreadyInUse: (v) => '',
+          loginAreadyInUse: (v) => '',
+          userNotFound: (v) => '',
+          wrongPassword: (v) => '',
+          noInternetConnection: (v) => '',
+          tokenExpired: (v) => '');
     }
     return _message;
   }

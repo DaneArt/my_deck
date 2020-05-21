@@ -66,7 +66,7 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
                 avatar: DeckAvatar(_deck.icon),
                 isShared: !_deck.isPrivate,
                 category: _deck.category,
-                cardslist: _deck.cardsList,
+                cardslist: (_deck as DeckLibrary).cardsList,
                 author: deckAuthor.userId == currentUser.userId
                     ? deckAuthor.copyWith(username: 'you')
                     : deckAuthor);
@@ -75,17 +75,17 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
         saveChanges: (e) async* {
           if (_isFieldsValid) {
             if (_saveDeck) {
-              final saveResult = await addDeckUseCase(Params(Deck(
-                  deckId: Uuid().v4(),
-                  cardsList: state.cardslist,
-                  category: state.category,
-                  description: state.description.value
-                      .fold((f) => f.failedValue, (r) => r),
-                  icon: state.avatar.value.fold((f) => f.failedValue, (r) => r),
-                  isPrivate: !state.isShared,
-                  subscribersCount: 0,
-                  title: state.title.value.fold((f) => f.failedValue, (r) => r),
-                  author: UserService.currentUser)));
+              final saveResult = await addDeckUseCase(Params(Deck.library(
+                deckId: Uuid().v4(),
+                cardsList: state.cardslist,
+                category: state.category,
+                description: state.description.value
+                    .fold((f) => f.failedValue, (r) => r),
+                icon: state.avatar.value.fold((f) => f.failedValue, (r) => r),
+                isPrivate: !state.isShared,
+                title: state.title.value.fold((f) => f.failedValue, (r) => r),
+                author: UserService.currentUser,
+              )));
               yield saveResult.fold(
                   (failure) => state.copyWith(
                       saveFailureOrSuccessOption: some(left(failure))),
@@ -94,7 +94,7 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
             } else {
               final saveResult = await saveDeckChangesUsecase(save.Params(
                   _deck,
-                  _deck.copyWith(
+                  (_deck as DeckLibrary).copyWith(
                       author: UserService.currentUser,
                       cardsList: state.cardslist,
                       category: state.category,
@@ -104,7 +104,6 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
                       icon: state.avatar.value
                           .fold((f) => f.failedValue, (r) => r),
                       isPrivate: !state.isShared,
-                      subscribersCount: 0,
                       title: state.title.value
                           .fold((f) => f.failedValue, (r) => r))));
               yield saveResult.fold(
@@ -172,6 +171,45 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
           newList.remove(e.card);
           yield state.copyWith(
               cardslist: newList, saveFailureOrSuccessOption: none());
+        },
+        saveDraft: (e) async* {
+          if (_saveDeck) {
+            final saveResult = await addDeckUseCase(Params(Deck.library(
+                deckId: Uuid().v4(),
+                cardsList: state.cardslist,
+                category: state.category,
+                description: state.description.value
+                    .fold((f) => f.failedValue, (r) => r),
+                icon: state.avatar.value.fold((f) => f.failedValue, (r) => r),
+                isPrivate: true,
+                title: state.title.value.fold((f) => f.failedValue, (r) => r),
+                author: UserService.currentUser)));
+            yield saveResult.fold(
+                (failure) => state.copyWith(
+                    saveFailureOrSuccessOption: some(left(failure))),
+                (success) => state.copyWith(
+                    saveFailureOrSuccessOption: some(right(success))));
+          } else {
+            final saveResult = await saveDeckChangesUsecase(save.Params(
+                _deck,
+                (_deck as DeckLibrary).copyWith(
+                    author: UserService.currentUser,
+                    cardsList: state.cardslist,
+                    category: state.category,
+                    deckId: _deck.deckId,
+                    description: state.description.value
+                        .fold((f) => f.failedValue, (r) => r),
+                    icon:
+                        state.avatar.value.fold((f) => f.failedValue, (r) => r),
+                    isPrivate: true,
+                    title: state.title.value
+                        .fold((f) => f.failedValue, (r) => r))));
+            yield saveResult.fold(
+                (failure) => state.copyWith(
+                    saveFailureOrSuccessOption: some(left(failure))),
+                (success) => state.copyWith(
+                    saveFailureOrSuccessOption: some(right(success))));
+          }
         });
   }
 }

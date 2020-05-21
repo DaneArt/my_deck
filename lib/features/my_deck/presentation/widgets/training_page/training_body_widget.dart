@@ -29,15 +29,16 @@ class _TrainingBodyState extends State<TrainingBody> {
             children: <Widget>[
               Text(
                 'Level ${widget.stateData.currentCard.level}',
-                style: Theme
-                    .of(context)
+                style: Theme.of(context)
                     .textTheme
                     .title
                     .copyWith(fontWeight: FontWeight.w500),
               ),
               IconButton(
                 icon: Icon(CustomIcons.drop_progress,
-                    color: Colors.black),
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black),
                 onPressed: () {
                   widget.trainBloc.add(ReverseAnswer());
                 },

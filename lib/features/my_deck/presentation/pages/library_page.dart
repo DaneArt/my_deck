@@ -129,7 +129,7 @@ class _LibraryPageState extends State<LibraryPage>
           SliverList(
             delegate: SliverChildBuilderDelegate(
                 (context, index) =>
-                    DeckCard(decks[index], key: ValueKey(decks[index].deckId)),
+                    DeckCard(deck: decks[index],isEditing:true,key: ValueKey(decks[index].deckId)),
                 childCount: decks.length),
           ),
         ],

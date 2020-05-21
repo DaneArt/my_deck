@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
-import 'package:chopper/chopper.dart';
 import 'package:dio/dio.dart';
 import 'package:mydeck/core/error/exception.dart';
 import 'package:mydeck/features/my_deck/data/models/card_model.dart';
@@ -48,7 +47,7 @@ abstract class MyDeckNetworkDataSource {
 
   Future<void> deleteCards(List<CardModel> cardModels);
 
-  Future<List<DeckWithCardModels>> loadDecksPageForCategory(
+  Future<List<DeckModel>> loadDecksPageForCategory(
       String categoryName, int pageCount);
 }
 
@@ -56,7 +55,7 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
   final Dio client;
 
   static const String _kBaseUrl =
-      'http://nypifok-001-site1.gtempurl.com/mydeckapi';
+      'http://mydeck-001-site1.dtempurl.com/mydeckapi';
 
   MyDeckNetworkDataSourceImpl({
     @required this.client,
@@ -76,13 +75,18 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
 
         return _makeRequest(request, ++requestCount);
       }
-    } catch (exception) {
-      final refreshResult = await UserService.refreshTokens();
-      if (refreshResult.isSome() && requestCount == 4) {
-        throw NetworkException();
+    } on DioError catch (e) {
+      if (e.response.statusCode == 404) {
+        rethrow;
+      } else if (e.response.statusCode == 401) {
+        final refreshResult = await UserService.refreshTokens();
+        if (refreshResult.isSome() && requestCount == 4) {
+          throw NetworkException();
+        }
+        return _makeRequest(request, ++requestCount);
       }
-
-      return _makeRequest(request, ++requestCount);
+    } catch (exception) {
+      rethrow;
     }
   }
 
@@ -150,9 +154,19 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
   }
 
   @override
-  Future<void> deleteCards(List<CardModel> cardModels) {
-    // TODO: implement deleteCards
-    return null;
+  Future<void> deleteCards(List<CardModel> cardModels) async {
+    _makeRequest(() async {
+      final response = await client.delete(
+        _kBaseUrl + '/card/delete',
+        data: json.encode(cardModels.map((c) => c.toJson()).toList()),
+        options: Options(headers: {
+          HttpHeaders.authorizationHeader: 'Bearer ' + UserService.accessToken
+        }),
+      );
+      if (response.statusCode != 200) {
+        throw NetworkException();
+      }
+    });
   }
 
   @override
@@ -299,8 +313,8 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
 
   @override
   Future<List<DeckWithCardModels>> getAllDecksOfCurrentUser() async {
-    try {
-      return _makeRequest<List<DeckWithCardModels>>(() async {
+    return _makeRequest<List<DeckWithCardModels>>(() async {
+      try {
         final response = await client.get(
           _kBaseUrl +
               '/Deck/AllCurrentUserDecksWithCards/${UserService.currentUser.userId}',
@@ -321,41 +335,47 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
         }).toList();
 
         return mappedDecks;
-      });
-    } catch (e) {
-      throw NetworkException();
-    }
+      } on DioError catch (exception) {
+        if (exception.response.statusCode == 404) {
+          return [];
+        } else {
+          throw NetworkException();
+        }
+      } catch (e) {
+        throw NetworkException();
+      }
+    });
   }
 
   @override
-  Future<List<DeckWithCardModels>> loadDecksPageForCategory(
-      String categoryName, int pageCount) {
-    try {
-      final decks = _makeRequest<List<DeckWithCardModels>>(() async {
-        final response = await client.get(
-          '$base64Url/Deck/ChosenCategoryFeed/$categoryName/$pageCount',
-          options: Options(headers: {
-            HttpHeaders.authorizationHeader: 'Bearer ' + UserService.accessToken
-          }),
-        );
+  Future<List<DeckModel>> loadDecksPageForCategory(
+          String categoryName, int pageCount) =>
+      _makeRequest<List<DeckModel>>(() async {
+        try {
+          final response = await client.get(
+            '$_kBaseUrl/Deck/ChosenCategoryFeed/$categoryName/$pageCount',
+            options: Options(headers: {
+              HttpHeaders.authorizationHeader:
+                  'Bearer ' + UserService.accessToken
+            }),
+          );
 
-        if (response.statusCode != 200) {
+          if (response.statusCode != 200) {
+            throw NetworkException();
+          }
+          final List decks = jsonDecode(response.data);
+          final mappedDecks =
+              decks.map((deck) => DeckModel.fromJson(deck)).toList();
+
+          return mappedDecks;
+        } on DioError catch (exception) {
+          if (exception.response.statusCode == 404) {
+            return [];
+          } else {
+            throw NetworkException();
+          }
+        } catch (e) {
           throw NetworkException();
         }
-        final List decks = jsonDecode(response.data);
-        final mappedDecks = decks.map((deck) {
-          final deckModel = DeckModel.fromJson(deck);
-          final cards = (deck["Cards"] as List)
-              .map((card) => CardModel.fromJson(card))
-              .toList();
-          return DeckWithCardModels(deckModel, cards);
-        }).toList();
-
-        return mappedDecks;
       });
-      return decks;
-    } catch (e) {
-      throw NetworkException();
-    }
-  }
 }

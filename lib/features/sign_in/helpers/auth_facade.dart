@@ -43,8 +43,6 @@ class AuthFacadeImpl implements IAuthFacade {
   Future<Either<AuthFailure, Unit>> signInWithGoogle() async {
     final authResult = await googleSignInUsecase(NoParams());
 
-    final sharedPrefs = await SharedPreferences.getInstance();
-
     return authResult.fold((failure) => left(failure), (user) => right(unit));
   }
 

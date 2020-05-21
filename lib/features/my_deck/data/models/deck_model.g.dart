@@ -15,6 +15,8 @@ DeckModel _$DeckModelFromJson(Map<String, dynamic> json) {
     json['Category_Name'] as String,
     json['IsPrivate'] as bool,
     json['Author'] as String,
+    json['Subscribers_Count'] as int,
+    json['Cards_Count'] as int,
   );
 }
 
@@ -23,6 +25,8 @@ Map<String, dynamic> _$DeckModelToJson(DeckModel instance) => <String, dynamic>{
       'Title': instance.title,
       'Icon': instance.icon,
       'Description': instance.description,
+      'Subscribers_Count': instance.subscribersCount,
+      'Cards_Count': instance.cardsCount,
       'Category_Name': instance.categoryName,
       'IsPrivate': instance.isPrivate,
       'Author': instance.author,

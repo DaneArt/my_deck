@@ -37,10 +37,17 @@ void main() async {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await App.init();
-  runApp(MyDeckApp());
+  final isSessionValid = await UserService.isSessionValid;
+
+  runApp(MyDeckApp(
+    isSessionValid: isSessionValid,
+  ));
 }
 
 class MyDeckApp extends StatelessWidget {
+  final bool isSessionValid;
+
+  const MyDeckApp({Key key, this.isSessionValid}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return StyledToast(
@@ -67,19 +74,22 @@ class MyDeckApp extends StatelessWidget {
             opacity: 1,
           ),
           primaryIconTheme: IconThemeData(color: Colors.white),
+          accentIconTheme: IconThemeData(color: Colors.black),
           textTheme: TextTheme(
               button: TextStyle(letterSpacing: 1.2, color: Colors.white)),
         ),
         darkTheme: ThemeData(
             brightness: Brightness.dark,
+            accentIconTheme: IconThemeData(color: Colors.white),
             primaryColor: Color(0xFF121212),
             accentColor: Color(0xFFFFC107)),
         routes: {
           MyDeckRoutes.profile: (context) => ProfilePage(),
-          MyDeckRoutes.login: (context) {
+          MyDeckRoutes.login: (contaext) {
             if (UserService.currentUser != null &&
                 UserService.accessToken != null &&
-                UserService.refreshToken != null) {
+                UserService.refreshToken != null &&
+                isSessionValid) {
               return MultiBlocProvider(
                 providers: [
                   BlocProvider<LibraryBloc>(
@@ -99,12 +109,6 @@ class MyDeckApp extends StatelessWidget {
                   create: (context) => sl.get<SignInBloc>(),
                   child: LoginPage());
             }
-          },
-          MyDeckRoutes.addCard: (context) {
-            return BlocProvider<AddCardBloc>(
-              create: (context) => AddCardBloc(),
-              child: CardEditor(),
-            );
           },
           MyDeckRoutes.home: (context) {
             return MultiBlocProvider(

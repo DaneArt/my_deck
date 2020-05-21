@@ -329,6 +329,8 @@ abstract class $AddDeckCopyWith<$Res> {
   factory $AddDeckCopyWith(AddDeck value, $Res Function(AddDeck) then) =
       _$AddDeckCopyWithImpl<$Res>;
   $Res call({Deck deck});
+
+  $DeckCopyWith<$Res> get deck;
 }
 
 class _$AddDeckCopyWithImpl<$Res> extends _$LibraryEventCopyWithImpl<$Res>
@@ -346,6 +348,16 @@ class _$AddDeckCopyWithImpl<$Res> extends _$LibraryEventCopyWithImpl<$Res>
     return _then(AddDeck(
       deck: deck == freezed ? _value.deck : deck as Deck,
     ));
+  }
+
+  @override
+  $DeckCopyWith<$Res> get deck {
+    if (_value.deck == null) {
+      return null;
+    }
+    return $DeckCopyWith<$Res>(_value.deck, (value) {
+      return _then(_value.copyWith(deck: value));
+    });
   }
 }
 
@@ -463,6 +475,8 @@ abstract class $UpdateDeckCopyWith<$Res> {
           UpdateDeck value, $Res Function(UpdateDeck) then) =
       _$UpdateDeckCopyWithImpl<$Res>;
   $Res call({Deck deck});
+
+  $DeckCopyWith<$Res> get deck;
 }
 
 class _$UpdateDeckCopyWithImpl<$Res> extends _$LibraryEventCopyWithImpl<$Res>
@@ -480,6 +494,16 @@ class _$UpdateDeckCopyWithImpl<$Res> extends _$LibraryEventCopyWithImpl<$Res>
     return _then(UpdateDeck(
       deck: deck == freezed ? _value.deck : deck as Deck,
     ));
+  }
+
+  @override
+  $DeckCopyWith<$Res> get deck {
+    if (_value.deck == null) {
+      return null;
+    }
+    return $DeckCopyWith<$Res>(_value.deck, (value) {
+      return _then(_value.copyWith(deck: value));
+    });
   }
 }
 
@@ -597,6 +621,8 @@ abstract class $DeleteDeckCopyWith<$Res> {
           DeleteDeck value, $Res Function(DeleteDeck) then) =
       _$DeleteDeckCopyWithImpl<$Res>;
   $Res call({Deck deck});
+
+  $DeckCopyWith<$Res> get deck;
 }
 
 class _$DeleteDeckCopyWithImpl<$Res> extends _$LibraryEventCopyWithImpl<$Res>
@@ -614,6 +640,16 @@ class _$DeleteDeckCopyWithImpl<$Res> extends _$LibraryEventCopyWithImpl<$Res>
     return _then(DeleteDeck(
       deck: deck == freezed ? _value.deck : deck as Deck,
     ));
+  }
+
+  @override
+  $DeckCopyWith<$Res> get deck {
+    if (_value.deck == null) {
+      return null;
+    }
+    return $DeckCopyWith<$Res>(_value.deck, (value) {
+      return _then(_value.copyWith(deck: value));
+    });
   }
 }
 

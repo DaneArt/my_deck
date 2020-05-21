@@ -44,7 +44,7 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
                 isLoading: false,
               ), (deckList) {
         return state.copyWith(
-          decksSourceList: deckList,
+          decksSourceList: deckList.reversed.toList(),
           trainStartFailureOrSuccess: none(),
           loadingFailureOrSuccess: none(),
           isLoading: false,

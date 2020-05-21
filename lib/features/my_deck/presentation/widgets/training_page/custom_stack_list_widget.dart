@@ -98,6 +98,7 @@ class _CustomStackListState extends State<CustomStackList>
           Transform.translate(
             offset: Offset(0, 5),
             child: Card(
+              color: Colors.white,
               elevation: _cardOffsety != 5 ? 2 : 0,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(4),
@@ -109,13 +110,16 @@ class _CustomStackListState extends State<CustomStackList>
                             padding: const EdgeInsets.all(4.0),
                             child: Text(
                               'Question',
-                              style: Theme.of(context).textTheme.headline6,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6
+                                  .copyWith(color: Colors.black),
                               textAlign: TextAlign.start,
                             ),
                           ),
                           Container(
                             width: MediaQuery.of(context).size.width * 0.9,
-                            height: MediaQuery.of(context).size.height * 0.699,
+                            height: MediaQuery.of(context).size.height * 0.7,
                             color: Colors.white,
                             child: Center(
                               child: createWidgetFromContent(
@@ -139,6 +143,7 @@ class _CustomStackListState extends State<CustomStackList>
                 ? Transform.translate(
                     offset: Offset(0, _cardOffsety),
                     child: Card(
+                      color: Colors.white,
                       elevation: _cardOffsety != 5 ? 4 : 2,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(4),
@@ -149,7 +154,10 @@ class _CustomStackListState extends State<CustomStackList>
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
                                 'Question',
-                                style: Theme.of(context).textTheme.headline6,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6
+                                    .copyWith(color: Colors.black),
                                 textAlign: TextAlign.start,
                               ),
                             ),
@@ -170,11 +178,15 @@ class _CustomStackListState extends State<CustomStackList>
                     ),
                   )
                 : Container(
+                    color: Color.fromRGBO(0, 0, 0, 0),
                     width: MediaQuery.of(context).size.width * 0.9,
                     height: MediaQuery.of(context).size.height * 0.75,
                     child: Center(
                       child: Text('No items',
-                          style: Theme.of(context).textTheme.title),
+                          style: Theme.of(context)
+                              .textTheme
+                              .subtitle1
+                              .copyWith(color: Colors.black)),
                     ),
                   ),
           ),

@@ -231,6 +231,7 @@ class _DismissibleCardState extends State<DismissibleCard>
               child: Transform.translate(
                 offset: _swipeOffset,
                 child: Card(
+                  color: Colors.white,
                   elevation: 4,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(4.0),
@@ -264,8 +265,10 @@ class _DismissibleCardState extends State<DismissibleCard>
                                     duration: const Duration(milliseconds: 100),
                                     child: Text(
                                       _isAnswer ? 'Answer' : 'Question',
-                                      style:
-                                          Theme.of(context).textTheme.headline6,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline6
+                                          .copyWith(color: Colors.black),
                                       textAlign: TextAlign.start,
                                     ),
                                   ),

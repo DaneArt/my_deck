@@ -1,4 +1,3 @@
-
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mydeck/core/error/storage_failure.dart';
@@ -7,18 +6,20 @@ import 'package:mydeck/features/my_deck/domain/entities/card_content.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/usecase.dart';
 
-class GetDecksForTrain extends UseCase<StorageFailure, List<Deck>, Params> {
+class GetDecksForTrain
+    extends UseCase<StorageFailure, List<DeckLibrary>, Params> {
   @override
-  Future<Either<StorageFailure, List<Deck>>> call(Params params) async {
+  Future<Either<StorageFailure, List<DeckLibrary>>> call(Params params) async {
     params.decks.removeWhere((d) =>
-    d.title.isEmpty ||
+        d.title.isEmpty ||
         d.icon.path.isEmpty ||
         d.cardsList
             .any((c) => c.answer is NoContent || c.question is NoContent));
-    params.decks.removeWhere((d)=>d.cardsList.isEmpty);
-    params.decks.forEach((d)=>d.cardsList.sort((c1, c2) => compareR(c1, c2)));
-    return Future.value(
-        params.decks.isNotEmpty ? right(params.decks) : left(StorageFailure.getFailure()));
+    params.decks.removeWhere((d) => d.cardsList.isEmpty);
+    params.decks.forEach((d) => d.cardsList.sort((c1, c2) => compareR(c1, c2)));
+    return Future.value(params.decks.isNotEmpty
+        ? right(params.decks)
+        : left(StorageFailure.getFailure()));
   }
 
   int compareR(Card c1, Card c2) {
@@ -46,12 +47,10 @@ class GetDecksForTrain extends UseCase<StorageFailure, List<Deck>, Params> {
     }
     return 0;
   }
-
-
 }
 
 class Params extends Equatable {
-  final List<Deck> decks;
+  final List<DeckLibrary> decks;
 
   Params(this.decks);
 

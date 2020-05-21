@@ -1,96 +1,82 @@
 import 'dart:io';
 
-import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mydeck/features/my_deck/data/models/category_model.dart';
 import 'package:mydeck/features/my_deck/data/models/deck_model.dart';
 import 'package:mydeck/features/sign_in/data/models/user_model.dart';
 
 import 'card.dart';
+part 'deck.freezed.dart';
 
-class Deck extends Equatable {
-  final String deckId;
-  final String title;
-  final File icon;
-  final String description;
-  final int subscribersCount;
-  final CategoryModel category;
-  final UserModel author;
-  final bool isPrivate;
-  final List<Card> cardsList;
+@freezed
+abstract class Deck with _$Deck {
+  factory Deck.online({
+    @required int subscribersCount,
+    @required String deckId,
+    @required String title,
+    @required File icon,
+    @required String description,
+    @required UserModel author,
+    @required CategoryModel category,
+    @required bool isPrivate,
+    @required int cardsCount,
+  }) = DeckOnline;
 
-  Deck({
-    @required this.deckId,
-    @required this.title,
-    @required this.icon,
-    @required this.description,
-    @required this.author,
-    this.subscribersCount = 0,
-    @required this.category,
-    @required this.isPrivate,
-    @required this.cardsList,
-  }) : assert(deckId != null);
+  factory Deck.library({
+    @required List<UserModel> subscribers,
+    @required String deckId,
+    @required String title,
+    @required File icon,
+    @required String description,
+    @required UserModel author,
+    @required CategoryModel category,
+    @required bool isPrivate,
+    @required List<Card> cardsList,
+  }) = DeckLibrary;
 
-  @override
-  List<Object> get props => [
-        deckId,
-        title,
-        icon,
-        description,
-        subscribersCount,
-        cardsList,
-        category,
-        isPrivate,
-        author
-      ];
-
-  factory Deck.fromModel(DeckModel model) => Deck(
-      deckId: model.deckId,
-      title: model.title,
-      icon: File(model.icon),
-      cardsList: [],
-      category: CategoryModel(model.categoryName),
-      description: model.description,
-      subscribersCount: model.subscribersCount,
-      isPrivate: model.isPrivate,
-      author: UserModel(model.author, '', '', ''));
-
-  DeckModel toModel() => DeckModel(
-        deckId,
-        title,
-        icon.path,
-        description,
-        category.categoryName,
-        isPrivate,
-        author.userId,
-      );
-
-  Deck copyWith({
-    String deckId,
-    String title,
-    File icon,
-    UserModel author,
-    String description,
-    int subscribersCount,
-    CategoryModel category,
-    bool isPrivate,
-    List<Card> cardsList,
-  }) {
-    return Deck(
-      deckId: deckId ?? this.deckId,
-      title: title ?? this.title,
-      icon: icon ?? this.icon,
-      description: description ?? this.description,
-      subscribersCount: subscribersCount ?? this.subscribersCount,
-      category: category ?? this.category,
-      isPrivate: isPrivate ?? this.isPrivate,
-      cardsList: cardsList ?? this.cardsList,
-      author: author ?? this.author,
-    );
-  }
-
-  @override
-  String toString() {
-    return 'Deck deckId: $deckId, title: $title, icon: $icon, description: $description, subscribersCount: $subscribersCount, category: $category, isPrivate: $isPrivate, cardsList: $cardsList';
-  }
+  factory Deck.fromModel(DeckModel model) =>
+      model.cardsCount != null || model.subscribersCount != null
+          ? Deck.online(
+              subscribersCount: model.subscribersCount ?? 0,
+              deckId: model.deckId,
+              title: model.title,
+              icon: File(model.icon),
+              description: model.description,
+              author: UserModel(model.author, '', '', ''),
+              category: CategoryModel(model.categoryName),
+              isPrivate: model.isPrivate,
+              cardsCount: model.cardsCount ?? 0)
+          : Deck.library(
+              deckId: model.deckId,
+              title: model.title,
+              icon: File(model.icon),
+              cardsList: [],
+              category: CategoryModel(model.categoryName),
+              description: model.description,
+              subscribers: [],
+              isPrivate: model.isPrivate,
+              author: UserModel(model.author, '', '', ''));
+  @late
+  DeckModel get model => this.map(
+      online: (d) => DeckModel(
+            d.deckId,
+            d.title,
+            d.icon.path,
+            d.description,
+            d.category.categoryName,
+            d.isPrivate,
+            d.author.userId,
+            d.subscribersCount,
+            d.cardsCount,
+          ),
+      library: (d) => DeckModel(
+          d.deckId,
+          d.title,
+          d.icon.path,
+          d.description,
+          d.category.categoryName,
+          d.isPrivate,
+          d.author.userId,
+          d.subscribers.length,
+          d.cardsList.length));
 }

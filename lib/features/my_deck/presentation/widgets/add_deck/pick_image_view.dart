@@ -8,9 +8,9 @@ import 'package:image_picker/image_picker.dart';
 class ImagePickerWidget extends StatefulWidget {
   final Function(File image) onImagePicked;
   final DeckAvatar defaultImage;
-
+  final bool isEditing;
   ImagePickerWidget(
-      {Key key, @required this.onImagePicked, @required this.defaultImage})
+      {Key key, @required this.onImagePicked, @required this.defaultImage, this.isEditing})
       : super(key: key);
 
   @override
@@ -97,7 +97,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                   child: Container(
                     child: Center(
                       child: Text(
-                        _image == null ? 'Pick deck avatar' : 'No avatar',
+                        _image == null &&widget.isEditing ? 'Pick deck avatar' : 'No avatar',
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.body2,
                       ),

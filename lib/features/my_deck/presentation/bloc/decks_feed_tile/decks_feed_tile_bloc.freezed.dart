@@ -9,125 +9,77 @@ part of 'decks_feed_tile_bloc.dart';
 
 T _$identity<T>(T value) => value;
 
-class _$DecksFeedTileEventTearOff {
-  const _$DecksFeedTileEventTearOff();
+class _$FeedTileEventTearOff {
+  const _$FeedTileEventTearOff();
 
-  LoadNewPageForCategory loadNewPageForCategory(
-      {@required CategoryModel category}) {
-    return LoadNewPageForCategory(
-      category: category,
-    );
+  LoadNewPageForCurrentCategory loadNewPageForCurrentCategory() {
+    return LoadNewPageForCurrentCategory();
   }
 }
 
 // ignore: unused_element
-const $DecksFeedTileEvent = _$DecksFeedTileEventTearOff();
+const $FeedTileEvent = _$FeedTileEventTearOff();
 
-mixin _$DecksFeedTileEvent {
-  CategoryModel get category;
+mixin _$FeedTileEvent {}
 
-  $DecksFeedTileEventCopyWith<DecksFeedTileEvent> get copyWith;
+abstract class $FeedTileEventCopyWith<$Res> {
+  factory $FeedTileEventCopyWith(
+          FeedTileEvent value, $Res Function(FeedTileEvent) then) =
+      _$FeedTileEventCopyWithImpl<$Res>;
 }
 
-abstract class $DecksFeedTileEventCopyWith<$Res> {
-  factory $DecksFeedTileEventCopyWith(
-          DecksFeedTileEvent value, $Res Function(DecksFeedTileEvent) then) =
-      _$DecksFeedTileEventCopyWithImpl<$Res>;
-  $Res call({CategoryModel category});
-}
+class _$FeedTileEventCopyWithImpl<$Res>
+    implements $FeedTileEventCopyWith<$Res> {
+  _$FeedTileEventCopyWithImpl(this._value, this._then);
 
-class _$DecksFeedTileEventCopyWithImpl<$Res>
-    implements $DecksFeedTileEventCopyWith<$Res> {
-  _$DecksFeedTileEventCopyWithImpl(this._value, this._then);
-
-  final DecksFeedTileEvent _value;
+  final FeedTileEvent _value;
   // ignore: unused_field
-  final $Res Function(DecksFeedTileEvent) _then;
-
-  @override
-  $Res call({
-    Object category = freezed,
-  }) {
-    return _then(_value.copyWith(
-      category:
-          category == freezed ? _value.category : category as CategoryModel,
-    ));
-  }
+  final $Res Function(FeedTileEvent) _then;
 }
 
-abstract class $LoadNewPageForCategoryCopyWith<$Res>
-    implements $DecksFeedTileEventCopyWith<$Res> {
-  factory $LoadNewPageForCategoryCopyWith(LoadNewPageForCategory value,
-          $Res Function(LoadNewPageForCategory) then) =
-      _$LoadNewPageForCategoryCopyWithImpl<$Res>;
-  @override
-  $Res call({CategoryModel category});
+abstract class $LoadNewPageForCurrentCategoryCopyWith<$Res> {
+  factory $LoadNewPageForCurrentCategoryCopyWith(
+          LoadNewPageForCurrentCategory value,
+          $Res Function(LoadNewPageForCurrentCategory) then) =
+      _$LoadNewPageForCurrentCategoryCopyWithImpl<$Res>;
 }
 
-class _$LoadNewPageForCategoryCopyWithImpl<$Res>
-    extends _$DecksFeedTileEventCopyWithImpl<$Res>
-    implements $LoadNewPageForCategoryCopyWith<$Res> {
-  _$LoadNewPageForCategoryCopyWithImpl(LoadNewPageForCategory _value,
-      $Res Function(LoadNewPageForCategory) _then)
-      : super(_value, (v) => _then(v as LoadNewPageForCategory));
+class _$LoadNewPageForCurrentCategoryCopyWithImpl<$Res>
+    extends _$FeedTileEventCopyWithImpl<$Res>
+    implements $LoadNewPageForCurrentCategoryCopyWith<$Res> {
+  _$LoadNewPageForCurrentCategoryCopyWithImpl(
+      LoadNewPageForCurrentCategory _value,
+      $Res Function(LoadNewPageForCurrentCategory) _then)
+      : super(_value, (v) => _then(v as LoadNewPageForCurrentCategory));
 
   @override
-  LoadNewPageForCategory get _value => super._value as LoadNewPageForCategory;
-
-  @override
-  $Res call({
-    Object category = freezed,
-  }) {
-    return _then(LoadNewPageForCategory(
-      category:
-          category == freezed ? _value.category : category as CategoryModel,
-    ));
-  }
+  LoadNewPageForCurrentCategory get _value =>
+      super._value as LoadNewPageForCurrentCategory;
 }
 
-class _$LoadNewPageForCategory implements LoadNewPageForCategory {
-  _$LoadNewPageForCategory({@required this.category})
-      : assert(category != null);
-
-  @override
-  final CategoryModel category;
+class _$LoadNewPageForCurrentCategory implements LoadNewPageForCurrentCategory {
+  _$LoadNewPageForCurrentCategory();
 
   @override
   String toString() {
-    return 'DecksFeedTileEvent.loadNewPageForCategory(category: $category)';
+    return 'FeedTileEvent.loadNewPageForCurrentCategory()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is LoadNewPageForCategory &&
-            (identical(other.category, category) ||
-                const DeepCollectionEquality()
-                    .equals(other.category, category)));
+    return identical(this, other) || (other is LoadNewPageForCurrentCategory);
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(category);
-
-  @override
-  $LoadNewPageForCategoryCopyWith<LoadNewPageForCategory> get copyWith =>
-      _$LoadNewPageForCategoryCopyWithImpl<LoadNewPageForCategory>(
-          this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 }
 
-abstract class LoadNewPageForCategory implements DecksFeedTileEvent {
-  factory LoadNewPageForCategory({@required CategoryModel category}) =
-      _$LoadNewPageForCategory;
-
-  @override
-  CategoryModel get category;
-  @override
-  $LoadNewPageForCategoryCopyWith<LoadNewPageForCategory> get copyWith;
+abstract class LoadNewPageForCurrentCategory implements FeedTileEvent {
+  factory LoadNewPageForCurrentCategory() = _$LoadNewPageForCurrentCategory;
 }
 
-class _$DecksFeedTileStateTearOff {
-  const _$DecksFeedTileStateTearOff();
+class _$FeedTileStateTearOff {
+  const _$FeedTileStateTearOff();
 
   _DecksFeedTileState call(
       {@required CategoryModel categoryModel,
@@ -144,21 +96,21 @@ class _$DecksFeedTileStateTearOff {
 }
 
 // ignore: unused_element
-const $DecksFeedTileState = _$DecksFeedTileStateTearOff();
+const $FeedTileState = _$FeedTileStateTearOff();
 
-mixin _$DecksFeedTileState {
+mixin _$FeedTileState {
   CategoryModel get categoryModel;
   List<Deck> get decksList;
   Option<StorageFailure<dynamic>> get loadingPageFailureOrSuccess;
   bool get isLoading;
 
-  $DecksFeedTileStateCopyWith<DecksFeedTileState> get copyWith;
+  $FeedTileStateCopyWith<FeedTileState> get copyWith;
 }
 
-abstract class $DecksFeedTileStateCopyWith<$Res> {
-  factory $DecksFeedTileStateCopyWith(
-          DecksFeedTileState value, $Res Function(DecksFeedTileState) then) =
-      _$DecksFeedTileStateCopyWithImpl<$Res>;
+abstract class $FeedTileStateCopyWith<$Res> {
+  factory $FeedTileStateCopyWith(
+          FeedTileState value, $Res Function(FeedTileState) then) =
+      _$FeedTileStateCopyWithImpl<$Res>;
   $Res call(
       {CategoryModel categoryModel,
       List<Deck> decksList,
@@ -166,13 +118,13 @@ abstract class $DecksFeedTileStateCopyWith<$Res> {
       bool isLoading});
 }
 
-class _$DecksFeedTileStateCopyWithImpl<$Res>
-    implements $DecksFeedTileStateCopyWith<$Res> {
-  _$DecksFeedTileStateCopyWithImpl(this._value, this._then);
+class _$FeedTileStateCopyWithImpl<$Res>
+    implements $FeedTileStateCopyWith<$Res> {
+  _$FeedTileStateCopyWithImpl(this._value, this._then);
 
-  final DecksFeedTileState _value;
+  final FeedTileState _value;
   // ignore: unused_field
-  final $Res Function(DecksFeedTileState) _then;
+  final $Res Function(FeedTileState) _then;
 
   @override
   $Res call({
@@ -196,7 +148,7 @@ class _$DecksFeedTileStateCopyWithImpl<$Res>
 }
 
 abstract class _$DecksFeedTileStateCopyWith<$Res>
-    implements $DecksFeedTileStateCopyWith<$Res> {
+    implements $FeedTileStateCopyWith<$Res> {
   factory _$DecksFeedTileStateCopyWith(
           _DecksFeedTileState value, $Res Function(_DecksFeedTileState) then) =
       __$DecksFeedTileStateCopyWithImpl<$Res>;
@@ -209,7 +161,7 @@ abstract class _$DecksFeedTileStateCopyWith<$Res>
 }
 
 class __$DecksFeedTileStateCopyWithImpl<$Res>
-    extends _$DecksFeedTileStateCopyWithImpl<$Res>
+    extends _$FeedTileStateCopyWithImpl<$Res>
     implements _$DecksFeedTileStateCopyWith<$Res> {
   __$DecksFeedTileStateCopyWithImpl(
       _DecksFeedTileState _value, $Res Function(_DecksFeedTileState) _then)
@@ -261,7 +213,7 @@ class _$_DecksFeedTileState implements _DecksFeedTileState {
 
   @override
   String toString() {
-    return 'DecksFeedTileState(categoryModel: $categoryModel, decksList: $decksList, loadingPageFailureOrSuccess: $loadingPageFailureOrSuccess, isLoading: $isLoading)';
+    return 'FeedTileState(categoryModel: $categoryModel, decksList: $decksList, loadingPageFailureOrSuccess: $loadingPageFailureOrSuccess, isLoading: $isLoading)';
   }
 
   @override
@@ -297,7 +249,7 @@ class _$_DecksFeedTileState implements _DecksFeedTileState {
       __$DecksFeedTileStateCopyWithImpl<_DecksFeedTileState>(this, _$identity);
 }
 
-abstract class _DecksFeedTileState implements DecksFeedTileState {
+abstract class _DecksFeedTileState implements FeedTileState {
   const factory _DecksFeedTileState(
       {@required CategoryModel categoryModel,
       @required List<Deck> decksList,

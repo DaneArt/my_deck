@@ -1,4 +1,3 @@
-import 'package:chopper/chopper.dart';
 import 'package:dio/dio.dart';
 import 'package:mydeck/features/my_deck/data/datasources/media/entities_separator.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
@@ -10,7 +9,6 @@ import 'package:mydeck/core/network/network_connection.dart';
 import 'package:mydeck/features/my_deck/data/datasources/media/my_deck_media_datasource.dart';
 import 'package:mydeck/features/my_deck/data/datasources/my_deck_local_datasource.dart';
 import 'package:mydeck/features/my_deck/data/datasources/my_deck_network_datasource.dart';
-import 'package:mydeck/features/my_deck/data/datasources/retrofit/json_serializer.dart';
 import 'package:mydeck/features/my_deck/data/models/card_model.dart';
 import 'package:mydeck/features/my_deck/data/models/deck_model.dart';
 import 'package:mydeck/features/my_deck/data/repositories/my_deck_repository.dart';

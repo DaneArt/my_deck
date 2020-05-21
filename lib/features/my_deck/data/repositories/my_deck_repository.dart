@@ -22,10 +22,10 @@ import 'package:rxdart/rxdart.dart';
 import 'package:uuid/uuid.dart';
 
 abstract class MyDeckRepository {
-  Future<Either<StorageFailure, List<Deck>>> getCurrentUserAllDecks();
-  Future<Either<StorageFailure, List<Deck>>> loadDecksPageForCategory(
+  Future<Either<StorageFailure, List<DeckLibrary>>> getCurrentUserAllDecks();
+  Future<Either<StorageFailure, List<DeckOnline>>> loadDecksPageForCategory(
       CategoryModel category, int pageCount);
-  Future<Either<StorageFailure, Observable<List<Deck>>>>
+  Future<Either<StorageFailure, Observable<List<DeckLibrary>>>>
       getCurrentUserAllDecksAsStream();
 
   Future<Either<StorageFailure, Deck>> getDeckById(String id);
@@ -39,13 +39,17 @@ abstract class MyDeckRepository {
   Future<Option<StorageFailure<List<CardModel>>>> deleteCards(
       List<CardModel> cards);
 
-  Future<Either<StorageFailure<Deck>, Deck>> addDeck(Deck deck);
+  Future<Either<StorageFailure<DeckLibrary>, DeckLibrary>> addDeck(
+      DeckLibrary deck);
 
-  Future<Either<StorageFailure<Deck>, Deck>> updateDeck(Deck deck);
+  Future<Either<StorageFailure<DeckLibrary>, DeckLibrary>> updateDeck(
+      Deck deck);
 
-  Future<Option<StorageFailure<Deck>>> deleteDeckWithCards(Deck deck);
+  Future<Option<StorageFailure<DeckLibrary>>> deleteDeckWithCards(
+      DeckLibrary deck);
 
-  Future<Either<StorageFailure<Deck>, Deck>> addDeckWithCards(Deck deck);
+  Future<Either<StorageFailure<DeckLibrary>, DeckLibrary>> addDeckWithCards(
+      DeckLibrary deck);
 }
 
 class MyDeckRepositoryImpl extends MyDeckRepository {
@@ -65,12 +69,13 @@ class MyDeckRepositoryImpl extends MyDeckRepository {
   });
 
   @override
-  Future<Either<StorageFailure, List<Deck>>> getCurrentUserAllDecks() async {
+  Future<Either<StorageFailure, List<DeckLibrary>>>
+      getCurrentUserAllDecks() async {
     try {
       if (await networkConnection.isConnected) {
         final networkDecks = await networkDataSource.getAllDecksOfCurrentUser();
         final deckEntities = networkDecks.map((deck) {
-          final result = Deck.fromModel(deck.deckModel);
+          final DeckLibrary result = Deck.fromModel(deck.deckModel);
           final cards =
               deck.cardModels.map((card) => Card.fromModel(card)).toList();
           return result.copyWith(cardsList: cards);
@@ -89,15 +94,15 @@ class MyDeckRepositoryImpl extends MyDeckRepository {
   }
 
   @override
-  Future<Either<StorageFailure, Observable<List<Deck>>>>
+  Future<Either<StorageFailure, Observable<List<DeckLibrary>>>>
       getCurrentUserAllDecksAsStream() async {
     try {
       final decksObservable = await localDataSource.getAllDecksAsStream();
       final cardsObservable = await localDataSource.getAllCardsAsStream();
-      return Right(decksObservable.zipWith<List<CardModel>, List<Deck>>(
+      return Right(decksObservable.zipWith<List<CardModel>, List<DeckLibrary>>(
           cardsObservable, (decks, cards) {
         return decks
-            .map((deck) => Deck.fromModel(deck)
+            .map((deck) => (Deck.fromModel(deck) as DeckLibrary)
               ..cardsList.addAll(cards
                   .where((c) => c.parentDeckId == deck.deckId)
                   .map((c) => Card.fromModel(c))
@@ -110,7 +115,7 @@ class MyDeckRepositoryImpl extends MyDeckRepository {
   }
 
   @override
-  Future<Either<StorageFailure, Deck>> getDeckById(String id) async {
+  Future<Either<StorageFailure, DeckLibrary>> getDeckById(String id) async {
     try {
       // final deck = await localDataSource.getDeckById(id);
       // final cards = await localDataSource.getCardsForDeck(id);
@@ -166,14 +171,15 @@ class MyDeckRepositoryImpl extends MyDeckRepository {
   // }
 
   @override
-  Future<Either<StorageFailure<Deck>, Deck>> addDeck(Deck deck) async {
+  Future<Either<StorageFailure<DeckLibrary>, DeckLibrary>> addDeck(
+      Deck deck) async {
     try {
       final bothers = await entitiesSeparator.separateMediaContentOfDeck(deck);
       await mediaDataSource.addFileToAppCache(bothers.right);
       //await localDataSource.addDeck(bothers.left.toModel());
 
       if (await networkConnection.isConnected) {
-        await networkDataSource.addDeck(bothers.left.toModel());
+        await networkDataSource.addDeck(bothers.left.model);
       } else {
         return left(StorageFailure.networkFailure());
       }
@@ -185,14 +191,15 @@ class MyDeckRepositoryImpl extends MyDeckRepository {
   }
 
   @override
-  Future<Either<StorageFailure<Deck>, Deck>> updateDeck(Deck deck) async {
+  Future<Either<StorageFailure<DeckLibrary>, DeckLibrary>> updateDeck(
+      Deck deck) async {
     try {
       final bothers = await entitiesSeparator.separateMediaContentOfDeck(deck);
       await mediaDataSource.addFileToAppCache(bothers.right);
       // await localDataSource.updateDeck(bothers.left.toModel());
 
       if (await sl.get<NetworkConnection>().isConnected) {
-        await networkDataSource.updateDeck(bothers.left.toModel());
+        await networkDataSource.updateDeck(bothers.left.model);
       } else {
         return left(StorageFailure.networkFailure());
       }
@@ -204,7 +211,8 @@ class MyDeckRepositoryImpl extends MyDeckRepository {
   }
 
   @override
-  Future<Either<StorageFailure<Deck>, Deck>> addDeckWithCards(Deck deck) async {
+  Future<Either<StorageFailure<DeckLibrary>, DeckLibrary>> addDeckWithCards(
+      DeckLibrary deck) async {
     try {
       final deckResult = await addDeck(deck);
       final cardsResult = await addCards(
@@ -248,6 +256,11 @@ class MyDeckRepositoryImpl extends MyDeckRepository {
       mediaDataSource
           .deleteFilesFromAppCache(bothers.right.map((b) => b.right).toList());
       // await localDataSource.deleteCards(bothers.left);
+      if (await networkConnection.isConnected) {
+        await networkDataSource.deleteCards(bothers.left);
+      } else {
+        return some(StorageFailure.deleteFailure(failureObject: cards));
+      }
 
       return none();
     } on CacheException {
@@ -256,19 +269,20 @@ class MyDeckRepositoryImpl extends MyDeckRepository {
   }
 
   @override
-  Future<Option<StorageFailure<Deck>>> deleteDeckWithCards(Deck deck) async {
+  Future<Option<StorageFailure<DeckLibrary>>> deleteDeckWithCards(
+      DeckLibrary deck) async {
     try {
       final bother = await entitiesSeparator.separateMediaContentOfDeck(deck);
       await mediaDataSource.deleteFileFromAppCache(bother.right.right);
 
       // await deleteCards(bother.left.cardsList
-      //     .map((c) => c.toModel(bother.left.deckId))
-      //     .toList());
-
-      // await localDataSource.deleteDeck(bother.left.toModel());
+      //           .map((c) => c.toModel(bother.left.deckId))
+      //          .toList());
+      //
+      //       await localDataSource.deleteDeck(bother.left.toModel());
 
       if (await sl.get<NetworkConnection>().isConnected) {
-        networkDataSource.deleteDeck(bother.left.toModel());
+        networkDataSource.deleteDeck(bother.left.model);
       } else {
         return some(StorageFailure.networkFailure());
       }
@@ -280,21 +294,18 @@ class MyDeckRepositoryImpl extends MyDeckRepository {
   }
 
   @override
-  Future<Either<StorageFailure, List<Deck>>> loadDecksPageForCategory(
+  Future<Either<StorageFailure, List<DeckOnline>>> loadDecksPageForCategory(
       CategoryModel category, int pageCount) async {
     try {
       if (await networkConnection.isConnected) {
         final decks = await networkDataSource.loadDecksPageForCategory(
             category.categoryName, pageCount);
-        return right(decks.map((deck) {
-          final deckEntity = Deck.fromModel(deck.deckModel);
-          final cards = deck.cardModels.map((c) => Card.fromModel(c)).toList();
-          return deckEntity.copyWith(cardsList: cards);
-        }).toList());
+        return right(
+            decks.map((deck) => Deck.fromModel(deck) as DeckOnline).toList());
       } else {
         return left(StorageFailure.networkFailure());
       }
-    } on NetworkException {
+    } catch (e) {
       return left(StorageFailure.networkFailure());
     }
   }

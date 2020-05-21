@@ -4,6 +4,7 @@ part of "add_deck_bloc.dart";
 abstract class AddDeckEvent with _$AddDeckEvent {
   factory AddDeckEvent.initWithDeck(Deck deck) = InitWithDeck;
   factory AddDeckEvent.saveChanges() = SaveDeckChanges;
+  factory AddDeckEvent.saveDraft() = SaveDraft;
   factory AddDeckEvent.discardChangesAndExit() = DiscardChanges;
   factory AddDeckEvent.deleteDeck() = DeleteDeck;
   factory AddDeckEvent.titleChanged(String titleStr) = TitleChanged;
