@@ -6,6 +6,9 @@ import 'package:mydeck/core/injection/dependency_injection.dart';
 import 'package:mydeck/core/meta/my_deck_routes.dart';
 import 'package:mydeck/features/my_deck/domain/entities/card_content.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
+import 'package:mydeck/features/my_deck/domain/usecases/add_deck_usecase.dart';
+import 'package:mydeck/features/my_deck/domain/usecases/delete_deck_usecase.dart';
+import 'package:mydeck/features/my_deck/domain/usecases/save_deck_changes_usecase.dart';
 import 'package:mydeck/features/my_deck/presentation/bloc/add_deck/add_deck_bloc.dart';
 import 'package:mydeck/features/my_deck/presentation/bloc/bloc.dart';
 import 'package:mydeck/core/extensions/widget_extensions.dart';
@@ -42,10 +45,24 @@ class _DeckCardState extends State<DeckCard> {
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
           onTap: () async {
-            final deckUpdate = await context.navigator.pushNamed(
-                MyDeckRoutes.addDeck,
-                arguments: AddDeckArguments(
-                    deck: widget.deck, isEditing: widget.isEditing));
+            final deckUpdate = await context.navigator.push(MaterialPageRoute(
+                builder: (context) => BlocProvider(
+                      create: (context) => AddDeckBloc(
+                          addDeckUseCase: sl.get<AddDeckUseCase>(),
+                          deck: deck,
+                          deleteDeckUsecase: sl.get<DeleteDeckUseCase>(),
+                          saveDeckChangesUsecase:
+                              sl.get<SaveDeckChangesUsecase>(),
+                          goal: deck is DeckOnline
+                              ? AddDeckGoal.lookup
+                              : AddDeckGoal.edit),
+                      child: AddDeckPage(
+                        goal: deck is DeckOnline
+                            ? AddDeckGoal.lookup
+                            : AddDeckGoal.edit,
+                      ),
+                    )));
+
             if (deckUpdate != null) {
               if (deckUpdate is Deck) {
                 context

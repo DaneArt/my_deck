@@ -9,7 +9,8 @@ class CategoryFeedPage extends StatelessWidget {
     return BlocBuilder<FeedTileBloc, FeedTileState>(
       builder: (context, state) => Scaffold(
         appBar: AppBar(
-          title: Text(state.categoryModel.categoryName),
+          title: Text(state.categoryModel.categoryName,
+              style: TextStyle(color: Colors.white)),
         ),
         body: FeedList(),
       ),

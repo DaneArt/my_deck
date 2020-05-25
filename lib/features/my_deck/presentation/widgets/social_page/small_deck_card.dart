@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mydeck/core/icons/custom_icons_icons.dart';
+import 'package:mydeck/core/injection/dependency_injection.dart';
 import 'package:mydeck/core/meta/my_deck_routes.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
+import 'package:mydeck/features/my_deck/domain/usecases/add_deck_usecase.dart';
+import 'package:mydeck/features/my_deck/domain/usecases/delete_deck_usecase.dart';
+import 'package:mydeck/features/my_deck/domain/usecases/save_deck_changes_usecase.dart';
+import 'package:mydeck/features/my_deck/presentation/bloc/add_deck/add_deck_bloc.dart';
 import 'package:mydeck/features/my_deck/presentation/pages/add_deck_page.dart';
 
 class SmallDeckCard extends StatelessWidget {
@@ -16,8 +22,19 @@ class SmallDeckCard extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       child: InkWell(
         onTap: () {
-          Navigator.of(context).pushNamed(MyDeckRoutes.addDeck,
-              arguments: AddDeckArguments(deck: deck, isEditing: false));
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => BlocProvider(
+                    create: (context) => AddDeckBloc(
+                      addDeckUseCase: sl.get<AddDeckUseCase>(),
+                      deck: deck,
+                      deleteDeckUsecase: sl.get<DeleteDeckUseCase>(),
+                      saveDeckChangesUsecase: sl.get<SaveDeckChangesUsecase>(),
+                      goal: AddDeckGoal.lookup,
+                    ),
+                    child: AddDeckPage(
+                      goal: AddDeckGoal.lookup,
+                    ),
+                  )));
         },
         child: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(16)),

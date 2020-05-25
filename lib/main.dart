@@ -135,12 +135,6 @@ class MyDeckApp extends StatelessWidget {
               child: TrainingPage(),
             );
           },
-          MyDeckRoutes.addDeck: (context) {
-            return BlocProvider<AddDeckBloc>(
-              create: (context) => sl.get<AddDeckBloc>(),
-              child: AddDeckPage(),
-            );
-          }
         },
       ),
     );

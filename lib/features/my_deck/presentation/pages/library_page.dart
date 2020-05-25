@@ -6,6 +6,9 @@ import 'package:mydeck/core/injection/dependency_injection.dart';
 import 'package:mydeck/core/meta/my_deck_keys.dart';
 import 'package:mydeck/core/meta/my_deck_routes.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
+import 'package:mydeck/features/my_deck/domain/usecases/add_deck_usecase.dart';
+import 'package:mydeck/features/my_deck/domain/usecases/delete_deck_usecase.dart';
+import 'package:mydeck/features/my_deck/domain/usecases/save_deck_changes_usecase.dart';
 import 'package:mydeck/features/my_deck/presentation/bloc/add_deck/add_deck_bloc.dart';
 import 'package:mydeck/features/my_deck/presentation/bloc/bloc.dart';
 import 'package:mydeck/features/my_deck/presentation/pages/add_deck_page.dart';
@@ -91,10 +94,21 @@ class _LibraryPageState extends State<LibraryPage>
                     color: Theme.of(context).iconTheme.color,
                   ),
                   onPressed: () async {
-                    final newDeck = await context.navigator.pushNamed(
-                        MyDeckRoutes.addDeck,
-                        arguments:
-                            AddDeckArguments(isEditing: true, deck: null));
+                    final newDeck =
+                        await context.navigator.push(MaterialPageRoute(
+                            builder: (context) => BlocProvider(
+                                  create: (context) => AddDeckBloc(
+                                      addDeckUseCase: sl.get<AddDeckUseCase>(),
+                                      deck: Deck.basic(),
+                                      deleteDeckUsecase:
+                                          sl.get<DeleteDeckUseCase>(),
+                                      saveDeckChangesUsecase:
+                                          sl.get<SaveDeckChangesUsecase>(),
+                                      goal: AddDeckGoal.create),
+                                  child: AddDeckPage(
+                                    goal: AddDeckGoal.create,
+                                  ),
+                                )));
                     if (newDeck != null && newDeck is Deck) {
                       context
                           .bloc<LibraryBloc>()
@@ -128,8 +142,10 @@ class _LibraryPageState extends State<LibraryPage>
         slivers: <Widget>[
           SliverList(
             delegate: SliverChildBuilderDelegate(
-                (context, index) =>
-                    DeckCard(deck: decks[index],isEditing:true,key: ValueKey(decks[index].deckId)),
+                (context, index) => DeckCard(
+                    deck: decks[index],
+                    isEditing: true,
+                    key: ValueKey(decks[index].deckId)),
                 childCount: decks.length),
           ),
         ],
@@ -190,10 +206,29 @@ class _LibraryPageState extends State<LibraryPage>
                             content: Text('No trainable decks'),
                             action: SnackBarAction(
                               label: 'Create deck',
-                              onPressed: () => Navigator.pushNamed(
-                                  context, MyDeckRoutes.addDeck,
-                                  arguments: AddDeckArguments(
-                                      isEditing: true, deck: null)),
+                              onPressed: () async {
+                                final newDeck = await context.navigator
+                                    .push(MaterialPageRoute(
+                                        builder: (context) => BlocProvider(
+                                              create: (context) => AddDeckBloc(
+                                                  addDeckUseCase:
+                                                      sl.get<AddDeckUseCase>(),
+                                                  deck: Deck.basic(),
+                                                  deleteDeckUsecase: sl
+                                                      .get<DeleteDeckUseCase>(),
+                                                  saveDeckChangesUsecase: sl.get<
+                                                      SaveDeckChangesUsecase>(),
+                                                  goal: AddDeckGoal.create),
+                                              child: AddDeckPage(
+                                                goal: AddDeckGoal.create,
+                                              ),
+                                            )));
+                                if (newDeck != null && newDeck is Deck) {
+                                  context
+                                      .bloc<LibraryBloc>()
+                                      .add(LibraryEvent.addDeck(deck: newDeck));
+                                }
+                              },
                             ),
                           ),
                         );

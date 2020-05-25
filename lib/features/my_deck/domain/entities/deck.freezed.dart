@@ -36,7 +36,7 @@ class _$DeckTearOff {
   }
 
   DeckLibrary library(
-      {@required List<UserModel> subscribers,
+      {List<UserModel> subscribers,
       @required String deckId,
       @required String title,
       @required File icon,
@@ -540,7 +540,7 @@ class _$DeckLibraryCopyWithImpl<$Res> extends _$DeckCopyWithImpl<$Res>
 
 class _$DeckLibrary implements DeckLibrary {
   _$DeckLibrary(
-      {@required this.subscribers,
+      {this.subscribers,
       @required this.deckId,
       @required this.title,
       @required this.icon,
@@ -549,8 +549,7 @@ class _$DeckLibrary implements DeckLibrary {
       @required this.category,
       @required this.isPrivate,
       @required this.cardsList})
-      : assert(subscribers != null),
-        assert(deckId != null),
+      : assert(deckId != null),
         assert(title != null),
         assert(icon != null),
         assert(description != null),
@@ -755,7 +754,7 @@ class _$DeckLibrary implements DeckLibrary {
 
 abstract class DeckLibrary implements Deck {
   factory DeckLibrary(
-      {@required List<UserModel> subscribers,
+      {List<UserModel> subscribers,
       @required String deckId,
       @required String title,
       @required File icon,

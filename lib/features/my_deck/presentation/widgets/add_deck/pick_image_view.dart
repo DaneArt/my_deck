@@ -10,7 +10,10 @@ class ImagePickerWidget extends StatefulWidget {
   final DeckAvatar defaultImage;
   final bool isEditing;
   ImagePickerWidget(
-      {Key key, @required this.onImagePicked, @required this.defaultImage, this.isEditing})
+      {Key key,
+      @required this.onImagePicked,
+      @required this.defaultImage,
+      this.isEditing})
       : super(key: key);
 
   @override
@@ -31,64 +34,69 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
         ? await ImagesUtil.pickImageFromCamera()
         : await ImagesUtil.pickImageFromGallery();
     if (image != null) {
-      setState((){
+      setState(() {
         _image = image;
         widget.onImagePicked(_image);
       });
-
     }
   }
 
   Widget _imageWidget(BuildContext context) => InkWell(
-        onTap: () {
-          showModalBottomSheet(
-              context: context,
-              elevation: 4,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(8),
-                      topRight: Radius.circular(8))),
-              builder: (context) => Padding(
-                    padding: const EdgeInsets.only(bottom: 16),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: FlatButton(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: <Widget>[
-                                Text('Pick from gallery'),
-                                Icon(Icons.filter)
-                              ],
-                            ),
-                            onPressed: () {
-                              Navigator.pop(context);
-                              getImage(ImageSource.gallery);
-                            },
+        onTap: widget.isEditing
+            ? () {
+                showModalBottomSheet(
+                    context: context,
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(8),
+                            topRight: Radius.circular(8))),
+                    builder: (context) => Padding(
+                          padding: const EdgeInsets.only(bottom: 16),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8),
+                                child: FlatButton(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: <Widget>[
+                                      Text('Pick from gallery'),
+                                      Icon(Icons.filter)
+                                    ],
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    getImage(ImageSource.gallery);
+                                  },
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8),
+                                child: FlatButton(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: <Widget>[
+                                      Text('Pick a photo'),
+                                      Icon(Icons.camera_alt)
+                                    ],
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    getImage(ImageSource.camera);
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: FlatButton(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: <Widget>[
-                                Text('Pick a photo'),
-                                Icon(Icons.camera_alt)
-                              ],
-                            ),
-                            onPressed: () {
-                              Navigator.pop(context);
-                              getImage(ImageSource.camera);
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ));
-        },
+                        ));
+              }
+            : null,
         child: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(8)),
           child: _image == null
@@ -97,7 +105,9 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                   child: Container(
                     child: Center(
                       child: Text(
-                        _image == null &&widget.isEditing ? 'Pick deck avatar' : 'No avatar',
+                        _image == null && widget.isEditing
+                            ? 'Pick deck avatar'
+                            : 'No avatar',
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.body2,
                       ),

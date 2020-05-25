@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mydeck/features/my_deck/data/models/category_model.dart';
 import 'package:mydeck/features/my_deck/data/models/deck_model.dart';
+import 'package:mydeck/features/sign_in/data/datasources/user_service.dart';
 import 'package:mydeck/features/sign_in/data/models/user_model.dart';
+import 'package:uuid/uuid.dart';
 
 import 'card.dart';
 part 'deck.freezed.dart';
@@ -22,8 +24,18 @@ abstract class Deck with _$Deck {
     @required int cardsCount,
   }) = DeckOnline;
 
+  factory Deck.basic() => DeckLibrary(
+      author: UserService.currentUser,
+      cardsList: <Card>[],
+      category: CategoryModel('others'),
+      deckId: Uuid().v4(),
+      description: '',
+      icon: File(''),
+      isPrivate: true,
+      title: '');
+
   factory Deck.library({
-    @required List<UserModel> subscribers,
+    List<UserModel> subscribers,
     @required String deckId,
     @required String title,
     @required File icon,

@@ -316,8 +316,7 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
     return _makeRequest<List<DeckWithCardModels>>(() async {
       try {
         final response = await client.get(
-          _kBaseUrl +
-              '/Deck/AllCurrentUserDecksWithCards/${UserService.currentUser.userId}',
+          _kBaseUrl + '/Deck/AllUserDecks/${UserService.currentUser.userId}',
           options: Options(headers: {
             HttpHeaders.authorizationHeader: 'Bearer ' + UserService.accessToken
           }),

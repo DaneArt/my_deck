@@ -19,28 +19,22 @@ import 'package:mydeck/features/my_deck/presentation/widgets/add_deck/in_deck_ca
 import 'package:mydeck/features/my_deck/presentation/widgets/add_deck/pick_image_view.dart';
 import 'package:mydeck/features/sign_in/data/datasources/user_service.dart';
 
-class AddDeckArguments {
-  final bool isEditing;
-  final Deck deck;
-
-  AddDeckArguments({this.isEditing = true, @required this.deck});
-}
+enum AddDeckGoal { edit, create, lookup }
 
 class AddDeckPage extends StatelessWidget {
-  const AddDeckPage({Key key}) : super(key: key);
+  final AddDeckGoal goal;
+  const AddDeckPage({Key key, @required this.goal}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final AddDeckArguments arguments =
-        ModalRoute.of(context).settings.arguments;
-    return AddDeckTabView(arguments: arguments);
+    return AddDeckTabView(goal: goal);
   }
 }
 
 class AddDeckTabView extends StatefulWidget {
-  final AddDeckArguments arguments;
+  final AddDeckGoal goal;
 
-  const AddDeckTabView({Key key, @required this.arguments}) : super(key: key);
+  const AddDeckTabView({Key key, @required this.goal}) : super(key: key);
 
   @override
   _AddDeckTabViewState createState() => _AddDeckTabViewState();
@@ -53,16 +47,10 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
   AnimationController _animationController;
   Animation _fabAnimation;
 
-  bool get isEditing => widget.arguments != null && widget.arguments.isEditing;
-
-  Deck get deck => widget.arguments != null ? widget.arguments.deck : null;
+  AddDeckGoal get goal => widget.goal;
 
   @override
   void initState() {
-    if (deck != null) {
-      BlocProvider.of<AddDeckBloc>(context)
-          .add(AddDeckEvent.initWithDeck(widget.arguments.deck));
-    }
     super.initState();
     _animationController =
         AnimationController(duration: Duration(milliseconds: 200), vsync: this);
@@ -169,7 +157,7 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if (isEditing) {
+        if (goal != AddDeckGoal.lookup) {
           BlocProvider.of<AddDeckBloc>(context).add(AddDeckEvent.saveChanges());
         } else {
           return true;
@@ -246,12 +234,15 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                 floating: true,
                 pinned: true,
                 leading: IconButton(
-                  icon: Icon(isEditing ? Icons.clear : Icons.arrow_back,
+                  icon: Icon(
+                      goal != AddDeckGoal.lookup
+                          ? Icons.clear
+                          : Icons.arrow_back,
                       color: Colors.white),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
                 actions: <Widget>[
-                  isEditing && deck != null
+                  goal == AddDeckGoal.edit
                       ? IconButton(
                           icon: Icon(Icons.delete, color: Colors.white),
                           onPressed: () {
@@ -260,7 +251,7 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                           },
                         )
                       : Spacer(),
-                  isEditing
+                  goal != AddDeckGoal.lookup
                       ? IconButton(
                           icon: Icon(Icons.check, color: Colors.white),
                           onPressed: () {
@@ -296,17 +287,14 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
               child: TabBarView(
                 controller: controller,
                 children: <Widget>[
-                  _DeckPage(arguments: widget.arguments),
-                  _CardsPage(
-                    scrollController: scrollController,
-                    args: widget.arguments,
-                  ),
+                  _DeckPage(goal: goal),
+                  _CardsPage(scrollController: scrollController, goal: goal),
                 ],
               ),
             ),
           ),
         ),
-        floatingActionButton: isEditing
+        floatingActionButton: goal != AddDeckGoal.lookup
             ? FadeTransition(
                 opacity: _fabAnimation,
                 child: ScaleTransition(
@@ -318,7 +306,7 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                           await context.navigator.push(MaterialPageRoute(
                               builder: (BuildContext context) => BlocProvider(
                                     create: (context) => AddCardBloc(null),
-                                    child: CardEditor(),
+                                    child: CardEditor(isCreating: true),
                                   )));
                       if (newCard != null) {
                         context
@@ -336,44 +324,29 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
 }
 
 class _DeckPage extends StatefulWidget {
-  final AddDeckArguments arguments;
-
-  _DeckPage({Key key, @required this.arguments}) : super(key: key);
+  final AddDeckGoal goal;
+  _DeckPage({
+    Key key,
+    this.goal,
+  }) : super(key: key);
 
   @override
   _DeckPageState createState() => _DeckPageState();
 }
 
 class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
-  bool get isEditing => widget.arguments.isEditing;
-
   final _formKey = GlobalKey<FormState>();
   final _titleFieldKey = GlobalKey<FormFieldState>();
   final _descriptionFieldKey = GlobalKey<FormFieldState>();
-  final _titleController = TextEditingController();
-  final _descriptionController = TextEditingController();
 
   static const _maxDescriptionCount = 70;
   static const _maxTitleCount = 30;
-  int _currentDescriptionCount = 0;
-  bool initialized;
+
+  AddDeckGoal get goal => widget.goal;
 
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
-
-    _currentDescriptionCount = widget.arguments.deck != null
-        ? widget.arguments.deck.description.length
-        : 0;
-    initialized = false;
-    _titleController.text =
-        widget.arguments != null && widget.arguments.deck != null
-            ? widget.arguments.deck.title
-            : '';
-    _descriptionController.text =
-        widget.arguments != null && widget.arguments.deck != null
-            ? widget.arguments.deck.description
-            : '';
 
     super.initState();
   }
@@ -381,8 +354,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    _titleController.dispose();
-    _descriptionController.dispose();
+
     super.dispose();
   }
 
@@ -398,7 +370,6 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
     return Container(
       key: UniqueKey(),
       child: BlocBuilder<AddDeckBloc, AddDeckState>(builder: (context, state) {
-        if (!initialized) initializePage(state);
         return Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
@@ -407,8 +378,8 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
                 Expanded(
                   flex: 3,
                   child: ImagePickerWidget(
-                    isEditing: isEditing,
-                    onImagePicked: isEditing
+                    isEditing: goal != AddDeckGoal.lookup,
+                    onImagePicked: goal != AddDeckGoal.lookup
                         ? (image) {
                             BlocProvider.of<AddDeckBloc>(context)
                                 .add(AddDeckEvent.avatarChanged(image));
@@ -450,7 +421,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
                       //TODO: implement link to userProfile
                     },
                   ),
-                  trainWidget()
+                  trainWidget(state)
                 ],
               ),
             ),
@@ -462,32 +433,14 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
     );
   }
 
-  initializePage(AddDeckState state) {
-    final titleText = state.title.value.fold((f) => f.failedValue, (v) => v);
-    _titleController.text = titleText;
-
-    _descriptionController.text =
-        state.description.value.fold((f) => f.failedValue, (v) => v);
-    Future.delayed(Duration(milliseconds: 250), () {
-      setState(() {
-        initialized = true;
-      });
-    });
-  }
-
-  Widget descriptionWidget(AddDeckState state) => isEditing
+  Widget descriptionWidget(AddDeckState state) => goal != AddDeckGoal.lookup
       ? TextFormField(
           key: _descriptionFieldKey,
           autovalidate: true,
-          controller: _descriptionController,
+          initialValue: state.description.value.fold((l) => '', (r) => r),
           textInputAction: TextInputAction.done,
-          onChanged: (input) {
-            setState(() {
-              _currentDescriptionCount = input.length;
-            });
-            BlocProvider.of<AddDeckBloc>(context)
-                .add(AddDeckEvent.descriptionChanged(input));
-          },
+          onChanged: (input) => BlocProvider.of<AddDeckBloc>(context)
+              .add(AddDeckEvent.descriptionChanged(input)),
           textCapitalization: TextCapitalization.sentences,
           decoration: InputDecoration(
             hintText: 'Enter description(optional)',
@@ -495,9 +448,8 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
             labelText: 'Description',
             contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
             hoverColor: Theme.of(context).accentColor,
-            counterText: !isEditing
-                ? ''
-                : '$_currentDescriptionCount/$_maxDescriptionCount',
+            counterText:
+                '${state.description.value.fold((l) => 0, (r) => r.length)}/$_maxDescriptionCount',
           ),
           inputFormatters: [
             new LengthLimitingTextInputFormatter(_maxDescriptionCount),
@@ -517,18 +469,16 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
             Padding(
               padding: const EdgeInsets.all(4),
             ),
-            Text(widget.arguments.deck != null &&
-                    widget.arguments.deck.description.isNotEmpty
-                ? widget.arguments.deck.description
-                : 'No description'),
+            Text(state.description.value
+                .fold((l) => 'No description', (r) => r)),
           ],
         );
 
-  Widget titleWidget(AddDeckState state) => isEditing
+  Widget titleWidget(AddDeckState state) => goal != AddDeckGoal.lookup
       ? TextFormField(
           key: _titleFieldKey,
           autovalidate: true,
-          controller: _titleController,
+          initialValue: state.title.value.fold((l) => '', (r) => r),
           onChanged: (input) {
             BlocProvider.of<AddDeckBloc>(context)
                 .add(AddDeckEvent.titleChanged(input));
@@ -560,62 +510,55 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
               Padding(
                 padding: const EdgeInsets.all(4),
               ),
-              Text(widget.arguments.deck != null &&
-                      widget.arguments.deck.title.isNotEmpty
-                  ? widget.arguments.deck.title
-                  : 'No title'),
+              Text(state.title.value.fold((l) => 'No title', (r) => r)),
             ],
           ),
         );
 
-  Widget trainWidget() =>
-      widget.arguments != null && widget.arguments.deck != null
-          ? RaisedButton(
-              onPressed: widget.arguments.deck is DeckLibrary
-                  ? () async {
-                      final cards = List.from(
-                          widget.arguments.deck is DeckLibrary
-                              ? (widget.arguments.deck as DeckLibrary).cardsList
-                              : []);
-                      cards.removeWhere((c) =>
-                          c.answer.model.isEmpty || c.question.model.isEmpty);
-                      if (cards.length >= 2) {
-                        final trainedCards = await Navigator.of(context)
-                            .pushNamed(MyDeckRoutes.train,
-                                arguments: [widget.arguments.deck]);
-                        if (trainedCards != null) {
-                          for (CardModel card in trainedCards) {
-                            context.bloc<AddDeckBloc>().add(
-                                AddDeckEvent.cardChanged(
-                                    Entity.Card.fromModel(card)));
-                          }
-                        }
-                      } else {
-                        Scaffold.of(context).showSnackBar(SnackBar(
-                          content: Text(
-                              'Deck must have two filled cards at least. ${isEditing ? 'Create cards and save deck.' : ''}'),
-                        ));
+  Widget trainWidget(AddDeckState state) => goal != AddDeckGoal.create
+      ? RaisedButton(
+          onPressed: state.cardslist.isNotEmpty
+              ? () async {
+                  final cards = state.cardslist;
+                  cards.removeWhere((c) =>
+                      c.answer.model.isEmpty || c.question.model.isEmpty);
+                  if (cards.length >= 2) {
+                    final trainedCards = await Navigator.of(context).pushNamed(
+                        MyDeckRoutes.train,
+                        arguments: [state.initialDeck]);
+                    if (trainedCards != null) {
+                      for (CardModel card in trainedCards) {
+                        context.bloc<AddDeckBloc>().add(
+                            AddDeckEvent.cardChanged(
+                                Entity.Card.fromModel(card)));
                       }
                     }
-                  : null,
-              color: Colors.white,
-              elevation: 4,
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    'TRAIN',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  Icon(
-                    CustomIcons.dumbbell,
-                    color: Colors.black,
-                  )
-                ],
+                  } else {
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                      content: Text(
+                          'Deck must have two filled cards at least. ${goal != AddDeckGoal.lookup ? 'Create cards and save deck.' : ''}'),
+                    ));
+                  }
+                }
+              : null,
+          color: Colors.white,
+          elevation: 4,
+          child: Row(
+            children: <Widget>[
+              Text(
+                'TRAIN',
+                style: TextStyle(color: Colors.black),
               ),
-            )
-          : Spacer();
+              Icon(
+                CustomIcons.dumbbell,
+                color: Colors.black,
+              )
+            ],
+          ),
+        )
+      : Spacer();
 
-  Widget shareWidget(AddDeckState state) => isEditing
+  Widget shareWidget(AddDeckState state) => goal != AddDeckGoal.lookup
       ? Padding(
           padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
           child: Row(
@@ -647,11 +590,14 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
             FlatButton(
                 child: Row(
                   children: <Widget>[
-                    Text(state.category.categoryName),
-                    isEditing ? Icon(Icons.arrow_drop_down) : Container()
+                    Text(state.category.categoryName,
+                        style: Theme.of(context).textTheme.bodyText1),
+                    goal != AddDeckGoal.lookup
+                        ? Icon(Icons.arrow_drop_down)
+                        : Container()
                   ],
                 ),
-                onPressed: isEditing
+                onPressed: goal != AddDeckGoal.lookup
                     ? () async {
                         final CategoryModel category = await showDialog(
                             context: context,
@@ -663,7 +609,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
                               .bloc<AddDeckBloc>()
                               .add(AddDeckEvent.categoryChanged(category));
                       }
-                    : () {}),
+                    : null),
           ],
         ),
       );
@@ -671,9 +617,8 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
 
 class _CardsPage extends StatefulWidget {
   final ScrollController scrollController;
-  final AddDeckArguments args;
-
-  _CardsPage({Key key, this.scrollController, this.args}) : super(key: key);
+  final AddDeckGoal goal;
+  _CardsPage({Key key, this.scrollController, this.goal}) : super(key: key);
 
   @override
   _CardsPageState createState() => _CardsPageState();
@@ -685,7 +630,7 @@ class _CardsPageState extends State<_CardsPage> {
     super.initState();
   }
 
-  bool get _isEditing => widget.args != null && widget.args.isEditing;
+  bool get _isEditing => widget.goal != AddDeckGoal.lookup;
 
   @override
   Widget build(BuildContext context) {
@@ -709,7 +654,9 @@ class _CardsPageState extends State<_CardsPage> {
                                           BlocProvider(
                                             create: (context) => AddCardBloc(
                                                 state.cardslist[index]),
-                                            child: CardEditor(),
+                                            child: CardEditor(
+                                              isCreating: false,
+                                            ),
                                           )));
                               if (changedCard is Entity.Card) {
                                 if (changedCard != null) {
@@ -743,7 +690,9 @@ class _CardsPageState extends State<_CardsPage> {
                                             BlocProvider(
                                               create: (context) =>
                                                   AddCardBloc(null),
-                                              child: CardEditor(),
+                                              child: CardEditor(
+                                                isCreating: true,
+                                              ),
                                             )));
                                 if (card != null)
                                   context

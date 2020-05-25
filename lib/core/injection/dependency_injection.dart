@@ -66,10 +66,7 @@ void setUp() {
   sl.registerFactory(() => UpdateTrainedCards(repository: sl()));
   //blocs
   sl.registerFactory(() => SignInBloc(sl()));
-  sl.registerFactory(() => AddDeckBloc(
-      saveDeckChangesUsecase: sl(),
-      deleteDeckUsecase: sl(),
-      addDeckUseCase: sl()));
+
   sl.registerFactory(
       () => LibraryBloc(getDecksForTrain: sl(), allUserDecks: sl()));
   sl.registerFactory(() => TabBloc());

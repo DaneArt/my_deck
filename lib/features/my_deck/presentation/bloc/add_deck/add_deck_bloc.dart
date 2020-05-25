@@ -14,6 +14,7 @@ import 'package:mydeck/features/my_deck/domain/usecases/add_deck_usecase.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/delete_deck_usecase.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/save_deck_changes_usecase.dart'
     as save;
+import 'package:mydeck/features/my_deck/presentation/pages/add_deck_page.dart';
 import 'package:mydeck/features/sign_in/data/datasources/user_service.dart';
 import 'package:mydeck/features/sign_in/data/models/user_model.dart';
 import 'package:uuid/uuid.dart';
@@ -32,13 +33,15 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
   final AddDeckUseCase addDeckUseCase;
   final save.SaveDeckChangesUsecase saveDeckChangesUsecase;
   final DeleteDeckUseCase deleteDeckUsecase;
-  Deck _deck;
-  bool _saveDeck = true;
+  final Deck deck;
+  final AddDeckGoal goal;
 
   AddDeckBloc(
-      {this.saveDeckChangesUsecase,
-      this.addDeckUseCase,
-      this.deleteDeckUsecase});
+      {@required this.goal,
+      @required this.deck,
+      @required this.saveDeckChangesUsecase,
+      @required this.addDeckUseCase,
+      @required this.deleteDeckUsecase});
 
   bool get _isFieldsValid =>
       state.title.isValid &&
@@ -47,38 +50,21 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
       state.cardslist.length >= 2;
 
   @override
-  AddDeckState get initialState => AddDeckState.initial();
+  AddDeckState get initialState => AddDeckState.initial(initialDeck: deck);
 
   @override
   Stream<AddDeckState> mapEventToState(
     AddDeckEvent event,
   ) async* {
     yield* event.map(
-        initWithDeck: (e) async* {
-          if (_deck == null) {
-            _deck = e.deck;
-            _saveDeck = false;
-            final deckAuthor = _deck.author;
-            final currentUser = UserService.currentUser;
-            yield state.copyWith(
-                title: DeckTitle(_deck.title),
-                description: DeckDescription(_deck.description),
-                avatar: DeckAvatar(_deck.icon),
-                isShared: !_deck.isPrivate,
-                category: _deck.category,
-                cardslist: (_deck as DeckLibrary).cardsList,
-                author: deckAuthor.userId == currentUser.userId
-                    ? deckAuthor.copyWith(username: 'you')
-                    : deckAuthor);
-          }
-        },
         saveChanges: (e) async* {
           if (_isFieldsValid) {
-            if (_saveDeck) {
+            if (goal == AddDeckGoal.create) {
               final saveResult = await addDeckUseCase(Params(Deck.library(
                 deckId: Uuid().v4(),
                 cardsList: state.cardslist,
                 category: state.category,
+                subscribers: [],
                 description: state.description.value
                     .fold((f) => f.failedValue, (r) => r),
                 icon: state.avatar.value.fold((f) => f.failedValue, (r) => r),
@@ -91,14 +77,14 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
                       saveFailureOrSuccessOption: some(left(failure))),
                   (success) => state.copyWith(
                       saveFailureOrSuccessOption: some(right(success))));
-            } else {
+            } else if (goal == AddDeckGoal.edit) {
               final saveResult = await saveDeckChangesUsecase(save.Params(
-                  _deck,
-                  (_deck as DeckLibrary).copyWith(
+                  deck,
+                  (deck as DeckLibrary).copyWith(
                       author: UserService.currentUser,
                       cardsList: state.cardslist,
                       category: state.category,
-                      deckId: _deck.deckId,
+                      deckId: deck.deckId,
                       description: state.description.value
                           .fold((f) => f.failedValue, (r) => r),
                       icon: state.avatar.value
@@ -124,7 +110,7 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
         },
         discardChangesAndExit: (e) async* {},
         deleteDeck: (e) async* {
-          final deleteResult = await deleteDeckUsecase(Params(_deck));
+          final deleteResult = await deleteDeckUsecase(Params(deck));
           yield deleteResult.fold(
               (failure) => state.copyWith(
                   saveFailureOrSuccessOption: some(left(failure))),
@@ -173,11 +159,12 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
               cardslist: newList, saveFailureOrSuccessOption: none());
         },
         saveDraft: (e) async* {
-          if (_saveDeck) {
+          if (goal == AddDeckGoal.create) {
             final saveResult = await addDeckUseCase(Params(Deck.library(
                 deckId: Uuid().v4(),
                 cardsList: state.cardslist,
                 category: state.category,
+                subscribers: [],
                 description: state.description.value
                     .fold((f) => f.failedValue, (r) => r),
                 icon: state.avatar.value.fold((f) => f.failedValue, (r) => r),
@@ -189,14 +176,14 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
                     saveFailureOrSuccessOption: some(left(failure))),
                 (success) => state.copyWith(
                     saveFailureOrSuccessOption: some(right(success))));
-          } else {
+          } else if (goal == AddDeckGoal.edit) {
             final saveResult = await saveDeckChangesUsecase(save.Params(
-                _deck,
-                (_deck as DeckLibrary).copyWith(
+                deck,
+                (deck as DeckLibrary).copyWith(
                     author: UserService.currentUser,
                     cardsList: state.cardslist,
                     category: state.category,
-                    deckId: _deck.deckId,
+                    deckId: deck.deckId,
                     description: state.description.value
                         .fold((f) => f.failedValue, (r) => r),
                     icon:
