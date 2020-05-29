@@ -7,21 +7,25 @@ import 'package:mydeck/core/error/exception.dart';
 import 'package:mydeck/features/my_deck/data/models/card_model.dart';
 
 import 'package:mydeck/features/my_deck/data/models/deck_model.dart';
+import 'package:mydeck/features/my_deck/data/models/category_model.dart';
 import 'package:mydeck/features/my_deck/data/models/deck_with_cards_model.dart';
 import 'package:mydeck/features/my_deck/domain/entities/card.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/sign_in/data/datasources/user_service.dart';
+import 'package:mydeck/features/sign_in/data/models/user_model.dart';
 import 'package:mydeck/features/sign_in/helpers/value_validators.dart';
 import 'package:mydeck/features/sign_in/presentation/entities/user.dart';
 
 typedef Future<T> HttpRequest<T>();
 
 abstract class MyDeckNetworkDataSource {
+  Future<UserModel> getUserById(String userId);
+
   Future<List<DeckModel>> getAllDecks();
 
   Future<List<DeckWithCardModels>> getAllDecksOfCurrentUser();
 
-  Future<DeckModel> getDeckById(String deckUuid);
+  Future<Deck> getDeckWithCardsById(String deckUuid);
 
   Future<void> updateDeck(DeckModel deckModel);
 
@@ -72,7 +76,6 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
         if (refreshResult.isSome() && requestCount == 4) {
           throw NetworkException();
         }
-
         return _makeRequest(request, ++requestCount);
       }
     } on DioError catch (e) {
@@ -247,10 +250,10 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
   }
 
   @override
-  Future<DeckModel> getDeckById(String deckUuid) async {
-    return _makeRequest<DeckModel>(() async {
+  Future<Deck> getDeckWithCardsById(String deckUuid) async {
+    return _makeRequest<Deck>(() async {
       final response = await client.get(
-        _kBaseUrl + '/deck/findbyid',
+        _kBaseUrl + '/deck/findbyid/{$deckUuid}',
         options: Options(headers: {
           HttpHeaders.authorizationHeader: 'Bearer ' + UserService.accessToken
         }),
@@ -258,8 +261,24 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
       if (response.statusCode != 200) {
         throw NetworkException();
       }
-      final DeckModel deck = DeckModel.fromJson(jsonDecode(response.data));
-      return deck;
+      final deckJson = jsonDecode(response.data);
+      final deck = DeckModel.fromJson(deckJson['Deck']);
+      final Map<String, dynamic> aj = deckJson['Author']['User'];
+      final author = UserModel.fromJson(aj);
+      final List<Card> cards = (deckJson['Deck']['Cards'] as List)
+          .map((c) => CardModel.fromJson(c))
+          .toList()
+          .map((c) => Card.fromModel(c))
+          .toList();
+      return Deck.library(
+          author: author,
+          cardsList: cards,
+          category: CategoryModel(deck.categoryName),
+          deckId: deck.deckId,
+          description: deck.description,
+          icon: File(deck.icon),
+          isPrivate: deck.isPrivate,
+          title: deck.title);
     });
   }
 
@@ -377,4 +396,26 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
           throw NetworkException();
         }
       });
+
+  @override
+  Future<UserModel> getUserById(String userId) {
+    return _makeRequest<UserModel>(() async {
+      try {
+        final response = await client.get(
+          _kBaseUrl + '/User/FindById/${UserService.currentUser.userId}',
+          options: Options(headers: {
+            HttpHeaders.authorizationHeader: 'Bearer ' + UserService.accessToken
+          }),
+        );
+        if (response.statusCode != 200) {
+          throw NetworkException();
+        }
+        return UserModel.fromJson(response.data['value']);
+      } on DioError catch (exception) {
+        throw NetworkException();
+      } catch (e) {
+        throw NetworkException();
+      }
+    });
+  }
 }

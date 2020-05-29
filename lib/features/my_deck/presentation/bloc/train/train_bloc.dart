@@ -22,7 +22,7 @@ class TrainBloc extends Bloc<TrainEvent, TrainState> {
   Queue<Deck> get decks => _decksToTrain;
   final UpdateTrainedCards updateTrainedCards;
 
-  Stack<CardModel> trainedCards = Stack();
+  List<CardModel> trainedCards = [];
 
   int _currentCardIndex = 0;
 
@@ -60,7 +60,7 @@ class TrainBloc extends Bloc<TrainEvent, TrainState> {
       yield TrainInProgress(_currentDeck, _currentCardIndex);
     } else if (event is ReverseAnswer) {
       if (_currentCardIndex != 0) {
-        trainedCards.pop();
+        trainedCards.removeLast();
         if (isLastCardTrue) {
           _successfulTrainedCardsInCurrentDeck--;
           _successfulTrainedCardsTotal--;
@@ -74,8 +74,8 @@ class TrainBloc extends Bloc<TrainEvent, TrainState> {
 
   Stream<TrainState> _stopTraining() async* {
     final result = await updateTrainedCards(Params(cards: trainedCards));
-    yield result.fold((failure) => TrainStopped(trainedCards.toListSync()),
-        (result) => TrainStopped(trainedCards.toListSync()));
+    yield result.fold((failure) => TrainStopped(trainedCards),
+        (result) => TrainStopped(trainedCards));
   }
 
   Stream<TrainState> _applyAnswer(bool isCorrect) async* {
@@ -87,7 +87,7 @@ class TrainBloc extends Bloc<TrainEvent, TrainState> {
       newCard = _updateCardWithNegativeResult(oldCard);
     }
 
-    trainedCards.push(newCard);
+    trainedCards.add(newCard);
 
     yield* _updateSourceState();
   }
@@ -153,6 +153,6 @@ class TrainBloc extends Bloc<TrainEvent, TrainState> {
 
   Stream<TrainState> _endOfTrain() async* {
     yield TrainEnded(_successfulTrainedCardsTotal, _successfulTrainedDecksTotal,
-        trainedCards.toListSync());
+        trainedCards);
   }
 }

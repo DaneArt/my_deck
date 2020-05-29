@@ -13,8 +13,7 @@ extension StackExtension<T> on Stack<T> {
   List<T> toListSync() {
     final List<T> result = [];
     while (this.isNotEmpty) {
-      result.add(this.top());
-      this.pop();
+      result.add(this.pop());
     }
     return result.reversed.toList();
   }

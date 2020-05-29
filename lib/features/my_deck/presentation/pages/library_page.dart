@@ -9,6 +9,7 @@ import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/add_deck_usecase.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/delete_deck_usecase.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/save_deck_changes_usecase.dart';
+import 'package:mydeck/features/my_deck/domain/usecases/upload_online_deck.dart';
 import 'package:mydeck/features/my_deck/presentation/bloc/add_deck/add_deck_bloc.dart';
 import 'package:mydeck/features/my_deck/presentation/bloc/bloc.dart';
 import 'package:mydeck/features/my_deck/presentation/pages/add_deck_page.dart';
@@ -33,11 +34,12 @@ class _LibraryPageState extends State<LibraryPage>
   ScrollController _controller;
   AnimationController _animationController;
   Animation _fabAnimation;
-  GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
   bool initialized = false;
+
   @override
   void initState() {
     _animationController =
@@ -84,37 +86,18 @@ class _LibraryPageState extends State<LibraryPage>
         FadeTransition(
           opacity: _fabAnimation,
           child: ScaleTransition(
-              scale: _fabAnimation,
-              child: FloatingActionButton(
-                  key: Key(MyDeckTestKeys.addDeckFab),
-                  heroTag: MyDeckHeroTags.addDeckFab,
-                  elevation: 4,
-                  child: Icon(
-                    Icons.add,
-                    color: Theme.of(context).iconTheme.color,
-                  ),
-                  onPressed: () async {
-                    final newDeck =
-                        await context.navigator.push(MaterialPageRoute(
-                            builder: (context) => BlocProvider(
-                                  create: (context) => AddDeckBloc(
-                                      addDeckUseCase: sl.get<AddDeckUseCase>(),
-                                      deck: Deck.basic(),
-                                      deleteDeckUsecase:
-                                          sl.get<DeleteDeckUseCase>(),
-                                      saveDeckChangesUsecase:
-                                          sl.get<SaveDeckChangesUsecase>(),
-                                      goal: AddDeckGoal.create),
-                                  child: AddDeckPage(
-                                    goal: AddDeckGoal.create,
-                                  ),
-                                )));
-                    if (newDeck != null && newDeck is Deck) {
-                      context
-                          .bloc<LibraryBloc>()
-                          .add(LibraryEvent.addDeck(deck: newDeck));
-                    }
-                  })),
+            scale: _fabAnimation,
+            child: FloatingActionButton(
+              key: Key(MyDeckTestKeys.addDeckFab),
+              heroTag: MyDeckHeroTags.addDeckFab,
+              elevation: 4,
+              child: Icon(
+                Icons.add,
+                color: Theme.of(context).iconTheme.color,
+              ),
+              onPressed: () async => addDeck(context),
+            ),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(8),
@@ -143,9 +126,43 @@ class _LibraryPageState extends State<LibraryPage>
           SliverList(
             delegate: SliverChildBuilderDelegate(
                 (context, index) => DeckCard(
-                    deck: decks[index],
-                    isEditing: true,
-                    key: ValueKey(decks[index].deckId)),
+                      deck: decks[index],
+                      isEditing: true,
+                      key: ValueKey(decks[index].deckId),
+                      onUpdate: (oldDeck,changedDeck) {
+                        context
+                            .bloc<LibraryBloc>()
+                            .add(LibraryEvent.updateDeck(deck: changedDeck));
+                        _scaffoldKey.currentState.hideCurrentSnackBar();
+                        _scaffoldKey.currentState.showSnackBar(SnackBar(
+                          action: SnackBarAction(
+                            label: 'UNDO',
+                            onPressed: () {
+                              context.bloc<LibraryBloc>().add(
+                                  LibraryEvent.undoEditing(oldDeck: oldDeck));
+                            },
+                          ),
+                          content: Text('Deck successfully changed'),
+                        ));
+                      },
+                      onDelete: () {
+                        context
+                            .bloc<LibraryBloc>()
+                            .add(LibraryEvent.deleteDeck(deck: decks[index]));
+                        _scaffoldKey.currentState.hideCurrentSnackBar();
+                        _scaffoldKey.currentState.showSnackBar(SnackBar(
+                          action: SnackBarAction(
+                            label: 'UNDO',
+                            onPressed: () {
+                              _scaffoldKey.currentContext.bloc<LibraryBloc>().add(
+                                  LibraryEvent.undoDeleting(
+                                      deck: decks[index]));
+                            },
+                          ),
+                          content: Text('Deck successfully deleted'),
+                        ));
+                      },
+                    ),
                 childCount: decks.length),
           ),
         ],
@@ -181,9 +198,41 @@ class _LibraryPageState extends State<LibraryPage>
         .add(TryToStartTrain());
   }
 
+  Future<void> addDeck(BuildContext context) async {
+    final newDeck = await context.navigator.push(MaterialPageRoute(
+        builder: (context) => BlocProvider(
+              create: (context) => AddDeckBloc(
+                  addDeckUseCase: sl.get<AddDeckUseCase>(),
+                  deck: Deck.basic(),
+                  deleteDeckUsecase: sl.get<DeleteDeckUseCase>(),
+                  saveDeckChangesUsecase: sl.get<SaveDeckChangesUsecase>(),
+                  uploadOnlineDeckUsecase: sl.get<UploadOnlineDeckUsecase>(),
+                  goal: AddDeckGoal.create),
+              child: AddDeckPage(
+                goal: AddDeckGoal.create,
+              ),
+            )));
+    if (newDeck != null && newDeck is Deck) {
+      context.bloc<LibraryBloc>().add(LibraryEvent.addDeck(deck: newDeck));
+      _scaffoldKey.currentState.hideCurrentSnackBar();
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        action: SnackBarAction(
+          label: 'UNDO',
+          onPressed: () {
+            context
+                .bloc<LibraryBloc>()
+                .add(LibraryEvent.undoAdding(deck: newDeck));
+          },
+        ),
+        content: Text('Deck successfully created'),
+      ));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key:_scaffoldKey,
       appBar: AppBar(
         leading: Container(),
         title: Text("${UserService.currentUser.username}'s library",
@@ -206,29 +255,7 @@ class _LibraryPageState extends State<LibraryPage>
                             content: Text('No trainable decks'),
                             action: SnackBarAction(
                               label: 'Create deck',
-                              onPressed: () async {
-                                final newDeck = await context.navigator
-                                    .push(MaterialPageRoute(
-                                        builder: (context) => BlocProvider(
-                                              create: (context) => AddDeckBloc(
-                                                  addDeckUseCase:
-                                                      sl.get<AddDeckUseCase>(),
-                                                  deck: Deck.basic(),
-                                                  deleteDeckUsecase: sl
-                                                      .get<DeleteDeckUseCase>(),
-                                                  saveDeckChangesUsecase: sl.get<
-                                                      SaveDeckChangesUsecase>(),
-                                                  goal: AddDeckGoal.create),
-                                              child: AddDeckPage(
-                                                goal: AddDeckGoal.create,
-                                              ),
-                                            )));
-                                if (newDeck != null && newDeck is Deck) {
-                                  context
-                                      .bloc<LibraryBloc>()
-                                      .add(LibraryEvent.addDeck(deck: newDeck));
-                                }
-                              },
+                              onPressed: () async => addDeck(context),
                             ),
                           ),
                         );

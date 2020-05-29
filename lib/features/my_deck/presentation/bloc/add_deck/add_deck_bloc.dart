@@ -14,6 +14,8 @@ import 'package:mydeck/features/my_deck/domain/usecases/add_deck_usecase.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/delete_deck_usecase.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/save_deck_changes_usecase.dart'
     as save;
+import 'package:mydeck/features/my_deck/domain/usecases/upload_online_deck.dart'
+    as upload;
 import 'package:mydeck/features/my_deck/presentation/pages/add_deck_page.dart';
 import 'package:mydeck/features/sign_in/data/datasources/user_service.dart';
 import 'package:mydeck/features/sign_in/data/models/user_model.dart';
@@ -33,11 +35,13 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
   final AddDeckUseCase addDeckUseCase;
   final save.SaveDeckChangesUsecase saveDeckChangesUsecase;
   final DeleteDeckUseCase deleteDeckUsecase;
+  final upload.UploadOnlineDeckUsecase uploadOnlineDeckUsecase;
   final Deck deck;
   final AddDeckGoal goal;
 
   AddDeckBloc(
-      {@required this.goal,
+      {@required this.uploadOnlineDeckUsecase,
+      @required this.goal,
       @required this.deck,
       @required this.saveDeckChangesUsecase,
       @required this.addDeckUseCase,
@@ -197,6 +201,13 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
                 (success) => state.copyWith(
                     saveFailureOrSuccessOption: some(right(success))));
           }
+        },
+        initFromOnline: (e) async* {
+          yield state.copyWith(isLoading: true);
+          final onlineResult =
+              await uploadOnlineDeckUsecase(upload.Params(deck: deck));
+          yield onlineResult.fold((l) => state,
+              (r) => state.copyWith(author: r.author, isLoading: false));
         });
   }
 }

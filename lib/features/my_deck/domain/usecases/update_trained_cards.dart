@@ -1,4 +1,3 @@
-
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
@@ -19,12 +18,12 @@ class UpdateTrainedCards
   @override
   Future<Either<StorageFailure<List<CardModel>>, List<CardModel>>> call(
       Params params) async {
-    return repository.updateCards(params.cards.toListSync());
+    return repository.updateCards(params.cards);
   }
 }
 
 class Params extends Equatable {
-  final Stack<CardModel> cards;
+  final List<CardModel> cards;
 
   Params({this.cards});
 

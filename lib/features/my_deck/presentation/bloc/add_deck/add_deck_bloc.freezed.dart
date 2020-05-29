@@ -14,6 +14,8 @@ class _$AddDeckStateTearOff {
 
   _AddDeckState call(
       {@required
+          bool isLoading,
+      @required
           DeckTitle title,
       @required
           DeckDescription description,
@@ -33,6 +35,7 @@ class _$AddDeckStateTearOff {
       @required
           Deck initialDeck}) {
     return _AddDeckState(
+      isLoading: isLoading,
       title: title,
       description: description,
       avatar: avatar,
@@ -50,6 +53,7 @@ class _$AddDeckStateTearOff {
 const $AddDeckState = _$AddDeckStateTearOff();
 
 mixin _$AddDeckState {
+  bool get isLoading;
   DeckTitle get title;
   DeckDescription get description;
   DeckAvatar get avatar;
@@ -68,7 +72,8 @@ abstract class $AddDeckStateCopyWith<$Res> {
           AddDeckState value, $Res Function(AddDeckState) then) =
       _$AddDeckStateCopyWithImpl<$Res>;
   $Res call(
-      {DeckTitle title,
+      {bool isLoading,
+      DeckTitle title,
       DeckDescription description,
       DeckAvatar avatar,
       bool isShared,
@@ -90,6 +95,7 @@ class _$AddDeckStateCopyWithImpl<$Res> implements $AddDeckStateCopyWith<$Res> {
 
   @override
   $Res call({
+    Object isLoading = freezed,
     Object title = freezed,
     Object description = freezed,
     Object avatar = freezed,
@@ -101,6 +107,7 @@ class _$AddDeckStateCopyWithImpl<$Res> implements $AddDeckStateCopyWith<$Res> {
     Object initialDeck = freezed,
   }) {
     return _then(_value.copyWith(
+      isLoading: isLoading == freezed ? _value.isLoading : isLoading as bool,
       title: title == freezed ? _value.title : title as DeckTitle,
       description: description == freezed
           ? _value.description
@@ -139,7 +146,8 @@ abstract class _$AddDeckStateCopyWith<$Res>
       __$AddDeckStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {DeckTitle title,
+      {bool isLoading,
+      DeckTitle title,
       DeckDescription description,
       DeckAvatar avatar,
       bool isShared,
@@ -164,6 +172,7 @@ class __$AddDeckStateCopyWithImpl<$Res> extends _$AddDeckStateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object isLoading = freezed,
     Object title = freezed,
     Object description = freezed,
     Object avatar = freezed,
@@ -175,6 +184,7 @@ class __$AddDeckStateCopyWithImpl<$Res> extends _$AddDeckStateCopyWithImpl<$Res>
     Object initialDeck = freezed,
   }) {
     return _then(_AddDeckState(
+      isLoading: isLoading == freezed ? _value.isLoading : isLoading as bool,
       title: title == freezed ? _value.title : title as DeckTitle,
       description: description == freezed
           ? _value.description
@@ -198,7 +208,8 @@ class __$AddDeckStateCopyWithImpl<$Res> extends _$AddDeckStateCopyWithImpl<$Res>
 
 class _$_AddDeckState implements _AddDeckState {
   const _$_AddDeckState(
-      {@required this.title,
+      {@required this.isLoading,
+      @required this.title,
       @required this.description,
       @required this.avatar,
       @required this.isShared,
@@ -207,7 +218,8 @@ class _$_AddDeckState implements _AddDeckState {
       @required this.cardslist,
       @required this.saveFailureOrSuccessOption,
       @required this.initialDeck})
-      : assert(title != null),
+      : assert(isLoading != null),
+        assert(title != null),
         assert(description != null),
         assert(avatar != null),
         assert(isShared != null),
@@ -217,6 +229,8 @@ class _$_AddDeckState implements _AddDeckState {
         assert(saveFailureOrSuccessOption != null),
         assert(initialDeck != null);
 
+  @override
+  final bool isLoading;
   @override
   final DeckTitle title;
   @override
@@ -239,13 +253,16 @@ class _$_AddDeckState implements _AddDeckState {
 
   @override
   String toString() {
-    return 'AddDeckState(title: $title, description: $description, avatar: $avatar, isShared: $isShared, category: $category, author: $author, cardslist: $cardslist, saveFailureOrSuccessOption: $saveFailureOrSuccessOption, initialDeck: $initialDeck)';
+    return 'AddDeckState(isLoading: $isLoading, title: $title, description: $description, avatar: $avatar, isShared: $isShared, category: $category, author: $author, cardslist: $cardslist, saveFailureOrSuccessOption: $saveFailureOrSuccessOption, initialDeck: $initialDeck)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _AddDeckState &&
+            (identical(other.isLoading, isLoading) ||
+                const DeepCollectionEquality()
+                    .equals(other.isLoading, isLoading)) &&
             (identical(other.title, title) ||
                 const DeepCollectionEquality().equals(other.title, title)) &&
             (identical(other.description, description) ||
@@ -277,6 +294,7 @@ class _$_AddDeckState implements _AddDeckState {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(isLoading) ^
       const DeepCollectionEquality().hash(title) ^
       const DeepCollectionEquality().hash(description) ^
       const DeepCollectionEquality().hash(avatar) ^
@@ -295,6 +313,8 @@ class _$_AddDeckState implements _AddDeckState {
 abstract class _AddDeckState implements AddDeckState {
   const factory _AddDeckState(
       {@required
+          bool isLoading,
+      @required
           DeckTitle title,
       @required
           DeckDescription description,
@@ -314,6 +334,8 @@ abstract class _AddDeckState implements AddDeckState {
       @required
           Deck initialDeck}) = _$_AddDeckState;
 
+  @override
+  bool get isLoading;
   @override
   DeckTitle get title;
   @override
@@ -338,6 +360,10 @@ abstract class _AddDeckState implements AddDeckState {
 
 class _$AddDeckEventTearOff {
   const _$AddDeckEventTearOff();
+
+  InitFromOnline initFromOnline() {
+    return InitFromOnline();
+  }
 
   SaveDeckChanges saveChanges() {
     return SaveDeckChanges();
@@ -410,6 +436,7 @@ const $AddDeckEvent = _$AddDeckEventTearOff();
 mixin _$AddDeckEvent {
   @optionalTypeArgs
   Result when<Result extends Object>({
+    @required Result initFromOnline(),
     @required Result saveChanges(),
     @required Result saveDraft(),
     @required Result discardChangesAndExit(),
@@ -425,6 +452,7 @@ mixin _$AddDeckEvent {
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
+    Result initFromOnline(),
     Result saveChanges(),
     Result saveDraft(),
     Result discardChangesAndExit(),
@@ -441,6 +469,7 @@ mixin _$AddDeckEvent {
   });
   @optionalTypeArgs
   Result map<Result extends Object>({
+    @required Result initFromOnline(InitFromOnline value),
     @required Result saveChanges(SaveDeckChanges value),
     @required Result saveDraft(SaveDraft value),
     @required Result discardChangesAndExit(DiscardChanges value),
@@ -456,6 +485,7 @@ mixin _$AddDeckEvent {
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
+    Result initFromOnline(InitFromOnline value),
     Result saveChanges(SaveDeckChanges value),
     Result saveDraft(SaveDraft value),
     Result discardChangesAndExit(DiscardChanges value),
@@ -484,6 +514,160 @@ class _$AddDeckEventCopyWithImpl<$Res> implements $AddDeckEventCopyWith<$Res> {
   final AddDeckEvent _value;
   // ignore: unused_field
   final $Res Function(AddDeckEvent) _then;
+}
+
+abstract class $InitFromOnlineCopyWith<$Res> {
+  factory $InitFromOnlineCopyWith(
+          InitFromOnline value, $Res Function(InitFromOnline) then) =
+      _$InitFromOnlineCopyWithImpl<$Res>;
+}
+
+class _$InitFromOnlineCopyWithImpl<$Res>
+    extends _$AddDeckEventCopyWithImpl<$Res>
+    implements $InitFromOnlineCopyWith<$Res> {
+  _$InitFromOnlineCopyWithImpl(
+      InitFromOnline _value, $Res Function(InitFromOnline) _then)
+      : super(_value, (v) => _then(v as InitFromOnline));
+
+  @override
+  InitFromOnline get _value => super._value as InitFromOnline;
+}
+
+class _$InitFromOnline implements InitFromOnline {
+  _$InitFromOnline();
+
+  @override
+  String toString() {
+    return 'AddDeckEvent.initFromOnline()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is InitFromOnline);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result initFromOnline(),
+    @required Result saveChanges(),
+    @required Result saveDraft(),
+    @required Result discardChangesAndExit(),
+    @required Result deleteDeck(),
+    @required Result titleChanged(String titleStr),
+    @required Result descriptionChanged(String descStr),
+    @required Result avatarChanged(File avatar),
+    @required Result privacyChanged(bool isShared),
+    @required Result categoryChanged(CategoryModel category),
+    @required Result cardChanged(Card card),
+    @required Result cardAdded(Card card),
+    @required Result cardDeleted(Card card),
+  }) {
+    assert(initFromOnline != null);
+    assert(saveChanges != null);
+    assert(saveDraft != null);
+    assert(discardChangesAndExit != null);
+    assert(deleteDeck != null);
+    assert(titleChanged != null);
+    assert(descriptionChanged != null);
+    assert(avatarChanged != null);
+    assert(privacyChanged != null);
+    assert(categoryChanged != null);
+    assert(cardChanged != null);
+    assert(cardAdded != null);
+    assert(cardDeleted != null);
+    return initFromOnline();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result initFromOnline(),
+    Result saveChanges(),
+    Result saveDraft(),
+    Result discardChangesAndExit(),
+    Result deleteDeck(),
+    Result titleChanged(String titleStr),
+    Result descriptionChanged(String descStr),
+    Result avatarChanged(File avatar),
+    Result privacyChanged(bool isShared),
+    Result categoryChanged(CategoryModel category),
+    Result cardChanged(Card card),
+    Result cardAdded(Card card),
+    Result cardDeleted(Card card),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (initFromOnline != null) {
+      return initFromOnline();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result initFromOnline(InitFromOnline value),
+    @required Result saveChanges(SaveDeckChanges value),
+    @required Result saveDraft(SaveDraft value),
+    @required Result discardChangesAndExit(DiscardChanges value),
+    @required Result deleteDeck(DeleteDeck value),
+    @required Result titleChanged(TitleChanged value),
+    @required Result descriptionChanged(DescriptionChanged value),
+    @required Result avatarChanged(AvatarChanged value),
+    @required Result privacyChanged(PrivacyChanged value),
+    @required Result categoryChanged(CategoryChanged value),
+    @required Result cardChanged(CardChanged value),
+    @required Result cardAdded(CardAdded value),
+    @required Result cardDeleted(CardDeleted value),
+  }) {
+    assert(initFromOnline != null);
+    assert(saveChanges != null);
+    assert(saveDraft != null);
+    assert(discardChangesAndExit != null);
+    assert(deleteDeck != null);
+    assert(titleChanged != null);
+    assert(descriptionChanged != null);
+    assert(avatarChanged != null);
+    assert(privacyChanged != null);
+    assert(categoryChanged != null);
+    assert(cardChanged != null);
+    assert(cardAdded != null);
+    assert(cardDeleted != null);
+    return initFromOnline(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result initFromOnline(InitFromOnline value),
+    Result saveChanges(SaveDeckChanges value),
+    Result saveDraft(SaveDraft value),
+    Result discardChangesAndExit(DiscardChanges value),
+    Result deleteDeck(DeleteDeck value),
+    Result titleChanged(TitleChanged value),
+    Result descriptionChanged(DescriptionChanged value),
+    Result avatarChanged(AvatarChanged value),
+    Result privacyChanged(PrivacyChanged value),
+    Result categoryChanged(CategoryChanged value),
+    Result cardChanged(CardChanged value),
+    Result cardAdded(CardAdded value),
+    Result cardDeleted(CardDeleted value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (initFromOnline != null) {
+      return initFromOnline(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InitFromOnline implements AddDeckEvent {
+  factory InitFromOnline() = _$InitFromOnline;
 }
 
 abstract class $SaveDeckChangesCopyWith<$Res> {
@@ -522,6 +706,7 @@ class _$SaveDeckChanges implements SaveDeckChanges {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
+    @required Result initFromOnline(),
     @required Result saveChanges(),
     @required Result saveDraft(),
     @required Result discardChangesAndExit(),
@@ -535,6 +720,7 @@ class _$SaveDeckChanges implements SaveDeckChanges {
     @required Result cardAdded(Card card),
     @required Result cardDeleted(Card card),
   }) {
+    assert(initFromOnline != null);
     assert(saveChanges != null);
     assert(saveDraft != null);
     assert(discardChangesAndExit != null);
@@ -553,6 +739,7 @@ class _$SaveDeckChanges implements SaveDeckChanges {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
+    Result initFromOnline(),
     Result saveChanges(),
     Result saveDraft(),
     Result discardChangesAndExit(),
@@ -577,6 +764,7 @@ class _$SaveDeckChanges implements SaveDeckChanges {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
+    @required Result initFromOnline(InitFromOnline value),
     @required Result saveChanges(SaveDeckChanges value),
     @required Result saveDraft(SaveDraft value),
     @required Result discardChangesAndExit(DiscardChanges value),
@@ -590,6 +778,7 @@ class _$SaveDeckChanges implements SaveDeckChanges {
     @required Result cardAdded(CardAdded value),
     @required Result cardDeleted(CardDeleted value),
   }) {
+    assert(initFromOnline != null);
     assert(saveChanges != null);
     assert(saveDraft != null);
     assert(discardChangesAndExit != null);
@@ -608,6 +797,7 @@ class _$SaveDeckChanges implements SaveDeckChanges {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
+    Result initFromOnline(InitFromOnline value),
     Result saveChanges(SaveDeckChanges value),
     Result saveDraft(SaveDraft value),
     Result discardChangesAndExit(DiscardChanges value),
@@ -667,6 +857,7 @@ class _$SaveDraft implements SaveDraft {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
+    @required Result initFromOnline(),
     @required Result saveChanges(),
     @required Result saveDraft(),
     @required Result discardChangesAndExit(),
@@ -680,6 +871,7 @@ class _$SaveDraft implements SaveDraft {
     @required Result cardAdded(Card card),
     @required Result cardDeleted(Card card),
   }) {
+    assert(initFromOnline != null);
     assert(saveChanges != null);
     assert(saveDraft != null);
     assert(discardChangesAndExit != null);
@@ -698,6 +890,7 @@ class _$SaveDraft implements SaveDraft {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
+    Result initFromOnline(),
     Result saveChanges(),
     Result saveDraft(),
     Result discardChangesAndExit(),
@@ -722,6 +915,7 @@ class _$SaveDraft implements SaveDraft {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
+    @required Result initFromOnline(InitFromOnline value),
     @required Result saveChanges(SaveDeckChanges value),
     @required Result saveDraft(SaveDraft value),
     @required Result discardChangesAndExit(DiscardChanges value),
@@ -735,6 +929,7 @@ class _$SaveDraft implements SaveDraft {
     @required Result cardAdded(CardAdded value),
     @required Result cardDeleted(CardDeleted value),
   }) {
+    assert(initFromOnline != null);
     assert(saveChanges != null);
     assert(saveDraft != null);
     assert(discardChangesAndExit != null);
@@ -753,6 +948,7 @@ class _$SaveDraft implements SaveDraft {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
+    Result initFromOnline(InitFromOnline value),
     Result saveChanges(SaveDeckChanges value),
     Result saveDraft(SaveDraft value),
     Result discardChangesAndExit(DiscardChanges value),
@@ -815,6 +1011,7 @@ class _$DiscardChanges implements DiscardChanges {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
+    @required Result initFromOnline(),
     @required Result saveChanges(),
     @required Result saveDraft(),
     @required Result discardChangesAndExit(),
@@ -828,6 +1025,7 @@ class _$DiscardChanges implements DiscardChanges {
     @required Result cardAdded(Card card),
     @required Result cardDeleted(Card card),
   }) {
+    assert(initFromOnline != null);
     assert(saveChanges != null);
     assert(saveDraft != null);
     assert(discardChangesAndExit != null);
@@ -846,6 +1044,7 @@ class _$DiscardChanges implements DiscardChanges {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
+    Result initFromOnline(),
     Result saveChanges(),
     Result saveDraft(),
     Result discardChangesAndExit(),
@@ -870,6 +1069,7 @@ class _$DiscardChanges implements DiscardChanges {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
+    @required Result initFromOnline(InitFromOnline value),
     @required Result saveChanges(SaveDeckChanges value),
     @required Result saveDraft(SaveDraft value),
     @required Result discardChangesAndExit(DiscardChanges value),
@@ -883,6 +1083,7 @@ class _$DiscardChanges implements DiscardChanges {
     @required Result cardAdded(CardAdded value),
     @required Result cardDeleted(CardDeleted value),
   }) {
+    assert(initFromOnline != null);
     assert(saveChanges != null);
     assert(saveDraft != null);
     assert(discardChangesAndExit != null);
@@ -901,6 +1102,7 @@ class _$DiscardChanges implements DiscardChanges {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
+    Result initFromOnline(InitFromOnline value),
     Result saveChanges(SaveDeckChanges value),
     Result saveDraft(SaveDraft value),
     Result discardChangesAndExit(DiscardChanges value),
@@ -961,6 +1163,7 @@ class _$DeleteDeck implements DeleteDeck {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
+    @required Result initFromOnline(),
     @required Result saveChanges(),
     @required Result saveDraft(),
     @required Result discardChangesAndExit(),
@@ -974,6 +1177,7 @@ class _$DeleteDeck implements DeleteDeck {
     @required Result cardAdded(Card card),
     @required Result cardDeleted(Card card),
   }) {
+    assert(initFromOnline != null);
     assert(saveChanges != null);
     assert(saveDraft != null);
     assert(discardChangesAndExit != null);
@@ -992,6 +1196,7 @@ class _$DeleteDeck implements DeleteDeck {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
+    Result initFromOnline(),
     Result saveChanges(),
     Result saveDraft(),
     Result discardChangesAndExit(),
@@ -1016,6 +1221,7 @@ class _$DeleteDeck implements DeleteDeck {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
+    @required Result initFromOnline(InitFromOnline value),
     @required Result saveChanges(SaveDeckChanges value),
     @required Result saveDraft(SaveDraft value),
     @required Result discardChangesAndExit(DiscardChanges value),
@@ -1029,6 +1235,7 @@ class _$DeleteDeck implements DeleteDeck {
     @required Result cardAdded(CardAdded value),
     @required Result cardDeleted(CardDeleted value),
   }) {
+    assert(initFromOnline != null);
     assert(saveChanges != null);
     assert(saveDraft != null);
     assert(discardChangesAndExit != null);
@@ -1047,6 +1254,7 @@ class _$DeleteDeck implements DeleteDeck {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
+    Result initFromOnline(InitFromOnline value),
     Result saveChanges(SaveDeckChanges value),
     Result saveDraft(SaveDraft value),
     Result discardChangesAndExit(DiscardChanges value),
@@ -1130,6 +1338,7 @@ class _$TitleChanged implements TitleChanged {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
+    @required Result initFromOnline(),
     @required Result saveChanges(),
     @required Result saveDraft(),
     @required Result discardChangesAndExit(),
@@ -1143,6 +1352,7 @@ class _$TitleChanged implements TitleChanged {
     @required Result cardAdded(Card card),
     @required Result cardDeleted(Card card),
   }) {
+    assert(initFromOnline != null);
     assert(saveChanges != null);
     assert(saveDraft != null);
     assert(discardChangesAndExit != null);
@@ -1161,6 +1371,7 @@ class _$TitleChanged implements TitleChanged {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
+    Result initFromOnline(),
     Result saveChanges(),
     Result saveDraft(),
     Result discardChangesAndExit(),
@@ -1185,6 +1396,7 @@ class _$TitleChanged implements TitleChanged {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
+    @required Result initFromOnline(InitFromOnline value),
     @required Result saveChanges(SaveDeckChanges value),
     @required Result saveDraft(SaveDraft value),
     @required Result discardChangesAndExit(DiscardChanges value),
@@ -1198,6 +1410,7 @@ class _$TitleChanged implements TitleChanged {
     @required Result cardAdded(CardAdded value),
     @required Result cardDeleted(CardDeleted value),
   }) {
+    assert(initFromOnline != null);
     assert(saveChanges != null);
     assert(saveDraft != null);
     assert(discardChangesAndExit != null);
@@ -1216,6 +1429,7 @@ class _$TitleChanged implements TitleChanged {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
+    Result initFromOnline(InitFromOnline value),
     Result saveChanges(SaveDeckChanges value),
     Result saveDraft(SaveDraft value),
     Result discardChangesAndExit(DiscardChanges value),
@@ -1302,6 +1516,7 @@ class _$DescriptionChanged implements DescriptionChanged {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
+    @required Result initFromOnline(),
     @required Result saveChanges(),
     @required Result saveDraft(),
     @required Result discardChangesAndExit(),
@@ -1315,6 +1530,7 @@ class _$DescriptionChanged implements DescriptionChanged {
     @required Result cardAdded(Card card),
     @required Result cardDeleted(Card card),
   }) {
+    assert(initFromOnline != null);
     assert(saveChanges != null);
     assert(saveDraft != null);
     assert(discardChangesAndExit != null);
@@ -1333,6 +1549,7 @@ class _$DescriptionChanged implements DescriptionChanged {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
+    Result initFromOnline(),
     Result saveChanges(),
     Result saveDraft(),
     Result discardChangesAndExit(),
@@ -1357,6 +1574,7 @@ class _$DescriptionChanged implements DescriptionChanged {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
+    @required Result initFromOnline(InitFromOnline value),
     @required Result saveChanges(SaveDeckChanges value),
     @required Result saveDraft(SaveDraft value),
     @required Result discardChangesAndExit(DiscardChanges value),
@@ -1370,6 +1588,7 @@ class _$DescriptionChanged implements DescriptionChanged {
     @required Result cardAdded(CardAdded value),
     @required Result cardDeleted(CardDeleted value),
   }) {
+    assert(initFromOnline != null);
     assert(saveChanges != null);
     assert(saveDraft != null);
     assert(discardChangesAndExit != null);
@@ -1388,6 +1607,7 @@ class _$DescriptionChanged implements DescriptionChanged {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
+    Result initFromOnline(InitFromOnline value),
     Result saveChanges(SaveDeckChanges value),
     Result saveDraft(SaveDraft value),
     Result discardChangesAndExit(DiscardChanges value),
@@ -1473,6 +1693,7 @@ class _$AvatarChanged implements AvatarChanged {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
+    @required Result initFromOnline(),
     @required Result saveChanges(),
     @required Result saveDraft(),
     @required Result discardChangesAndExit(),
@@ -1486,6 +1707,7 @@ class _$AvatarChanged implements AvatarChanged {
     @required Result cardAdded(Card card),
     @required Result cardDeleted(Card card),
   }) {
+    assert(initFromOnline != null);
     assert(saveChanges != null);
     assert(saveDraft != null);
     assert(discardChangesAndExit != null);
@@ -1504,6 +1726,7 @@ class _$AvatarChanged implements AvatarChanged {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
+    Result initFromOnline(),
     Result saveChanges(),
     Result saveDraft(),
     Result discardChangesAndExit(),
@@ -1528,6 +1751,7 @@ class _$AvatarChanged implements AvatarChanged {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
+    @required Result initFromOnline(InitFromOnline value),
     @required Result saveChanges(SaveDeckChanges value),
     @required Result saveDraft(SaveDraft value),
     @required Result discardChangesAndExit(DiscardChanges value),
@@ -1541,6 +1765,7 @@ class _$AvatarChanged implements AvatarChanged {
     @required Result cardAdded(CardAdded value),
     @required Result cardDeleted(CardDeleted value),
   }) {
+    assert(initFromOnline != null);
     assert(saveChanges != null);
     assert(saveDraft != null);
     assert(discardChangesAndExit != null);
@@ -1559,6 +1784,7 @@ class _$AvatarChanged implements AvatarChanged {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
+    Result initFromOnline(InitFromOnline value),
     Result saveChanges(SaveDeckChanges value),
     Result saveDraft(SaveDraft value),
     Result discardChangesAndExit(DiscardChanges value),
@@ -1646,6 +1872,7 @@ class _$PrivacyChanged implements PrivacyChanged {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
+    @required Result initFromOnline(),
     @required Result saveChanges(),
     @required Result saveDraft(),
     @required Result discardChangesAndExit(),
@@ -1659,6 +1886,7 @@ class _$PrivacyChanged implements PrivacyChanged {
     @required Result cardAdded(Card card),
     @required Result cardDeleted(Card card),
   }) {
+    assert(initFromOnline != null);
     assert(saveChanges != null);
     assert(saveDraft != null);
     assert(discardChangesAndExit != null);
@@ -1677,6 +1905,7 @@ class _$PrivacyChanged implements PrivacyChanged {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
+    Result initFromOnline(),
     Result saveChanges(),
     Result saveDraft(),
     Result discardChangesAndExit(),
@@ -1701,6 +1930,7 @@ class _$PrivacyChanged implements PrivacyChanged {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
+    @required Result initFromOnline(InitFromOnline value),
     @required Result saveChanges(SaveDeckChanges value),
     @required Result saveDraft(SaveDraft value),
     @required Result discardChangesAndExit(DiscardChanges value),
@@ -1714,6 +1944,7 @@ class _$PrivacyChanged implements PrivacyChanged {
     @required Result cardAdded(CardAdded value),
     @required Result cardDeleted(CardDeleted value),
   }) {
+    assert(initFromOnline != null);
     assert(saveChanges != null);
     assert(saveDraft != null);
     assert(discardChangesAndExit != null);
@@ -1732,6 +1963,7 @@ class _$PrivacyChanged implements PrivacyChanged {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
+    Result initFromOnline(InitFromOnline value),
     Result saveChanges(SaveDeckChanges value),
     Result saveDraft(SaveDraft value),
     Result discardChangesAndExit(DiscardChanges value),
@@ -1819,6 +2051,7 @@ class _$CategoryChanged implements CategoryChanged {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
+    @required Result initFromOnline(),
     @required Result saveChanges(),
     @required Result saveDraft(),
     @required Result discardChangesAndExit(),
@@ -1832,6 +2065,7 @@ class _$CategoryChanged implements CategoryChanged {
     @required Result cardAdded(Card card),
     @required Result cardDeleted(Card card),
   }) {
+    assert(initFromOnline != null);
     assert(saveChanges != null);
     assert(saveDraft != null);
     assert(discardChangesAndExit != null);
@@ -1850,6 +2084,7 @@ class _$CategoryChanged implements CategoryChanged {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
+    Result initFromOnline(),
     Result saveChanges(),
     Result saveDraft(),
     Result discardChangesAndExit(),
@@ -1874,6 +2109,7 @@ class _$CategoryChanged implements CategoryChanged {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
+    @required Result initFromOnline(InitFromOnline value),
     @required Result saveChanges(SaveDeckChanges value),
     @required Result saveDraft(SaveDraft value),
     @required Result discardChangesAndExit(DiscardChanges value),
@@ -1887,6 +2123,7 @@ class _$CategoryChanged implements CategoryChanged {
     @required Result cardAdded(CardAdded value),
     @required Result cardDeleted(CardDeleted value),
   }) {
+    assert(initFromOnline != null);
     assert(saveChanges != null);
     assert(saveDraft != null);
     assert(discardChangesAndExit != null);
@@ -1905,6 +2142,7 @@ class _$CategoryChanged implements CategoryChanged {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
+    Result initFromOnline(InitFromOnline value),
     Result saveChanges(SaveDeckChanges value),
     Result saveDraft(SaveDraft value),
     Result discardChangesAndExit(DiscardChanges value),
@@ -1990,6 +2228,7 @@ class _$CardChanged implements CardChanged {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
+    @required Result initFromOnline(),
     @required Result saveChanges(),
     @required Result saveDraft(),
     @required Result discardChangesAndExit(),
@@ -2003,6 +2242,7 @@ class _$CardChanged implements CardChanged {
     @required Result cardAdded(Card card),
     @required Result cardDeleted(Card card),
   }) {
+    assert(initFromOnline != null);
     assert(saveChanges != null);
     assert(saveDraft != null);
     assert(discardChangesAndExit != null);
@@ -2021,6 +2261,7 @@ class _$CardChanged implements CardChanged {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
+    Result initFromOnline(),
     Result saveChanges(),
     Result saveDraft(),
     Result discardChangesAndExit(),
@@ -2045,6 +2286,7 @@ class _$CardChanged implements CardChanged {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
+    @required Result initFromOnline(InitFromOnline value),
     @required Result saveChanges(SaveDeckChanges value),
     @required Result saveDraft(SaveDraft value),
     @required Result discardChangesAndExit(DiscardChanges value),
@@ -2058,6 +2300,7 @@ class _$CardChanged implements CardChanged {
     @required Result cardAdded(CardAdded value),
     @required Result cardDeleted(CardDeleted value),
   }) {
+    assert(initFromOnline != null);
     assert(saveChanges != null);
     assert(saveDraft != null);
     assert(discardChangesAndExit != null);
@@ -2076,6 +2319,7 @@ class _$CardChanged implements CardChanged {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
+    Result initFromOnline(InitFromOnline value),
     Result saveChanges(SaveDeckChanges value),
     Result saveDraft(SaveDraft value),
     Result discardChangesAndExit(DiscardChanges value),
@@ -2159,6 +2403,7 @@ class _$CardAdded implements CardAdded {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
+    @required Result initFromOnline(),
     @required Result saveChanges(),
     @required Result saveDraft(),
     @required Result discardChangesAndExit(),
@@ -2172,6 +2417,7 @@ class _$CardAdded implements CardAdded {
     @required Result cardAdded(Card card),
     @required Result cardDeleted(Card card),
   }) {
+    assert(initFromOnline != null);
     assert(saveChanges != null);
     assert(saveDraft != null);
     assert(discardChangesAndExit != null);
@@ -2190,6 +2436,7 @@ class _$CardAdded implements CardAdded {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
+    Result initFromOnline(),
     Result saveChanges(),
     Result saveDraft(),
     Result discardChangesAndExit(),
@@ -2214,6 +2461,7 @@ class _$CardAdded implements CardAdded {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
+    @required Result initFromOnline(InitFromOnline value),
     @required Result saveChanges(SaveDeckChanges value),
     @required Result saveDraft(SaveDraft value),
     @required Result discardChangesAndExit(DiscardChanges value),
@@ -2227,6 +2475,7 @@ class _$CardAdded implements CardAdded {
     @required Result cardAdded(CardAdded value),
     @required Result cardDeleted(CardDeleted value),
   }) {
+    assert(initFromOnline != null);
     assert(saveChanges != null);
     assert(saveDraft != null);
     assert(discardChangesAndExit != null);
@@ -2245,6 +2494,7 @@ class _$CardAdded implements CardAdded {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
+    Result initFromOnline(InitFromOnline value),
     Result saveChanges(SaveDeckChanges value),
     Result saveDraft(SaveDraft value),
     Result discardChangesAndExit(DiscardChanges value),
@@ -2330,6 +2580,7 @@ class _$CardDeleted implements CardDeleted {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
+    @required Result initFromOnline(),
     @required Result saveChanges(),
     @required Result saveDraft(),
     @required Result discardChangesAndExit(),
@@ -2343,6 +2594,7 @@ class _$CardDeleted implements CardDeleted {
     @required Result cardAdded(Card card),
     @required Result cardDeleted(Card card),
   }) {
+    assert(initFromOnline != null);
     assert(saveChanges != null);
     assert(saveDraft != null);
     assert(discardChangesAndExit != null);
@@ -2361,6 +2613,7 @@ class _$CardDeleted implements CardDeleted {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
+    Result initFromOnline(),
     Result saveChanges(),
     Result saveDraft(),
     Result discardChangesAndExit(),
@@ -2385,6 +2638,7 @@ class _$CardDeleted implements CardDeleted {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
+    @required Result initFromOnline(InitFromOnline value),
     @required Result saveChanges(SaveDeckChanges value),
     @required Result saveDraft(SaveDraft value),
     @required Result discardChangesAndExit(DiscardChanges value),
@@ -2398,6 +2652,7 @@ class _$CardDeleted implements CardDeleted {
     @required Result cardAdded(CardAdded value),
     @required Result cardDeleted(CardDeleted value),
   }) {
+    assert(initFromOnline != null);
     assert(saveChanges != null);
     assert(saveDraft != null);
     assert(discardChangesAndExit != null);
@@ -2416,6 +2671,7 @@ class _$CardDeleted implements CardDeleted {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
+    Result initFromOnline(InitFromOnline value),
     Result saveChanges(SaveDeckChanges value),
     Result saveDraft(SaveDraft value),
     Result discardChangesAndExit(DiscardChanges value),

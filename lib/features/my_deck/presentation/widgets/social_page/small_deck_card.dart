@@ -7,6 +7,7 @@ import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/add_deck_usecase.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/delete_deck_usecase.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/save_deck_changes_usecase.dart';
+import 'package:mydeck/features/my_deck/domain/usecases/upload_online_deck.dart';
 import 'package:mydeck/features/my_deck/presentation/bloc/add_deck/add_deck_bloc.dart';
 import 'package:mydeck/features/my_deck/presentation/pages/add_deck_page.dart';
 
@@ -30,6 +31,8 @@ class SmallDeckCard extends StatelessWidget {
                       deleteDeckUsecase: sl.get<DeleteDeckUseCase>(),
                       saveDeckChangesUsecase: sl.get<SaveDeckChangesUsecase>(),
                       goal: AddDeckGoal.lookup,
+                      uploadOnlineDeckUsecase:
+                          sl.get<UploadOnlineDeckUsecase>(),
                     ),
                     child: AddDeckPage(
                       goal: AddDeckGoal.lookup,

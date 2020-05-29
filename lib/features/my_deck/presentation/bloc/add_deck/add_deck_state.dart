@@ -3,6 +3,7 @@ part of "add_deck_bloc.dart";
 @freezed
 abstract class AddDeckState with _$AddDeckState {
   const factory AddDeckState({
+    @required bool isLoading,
     @required DeckTitle title,
     @required DeckDescription description,
     @required DeckAvatar avatar,
@@ -26,5 +27,6 @@ abstract class AddDeckState with _$AddDeckState {
         saveFailureOrSuccessOption: none(),
         author: initialDeck.author,
         initialDeck: initialDeck,
+        isLoading: false,
       );
 }

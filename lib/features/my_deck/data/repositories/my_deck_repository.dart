@@ -122,9 +122,9 @@ class MyDeckRepositoryImpl extends MyDeckRepository {
       // final filledDeck = Deck.fromModel(deck);
       // filledDeck.cardsList.addAll(cards.map((c) => Card.fromModel(c)));
       if (await networkConnection.isConnected) {
-        final deck = await networkDataSource.getDeckById(id);
+        final deck = await networkDataSource.getDeckWithCardsById(id);
 
-        return Right(Deck.fromModel(deck));
+        return Right(deck);
       } else {
         return Left(StorageFailure.networkFailure());
       }

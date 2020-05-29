@@ -41,6 +41,24 @@ class _$LibraryEventTearOff {
   TrainStarted trainStarted() {
     return TrainStarted();
   }
+
+  UndoAdding undoAdding({@required Deck deck}) {
+    return UndoAdding(
+      deck: deck,
+    );
+  }
+
+  UndoDeleting undoDeleting({@required Deck deck}) {
+    return UndoDeleting(
+      deck: deck,
+    );
+  }
+
+  UndoEditing undoEditing({@required Deck oldDeck}) {
+    return UndoEditing(
+      oldDeck: oldDeck,
+    );
+  }
 }
 
 // ignore: unused_element
@@ -55,6 +73,9 @@ mixin _$LibraryEvent {
     @required Result updateDeck(Deck deck),
     @required Result deleteDeck(Deck deck),
     @required Result trainStarted(),
+    @required Result undoAdding(Deck deck),
+    @required Result undoDeleting(Deck deck),
+    @required Result undoEditing(Deck oldDeck),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
@@ -64,6 +85,9 @@ mixin _$LibraryEvent {
     Result updateDeck(Deck deck),
     Result deleteDeck(Deck deck),
     Result trainStarted(),
+    Result undoAdding(Deck deck),
+    Result undoDeleting(Deck deck),
+    Result undoEditing(Deck oldDeck),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -74,6 +98,9 @@ mixin _$LibraryEvent {
     @required Result updateDeck(UpdateDeck value),
     @required Result deleteDeck(DeleteDeck value),
     @required Result trainStarted(TrainStarted value),
+    @required Result undoAdding(UndoAdding value),
+    @required Result undoDeleting(UndoDeleting value),
+    @required Result undoEditing(UndoEditing value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
@@ -83,6 +110,9 @@ mixin _$LibraryEvent {
     Result updateDeck(UpdateDeck value),
     Result deleteDeck(DeleteDeck value),
     Result trainStarted(TrainStarted value),
+    Result undoAdding(UndoAdding value),
+    Result undoDeleting(UndoDeleting value),
+    Result undoEditing(UndoEditing value),
     @required Result orElse(),
   });
 }
@@ -143,6 +173,9 @@ class _$GetAllUsersDecks implements GetAllUsersDecks {
     @required Result updateDeck(Deck deck),
     @required Result deleteDeck(Deck deck),
     @required Result trainStarted(),
+    @required Result undoAdding(Deck deck),
+    @required Result undoDeleting(Deck deck),
+    @required Result undoEditing(Deck oldDeck),
   }) {
     assert(getAllUsersDecks != null);
     assert(tryToStartTrain != null);
@@ -150,6 +183,9 @@ class _$GetAllUsersDecks implements GetAllUsersDecks {
     assert(updateDeck != null);
     assert(deleteDeck != null);
     assert(trainStarted != null);
+    assert(undoAdding != null);
+    assert(undoDeleting != null);
+    assert(undoEditing != null);
     return getAllUsersDecks();
   }
 
@@ -162,6 +198,9 @@ class _$GetAllUsersDecks implements GetAllUsersDecks {
     Result updateDeck(Deck deck),
     Result deleteDeck(Deck deck),
     Result trainStarted(),
+    Result undoAdding(Deck deck),
+    Result undoDeleting(Deck deck),
+    Result undoEditing(Deck oldDeck),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -180,6 +219,9 @@ class _$GetAllUsersDecks implements GetAllUsersDecks {
     @required Result updateDeck(UpdateDeck value),
     @required Result deleteDeck(DeleteDeck value),
     @required Result trainStarted(TrainStarted value),
+    @required Result undoAdding(UndoAdding value),
+    @required Result undoDeleting(UndoDeleting value),
+    @required Result undoEditing(UndoEditing value),
   }) {
     assert(getAllUsersDecks != null);
     assert(tryToStartTrain != null);
@@ -187,6 +229,9 @@ class _$GetAllUsersDecks implements GetAllUsersDecks {
     assert(updateDeck != null);
     assert(deleteDeck != null);
     assert(trainStarted != null);
+    assert(undoAdding != null);
+    assert(undoDeleting != null);
+    assert(undoEditing != null);
     return getAllUsersDecks(this);
   }
 
@@ -199,6 +244,9 @@ class _$GetAllUsersDecks implements GetAllUsersDecks {
     Result updateDeck(UpdateDeck value),
     Result deleteDeck(DeleteDeck value),
     Result trainStarted(TrainStarted value),
+    Result undoAdding(UndoAdding value),
+    Result undoDeleting(UndoDeleting value),
+    Result undoEditing(UndoEditing value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -255,6 +303,9 @@ class _$TryToStartTrain implements TryToStartTrain {
     @required Result updateDeck(Deck deck),
     @required Result deleteDeck(Deck deck),
     @required Result trainStarted(),
+    @required Result undoAdding(Deck deck),
+    @required Result undoDeleting(Deck deck),
+    @required Result undoEditing(Deck oldDeck),
   }) {
     assert(getAllUsersDecks != null);
     assert(tryToStartTrain != null);
@@ -262,6 +313,9 @@ class _$TryToStartTrain implements TryToStartTrain {
     assert(updateDeck != null);
     assert(deleteDeck != null);
     assert(trainStarted != null);
+    assert(undoAdding != null);
+    assert(undoDeleting != null);
+    assert(undoEditing != null);
     return tryToStartTrain();
   }
 
@@ -274,6 +328,9 @@ class _$TryToStartTrain implements TryToStartTrain {
     Result updateDeck(Deck deck),
     Result deleteDeck(Deck deck),
     Result trainStarted(),
+    Result undoAdding(Deck deck),
+    Result undoDeleting(Deck deck),
+    Result undoEditing(Deck oldDeck),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -292,6 +349,9 @@ class _$TryToStartTrain implements TryToStartTrain {
     @required Result updateDeck(UpdateDeck value),
     @required Result deleteDeck(DeleteDeck value),
     @required Result trainStarted(TrainStarted value),
+    @required Result undoAdding(UndoAdding value),
+    @required Result undoDeleting(UndoDeleting value),
+    @required Result undoEditing(UndoEditing value),
   }) {
     assert(getAllUsersDecks != null);
     assert(tryToStartTrain != null);
@@ -299,6 +359,9 @@ class _$TryToStartTrain implements TryToStartTrain {
     assert(updateDeck != null);
     assert(deleteDeck != null);
     assert(trainStarted != null);
+    assert(undoAdding != null);
+    assert(undoDeleting != null);
+    assert(undoEditing != null);
     return tryToStartTrain(this);
   }
 
@@ -311,6 +374,9 @@ class _$TryToStartTrain implements TryToStartTrain {
     Result updateDeck(UpdateDeck value),
     Result deleteDeck(DeleteDeck value),
     Result trainStarted(TrainStarted value),
+    Result undoAdding(UndoAdding value),
+    Result undoDeleting(UndoDeleting value),
+    Result undoEditing(UndoEditing value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -397,6 +463,9 @@ class _$AddDeck implements AddDeck {
     @required Result updateDeck(Deck deck),
     @required Result deleteDeck(Deck deck),
     @required Result trainStarted(),
+    @required Result undoAdding(Deck deck),
+    @required Result undoDeleting(Deck deck),
+    @required Result undoEditing(Deck oldDeck),
   }) {
     assert(getAllUsersDecks != null);
     assert(tryToStartTrain != null);
@@ -404,6 +473,9 @@ class _$AddDeck implements AddDeck {
     assert(updateDeck != null);
     assert(deleteDeck != null);
     assert(trainStarted != null);
+    assert(undoAdding != null);
+    assert(undoDeleting != null);
+    assert(undoEditing != null);
     return addDeck(deck);
   }
 
@@ -416,6 +488,9 @@ class _$AddDeck implements AddDeck {
     Result updateDeck(Deck deck),
     Result deleteDeck(Deck deck),
     Result trainStarted(),
+    Result undoAdding(Deck deck),
+    Result undoDeleting(Deck deck),
+    Result undoEditing(Deck oldDeck),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -434,6 +509,9 @@ class _$AddDeck implements AddDeck {
     @required Result updateDeck(UpdateDeck value),
     @required Result deleteDeck(DeleteDeck value),
     @required Result trainStarted(TrainStarted value),
+    @required Result undoAdding(UndoAdding value),
+    @required Result undoDeleting(UndoDeleting value),
+    @required Result undoEditing(UndoEditing value),
   }) {
     assert(getAllUsersDecks != null);
     assert(tryToStartTrain != null);
@@ -441,6 +519,9 @@ class _$AddDeck implements AddDeck {
     assert(updateDeck != null);
     assert(deleteDeck != null);
     assert(trainStarted != null);
+    assert(undoAdding != null);
+    assert(undoDeleting != null);
+    assert(undoEditing != null);
     return addDeck(this);
   }
 
@@ -453,6 +534,9 @@ class _$AddDeck implements AddDeck {
     Result updateDeck(UpdateDeck value),
     Result deleteDeck(DeleteDeck value),
     Result trainStarted(TrainStarted value),
+    Result undoAdding(UndoAdding value),
+    Result undoDeleting(UndoDeleting value),
+    Result undoEditing(UndoEditing value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -543,6 +627,9 @@ class _$UpdateDeck implements UpdateDeck {
     @required Result updateDeck(Deck deck),
     @required Result deleteDeck(Deck deck),
     @required Result trainStarted(),
+    @required Result undoAdding(Deck deck),
+    @required Result undoDeleting(Deck deck),
+    @required Result undoEditing(Deck oldDeck),
   }) {
     assert(getAllUsersDecks != null);
     assert(tryToStartTrain != null);
@@ -550,6 +637,9 @@ class _$UpdateDeck implements UpdateDeck {
     assert(updateDeck != null);
     assert(deleteDeck != null);
     assert(trainStarted != null);
+    assert(undoAdding != null);
+    assert(undoDeleting != null);
+    assert(undoEditing != null);
     return updateDeck(deck);
   }
 
@@ -562,6 +652,9 @@ class _$UpdateDeck implements UpdateDeck {
     Result updateDeck(Deck deck),
     Result deleteDeck(Deck deck),
     Result trainStarted(),
+    Result undoAdding(Deck deck),
+    Result undoDeleting(Deck deck),
+    Result undoEditing(Deck oldDeck),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -580,6 +673,9 @@ class _$UpdateDeck implements UpdateDeck {
     @required Result updateDeck(UpdateDeck value),
     @required Result deleteDeck(DeleteDeck value),
     @required Result trainStarted(TrainStarted value),
+    @required Result undoAdding(UndoAdding value),
+    @required Result undoDeleting(UndoDeleting value),
+    @required Result undoEditing(UndoEditing value),
   }) {
     assert(getAllUsersDecks != null);
     assert(tryToStartTrain != null);
@@ -587,6 +683,9 @@ class _$UpdateDeck implements UpdateDeck {
     assert(updateDeck != null);
     assert(deleteDeck != null);
     assert(trainStarted != null);
+    assert(undoAdding != null);
+    assert(undoDeleting != null);
+    assert(undoEditing != null);
     return updateDeck(this);
   }
 
@@ -599,6 +698,9 @@ class _$UpdateDeck implements UpdateDeck {
     Result updateDeck(UpdateDeck value),
     Result deleteDeck(DeleteDeck value),
     Result trainStarted(TrainStarted value),
+    Result undoAdding(UndoAdding value),
+    Result undoDeleting(UndoDeleting value),
+    Result undoEditing(UndoEditing value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -689,6 +791,9 @@ class _$DeleteDeck implements DeleteDeck {
     @required Result updateDeck(Deck deck),
     @required Result deleteDeck(Deck deck),
     @required Result trainStarted(),
+    @required Result undoAdding(Deck deck),
+    @required Result undoDeleting(Deck deck),
+    @required Result undoEditing(Deck oldDeck),
   }) {
     assert(getAllUsersDecks != null);
     assert(tryToStartTrain != null);
@@ -696,6 +801,9 @@ class _$DeleteDeck implements DeleteDeck {
     assert(updateDeck != null);
     assert(deleteDeck != null);
     assert(trainStarted != null);
+    assert(undoAdding != null);
+    assert(undoDeleting != null);
+    assert(undoEditing != null);
     return deleteDeck(deck);
   }
 
@@ -708,6 +816,9 @@ class _$DeleteDeck implements DeleteDeck {
     Result updateDeck(Deck deck),
     Result deleteDeck(Deck deck),
     Result trainStarted(),
+    Result undoAdding(Deck deck),
+    Result undoDeleting(Deck deck),
+    Result undoEditing(Deck oldDeck),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -726,6 +837,9 @@ class _$DeleteDeck implements DeleteDeck {
     @required Result updateDeck(UpdateDeck value),
     @required Result deleteDeck(DeleteDeck value),
     @required Result trainStarted(TrainStarted value),
+    @required Result undoAdding(UndoAdding value),
+    @required Result undoDeleting(UndoDeleting value),
+    @required Result undoEditing(UndoEditing value),
   }) {
     assert(getAllUsersDecks != null);
     assert(tryToStartTrain != null);
@@ -733,6 +847,9 @@ class _$DeleteDeck implements DeleteDeck {
     assert(updateDeck != null);
     assert(deleteDeck != null);
     assert(trainStarted != null);
+    assert(undoAdding != null);
+    assert(undoDeleting != null);
+    assert(undoEditing != null);
     return deleteDeck(this);
   }
 
@@ -745,6 +862,9 @@ class _$DeleteDeck implements DeleteDeck {
     Result updateDeck(UpdateDeck value),
     Result deleteDeck(DeleteDeck value),
     Result trainStarted(TrainStarted value),
+    Result undoAdding(UndoAdding value),
+    Result undoDeleting(UndoDeleting value),
+    Result undoEditing(UndoEditing value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -803,6 +923,9 @@ class _$TrainStarted implements TrainStarted {
     @required Result updateDeck(Deck deck),
     @required Result deleteDeck(Deck deck),
     @required Result trainStarted(),
+    @required Result undoAdding(Deck deck),
+    @required Result undoDeleting(Deck deck),
+    @required Result undoEditing(Deck oldDeck),
   }) {
     assert(getAllUsersDecks != null);
     assert(tryToStartTrain != null);
@@ -810,6 +933,9 @@ class _$TrainStarted implements TrainStarted {
     assert(updateDeck != null);
     assert(deleteDeck != null);
     assert(trainStarted != null);
+    assert(undoAdding != null);
+    assert(undoDeleting != null);
+    assert(undoEditing != null);
     return trainStarted();
   }
 
@@ -822,6 +948,9 @@ class _$TrainStarted implements TrainStarted {
     Result updateDeck(Deck deck),
     Result deleteDeck(Deck deck),
     Result trainStarted(),
+    Result undoAdding(Deck deck),
+    Result undoDeleting(Deck deck),
+    Result undoEditing(Deck oldDeck),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -840,6 +969,9 @@ class _$TrainStarted implements TrainStarted {
     @required Result updateDeck(UpdateDeck value),
     @required Result deleteDeck(DeleteDeck value),
     @required Result trainStarted(TrainStarted value),
+    @required Result undoAdding(UndoAdding value),
+    @required Result undoDeleting(UndoDeleting value),
+    @required Result undoEditing(UndoEditing value),
   }) {
     assert(getAllUsersDecks != null);
     assert(tryToStartTrain != null);
@@ -847,6 +979,9 @@ class _$TrainStarted implements TrainStarted {
     assert(updateDeck != null);
     assert(deleteDeck != null);
     assert(trainStarted != null);
+    assert(undoAdding != null);
+    assert(undoDeleting != null);
+    assert(undoEditing != null);
     return trainStarted(this);
   }
 
@@ -859,6 +994,9 @@ class _$TrainStarted implements TrainStarted {
     Result updateDeck(UpdateDeck value),
     Result deleteDeck(DeleteDeck value),
     Result trainStarted(TrainStarted value),
+    Result undoAdding(UndoAdding value),
+    Result undoDeleting(UndoDeleting value),
+    Result undoEditing(UndoEditing value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -871,4 +1009,498 @@ class _$TrainStarted implements TrainStarted {
 
 abstract class TrainStarted implements LibraryEvent {
   factory TrainStarted() = _$TrainStarted;
+}
+
+abstract class $UndoAddingCopyWith<$Res> {
+  factory $UndoAddingCopyWith(
+          UndoAdding value, $Res Function(UndoAdding) then) =
+      _$UndoAddingCopyWithImpl<$Res>;
+  $Res call({Deck deck});
+
+  $DeckCopyWith<$Res> get deck;
+}
+
+class _$UndoAddingCopyWithImpl<$Res> extends _$LibraryEventCopyWithImpl<$Res>
+    implements $UndoAddingCopyWith<$Res> {
+  _$UndoAddingCopyWithImpl(UndoAdding _value, $Res Function(UndoAdding) _then)
+      : super(_value, (v) => _then(v as UndoAdding));
+
+  @override
+  UndoAdding get _value => super._value as UndoAdding;
+
+  @override
+  $Res call({
+    Object deck = freezed,
+  }) {
+    return _then(UndoAdding(
+      deck: deck == freezed ? _value.deck : deck as Deck,
+    ));
+  }
+
+  @override
+  $DeckCopyWith<$Res> get deck {
+    if (_value.deck == null) {
+      return null;
+    }
+    return $DeckCopyWith<$Res>(_value.deck, (value) {
+      return _then(_value.copyWith(deck: value));
+    });
+  }
+}
+
+class _$UndoAdding implements UndoAdding {
+  _$UndoAdding({@required this.deck}) : assert(deck != null);
+
+  @override
+  final Deck deck;
+
+  @override
+  String toString() {
+    return 'LibraryEvent.undoAdding(deck: $deck)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is UndoAdding &&
+            (identical(other.deck, deck) ||
+                const DeepCollectionEquality().equals(other.deck, deck)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(deck);
+
+  @override
+  $UndoAddingCopyWith<UndoAdding> get copyWith =>
+      _$UndoAddingCopyWithImpl<UndoAdding>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result getAllUsersDecks(),
+    @required Result tryToStartTrain(),
+    @required Result addDeck(Deck deck),
+    @required Result updateDeck(Deck deck),
+    @required Result deleteDeck(Deck deck),
+    @required Result trainStarted(),
+    @required Result undoAdding(Deck deck),
+    @required Result undoDeleting(Deck deck),
+    @required Result undoEditing(Deck oldDeck),
+  }) {
+    assert(getAllUsersDecks != null);
+    assert(tryToStartTrain != null);
+    assert(addDeck != null);
+    assert(updateDeck != null);
+    assert(deleteDeck != null);
+    assert(trainStarted != null);
+    assert(undoAdding != null);
+    assert(undoDeleting != null);
+    assert(undoEditing != null);
+    return undoAdding(deck);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result getAllUsersDecks(),
+    Result tryToStartTrain(),
+    Result addDeck(Deck deck),
+    Result updateDeck(Deck deck),
+    Result deleteDeck(Deck deck),
+    Result trainStarted(),
+    Result undoAdding(Deck deck),
+    Result undoDeleting(Deck deck),
+    Result undoEditing(Deck oldDeck),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (undoAdding != null) {
+      return undoAdding(deck);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result getAllUsersDecks(GetAllUsersDecks value),
+    @required Result tryToStartTrain(TryToStartTrain value),
+    @required Result addDeck(AddDeck value),
+    @required Result updateDeck(UpdateDeck value),
+    @required Result deleteDeck(DeleteDeck value),
+    @required Result trainStarted(TrainStarted value),
+    @required Result undoAdding(UndoAdding value),
+    @required Result undoDeleting(UndoDeleting value),
+    @required Result undoEditing(UndoEditing value),
+  }) {
+    assert(getAllUsersDecks != null);
+    assert(tryToStartTrain != null);
+    assert(addDeck != null);
+    assert(updateDeck != null);
+    assert(deleteDeck != null);
+    assert(trainStarted != null);
+    assert(undoAdding != null);
+    assert(undoDeleting != null);
+    assert(undoEditing != null);
+    return undoAdding(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result getAllUsersDecks(GetAllUsersDecks value),
+    Result tryToStartTrain(TryToStartTrain value),
+    Result addDeck(AddDeck value),
+    Result updateDeck(UpdateDeck value),
+    Result deleteDeck(DeleteDeck value),
+    Result trainStarted(TrainStarted value),
+    Result undoAdding(UndoAdding value),
+    Result undoDeleting(UndoDeleting value),
+    Result undoEditing(UndoEditing value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (undoAdding != null) {
+      return undoAdding(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UndoAdding implements LibraryEvent {
+  factory UndoAdding({@required Deck deck}) = _$UndoAdding;
+
+  Deck get deck;
+  $UndoAddingCopyWith<UndoAdding> get copyWith;
+}
+
+abstract class $UndoDeletingCopyWith<$Res> {
+  factory $UndoDeletingCopyWith(
+          UndoDeleting value, $Res Function(UndoDeleting) then) =
+      _$UndoDeletingCopyWithImpl<$Res>;
+  $Res call({Deck deck});
+
+  $DeckCopyWith<$Res> get deck;
+}
+
+class _$UndoDeletingCopyWithImpl<$Res> extends _$LibraryEventCopyWithImpl<$Res>
+    implements $UndoDeletingCopyWith<$Res> {
+  _$UndoDeletingCopyWithImpl(
+      UndoDeleting _value, $Res Function(UndoDeleting) _then)
+      : super(_value, (v) => _then(v as UndoDeleting));
+
+  @override
+  UndoDeleting get _value => super._value as UndoDeleting;
+
+  @override
+  $Res call({
+    Object deck = freezed,
+  }) {
+    return _then(UndoDeleting(
+      deck: deck == freezed ? _value.deck : deck as Deck,
+    ));
+  }
+
+  @override
+  $DeckCopyWith<$Res> get deck {
+    if (_value.deck == null) {
+      return null;
+    }
+    return $DeckCopyWith<$Res>(_value.deck, (value) {
+      return _then(_value.copyWith(deck: value));
+    });
+  }
+}
+
+class _$UndoDeleting implements UndoDeleting {
+  _$UndoDeleting({@required this.deck}) : assert(deck != null);
+
+  @override
+  final Deck deck;
+
+  @override
+  String toString() {
+    return 'LibraryEvent.undoDeleting(deck: $deck)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is UndoDeleting &&
+            (identical(other.deck, deck) ||
+                const DeepCollectionEquality().equals(other.deck, deck)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(deck);
+
+  @override
+  $UndoDeletingCopyWith<UndoDeleting> get copyWith =>
+      _$UndoDeletingCopyWithImpl<UndoDeleting>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result getAllUsersDecks(),
+    @required Result tryToStartTrain(),
+    @required Result addDeck(Deck deck),
+    @required Result updateDeck(Deck deck),
+    @required Result deleteDeck(Deck deck),
+    @required Result trainStarted(),
+    @required Result undoAdding(Deck deck),
+    @required Result undoDeleting(Deck deck),
+    @required Result undoEditing(Deck oldDeck),
+  }) {
+    assert(getAllUsersDecks != null);
+    assert(tryToStartTrain != null);
+    assert(addDeck != null);
+    assert(updateDeck != null);
+    assert(deleteDeck != null);
+    assert(trainStarted != null);
+    assert(undoAdding != null);
+    assert(undoDeleting != null);
+    assert(undoEditing != null);
+    return undoDeleting(deck);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result getAllUsersDecks(),
+    Result tryToStartTrain(),
+    Result addDeck(Deck deck),
+    Result updateDeck(Deck deck),
+    Result deleteDeck(Deck deck),
+    Result trainStarted(),
+    Result undoAdding(Deck deck),
+    Result undoDeleting(Deck deck),
+    Result undoEditing(Deck oldDeck),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (undoDeleting != null) {
+      return undoDeleting(deck);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result getAllUsersDecks(GetAllUsersDecks value),
+    @required Result tryToStartTrain(TryToStartTrain value),
+    @required Result addDeck(AddDeck value),
+    @required Result updateDeck(UpdateDeck value),
+    @required Result deleteDeck(DeleteDeck value),
+    @required Result trainStarted(TrainStarted value),
+    @required Result undoAdding(UndoAdding value),
+    @required Result undoDeleting(UndoDeleting value),
+    @required Result undoEditing(UndoEditing value),
+  }) {
+    assert(getAllUsersDecks != null);
+    assert(tryToStartTrain != null);
+    assert(addDeck != null);
+    assert(updateDeck != null);
+    assert(deleteDeck != null);
+    assert(trainStarted != null);
+    assert(undoAdding != null);
+    assert(undoDeleting != null);
+    assert(undoEditing != null);
+    return undoDeleting(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result getAllUsersDecks(GetAllUsersDecks value),
+    Result tryToStartTrain(TryToStartTrain value),
+    Result addDeck(AddDeck value),
+    Result updateDeck(UpdateDeck value),
+    Result deleteDeck(DeleteDeck value),
+    Result trainStarted(TrainStarted value),
+    Result undoAdding(UndoAdding value),
+    Result undoDeleting(UndoDeleting value),
+    Result undoEditing(UndoEditing value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (undoDeleting != null) {
+      return undoDeleting(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UndoDeleting implements LibraryEvent {
+  factory UndoDeleting({@required Deck deck}) = _$UndoDeleting;
+
+  Deck get deck;
+  $UndoDeletingCopyWith<UndoDeleting> get copyWith;
+}
+
+abstract class $UndoEditingCopyWith<$Res> {
+  factory $UndoEditingCopyWith(
+          UndoEditing value, $Res Function(UndoEditing) then) =
+      _$UndoEditingCopyWithImpl<$Res>;
+  $Res call({Deck oldDeck});
+
+  $DeckCopyWith<$Res> get oldDeck;
+}
+
+class _$UndoEditingCopyWithImpl<$Res> extends _$LibraryEventCopyWithImpl<$Res>
+    implements $UndoEditingCopyWith<$Res> {
+  _$UndoEditingCopyWithImpl(
+      UndoEditing _value, $Res Function(UndoEditing) _then)
+      : super(_value, (v) => _then(v as UndoEditing));
+
+  @override
+  UndoEditing get _value => super._value as UndoEditing;
+
+  @override
+  $Res call({
+    Object oldDeck = freezed,
+  }) {
+    return _then(UndoEditing(
+      oldDeck: oldDeck == freezed ? _value.oldDeck : oldDeck as Deck,
+    ));
+  }
+
+  @override
+  $DeckCopyWith<$Res> get oldDeck {
+    if (_value.oldDeck == null) {
+      return null;
+    }
+    return $DeckCopyWith<$Res>(_value.oldDeck, (value) {
+      return _then(_value.copyWith(oldDeck: value));
+    });
+  }
+}
+
+class _$UndoEditing implements UndoEditing {
+  _$UndoEditing({@required this.oldDeck}) : assert(oldDeck != null);
+
+  @override
+  final Deck oldDeck;
+
+  @override
+  String toString() {
+    return 'LibraryEvent.undoEditing(oldDeck: $oldDeck)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is UndoEditing &&
+            (identical(other.oldDeck, oldDeck) ||
+                const DeepCollectionEquality().equals(other.oldDeck, oldDeck)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(oldDeck);
+
+  @override
+  $UndoEditingCopyWith<UndoEditing> get copyWith =>
+      _$UndoEditingCopyWithImpl<UndoEditing>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result getAllUsersDecks(),
+    @required Result tryToStartTrain(),
+    @required Result addDeck(Deck deck),
+    @required Result updateDeck(Deck deck),
+    @required Result deleteDeck(Deck deck),
+    @required Result trainStarted(),
+    @required Result undoAdding(Deck deck),
+    @required Result undoDeleting(Deck deck),
+    @required Result undoEditing(Deck oldDeck),
+  }) {
+    assert(getAllUsersDecks != null);
+    assert(tryToStartTrain != null);
+    assert(addDeck != null);
+    assert(updateDeck != null);
+    assert(deleteDeck != null);
+    assert(trainStarted != null);
+    assert(undoAdding != null);
+    assert(undoDeleting != null);
+    assert(undoEditing != null);
+    return undoEditing(oldDeck);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result getAllUsersDecks(),
+    Result tryToStartTrain(),
+    Result addDeck(Deck deck),
+    Result updateDeck(Deck deck),
+    Result deleteDeck(Deck deck),
+    Result trainStarted(),
+    Result undoAdding(Deck deck),
+    Result undoDeleting(Deck deck),
+    Result undoEditing(Deck oldDeck),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (undoEditing != null) {
+      return undoEditing(oldDeck);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result getAllUsersDecks(GetAllUsersDecks value),
+    @required Result tryToStartTrain(TryToStartTrain value),
+    @required Result addDeck(AddDeck value),
+    @required Result updateDeck(UpdateDeck value),
+    @required Result deleteDeck(DeleteDeck value),
+    @required Result trainStarted(TrainStarted value),
+    @required Result undoAdding(UndoAdding value),
+    @required Result undoDeleting(UndoDeleting value),
+    @required Result undoEditing(UndoEditing value),
+  }) {
+    assert(getAllUsersDecks != null);
+    assert(tryToStartTrain != null);
+    assert(addDeck != null);
+    assert(updateDeck != null);
+    assert(deleteDeck != null);
+    assert(trainStarted != null);
+    assert(undoAdding != null);
+    assert(undoDeleting != null);
+    assert(undoEditing != null);
+    return undoEditing(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result getAllUsersDecks(GetAllUsersDecks value),
+    Result tryToStartTrain(TryToStartTrain value),
+    Result addDeck(AddDeck value),
+    Result updateDeck(UpdateDeck value),
+    Result deleteDeck(DeleteDeck value),
+    Result trainStarted(TrainStarted value),
+    Result undoAdding(UndoAdding value),
+    Result undoDeleting(UndoDeleting value),
+    Result undoEditing(UndoEditing value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (undoEditing != null) {
+      return undoEditing(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UndoEditing implements LibraryEvent {
+  factory UndoEditing({@required Deck oldDeck}) = _$UndoEditing;
+
+  Deck get oldDeck;
+  $UndoEditingCopyWith<UndoEditing> get copyWith;
 }

@@ -9,6 +9,7 @@ import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/add_deck_usecase.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/delete_deck_usecase.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/save_deck_changes_usecase.dart';
+import 'package:mydeck/features/my_deck/domain/usecases/upload_online_deck.dart';
 import 'package:mydeck/features/my_deck/presentation/bloc/add_deck/add_deck_bloc.dart';
 import 'package:mydeck/features/my_deck/presentation/bloc/bloc.dart';
 import 'package:mydeck/core/extensions/widget_extensions.dart';
@@ -21,8 +22,15 @@ import 'package:mydeck/features/sign_in/data/datasources/user_service.dart';
 class DeckCard extends StatefulWidget {
   final Deck deck;
   final bool isEditing;
+  final Function() onDelete;
+  final Function(Deck, Deck) onUpdate;
 
-  const DeckCard({Key key, @required this.deck, @required this.isEditing})
+  const DeckCard(
+      {Key key,
+      @required this.deck,
+      @required this.isEditing,
+      @required this.onDelete,
+      @required this.onUpdate})
       : super(key: key);
 
   @override
@@ -34,6 +42,14 @@ class _DeckCardState extends State<DeckCard> {
       Image.file(File(widget.deck.icon.path), fit: BoxFit.cover);
 
   Deck get deck => widget.deck;
+
+  bool get _isDraft =>
+      (deck is DeckLibrary) &&
+      (deck.title.length < 6 ||
+          !deck.icon.existsSync() ||
+          (deck as DeckLibrary)
+              .cardsList
+              .any((c) => c.answer is NoContent || c.question is NoContent));
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +64,14 @@ class _DeckCardState extends State<DeckCard> {
             final deckUpdate = await context.navigator.push(MaterialPageRoute(
                 builder: (context) => BlocProvider(
                       create: (context) => AddDeckBloc(
+                          uploadOnlineDeckUsecase:
+                              sl.get<UploadOnlineDeckUsecase>(),
                           addDeckUseCase: sl.get<AddDeckUseCase>(),
-                          deck: deck,
+                          deck: deck is DeckLibrary
+                              ? (deck as DeckLibrary).copyWith(
+                                  cardsList: List.from(
+                                      (deck as DeckLibrary).cardsList))
+                              : deck,
                           deleteDeckUsecase: sl.get<DeleteDeckUseCase>(),
                           saveDeckChangesUsecase:
                               sl.get<SaveDeckChangesUsecase>(),
@@ -65,13 +87,9 @@ class _DeckCardState extends State<DeckCard> {
 
             if (deckUpdate != null) {
               if (deckUpdate is Deck) {
-                context
-                    .bloc<LibraryBloc>()
-                    .add(LibraryEvent.updateDeck(deck: deckUpdate));
+                widget.onUpdate(deck, deckUpdate);
               } else if (deckUpdate) {
-                context
-                    .bloc<LibraryBloc>()
-                    .add(LibraryEvent.deleteDeck(deck: deck));
+                widget.onDelete();
               }
             }
           },
@@ -80,6 +98,7 @@ class _DeckCardState extends State<DeckCard> {
               Transform.scale(
                 scale: 0.96,
                 child: Card(
+                  color: Colors.white,
                   elevation: 4,
                   child: Container(
                     height: cardHeight + 8,
@@ -93,6 +112,7 @@ class _DeckCardState extends State<DeckCard> {
   }
 
   Widget _mainCardWidget(double cardHeight) => Card(
+    color: Colors.white,
         key: widget.key,
         elevation: 4,
         shape: RoundedRectangleBorder(
@@ -103,29 +123,9 @@ class _DeckCardState extends State<DeckCard> {
           width: double.infinity,
           child: Stack(
             children: <Widget>[
-              //Category background
-              ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-                child: Container(
-                  width: double.infinity,
-                  height: double.infinity,
-                  child: Image.network(
-                      'https://media.pri.org/s3fs-public/styles/story_main/public/story/images/math-1500720_1280%20cropped.jpg?itok=CHAvC2lu',
-                      fit: BoxFit.cover),
-                ),
-              ),
-              //Dark foreground
-              ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-                child: Container(
-                  width: double.infinity,
-                  height: double.infinity,
-                  color: Colors.black38,
-                ),
-              ),
               //Deck Avatar
               ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
+                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8),topLeft: Radius.circular(8)),
                 child: ClipPath(
                   clipper: TriangleClipper(),
                   child: Container(
@@ -137,8 +137,8 @@ class _DeckCardState extends State<DeckCard> {
               ),
               //Top row
               Padding(
-                padding: const EdgeInsets.only(
-                  left: 48,
+                padding:  EdgeInsets.only(
+                  left: deck.icon.existsSync() ? 32:8,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -146,18 +146,23 @@ class _DeckCardState extends State<DeckCard> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text(deck.title,
+                        Text(deck.title.isNotEmpty? deck.title:'No title',
                             style: Theme.of(context)
                                 .textTheme
                                 .headline5
-                                .copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold)),
+                                .copyWith(fontWeight: FontWeight.bold).copyWith(color:Colors.black)),
                         IconButton(
-                          icon: Icon(deck.author.userId ==
-                                  UserService.currentUser.userId
-                              ? deck.isPrivate ? Icons.lock : Icons.lock_open
-                              : Icons.star_border),
+                          icon: _isDraft
+                              ? Icon(
+                                  Icons.warning,
+                                  color: Colors.yellow,
+                                )
+                              : Icon(deck.author.userId ==
+                                      UserService.currentUser.userId
+                                  ? deck.isPrivate
+                                      ? Icons.lock
+                                      : Icons.lock_open
+                                  : Icons.star_border, color: Colors.black38,),
                           onPressed: () {
                             //TODO: implement deck subscription
                           },
@@ -166,20 +171,19 @@ class _DeckCardState extends State<DeckCard> {
                     ),
                     Transform.translate(
                       offset: Offset(0, -8),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 32),
+                      child:  Padding(
+                        padding:  EdgeInsets.only(left:deck.icon.existsSync()? 8.0:0),
                         child: Text('Category: ${deck.category.categoryName}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .body2
-                                .copyWith(color: Colors.white)),
+                              style: Theme.of(context).textTheme.bodyText2.copyWith(color:Colors.black) ),
                       ),
-                    ),
+                      ),
+
                   ],
                 ),
               ),
+              //Bottom row
               Padding(
-                padding: const EdgeInsets.only(left: 40, bottom: 8, right: 8),
+                padding:  EdgeInsets.only(left: deck.icon.existsSync()? cardHeight*0.75:8, bottom: 8, right: 8),
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Row(
@@ -187,12 +191,13 @@ class _DeckCardState extends State<DeckCard> {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          Icon(CustomIcons.subscribers_count),
+                          Icon(CustomIcons.subscribers_count,color: Colors.black,),
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0),
                             child: Text(
                                 '${deck is DeckOnline ? (deck as DeckOnline).subscribersCount : (deck as DeckLibrary).subscribers.length}',
-                                style: TextStyle(color: Colors.white)),
+                              style: TextStyle(color: Colors.black),
+                                ),
                           ),
                         ],
                       ),
@@ -203,15 +208,16 @@ class _DeckCardState extends State<DeckCard> {
                             child: Text(
                                 '${deck is DeckOnline ? (deck as DeckOnline).cardsCount : (deck as DeckLibrary).cardsList.length}',
                                 textAlign: TextAlign.right,
-                                style: TextStyle(color: Colors.white)),
+                              style: TextStyle(color: Colors.black),
+                                ),
                           ),
-                          Icon(CustomIcons.cards),
+                          Icon(CustomIcons.cards,color: Colors.black,),
                         ],
                       ),
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

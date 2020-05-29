@@ -12,6 +12,7 @@ import 'package:mydeck/features/my_deck/data/datasources/my_deck_network_datasou
 import 'package:mydeck/features/my_deck/data/models/card_model.dart';
 import 'package:mydeck/features/my_deck/data/models/deck_model.dart';
 import 'package:mydeck/features/my_deck/data/repositories/my_deck_repository.dart';
+import 'package:mydeck/features/my_deck/data/repositories/user_repository.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/add_deck_usecase.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/delete_deck_usecase.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/get_all_current_user_decks_usecase.dart';
@@ -20,6 +21,7 @@ import 'package:mydeck/features/my_deck/domain/usecases/load_decks_page_for_cate
 import 'package:mydeck/features/my_deck/domain/usecases/save_deck_changes_usecase.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/update_deck_usecase.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/update_trained_cards.dart';
+import 'package:mydeck/features/my_deck/domain/usecases/upload_online_deck.dart';
 import 'package:mydeck/features/my_deck/presentation/bloc/add_deck/add_deck_bloc.dart';
 import 'package:mydeck/features/my_deck/presentation/bloc/bloc.dart';
 import 'package:mydeck/features/my_deck/presentation/bloc/tab/tab_bloc.dart';
@@ -54,7 +56,11 @@ void setUp() {
       networkDataSource: sl(),
       mediaDataSource: sl(),
       networkConnection: sl()));
+  sl.registerLazySingleton<UserRepository>(
+      () => UserRepositoryImpl(networkDataSource: sl()));
   //use cases
+  sl.registerFactory(() =>
+      UploadOnlineDeckUsecase(userRepository: sl(), myDeckRepository: sl()));
   sl.registerFactory(() => GoogleSignInUsecase(sl(), sl()));
   sl.registerFactory(() => LoadDecksPageForCategoryUsecase(sl()));
   sl.registerFactory(() => SaveDeckChangesUsecase(sl()));
@@ -67,8 +73,12 @@ void setUp() {
   //blocs
   sl.registerFactory(() => SignInBloc(sl()));
 
-  sl.registerFactory(
-      () => LibraryBloc(getDecksForTrain: sl(), allUserDecks: sl()));
+  sl.registerFactory(() => LibraryBloc(
+      getDecksForTrain: sl(),
+      allUserDecks: sl(),
+      deleteDeckUseCase: sl(),
+      addDeckUseCase: sl(),
+      saveDeckChangesUsecase: sl()));
   sl.registerFactory(() => TabBloc());
   sl.registerFactory(() => TrainBloc(updateTrainedCards: sl()));
   //helpers

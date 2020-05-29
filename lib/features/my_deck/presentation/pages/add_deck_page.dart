@@ -155,6 +155,9 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
 
   @override
   Widget build(BuildContext context) {
+    if (goal == AddDeckGoal.lookup) {
+      context.bloc<AddDeckBloc>().add(AddDeckEvent.initFromOnline());
+    }
     return WillPopScope(
       onWillPop: () async {
         if (goal != AddDeckGoal.lookup) {
@@ -313,6 +316,7 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                             .bloc<AddDeckBloc>()
                             .add(AddDeckEvent.cardAdded(newCard));
                       }
+
                     },
                   ),
                 ),
@@ -370,68 +374,87 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
     return Container(
       key: UniqueKey(),
       child: BlocBuilder<AddDeckBloc, AddDeckState>(builder: (context, state) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Expanded(
-                  flex: 3,
-                  child: ImagePickerWidget(
-                    isEditing: goal != AddDeckGoal.lookup,
-                    onImagePicked: goal != AddDeckGoal.lookup
-                        ? (image) {
-                            BlocProvider.of<AddDeckBloc>(context)
-                                .add(AddDeckEvent.avatarChanged(image));
-                          }
-                        : (image) {},
-                    defaultImage: state.avatar,
-                  ),
-                ),
-                Flexible(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8),
-                  ),
-                ),
-                Form(
-                  key: _formKey,
-                  child: Flexible(
-                    flex: 4,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        titleWidget(state),
-                        descriptionWidget(state),
-                      ],
+        if (state.isLoading) {
+          return Center(child: CircularProgressIndicator());
+        } else {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    flex: 3,
+                    child: ImagePickerWidget(
+                      isEditing: goal != AddDeckGoal.lookup,
+                      onImagePicked: goal != AddDeckGoal.lookup
+                          ? (image) {
+                              BlocProvider.of<AddDeckBloc>(context)
+                                  .add(AddDeckEvent.avatarChanged(image));
+                            }
+                          : (image) {},
+                      defaultImage: state.avatar,
                     ),
                   ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  FlatButton(
-                    child: Text('Author: ${state.author.username}'),
-                    onPressed: () {
-                      //TODO: implement link to userProfile
-                    },
+                  Flexible(
+                    flex: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8),
+                    ),
                   ),
-                  trainWidget(state)
+                  Form(
+                    key: _formKey,
+                    child: Flexible(
+                      flex: 4,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          titleWidget(state),
+                          descriptionWidget(state),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
-            ),
-            shareWidget(state),
-            categoryWidget(state),
-          ],
-        );
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[authorWidget(state), trainWidget(state)],
+                ),
+              ),
+              shareWidget(state),
+              categoryWidget(state),
+            ],
+          );
+        }
       }),
     );
   }
+
+  Widget authorWidget(AddDeckState state) => Row(
+        children: <Widget>[
+          CircleAvatar(
+            backgroundColor: Colors.grey,
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(32)),
+              child: Image.network(goal != AddDeckGoal.lookup &&
+                      state.author.userId == UserService.currentUser.userId
+                  ? UserService.currentUser.avatarPath
+                  : state.author.avatarPath),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(4),
+          ),
+          Text(goal == AddDeckGoal.lookup
+              ? state.author.username
+              : state.author.userId == UserService.currentUser.userId
+                  ? 'you'
+                  : '')
+        ],
+      );
 
   Widget descriptionWidget(AddDeckState state) => goal != AddDeckGoal.lookup
       ? TextFormField(
@@ -635,81 +658,87 @@ class _CardsPageState extends State<_CardsPage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AddDeckBloc, AddDeckState>(
-      builder: (context, state) => CustomScrollView(
-        controller: widget.scrollController,
-        slivers: <Widget>[
-          state.cardslist.isNotEmpty
-              ? SliverGrid.count(
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.8,
-                  children: List.generate(
-                    state.cardslist.length,
-                    (index) => InDeckCardView(
-                      key: ValueKey(state.cardslist[index].cardId),
-                      onTap: _isEditing
-                          ? () async {
-                              final changedCard = await context.navigator.push(
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          BlocProvider(
-                                            create: (context) => AddCardBloc(
-                                                state.cardslist[index]),
-                                            child: CardEditor(
-                                              isCreating: false,
-                                            ),
-                                          )));
-                              if (changedCard is Entity.Card) {
-                                if (changedCard != null) {
-                                  context.bloc<AddDeckBloc>().add(
-                                      AddDeckEvent.cardChanged(changedCard));
-                                }
-                              } else if (changedCard) {
-                                context.bloc<AddDeckBloc>().add(
-                                    AddDeckEvent.cardDeleted(
-                                        state.cardslist[index]));
-                              }
-                            }
-                          : () {},
-                      sourceCard: state.cardslist[index],
-                    ),
-                  ),
-                )
-              : SliverFillRemaining(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text('Oops, card collection is Empty.',
-                          style: Theme.of(context).textTheme.bodyText1),
-                      _isEditing
-                          ? RaisedButton(
-                              color: Theme.of(context).accentColor,
-                              onPressed: () async {
-                                final card = await context.navigator.push(
-                                    MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            BlocProvider(
-                                              create: (context) =>
-                                                  AddCardBloc(null),
-                                              child: CardEditor(
-                                                isCreating: true,
-                                              ),
-                                            )));
-                                if (card != null)
-                                  context
-                                      .bloc<AddDeckBloc>()
-                                      .add(AddDeckEvent.cardAdded(card));
-                              },
-                              child: Text(
-                                "Let's create a new one!",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
-                          : Container(),
-                    ],
-                  ),
-                )
-        ],
-      ),
+      builder: (context, state) => state.isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : CustomScrollView(
+              controller: widget.scrollController,
+              slivers: <Widget>[
+                state.cardslist.isNotEmpty
+                    ? SliverGrid.count(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.8,
+                        children: List.generate(
+                          state.cardslist.length,
+                          (index) => InDeckCardView(
+                            key: ValueKey(state.cardslist[index].cardId),
+                            onTap: _isEditing
+                                ? () async {
+                                    final changedCard = await context.navigator
+                                        .push(MaterialPageRoute(
+                                            builder: (BuildContext context) =>
+                                                BlocProvider(
+                                                  create: (context) =>
+                                                      AddCardBloc(state
+                                                          .cardslist[index]),
+                                                  child: CardEditor(
+                                                    isCreating: true,
+                                                  ),
+                                                )));
+                                    if (changedCard is Entity.Card) {
+                                      if (changedCard != null) {
+                                        context.bloc<AddDeckBloc>().add(
+                                            AddDeckEvent.cardChanged(
+                                                changedCard));
+                                      }
+                                    } else if (changedCard) {
+                                      context.bloc<AddDeckBloc>().add(
+                                          AddDeckEvent.cardDeleted(
+                                              state.cardslist[index]));
+                                    }
+                                  }
+                                : () {},
+                            sourceCard: state.cardslist[index],
+                          ),
+                        ),
+                      )
+                    : SliverFillRemaining(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text('Oops, card collection is Empty.',
+                                style: Theme.of(context).textTheme.bodyText1),
+                            _isEditing
+                                ? RaisedButton(
+                                    color: Theme.of(context).accentColor,
+                                    onPressed: () async {
+                                      final card = await context.navigator.push(
+                                          MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  BlocProvider(
+                                                    create: (context) =>
+                                                        AddCardBloc(null),
+                                                    child: CardEditor(
+                                                      isCreating: true,
+                                                    ),
+                                                  )));
+                                      if (card != null)
+                                        context
+                                            .bloc<AddDeckBloc>()
+                                            .add(AddDeckEvent.cardAdded(card));
+                                    },
+                                    child: Text(
+                                      "Let's create a new one!",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  )
+                                : Container(),
+                          ],
+                        ),
+                      )
+              ],
+            ),
     );
   }
 }
