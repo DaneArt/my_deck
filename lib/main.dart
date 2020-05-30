@@ -50,18 +50,7 @@ class MyDeckApp extends StatelessWidget {
   const MyDeckApp({Key key, this.isSessionValid}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return StyledToast(
-      textStyle: TextStyle(fontSize: 16.0, color: Colors.white),
-      backgroundColor: Color(0x99000000),
-      borderRadius: BorderRadius.circular(5.0),
-      textPadding: EdgeInsets.symmetric(horizontal: 17.0, vertical: 10.0),
-      toastAnimation: StyledToastAnimation.slideFromBottom,
-      reverseAnimation: StyledToastAnimation.slideToBottom,
-      curve: Curves.fastOutSlowIn,
-      reverseCurve: Curves.fastLinearToSlowEaseIn,
-      dismissOtherOnShow: true,
-      movingOnWindowChange: true,
-      child: MaterialApp(
+    return  MaterialApp(
         title: 'MyDeck',
         theme: ThemeData(
           primaryColor: Color(0xFF03A9F4),
@@ -136,7 +125,7 @@ class MyDeckApp extends StatelessWidget {
             );
           },
         },
-      ),
+
     );
   }
 }

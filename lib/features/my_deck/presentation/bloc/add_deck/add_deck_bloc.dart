@@ -206,8 +206,13 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
           yield state.copyWith(isLoading: true);
           final onlineResult =
               await uploadOnlineDeckUsecase(upload.Params(deck: deck));
-          yield onlineResult.fold((l) => state,
-              (r) => state.copyWith(author: r.author, isLoading: false));
+          yield onlineResult.fold(
+              (l) => state,
+              (r) => state.copyWith(
+                  author: r.author,
+                  isLoading: false,
+                  cardslist: r.cardsList,
+                  initialDeck: r));
         });
   }
 }

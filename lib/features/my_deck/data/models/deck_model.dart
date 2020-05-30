@@ -16,33 +16,29 @@ part 'deck_model.g.dart';
 class DeckModel {
   @primaryKey
   @ColumnInfo(name: 'deck_id')
-  @JsonKey(name: 'Deck_Id')
+  @JsonKey(name: 'deck_id')
   final String deckId;
   @ColumnInfo(nullable: false)
-  @JsonKey(name: 'Title')
   final String title;
   @ColumnInfo(nullable: false)
-  @JsonKey(name: 'Icon')
   final String icon;
   @ColumnInfo(nullable: false)
-  @JsonKey(name: 'Description')
   final String description;
   @ColumnInfo(
     nullable: false,
     name: 'subscribers_count',
   )
-  @JsonKey(name: 'Subscribers_Count')
+  @JsonKey(name: 'subscribers_count')
   final int subscribersCount;
-  @JsonKey(name: 'Cards_Count')
+  @JsonKey(name: 'cards_count')
   final int cardsCount;
   @ColumnInfo(nullable: false, name: 'category_name')
-  @JsonKey(name: 'Category_Name')
+  @JsonKey(name: 'category_name')
   final String categoryName;
   @ColumnInfo(nullable: false, name: 'is_private')
-  @JsonKey(name: 'IsPrivate')
+  @JsonKey(name: 'is_private')
   final bool isPrivate;
   @ColumnInfo(nullable: false, name: 'author')
-  @JsonKey(name: 'Author')
   final String author;
 
   DeckModel(

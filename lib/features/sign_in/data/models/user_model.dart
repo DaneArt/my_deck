@@ -6,13 +6,13 @@ part 'user_model.g.dart';
 
 @JsonSerializable(nullable: false)
 class UserModel {
-  @JsonKey(name: 'user_Id')
+  @JsonKey(name: 'user_id')
   final String userId;
-  @JsonKey(name: 'userName')
+  @JsonKey(name: 'user_name')
   final String username;
   @JsonKey(name: 'email')
   final String email;
-  @JsonKey(name: 'avatar_Path')
+  @JsonKey(name: 'avatar_path')
   final String avatarPath;
 
   UserModel(this.userId, this.username, this.email, this.avatarPath);

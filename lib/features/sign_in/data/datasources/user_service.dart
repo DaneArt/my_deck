@@ -53,7 +53,7 @@ class UserService {
           }),
         );
 
-        final user = UserModel.fromJson(userGet.data['value']);
+        final user = UserModel.fromJson(jsonDecode(userGet.data));
         UserService.currentUser = user;
         UserService.accessToken = accessToken;
         UserService.refreshToken = refreshToken;
@@ -73,7 +73,7 @@ class UserService {
   }
 
   static Future<Response> sendGoogleSignInToken(String idtoken) => Dio().post(
-        '$_kBaseUrl/mydeckapi/user/signinbygoogle',
+        '$_kBaseUrl/mydeckapi/User/SignInByGoogle',
         options: Options(headers: {'idtoken': idtoken}),
       );
 
@@ -82,7 +82,7 @@ class UserService {
       final newPairResponse = await Dio().post(
           '$_kBaseUrl/mydeckapi/User/RefreshTokens',
           data: jsonEncode(
-              {'access_Token': accessToken, 'refresh_Token': refreshToken}));
+              {'access_token': accessToken, 'refresh_token': refreshToken}));
       if (newPairResponse.statusCode != 200) {
         return Some(AuthFailure.tokenExpired());
       }

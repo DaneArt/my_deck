@@ -10,7 +10,7 @@ final kPasswordRegexp =
     RegExp(r'(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,24}');
 final kEmailRegexp = RegExp(r'@');
 final kLoginRegexp = RegExp(r'[a-zA-Z0-9_.]{1,30}$');
-final kTitleRegexp = RegExp(r'[[\^$.!?]');
+final kTitleRegexp = RegExp(r'[[\^$!?]');
 
 Either<ValueFailure<String>, String> validateEmailAddress(String input) {
   if (kEmailRegexp.hasMatch(input)) {
@@ -61,9 +61,11 @@ Either<ValueFailure<String>, String> validateDeckDescription(String input) {
 Either<ValueFailure<String>, String> validateDeckTitle(String input) {
   if (input.length <= 6) {
     return left(ValueFailure.shortDeckTitle(failedValue: input));
-  } else if (kTitleRegexp.hasMatch(input)) {
+  }
+  else if (kTitleRegexp.hasMatch(input)) {
     return left(ValueFailure.invalidDeckTitle(failedValue: input));
-  } else {
+  }
+  else {
     return right(input);
   }
 }

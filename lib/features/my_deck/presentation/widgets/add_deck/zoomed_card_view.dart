@@ -51,7 +51,7 @@ class _ZoomedCardViewState extends State<ZoomedCardView> {
           ));
     } else if (cardContent is TextContent) {
       if (isAnswer) {
-        return TextCardContextWidget(
+        return TextCardWidget(
           content: CardContent.textContent(text: cardContent.text),
           onTextChanged: (text) {
             print(text);
@@ -63,7 +63,7 @@ class _ZoomedCardViewState extends State<ZoomedCardView> {
           isEditing: isEditing,
         );
       } else {
-        return TextCardContextWidget(
+        return TextCardWidget(
           content: CardContent.textContent(text: cardContent.text),
           onTextChanged: (text) {
             print(text);
@@ -78,7 +78,7 @@ class _ZoomedCardViewState extends State<ZoomedCardView> {
       }
     } else {
       if (isAnswer) {
-        return TextCardContextWidget(
+        return TextCardWidget(
           content: CardContent.textContent(text: ''),
           onTextChanged: (text) {
             print(text);
@@ -90,7 +90,7 @@ class _ZoomedCardViewState extends State<ZoomedCardView> {
           isEditing: isEditing,
         );
       } else {
-        return TextCardContextWidget(
+        return TextCardWidget(
           content: CardContent.textContent(text: ''),
           onTextChanged: (text) {
             print(text);

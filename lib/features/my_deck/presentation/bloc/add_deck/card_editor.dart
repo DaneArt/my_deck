@@ -165,20 +165,20 @@ class _CardEditorState extends State<CardEditor> {
                 context.bloc<AddCardBloc>().add(AddCardEvent.setTextContent());
               },
             ),
-            IconButton(
-              icon: Icon(
-                Icons.brush,
-                color: Theme.of(context).accentIconTheme.color,
-              ),
-              onPressed: () {},
-            ),
+//            IconButton(
+//              icon: Icon(
+//                Icons.brush,
+//                color: Theme.of(context).accentIconTheme.color,
+//              ),
+//              onPressed: () {},
+//            ),
           ],
         ),
       );
 
   Widget _renderQuestion(BuildContext context, Entity.Card card) =>
       card.question.map(
-        noContent: (s) => TextCardContextWidget(
+        noContent: (s) => TextCardWidget(
           key: Key('CQue'),
           content: CardContent.textContent(text: ''),
           isEditing: true,
@@ -187,7 +187,7 @@ class _CardEditorState extends State<CardEditor> {
                 newQuestion: CardContent.textContent(text: input)));
           },
         ),
-        textContent: (s) => TextCardContextWidget(
+        textContent: (s) => TextCardWidget(
           key: Key('CQue'),
           content: CardContent.textContent(text: s.model),
           isEditing: true,
@@ -201,7 +201,7 @@ class _CardEditorState extends State<CardEditor> {
 
   Widget _renderAnswer(BuildContext context, Entity.Card card) =>
       card.answer.map(
-        noContent: (s) => TextCardContextWidget(
+        noContent: (s) => TextCardWidget(
           key: Key('CAns'),
           content: CardContent.textContent(text: ''),
           isEditing: true,
@@ -210,7 +210,7 @@ class _CardEditorState extends State<CardEditor> {
                 newAnswer: CardContent.textContent(text: input)));
           },
         ),
-        textContent: (s) => TextCardContextWidget(
+        textContent: (s) => TextCardWidget(
           key: Key('CAns'),
           content: s,
           isEditing: true,

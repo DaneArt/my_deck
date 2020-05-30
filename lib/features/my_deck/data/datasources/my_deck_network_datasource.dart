@@ -262,10 +262,10 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
         throw NetworkException();
       }
       final deckJson = jsonDecode(response.data);
-      final deck = DeckModel.fromJson(deckJson['Deck']);
-      final Map<String, dynamic> aj = deckJson['Author']['User'];
+      final deck = DeckModel.fromJson(deckJson['deck']);
+      final Map<String, dynamic> aj = deckJson['author']['user'];
       final author = UserModel.fromJson(aj);
-      final List<Card> cards = (deckJson['Deck']['Cards'] as List)
+      final List<Card> cards = (deckJson['deck']['cards'] as List)
           .map((c) => CardModel.fromJson(c))
           .toList()
           .map((c) => Card.fromModel(c))
@@ -346,7 +346,7 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
         final List decks = jsonDecode(response.data);
         final mappedDecks = decks.map((deck) {
           final deckModel = DeckModel.fromJson(deck);
-          final cards = (deck["Cards"] as List)
+          final cards = (deck["cards"] as List)
               .map((card) => CardModel.fromJson(card))
               .toList();
           return DeckWithCardModels(deckModel, cards);

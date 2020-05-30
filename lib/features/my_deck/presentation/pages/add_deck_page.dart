@@ -131,7 +131,7 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                   children: <Widget>[
                     fieldCheckItem(
                         text:
-                            "Title doesn't contain  \\\^\$\.\!\? and \nlonger than 6 characters.",
+                            "Title longer than 6 characters.",
                         isValid: state.title.value.isRight()),
                     fieldCheckItem(
                         text: "Deck has avatar.",
@@ -168,6 +168,59 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
         return false;
       },
       child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Edit deck",
+            style: TextStyle(color: Colors.white),
+          ),leading: IconButton(
+          icon: Icon(
+              goal != AddDeckGoal.lookup
+                  ? Icons.clear
+                  : Icons.arrow_back,
+              color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+          actions: <Widget>[
+            goal == AddDeckGoal.edit
+                ? IconButton(
+              icon: Icon(Icons.delete, color: Colors.white),
+              onPressed: () {
+                BlocProvider.of<AddDeckBloc>(context)
+                    .add(AddDeckEvent.deleteDeck());
+              },
+            )
+                : Spacer(),
+            goal != AddDeckGoal.lookup
+                ? IconButton(
+              icon: Icon(Icons.check, color: Colors.white),
+              onPressed: () {
+                BlocProvider.of<AddDeckBloc>(context)
+                    .add(AddDeckEvent.saveChanges());
+              },
+            )
+                : Spacer(),
+          ],
+          bottom: TabBar(
+            dragStartBehavior: DragStartBehavior.down,
+            indicatorSize: TabBarIndicatorSize.label,
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.white.withAlpha(125),
+            tabs: [
+              Tab(
+                text: 'Deck',
+                icon: Icon(
+                  Icons.book,
+                ),
+              ),
+              Tab(
+                  text: 'Cards',
+                  icon: Icon(
+                    CustomIcons.cards,
+                  )),
+            ],
+            controller: controller,
+          ),
+        ),
         body: BlocListener<AddDeckBloc, AddDeckState>(
           listener: (context, state) {
             state.saveFailureOrSuccessOption.fold(
@@ -226,67 +279,7 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                         (success) => Navigator.of(context)
                             .pop(success != null ? success : true)));
           },
-          child: NestedScrollView(
-            headerSliverBuilder: (context, value) => [
-              SliverAppBar(
-                title: Text(
-                  "Edit deck",
-                  style: TextStyle(color: Colors.white),
-                ),
-                snap: false,
-                floating: true,
-                pinned: true,
-                leading: IconButton(
-                  icon: Icon(
-                      goal != AddDeckGoal.lookup
-                          ? Icons.clear
-                          : Icons.arrow_back,
-                      color: Colors.white),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-                actions: <Widget>[
-                  goal == AddDeckGoal.edit
-                      ? IconButton(
-                          icon: Icon(Icons.delete, color: Colors.white),
-                          onPressed: () {
-                            BlocProvider.of<AddDeckBloc>(context)
-                                .add(AddDeckEvent.deleteDeck());
-                          },
-                        )
-                      : Spacer(),
-                  goal != AddDeckGoal.lookup
-                      ? IconButton(
-                          icon: Icon(Icons.check, color: Colors.white),
-                          onPressed: () {
-                            BlocProvider.of<AddDeckBloc>(context)
-                                .add(AddDeckEvent.saveChanges());
-                          },
-                        )
-                      : Spacer(),
-                ],
-                bottom: TabBar(
-                  dragStartBehavior: DragStartBehavior.down,
-                  indicatorSize: TabBarIndicatorSize.label,
-                  labelColor: Colors.white,
-                  unselectedLabelColor: Colors.white.withAlpha(125),
-                  tabs: [
-                    Tab(
-                      text: 'Deck',
-                      icon: Icon(
-                        Icons.book,
-                      ),
-                    ),
-                    Tab(
-                        text: 'Cards',
-                        icon: Icon(
-                          CustomIcons.cards,
-                        )),
-                  ],
-                  controller: controller,
-                ),
-              ),
-            ],
-            body: Container(
+          child: Container(
               child: TabBarView(
                 controller: controller,
                 children: <Widget>[
@@ -296,7 +289,6 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
               ),
             ),
           ),
-        ),
         floatingActionButton: goal != AddDeckGoal.lookup
             ? FadeTransition(
                 opacity: _fabAnimation,
@@ -433,6 +425,8 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
     );
   }
 
+
+
   Widget authorWidget(AddDeckState state) => Row(
         children: <Widget>[
           CircleAvatar(
@@ -460,7 +454,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
       ? TextFormField(
           key: _descriptionFieldKey,
           autovalidate: true,
-          initialValue: state.description.value.fold((l) => '', (r) => r),
+          initialValue: state.description.value.fold((l) => l.failedValue, (r) => r),
           textInputAction: TextInputAction.done,
           onChanged: (input) => BlocProvider.of<AddDeckBloc>(context)
               .add(AddDeckEvent.descriptionChanged(input)),
@@ -493,7 +487,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
               padding: const EdgeInsets.all(4),
             ),
             Text(state.description.value
-                .fold((l) => 'No description', (r) => r)),
+                .fold((l) => l.failedValue.isNotEmpty? l.failedValue:'No description', (r) => r)),
           ],
         );
 
@@ -501,7 +495,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
       ? TextFormField(
           key: _titleFieldKey,
           autovalidate: true,
-          initialValue: state.title.value.fold((l) => '', (r) => r),
+          initialValue: state.title.value.fold((l) => l.failedValue, (r) => r),
           onChanged: (input) {
             BlocProvider.of<AddDeckBloc>(context)
                 .add(AddDeckEvent.titleChanged(input));
@@ -533,7 +527,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
               Padding(
                 padding: const EdgeInsets.all(4),
               ),
-              Text(state.title.value.fold((l) => 'No title', (r) => r)),
+              Text(state.title.value.fold((l) => l.failedValue.isNotEmpty? l.failedValue:'No title', (r) => r)),
             ],
           ),
         );
@@ -542,13 +536,13 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
       ? RaisedButton(
           onPressed: state.cardslist.isNotEmpty
               ? () async {
-                  final cards = state.cardslist;
+                  final cards = List<Entity.Card>.from(state.cardslist);
                   cards.removeWhere((c) =>
                       c.answer.model.isEmpty || c.question.model.isEmpty);
                   if (cards.length >= 2) {
                     final trainedCards = await Navigator.of(context).pushNamed(
                         MyDeckRoutes.train,
-                        arguments: [state.initialDeck]);
+                        arguments: [(state.initialDeck as DeckLibrary).copyWith(cardsList:cards)]);
                     if (trainedCards != null) {
                       for (CardModel card in trainedCards) {
                         context.bloc<AddDeckBloc>().add(
@@ -563,7 +557,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
                     ));
                   }
                 }
-              : null,
+              : (){},
           color: Colors.white,
           elevation: 4,
           child: Row(
@@ -589,7 +583,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
             children: <Widget>[
               Text(
                 'Share with community?',
-                style: Theme.of(context).textTheme.body2,
+                style: Theme.of(context).textTheme.bodyText2,
               ),
               Switch(
                 value: state.isShared,

@@ -6,7 +6,7 @@ import 'deck_model.dart';
 part 'deck_with_cards_model.g.dart';
 
 @JsonSerializable()
-class DeckWithCardModels {
+class DeckWithCardModels  {
   final DeckModel deckModel;
   final List<CardModel> cardModels;
 

@@ -48,8 +48,8 @@ class _InDeckCardViewState extends State<InDeckCardView>
         fit: BoxFit.cover,
       );
     } else if (content is TextContent) {
-      return Text(content.text, style: TextStyle(fontSize: 18));
-    } else if (content is NoContent) {
+      return Text(content.text, style: TextStyle(fontSize: 18),textAlign: TextAlign.center,);
+    } else  {
       return Text('');
     }
   }

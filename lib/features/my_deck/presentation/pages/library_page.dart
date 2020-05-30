@@ -129,44 +129,44 @@ class _LibraryPageState extends State<LibraryPage>
                       deck: decks[index],
                       isEditing: true,
                       key: ValueKey(decks[index].deckId),
-                      onUpdate: (oldDeck,changedDeck) {
+                      onUpdate: (oldDeck, changedDeck) {
                         context
                             .bloc<LibraryBloc>()
                             .add(LibraryEvent.updateDeck(deck: changedDeck));
-                        _scaffoldKey.currentState.hideCurrentSnackBar();
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          action: SnackBarAction(
-                            label: 'UNDO',
-                            onPressed: () {
-                              context.bloc<LibraryBloc>().add(
-                                  LibraryEvent.undoEditing(oldDeck: oldDeck));
-                            },
-                          ),
-                          content: Text('Deck successfully changed'),
+
+                        _showUndoSnackBar(
+                          'Deck successfully changed',
+                              () => context
+                              .bloc<LibraryBloc>()
+                              .add(LibraryEvent.undoEditing(
+                              oldDeck: oldDeck),
                         ));
                       },
                       onDelete: () {
                         context
                             .bloc<LibraryBloc>()
                             .add(LibraryEvent.deleteDeck(deck: decks[index]));
-                        _scaffoldKey.currentState.hideCurrentSnackBar();
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          action: SnackBarAction(
-                            label: 'UNDO',
-                            onPressed: () {
-                              _scaffoldKey.currentContext.bloc<LibraryBloc>().add(
-                                  LibraryEvent.undoDeleting(
-                                      deck: decks[index]));
-                            },
-                          ),
-                          content: Text('Deck successfully deleted'),
-                        ));
+                        _showUndoSnackBar(
+                          'Deck successfully deleted',
+                          () => context
+                              .bloc<LibraryBloc>()
+                              .add(LibraryEvent.undoDeleting(
+                                  deck: decks[index])),
+                        );
                       },
                     ),
                 childCount: decks.length),
           ),
         ],
       );
+
+  void _showUndoSnackBar(String title, Function() action) {
+    _scaffoldKey.currentState.hideCurrentSnackBar();
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      action: SnackBarAction(label: 'UNDO', onPressed: action),
+      content: Text(title),
+    ));
+  }
 
   BlocBuilder<LibraryBloc, LibraryState> _buildBody(BuildContext context) {
     return BlocBuilder<LibraryBloc, LibraryState>(
@@ -214,25 +214,17 @@ class _LibraryPageState extends State<LibraryPage>
             )));
     if (newDeck != null && newDeck is Deck) {
       context.bloc<LibraryBloc>().add(LibraryEvent.addDeck(deck: newDeck));
-      _scaffoldKey.currentState.hideCurrentSnackBar();
-      _scaffoldKey.currentState.showSnackBar(SnackBar(
-        action: SnackBarAction(
-          label: 'UNDO',
-          onPressed: () {
-            context
-                .bloc<LibraryBloc>()
-                .add(LibraryEvent.undoAdding(deck: newDeck));
-          },
-        ),
-        content: Text('Deck successfully created'),
-      ));
+      _showUndoSnackBar('Deck successfully created', () => context
+          .bloc<LibraryBloc>()
+          .add(LibraryEvent.undoAdding(deck: newDeck)) );
+
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key:_scaffoldKey,
+      key: _scaffoldKey,
       appBar: AppBar(
         leading: Container(),
         title: Text("${UserService.currentUser.username}'s library",
@@ -265,6 +257,7 @@ class _LibraryPageState extends State<LibraryPage>
                             .add(LibraryEvent.trainStarted());
                         final trainResult = await Navigator.of(context)
                             .pushNamed(MyDeckRoutes.train, arguments: result);
+
                       }));
             },
             child: _buildBody(context),

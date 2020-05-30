@@ -117,10 +117,7 @@ class MyDeckRepositoryImpl extends MyDeckRepository {
   @override
   Future<Either<StorageFailure, DeckLibrary>> getDeckById(String id) async {
     try {
-      // final deck = await localDataSource.getDeckById(id);
-      // final cards = await localDataSource.getCardsForDeck(id);
-      // final filledDeck = Deck.fromModel(deck);
-      // filledDeck.cardsList.addAll(cards.map((c) => Card.fromModel(c)));
+
       if (await networkConnection.isConnected) {
         final deck = await networkDataSource.getDeckWithCardsById(id);
 

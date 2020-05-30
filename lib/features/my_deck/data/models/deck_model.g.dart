@@ -8,26 +8,26 @@ part of 'deck_model.dart';
 
 DeckModel _$DeckModelFromJson(Map<String, dynamic> json) {
   return DeckModel(
-    json['Deck_Id'] as String,
-    json['Title'] as String,
-    json['Icon'] as String,
-    json['Description'] as String,
-    json['Category_Name'] as String,
-    json['IsPrivate'] as bool,
-    json['Author'] as String,
-    json['Subscribers_Count'] as int,
-    json['Cards_Count'] as int,
+    json['deck_id'] as String,
+    json['title'] as String,
+    json['icon'] as String,
+    json['description'] as String,
+    json['category_name'] as String,
+    json['is_private'] as bool,
+    json['author'] as String,
+    json['subscribers_count'] as int,
+    json['cards_count'] as int,
   );
 }
 
 Map<String, dynamic> _$DeckModelToJson(DeckModel instance) => <String, dynamic>{
-      'Deck_Id': instance.deckId,
-      'Title': instance.title,
-      'Icon': instance.icon,
-      'Description': instance.description,
-      'Subscribers_Count': instance.subscribersCount,
-      'Cards_Count': instance.cardsCount,
-      'Category_Name': instance.categoryName,
-      'IsPrivate': instance.isPrivate,
-      'Author': instance.author,
+      'deck_id': instance.deckId,
+      'title': instance.title,
+      'icon': instance.icon,
+      'description': instance.description,
+      'subscribers_count': instance.subscribersCount,
+      'cards_count': instance.cardsCount,
+      'category_name': instance.categoryName,
+      'is_private': instance.isPrivate,
+      'author': instance.author,
     };

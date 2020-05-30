@@ -49,45 +49,60 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    return WillPopScope(
-      onWillPop: () async {
-        BlocProvider.of<SignInBloc>(context).add(PopStatesStack());
-        return false;
-      },
-      child: SafeArea(
-        bottom: false,
-        child: Scaffold(
-          backgroundColor: Theme.of(context).primaryColorDark,
-          body: BlocListener<SignInBloc, SignInState>(
-            listener: (context, state) {
-              state.authFailureOrSuccessOption.fold(
-                  () => null,
-                  (some) => some.fold(
-                          (failure) => showToast(failure.message,
-                              duration: Duration(seconds: 3)), (success) {
-                        Navigator.of(context).pushNamed(MyDeckRoutes.home);
-                      }));
-            },
-            child: SingleChildScrollView(
-              physics: NeverScrollableScrollPhysics(),
-              child: Container(
-                height: screenSize.height * 0.96,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    LoginScreenHat(),
-                    Transform.translate(
-                      offset: Offset(0, screenSize.height / -19),
-                      child: MyDeckLogo(),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.only(bottom: 16),
-                        child: buildForm(),
+    return StyledToast(
+      textStyle: TextStyle(fontSize: 16.0, color: Colors.white),
+      backgroundColor: Color(0x99000000),
+      borderRadius: BorderRadius.circular(5.0),
+      textPadding: EdgeInsets.symmetric(horizontal: 17.0, vertical: 10.0),
+      toastPositions: StyledToastPosition.bottom,
+      toastAnimation: StyledToastAnimation.fade,
+      reverseAnimation: StyledToastAnimation.fade,
+      curve: Curves.fastOutSlowIn,
+      reverseCurve: Curves.fastLinearToSlowEaseIn,
+      duration: Duration(seconds: 4),
+      animDuration: Duration(seconds: 1),
+      dismissOtherOnShow: true,
+      movingOnWindowChange: true,
+      child: WillPopScope(
+        onWillPop: () async {
+          BlocProvider.of<SignInBloc>(context).add(PopStatesStack());
+          return false;
+        },
+        child: SafeArea(
+          bottom: false,
+          child: Scaffold(
+            backgroundColor: Theme.of(context).primaryColorDark,
+            body: BlocListener<SignInBloc, SignInState>(
+              listener: (context, state) {
+                state.authFailureOrSuccessOption.fold(
+                    () => null,
+                    (some) => some.fold(
+                            (failure) => showToast(failure.message,
+                                duration: Duration(seconds: 3)), (success) {
+                          Navigator.of(context).pushNamed(MyDeckRoutes.home);
+                        }));
+              },
+              child: SingleChildScrollView(
+                physics: NeverScrollableScrollPhysics(),
+                child: Container(
+                  height: screenSize.height * 0.96,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      LoginScreenHat(),
+                      Transform.translate(
+                        offset: Offset(0, screenSize.height / -19),
+                        child: MyDeckLogo(),
                       ),
-                    ),
-                  ],
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.only(bottom: 16),
+                          child: buildForm(),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

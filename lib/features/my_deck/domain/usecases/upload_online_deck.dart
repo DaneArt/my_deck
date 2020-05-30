@@ -16,12 +16,11 @@ class UploadOnlineDeckUsecase
 
   @override
   Future<Either<StorageFailure, DeckLibrary>> call(Params params) async {
-    final user =
-        await userRepository.findUserById(params.deck.author.avatarPath);
-    // final deck = await myDeckRepository.getDeckById(params.deck.deckId);
 
-    // return deck.fold((failure) => left(failure), (deck) => right(deck));
-    return null;
+     final deck = await myDeckRepository.getDeckById(params.deck.deckId);
+
+    return deck.fold((failure) => left(failure), (deck) => right(deck));
+
   }
 }
 
