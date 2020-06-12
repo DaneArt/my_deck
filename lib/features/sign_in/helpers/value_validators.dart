@@ -20,16 +20,6 @@ Either<ValueFailure<String>, String> validateEmailAddress(String input) {
   }
 }
 
-Either<ValueFailure<String>, String> validateToken(String input) {
-  print(input);
-  var jws = JsonWebSignature.fromCompactSerialization(input);
-  if (jws.unverifiedPayload.jsonContent['exp'] >
-      DateTime.now().millisecondsSinceEpoch ~/ 1000)
-    return right(input);
-  else {
-    return left(ValueFailure.expiredToken(failedValue: input));
-  }
-}
 
 Either<ValueFailure<String>, String> validatePassword(String input) {
   if (input.length <= 8) {
@@ -79,3 +69,16 @@ Either<ValueFailure<File>, File> validateDeckAvatar(File input) {
     return right(input);
   }
 }
+
+class AccessTokenValidator{
+  Either<ValueFailure<String>, String> call(String input) {
+    var jws = JsonWebSignature.fromCompactSerialization(input);
+    if (jws.unverifiedPayload.jsonContent['exp'] >
+        DateTime.now().millisecondsSinceEpoch ~/ 1000)
+      return right(input);
+    else {
+      return left(ValueFailure.expiredToken(failedValue: input));
+    }
+  }
+}
+

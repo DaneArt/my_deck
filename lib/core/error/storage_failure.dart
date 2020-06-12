@@ -6,6 +6,7 @@ part "storage_failure.freezed.dart";
 abstract class StorageFailure<T> with _$StorageFailure<T> {
   //addDeckScreen failure
   const factory StorageFailure.fieldsInvalid() = FieldsInvalid<T>;
+  const factory StorageFailure.unsaveableDraft() = UnsaveableDraft<T>;
 
   //local failures
   const factory StorageFailure.insertFailure({@required T failureObject}) =

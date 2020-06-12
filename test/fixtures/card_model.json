@@ -1,10 +1,10 @@
 {
-    "Card_Id": "test_Id",
-    "Wins": 2,
-    "Trains": 0,
-    "Answer": "string",
-    "Question": "string",
-    "Lvl": 2,
-    "Last_Train": "0000-01-01 00:00:00.000",
-    "Parent_Deck_Id": "test_parent_id"
+    "card_id": "test_Id",
+    "wins": 2,
+    "trains": 0,
+    "answer": "string",
+    "question": "string",
+    "lvl": 2,
+    "last_train": "0000-01-01 00:00:00.000",
+    "parent_deck_id": "test_parent_id"
 }

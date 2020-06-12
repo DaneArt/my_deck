@@ -16,6 +16,10 @@ class _$StorageFailureTearOff {
     return FieldsInvalid<T>();
   }
 
+  UnsaveableDraft<T> unsaveableDraft<T>() {
+    return UnsaveableDraft<T>();
+  }
+
   InsertFailure<T> insertFailure<T>({@required T failureObject}) {
     return InsertFailure<T>(
       failureObject: failureObject,
@@ -79,6 +83,7 @@ mixin _$StorageFailure<T> {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result fieldsInvalid(),
+    @required Result unsaveableDraft(),
     @required Result insertFailure(T failureObject),
     @required Result updateFailure(T failureObject),
     @required Result deleteFailure(T failureObject),
@@ -93,6 +98,7 @@ mixin _$StorageFailure<T> {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result fieldsInvalid(),
+    Result unsaveableDraft(),
     Result insertFailure(T failureObject),
     Result updateFailure(T failureObject),
     Result deleteFailure(T failureObject),
@@ -108,6 +114,7 @@ mixin _$StorageFailure<T> {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result fieldsInvalid(FieldsInvalid<T> value),
+    @required Result unsaveableDraft(UnsaveableDraft<T> value),
     @required Result insertFailure(InsertFailure<T> value),
     @required Result updateFailure(UpdateFailure<T> value),
     @required Result deleteFailure(DeleteFailure<T> value),
@@ -122,6 +129,7 @@ mixin _$StorageFailure<T> {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result fieldsInvalid(FieldsInvalid<T> value),
+    Result unsaveableDraft(UnsaveableDraft<T> value),
     Result insertFailure(InsertFailure<T> value),
     Result updateFailure(UpdateFailure<T> value),
     Result deleteFailure(DeleteFailure<T> value),
@@ -188,6 +196,7 @@ class _$FieldsInvalid<T> implements FieldsInvalid<T> {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result fieldsInvalid(),
+    @required Result unsaveableDraft(),
     @required Result insertFailure(T failureObject),
     @required Result updateFailure(T failureObject),
     @required Result deleteFailure(T failureObject),
@@ -200,6 +209,7 @@ class _$FieldsInvalid<T> implements FieldsInvalid<T> {
     @required Result networkFailure(),
   }) {
     assert(fieldsInvalid != null);
+    assert(unsaveableDraft != null);
     assert(insertFailure != null);
     assert(updateFailure != null);
     assert(deleteFailure != null);
@@ -217,6 +227,7 @@ class _$FieldsInvalid<T> implements FieldsInvalid<T> {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result fieldsInvalid(),
+    Result unsaveableDraft(),
     Result insertFailure(T failureObject),
     Result updateFailure(T failureObject),
     Result deleteFailure(T failureObject),
@@ -240,6 +251,7 @@ class _$FieldsInvalid<T> implements FieldsInvalid<T> {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result fieldsInvalid(FieldsInvalid<T> value),
+    @required Result unsaveableDraft(UnsaveableDraft<T> value),
     @required Result insertFailure(InsertFailure<T> value),
     @required Result updateFailure(UpdateFailure<T> value),
     @required Result deleteFailure(DeleteFailure<T> value),
@@ -252,6 +264,7 @@ class _$FieldsInvalid<T> implements FieldsInvalid<T> {
     @required Result networkFailure(NetworkFailure<T> value),
   }) {
     assert(fieldsInvalid != null);
+    assert(unsaveableDraft != null);
     assert(insertFailure != null);
     assert(updateFailure != null);
     assert(deleteFailure != null);
@@ -269,6 +282,7 @@ class _$FieldsInvalid<T> implements FieldsInvalid<T> {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result fieldsInvalid(FieldsInvalid<T> value),
+    Result unsaveableDraft(UnsaveableDraft<T> value),
     Result insertFailure(InsertFailure<T> value),
     Result updateFailure(UpdateFailure<T> value),
     Result deleteFailure(DeleteFailure<T> value),
@@ -291,6 +305,154 @@ class _$FieldsInvalid<T> implements FieldsInvalid<T> {
 
 abstract class FieldsInvalid<T> implements StorageFailure<T> {
   const factory FieldsInvalid() = _$FieldsInvalid<T>;
+}
+
+abstract class $UnsaveableDraftCopyWith<T, $Res> {
+  factory $UnsaveableDraftCopyWith(
+          UnsaveableDraft<T> value, $Res Function(UnsaveableDraft<T>) then) =
+      _$UnsaveableDraftCopyWithImpl<T, $Res>;
+}
+
+class _$UnsaveableDraftCopyWithImpl<T, $Res>
+    extends _$StorageFailureCopyWithImpl<T, $Res>
+    implements $UnsaveableDraftCopyWith<T, $Res> {
+  _$UnsaveableDraftCopyWithImpl(
+      UnsaveableDraft<T> _value, $Res Function(UnsaveableDraft<T>) _then)
+      : super(_value, (v) => _then(v as UnsaveableDraft<T>));
+
+  @override
+  UnsaveableDraft<T> get _value => super._value as UnsaveableDraft<T>;
+}
+
+class _$UnsaveableDraft<T> implements UnsaveableDraft<T> {
+  const _$UnsaveableDraft();
+
+  @override
+  String toString() {
+    return 'StorageFailure<$T>.unsaveableDraft()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is UnsaveableDraft<T>);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result fieldsInvalid(),
+    @required Result unsaveableDraft(),
+    @required Result insertFailure(T failureObject),
+    @required Result updateFailure(T failureObject),
+    @required Result deleteFailure(T failureObject),
+    @required Result getFailure(),
+    @required Result insertToServerFailure(T failureObject),
+    @required Result updateToServerFailure(T failureObject),
+    @required Result deleteFromServerFailure(T failureObject),
+    @required Result getFromServerFailure(),
+    @required Result serverFailure(),
+    @required Result networkFailure(),
+  }) {
+    assert(fieldsInvalid != null);
+    assert(unsaveableDraft != null);
+    assert(insertFailure != null);
+    assert(updateFailure != null);
+    assert(deleteFailure != null);
+    assert(getFailure != null);
+    assert(insertToServerFailure != null);
+    assert(updateToServerFailure != null);
+    assert(deleteFromServerFailure != null);
+    assert(getFromServerFailure != null);
+    assert(serverFailure != null);
+    assert(networkFailure != null);
+    return unsaveableDraft();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result fieldsInvalid(),
+    Result unsaveableDraft(),
+    Result insertFailure(T failureObject),
+    Result updateFailure(T failureObject),
+    Result deleteFailure(T failureObject),
+    Result getFailure(),
+    Result insertToServerFailure(T failureObject),
+    Result updateToServerFailure(T failureObject),
+    Result deleteFromServerFailure(T failureObject),
+    Result getFromServerFailure(),
+    Result serverFailure(),
+    Result networkFailure(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (unsaveableDraft != null) {
+      return unsaveableDraft();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result fieldsInvalid(FieldsInvalid<T> value),
+    @required Result unsaveableDraft(UnsaveableDraft<T> value),
+    @required Result insertFailure(InsertFailure<T> value),
+    @required Result updateFailure(UpdateFailure<T> value),
+    @required Result deleteFailure(DeleteFailure<T> value),
+    @required Result getFailure(GetFailure<T> value),
+    @required Result insertToServerFailure(InsertToServerFailure<T> value),
+    @required Result updateToServerFailure(UpdateToServerFailure<T> value),
+    @required Result deleteFromServerFailure(DeleteFromServerFailure<T> value),
+    @required Result getFromServerFailure(GetFromServerFailure<T> value),
+    @required Result serverFailure(ServerFailure<T> value),
+    @required Result networkFailure(NetworkFailure<T> value),
+  }) {
+    assert(fieldsInvalid != null);
+    assert(unsaveableDraft != null);
+    assert(insertFailure != null);
+    assert(updateFailure != null);
+    assert(deleteFailure != null);
+    assert(getFailure != null);
+    assert(insertToServerFailure != null);
+    assert(updateToServerFailure != null);
+    assert(deleteFromServerFailure != null);
+    assert(getFromServerFailure != null);
+    assert(serverFailure != null);
+    assert(networkFailure != null);
+    return unsaveableDraft(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result fieldsInvalid(FieldsInvalid<T> value),
+    Result unsaveableDraft(UnsaveableDraft<T> value),
+    Result insertFailure(InsertFailure<T> value),
+    Result updateFailure(UpdateFailure<T> value),
+    Result deleteFailure(DeleteFailure<T> value),
+    Result getFailure(GetFailure<T> value),
+    Result insertToServerFailure(InsertToServerFailure<T> value),
+    Result updateToServerFailure(UpdateToServerFailure<T> value),
+    Result deleteFromServerFailure(DeleteFromServerFailure<T> value),
+    Result getFromServerFailure(GetFromServerFailure<T> value),
+    Result serverFailure(ServerFailure<T> value),
+    Result networkFailure(NetworkFailure<T> value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (unsaveableDraft != null) {
+      return unsaveableDraft(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UnsaveableDraft<T> implements StorageFailure<T> {
+  const factory UnsaveableDraft() = _$UnsaveableDraft<T>;
 }
 
 abstract class $InsertFailureCopyWith<T, $Res> {
@@ -354,6 +516,7 @@ class _$InsertFailure<T> implements InsertFailure<T> {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result fieldsInvalid(),
+    @required Result unsaveableDraft(),
     @required Result insertFailure(T failureObject),
     @required Result updateFailure(T failureObject),
     @required Result deleteFailure(T failureObject),
@@ -366,6 +529,7 @@ class _$InsertFailure<T> implements InsertFailure<T> {
     @required Result networkFailure(),
   }) {
     assert(fieldsInvalid != null);
+    assert(unsaveableDraft != null);
     assert(insertFailure != null);
     assert(updateFailure != null);
     assert(deleteFailure != null);
@@ -383,6 +547,7 @@ class _$InsertFailure<T> implements InsertFailure<T> {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result fieldsInvalid(),
+    Result unsaveableDraft(),
     Result insertFailure(T failureObject),
     Result updateFailure(T failureObject),
     Result deleteFailure(T failureObject),
@@ -406,6 +571,7 @@ class _$InsertFailure<T> implements InsertFailure<T> {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result fieldsInvalid(FieldsInvalid<T> value),
+    @required Result unsaveableDraft(UnsaveableDraft<T> value),
     @required Result insertFailure(InsertFailure<T> value),
     @required Result updateFailure(UpdateFailure<T> value),
     @required Result deleteFailure(DeleteFailure<T> value),
@@ -418,6 +584,7 @@ class _$InsertFailure<T> implements InsertFailure<T> {
     @required Result networkFailure(NetworkFailure<T> value),
   }) {
     assert(fieldsInvalid != null);
+    assert(unsaveableDraft != null);
     assert(insertFailure != null);
     assert(updateFailure != null);
     assert(deleteFailure != null);
@@ -435,6 +602,7 @@ class _$InsertFailure<T> implements InsertFailure<T> {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result fieldsInvalid(FieldsInvalid<T> value),
+    Result unsaveableDraft(UnsaveableDraft<T> value),
     Result insertFailure(InsertFailure<T> value),
     Result updateFailure(UpdateFailure<T> value),
     Result deleteFailure(DeleteFailure<T> value),
@@ -523,6 +691,7 @@ class _$UpdateFailure<T> implements UpdateFailure<T> {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result fieldsInvalid(),
+    @required Result unsaveableDraft(),
     @required Result insertFailure(T failureObject),
     @required Result updateFailure(T failureObject),
     @required Result deleteFailure(T failureObject),
@@ -535,6 +704,7 @@ class _$UpdateFailure<T> implements UpdateFailure<T> {
     @required Result networkFailure(),
   }) {
     assert(fieldsInvalid != null);
+    assert(unsaveableDraft != null);
     assert(insertFailure != null);
     assert(updateFailure != null);
     assert(deleteFailure != null);
@@ -552,6 +722,7 @@ class _$UpdateFailure<T> implements UpdateFailure<T> {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result fieldsInvalid(),
+    Result unsaveableDraft(),
     Result insertFailure(T failureObject),
     Result updateFailure(T failureObject),
     Result deleteFailure(T failureObject),
@@ -575,6 +746,7 @@ class _$UpdateFailure<T> implements UpdateFailure<T> {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result fieldsInvalid(FieldsInvalid<T> value),
+    @required Result unsaveableDraft(UnsaveableDraft<T> value),
     @required Result insertFailure(InsertFailure<T> value),
     @required Result updateFailure(UpdateFailure<T> value),
     @required Result deleteFailure(DeleteFailure<T> value),
@@ -587,6 +759,7 @@ class _$UpdateFailure<T> implements UpdateFailure<T> {
     @required Result networkFailure(NetworkFailure<T> value),
   }) {
     assert(fieldsInvalid != null);
+    assert(unsaveableDraft != null);
     assert(insertFailure != null);
     assert(updateFailure != null);
     assert(deleteFailure != null);
@@ -604,6 +777,7 @@ class _$UpdateFailure<T> implements UpdateFailure<T> {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result fieldsInvalid(FieldsInvalid<T> value),
+    Result unsaveableDraft(UnsaveableDraft<T> value),
     Result insertFailure(InsertFailure<T> value),
     Result updateFailure(UpdateFailure<T> value),
     Result deleteFailure(DeleteFailure<T> value),
@@ -692,6 +866,7 @@ class _$DeleteFailure<T> implements DeleteFailure<T> {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result fieldsInvalid(),
+    @required Result unsaveableDraft(),
     @required Result insertFailure(T failureObject),
     @required Result updateFailure(T failureObject),
     @required Result deleteFailure(T failureObject),
@@ -704,6 +879,7 @@ class _$DeleteFailure<T> implements DeleteFailure<T> {
     @required Result networkFailure(),
   }) {
     assert(fieldsInvalid != null);
+    assert(unsaveableDraft != null);
     assert(insertFailure != null);
     assert(updateFailure != null);
     assert(deleteFailure != null);
@@ -721,6 +897,7 @@ class _$DeleteFailure<T> implements DeleteFailure<T> {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result fieldsInvalid(),
+    Result unsaveableDraft(),
     Result insertFailure(T failureObject),
     Result updateFailure(T failureObject),
     Result deleteFailure(T failureObject),
@@ -744,6 +921,7 @@ class _$DeleteFailure<T> implements DeleteFailure<T> {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result fieldsInvalid(FieldsInvalid<T> value),
+    @required Result unsaveableDraft(UnsaveableDraft<T> value),
     @required Result insertFailure(InsertFailure<T> value),
     @required Result updateFailure(UpdateFailure<T> value),
     @required Result deleteFailure(DeleteFailure<T> value),
@@ -756,6 +934,7 @@ class _$DeleteFailure<T> implements DeleteFailure<T> {
     @required Result networkFailure(NetworkFailure<T> value),
   }) {
     assert(fieldsInvalid != null);
+    assert(unsaveableDraft != null);
     assert(insertFailure != null);
     assert(updateFailure != null);
     assert(deleteFailure != null);
@@ -773,6 +952,7 @@ class _$DeleteFailure<T> implements DeleteFailure<T> {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result fieldsInvalid(FieldsInvalid<T> value),
+    Result unsaveableDraft(UnsaveableDraft<T> value),
     Result insertFailure(InsertFailure<T> value),
     Result updateFailure(UpdateFailure<T> value),
     Result deleteFailure(DeleteFailure<T> value),
@@ -837,6 +1017,7 @@ class _$GetFailure<T> implements GetFailure<T> {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result fieldsInvalid(),
+    @required Result unsaveableDraft(),
     @required Result insertFailure(T failureObject),
     @required Result updateFailure(T failureObject),
     @required Result deleteFailure(T failureObject),
@@ -849,6 +1030,7 @@ class _$GetFailure<T> implements GetFailure<T> {
     @required Result networkFailure(),
   }) {
     assert(fieldsInvalid != null);
+    assert(unsaveableDraft != null);
     assert(insertFailure != null);
     assert(updateFailure != null);
     assert(deleteFailure != null);
@@ -866,6 +1048,7 @@ class _$GetFailure<T> implements GetFailure<T> {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result fieldsInvalid(),
+    Result unsaveableDraft(),
     Result insertFailure(T failureObject),
     Result updateFailure(T failureObject),
     Result deleteFailure(T failureObject),
@@ -889,6 +1072,7 @@ class _$GetFailure<T> implements GetFailure<T> {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result fieldsInvalid(FieldsInvalid<T> value),
+    @required Result unsaveableDraft(UnsaveableDraft<T> value),
     @required Result insertFailure(InsertFailure<T> value),
     @required Result updateFailure(UpdateFailure<T> value),
     @required Result deleteFailure(DeleteFailure<T> value),
@@ -901,6 +1085,7 @@ class _$GetFailure<T> implements GetFailure<T> {
     @required Result networkFailure(NetworkFailure<T> value),
   }) {
     assert(fieldsInvalid != null);
+    assert(unsaveableDraft != null);
     assert(insertFailure != null);
     assert(updateFailure != null);
     assert(deleteFailure != null);
@@ -918,6 +1103,7 @@ class _$GetFailure<T> implements GetFailure<T> {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result fieldsInvalid(FieldsInvalid<T> value),
+    Result unsaveableDraft(UnsaveableDraft<T> value),
     Result insertFailure(InsertFailure<T> value),
     Result updateFailure(UpdateFailure<T> value),
     Result deleteFailure(DeleteFailure<T> value),
@@ -1005,6 +1191,7 @@ class _$InsertToServerFailure<T> implements InsertToServerFailure<T> {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result fieldsInvalid(),
+    @required Result unsaveableDraft(),
     @required Result insertFailure(T failureObject),
     @required Result updateFailure(T failureObject),
     @required Result deleteFailure(T failureObject),
@@ -1017,6 +1204,7 @@ class _$InsertToServerFailure<T> implements InsertToServerFailure<T> {
     @required Result networkFailure(),
   }) {
     assert(fieldsInvalid != null);
+    assert(unsaveableDraft != null);
     assert(insertFailure != null);
     assert(updateFailure != null);
     assert(deleteFailure != null);
@@ -1034,6 +1222,7 @@ class _$InsertToServerFailure<T> implements InsertToServerFailure<T> {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result fieldsInvalid(),
+    Result unsaveableDraft(),
     Result insertFailure(T failureObject),
     Result updateFailure(T failureObject),
     Result deleteFailure(T failureObject),
@@ -1057,6 +1246,7 @@ class _$InsertToServerFailure<T> implements InsertToServerFailure<T> {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result fieldsInvalid(FieldsInvalid<T> value),
+    @required Result unsaveableDraft(UnsaveableDraft<T> value),
     @required Result insertFailure(InsertFailure<T> value),
     @required Result updateFailure(UpdateFailure<T> value),
     @required Result deleteFailure(DeleteFailure<T> value),
@@ -1069,6 +1259,7 @@ class _$InsertToServerFailure<T> implements InsertToServerFailure<T> {
     @required Result networkFailure(NetworkFailure<T> value),
   }) {
     assert(fieldsInvalid != null);
+    assert(unsaveableDraft != null);
     assert(insertFailure != null);
     assert(updateFailure != null);
     assert(deleteFailure != null);
@@ -1086,6 +1277,7 @@ class _$InsertToServerFailure<T> implements InsertToServerFailure<T> {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result fieldsInvalid(FieldsInvalid<T> value),
+    Result unsaveableDraft(UnsaveableDraft<T> value),
     Result insertFailure(InsertFailure<T> value),
     Result updateFailure(UpdateFailure<T> value),
     Result deleteFailure(DeleteFailure<T> value),
@@ -1177,6 +1369,7 @@ class _$UpdateToServerFailure<T> implements UpdateToServerFailure<T> {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result fieldsInvalid(),
+    @required Result unsaveableDraft(),
     @required Result insertFailure(T failureObject),
     @required Result updateFailure(T failureObject),
     @required Result deleteFailure(T failureObject),
@@ -1189,6 +1382,7 @@ class _$UpdateToServerFailure<T> implements UpdateToServerFailure<T> {
     @required Result networkFailure(),
   }) {
     assert(fieldsInvalid != null);
+    assert(unsaveableDraft != null);
     assert(insertFailure != null);
     assert(updateFailure != null);
     assert(deleteFailure != null);
@@ -1206,6 +1400,7 @@ class _$UpdateToServerFailure<T> implements UpdateToServerFailure<T> {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result fieldsInvalid(),
+    Result unsaveableDraft(),
     Result insertFailure(T failureObject),
     Result updateFailure(T failureObject),
     Result deleteFailure(T failureObject),
@@ -1229,6 +1424,7 @@ class _$UpdateToServerFailure<T> implements UpdateToServerFailure<T> {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result fieldsInvalid(FieldsInvalid<T> value),
+    @required Result unsaveableDraft(UnsaveableDraft<T> value),
     @required Result insertFailure(InsertFailure<T> value),
     @required Result updateFailure(UpdateFailure<T> value),
     @required Result deleteFailure(DeleteFailure<T> value),
@@ -1241,6 +1437,7 @@ class _$UpdateToServerFailure<T> implements UpdateToServerFailure<T> {
     @required Result networkFailure(NetworkFailure<T> value),
   }) {
     assert(fieldsInvalid != null);
+    assert(unsaveableDraft != null);
     assert(insertFailure != null);
     assert(updateFailure != null);
     assert(deleteFailure != null);
@@ -1258,6 +1455,7 @@ class _$UpdateToServerFailure<T> implements UpdateToServerFailure<T> {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result fieldsInvalid(FieldsInvalid<T> value),
+    Result unsaveableDraft(UnsaveableDraft<T> value),
     Result insertFailure(InsertFailure<T> value),
     Result updateFailure(UpdateFailure<T> value),
     Result deleteFailure(DeleteFailure<T> value),
@@ -1350,6 +1548,7 @@ class _$DeleteFromServerFailure<T> implements DeleteFromServerFailure<T> {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result fieldsInvalid(),
+    @required Result unsaveableDraft(),
     @required Result insertFailure(T failureObject),
     @required Result updateFailure(T failureObject),
     @required Result deleteFailure(T failureObject),
@@ -1362,6 +1561,7 @@ class _$DeleteFromServerFailure<T> implements DeleteFromServerFailure<T> {
     @required Result networkFailure(),
   }) {
     assert(fieldsInvalid != null);
+    assert(unsaveableDraft != null);
     assert(insertFailure != null);
     assert(updateFailure != null);
     assert(deleteFailure != null);
@@ -1379,6 +1579,7 @@ class _$DeleteFromServerFailure<T> implements DeleteFromServerFailure<T> {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result fieldsInvalid(),
+    Result unsaveableDraft(),
     Result insertFailure(T failureObject),
     Result updateFailure(T failureObject),
     Result deleteFailure(T failureObject),
@@ -1402,6 +1603,7 @@ class _$DeleteFromServerFailure<T> implements DeleteFromServerFailure<T> {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result fieldsInvalid(FieldsInvalid<T> value),
+    @required Result unsaveableDraft(UnsaveableDraft<T> value),
     @required Result insertFailure(InsertFailure<T> value),
     @required Result updateFailure(UpdateFailure<T> value),
     @required Result deleteFailure(DeleteFailure<T> value),
@@ -1414,6 +1616,7 @@ class _$DeleteFromServerFailure<T> implements DeleteFromServerFailure<T> {
     @required Result networkFailure(NetworkFailure<T> value),
   }) {
     assert(fieldsInvalid != null);
+    assert(unsaveableDraft != null);
     assert(insertFailure != null);
     assert(updateFailure != null);
     assert(deleteFailure != null);
@@ -1431,6 +1634,7 @@ class _$DeleteFromServerFailure<T> implements DeleteFromServerFailure<T> {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result fieldsInvalid(FieldsInvalid<T> value),
+    Result unsaveableDraft(UnsaveableDraft<T> value),
     Result insertFailure(InsertFailure<T> value),
     Result updateFailure(UpdateFailure<T> value),
     Result deleteFailure(DeleteFailure<T> value),
@@ -1496,6 +1700,7 @@ class _$GetFromServerFailure<T> implements GetFromServerFailure<T> {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result fieldsInvalid(),
+    @required Result unsaveableDraft(),
     @required Result insertFailure(T failureObject),
     @required Result updateFailure(T failureObject),
     @required Result deleteFailure(T failureObject),
@@ -1508,6 +1713,7 @@ class _$GetFromServerFailure<T> implements GetFromServerFailure<T> {
     @required Result networkFailure(),
   }) {
     assert(fieldsInvalid != null);
+    assert(unsaveableDraft != null);
     assert(insertFailure != null);
     assert(updateFailure != null);
     assert(deleteFailure != null);
@@ -1525,6 +1731,7 @@ class _$GetFromServerFailure<T> implements GetFromServerFailure<T> {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result fieldsInvalid(),
+    Result unsaveableDraft(),
     Result insertFailure(T failureObject),
     Result updateFailure(T failureObject),
     Result deleteFailure(T failureObject),
@@ -1548,6 +1755,7 @@ class _$GetFromServerFailure<T> implements GetFromServerFailure<T> {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result fieldsInvalid(FieldsInvalid<T> value),
+    @required Result unsaveableDraft(UnsaveableDraft<T> value),
     @required Result insertFailure(InsertFailure<T> value),
     @required Result updateFailure(UpdateFailure<T> value),
     @required Result deleteFailure(DeleteFailure<T> value),
@@ -1560,6 +1768,7 @@ class _$GetFromServerFailure<T> implements GetFromServerFailure<T> {
     @required Result networkFailure(NetworkFailure<T> value),
   }) {
     assert(fieldsInvalid != null);
+    assert(unsaveableDraft != null);
     assert(insertFailure != null);
     assert(updateFailure != null);
     assert(deleteFailure != null);
@@ -1577,6 +1786,7 @@ class _$GetFromServerFailure<T> implements GetFromServerFailure<T> {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result fieldsInvalid(FieldsInvalid<T> value),
+    Result unsaveableDraft(UnsaveableDraft<T> value),
     Result insertFailure(InsertFailure<T> value),
     Result updateFailure(UpdateFailure<T> value),
     Result deleteFailure(DeleteFailure<T> value),
@@ -1638,6 +1848,7 @@ class _$ServerFailure<T> implements ServerFailure<T> {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result fieldsInvalid(),
+    @required Result unsaveableDraft(),
     @required Result insertFailure(T failureObject),
     @required Result updateFailure(T failureObject),
     @required Result deleteFailure(T failureObject),
@@ -1650,6 +1861,7 @@ class _$ServerFailure<T> implements ServerFailure<T> {
     @required Result networkFailure(),
   }) {
     assert(fieldsInvalid != null);
+    assert(unsaveableDraft != null);
     assert(insertFailure != null);
     assert(updateFailure != null);
     assert(deleteFailure != null);
@@ -1667,6 +1879,7 @@ class _$ServerFailure<T> implements ServerFailure<T> {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result fieldsInvalid(),
+    Result unsaveableDraft(),
     Result insertFailure(T failureObject),
     Result updateFailure(T failureObject),
     Result deleteFailure(T failureObject),
@@ -1690,6 +1903,7 @@ class _$ServerFailure<T> implements ServerFailure<T> {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result fieldsInvalid(FieldsInvalid<T> value),
+    @required Result unsaveableDraft(UnsaveableDraft<T> value),
     @required Result insertFailure(InsertFailure<T> value),
     @required Result updateFailure(UpdateFailure<T> value),
     @required Result deleteFailure(DeleteFailure<T> value),
@@ -1702,6 +1916,7 @@ class _$ServerFailure<T> implements ServerFailure<T> {
     @required Result networkFailure(NetworkFailure<T> value),
   }) {
     assert(fieldsInvalid != null);
+    assert(unsaveableDraft != null);
     assert(insertFailure != null);
     assert(updateFailure != null);
     assert(deleteFailure != null);
@@ -1719,6 +1934,7 @@ class _$ServerFailure<T> implements ServerFailure<T> {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result fieldsInvalid(FieldsInvalid<T> value),
+    Result unsaveableDraft(UnsaveableDraft<T> value),
     Result insertFailure(InsertFailure<T> value),
     Result updateFailure(UpdateFailure<T> value),
     Result deleteFailure(DeleteFailure<T> value),
@@ -1780,6 +1996,7 @@ class _$NetworkFailure<T> implements NetworkFailure<T> {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result fieldsInvalid(),
+    @required Result unsaveableDraft(),
     @required Result insertFailure(T failureObject),
     @required Result updateFailure(T failureObject),
     @required Result deleteFailure(T failureObject),
@@ -1792,6 +2009,7 @@ class _$NetworkFailure<T> implements NetworkFailure<T> {
     @required Result networkFailure(),
   }) {
     assert(fieldsInvalid != null);
+    assert(unsaveableDraft != null);
     assert(insertFailure != null);
     assert(updateFailure != null);
     assert(deleteFailure != null);
@@ -1809,6 +2027,7 @@ class _$NetworkFailure<T> implements NetworkFailure<T> {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result fieldsInvalid(),
+    Result unsaveableDraft(),
     Result insertFailure(T failureObject),
     Result updateFailure(T failureObject),
     Result deleteFailure(T failureObject),
@@ -1832,6 +2051,7 @@ class _$NetworkFailure<T> implements NetworkFailure<T> {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result fieldsInvalid(FieldsInvalid<T> value),
+    @required Result unsaveableDraft(UnsaveableDraft<T> value),
     @required Result insertFailure(InsertFailure<T> value),
     @required Result updateFailure(UpdateFailure<T> value),
     @required Result deleteFailure(DeleteFailure<T> value),
@@ -1844,6 +2064,7 @@ class _$NetworkFailure<T> implements NetworkFailure<T> {
     @required Result networkFailure(NetworkFailure<T> value),
   }) {
     assert(fieldsInvalid != null);
+    assert(unsaveableDraft != null);
     assert(insertFailure != null);
     assert(updateFailure != null);
     assert(deleteFailure != null);
@@ -1861,6 +2082,7 @@ class _$NetworkFailure<T> implements NetworkFailure<T> {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result fieldsInvalid(FieldsInvalid<T> value),
+    Result unsaveableDraft(UnsaveableDraft<T> value),
     Result insertFailure(InsertFailure<T> value),
     Result updateFailure(UpdateFailure<T> value),
     Result deleteFailure(DeleteFailure<T> value),

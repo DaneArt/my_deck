@@ -14,14 +14,14 @@ main() {
   test('Should correctly convert model to entity', () {
     final tDeckModel =
         DeckModel.fromJson(jsonDecode(fixture('deck_model.json')));
-    final tDeck = Deck(
+    final tDeck = Deck.library(
         deckId: tDeckModel.deckId,
         title: tDeckModel.title,
         icon: File(tDeckModel.icon),
         cardsList: [],
         category: CategoryModel(tDeckModel.categoryName),
         description: tDeckModel.description,
-        subscribersCount: tDeckModel.subscribersCount,
+        subscribers: [],
         isPrivate: tDeckModel.isPrivate,
         author: UserModel(tDeckModel.author, '', '', ''));
 
@@ -32,7 +32,7 @@ main() {
   test('Should correctly convert entity to model', () {
     final tDeckModel =
         DeckModel.fromJson(jsonDecode(fixture('deck_model.json')));
-    final tDeck = Deck(
+    final tDeck = Deck.library(
         author: UserModel(tDeckModel.author, '', '', ''),
         cardsList: <Card>[],
         category: CategoryModel(tDeckModel.categoryName),
@@ -42,7 +42,7 @@ main() {
         isPrivate: tDeckModel.isPrivate,
         title: tDeckModel.title);
 
-    final modelFromDeck = tDeck.toModel();
+    final modelFromDeck = tDeck.model;
 
     expect(tDeckModel, modelFromDeck);
   });

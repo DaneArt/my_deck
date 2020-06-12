@@ -4,20 +4,19 @@ import 'package:animations/animations.dart';
 import 'package:mydeck/core/icons/custom_icons_icons.dart';
 import 'package:mydeck/core/injection/dependency_injection.dart';
 import 'package:mydeck/core/meta/my_deck_routes.dart';
+import 'package:mydeck/features/editor/presentation/bloc/add_deck/add_deck_bloc.dart';
 import 'package:mydeck/features/my_deck/domain/entities/card_content.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
-import 'package:mydeck/features/my_deck/domain/usecases/add_deck_usecase.dart';
-import 'package:mydeck/features/my_deck/domain/usecases/delete_deck_usecase.dart';
-import 'package:mydeck/features/my_deck/domain/usecases/save_deck_changes_usecase.dart';
-import 'package:mydeck/features/my_deck/domain/usecases/upload_online_deck.dart';
-import 'package:mydeck/features/my_deck/presentation/bloc/add_deck/add_deck_bloc.dart';
-import 'package:mydeck/features/my_deck/presentation/bloc/bloc.dart';
+import 'package:mydeck/features/editor/domain/usecases/add_deck_usecase.dart';
+import 'package:mydeck/features/editor/domain/usecases/delete_deck_usecase.dart';
+import 'package:mydeck/features/editor/domain/usecases/save_deck_changes_usecase.dart';
+import 'package:mydeck/features/social/domain/usecases/upload_online_deck.dart';
 import 'package:mydeck/core/extensions/widget_extensions.dart';
-import 'package:mydeck/features/my_deck/presentation/pages/add_deck_page.dart';
+import 'package:mydeck/features/editor/presentation/pages/add_deck_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/shared/triangle_clipper.dart';
-import 'package:mydeck/features/sign_in/data/datasources/user_service.dart';
+import 'package:mydeck/features/sign_in/data/datasources/user_config.dart';
 
 class DeckCard extends StatefulWidget {
   final Deck deck;
@@ -38,6 +37,7 @@ class DeckCard extends StatefulWidget {
 }
 
 class _DeckCardState extends State<DeckCard> {
+
   Widget getImageFile() =>
       Image.file(File(widget.deck.icon.path), fit: BoxFit.cover);
 
@@ -150,7 +150,7 @@ class _DeckCardState extends State<DeckCard> {
                             style: Theme.of(context)
                                 .textTheme
                                 .headline5
-                                .copyWith(fontWeight: FontWeight.bold).copyWith(color:Colors.black)),
+                                .copyWith(fontWeight: FontWeight.bold)),
                         IconButton(
                           icon: _isDraft
                               ? Icon(
@@ -158,7 +158,7 @@ class _DeckCardState extends State<DeckCard> {
                                   color: Colors.yellow,
                                 )
                               : Icon(deck.author.userId ==
-                                      UserService.currentUser.userId
+                              UserConfig.currentUser.userId
                                   ? deck.isPrivate
                                       ? Icons.lock
                                       : Icons.lock_open
@@ -174,7 +174,7 @@ class _DeckCardState extends State<DeckCard> {
                       child:  Padding(
                         padding:  EdgeInsets.only(left:deck.icon.existsSync()? 8.0:0),
                         child: Text('Category: ${deck.category.categoryName}',
-                              style: Theme.of(context).textTheme.bodyText2.copyWith(color:Colors.black) ),
+                              style: Theme.of(context).textTheme.bodyText2 ),
                       ),
                       ),
 
@@ -191,12 +191,12 @@ class _DeckCardState extends State<DeckCard> {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          Icon(CustomIcons.subscribers_count,color: Colors.black,),
+                          Icon(CustomIcons.subscribers_count,color: Theme.of(context).accentIconTheme.color,),
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0),
                             child: Text(
                                 '${deck is DeckOnline ? (deck as DeckOnline).subscribersCount : (deck as DeckLibrary).subscribers.length}',
-                              style: TextStyle(color: Colors.black),
+
                                 ),
                           ),
                         ],
@@ -208,10 +208,10 @@ class _DeckCardState extends State<DeckCard> {
                             child: Text(
                                 '${deck is DeckOnline ? (deck as DeckOnline).cardsCount : (deck as DeckLibrary).cardsList.length}',
                                 textAlign: TextAlign.right,
-                              style: TextStyle(color: Colors.black),
+
                                 ),
                           ),
-                          Icon(CustomIcons.cards,color: Colors.black,),
+                          Icon(CustomIcons.cards,color: Theme.of(context).accentIconTheme.color),
                         ],
                       ),
                     ],

@@ -5,14 +5,16 @@ import 'package:mydeck/core/icons/custom_icons_icons.dart';
 import 'package:mydeck/core/injection/dependency_injection.dart';
 import 'package:mydeck/core/meta/my_deck_keys.dart';
 import 'package:mydeck/core/meta/my_deck_routes.dart';
+import 'package:mydeck/features/editor/presentation/bloc/add_deck/add_deck_bloc.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
-import 'package:mydeck/features/my_deck/domain/usecases/add_deck_usecase.dart';
-import 'package:mydeck/features/my_deck/domain/usecases/delete_deck_usecase.dart';
-import 'package:mydeck/features/my_deck/domain/usecases/save_deck_changes_usecase.dart';
-import 'package:mydeck/features/my_deck/domain/usecases/upload_online_deck.dart';
-import 'package:mydeck/features/my_deck/presentation/bloc/add_deck/add_deck_bloc.dart';
-import 'package:mydeck/features/my_deck/presentation/bloc/bloc.dart';
-import 'package:mydeck/features/my_deck/presentation/pages/add_deck_page.dart';
+import 'package:mydeck/features/editor/domain/usecases/add_deck_usecase.dart';
+import 'package:mydeck/features/editor/domain/usecases/delete_deck_usecase.dart';
+import 'package:mydeck/features/editor/domain/usecases/save_deck_changes_usecase.dart';
+import 'package:mydeck/features/social/domain/usecases/upload_online_deck.dart';
+import 'package:mydeck/features/my_deck/presentation/bloc/library/library_bloc.dart';
+import 'package:mydeck/features/my_deck/presentation/bloc/library/library_event.dart';
+import 'package:mydeck/features/my_deck/presentation/bloc/library/library_state.dart';
+import 'package:mydeck/features/editor/presentation/pages/add_deck_page.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/deck_hub/deck_card_view.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/deck_hub/deck_hub_idle_view.dart';
 import 'package:mydeck/core/extensions/widget_extensions.dart';
@@ -20,7 +22,8 @@ import 'package:mydeck/core/extensions/widget_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mydeck/features/sign_in/data/datasources/user_service.dart';
+import 'package:mydeck/features/my_deck/presentation/widgets/shared/undo_snackbar.dart';
+import 'package:mydeck/features/sign_in/data/datasources/user_config.dart';
 
 class LibraryPage extends StatefulWidget {
   LibraryPage({Key key}) : super(key: key);
@@ -34,6 +37,8 @@ class _LibraryPageState extends State<LibraryPage>
   ScrollController _controller;
   AnimationController _animationController;
   Animation _fabAnimation;
+
+
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
@@ -82,42 +87,45 @@ class _LibraryPageState extends State<LibraryPage>
     BlocProvider.of<LibraryBloc>(context).add(GetAllUsersDecks());
   }
 
-  List<Widget> _buildFabs(BuildContext context) => [
-        FadeTransition(
-          opacity: _fabAnimation,
-          child: ScaleTransition(
-            scale: _fabAnimation,
-            child: FloatingActionButton(
-              key: Key(MyDeckTestKeys.addDeckFab),
-              heroTag: MyDeckHeroTags.addDeckFab,
-              elevation: 4,
-              child: Icon(
-                Icons.add,
-                color: Theme.of(context).iconTheme.color,
-              ),
-              onPressed: () async => addDeck(context),
+  List<Widget> _buildFabs(BuildContext context) {
+    return [
+      FadeTransition(
+        opacity: _fabAnimation,
+        child: ScaleTransition(
+          scale: _fabAnimation,
+          child: FloatingActionButton(
+            key: Key(MyDeckTestKeys.addDeckFab),
+            heroTag: MyDeckHeroTags.addDeckFab,
+            elevation: 4,
+            child: Icon(
+              Icons.add,
+              color: Theme.of(context).iconTheme.color,
             ),
+            onPressed: () async => addDeck(context),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(8),
-        ),
-        FadeTransition(
-          opacity: _fabAnimation,
-          child: ScaleTransition(
-            scale: _fabAnimation,
-            child: FloatingActionButton(
-              heroTag: MyDeckHeroTags.startTrainFab,
-              elevation: 4,
-              child: Icon(
-                CustomIcons.dumbbell,
-                color: Theme.of(context).iconTheme.color,
-              ),
-              onPressed: _tryToStartTrain,
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+      ),
+      FadeTransition(
+        opacity: _fabAnimation,
+        child: ScaleTransition(
+          scale: _fabAnimation,
+          child: FloatingActionButton(
+            heroTag: MyDeckHeroTags.startTrainFab,
+            elevation: 4,
+            child: Icon(
+              CustomIcons.dumbbell,
+              color: Theme.of(context).iconTheme.color,
             ),
+            onPressed: _tryToStartTrain,
           ),
         ),
-      ];
+      ),
+
+    ];
+  }
 
   Widget _decksList(List<Deck> decks) => CustomScrollView(
         controller: _controller,
@@ -135,12 +143,10 @@ class _LibraryPageState extends State<LibraryPage>
                             .add(LibraryEvent.updateDeck(deck: changedDeck));
 
                         _showUndoSnackBar(
-                          'Deck successfully changed',
-                              () => context
-                              .bloc<LibraryBloc>()
-                              .add(LibraryEvent.undoEditing(
-                              oldDeck: oldDeck),
-                        ));
+                            'Deck successfully changed',
+                            () => context.bloc<LibraryBloc>().add(
+                                  LibraryEvent.undoEditing(oldDeck: oldDeck),
+                                ));
                       },
                       onDelete: () {
                         context
@@ -148,10 +154,8 @@ class _LibraryPageState extends State<LibraryPage>
                             .add(LibraryEvent.deleteDeck(deck: decks[index]));
                         _showUndoSnackBar(
                           'Deck successfully deleted',
-                          () => context
-                              .bloc<LibraryBloc>()
-                              .add(LibraryEvent.undoDeleting(
-                                  deck: decks[index])),
+                          () => context.bloc<LibraryBloc>().add(
+                              LibraryEvent.undoDeleting(deck: decks[index])),
                         );
                       },
                     ),
@@ -162,9 +166,9 @@ class _LibraryPageState extends State<LibraryPage>
 
   void _showUndoSnackBar(String title, Function() action) {
     _scaffoldKey.currentState.hideCurrentSnackBar();
-    _scaffoldKey.currentState.showSnackBar(SnackBar(
-      action: SnackBarAction(label: 'UNDO', onPressed: action),
-      content: Text(title),
+    _scaffoldKey.currentState.showSnackBar(UndoSnackBar(
+      title: title,
+      undoCallback: action,
     ));
   }
 
@@ -214,24 +218,27 @@ class _LibraryPageState extends State<LibraryPage>
             )));
     if (newDeck != null && newDeck is Deck) {
       context.bloc<LibraryBloc>().add(LibraryEvent.addDeck(deck: newDeck));
-      _showUndoSnackBar('Deck successfully created', () => context
-          .bloc<LibraryBloc>()
-          .add(LibraryEvent.undoAdding(deck: newDeck)) );
-
+      _showUndoSnackBar(
+          'Deck successfully created',
+          () => context
+              .bloc<LibraryBloc>()
+              .add(LibraryEvent.undoAdding(deck: newDeck)));
     }
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        leading: Container(),
-        title: Text("${UserService.currentUser.username}'s library",
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        title: Text("${UserConfig.currentUser.username[0].toUpperCase()}${UserConfig.currentUser.username.substring(1)}'s library",
             style: Theme.of(context)
                 .textTheme
-                .headline6
-                .copyWith(color: Colors.white)),
+                .headline6.copyWith(fontWeight: FontWeight.bold,color:Theme.of(context).primaryColor)),
       ),
       body: Center(
         child: SafeArea(
@@ -257,7 +264,6 @@ class _LibraryPageState extends State<LibraryPage>
                             .add(LibraryEvent.trainStarted());
                         final trainResult = await Navigator.of(context)
                             .pushNamed(MyDeckRoutes.train, arguments: result);
-
                       }));
             },
             child: _buildBody(context),

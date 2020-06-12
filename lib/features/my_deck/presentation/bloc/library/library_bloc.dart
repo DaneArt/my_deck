@@ -5,14 +5,14 @@ import 'package:dartz/dartz.dart';
 
 import 'package:meta/meta.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
-import 'package:mydeck/features/my_deck/domain/usecases/delete_deck_usecase.dart';
+import 'package:mydeck/features/editor/domain/usecases/delete_deck_usecase.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/get_all_current_user_decks_usecase.dart';
-import 'package:mydeck/features/my_deck/domain/usecases/get_decks_for_train_usecase.dart';
-import 'package:mydeck/features/my_deck/domain/usecases/add_deck_usecase.dart'
+import 'package:mydeck/features/editor/domain/usecases/add_deck_usecase.dart'
     as add;
-import 'package:mydeck/features/my_deck/domain/usecases/save_deck_changes_usecase.dart' as save;
+import 'package:mydeck/features/editor/domain/usecases/save_deck_changes_usecase.dart' as save;
 import 'package:mydeck/features/my_deck/domain/usecases/usecase.dart';
-import 'package:mydeck/features/my_deck/presentation/bloc/train/train_bloc.dart';
+import 'package:mydeck/features/train/domain/usecases/get_decks_for_train_usecase.dart';
+import 'package:mydeck/features/train/presentation/bloc/train/train_bloc.dart';
 
 import 'library_event.dart';
 import 'library_state.dart';

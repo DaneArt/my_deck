@@ -6,7 +6,7 @@ import 'deck_model.dart';
 part 'deck_with_cards_model.g.dart';
 
 @JsonSerializable()
-class DeckWithCardModels  {
+class DeckWithCardModels {
   final DeckModel deckModel;
   final List<CardModel> cardModels;
 
@@ -16,4 +16,13 @@ class DeckWithCardModels  {
       _$DeckWithCardModelsFromJson(json);
 
   Map<String, dynamic> toJson() => _$DeckWithCardModelsToJson(this);
+
+  @override
+  bool operator ==(Object o) {
+    if (identical(this, o)) return true;
+
+    return o is DeckWithCardModels &&
+        o.deckModel == deckModel &&
+        IterableEquality().equals(o.cardModels, cardModels);
+  }
 }

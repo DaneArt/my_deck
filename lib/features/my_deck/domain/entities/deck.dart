@@ -1,9 +1,10 @@
 import 'dart:io';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:mydeck/core/injection/dependency_injection.dart';
 import 'package:mydeck/features/my_deck/data/models/category_model.dart';
 import 'package:mydeck/features/my_deck/data/models/deck_model.dart';
-import 'package:mydeck/features/sign_in/data/datasources/user_service.dart';
+import 'package:mydeck/features/sign_in/data/datasources/user_config.dart';
 import 'package:mydeck/features/sign_in/data/models/user_model.dart';
 import 'package:uuid/uuid.dart';
 
@@ -25,7 +26,7 @@ abstract class Deck with _$Deck {
   }) = DeckOnline;
 
   factory Deck.basic() => DeckLibrary(
-      author: UserService.currentUser,
+      author: UserConfig.currentUser,
       cardsList: <Card>[],
       category: CategoryModel('others'),
       deckId: Uuid().v4(),

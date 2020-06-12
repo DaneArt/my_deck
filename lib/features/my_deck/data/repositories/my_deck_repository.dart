@@ -50,6 +50,7 @@ abstract class MyDeckRepository {
 
   Future<Either<StorageFailure<DeckLibrary>, DeckLibrary>> addDeckWithCards(
       DeckLibrary deck);
+
 }
 
 class MyDeckRepositoryImpl extends MyDeckRepository {
@@ -213,7 +214,7 @@ class MyDeckRepositoryImpl extends MyDeckRepository {
     try {
       final deckResult = await addDeck(deck);
       final cardsResult = await addCards(
-          deck.cardsList.map((c) => c.toModel(deck.deckId)).toList());
+          List<Card>.from(deck.cardsList).map((c) => c.toModel(deck.deckId)).toList());
       if (deckResult.isRight() && cardsResult.isRight()) {
         return right(deck);
       } else {

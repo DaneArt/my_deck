@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:mydeck/core/injection/dependency_injection.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/deck_hub/deck_card_view.dart';
-import 'package:mydeck/features/sign_in/data/datasources/user_service.dart';
+import 'package:mydeck/features/sign_in/data/datasources/user_config.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key key}) : super(key: key);
+  ProfilePage({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        leading: Container(),
-        title: Text("${UserService.currentUser.username}'s profile",
-            style: Theme.of(context)
-                .textTheme
-                .headline6
-                .copyWith(color: Colors.white)),
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Text(
+            "${UserConfig.currentUser.username[0].toUpperCase()}${UserConfig.currentUser.username.substring(1)}'s profile",
+            style: Theme.of(context).textTheme.headline6.copyWith(
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).primaryColor)),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,6 +42,7 @@ class ProfilePage extends StatelessWidget {
 
 class DecksListWidget extends StatefulWidget {
   final List<Deck> decks;
+
   const DecksListWidget({
     Key key,
     @required this.decks,
@@ -61,8 +66,11 @@ class _DecksListWidgetState extends State<DecksListWidget> {
       slivers: <Widget>[
         SliverList(
           delegate: SliverChildBuilderDelegate(
-              (context, index) =>
-                  DeckCard(deck: decks[index], key: ValueKey(decks[index].deckId), isEditing: false,),
+              (context, index) => DeckCard(
+                    deck: decks[index],
+                    key: ValueKey(decks[index].deckId),
+                    isEditing: false,
+                  ),
               childCount: decks.length),
         ),
       ],
@@ -97,7 +105,7 @@ class ProfilePageHat extends StatelessWidget {
               width: screenSize.width / 2.5,
               child: ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
-                child: Image.network(UserService.currentUser.avatarPath,
+                child: Image.network(UserConfig.currentUser.avatarPath,
                     fit: BoxFit.cover),
               ),
             ),

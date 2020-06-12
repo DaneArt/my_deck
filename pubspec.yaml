@@ -49,8 +49,11 @@ dependencies:
   uuid: ^2.0.4
   #beauty things
   flutter_styled_toast: ^1.2.1
+  icon_shadow: ^1.0.1
   transparent_image: ^1.0.0
   animations: ^1.0.0+5
+  colorful_safe_area: ^0.2.0
+  flutter_swiper: ^1.1.6
   smooth_page_indicator: ^0.1.4
   #svg images
   flutter_svg: ^0.17.0
@@ -88,6 +91,7 @@ flutter:
   assets:
     - lib/assets/gavno.jpg
     - lib/assets/mydeck_logo.svg
+    - lib/assets/my_deck_logo_big.jpg
   fonts:
     - family: 'Rubik One-Regular'
       fonts:

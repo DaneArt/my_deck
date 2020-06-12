@@ -4,7 +4,7 @@ import 'package:mydeck/core/icons/custom_icons_icons.dart';
 import 'package:mydeck/core/meta/my_deck_routes.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/shared/buttons.dart';
 import 'package:mydeck/features/sign_in/bloc/sign_in/sign_in_bloc.dart';
-import 'package:mydeck/features/sign_in/data/datasources/user_service.dart';
+import 'package:mydeck/features/sign_in/data/datasources/user_config.dart';
 import 'package:mydeck/features/sign_in/data/models/email_address.dart';
 import 'package:mydeck/features/sign_in/data/models/login.dart';
 import 'package:mydeck/features/sign_in/data/models/password.dart';
@@ -247,7 +247,8 @@ class _EmailInputFormState extends State<EmailInputForm>
               ));
     }
 
-    return widget.emailAddress.value
+    return EmailAddress(input)
+        .value
         .fold((failure) => failure.message, (value) => null);
   }
 

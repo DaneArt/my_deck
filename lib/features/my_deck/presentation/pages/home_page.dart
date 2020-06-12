@@ -1,5 +1,4 @@
 import 'package:animations/animations.dart';
-import 'package:mydeck/features/my_deck/presentation/pages/social_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,6 +8,7 @@ import 'package:mydeck/features/my_deck/presentation/bloc/tab/tab_event.dart';
 import 'package:mydeck/features/my_deck/presentation/pages/library_page.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/shared/selectable_tab_bar.dart';
 import 'package:mydeck/features/sign_in/presentation/pages/profile_page.dart';
+import 'package:mydeck/features/social/presentation/pages/social_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);

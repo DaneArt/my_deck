@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ class TextCardWidget extends StatefulWidget {
 class _TextCardWidgetState extends State<TextCardWidget> {
   FocusNode contentFocusNode;
   GlobalKey<FormFieldState> formState;
-
+  final area_lost_percent = 5;
   @override
   void initState() {
     super.initState();
@@ -40,6 +41,7 @@ class _TextCardWidgetState extends State<TextCardWidget> {
   @override
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
+
     return Container(
       height: screenSize.height * 0.65,
       width: screenSize.width * 0.9,
@@ -63,10 +65,28 @@ class _TextCardWidgetState extends State<TextCardWidget> {
                     style: Theme.of(context).textTheme.bodyText2,
                   ),
                 )
-              : Text(widget.content.model),
+              : Text(
+                  widget.content.model,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      fontSize: autoSizeFont(
+                          textLength: widget.content.model.length,
+                          parentArea: ((screenSize.width * 0.9 - 32 * 2) *
+                                  (128 * widget.content.model.length / 30))
+                              .toInt())),
+                ),
         ),
       ),
     );
+  }
+
+  double autoSizeFont({@required int textLength, @required int parentArea}) {
+    assert(textLength != null, "'textLength' may not be null");
+    assert(parentArea != null, "'parentArea' may not be null");
+    final letterArea = parentArea / textLength;
+    final pixelOfLetter = sqrt(letterArea);
+    final pixelSize = pixelOfLetter - (pixelOfLetter * area_lost_percent) / 100;
+    return pixelSize;
   }
 }
 
