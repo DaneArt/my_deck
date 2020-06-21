@@ -87,8 +87,7 @@ class _CustomStackListState extends State<CustomStackList>
                     width: cardWidth,
                     height: cardHeight,
                     color: Colors.white,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Stack(
                       children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -98,7 +97,8 @@ class _CustomStackListState extends State<CustomStackList>
                             textAlign: TextAlign.start,
                           ),
                         ),
-                        Center(
+                        Align(
+                          alignment: Alignment.center,
                           child: createWidgetFromContent(
                               _cards[_currentIndex + 1].question, context),
                         ),

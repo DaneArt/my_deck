@@ -3,16 +3,13 @@ import 'dart:collection';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-
 import 'package:meta/meta.dart';
-import 'package:mydeck/features/my_deck/data/models/card_model.dart';
 import 'package:mydeck/features/my_deck/domain/entities/card.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/train/domain/usecases/update_trained_cards.dart';
-import 'package:mydeck/core/extensions/collections_extension.dart';
-import 'package:stack/stack.dart';
 
 part 'train_event.dart';
+
 part 'train_state.dart';
 
 const String LoadingErrorMessage = "Error while Loading. Try to reload.";
@@ -24,7 +21,7 @@ class TrainBloc extends Bloc<TrainEvent, TrainState> {
   Queue<Deck> get decks => _decksToTrain;
   final UpdateTrainedCards updateTrainedCards;
 
-  List<CardModel> trainedCards = [];
+  List<Card> trainedCards = [];
 
   int _currentCardIndex = 0;
 
@@ -82,7 +79,7 @@ class TrainBloc extends Bloc<TrainEvent, TrainState> {
 
   Stream<TrainState> _applyAnswer(bool isCorrect) async* {
     final oldCard = _currentCard;
-    CardModel newCard;
+    Card newCard;
     if (isCorrect) {
       newCard = _updateCardWithPositiveResult(oldCard);
     } else {
@@ -94,40 +91,16 @@ class TrainBloc extends Bloc<TrainEvent, TrainState> {
     yield* _updateSourceState();
   }
 
-  CardModel _updateCardWithPositiveResult(Card oldCard) {
+  Card _updateCardWithPositiveResult(Card oldCard) {
     _successfulTrainedCardsInCurrentDeck++;
     _successfulTrainedCardsTotal++;
     isLastCardTrue = true;
-    return CardModel(
-      oldCard.cardId,
-      oldCard.answer.model,
-      oldCard.question.model,
-      oldCard.wins + 1,
-      oldCard.trains + 1,
-      DateTime.now()
-                  .difference(
-                      oldCard.lastTrain.add(Duration(days: oldCard.level)))
-                  .inDays >
-              0
-          ? (oldCard.level + 1) % 7 != 0 ? (oldCard.level + 1) % 7 : 7
-          : oldCard.level,
-      DateTime.now().toIso8601String(),
-      _currentDeck.deckId,
-    );
+    return oldCard;
   }
 
-  CardModel _updateCardWithNegativeResult(Card oldCard) {
+  Card _updateCardWithNegativeResult(Card oldCard) {
     isLastCardTrue = false;
-    return CardModel(
-      oldCard.cardId,
-      oldCard.answer.model,
-      oldCard.question.model,
-      oldCard.wins,
-      oldCard.trains + 1,
-      1,
-      DateTime.now().toIso8601String(),
-      _currentDeck.deckId,
-    );
+    return oldCard;
   }
 
   Stream<TrainState> _updateSourceState() async* {

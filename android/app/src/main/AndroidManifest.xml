@@ -8,6 +8,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="My Deck"
+        android:roundIcon="@drawable/ic_my_deck_logo_round"
         android:icon="@drawable/ic_my_deck_logo">
         <activity
             android:name=".MainActivity"

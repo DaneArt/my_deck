@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mydeck/core/injection/dependency_injection.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/deck_hub/deck_card_view.dart';
 import 'package:mydeck/features/sign_in/data/datasources/user_config.dart';

@@ -30,38 +30,56 @@ class CardFractionPaginationBuilder extends SwiperPlugin {
     Color color = this.color ?? themeData.scaffoldBackgroundColor;
 
     if (Axis.vertical == config.scrollDirection) {
-      return new Column(
-        key: key,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          new Text(
-            "${config.activeIndex + 1}",
-            style: TextStyle(color: activeColor, fontSize: activeFontSize),
+      return  Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+            color: Colors.black87
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: new Column(
+            key: key,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              new Text(
+                "${config.activeIndex + 1}",
+                style: TextStyle(color: activeColor, fontSize: activeFontSize),
+              ),
+              new Text(
+                "/",
+                style: TextStyle(color: color, fontSize: fontSize),
+              ),
+              new Text(
+                "${config.itemCount - 1}",
+                style: TextStyle(color: color, fontSize: fontSize),
+              )
+            ],
           ),
-          new Text(
-            "/",
-            style: TextStyle(color: color, fontSize: fontSize),
-          ),
-          new Text(
-            "${config.itemCount - 1}",
-            style: TextStyle(color: color, fontSize: fontSize),
-          )
-        ],
+        ),
       );
     } else {
-      return new Row(
-        key: key,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          new Text(
-            "${config.activeIndex + 1}",
-            style: TextStyle(color: activeColor, fontSize: activeFontSize),
+      return  Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+          color: Colors.black87
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            key: key,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              new Text(
+                "${config.activeIndex + 1}",
+                style: TextStyle(color: activeColor, fontSize: activeFontSize),
+              ),
+              new Text(
+                " / ${config.itemCount - 1}",
+                style: TextStyle(color: color, fontSize: fontSize),
+              )
+            ],
           ),
-          new Text(
-            " / ${config.itemCount - 1}",
-            style: TextStyle(color: color, fontSize: fontSize),
-          )
-        ],
+        ),
       );
     }
   }

@@ -16,6 +16,16 @@ class _$AddCardEventTearOff {
     return RotateCard();
   }
 
+  DeleteCard deleteCard() {
+    return DeleteCard();
+  }
+
+  ChangeIndex changeIndex({@required int newIndex}) {
+    return ChangeIndex(
+      newIndex: newIndex,
+    );
+  }
+
   QuestionChanged questionChanged({@required CardContent newQuestion}) {
     return QuestionChanged(
       newQuestion: newQuestion,
@@ -50,6 +60,8 @@ mixin _$AddCardEvent {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result rotateCard(),
+    @required Result deleteCard(),
+    @required Result changeIndex(int newIndex),
     @required Result questionChanged(CardContent newQuestion),
     @required Result answerChanged(CardContent newAnswer),
     @required Result setTextContent(),
@@ -59,6 +71,8 @@ mixin _$AddCardEvent {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result rotateCard(),
+    Result deleteCard(),
+    Result changeIndex(int newIndex),
     Result questionChanged(CardContent newQuestion),
     Result answerChanged(CardContent newAnswer),
     Result setTextContent(),
@@ -69,6 +83,8 @@ mixin _$AddCardEvent {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result rotateCard(RotateCard value),
+    @required Result deleteCard(DeleteCard value),
+    @required Result changeIndex(ChangeIndex value),
     @required Result questionChanged(QuestionChanged value),
     @required Result answerChanged(AnswerChanged value),
     @required Result setTextContent(SetText value),
@@ -78,6 +94,8 @@ mixin _$AddCardEvent {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result rotateCard(RotateCard value),
+    Result deleteCard(DeleteCard value),
+    Result changeIndex(ChangeIndex value),
     Result questionChanged(QuestionChanged value),
     Result answerChanged(AnswerChanged value),
     Result setTextContent(SetText value),
@@ -136,6 +154,8 @@ class _$RotateCard implements RotateCard {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result rotateCard(),
+    @required Result deleteCard(),
+    @required Result changeIndex(int newIndex),
     @required Result questionChanged(CardContent newQuestion),
     @required Result answerChanged(CardContent newAnswer),
     @required Result setTextContent(),
@@ -143,6 +163,8 @@ class _$RotateCard implements RotateCard {
     @required Result saveChangesAndExit(),
   }) {
     assert(rotateCard != null);
+    assert(deleteCard != null);
+    assert(changeIndex != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
     assert(setTextContent != null);
@@ -155,6 +177,8 @@ class _$RotateCard implements RotateCard {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result rotateCard(),
+    Result deleteCard(),
+    Result changeIndex(int newIndex),
     Result questionChanged(CardContent newQuestion),
     Result answerChanged(CardContent newAnswer),
     Result setTextContent(),
@@ -173,6 +197,8 @@ class _$RotateCard implements RotateCard {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result rotateCard(RotateCard value),
+    @required Result deleteCard(DeleteCard value),
+    @required Result changeIndex(ChangeIndex value),
     @required Result questionChanged(QuestionChanged value),
     @required Result answerChanged(AnswerChanged value),
     @required Result setTextContent(SetText value),
@@ -180,6 +206,8 @@ class _$RotateCard implements RotateCard {
     @required Result saveChangesAndExit(SaveChangesAndExit value),
   }) {
     assert(rotateCard != null);
+    assert(deleteCard != null);
+    assert(changeIndex != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
     assert(setTextContent != null);
@@ -192,6 +220,8 @@ class _$RotateCard implements RotateCard {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result rotateCard(RotateCard value),
+    Result deleteCard(DeleteCard value),
+    Result changeIndex(ChangeIndex value),
     Result questionChanged(QuestionChanged value),
     Result answerChanged(AnswerChanged value),
     Result setTextContent(SetText value),
@@ -209,6 +239,276 @@ class _$RotateCard implements RotateCard {
 
 abstract class RotateCard implements AddCardEvent {
   factory RotateCard() = _$RotateCard;
+}
+
+abstract class $DeleteCardCopyWith<$Res> {
+  factory $DeleteCardCopyWith(
+          DeleteCard value, $Res Function(DeleteCard) then) =
+      _$DeleteCardCopyWithImpl<$Res>;
+}
+
+class _$DeleteCardCopyWithImpl<$Res> extends _$AddCardEventCopyWithImpl<$Res>
+    implements $DeleteCardCopyWith<$Res> {
+  _$DeleteCardCopyWithImpl(DeleteCard _value, $Res Function(DeleteCard) _then)
+      : super(_value, (v) => _then(v as DeleteCard));
+
+  @override
+  DeleteCard get _value => super._value as DeleteCard;
+}
+
+class _$DeleteCard implements DeleteCard {
+  _$DeleteCard();
+
+  @override
+  String toString() {
+    return 'AddCardEvent.deleteCard()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is DeleteCard);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result rotateCard(),
+    @required Result deleteCard(),
+    @required Result changeIndex(int newIndex),
+    @required Result questionChanged(CardContent newQuestion),
+    @required Result answerChanged(CardContent newAnswer),
+    @required Result setTextContent(),
+    @required Result setImageContent(File image),
+    @required Result saveChangesAndExit(),
+  }) {
+    assert(rotateCard != null);
+    assert(deleteCard != null);
+    assert(changeIndex != null);
+    assert(questionChanged != null);
+    assert(answerChanged != null);
+    assert(setTextContent != null);
+    assert(setImageContent != null);
+    assert(saveChangesAndExit != null);
+    return deleteCard();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result rotateCard(),
+    Result deleteCard(),
+    Result changeIndex(int newIndex),
+    Result questionChanged(CardContent newQuestion),
+    Result answerChanged(CardContent newAnswer),
+    Result setTextContent(),
+    Result setImageContent(File image),
+    Result saveChangesAndExit(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (deleteCard != null) {
+      return deleteCard();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result rotateCard(RotateCard value),
+    @required Result deleteCard(DeleteCard value),
+    @required Result changeIndex(ChangeIndex value),
+    @required Result questionChanged(QuestionChanged value),
+    @required Result answerChanged(AnswerChanged value),
+    @required Result setTextContent(SetText value),
+    @required Result setImageContent(SetImage value),
+    @required Result saveChangesAndExit(SaveChangesAndExit value),
+  }) {
+    assert(rotateCard != null);
+    assert(deleteCard != null);
+    assert(changeIndex != null);
+    assert(questionChanged != null);
+    assert(answerChanged != null);
+    assert(setTextContent != null);
+    assert(setImageContent != null);
+    assert(saveChangesAndExit != null);
+    return deleteCard(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result rotateCard(RotateCard value),
+    Result deleteCard(DeleteCard value),
+    Result changeIndex(ChangeIndex value),
+    Result questionChanged(QuestionChanged value),
+    Result answerChanged(AnswerChanged value),
+    Result setTextContent(SetText value),
+    Result setImageContent(SetImage value),
+    Result saveChangesAndExit(SaveChangesAndExit value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (deleteCard != null) {
+      return deleteCard(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DeleteCard implements AddCardEvent {
+  factory DeleteCard() = _$DeleteCard;
+}
+
+abstract class $ChangeIndexCopyWith<$Res> {
+  factory $ChangeIndexCopyWith(
+          ChangeIndex value, $Res Function(ChangeIndex) then) =
+      _$ChangeIndexCopyWithImpl<$Res>;
+  $Res call({int newIndex});
+}
+
+class _$ChangeIndexCopyWithImpl<$Res> extends _$AddCardEventCopyWithImpl<$Res>
+    implements $ChangeIndexCopyWith<$Res> {
+  _$ChangeIndexCopyWithImpl(
+      ChangeIndex _value, $Res Function(ChangeIndex) _then)
+      : super(_value, (v) => _then(v as ChangeIndex));
+
+  @override
+  ChangeIndex get _value => super._value as ChangeIndex;
+
+  @override
+  $Res call({
+    Object newIndex = freezed,
+  }) {
+    return _then(ChangeIndex(
+      newIndex: newIndex == freezed ? _value.newIndex : newIndex as int,
+    ));
+  }
+}
+
+class _$ChangeIndex implements ChangeIndex {
+  _$ChangeIndex({@required this.newIndex}) : assert(newIndex != null);
+
+  @override
+  final int newIndex;
+
+  @override
+  String toString() {
+    return 'AddCardEvent.changeIndex(newIndex: $newIndex)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is ChangeIndex &&
+            (identical(other.newIndex, newIndex) ||
+                const DeepCollectionEquality()
+                    .equals(other.newIndex, newIndex)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(newIndex);
+
+  @override
+  $ChangeIndexCopyWith<ChangeIndex> get copyWith =>
+      _$ChangeIndexCopyWithImpl<ChangeIndex>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result rotateCard(),
+    @required Result deleteCard(),
+    @required Result changeIndex(int newIndex),
+    @required Result questionChanged(CardContent newQuestion),
+    @required Result answerChanged(CardContent newAnswer),
+    @required Result setTextContent(),
+    @required Result setImageContent(File image),
+    @required Result saveChangesAndExit(),
+  }) {
+    assert(rotateCard != null);
+    assert(deleteCard != null);
+    assert(changeIndex != null);
+    assert(questionChanged != null);
+    assert(answerChanged != null);
+    assert(setTextContent != null);
+    assert(setImageContent != null);
+    assert(saveChangesAndExit != null);
+    return changeIndex(newIndex);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result rotateCard(),
+    Result deleteCard(),
+    Result changeIndex(int newIndex),
+    Result questionChanged(CardContent newQuestion),
+    Result answerChanged(CardContent newAnswer),
+    Result setTextContent(),
+    Result setImageContent(File image),
+    Result saveChangesAndExit(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (changeIndex != null) {
+      return changeIndex(newIndex);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result rotateCard(RotateCard value),
+    @required Result deleteCard(DeleteCard value),
+    @required Result changeIndex(ChangeIndex value),
+    @required Result questionChanged(QuestionChanged value),
+    @required Result answerChanged(AnswerChanged value),
+    @required Result setTextContent(SetText value),
+    @required Result setImageContent(SetImage value),
+    @required Result saveChangesAndExit(SaveChangesAndExit value),
+  }) {
+    assert(rotateCard != null);
+    assert(deleteCard != null);
+    assert(changeIndex != null);
+    assert(questionChanged != null);
+    assert(answerChanged != null);
+    assert(setTextContent != null);
+    assert(setImageContent != null);
+    assert(saveChangesAndExit != null);
+    return changeIndex(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result rotateCard(RotateCard value),
+    Result deleteCard(DeleteCard value),
+    Result changeIndex(ChangeIndex value),
+    Result questionChanged(QuestionChanged value),
+    Result answerChanged(AnswerChanged value),
+    Result setTextContent(SetText value),
+    Result setImageContent(SetImage value),
+    Result saveChangesAndExit(SaveChangesAndExit value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (changeIndex != null) {
+      return changeIndex(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ChangeIndex implements AddCardEvent {
+  factory ChangeIndex({@required int newIndex}) = _$ChangeIndex;
+
+  int get newIndex;
+  $ChangeIndexCopyWith<ChangeIndex> get copyWith;
 }
 
 abstract class $QuestionChangedCopyWith<$Res> {
@@ -284,6 +584,8 @@ class _$QuestionChanged implements QuestionChanged {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result rotateCard(),
+    @required Result deleteCard(),
+    @required Result changeIndex(int newIndex),
     @required Result questionChanged(CardContent newQuestion),
     @required Result answerChanged(CardContent newAnswer),
     @required Result setTextContent(),
@@ -291,6 +593,8 @@ class _$QuestionChanged implements QuestionChanged {
     @required Result saveChangesAndExit(),
   }) {
     assert(rotateCard != null);
+    assert(deleteCard != null);
+    assert(changeIndex != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
     assert(setTextContent != null);
@@ -303,6 +607,8 @@ class _$QuestionChanged implements QuestionChanged {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result rotateCard(),
+    Result deleteCard(),
+    Result changeIndex(int newIndex),
     Result questionChanged(CardContent newQuestion),
     Result answerChanged(CardContent newAnswer),
     Result setTextContent(),
@@ -321,6 +627,8 @@ class _$QuestionChanged implements QuestionChanged {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result rotateCard(RotateCard value),
+    @required Result deleteCard(DeleteCard value),
+    @required Result changeIndex(ChangeIndex value),
     @required Result questionChanged(QuestionChanged value),
     @required Result answerChanged(AnswerChanged value),
     @required Result setTextContent(SetText value),
@@ -328,6 +636,8 @@ class _$QuestionChanged implements QuestionChanged {
     @required Result saveChangesAndExit(SaveChangesAndExit value),
   }) {
     assert(rotateCard != null);
+    assert(deleteCard != null);
+    assert(changeIndex != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
     assert(setTextContent != null);
@@ -340,6 +650,8 @@ class _$QuestionChanged implements QuestionChanged {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result rotateCard(RotateCard value),
+    Result deleteCard(DeleteCard value),
+    Result changeIndex(ChangeIndex value),
     Result questionChanged(QuestionChanged value),
     Result answerChanged(AnswerChanged value),
     Result setTextContent(SetText value),
@@ -434,6 +746,8 @@ class _$AnswerChanged implements AnswerChanged {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result rotateCard(),
+    @required Result deleteCard(),
+    @required Result changeIndex(int newIndex),
     @required Result questionChanged(CardContent newQuestion),
     @required Result answerChanged(CardContent newAnswer),
     @required Result setTextContent(),
@@ -441,6 +755,8 @@ class _$AnswerChanged implements AnswerChanged {
     @required Result saveChangesAndExit(),
   }) {
     assert(rotateCard != null);
+    assert(deleteCard != null);
+    assert(changeIndex != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
     assert(setTextContent != null);
@@ -453,6 +769,8 @@ class _$AnswerChanged implements AnswerChanged {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result rotateCard(),
+    Result deleteCard(),
+    Result changeIndex(int newIndex),
     Result questionChanged(CardContent newQuestion),
     Result answerChanged(CardContent newAnswer),
     Result setTextContent(),
@@ -471,6 +789,8 @@ class _$AnswerChanged implements AnswerChanged {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result rotateCard(RotateCard value),
+    @required Result deleteCard(DeleteCard value),
+    @required Result changeIndex(ChangeIndex value),
     @required Result questionChanged(QuestionChanged value),
     @required Result answerChanged(AnswerChanged value),
     @required Result setTextContent(SetText value),
@@ -478,6 +798,8 @@ class _$AnswerChanged implements AnswerChanged {
     @required Result saveChangesAndExit(SaveChangesAndExit value),
   }) {
     assert(rotateCard != null);
+    assert(deleteCard != null);
+    assert(changeIndex != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
     assert(setTextContent != null);
@@ -490,6 +812,8 @@ class _$AnswerChanged implements AnswerChanged {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result rotateCard(RotateCard value),
+    Result deleteCard(DeleteCard value),
+    Result changeIndex(ChangeIndex value),
     Result questionChanged(QuestionChanged value),
     Result answerChanged(AnswerChanged value),
     Result setTextContent(SetText value),
@@ -546,6 +870,8 @@ class _$SetText implements SetText {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result rotateCard(),
+    @required Result deleteCard(),
+    @required Result changeIndex(int newIndex),
     @required Result questionChanged(CardContent newQuestion),
     @required Result answerChanged(CardContent newAnswer),
     @required Result setTextContent(),
@@ -553,6 +879,8 @@ class _$SetText implements SetText {
     @required Result saveChangesAndExit(),
   }) {
     assert(rotateCard != null);
+    assert(deleteCard != null);
+    assert(changeIndex != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
     assert(setTextContent != null);
@@ -565,6 +893,8 @@ class _$SetText implements SetText {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result rotateCard(),
+    Result deleteCard(),
+    Result changeIndex(int newIndex),
     Result questionChanged(CardContent newQuestion),
     Result answerChanged(CardContent newAnswer),
     Result setTextContent(),
@@ -583,6 +913,8 @@ class _$SetText implements SetText {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result rotateCard(RotateCard value),
+    @required Result deleteCard(DeleteCard value),
+    @required Result changeIndex(ChangeIndex value),
     @required Result questionChanged(QuestionChanged value),
     @required Result answerChanged(AnswerChanged value),
     @required Result setTextContent(SetText value),
@@ -590,6 +922,8 @@ class _$SetText implements SetText {
     @required Result saveChangesAndExit(SaveChangesAndExit value),
   }) {
     assert(rotateCard != null);
+    assert(deleteCard != null);
+    assert(changeIndex != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
     assert(setTextContent != null);
@@ -602,6 +936,8 @@ class _$SetText implements SetText {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result rotateCard(RotateCard value),
+    Result deleteCard(DeleteCard value),
+    Result changeIndex(ChangeIndex value),
     Result questionChanged(QuestionChanged value),
     Result answerChanged(AnswerChanged value),
     Result setTextContent(SetText value),
@@ -676,6 +1012,8 @@ class _$SetImage implements SetImage {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result rotateCard(),
+    @required Result deleteCard(),
+    @required Result changeIndex(int newIndex),
     @required Result questionChanged(CardContent newQuestion),
     @required Result answerChanged(CardContent newAnswer),
     @required Result setTextContent(),
@@ -683,6 +1021,8 @@ class _$SetImage implements SetImage {
     @required Result saveChangesAndExit(),
   }) {
     assert(rotateCard != null);
+    assert(deleteCard != null);
+    assert(changeIndex != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
     assert(setTextContent != null);
@@ -695,6 +1035,8 @@ class _$SetImage implements SetImage {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result rotateCard(),
+    Result deleteCard(),
+    Result changeIndex(int newIndex),
     Result questionChanged(CardContent newQuestion),
     Result answerChanged(CardContent newAnswer),
     Result setTextContent(),
@@ -713,6 +1055,8 @@ class _$SetImage implements SetImage {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result rotateCard(RotateCard value),
+    @required Result deleteCard(DeleteCard value),
+    @required Result changeIndex(ChangeIndex value),
     @required Result questionChanged(QuestionChanged value),
     @required Result answerChanged(AnswerChanged value),
     @required Result setTextContent(SetText value),
@@ -720,6 +1064,8 @@ class _$SetImage implements SetImage {
     @required Result saveChangesAndExit(SaveChangesAndExit value),
   }) {
     assert(rotateCard != null);
+    assert(deleteCard != null);
+    assert(changeIndex != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
     assert(setTextContent != null);
@@ -732,6 +1078,8 @@ class _$SetImage implements SetImage {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result rotateCard(RotateCard value),
+    Result deleteCard(DeleteCard value),
+    Result changeIndex(ChangeIndex value),
     Result questionChanged(QuestionChanged value),
     Result answerChanged(AnswerChanged value),
     Result setTextContent(SetText value),
@@ -791,6 +1139,8 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result rotateCard(),
+    @required Result deleteCard(),
+    @required Result changeIndex(int newIndex),
     @required Result questionChanged(CardContent newQuestion),
     @required Result answerChanged(CardContent newAnswer),
     @required Result setTextContent(),
@@ -798,6 +1148,8 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
     @required Result saveChangesAndExit(),
   }) {
     assert(rotateCard != null);
+    assert(deleteCard != null);
+    assert(changeIndex != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
     assert(setTextContent != null);
@@ -810,6 +1162,8 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result rotateCard(),
+    Result deleteCard(),
+    Result changeIndex(int newIndex),
     Result questionChanged(CardContent newQuestion),
     Result answerChanged(CardContent newAnswer),
     Result setTextContent(),
@@ -828,6 +1182,8 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result rotateCard(RotateCard value),
+    @required Result deleteCard(DeleteCard value),
+    @required Result changeIndex(ChangeIndex value),
     @required Result questionChanged(QuestionChanged value),
     @required Result answerChanged(AnswerChanged value),
     @required Result setTextContent(SetText value),
@@ -835,6 +1191,8 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
     @required Result saveChangesAndExit(SaveChangesAndExit value),
   }) {
     assert(rotateCard != null);
+    assert(deleteCard != null);
+    assert(changeIndex != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
     assert(setTextContent != null);
@@ -847,6 +1205,8 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result rotateCard(RotateCard value),
+    Result deleteCard(DeleteCard value),
+    Result changeIndex(ChangeIndex value),
     Result questionChanged(QuestionChanged value),
     Result answerChanged(AnswerChanged value),
     Result setTextContent(SetText value),
@@ -870,11 +1230,13 @@ class _$AddCardStateTearOff {
   const _$AddCardStateTearOff();
 
   _AddCardState call(
-      {@required Card card,
+      {@required List<Card> sourceCards,
+      @required int currentCardIndex,
       @required bool isQuestion,
       @required bool saveChangesAndExit}) {
     return _AddCardState(
-      card: card,
+      sourceCards: sourceCards,
+      currentCardIndex: currentCardIndex,
       isQuestion: isQuestion,
       saveChangesAndExit: saveChangesAndExit,
     );
@@ -885,7 +1247,8 @@ class _$AddCardStateTearOff {
 const $AddCardState = _$AddCardStateTearOff();
 
 mixin _$AddCardState {
-  Card get card;
+  List<Card> get sourceCards;
+  int get currentCardIndex;
   bool get isQuestion;
   bool get saveChangesAndExit;
 
@@ -896,7 +1259,11 @@ abstract class $AddCardStateCopyWith<$Res> {
   factory $AddCardStateCopyWith(
           AddCardState value, $Res Function(AddCardState) then) =
       _$AddCardStateCopyWithImpl<$Res>;
-  $Res call({Card card, bool isQuestion, bool saveChangesAndExit});
+  $Res call(
+      {List<Card> sourceCards,
+      int currentCardIndex,
+      bool isQuestion,
+      bool saveChangesAndExit});
 }
 
 class _$AddCardStateCopyWithImpl<$Res> implements $AddCardStateCopyWith<$Res> {
@@ -908,12 +1275,18 @@ class _$AddCardStateCopyWithImpl<$Res> implements $AddCardStateCopyWith<$Res> {
 
   @override
   $Res call({
-    Object card = freezed,
+    Object sourceCards = freezed,
+    Object currentCardIndex = freezed,
     Object isQuestion = freezed,
     Object saveChangesAndExit = freezed,
   }) {
     return _then(_value.copyWith(
-      card: card == freezed ? _value.card : card as Card,
+      sourceCards: sourceCards == freezed
+          ? _value.sourceCards
+          : sourceCards as List<Card>,
+      currentCardIndex: currentCardIndex == freezed
+          ? _value.currentCardIndex
+          : currentCardIndex as int,
       isQuestion:
           isQuestion == freezed ? _value.isQuestion : isQuestion as bool,
       saveChangesAndExit: saveChangesAndExit == freezed
@@ -929,7 +1302,11 @@ abstract class _$AddCardStateCopyWith<$Res>
           _AddCardState value, $Res Function(_AddCardState) then) =
       __$AddCardStateCopyWithImpl<$Res>;
   @override
-  $Res call({Card card, bool isQuestion, bool saveChangesAndExit});
+  $Res call(
+      {List<Card> sourceCards,
+      int currentCardIndex,
+      bool isQuestion,
+      bool saveChangesAndExit});
 }
 
 class __$AddCardStateCopyWithImpl<$Res> extends _$AddCardStateCopyWithImpl<$Res>
@@ -943,12 +1320,18 @@ class __$AddCardStateCopyWithImpl<$Res> extends _$AddCardStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object card = freezed,
+    Object sourceCards = freezed,
+    Object currentCardIndex = freezed,
     Object isQuestion = freezed,
     Object saveChangesAndExit = freezed,
   }) {
     return _then(_AddCardState(
-      card: card == freezed ? _value.card : card as Card,
+      sourceCards: sourceCards == freezed
+          ? _value.sourceCards
+          : sourceCards as List<Card>,
+      currentCardIndex: currentCardIndex == freezed
+          ? _value.currentCardIndex
+          : currentCardIndex as int,
       isQuestion:
           isQuestion == freezed ? _value.isQuestion : isQuestion as bool,
       saveChangesAndExit: saveChangesAndExit == freezed
@@ -960,15 +1343,19 @@ class __$AddCardStateCopyWithImpl<$Res> extends _$AddCardStateCopyWithImpl<$Res>
 
 class _$_AddCardState implements _AddCardState {
   const _$_AddCardState(
-      {@required this.card,
+      {@required this.sourceCards,
+      @required this.currentCardIndex,
       @required this.isQuestion,
       @required this.saveChangesAndExit})
-      : assert(card != null),
+      : assert(sourceCards != null),
+        assert(currentCardIndex != null),
         assert(isQuestion != null),
         assert(saveChangesAndExit != null);
 
   @override
-  final Card card;
+  final List<Card> sourceCards;
+  @override
+  final int currentCardIndex;
   @override
   final bool isQuestion;
   @override
@@ -976,15 +1363,19 @@ class _$_AddCardState implements _AddCardState {
 
   @override
   String toString() {
-    return 'AddCardState(card: $card, isQuestion: $isQuestion, saveChangesAndExit: $saveChangesAndExit)';
+    return 'AddCardState(sourceCards: $sourceCards, currentCardIndex: $currentCardIndex, isQuestion: $isQuestion, saveChangesAndExit: $saveChangesAndExit)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _AddCardState &&
-            (identical(other.card, card) ||
-                const DeepCollectionEquality().equals(other.card, card)) &&
+            (identical(other.sourceCards, sourceCards) ||
+                const DeepCollectionEquality()
+                    .equals(other.sourceCards, sourceCards)) &&
+            (identical(other.currentCardIndex, currentCardIndex) ||
+                const DeepCollectionEquality()
+                    .equals(other.currentCardIndex, currentCardIndex)) &&
             (identical(other.isQuestion, isQuestion) ||
                 const DeepCollectionEquality()
                     .equals(other.isQuestion, isQuestion)) &&
@@ -996,7 +1387,8 @@ class _$_AddCardState implements _AddCardState {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(card) ^
+      const DeepCollectionEquality().hash(sourceCards) ^
+      const DeepCollectionEquality().hash(currentCardIndex) ^
       const DeepCollectionEquality().hash(isQuestion) ^
       const DeepCollectionEquality().hash(saveChangesAndExit);
 
@@ -1007,12 +1399,15 @@ class _$_AddCardState implements _AddCardState {
 
 abstract class _AddCardState implements AddCardState {
   const factory _AddCardState(
-      {@required Card card,
+      {@required List<Card> sourceCards,
+      @required int currentCardIndex,
       @required bool isQuestion,
       @required bool saveChangesAndExit}) = _$_AddCardState;
 
   @override
-  Card get card;
+  List<Card> get sourceCards;
+  @override
+  int get currentCardIndex;
   @override
   bool get isQuestion;
   @override

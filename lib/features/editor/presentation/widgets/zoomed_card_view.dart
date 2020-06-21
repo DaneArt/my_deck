@@ -4,7 +4,6 @@ import 'package:mydeck/features/my_deck/domain/entities/card.dart'
 import 'package:mydeck/features/my_deck/domain/entities/card_content.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/shared/card_content_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 class ZoomedCardView extends StatefulWidget {
   ZoomedCardView(

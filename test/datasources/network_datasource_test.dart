@@ -1,19 +1,10 @@
 import 'dart:convert';
-import 'dart:io';
 
-import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mydeck/core/error/exception.dart';
-import 'package:mydeck/core/error/value_failure.dart';
-import 'package:mydeck/features/my_deck/data/datasources/my_deck_network_datasource.dart';
-import 'package:mydeck/features/my_deck/data/models/card_model.dart';
-import 'package:mydeck/features/my_deck/data/models/deck_model.dart';
-import 'package:mydeck/features/my_deck/data/models/deck_with_cards_model.dart';
-import 'package:mydeck/features/my_deck/domain/entities/card.dart';
 import 'package:mydeck/features/sign_in/data/datasources/user_config.dart';
 import 'package:mydeck/features/sign_in/data/datasources/user_datasource.dart';
-import 'package:mydeck/features/sign_in/data/models/user_model.dart';
 import 'package:mydeck/features/sign_in/helpers/value_validators.dart';
 import 'package:mydeck/main.dart';
 import 'package:test/test.dart';
@@ -54,7 +45,7 @@ void main() {
       final tDeckModel = DeckWithCardModels(
           DeckModel.fromJson(tDeckWithCards),
           (tDeckWithCards['cards'] as List)
-              .map((e) => CardModel.fromJson(e))
+              .map((e) => CardDto.fromJson(e))
               .toList());
       final responsePayload = jsonEncode([tDeckWithCards]);
       final httpResponse = ResponseBody.fromString(responsePayload, 200);
@@ -71,8 +62,7 @@ void main() {
         expect(result[0], tDeckModel);
       });
 
-      test(
-          'Should return [] when request throws DioError with status code 404',
+      test('Should return [] when request throws DioError with status code 404',
           () async {
         //arrange
         when(mockDioAdapter.fetch(any, any, any)).thenThrow(DioError(

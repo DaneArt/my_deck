@@ -6,11 +6,11 @@ import 'package:mydeck/features/my_deck/data/models/card_model.dart';
 import '../fixtures/fixture.dart';
 
 main() {
-  final CardModel tCardModel = CardModel('test_Id', 'string', 'string', 2, 0, 2,
+  final CardDto tCardModel = CardDto('test_Id', 'string', 'string', 2, 0, 2,
       DateTime(0).toString(), 'test_parent_id');
   test('should properly convert json to model', () {
     final cardFromJson =
-        CardModel.fromJson(jsonDecode(fixture('card_model.json')));
+        CardDto.fromJson(jsonDecode(fixture('card_model.json')));
 
     expect(tCardModel, cardFromJson);
   });

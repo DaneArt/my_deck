@@ -1,29 +1,26 @@
-import 'package:animations/animations.dart';
 import 'package:flutter/foundation.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mydeck/core/extensions/widget_extensions.dart';
 import 'package:mydeck/core/icons/custom_icons_icons.dart';
 import 'package:mydeck/core/injection/dependency_injection.dart';
 import 'package:mydeck/core/meta/my_deck_keys.dart';
 import 'package:mydeck/core/meta/my_deck_routes.dart';
-import 'package:mydeck/features/editor/presentation/bloc/add_deck/add_deck_bloc.dart';
-import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/editor/domain/usecases/add_deck_usecase.dart';
 import 'package:mydeck/features/editor/domain/usecases/delete_deck_usecase.dart';
 import 'package:mydeck/features/editor/domain/usecases/save_deck_changes_usecase.dart';
-import 'package:mydeck/features/social/domain/usecases/upload_online_deck.dart';
+import 'package:mydeck/features/editor/presentation/bloc/add_deck/add_deck_bloc.dart';
+import 'package:mydeck/features/editor/presentation/pages/add_deck_page.dart';
+import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/my_deck/presentation/bloc/library/library_bloc.dart';
 import 'package:mydeck/features/my_deck/presentation/bloc/library/library_event.dart';
 import 'package:mydeck/features/my_deck/presentation/bloc/library/library_state.dart';
-import 'package:mydeck/features/editor/presentation/pages/add_deck_page.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/deck_hub/deck_card_view.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/deck_hub/deck_hub_idle_view.dart';
-import 'package:mydeck/core/extensions/widget_extensions.dart';
-
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/shared/undo_snackbar.dart';
 import 'package:mydeck/features/sign_in/data/datasources/user_config.dart';
+import 'package:mydeck/features/social/domain/usecases/upload_online_deck.dart';
 
 class LibraryPage extends StatefulWidget {
   LibraryPage({Key key}) : super(key: key);
@@ -37,7 +34,6 @@ class _LibraryPageState extends State<LibraryPage>
   ScrollController _controller;
   AnimationController _animationController;
   Animation _fabAnimation;
-
 
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -123,7 +119,6 @@ class _LibraryPageState extends State<LibraryPage>
           ),
         ),
       ),
-
     ];
   }
 
@@ -228,17 +223,17 @@ class _LibraryPageState extends State<LibraryPage>
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         automaticallyImplyLeading: false,
-        title: Text("${UserConfig.currentUser.username[0].toUpperCase()}${UserConfig.currentUser.username.substring(1)}'s library",
-            style: Theme.of(context)
-                .textTheme
-                .headline6.copyWith(fontWeight: FontWeight.bold,color:Theme.of(context).primaryColor)),
+        title: Text(
+            "${UserConfig.currentUser.username[0].toUpperCase()}${UserConfig.currentUser.username.substring(1)}'s library",
+            style: Theme.of(context).textTheme.headline6.copyWith(
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).primaryColor)),
       ),
       body: Center(
         child: SafeArea(

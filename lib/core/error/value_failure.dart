@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
 
@@ -12,6 +10,9 @@ abstract class ValueFailure<T> with _$ValueFailure<T> {
 
   factory ValueFailure.shortPassword({@required T failedValue}) =
       ShortPassword<T>;
+
+  factory ValueFailure.invalidUniqueId({@required T failedValue}) =
+      InvalidUniqueId<T>;
 
   factory ValueFailure.longPassword({@required T failedValue}) =
       LongPassword<T>;

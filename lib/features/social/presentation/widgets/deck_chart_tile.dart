@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mydeck/core/icons/custom_icons_icons.dart';
 import 'package:mydeck/core/injection/dependency_injection.dart';
-import 'package:mydeck/core/meta/my_deck_routes.dart';
 import 'package:mydeck/features/social/domain/usecases/load_decks_page_for_category_usecase.dart';
-
-import 'package:mydeck/features/social/presentation/pages/category_feed_page.dart';
 import 'package:mydeck/features/social/presentation/bloc/decks_feed_tile/decks_feed_tile_bloc.dart';
+import 'package:mydeck/features/social/presentation/pages/category_feed_page.dart';
 import 'package:mydeck/features/social/presentation/widgets/small_deck_card.dart';
 
 class DeckChartTile extends StatelessWidget {

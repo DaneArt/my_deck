@@ -1,20 +1,17 @@
+import 'package:dartz/dartz.dart' as d;
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mydeck/core/error/auth_failure.dart';
 import 'package:mydeck/core/icons/custom_icons_icons.dart';
 import 'package:mydeck/core/meta/my_deck_routes.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/shared/buttons.dart';
 import 'package:mydeck/features/sign_in/bloc/sign_in/sign_in_bloc.dart';
-import 'package:mydeck/features/sign_in/data/datasources/user_config.dart';
 import 'package:mydeck/features/sign_in/data/models/email_address.dart';
 import 'package:mydeck/features/sign_in/data/models/login.dart';
 import 'package:mydeck/features/sign_in/data/models/password.dart';
 import 'package:mydeck/features/sign_in/data/models/value_object.dart';
-import 'package:mydeck/features/sign_in/helpers/value_validators.dart';
-import 'package:mydeck/core/extensions/widget_extensions.dart';
-import 'package:dartz/dartz.dart' as d;
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 import '../login_field.dart';
 

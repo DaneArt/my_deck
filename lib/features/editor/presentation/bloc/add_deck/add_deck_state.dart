@@ -10,14 +10,14 @@ abstract class AddDeckState with _$AddDeckState {
     @required bool isShared,
     @required CategoryModel category,
     @required UserModel author,
-    @required List<Card> cardslist,
+    @required List<Card> cardsList,
     @required Option<Either<StorageFailure, Deck>> saveFailureOrSuccessOption,
     @required Deck initialDeck,
   }) = _AddDeckState;
 
   factory AddDeckState.initial({@required Deck initialDeck}) => AddDeckState(
         avatar: DeckAvatar(initialDeck.icon),
-        cardslist: initialDeck is DeckOnline
+        cardsList: initialDeck is DeckOnline
             ? []
             : (initialDeck as DeckLibrary).cardsList,
         category: initialDeck.category,

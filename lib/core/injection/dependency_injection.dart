@@ -2,15 +2,12 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:mydeck/core/network/token_interceptor.dart';
-import 'package:mydeck/features/my_deck/data/datasources/media/entities_separator.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:mydeck/core/network/network_connection.dart';
 
-import 'package:mydeck/features/my_deck/data/datasources/media/my_deck_media_datasource.dart';
-import 'package:mydeck/features/my_deck/data/datasources/my_deck_local_datasource.dart';
 import 'package:mydeck/features/my_deck/data/datasources/my_deck_network_datasource.dart';
 
 import 'package:mydeck/features/my_deck/data/repositories/my_deck_repository.dart';
@@ -44,8 +41,7 @@ void setUp() {
     () => Dio(
       BaseOptions(
         headers: {
-          HttpHeaders.authorizationHeader:
-              'Bearer ' + UserConfig.accessToken
+          HttpHeaders.authorizationHeader: 'Bearer ' + UserConfig.accessToken
         },
         baseUrl: 'http://mydeck-001-site1.dtempurl.com/mydeckapi',
       ),
@@ -60,27 +56,21 @@ void setUp() {
   sl.registerFactory(() => GoogleSignIn());
 
   //data sources
-  sl.registerLazySingleton<MyDeckLocalDataSource>(
-      () => MyDeckLocalDataSourceImpl());
+
   sl.registerLazySingleton<MyDeckNetworkDataSource>(
       () => MyDeckNetworkDataSourceImpl(
             client: sl(),
           ));
-  sl.registerLazySingleton<MyDeckMediaDataSource>(
-      () => MyDeckMediaDataSourceImpl());
-  sl.registerLazySingleton<UserDataSource>(
-      () => UserDataSourceImpl());
+  sl.registerLazySingleton<UserDataSource>(() => UserDataSourceImpl());
   //repository
   sl.registerLazySingleton<MyDeckRepository>(() => MyDeckRepositoryImpl(
-      entitiesSeparator: sl(),
       localDataSource: sl(),
       networkDataSource: sl(),
       mediaDataSource: sl(),
       networkConnection: sl()));
 
   //use cases
-  sl.registerFactory(() =>
-      UploadOnlineDeckUsecase( myDeckRepository: sl()));
+  sl.registerFactory(() => UploadOnlineDeckUsecase(myDeckRepository: sl()));
   sl.registerFactory(() => GoogleSignInUsecase(sl(), sl(), sl()));
   sl.registerFactory(() => LoadDecksPageForCategoryUsecase(sl()));
   sl.registerFactory(() => SaveDeckChangesUsecase(sl()));
@@ -103,5 +93,4 @@ void setUp() {
   sl.registerFactory(() => TrainBloc(updateTrainedCards: sl()));
   //helpers
   sl.registerFactory(() => AccessTokenValidator());
-  sl.registerFactory<EntitiesSeparator>(() => EntitiesSeparatorImpl());
 }

@@ -1,4 +1,3 @@
-
 part of 'train_bloc.dart';
 
 abstract class TrainState extends Equatable {
@@ -34,7 +33,7 @@ class EndTrainOfDeck extends TrainState {
 class TrainEnded extends TrainState {
   final int successfullTrainedCardsCount;
   final int decksCount;
-  final List<CardModel> trainedCards;
+  final List<Card> trainedCards;
 
   TrainEnded(
       this.successfullTrainedCardsCount, this.decksCount, this.trainedCards);
@@ -45,7 +44,7 @@ class TrainEnded extends TrainState {
 }
 
 class TrainStopped extends TrainState {
-  final List<CardModel> trainedCards;
+  final List<Card> trainedCards;
 
   TrainStopped(this.trainedCards);
 

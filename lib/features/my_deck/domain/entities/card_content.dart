@@ -8,7 +8,9 @@ part "card_content.freezed.dart";
 @freezed
 abstract class CardContent with _$CardContent {
   factory CardContent.noContent() = NoContent;
+
   factory CardContent.textContent({@required String text}) = TextContent;
+
   factory CardContent.imageContent({@required File image}) = ImageContent;
 
   factory CardContent.fromModel(String model) {

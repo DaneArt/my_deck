@@ -1,16 +1,13 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mydeck/core/extensions/widget_extensions.dart';
 import 'package:mydeck/core/helpers/images_util.dart';
+import 'package:mydeck/features/editor/presentation/bloc/add_card/add_card_bloc.dart';
 import 'package:mydeck/features/editor/presentation/widgets/card_fraction_pagination_builder.dart';
-import 'package:mydeck/core/icons/custom_icons_icons.dart';
 import 'package:mydeck/features/my_deck/domain/entities/card.dart' as Entity;
 import 'package:mydeck/features/my_deck/domain/entities/card_content.dart';
-import 'package:mydeck/features/editor/presentation/bloc/add_card/add_card_bloc.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/shared/card_content_widget.dart';
 
 class CardEditor extends StatefulWidget {
@@ -65,7 +62,7 @@ class _CardEditorState extends State<CardEditor> {
               context.navigator.pop(state.sourceCards);
             }
           },
-          child: _cardWidget(),
+          child: _cardsWidget(),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
         floatingActionButton: FloatingActionButton(
@@ -73,7 +70,10 @@ class _CardEditorState extends State<CardEditor> {
             context.bloc<AddCardBloc>().add(AddCardEvent.saveChangesAndExit());
           },
           tooltip: 'Increment',
-          child: Icon(Icons.check),
+          child: Icon(
+            Icons.check,
+            color: Colors.white,
+          ),
           elevation: 8.0,
         ),
         bottomNavigationBar: BottomAppBar(
@@ -169,13 +169,6 @@ class _CardEditorState extends State<CardEditor> {
                 context.bloc<AddCardBloc>().add(AddCardEvent.setTextContent());
               },
             ),
-//            IconButton(
-//              icon: Icon(
-//                Icons.brush,
-//                color: Theme.of(context).accentIconTheme.color,
-//              ),
-//              onPressed: () {},
-//            ),
           ],
         ),
       );
@@ -224,19 +217,20 @@ class _CardEditorState extends State<CardEditor> {
           },
         ),
         imageContent: (s) => ClipRRect(
-            borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(4),
-                bottomLeft: Radius.circular(4)),
-            child: InkWell(
-                onTap: () {
-                  _showImagePickerDialog();
-                },
-                child: Image.network(
-                  s.model,
-                  fit: BoxFit.cover,
-                  height: MediaQuery.of(context).size.height * 0.65,
-                  width: MediaQuery.of(context).size.width,
-                ))),
+          borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(4), bottomLeft: Radius.circular(4)),
+          child: InkWell(
+            onTap: () {
+              _showImagePickerDialog();
+            },
+            child: Image.network(
+              s.model,
+              fit: BoxFit.cover,
+              height: MediaQuery.of(context).size.height * 0.65,
+              width: MediaQuery.of(context).size.width,
+            ),
+          ),
+        ),
       );
 
   Widget _renderCard(BuildContext context, AddCardState state, int cardIndex) {
@@ -270,48 +264,50 @@ class _CardEditorState extends State<CardEditor> {
     );
   }
 
-  Widget _cardWidget() =>
-      BlocBuilder<AddCardBloc, AddCardState>(builder: (context, state) {
+  Widget _cardsWidget() => BlocBuilder<AddCardBloc, AddCardState>(
+      condition: (prev, next) => true,
+      builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 32.0),
           child: Swiper(
-              key:
-                  UniqueKey(), //It fixes the 'ScrollController not attached to any scroll views. Dunno why))'
-              loop: false,
-              viewportFraction: 0.85,
-              scale: 0.9,
-              controller: SwiperController(),
-              itemWidth: MediaQuery.of(context).size.width,
-              itemHeight: MediaQuery.of(context).size.height,
-              onIndexChanged: (newIndex) {
-                Future.delayed(Duration(milliseconds: 300), () {
-                  BlocProvider.of<AddCardBloc>(context)
-                      .add(AddCardEvent.changeIndex(newIndex: newIndex));
-                });
-              },
-              pagination: SwiperPagination(
-                  builder: CardFractionPaginationBuilder(
-                activeColor: Colors.red,
-                color: Colors.green,
-              )),
-              index: state.currentCardIndex,
-              itemCount: state.sourceCards.length + 1,
-              itemBuilder: (context, index) => index == state.sourceCards.length
-                  ? Card(
-                      key: ValueKey(state.sourceCards.length),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
-                        child: Center(
-                          child: Icon(
-                            Icons.add,
-                            color: Theme.of(context).accentIconTheme.color,
-                            size: 168,
-                          ),
+            key: UniqueKey(),
+            //It fixes the 'ScrollController not attached to any scroll views. Dunno why))'
+            loop: false,
+            viewportFraction: 0.8,
+            scale: 0.9,
+            itemWidth: MediaQuery.of(context).size.width,
+            itemHeight: MediaQuery.of(context).size.height,
+            onIndexChanged: (newIndex) {
+              Future.delayed(Duration(milliseconds: 300), () {
+                BlocProvider.of<AddCardBloc>(context)
+                    .add(AddCardEvent.changeIndex(newIndex: newIndex));
+              });
+            },
+            pagination: SwiperPagination(
+              builder: CardFractionPaginationBuilder(
+                activeColor: Theme.of(context).accentColor,
+                color: Theme.of(context).accentColor.withOpacity(0.5),
+              ),
+            ),
+            index: state.currentCardIndex,
+            itemCount: state.sourceCards.length + 1,
+            itemBuilder: (context, index) => index == state.sourceCards.length
+                ? Card(
+                    key: ValueKey(state.sourceCards.length),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      child: Center(
+                        child: Icon(
+                          Icons.add,
+                          color: Theme.of(context).accentIconTheme.color,
+                          size: 168,
                         ),
                       ),
-                    )
-                  : _renderCard(context, state, index)),
+                    ),
+                  )
+                : _renderCard(context, state, index),
+          ),
         );
       });
 }

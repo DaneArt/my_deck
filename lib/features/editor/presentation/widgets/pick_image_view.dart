@@ -25,7 +25,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
 
   @override
   void initState() {
-    _image = widget.defaultImage.value.fold((failure) => null, (file) => file);
+    _image = widget.defaultImage.value.fold((failure) => null, (file) => File(file));
     super.initState();
   }
 

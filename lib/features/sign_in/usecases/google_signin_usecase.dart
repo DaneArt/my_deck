@@ -1,21 +1,15 @@
 import 'dart:convert';
 
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:jose/jose.dart';
 import 'package:mydeck/core/error/auth_failure.dart';
-import 'package:mydeck/core/injection/dependency_injection.dart';
-import 'package:mydeck/features/my_deck/data/repositories/my_deck_repository.dart';
+import 'package:mydeck/core/network/network_connection.dart';
+import 'package:mydeck/features/my_deck/domain/usecases/usecase.dart';
 import 'package:mydeck/features/sign_in/data/datasources/user_config.dart';
 import 'package:mydeck/features/sign_in/data/datasources/user_datasource.dart';
 import 'package:mydeck/features/sign_in/data/models/user_model.dart';
-import 'package:dartz/dartz.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-
-import 'package:mydeck/core/network/network_connection.dart';
-
-import 'package:mydeck/features/my_deck/domain/usecases/usecase.dart';
-
-import 'package:http/http.dart' as http;
-import 'package:jose/jose.dart';
 
 const String kCheckInternetError = 'Check internet connection and try again.';
 
@@ -24,7 +18,6 @@ class GoogleSignInUsecase extends UseCase<AuthFailure, UserModel, NoParams> {
   final NetworkConnection _networkConnection;
   final UserDataSource _userDataSource;
 
-
   final String kSecretKey =
       'tLECRAH5TZ7e9ktUUGct2tvPdcsE98luk55wIUvPTegOnOkwficlKZWlXauoUeFs';
 
@@ -32,7 +25,6 @@ class GoogleSignInUsecase extends UseCase<AuthFailure, UserModel, NoParams> {
     this._googleSignIn,
     this._networkConnection,
     this._userDataSource,
-
   );
 
   @override
@@ -68,7 +60,6 @@ class GoogleSignInUsecase extends UseCase<AuthFailure, UserModel, NoParams> {
       } else {
         return left(AuthFailure.serverError());
       }
-
     } on DioError catch (e) {
       if (e.response.statusCode == 404) {
         return left(AuthFailure.noInternetConnection());

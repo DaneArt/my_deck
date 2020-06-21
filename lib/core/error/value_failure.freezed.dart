@@ -24,6 +24,12 @@ class _$ValueFailureTearOff {
     );
   }
 
+  InvalidUniqueId<T> invalidUniqueId<T>({@required T failedValue}) {
+    return InvalidUniqueId<T>(
+      failedValue: failedValue,
+    );
+  }
+
   LongPassword<T> longPassword<T>({@required T failedValue}) {
     return LongPassword<T>(
       failedValue: failedValue,
@@ -83,6 +89,7 @@ mixin _$ValueFailure<T> {
   Result when<Result extends Object>({
     @required Result invalidEmail(T failedValue),
     @required Result shortPassword(T failedValue),
+    @required Result invalidUniqueId(T failedValue),
     @required Result longPassword(T failedValue),
     @required Result invalidLogin(T failedValue),
     @required Result longLogin(T failedValue),
@@ -96,6 +103,7 @@ mixin _$ValueFailure<T> {
   Result maybeWhen<Result extends Object>({
     Result invalidEmail(T failedValue),
     Result shortPassword(T failedValue),
+    Result invalidUniqueId(T failedValue),
     Result longPassword(T failedValue),
     Result invalidLogin(T failedValue),
     Result longLogin(T failedValue),
@@ -110,6 +118,7 @@ mixin _$ValueFailure<T> {
   Result map<Result extends Object>({
     @required Result invalidEmail(InvalidEmail<T> value),
     @required Result shortPassword(ShortPassword<T> value),
+    @required Result invalidUniqueId(InvalidUniqueId<T> value),
     @required Result longPassword(LongPassword<T> value),
     @required Result invalidLogin(InvalidLogin<T> value),
     @required Result longLogin(LongLogin<T> value),
@@ -123,6 +132,7 @@ mixin _$ValueFailure<T> {
   Result maybeMap<Result extends Object>({
     Result invalidEmail(InvalidEmail<T> value),
     Result shortPassword(ShortPassword<T> value),
+    Result invalidUniqueId(InvalidUniqueId<T> value),
     Result longPassword(LongPassword<T> value),
     Result invalidLogin(InvalidLogin<T> value),
     Result longLogin(LongLogin<T> value),
@@ -253,6 +263,7 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
   Result when<Result extends Object>({
     @required Result invalidEmail(T failedValue),
     @required Result shortPassword(T failedValue),
+    @required Result invalidUniqueId(T failedValue),
     @required Result longPassword(T failedValue),
     @required Result invalidLogin(T failedValue),
     @required Result longLogin(T failedValue),
@@ -264,6 +275,7 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
+    assert(invalidUniqueId != null);
     assert(longPassword != null);
     assert(invalidLogin != null);
     assert(longLogin != null);
@@ -280,6 +292,7 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
   Result maybeWhen<Result extends Object>({
     Result invalidEmail(T failedValue),
     Result shortPassword(T failedValue),
+    Result invalidUniqueId(T failedValue),
     Result longPassword(T failedValue),
     Result invalidLogin(T failedValue),
     Result longLogin(T failedValue),
@@ -302,6 +315,7 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
   Result map<Result extends Object>({
     @required Result invalidEmail(InvalidEmail<T> value),
     @required Result shortPassword(ShortPassword<T> value),
+    @required Result invalidUniqueId(InvalidUniqueId<T> value),
     @required Result longPassword(LongPassword<T> value),
     @required Result invalidLogin(InvalidLogin<T> value),
     @required Result longLogin(LongLogin<T> value),
@@ -313,6 +327,7 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
+    assert(invalidUniqueId != null);
     assert(longPassword != null);
     assert(invalidLogin != null);
     assert(longLogin != null);
@@ -329,6 +344,7 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
   Result maybeMap<Result extends Object>({
     Result invalidEmail(InvalidEmail<T> value),
     Result shortPassword(ShortPassword<T> value),
+    Result invalidUniqueId(InvalidUniqueId<T> value),
     Result longPassword(LongPassword<T> value),
     Result invalidLogin(InvalidLogin<T> value),
     Result longLogin(LongLogin<T> value),
@@ -446,6 +462,7 @@ class _$ShortPassword<T> implements ShortPassword<T> {
   Result when<Result extends Object>({
     @required Result invalidEmail(T failedValue),
     @required Result shortPassword(T failedValue),
+    @required Result invalidUniqueId(T failedValue),
     @required Result longPassword(T failedValue),
     @required Result invalidLogin(T failedValue),
     @required Result longLogin(T failedValue),
@@ -457,6 +474,7 @@ class _$ShortPassword<T> implements ShortPassword<T> {
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
+    assert(invalidUniqueId != null);
     assert(longPassword != null);
     assert(invalidLogin != null);
     assert(longLogin != null);
@@ -473,6 +491,7 @@ class _$ShortPassword<T> implements ShortPassword<T> {
   Result maybeWhen<Result extends Object>({
     Result invalidEmail(T failedValue),
     Result shortPassword(T failedValue),
+    Result invalidUniqueId(T failedValue),
     Result longPassword(T failedValue),
     Result invalidLogin(T failedValue),
     Result longLogin(T failedValue),
@@ -495,6 +514,7 @@ class _$ShortPassword<T> implements ShortPassword<T> {
   Result map<Result extends Object>({
     @required Result invalidEmail(InvalidEmail<T> value),
     @required Result shortPassword(ShortPassword<T> value),
+    @required Result invalidUniqueId(InvalidUniqueId<T> value),
     @required Result longPassword(LongPassword<T> value),
     @required Result invalidLogin(InvalidLogin<T> value),
     @required Result longLogin(LongLogin<T> value),
@@ -506,6 +526,7 @@ class _$ShortPassword<T> implements ShortPassword<T> {
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
+    assert(invalidUniqueId != null);
     assert(longPassword != null);
     assert(invalidLogin != null);
     assert(longLogin != null);
@@ -522,6 +543,7 @@ class _$ShortPassword<T> implements ShortPassword<T> {
   Result maybeMap<Result extends Object>({
     Result invalidEmail(InvalidEmail<T> value),
     Result shortPassword(ShortPassword<T> value),
+    Result invalidUniqueId(InvalidUniqueId<T> value),
     Result longPassword(LongPassword<T> value),
     Result invalidLogin(InvalidLogin<T> value),
     Result longLogin(LongLogin<T> value),
@@ -547,6 +569,205 @@ abstract class ShortPassword<T> implements ValueFailure<T> {
   T get failedValue;
   @override
   $ShortPasswordCopyWith<T, ShortPassword<T>> get copyWith;
+}
+
+abstract class $InvalidUniqueIdCopyWith<T, $Res>
+    implements $ValueFailureCopyWith<T, $Res> {
+  factory $InvalidUniqueIdCopyWith(
+          InvalidUniqueId<T> value, $Res Function(InvalidUniqueId<T>) then) =
+      _$InvalidUniqueIdCopyWithImpl<T, $Res>;
+  @override
+  $Res call({T failedValue});
+}
+
+class _$InvalidUniqueIdCopyWithImpl<T, $Res>
+    extends _$ValueFailureCopyWithImpl<T, $Res>
+    implements $InvalidUniqueIdCopyWith<T, $Res> {
+  _$InvalidUniqueIdCopyWithImpl(
+      InvalidUniqueId<T> _value, $Res Function(InvalidUniqueId<T>) _then)
+      : super(_value, (v) => _then(v as InvalidUniqueId<T>));
+
+  @override
+  InvalidUniqueId<T> get _value => super._value as InvalidUniqueId<T>;
+
+  @override
+  $Res call({
+    Object failedValue = freezed,
+  }) {
+    return _then(InvalidUniqueId<T>(
+      failedValue:
+          failedValue == freezed ? _value.failedValue : failedValue as T,
+    ));
+  }
+}
+
+class _$InvalidUniqueId<T> implements InvalidUniqueId<T> {
+  _$InvalidUniqueId({@required this.failedValue}) : assert(failedValue != null);
+
+  @override
+  final T failedValue;
+
+  bool _didmessage = false;
+  String _message;
+
+  @override
+  String get message {
+    if (_didmessage == false) {
+      _didmessage = true;
+      _message = this.map(
+          invalidEmail: (value) => 'Email is incorrect.',
+          shortPassword: (value) =>
+              'Password must be longer than 8 characters.',
+          invalidLogin: (value) =>
+              "Login could contain letters, numbers, '.' or '_'.",
+          longLogin: (value) => 'Login must be shorter than 30 characters.',
+          invalidPassword: (value) =>
+              'Pasword must contain at least 1 number, 1 uppercase letter and 1 bottomcase letter.',
+          longPassword: (value) =>
+              'Password must be shorter than 24 characters.',
+          fileDoesNotExists: (value) => "File doesn't exists.",
+          invalidDeckTitle: (value) =>
+              "Title could contain letters, numbers, '.' or '_'.",
+          shortDeckTitle: (value) => 'Title must be longer than 6 characters.',
+          expiredToken: (value) => 'Token expired.');
+    }
+    return _message;
+  }
+
+  @override
+  String toString() {
+    return 'ValueFailure<$T>.invalidUniqueId(failedValue: $failedValue, message: $message)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is InvalidUniqueId<T> &&
+            (identical(other.failedValue, failedValue) ||
+                const DeepCollectionEquality()
+                    .equals(other.failedValue, failedValue)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(failedValue);
+
+  @override
+  $InvalidUniqueIdCopyWith<T, InvalidUniqueId<T>> get copyWith =>
+      _$InvalidUniqueIdCopyWithImpl<T, InvalidUniqueId<T>>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result invalidEmail(T failedValue),
+    @required Result shortPassword(T failedValue),
+    @required Result invalidUniqueId(T failedValue),
+    @required Result longPassword(T failedValue),
+    @required Result invalidLogin(T failedValue),
+    @required Result longLogin(T failedValue),
+    @required Result invalidPassword(T failedValue),
+    @required Result fileDoesNotExists(T failedValue),
+    @required Result shortDeckTitle(T failedValue),
+    @required Result invalidDeckTitle(T failedValue),
+    @required Result expiredToken(T failedValue),
+  }) {
+    assert(invalidEmail != null);
+    assert(shortPassword != null);
+    assert(invalidUniqueId != null);
+    assert(longPassword != null);
+    assert(invalidLogin != null);
+    assert(longLogin != null);
+    assert(invalidPassword != null);
+    assert(fileDoesNotExists != null);
+    assert(shortDeckTitle != null);
+    assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
+    return invalidUniqueId(failedValue);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result invalidEmail(T failedValue),
+    Result shortPassword(T failedValue),
+    Result invalidUniqueId(T failedValue),
+    Result longPassword(T failedValue),
+    Result invalidLogin(T failedValue),
+    Result longLogin(T failedValue),
+    Result invalidPassword(T failedValue),
+    Result fileDoesNotExists(T failedValue),
+    Result shortDeckTitle(T failedValue),
+    Result invalidDeckTitle(T failedValue),
+    Result expiredToken(T failedValue),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (invalidUniqueId != null) {
+      return invalidUniqueId(failedValue);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result invalidEmail(InvalidEmail<T> value),
+    @required Result shortPassword(ShortPassword<T> value),
+    @required Result invalidUniqueId(InvalidUniqueId<T> value),
+    @required Result longPassword(LongPassword<T> value),
+    @required Result invalidLogin(InvalidLogin<T> value),
+    @required Result longLogin(LongLogin<T> value),
+    @required Result invalidPassword(InvalidPassword<T> value),
+    @required Result fileDoesNotExists(FileDoesNotExists<T> value),
+    @required Result shortDeckTitle(ShortDeckTitle<T> value),
+    @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    @required Result expiredToken(ExpiredToken<T> value),
+  }) {
+    assert(invalidEmail != null);
+    assert(shortPassword != null);
+    assert(invalidUniqueId != null);
+    assert(longPassword != null);
+    assert(invalidLogin != null);
+    assert(longLogin != null);
+    assert(invalidPassword != null);
+    assert(fileDoesNotExists != null);
+    assert(shortDeckTitle != null);
+    assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
+    return invalidUniqueId(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result invalidEmail(InvalidEmail<T> value),
+    Result shortPassword(ShortPassword<T> value),
+    Result invalidUniqueId(InvalidUniqueId<T> value),
+    Result longPassword(LongPassword<T> value),
+    Result invalidLogin(InvalidLogin<T> value),
+    Result longLogin(LongLogin<T> value),
+    Result invalidPassword(InvalidPassword<T> value),
+    Result fileDoesNotExists(FileDoesNotExists<T> value),
+    Result shortDeckTitle(ShortDeckTitle<T> value),
+    Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    Result expiredToken(ExpiredToken<T> value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (invalidUniqueId != null) {
+      return invalidUniqueId(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InvalidUniqueId<T> implements ValueFailure<T> {
+  factory InvalidUniqueId({@required T failedValue}) = _$InvalidUniqueId<T>;
+
+  @override
+  T get failedValue;
+  @override
+  $InvalidUniqueIdCopyWith<T, InvalidUniqueId<T>> get copyWith;
 }
 
 abstract class $LongPasswordCopyWith<T, $Res>
@@ -639,6 +860,7 @@ class _$LongPassword<T> implements LongPassword<T> {
   Result when<Result extends Object>({
     @required Result invalidEmail(T failedValue),
     @required Result shortPassword(T failedValue),
+    @required Result invalidUniqueId(T failedValue),
     @required Result longPassword(T failedValue),
     @required Result invalidLogin(T failedValue),
     @required Result longLogin(T failedValue),
@@ -650,6 +872,7 @@ class _$LongPassword<T> implements LongPassword<T> {
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
+    assert(invalidUniqueId != null);
     assert(longPassword != null);
     assert(invalidLogin != null);
     assert(longLogin != null);
@@ -666,6 +889,7 @@ class _$LongPassword<T> implements LongPassword<T> {
   Result maybeWhen<Result extends Object>({
     Result invalidEmail(T failedValue),
     Result shortPassword(T failedValue),
+    Result invalidUniqueId(T failedValue),
     Result longPassword(T failedValue),
     Result invalidLogin(T failedValue),
     Result longLogin(T failedValue),
@@ -688,6 +912,7 @@ class _$LongPassword<T> implements LongPassword<T> {
   Result map<Result extends Object>({
     @required Result invalidEmail(InvalidEmail<T> value),
     @required Result shortPassword(ShortPassword<T> value),
+    @required Result invalidUniqueId(InvalidUniqueId<T> value),
     @required Result longPassword(LongPassword<T> value),
     @required Result invalidLogin(InvalidLogin<T> value),
     @required Result longLogin(LongLogin<T> value),
@@ -699,6 +924,7 @@ class _$LongPassword<T> implements LongPassword<T> {
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
+    assert(invalidUniqueId != null);
     assert(longPassword != null);
     assert(invalidLogin != null);
     assert(longLogin != null);
@@ -715,6 +941,7 @@ class _$LongPassword<T> implements LongPassword<T> {
   Result maybeMap<Result extends Object>({
     Result invalidEmail(InvalidEmail<T> value),
     Result shortPassword(ShortPassword<T> value),
+    Result invalidUniqueId(InvalidUniqueId<T> value),
     Result longPassword(LongPassword<T> value),
     Result invalidLogin(InvalidLogin<T> value),
     Result longLogin(LongLogin<T> value),
@@ -832,6 +1059,7 @@ class _$InvalidLogin<T> implements InvalidLogin<T> {
   Result when<Result extends Object>({
     @required Result invalidEmail(T failedValue),
     @required Result shortPassword(T failedValue),
+    @required Result invalidUniqueId(T failedValue),
     @required Result longPassword(T failedValue),
     @required Result invalidLogin(T failedValue),
     @required Result longLogin(T failedValue),
@@ -843,6 +1071,7 @@ class _$InvalidLogin<T> implements InvalidLogin<T> {
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
+    assert(invalidUniqueId != null);
     assert(longPassword != null);
     assert(invalidLogin != null);
     assert(longLogin != null);
@@ -859,6 +1088,7 @@ class _$InvalidLogin<T> implements InvalidLogin<T> {
   Result maybeWhen<Result extends Object>({
     Result invalidEmail(T failedValue),
     Result shortPassword(T failedValue),
+    Result invalidUniqueId(T failedValue),
     Result longPassword(T failedValue),
     Result invalidLogin(T failedValue),
     Result longLogin(T failedValue),
@@ -881,6 +1111,7 @@ class _$InvalidLogin<T> implements InvalidLogin<T> {
   Result map<Result extends Object>({
     @required Result invalidEmail(InvalidEmail<T> value),
     @required Result shortPassword(ShortPassword<T> value),
+    @required Result invalidUniqueId(InvalidUniqueId<T> value),
     @required Result longPassword(LongPassword<T> value),
     @required Result invalidLogin(InvalidLogin<T> value),
     @required Result longLogin(LongLogin<T> value),
@@ -892,6 +1123,7 @@ class _$InvalidLogin<T> implements InvalidLogin<T> {
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
+    assert(invalidUniqueId != null);
     assert(longPassword != null);
     assert(invalidLogin != null);
     assert(longLogin != null);
@@ -908,6 +1140,7 @@ class _$InvalidLogin<T> implements InvalidLogin<T> {
   Result maybeMap<Result extends Object>({
     Result invalidEmail(InvalidEmail<T> value),
     Result shortPassword(ShortPassword<T> value),
+    Result invalidUniqueId(InvalidUniqueId<T> value),
     Result longPassword(LongPassword<T> value),
     Result invalidLogin(InvalidLogin<T> value),
     Result longLogin(LongLogin<T> value),
@@ -1025,6 +1258,7 @@ class _$LongLogin<T> implements LongLogin<T> {
   Result when<Result extends Object>({
     @required Result invalidEmail(T failedValue),
     @required Result shortPassword(T failedValue),
+    @required Result invalidUniqueId(T failedValue),
     @required Result longPassword(T failedValue),
     @required Result invalidLogin(T failedValue),
     @required Result longLogin(T failedValue),
@@ -1036,6 +1270,7 @@ class _$LongLogin<T> implements LongLogin<T> {
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
+    assert(invalidUniqueId != null);
     assert(longPassword != null);
     assert(invalidLogin != null);
     assert(longLogin != null);
@@ -1052,6 +1287,7 @@ class _$LongLogin<T> implements LongLogin<T> {
   Result maybeWhen<Result extends Object>({
     Result invalidEmail(T failedValue),
     Result shortPassword(T failedValue),
+    Result invalidUniqueId(T failedValue),
     Result longPassword(T failedValue),
     Result invalidLogin(T failedValue),
     Result longLogin(T failedValue),
@@ -1074,6 +1310,7 @@ class _$LongLogin<T> implements LongLogin<T> {
   Result map<Result extends Object>({
     @required Result invalidEmail(InvalidEmail<T> value),
     @required Result shortPassword(ShortPassword<T> value),
+    @required Result invalidUniqueId(InvalidUniqueId<T> value),
     @required Result longPassword(LongPassword<T> value),
     @required Result invalidLogin(InvalidLogin<T> value),
     @required Result longLogin(LongLogin<T> value),
@@ -1085,6 +1322,7 @@ class _$LongLogin<T> implements LongLogin<T> {
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
+    assert(invalidUniqueId != null);
     assert(longPassword != null);
     assert(invalidLogin != null);
     assert(longLogin != null);
@@ -1101,6 +1339,7 @@ class _$LongLogin<T> implements LongLogin<T> {
   Result maybeMap<Result extends Object>({
     Result invalidEmail(InvalidEmail<T> value),
     Result shortPassword(ShortPassword<T> value),
+    Result invalidUniqueId(InvalidUniqueId<T> value),
     Result longPassword(LongPassword<T> value),
     Result invalidLogin(InvalidLogin<T> value),
     Result longLogin(LongLogin<T> value),
@@ -1218,6 +1457,7 @@ class _$InvalidPassword<T> implements InvalidPassword<T> {
   Result when<Result extends Object>({
     @required Result invalidEmail(T failedValue),
     @required Result shortPassword(T failedValue),
+    @required Result invalidUniqueId(T failedValue),
     @required Result longPassword(T failedValue),
     @required Result invalidLogin(T failedValue),
     @required Result longLogin(T failedValue),
@@ -1229,6 +1469,7 @@ class _$InvalidPassword<T> implements InvalidPassword<T> {
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
+    assert(invalidUniqueId != null);
     assert(longPassword != null);
     assert(invalidLogin != null);
     assert(longLogin != null);
@@ -1245,6 +1486,7 @@ class _$InvalidPassword<T> implements InvalidPassword<T> {
   Result maybeWhen<Result extends Object>({
     Result invalidEmail(T failedValue),
     Result shortPassword(T failedValue),
+    Result invalidUniqueId(T failedValue),
     Result longPassword(T failedValue),
     Result invalidLogin(T failedValue),
     Result longLogin(T failedValue),
@@ -1267,6 +1509,7 @@ class _$InvalidPassword<T> implements InvalidPassword<T> {
   Result map<Result extends Object>({
     @required Result invalidEmail(InvalidEmail<T> value),
     @required Result shortPassword(ShortPassword<T> value),
+    @required Result invalidUniqueId(InvalidUniqueId<T> value),
     @required Result longPassword(LongPassword<T> value),
     @required Result invalidLogin(InvalidLogin<T> value),
     @required Result longLogin(LongLogin<T> value),
@@ -1278,6 +1521,7 @@ class _$InvalidPassword<T> implements InvalidPassword<T> {
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
+    assert(invalidUniqueId != null);
     assert(longPassword != null);
     assert(invalidLogin != null);
     assert(longLogin != null);
@@ -1294,6 +1538,7 @@ class _$InvalidPassword<T> implements InvalidPassword<T> {
   Result maybeMap<Result extends Object>({
     Result invalidEmail(InvalidEmail<T> value),
     Result shortPassword(ShortPassword<T> value),
+    Result invalidUniqueId(InvalidUniqueId<T> value),
     Result longPassword(LongPassword<T> value),
     Result invalidLogin(InvalidLogin<T> value),
     Result longLogin(LongLogin<T> value),
@@ -1413,6 +1658,7 @@ class _$FileDoesNotExists<T> implements FileDoesNotExists<T> {
   Result when<Result extends Object>({
     @required Result invalidEmail(T failedValue),
     @required Result shortPassword(T failedValue),
+    @required Result invalidUniqueId(T failedValue),
     @required Result longPassword(T failedValue),
     @required Result invalidLogin(T failedValue),
     @required Result longLogin(T failedValue),
@@ -1424,6 +1670,7 @@ class _$FileDoesNotExists<T> implements FileDoesNotExists<T> {
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
+    assert(invalidUniqueId != null);
     assert(longPassword != null);
     assert(invalidLogin != null);
     assert(longLogin != null);
@@ -1440,6 +1687,7 @@ class _$FileDoesNotExists<T> implements FileDoesNotExists<T> {
   Result maybeWhen<Result extends Object>({
     Result invalidEmail(T failedValue),
     Result shortPassword(T failedValue),
+    Result invalidUniqueId(T failedValue),
     Result longPassword(T failedValue),
     Result invalidLogin(T failedValue),
     Result longLogin(T failedValue),
@@ -1462,6 +1710,7 @@ class _$FileDoesNotExists<T> implements FileDoesNotExists<T> {
   Result map<Result extends Object>({
     @required Result invalidEmail(InvalidEmail<T> value),
     @required Result shortPassword(ShortPassword<T> value),
+    @required Result invalidUniqueId(InvalidUniqueId<T> value),
     @required Result longPassword(LongPassword<T> value),
     @required Result invalidLogin(InvalidLogin<T> value),
     @required Result longLogin(LongLogin<T> value),
@@ -1473,6 +1722,7 @@ class _$FileDoesNotExists<T> implements FileDoesNotExists<T> {
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
+    assert(invalidUniqueId != null);
     assert(longPassword != null);
     assert(invalidLogin != null);
     assert(longLogin != null);
@@ -1489,6 +1739,7 @@ class _$FileDoesNotExists<T> implements FileDoesNotExists<T> {
   Result maybeMap<Result extends Object>({
     Result invalidEmail(InvalidEmail<T> value),
     Result shortPassword(ShortPassword<T> value),
+    Result invalidUniqueId(InvalidUniqueId<T> value),
     Result longPassword(LongPassword<T> value),
     Result invalidLogin(InvalidLogin<T> value),
     Result longLogin(LongLogin<T> value),
@@ -1606,6 +1857,7 @@ class _$ShortDeckTitle<T> implements ShortDeckTitle<T> {
   Result when<Result extends Object>({
     @required Result invalidEmail(T failedValue),
     @required Result shortPassword(T failedValue),
+    @required Result invalidUniqueId(T failedValue),
     @required Result longPassword(T failedValue),
     @required Result invalidLogin(T failedValue),
     @required Result longLogin(T failedValue),
@@ -1617,6 +1869,7 @@ class _$ShortDeckTitle<T> implements ShortDeckTitle<T> {
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
+    assert(invalidUniqueId != null);
     assert(longPassword != null);
     assert(invalidLogin != null);
     assert(longLogin != null);
@@ -1633,6 +1886,7 @@ class _$ShortDeckTitle<T> implements ShortDeckTitle<T> {
   Result maybeWhen<Result extends Object>({
     Result invalidEmail(T failedValue),
     Result shortPassword(T failedValue),
+    Result invalidUniqueId(T failedValue),
     Result longPassword(T failedValue),
     Result invalidLogin(T failedValue),
     Result longLogin(T failedValue),
@@ -1655,6 +1909,7 @@ class _$ShortDeckTitle<T> implements ShortDeckTitle<T> {
   Result map<Result extends Object>({
     @required Result invalidEmail(InvalidEmail<T> value),
     @required Result shortPassword(ShortPassword<T> value),
+    @required Result invalidUniqueId(InvalidUniqueId<T> value),
     @required Result longPassword(LongPassword<T> value),
     @required Result invalidLogin(InvalidLogin<T> value),
     @required Result longLogin(LongLogin<T> value),
@@ -1666,6 +1921,7 @@ class _$ShortDeckTitle<T> implements ShortDeckTitle<T> {
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
+    assert(invalidUniqueId != null);
     assert(longPassword != null);
     assert(invalidLogin != null);
     assert(longLogin != null);
@@ -1682,6 +1938,7 @@ class _$ShortDeckTitle<T> implements ShortDeckTitle<T> {
   Result maybeMap<Result extends Object>({
     Result invalidEmail(InvalidEmail<T> value),
     Result shortPassword(ShortPassword<T> value),
+    Result invalidUniqueId(InvalidUniqueId<T> value),
     Result longPassword(LongPassword<T> value),
     Result invalidLogin(InvalidLogin<T> value),
     Result longLogin(LongLogin<T> value),
@@ -1800,6 +2057,7 @@ class _$InvalidDeckTitle<T> implements InvalidDeckTitle<T> {
   Result when<Result extends Object>({
     @required Result invalidEmail(T failedValue),
     @required Result shortPassword(T failedValue),
+    @required Result invalidUniqueId(T failedValue),
     @required Result longPassword(T failedValue),
     @required Result invalidLogin(T failedValue),
     @required Result longLogin(T failedValue),
@@ -1811,6 +2069,7 @@ class _$InvalidDeckTitle<T> implements InvalidDeckTitle<T> {
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
+    assert(invalidUniqueId != null);
     assert(longPassword != null);
     assert(invalidLogin != null);
     assert(longLogin != null);
@@ -1827,6 +2086,7 @@ class _$InvalidDeckTitle<T> implements InvalidDeckTitle<T> {
   Result maybeWhen<Result extends Object>({
     Result invalidEmail(T failedValue),
     Result shortPassword(T failedValue),
+    Result invalidUniqueId(T failedValue),
     Result longPassword(T failedValue),
     Result invalidLogin(T failedValue),
     Result longLogin(T failedValue),
@@ -1849,6 +2109,7 @@ class _$InvalidDeckTitle<T> implements InvalidDeckTitle<T> {
   Result map<Result extends Object>({
     @required Result invalidEmail(InvalidEmail<T> value),
     @required Result shortPassword(ShortPassword<T> value),
+    @required Result invalidUniqueId(InvalidUniqueId<T> value),
     @required Result longPassword(LongPassword<T> value),
     @required Result invalidLogin(InvalidLogin<T> value),
     @required Result longLogin(LongLogin<T> value),
@@ -1860,6 +2121,7 @@ class _$InvalidDeckTitle<T> implements InvalidDeckTitle<T> {
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
+    assert(invalidUniqueId != null);
     assert(longPassword != null);
     assert(invalidLogin != null);
     assert(longLogin != null);
@@ -1876,6 +2138,7 @@ class _$InvalidDeckTitle<T> implements InvalidDeckTitle<T> {
   Result maybeMap<Result extends Object>({
     Result invalidEmail(InvalidEmail<T> value),
     Result shortPassword(ShortPassword<T> value),
+    Result invalidUniqueId(InvalidUniqueId<T> value),
     Result longPassword(LongPassword<T> value),
     Result invalidLogin(InvalidLogin<T> value),
     Result longLogin(LongLogin<T> value),
@@ -1993,6 +2256,7 @@ class _$ExpiredToken<T> implements ExpiredToken<T> {
   Result when<Result extends Object>({
     @required Result invalidEmail(T failedValue),
     @required Result shortPassword(T failedValue),
+    @required Result invalidUniqueId(T failedValue),
     @required Result longPassword(T failedValue),
     @required Result invalidLogin(T failedValue),
     @required Result longLogin(T failedValue),
@@ -2004,6 +2268,7 @@ class _$ExpiredToken<T> implements ExpiredToken<T> {
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
+    assert(invalidUniqueId != null);
     assert(longPassword != null);
     assert(invalidLogin != null);
     assert(longLogin != null);
@@ -2020,6 +2285,7 @@ class _$ExpiredToken<T> implements ExpiredToken<T> {
   Result maybeWhen<Result extends Object>({
     Result invalidEmail(T failedValue),
     Result shortPassword(T failedValue),
+    Result invalidUniqueId(T failedValue),
     Result longPassword(T failedValue),
     Result invalidLogin(T failedValue),
     Result longLogin(T failedValue),
@@ -2042,6 +2308,7 @@ class _$ExpiredToken<T> implements ExpiredToken<T> {
   Result map<Result extends Object>({
     @required Result invalidEmail(InvalidEmail<T> value),
     @required Result shortPassword(ShortPassword<T> value),
+    @required Result invalidUniqueId(InvalidUniqueId<T> value),
     @required Result longPassword(LongPassword<T> value),
     @required Result invalidLogin(InvalidLogin<T> value),
     @required Result longLogin(LongLogin<T> value),
@@ -2053,6 +2320,7 @@ class _$ExpiredToken<T> implements ExpiredToken<T> {
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
+    assert(invalidUniqueId != null);
     assert(longPassword != null);
     assert(invalidLogin != null);
     assert(longLogin != null);
@@ -2069,6 +2337,7 @@ class _$ExpiredToken<T> implements ExpiredToken<T> {
   Result maybeMap<Result extends Object>({
     Result invalidEmail(InvalidEmail<T> value),
     Result shortPassword(ShortPassword<T> value),
+    Result invalidUniqueId(InvalidUniqueId<T> value),
     Result longPassword(LongPassword<T> value),
     Result invalidLogin(InvalidLogin<T> value),
     Result longLogin(LongLogin<T> value),

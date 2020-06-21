@@ -17,7 +17,7 @@ main() {
     final tDeck = Deck.library(
         deckId: tDeckModel.deckId,
         title: tDeckModel.title,
-        icon: File(tDeckModel.icon),
+        icon: tDeckModel.icon,
         cardsList: [],
         category: CategoryModel(tDeckModel.categoryName),
         description: tDeckModel.description,
@@ -38,7 +38,7 @@ main() {
         category: CategoryModel(tDeckModel.categoryName),
         deckId: tDeckModel.deckId,
         description: tDeckModel.description,
-        icon: File(tDeckModel.icon),
+        icon: tDeckModel.icon,
         isPrivate: tDeckModel.isPrivate,
         title: tDeckModel.title);
 

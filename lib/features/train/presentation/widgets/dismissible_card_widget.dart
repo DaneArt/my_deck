@@ -33,6 +33,7 @@ class _DismissibleCardState extends State<DismissibleCard>
   Size get screenSize => widget.screenSize;
 
   double _angle = 0.0;
+  double _presetRotationAngle = 1.0; //needs to extra rotate card on tap
   double _contentOpacity = 1.0;
   double _trueAnswerOpacity = 0;
   double _falseAnswerOpacity = 0;
@@ -51,22 +52,22 @@ class _DismissibleCardState extends State<DismissibleCard>
   @override
   void initState() {
     _flipController =
-        AnimationController(duration: kThemeAnimationDuration, vsync: this)
+        AnimationController(duration: Duration(milliseconds: 500), vsync: this)
           ..addListener(() {
             setState(() {});
           })
           ..addStatusListener((status) {
             if (status == AnimationStatus.completed) {
+              _presetRotationAngle = 0.0;
+            }
+            if (status == AnimationStatus.completed ||
+                status == AnimationStatus.dismissed) {
               _isAnswer = !_isAnswer;
-
-              _flipController.reverse().orCancel;
               _contentOpacity = 1.0;
             }
           });
-    final Animation curve =
-        CurvedAnimation(parent: _flipController, curve: Curves.easeInCubic);
-    _flipAnimation =
-        Tween(begin: screenSize.width * 0.9, end: 0.0).animate(curve);
+
+    _flipAnimation = Tween(begin: 0.0, end: 1.0).animate(_flipController);
 
     super.initState();
   }
@@ -123,9 +124,14 @@ class _DismissibleCardState extends State<DismissibleCard>
   _onFlipCard() {
     setState(() {
       _contentOpacity = 0;
+      _presetRotationAngle = 1.0;
     });
 
-    _flipController.forward();
+    if (_flipController.status == AnimationStatus.completed) {
+      _flipController.reverse();
+    } else {
+      _flipController.forward();
+    }
   }
 
   _dropParameters() {
@@ -229,78 +235,86 @@ class _DismissibleCardState extends State<DismissibleCard>
                 });
               }
             },
-            child: Transform.rotate(
-              angle: _angle,
-              child: Transform.translate(
-                offset: _swipeOffset,
-                child: Card(
-                  color: Colors.white,
-                  elevation: 4,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(4.0),
-                    child: Container(
-                      width: _flipAnimation.value,
-                      height: screenSize.height * 0.75,
-                      child: InkWell(
-                        onTap: _onFlipCard,
-                        child: Stack(
-                          children: <Widget>[
-                            Align(
-                              alignment: Alignment.center,
-                              child: AnimatedOpacity(
-                                curve: Curves.easeInQuart,
-                                duration: Duration(milliseconds: 100),
-                                opacity: _contentOpacity,
-                                child: _isAnswer
-                                    ? createWidgetFromContent(
-                                        widget.card.answer, context)
-                                    : createWidgetFromContent(
-                                        widget.card.question, context),
+            child: Transform(
+              alignment: FractionalOffset.center,
+              transform: Matrix4.identity()
+                ..setEntry(3, 2, 0.001)
+                ..rotateY(pi * _flipAnimation.value * _presetRotationAngle),
+              child: Transform.rotate(
+                angle: _angle,
+                child: Transform.translate(
+                  offset: _swipeOffset,
+                  child: Card(
+                    color: Colors.white,
+                    elevation: 4,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(4.0),
+                      child: Container(
+                        width: screenSize.width * 0.9,
+                        height: screenSize.height * 0.75,
+                        child: InkWell(
+                          onTap: _onFlipCard,
+                          child: Stack(
+                            children: <Widget>[
+                              Align(
+                                alignment: Alignment.center,
+                                child: AnimatedOpacity(
+                                  curve: Curves.easeInQuart,
+                                  duration: Duration(milliseconds: 0),
+                                  opacity: _contentOpacity,
+                                  child: _isAnswer
+                                      ? createWidgetFromContent(
+                                          widget.card.answer, context)
+                                      : createWidgetFromContent(
+                                          widget.card.question, context),
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: <Widget>[
-                                  AnimatedOpacity(
-                                    curve: Curves.easeInQuart,
-                                    opacity: _contentOpacity,
-                                    duration: const Duration(milliseconds: 100),
-                                    child: Text(
-                                      _isAnswer ? 'Answer' : 'Question',
-                                      style:
-                                          Theme.of(context).textTheme.headline6,
-                                      textAlign: TextAlign.start,
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: <Widget>[
+                                    AnimatedOpacity(
+                                      curve: Curves.easeInQuart,
+                                      opacity: _contentOpacity,
+                                      duration:
+                                          const Duration(milliseconds: 100),
+                                      child: Text(
+                                        _isAnswer ? 'Answer' : 'Question',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline6,
+                                        textAlign: TextAlign.start,
+                                      ),
                                     ),
+                                  ],
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.center,
+                                child: AnimatedOpacity(
+                                  duration: kThemeAnimationDuration,
+                                  opacity: _trueAnswerOpacity,
+                                  child: Icon(
+                                    Icons.check,
+                                    color: Colors.green,
+                                    size: screenSize.width * 0.8,
                                   ),
-                                ],
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: AnimatedOpacity(
-                                duration: kThemeAnimationDuration,
-                                opacity: _trueAnswerOpacity,
-                                child: Icon(
-                                  Icons.check,
-                                  color: Colors.green,
-                                  size: screenSize.width * 0.8,
                                 ),
                               ),
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: AnimatedOpacity(
-                                duration: kThemeAnimationDuration,
-                                opacity: _falseAnswerOpacity,
-                                child: Icon(
-                                  Icons.clear,
-                                  color: Colors.red,
-                                  size: screenSize.width * 0.8,
+                              Align(
+                                alignment: Alignment.center,
+                                child: AnimatedOpacity(
+                                  duration: kThemeAnimationDuration,
+                                  opacity: _falseAnswerOpacity,
+                                  child: Icon(
+                                    Icons.clear,
+                                    color: Colors.red,
+                                    size: screenSize.width * 0.8,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),

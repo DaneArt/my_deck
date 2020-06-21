@@ -4,9 +4,9 @@ import 'package:equatable/equatable.dart';
 import 'package:mydeck/core/error/storage_failure.dart';
 import 'package:mydeck/features/my_deck/data/repositories/my_deck_repository.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
+import 'package:mydeck/features/my_deck/domain/entities/unique_id.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/usecase.dart';
-
-
+import 'package:uuid/uuid.dart';
 
 class GetDeckById extends UseCase<StorageFailure<Deck>, Deck, Params> {
   final MyDeckRepository repository;
@@ -20,7 +20,7 @@ class GetDeckById extends UseCase<StorageFailure<Deck>, Deck, Params> {
 }
 
 class Params extends Equatable {
-  final String deckId;
+  final UniqueId deckId;
 
   Params({@required this.deckId});
 

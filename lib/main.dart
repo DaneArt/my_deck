@@ -6,6 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/injection/dependency_injection.dart';
 import 'core/meta/my_deck_routes.dart';
+import 'core/meta/my_deck_constants.dart';
+
 import 'features/my_deck/presentation/bloc/library/library_bloc.dart';
 import 'features/my_deck/presentation/bloc/tab/tab_bloc.dart';
 import 'features/sign_in/presentation/pages/profile_page.dart';
@@ -40,33 +42,36 @@ class MyDeckApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'MyDeck',
       theme: ThemeData(
-        primaryColor: Color(0xFF00e5ff),
-        primaryColorDark: Color(0xFF00b8d4),
-        primaryColorLight: Color(0xFF84ffff),
-        accentColor: Color(0xFFFFC107),
-        buttonTheme: ButtonThemeData(buttonColor: Colors.white.withOpacity(0.95)),
+        primaryColor: kThemePrimaryColor,
+        primaryColorDark: kThemePrimaryColorDark,
+        primaryColorLight: kThemePrimaryColorLight,
+        accentColor: kThemeAccentColor,
+        buttonTheme:
+            ButtonThemeData(buttonColor: Colors.white.withOpacity(0.95)),
         iconTheme: IconThemeData(
           color: Colors.white.withOpacity(0.95),
           opacity: 1,
         ),
         primaryIconTheme: IconThemeData(color: Colors.white.withOpacity(0.95)),
-        accentIconTheme: IconThemeData(color: Color(0xbf002338)),
+        accentIconTheme: IconThemeData(color: kThemeTextColor),
         textTheme: TextTheme(
-          subtitle2: TextStyle(color: Color(0xbf002338)),
-          subtitle1: TextStyle(color: Color(0xbf002338)),
-          overline: TextStyle(color: Color(0xbf002338)),
-          headline6: TextStyle(color: Color(0xbf002338)),
-          headline5: TextStyle(color: Color(0xbf002338)),
-          headline4: TextStyle(color: Color(0xbf002338)),
-          headline3: TextStyle(color: Color(0xbf002338)),
-          headline2: TextStyle(color: Color(0xbf002338)),
-          headline1: TextStyle(color: Color(0xbf002338)),
-          caption: TextStyle(color: Color(0xbf002338)),
-          bodyText2: TextStyle(color: Color(0xbf002338)),
-            bodyText1: TextStyle(color: Color(0xbf002338)),
-            button: TextStyle(letterSpacing: 1.2, color: Colors.white.withOpacity(0.95))),
+            subtitle2: TextStyle(color: kThemeTextColor),
+            subtitle1: TextStyle(color: kThemeTextColor),
+            overline: TextStyle(color: kThemeTextColor),
+            headline6: TextStyle(color: kThemeTextColor),
+            headline5: TextStyle(color: kThemeTextColor),
+            headline4: TextStyle(color: kThemeTextColor),
+            headline3: TextStyle(color: kThemeTextColor),
+            headline2: TextStyle(color: kThemeTextColor),
+            headline1: TextStyle(color: kThemeTextColor),
+            caption: TextStyle(color: kThemeTextColor),
+            bodyText2: TextStyle(color: kThemeTextColor),
+            bodyText1: TextStyle(color: kThemeTextColor),
+            button: TextStyle(
+                letterSpacing: 1.2, color: Colors.white.withOpacity(0.95))),
       ),
       color: Theme.of(context).primaryColor,
       darkTheme: ThemeData(

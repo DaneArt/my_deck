@@ -10,12 +10,10 @@ import 'package:mydeck/core/icons/custom_icons_icons.dart';
 import 'package:mydeck/core/meta/my_deck_routes.dart';
 import 'package:mydeck/features/editor/presentation/bloc/add_card/add_card_bloc.dart';
 import 'package:mydeck/features/editor/presentation/bloc/add_deck/add_deck_bloc.dart';
-import 'package:mydeck/features/editor/presentation/widgets/card_editor.dart';
+import 'package:mydeck/features/editor/presentation/pages/card_editor.dart';
 import 'package:mydeck/features/editor/presentation/widgets/category_picker.dart';
 import 'package:mydeck/features/editor/presentation/widgets/in_deck_card_view.dart';
 import 'package:mydeck/features/editor/presentation/widgets/pick_image_view.dart';
-import 'package:mydeck/features/my_deck/data/models/card_model.dart';
-import 'package:mydeck/features/my_deck/data/models/category_model.dart';
 import 'package:mydeck/features/my_deck/domain/entities/card.dart' as Entity;
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/shared/sliver_tab_bar_delegate.dart';
@@ -142,7 +140,7 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                         isValid: state.avatar.value.isRight()),
                     fieldCheckItem(
                         text: "Created at least 2 cards.",
-                        isValid: state.cardslist.length >= 2),
+                        isValid: state.cardsList.length >= 2),
                   ],
                 ),
                 actions: <Widget>[
@@ -326,21 +324,30 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                   opacity: _fabAnimation,
                   child: ScaleTransition(
                     scale: _fabAnimation,
-                    child: FloatingActionButton(
-                      child: Icon(Icons.add, color: Colors.white),
-                      onPressed: () async {
-                        final newCard =
-                            await context.navigator.push(MaterialPageRoute(
-                                builder: (BuildContext context) => BlocProvider(
-                                      create: (context) => AddCardBloc(null),
-                                      child: CardEditor(isCreating: true),
-                                    )));
-                        if (newCard != null) {
-                          context
-                              .bloc<AddDeckBloc>()
-                              .add(AddDeckEvent.cardAdded(newCard));
-                        }
-                      },
+                    child: BlocBuilder<AddDeckBloc, AddDeckState>(
+                      builder: (context, state) => FloatingActionButton(
+                        child: Icon(Icons.add, color: Colors.white),
+                        onPressed: () async {
+                          final newCards = await context.navigator.push(
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      BlocProvider(
+                                        create: (context) => AddCardBloc(
+                                          currentCardIndex:
+                                              state.cardsList.length,
+                                          sourceCards:
+                                              List.from(state.cardsList)
+                                                ..add(Entity.Card.basic()),
+                                        ),
+                                        child: CardEditor(isCreating: true),
+                                      )));
+                          if (newCards != null) {
+                            context
+                                .bloc<AddDeckBloc>()
+                                .add(AddDeckEvent.updateCards(cards: newCards));
+                          }
+                        },
+                      ),
                     ),
                   ),
                 )
@@ -413,7 +420,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
                       onImagePicked: goal != AddDeckGoal.lookup
                           ? (image) {
                               BlocProvider.of<AddDeckBloc>(context)
-                                  .add(AddDeckEvent.avatarChanged(image));
+                                  .add(AddDeckEvent.avatarChanged(image.path));
                             }
                           : (image) {},
                       defaultImage: state.avatar,
@@ -496,13 +503,11 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
             labelText: 'Description',
             contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
             hoverColor: Theme.of(context).accentColor,
-            counterText:
-                '${state.description.value.fold((l) => 0, (r) => r.length)}/$_maxDescriptionCount',
           ),
           inputFormatters: [
             new LengthLimitingTextInputFormatter(_maxDescriptionCount),
           ],
-          maxLines: null,
+          maxLength: _maxDescriptionCount,
         )
       : Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -569,9 +574,9 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
 
   Widget trainWidget(AddDeckState state) => goal != AddDeckGoal.create
       ? RaisedButton(
-          onPressed: state.cardslist.isNotEmpty
+          onPressed: state.cardsList.isNotEmpty
               ? () async {
-                  final cards = List<Entity.Card>.from(state.cardslist);
+                  final cards = List<Entity.Card>.from(state.cardsList);
                   cards.removeWhere((c) =>
                       c.answer.model.isEmpty || c.question.model.isEmpty);
                   if (cards.length >= 2) {
@@ -581,11 +586,10 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
                           .copyWith(cardsList: cards)
                     ]);
                     if (trainedCards != null) {
-                      for (CardModel card in trainedCards) {
-                        context.bloc<AddDeckBloc>().add(
-                            AddDeckEvent.cardChanged(
-                                Entity.Card.fromModel(card)));
-                      }
+                      context.bloc<AddDeckBloc>().add(AddDeckEvent.updateCards(
+                          cards: (trainedCards as List)
+                              .map((c) => Entity.Card.fromModel(c))
+                              .toList()));
                     }
                   } else {
                     Scaffold.of(context).showSnackBar(SnackBar(
@@ -641,29 +645,13 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text('Category'),
-            FlatButton(
-                child: Row(
-                  children: <Widget>[
-                    Text(state.category.categoryName,
-                        style: Theme.of(context).textTheme.bodyText1),
-                    goal != AddDeckGoal.lookup
-                        ? Icon(Icons.arrow_drop_down)
-                        : Container()
-                  ],
-                ),
-                onPressed: goal != AddDeckGoal.lookup
-                    ? () async {
-                        final CategoryModel category = await showDialog(
-                            context: context,
-                            builder: (context) => CategoryPicker(
-                                  baseCategory: state.category,
-                                ));
-                        if (category != null)
-                          context
-                              .bloc<AddDeckBloc>()
-                              .add(AddDeckEvent.categoryChanged(category));
-                      }
-                    : null),
+            CategoryPicker(
+              onChanged: (value) {
+                BlocProvider.of<AddDeckBloc>(context)
+                    .add(AddDeckEvent.categoryChanged(value));
+              },
+              baseCategory: state.category,
+            ),
           ],
         ),
       );
@@ -707,7 +695,7 @@ class _CardsPageState extends State<_CardsPage> {
                 ),
                 SliverPadding(
                     padding: const EdgeInsets.all(8),
-                    sliver: state.cardslist.isNotEmpty
+                    sliver: state.cardsList.isNotEmpty
                         ? _cardsGrid(state)
                         : _noCardsWidget(state)),
               ],
@@ -729,17 +717,21 @@ class _CardsPageState extends State<_CardsPage> {
               ? RaisedButton(
                   color: Theme.of(context).accentColor,
                   onPressed: () async {
-                    final card = await context.navigator.push(MaterialPageRoute(
-                        builder: (BuildContext context) => BlocProvider(
-                              create: (context) => AddCardBloc(null),
-                              child: CardEditor(
-                                isCreating: true,
-                              ),
-                            )));
-                    if (card != null)
+                    final cards =
+                        await context.navigator.push(MaterialPageRoute(
+                            builder: (BuildContext context) => BlocProvider(
+                                  create: (context) => AddCardBloc(
+                                      currentCardIndex: state.cardsList.length,
+                                      sourceCards: List.from(state.cardsList)
+                                        ..add(Entity.Card.basic())),
+                                  child: CardEditor(
+                                    isCreating: true,
+                                  ),
+                                )));
+                    if (cards != null)
                       context
                           .bloc<AddDeckBloc>()
-                          .add(AddDeckEvent.cardAdded(card));
+                          .add(AddDeckEvent.updateCards(cards: cards));
                   },
                   child: Text(
                     "Let's create a new one!",
@@ -757,34 +749,29 @@ class _CardsPageState extends State<_CardsPage> {
       crossAxisCount: 2,
       childAspectRatio: 0.8,
       children: List.generate(
-        state.cardslist.length,
+        state.cardsList.length,
         (index) => InDeckCardView(
-          key: ValueKey(state.cardslist[index].cardId),
+          key: ValueKey(state.cardsList[index].cardId),
           onTap: _isEditing
               ? () async {
-                  final changedCard =
-                      await context.navigator.push(MaterialPageRoute(
-                          builder: (BuildContext context) => BlocProvider(
-                                create: (context) =>
-                                    AddCardBloc(state.cardslist[index]),
-                                child: CardEditor(
-                                  isCreating: true,
-                                ),
-                              )));
-                  if (changedCard is Entity.Card) {
-                    if (changedCard != null) {
-                      context
-                          .bloc<AddDeckBloc>()
-                          .add(AddDeckEvent.cardChanged(changedCard));
-                    }
-                  } else if (changedCard) {
+                  final cards = await context.navigator.push(MaterialPageRoute(
+                      builder: (BuildContext context) => BlocProvider(
+                            create: (context) => AddCardBloc(
+                              sourceCards: List.from(state.cardsList),
+                              currentCardIndex: index,
+                            ),
+                            child: CardEditor(
+                              isCreating: true,
+                            ),
+                          )));
+                  if (cards != null) {
                     context
                         .bloc<AddDeckBloc>()
-                        .add(AddDeckEvent.cardDeleted(state.cardslist[index]));
+                        .add(AddDeckEvent.updateCards(cards: cards));
                   }
                 }
               : () {},
-          sourceCard: state.cardslist[index],
+          sourceCard: state.cardsList[index],
         ),
       ),
     );

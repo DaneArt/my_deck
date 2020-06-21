@@ -7,7 +7,6 @@ import 'package:meta/meta.dart';
 import 'package:mydeck/core/icons/custom_icons_icons.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 
-
 import 'package:mydeck/features/my_deck/presentation/widgets/shared/buttons.dart';
 
 class EndOfTrainView extends StatefulWidget {
@@ -72,11 +71,18 @@ class _EndOfTrainViewState extends State<EndOfTrainView> {
             borderRadius: BorderRadius.circular(10),
             child: FittedBox(
               fit: BoxFit.cover,
-              child: widget.deck != null? Image.file(widget.deck.icon): FadeInImage.memoryNetwork(
-                placeholder: kTransparentImage,
-                image:'https://zdshi.ru/media/2019/11/29/1264597622/1544343072.jpg',
-                fit: BoxFit.cover,
-              ),
+              child: widget.deck != null
+                  ? FadeInImage.memoryNetwork(
+                      placeholder: kTransparentImage,
+                      image: widget.deck.avatar.value.fold(
+                          (failure) => failure.failedValue, (path) => path),
+                      fit: BoxFit.cover,
+                    )
+                  : FadeInImage.memoryNetwork(
+                      placeholder: kTransparentImage,
+                      image: '',
+                      fit: BoxFit.cover,
+                    ),
             ),
           ),
         ),
@@ -86,7 +92,7 @@ class _EndOfTrainViewState extends State<EndOfTrainView> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('in ', style: Theme.of(context).textTheme.body2),
+            Text('in ', style: Theme.of(context).textTheme.bodyText2),
             _buildDeckText(),
           ],
         ),
@@ -146,10 +152,11 @@ class _EndOfTrainViewState extends State<EndOfTrainView> {
   Widget _buildDeckText() {
     if (widget.deck != null) {
       return Text(
-        widget.deck.title,
+        widget.deck.title.value
+            .fold((failure) => failure.failedValue, (value) => value),
         style: Theme.of(context)
             .textTheme
-            .body2
+            .bodyText2
             .copyWith(fontWeight: FontWeight.bold),
       );
     } else {
@@ -159,10 +166,10 @@ class _EndOfTrainViewState extends State<EndOfTrainView> {
             widget.decksCount.toString(),
             style: Theme.of(context)
                 .textTheme
-                .body2
+                .bodyText2
                 .copyWith(fontWeight: FontWeight.bold),
           ),
-          Text('decks', style: Theme.of(context).textTheme.body2),
+          Text('decks', style: Theme.of(context).textTheme.bodyText2),
         ],
       );
     }

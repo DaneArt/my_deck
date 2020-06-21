@@ -10,7 +10,6 @@ import 'package:mydeck/features/editor/domain/usecases/delete_deck_usecase.dart'
 import 'package:mydeck/features/editor/domain/usecases/save_deck_changes_usecase.dart';
 import 'package:mydeck/features/social/domain/usecases/upload_online_deck.dart';
 
-
 class SmallDeckCard extends StatelessWidget {
   final DeckOnline deck;
 
@@ -46,7 +45,9 @@ class SmallDeckCard extends StatelessWidget {
             height: screenSize.height / 4.5,
             child: Stack(
               children: <Widget>[
-                Image.file(deck.icon,
+                Image.network(
+                    deck.avatar.value
+                        .fold((failure) => failure.failedValue, (path) => path),
                     width: screenSize.height / 4.5,
                     height: screenSize.height / 4.5,
                     fit: BoxFit.cover),
@@ -75,7 +76,9 @@ class SmallDeckCard extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Text(deck.title,
+                    Text(
+                        deck.title.value.fold(
+                            (failure) => failure.failedValue, (title) => title),
                         style: TextStyle(
                             fontWeight: FontWeight.w500, color: Colors.white)),
                     Padding(

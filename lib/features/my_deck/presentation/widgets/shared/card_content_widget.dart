@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 import 'package:mydeck/features/my_deck/domain/entities/card_content.dart';
@@ -11,9 +12,12 @@ class TextCardWidget extends StatefulWidget {
   final Function(String text) onTextChanged;
   final bool isEditing;
 
-  const TextCardWidget(
-      {Key key, this.content, this.onTextChanged, this.isEditing})
-      : super(key: key);
+  const TextCardWidget({
+    Key key,
+    this.content,
+    this.onTextChanged,
+    this.isEditing,
+  }) : super(key: key);
 
   @override
   _TextCardWidgetState createState() => _TextCardWidgetState();
@@ -23,6 +27,8 @@ class _TextCardWidgetState extends State<TextCardWidget> {
   FocusNode contentFocusNode;
   GlobalKey<FormFieldState> formState;
   final area_lost_percent = 5;
+  final kCharactersLimit = 210;
+
   @override
   void initState() {
     super.initState();
@@ -41,10 +47,8 @@ class _TextCardWidgetState extends State<TextCardWidget> {
   @override
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
-
-    return Container(
-      height: screenSize.height * 0.65,
-      width: screenSize.width * 0.9,
+    double fontSize = 18;
+    return Expanded(
       child: Center(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -56,13 +60,26 @@ class _TextCardWidgetState extends State<TextCardWidget> {
                     textInputAction: TextInputAction.newline,
                     focusNode: contentFocusNode,
                     textAlign: TextAlign.center,
+                    decoration: InputDecoration(),
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(kCharactersLimit),
+                    ],
+                    maxLength: kCharactersLimit,
                     onChanged: (input) {
                       setState(() {
+                        fontSize = autoSizeFont(
+                            textLength: input.length,
+                            parentArea: ((screenSize.width * 0.9 - 32 * 2) *
+                                    (128 * input.length / 30))
+                                .toInt());
                         widget.onTextChanged(input);
                       });
                     },
                     maxLines: null,
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText2
+                        .copyWith(fontSize: fontSize),
                   ),
                 )
               : Text(
