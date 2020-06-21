@@ -1,0 +1,317 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:mydeck/core/extensions/widget_extensions.dart';
+import 'package:mydeck/core/helpers/images_util.dart';
+import 'package:mydeck/features/editor/presentation/widgets/card_fraction_pagination_builder.dart';
+import 'package:mydeck/core/icons/custom_icons_icons.dart';
+import 'package:mydeck/features/my_deck/domain/entities/card.dart' as Entity;
+import 'package:mydeck/features/my_deck/domain/entities/card_content.dart';
+import 'package:mydeck/features/editor/presentation/bloc/add_card/add_card_bloc.dart';
+import 'package:mydeck/features/my_deck/presentation/widgets/shared/card_content_widget.dart';
+
+class CardEditor extends StatefulWidget {
+  final bool isCreating;
+
+  const CardEditor({Key key, this.isCreating}) : super(key: key);
+
+  @override
+  _CardEditorState createState() => _CardEditorState();
+}
+
+class _CardEditorState extends State<CardEditor> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: () async {
+        context.bloc<AddCardBloc>().add(AddCardEvent.saveChangesAndExit());
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          actions: <Widget>[
+            widget.isCreating
+                ? IconButton(
+                    onPressed: () {
+                      BlocProvider.of<AddCardBloc>(context)
+                          .add(AddCardEvent.deleteCard());
+                    },
+                    icon: Icon(Icons.delete,
+                        color: Theme.of(context).accentIconTheme.color),
+                  )
+                : Container(),
+          ],
+          leading: IconButton(
+            onPressed: () {
+              context.navigator.pop();
+            },
+            icon: Icon(Icons.clear,
+                color: Theme.of(context).accentIconTheme.color),
+          ),
+          backgroundColor: Colors.transparent,
+        ),
+        body: BlocListener<AddCardBloc, AddCardState>(
+          listener: (context, state) {
+            if (state.saveChangesAndExit) {
+              context.navigator.pop(state.sourceCards);
+            }
+          },
+          child: _cardWidget(),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            context.bloc<AddCardBloc>().add(AddCardEvent.saveChangesAndExit());
+          },
+          tooltip: 'Increment',
+          child: Icon(Icons.check),
+          elevation: 8.0,
+        ),
+        bottomNavigationBar: BottomAppBar(
+          elevation: 8.0,
+          child: _controls(),
+          shape: CircularNotchedRectangle(),
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
+
+  _getImage(ImageSource source) async {
+    final image = source == ImageSource.camera
+        ? await ImagesUtil.pickImageFromCamera()
+        : await ImagesUtil.pickImageFromGallery();
+    if (image != null) {
+      context
+          .bloc<AddCardBloc>()
+          .add(AddCardEvent.setImageContent(image: image));
+    }
+  }
+
+  _showImagePickerDialog() {
+    showModalBottomSheet(
+        context: context,
+        elevation: 4,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(8), topRight: Radius.circular(8))),
+        builder: (context) => Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: FlatButton(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Text('Pick from gallery'),
+                          Icon(Icons.filter)
+                        ],
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        _getImage(ImageSource.gallery);
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: FlatButton(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Text('Pick a photo'),
+                          Icon(Icons.camera_alt)
+                        ],
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        _getImage(ImageSource.camera);
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ));
+  }
+
+  Widget _controls() => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.photo,
+                color: Theme.of(context).accentIconTheme.color,
+              ),
+              onPressed: () {
+                _showImagePickerDialog();
+              },
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.text_fields,
+                color: Theme.of(context).accentIconTheme.color,
+              ),
+              onPressed: () {
+                context.bloc<AddCardBloc>().add(AddCardEvent.setTextContent());
+              },
+            ),
+//            IconButton(
+//              icon: Icon(
+//                Icons.brush,
+//                color: Theme.of(context).accentIconTheme.color,
+//              ),
+//              onPressed: () {},
+//            ),
+          ],
+        ),
+      );
+
+  Widget _renderQuestion(BuildContext context, Entity.Card card) =>
+      card.question.map(
+        noContent: (s) => TextCardWidget(
+          key: Key('CQue ${card.cardId}'),
+          content: CardContent.textContent(text: ''),
+          isEditing: true,
+          onTextChanged: (input) {
+            context.bloc<AddCardBloc>().add(AddCardEvent.questionChanged(
+                newQuestion: CardContent.textContent(text: input)));
+          },
+        ),
+        textContent: (s) => TextCardWidget(
+          key: Key('CQue ${card.cardId}'),
+          content: CardContent.textContent(text: s.model),
+          isEditing: true,
+          onTextChanged: (input) {
+            context.bloc<AddCardBloc>().add(AddCardEvent.questionChanged(
+                newQuestion: CardContent.textContent(text: input)));
+          },
+        ),
+        imageContent: (s) => ImageCardContentWidget(imageFile: s.image),
+      );
+
+  Widget _renderAnswer(BuildContext context, Entity.Card card) =>
+      card.answer.map(
+        noContent: (s) => TextCardWidget(
+          key: Key('CAns ${card.cardId}'),
+          content: CardContent.textContent(text: ''),
+          isEditing: true,
+          onTextChanged: (input) {
+            context.bloc<AddCardBloc>().add(AddCardEvent.answerChanged(
+                newAnswer: CardContent.textContent(text: input)));
+          },
+        ),
+        textContent: (s) => TextCardWidget(
+          key: Key('CAns ${card.cardId}'),
+          content: s,
+          isEditing: true,
+          onTextChanged: (input) {
+            context.bloc<AddCardBloc>().add(AddCardEvent.answerChanged(
+                newAnswer: CardContent.textContent(text: input)));
+          },
+        ),
+        imageContent: (s) => ClipRRect(
+            borderRadius: BorderRadius.only(
+                bottomRight: Radius.circular(4),
+                bottomLeft: Radius.circular(4)),
+            child: InkWell(
+                onTap: () {
+                  _showImagePickerDialog();
+                },
+                child: Image.network(
+                  s.model,
+                  fit: BoxFit.cover,
+                  height: MediaQuery.of(context).size.height * 0.65,
+                  width: MediaQuery.of(context).size.width,
+                ))),
+      );
+
+  Widget _renderCard(BuildContext context, AddCardState state, int cardIndex) {
+    return Card(
+      key: ValueKey(cardIndex),
+      child: Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(state.isQuestion ? 'Question' : 'Answer',
+                    style: Theme.of(context).textTheme.headline5),
+                IconButton(
+                  onPressed: () {
+                    BlocProvider.of<AddCardBloc>(context)
+                        .add(AddCardEvent.rotateCard());
+                  },
+                  icon: Icon(Icons.refresh,
+                      color: Theme.of(context).accentIconTheme.color, size: 32),
+                )
+              ],
+            ),
+          ),
+          state.isQuestion
+              ? _renderQuestion(context, state.sourceCards[cardIndex])
+              : _renderAnswer(context, state.sourceCards[cardIndex])
+        ],
+      ),
+    );
+  }
+
+  Widget _cardWidget() =>
+      BlocBuilder<AddCardBloc, AddCardState>(builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 32.0),
+          child: Swiper(
+              key:
+                  UniqueKey(), //It fixes the 'ScrollController not attached to any scroll views. Dunno why))'
+              loop: false,
+              viewportFraction: 0.85,
+              scale: 0.9,
+              controller: SwiperController(),
+              itemWidth: MediaQuery.of(context).size.width,
+              itemHeight: MediaQuery.of(context).size.height,
+              onIndexChanged: (newIndex) {
+                Future.delayed(Duration(milliseconds: 300), () {
+                  BlocProvider.of<AddCardBloc>(context)
+                      .add(AddCardEvent.changeIndex(newIndex: newIndex));
+                });
+              },
+              pagination: SwiperPagination(
+                  builder: CardFractionPaginationBuilder(
+                activeColor: Colors.red,
+                color: Colors.green,
+              )),
+              index: state.currentCardIndex,
+              itemCount: state.sourceCards.length + 1,
+              itemBuilder: (context, index) => index == state.sourceCards.length
+                  ? Card(
+                      key: ValueKey(state.sourceCards.length),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        child: Center(
+                          child: Icon(
+                            Icons.add,
+                            color: Theme.of(context).accentIconTheme.color,
+                            size: 168,
+                          ),
+                        ),
+                      ),
+                    )
+                  : _renderCard(context, state, index)),
+        );
+      });
+}
