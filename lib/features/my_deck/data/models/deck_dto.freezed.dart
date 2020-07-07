@@ -199,7 +199,7 @@ class __$DeckDtoCopyWithImpl<$Res> extends _$DeckDtoCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-class _$_DeckDto extends _DeckDto {
+class _$_DeckDto extends _DeckDto with DiagnosticableTreeMixin {
   const _$_DeckDto(
       {@required @JsonKey(name: 'deck_id') this.deckId,
       @required this.title,
@@ -261,8 +261,26 @@ class _$_DeckDto extends _DeckDto {
   final String authorId;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'DeckDto(deckId: $deckId, title: $title, avatar: $avatar, description: $description, subscribersCount: $subscribersCount, subscribers: $subscribers, cardsCount: $cardsCount, cardDtos: $cardDtos, categoryName: $categoryName, isPrivate: $isPrivate, authorId: $authorId)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'DeckDto'))
+      ..add(DiagnosticsProperty('deckId', deckId))
+      ..add(DiagnosticsProperty('title', title))
+      ..add(DiagnosticsProperty('avatar', avatar))
+      ..add(DiagnosticsProperty('description', description))
+      ..add(DiagnosticsProperty('subscribersCount', subscribersCount))
+      ..add(DiagnosticsProperty('subscribers', subscribers))
+      ..add(DiagnosticsProperty('cardsCount', cardsCount))
+      ..add(DiagnosticsProperty('cardDtos', cardDtos))
+      ..add(DiagnosticsProperty('categoryName', categoryName))
+      ..add(DiagnosticsProperty('isPrivate', isPrivate))
+      ..add(DiagnosticsProperty('authorId', authorId));
   }
 
   @override

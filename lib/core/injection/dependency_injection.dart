@@ -63,11 +63,8 @@ void setUp() {
           ));
   sl.registerLazySingleton<UserDataSource>(() => UserDataSourceImpl());
   //repository
-  sl.registerLazySingleton<MyDeckRepository>(() => MyDeckRepositoryImpl(
-      localDataSource: sl(),
-      networkDataSource: sl(),
-      mediaDataSource: sl(),
-      networkConnection: sl()));
+  sl.registerLazySingleton<MyDeckRepository>(() =>
+      MyDeckRepositoryImpl(networkDataSource: sl(), networkConnection: sl()));
 
   //use cases
   sl.registerFactory(() => UploadOnlineDeckUsecase(myDeckRepository: sl()));

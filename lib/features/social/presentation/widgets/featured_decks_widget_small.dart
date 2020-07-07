@@ -74,22 +74,6 @@ class _FeaturedDeckListSmallState extends State<FeaturedDeckListSmall> {
             ),
           ),
         ),
-//        Padding(
-//          padding: const EdgeInsets.all(24),
-//          child: Align(
-//            alignment: Alignment.bottomCenter,
-//            child: SmoothPageIndicator(
-//              controller: _pageController, // PageController
-//              count: widget.decks.length,
-//              effect: ExpandingDotsEffect(
-//                  dotHeight: 12,
-//                  dotWidth: 12,
-//                  activeDotColor: Theme.of(context).accentColor,
-//                  dotColor:
-//                      Colors.white.withAlpha(150)), // your preferred effect
-//            ),
-//          ),
-//        ),
       ],
     );
   }

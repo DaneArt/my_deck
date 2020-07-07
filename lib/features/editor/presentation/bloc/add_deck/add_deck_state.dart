@@ -16,14 +16,14 @@ abstract class AddDeckState with _$AddDeckState {
   }) = _AddDeckState;
 
   factory AddDeckState.initial({@required Deck initialDeck}) => AddDeckState(
-        avatar: DeckAvatar(initialDeck.icon),
+        avatar: initialDeck.avatar,
         cardsList: initialDeck is DeckOnline
             ? []
             : (initialDeck as DeckLibrary).cardsList,
         category: initialDeck.category,
-        description: DeckDescription(initialDeck.description),
+        description: initialDeck.description,
         isShared: !initialDeck.isPrivate,
-        title: DeckTitle(initialDeck.title),
+        title: initialDeck.title,
         saveFailureOrSuccessOption: none(),
         author: initialDeck.author,
         initialDeck: initialDeck,

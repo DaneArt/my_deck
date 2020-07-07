@@ -203,7 +203,9 @@ class _$InvalidEmailCopyWithImpl<T, $Res>
   }
 }
 
-class _$InvalidEmail<T> implements InvalidEmail<T> {
+class _$InvalidEmail<T>
+    with DiagnosticableTreeMixin
+    implements InvalidEmail<T> {
   _$InvalidEmail({@required this.failedValue}) : assert(failedValue != null);
 
   @override
@@ -217,28 +219,34 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
     if (_didmessage == false) {
       _didmessage = true;
       _message = this.map(
-          invalidEmail: (value) => 'Email is incorrect.',
-          shortPassword: (value) =>
-              'Password must be longer than 8 characters.',
-          invalidLogin: (value) =>
-              "Login could contain letters, numbers, '.' or '_'.",
-          longLogin: (value) => 'Login must be shorter than 30 characters.',
-          invalidPassword: (value) =>
-              'Pasword must contain at least 1 number, 1 uppercase letter and 1 bottomcase letter.',
-          longPassword: (value) =>
-              'Password must be shorter than 24 characters.',
-          fileDoesNotExists: (value) => "File doesn't exists.",
-          invalidDeckTitle: (value) =>
-              "Title could contain letters, numbers, '.' or '_'.",
-          shortDeckTitle: (value) => 'Title must be longer than 6 characters.',
-          expiredToken: (value) => 'Token expired.');
+        invalidEmail: (value) => S.current.error_value_email_incorrect,
+        shortPassword: (value) => S.current.error_value_short_passwor,
+        invalidLogin: (value) => S.current.error_value_invalid_login,
+        longLogin: (value) => S.current.error_value_long_login,
+        invalidPassword: (value) => S.current.error_value_invalid_password,
+        longPassword: (value) => S.current.error_value_long_password,
+        fileDoesNotExists: (value) => S.current.error_value_file_inexists,
+        invalidDeckTitle: (value) => S.current.error_value_invalid_title,
+        shortDeckTitle: (value) => S.current.error_value_title_short,
+        expiredToken: (value) => S.current.error_auth_invalid_session,
+        invalidUniqueId: (value) => S.current.error_auth_invalid_session,
+      );
     }
     return _message;
   }
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'ValueFailure<$T>.invalidEmail(failedValue: $failedValue, message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.invalidEmail'))
+      ..add(DiagnosticsProperty('failedValue', failedValue))
+      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -402,7 +410,9 @@ class _$ShortPasswordCopyWithImpl<T, $Res>
   }
 }
 
-class _$ShortPassword<T> implements ShortPassword<T> {
+class _$ShortPassword<T>
+    with DiagnosticableTreeMixin
+    implements ShortPassword<T> {
   _$ShortPassword({@required this.failedValue}) : assert(failedValue != null);
 
   @override
@@ -416,28 +426,34 @@ class _$ShortPassword<T> implements ShortPassword<T> {
     if (_didmessage == false) {
       _didmessage = true;
       _message = this.map(
-          invalidEmail: (value) => 'Email is incorrect.',
-          shortPassword: (value) =>
-              'Password must be longer than 8 characters.',
-          invalidLogin: (value) =>
-              "Login could contain letters, numbers, '.' or '_'.",
-          longLogin: (value) => 'Login must be shorter than 30 characters.',
-          invalidPassword: (value) =>
-              'Pasword must contain at least 1 number, 1 uppercase letter and 1 bottomcase letter.',
-          longPassword: (value) =>
-              'Password must be shorter than 24 characters.',
-          fileDoesNotExists: (value) => "File doesn't exists.",
-          invalidDeckTitle: (value) =>
-              "Title could contain letters, numbers, '.' or '_'.",
-          shortDeckTitle: (value) => 'Title must be longer than 6 characters.',
-          expiredToken: (value) => 'Token expired.');
+        invalidEmail: (value) => S.current.error_value_email_incorrect,
+        shortPassword: (value) => S.current.error_value_short_passwor,
+        invalidLogin: (value) => S.current.error_value_invalid_login,
+        longLogin: (value) => S.current.error_value_long_login,
+        invalidPassword: (value) => S.current.error_value_invalid_password,
+        longPassword: (value) => S.current.error_value_long_password,
+        fileDoesNotExists: (value) => S.current.error_value_file_inexists,
+        invalidDeckTitle: (value) => S.current.error_value_invalid_title,
+        shortDeckTitle: (value) => S.current.error_value_title_short,
+        expiredToken: (value) => S.current.error_auth_invalid_session,
+        invalidUniqueId: (value) => S.current.error_auth_invalid_session,
+      );
     }
     return _message;
   }
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'ValueFailure<$T>.shortPassword(failedValue: $failedValue, message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.shortPassword'))
+      ..add(DiagnosticsProperty('failedValue', failedValue))
+      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -601,7 +617,9 @@ class _$InvalidUniqueIdCopyWithImpl<T, $Res>
   }
 }
 
-class _$InvalidUniqueId<T> implements InvalidUniqueId<T> {
+class _$InvalidUniqueId<T>
+    with DiagnosticableTreeMixin
+    implements InvalidUniqueId<T> {
   _$InvalidUniqueId({@required this.failedValue}) : assert(failedValue != null);
 
   @override
@@ -615,28 +633,34 @@ class _$InvalidUniqueId<T> implements InvalidUniqueId<T> {
     if (_didmessage == false) {
       _didmessage = true;
       _message = this.map(
-          invalidEmail: (value) => 'Email is incorrect.',
-          shortPassword: (value) =>
-              'Password must be longer than 8 characters.',
-          invalidLogin: (value) =>
-              "Login could contain letters, numbers, '.' or '_'.",
-          longLogin: (value) => 'Login must be shorter than 30 characters.',
-          invalidPassword: (value) =>
-              'Pasword must contain at least 1 number, 1 uppercase letter and 1 bottomcase letter.',
-          longPassword: (value) =>
-              'Password must be shorter than 24 characters.',
-          fileDoesNotExists: (value) => "File doesn't exists.",
-          invalidDeckTitle: (value) =>
-              "Title could contain letters, numbers, '.' or '_'.",
-          shortDeckTitle: (value) => 'Title must be longer than 6 characters.',
-          expiredToken: (value) => 'Token expired.');
+        invalidEmail: (value) => S.current.error_value_email_incorrect,
+        shortPassword: (value) => S.current.error_value_short_passwor,
+        invalidLogin: (value) => S.current.error_value_invalid_login,
+        longLogin: (value) => S.current.error_value_long_login,
+        invalidPassword: (value) => S.current.error_value_invalid_password,
+        longPassword: (value) => S.current.error_value_long_password,
+        fileDoesNotExists: (value) => S.current.error_value_file_inexists,
+        invalidDeckTitle: (value) => S.current.error_value_invalid_title,
+        shortDeckTitle: (value) => S.current.error_value_title_short,
+        expiredToken: (value) => S.current.error_auth_invalid_session,
+        invalidUniqueId: (value) => S.current.error_auth_invalid_session,
+      );
     }
     return _message;
   }
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'ValueFailure<$T>.invalidUniqueId(failedValue: $failedValue, message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.invalidUniqueId'))
+      ..add(DiagnosticsProperty('failedValue', failedValue))
+      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -800,7 +824,9 @@ class _$LongPasswordCopyWithImpl<T, $Res>
   }
 }
 
-class _$LongPassword<T> implements LongPassword<T> {
+class _$LongPassword<T>
+    with DiagnosticableTreeMixin
+    implements LongPassword<T> {
   _$LongPassword({@required this.failedValue}) : assert(failedValue != null);
 
   @override
@@ -814,28 +840,34 @@ class _$LongPassword<T> implements LongPassword<T> {
     if (_didmessage == false) {
       _didmessage = true;
       _message = this.map(
-          invalidEmail: (value) => 'Email is incorrect.',
-          shortPassword: (value) =>
-              'Password must be longer than 8 characters.',
-          invalidLogin: (value) =>
-              "Login could contain letters, numbers, '.' or '_'.",
-          longLogin: (value) => 'Login must be shorter than 30 characters.',
-          invalidPassword: (value) =>
-              'Pasword must contain at least 1 number, 1 uppercase letter and 1 bottomcase letter.',
-          longPassword: (value) =>
-              'Password must be shorter than 24 characters.',
-          fileDoesNotExists: (value) => "File doesn't exists.",
-          invalidDeckTitle: (value) =>
-              "Title could contain letters, numbers, '.' or '_'.",
-          shortDeckTitle: (value) => 'Title must be longer than 6 characters.',
-          expiredToken: (value) => 'Token expired.');
+        invalidEmail: (value) => S.current.error_value_email_incorrect,
+        shortPassword: (value) => S.current.error_value_short_passwor,
+        invalidLogin: (value) => S.current.error_value_invalid_login,
+        longLogin: (value) => S.current.error_value_long_login,
+        invalidPassword: (value) => S.current.error_value_invalid_password,
+        longPassword: (value) => S.current.error_value_long_password,
+        fileDoesNotExists: (value) => S.current.error_value_file_inexists,
+        invalidDeckTitle: (value) => S.current.error_value_invalid_title,
+        shortDeckTitle: (value) => S.current.error_value_title_short,
+        expiredToken: (value) => S.current.error_auth_invalid_session,
+        invalidUniqueId: (value) => S.current.error_auth_invalid_session,
+      );
     }
     return _message;
   }
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'ValueFailure<$T>.longPassword(failedValue: $failedValue, message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.longPassword'))
+      ..add(DiagnosticsProperty('failedValue', failedValue))
+      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -999,7 +1031,9 @@ class _$InvalidLoginCopyWithImpl<T, $Res>
   }
 }
 
-class _$InvalidLogin<T> implements InvalidLogin<T> {
+class _$InvalidLogin<T>
+    with DiagnosticableTreeMixin
+    implements InvalidLogin<T> {
   _$InvalidLogin({@required this.failedValue}) : assert(failedValue != null);
 
   @override
@@ -1013,28 +1047,34 @@ class _$InvalidLogin<T> implements InvalidLogin<T> {
     if (_didmessage == false) {
       _didmessage = true;
       _message = this.map(
-          invalidEmail: (value) => 'Email is incorrect.',
-          shortPassword: (value) =>
-              'Password must be longer than 8 characters.',
-          invalidLogin: (value) =>
-              "Login could contain letters, numbers, '.' or '_'.",
-          longLogin: (value) => 'Login must be shorter than 30 characters.',
-          invalidPassword: (value) =>
-              'Pasword must contain at least 1 number, 1 uppercase letter and 1 bottomcase letter.',
-          longPassword: (value) =>
-              'Password must be shorter than 24 characters.',
-          fileDoesNotExists: (value) => "File doesn't exists.",
-          invalidDeckTitle: (value) =>
-              "Title could contain letters, numbers, '.' or '_'.",
-          shortDeckTitle: (value) => 'Title must be longer than 6 characters.',
-          expiredToken: (value) => 'Token expired.');
+        invalidEmail: (value) => S.current.error_value_email_incorrect,
+        shortPassword: (value) => S.current.error_value_short_passwor,
+        invalidLogin: (value) => S.current.error_value_invalid_login,
+        longLogin: (value) => S.current.error_value_long_login,
+        invalidPassword: (value) => S.current.error_value_invalid_password,
+        longPassword: (value) => S.current.error_value_long_password,
+        fileDoesNotExists: (value) => S.current.error_value_file_inexists,
+        invalidDeckTitle: (value) => S.current.error_value_invalid_title,
+        shortDeckTitle: (value) => S.current.error_value_title_short,
+        expiredToken: (value) => S.current.error_auth_invalid_session,
+        invalidUniqueId: (value) => S.current.error_auth_invalid_session,
+      );
     }
     return _message;
   }
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'ValueFailure<$T>.invalidLogin(failedValue: $failedValue, message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.invalidLogin'))
+      ..add(DiagnosticsProperty('failedValue', failedValue))
+      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -1198,7 +1238,7 @@ class _$LongLoginCopyWithImpl<T, $Res>
   }
 }
 
-class _$LongLogin<T> implements LongLogin<T> {
+class _$LongLogin<T> with DiagnosticableTreeMixin implements LongLogin<T> {
   _$LongLogin({@required this.failedValue}) : assert(failedValue != null);
 
   @override
@@ -1212,28 +1252,34 @@ class _$LongLogin<T> implements LongLogin<T> {
     if (_didmessage == false) {
       _didmessage = true;
       _message = this.map(
-          invalidEmail: (value) => 'Email is incorrect.',
-          shortPassword: (value) =>
-              'Password must be longer than 8 characters.',
-          invalidLogin: (value) =>
-              "Login could contain letters, numbers, '.' or '_'.",
-          longLogin: (value) => 'Login must be shorter than 30 characters.',
-          invalidPassword: (value) =>
-              'Pasword must contain at least 1 number, 1 uppercase letter and 1 bottomcase letter.',
-          longPassword: (value) =>
-              'Password must be shorter than 24 characters.',
-          fileDoesNotExists: (value) => "File doesn't exists.",
-          invalidDeckTitle: (value) =>
-              "Title could contain letters, numbers, '.' or '_'.",
-          shortDeckTitle: (value) => 'Title must be longer than 6 characters.',
-          expiredToken: (value) => 'Token expired.');
+        invalidEmail: (value) => S.current.error_value_email_incorrect,
+        shortPassword: (value) => S.current.error_value_short_passwor,
+        invalidLogin: (value) => S.current.error_value_invalid_login,
+        longLogin: (value) => S.current.error_value_long_login,
+        invalidPassword: (value) => S.current.error_value_invalid_password,
+        longPassword: (value) => S.current.error_value_long_password,
+        fileDoesNotExists: (value) => S.current.error_value_file_inexists,
+        invalidDeckTitle: (value) => S.current.error_value_invalid_title,
+        shortDeckTitle: (value) => S.current.error_value_title_short,
+        expiredToken: (value) => S.current.error_auth_invalid_session,
+        invalidUniqueId: (value) => S.current.error_auth_invalid_session,
+      );
     }
     return _message;
   }
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'ValueFailure<$T>.longLogin(failedValue: $failedValue, message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.longLogin'))
+      ..add(DiagnosticsProperty('failedValue', failedValue))
+      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -1397,7 +1443,9 @@ class _$InvalidPasswordCopyWithImpl<T, $Res>
   }
 }
 
-class _$InvalidPassword<T> implements InvalidPassword<T> {
+class _$InvalidPassword<T>
+    with DiagnosticableTreeMixin
+    implements InvalidPassword<T> {
   _$InvalidPassword({@required this.failedValue}) : assert(failedValue != null);
 
   @override
@@ -1411,28 +1459,34 @@ class _$InvalidPassword<T> implements InvalidPassword<T> {
     if (_didmessage == false) {
       _didmessage = true;
       _message = this.map(
-          invalidEmail: (value) => 'Email is incorrect.',
-          shortPassword: (value) =>
-              'Password must be longer than 8 characters.',
-          invalidLogin: (value) =>
-              "Login could contain letters, numbers, '.' or '_'.",
-          longLogin: (value) => 'Login must be shorter than 30 characters.',
-          invalidPassword: (value) =>
-              'Pasword must contain at least 1 number, 1 uppercase letter and 1 bottomcase letter.',
-          longPassword: (value) =>
-              'Password must be shorter than 24 characters.',
-          fileDoesNotExists: (value) => "File doesn't exists.",
-          invalidDeckTitle: (value) =>
-              "Title could contain letters, numbers, '.' or '_'.",
-          shortDeckTitle: (value) => 'Title must be longer than 6 characters.',
-          expiredToken: (value) => 'Token expired.');
+        invalidEmail: (value) => S.current.error_value_email_incorrect,
+        shortPassword: (value) => S.current.error_value_short_passwor,
+        invalidLogin: (value) => S.current.error_value_invalid_login,
+        longLogin: (value) => S.current.error_value_long_login,
+        invalidPassword: (value) => S.current.error_value_invalid_password,
+        longPassword: (value) => S.current.error_value_long_password,
+        fileDoesNotExists: (value) => S.current.error_value_file_inexists,
+        invalidDeckTitle: (value) => S.current.error_value_invalid_title,
+        shortDeckTitle: (value) => S.current.error_value_title_short,
+        expiredToken: (value) => S.current.error_auth_invalid_session,
+        invalidUniqueId: (value) => S.current.error_auth_invalid_session,
+      );
     }
     return _message;
   }
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'ValueFailure<$T>.invalidPassword(failedValue: $failedValue, message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.invalidPassword'))
+      ..add(DiagnosticsProperty('failedValue', failedValue))
+      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -1596,7 +1650,9 @@ class _$FileDoesNotExistsCopyWithImpl<T, $Res>
   }
 }
 
-class _$FileDoesNotExists<T> implements FileDoesNotExists<T> {
+class _$FileDoesNotExists<T>
+    with DiagnosticableTreeMixin
+    implements FileDoesNotExists<T> {
   _$FileDoesNotExists({@required this.failedValue})
       : assert(failedValue != null);
 
@@ -1611,28 +1667,34 @@ class _$FileDoesNotExists<T> implements FileDoesNotExists<T> {
     if (_didmessage == false) {
       _didmessage = true;
       _message = this.map(
-          invalidEmail: (value) => 'Email is incorrect.',
-          shortPassword: (value) =>
-              'Password must be longer than 8 characters.',
-          invalidLogin: (value) =>
-              "Login could contain letters, numbers, '.' or '_'.",
-          longLogin: (value) => 'Login must be shorter than 30 characters.',
-          invalidPassword: (value) =>
-              'Pasword must contain at least 1 number, 1 uppercase letter and 1 bottomcase letter.',
-          longPassword: (value) =>
-              'Password must be shorter than 24 characters.',
-          fileDoesNotExists: (value) => "File doesn't exists.",
-          invalidDeckTitle: (value) =>
-              "Title could contain letters, numbers, '.' or '_'.",
-          shortDeckTitle: (value) => 'Title must be longer than 6 characters.',
-          expiredToken: (value) => 'Token expired.');
+        invalidEmail: (value) => S.current.error_value_email_incorrect,
+        shortPassword: (value) => S.current.error_value_short_passwor,
+        invalidLogin: (value) => S.current.error_value_invalid_login,
+        longLogin: (value) => S.current.error_value_long_login,
+        invalidPassword: (value) => S.current.error_value_invalid_password,
+        longPassword: (value) => S.current.error_value_long_password,
+        fileDoesNotExists: (value) => S.current.error_value_file_inexists,
+        invalidDeckTitle: (value) => S.current.error_value_invalid_title,
+        shortDeckTitle: (value) => S.current.error_value_title_short,
+        expiredToken: (value) => S.current.error_auth_invalid_session,
+        invalidUniqueId: (value) => S.current.error_auth_invalid_session,
+      );
     }
     return _message;
   }
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'ValueFailure<$T>.fileDoesNotExists(failedValue: $failedValue, message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.fileDoesNotExists'))
+      ..add(DiagnosticsProperty('failedValue', failedValue))
+      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -1797,7 +1859,9 @@ class _$ShortDeckTitleCopyWithImpl<T, $Res>
   }
 }
 
-class _$ShortDeckTitle<T> implements ShortDeckTitle<T> {
+class _$ShortDeckTitle<T>
+    with DiagnosticableTreeMixin
+    implements ShortDeckTitle<T> {
   _$ShortDeckTitle({@required this.failedValue}) : assert(failedValue != null);
 
   @override
@@ -1811,28 +1875,34 @@ class _$ShortDeckTitle<T> implements ShortDeckTitle<T> {
     if (_didmessage == false) {
       _didmessage = true;
       _message = this.map(
-          invalidEmail: (value) => 'Email is incorrect.',
-          shortPassword: (value) =>
-              'Password must be longer than 8 characters.',
-          invalidLogin: (value) =>
-              "Login could contain letters, numbers, '.' or '_'.",
-          longLogin: (value) => 'Login must be shorter than 30 characters.',
-          invalidPassword: (value) =>
-              'Pasword must contain at least 1 number, 1 uppercase letter and 1 bottomcase letter.',
-          longPassword: (value) =>
-              'Password must be shorter than 24 characters.',
-          fileDoesNotExists: (value) => "File doesn't exists.",
-          invalidDeckTitle: (value) =>
-              "Title could contain letters, numbers, '.' or '_'.",
-          shortDeckTitle: (value) => 'Title must be longer than 6 characters.',
-          expiredToken: (value) => 'Token expired.');
+        invalidEmail: (value) => S.current.error_value_email_incorrect,
+        shortPassword: (value) => S.current.error_value_short_passwor,
+        invalidLogin: (value) => S.current.error_value_invalid_login,
+        longLogin: (value) => S.current.error_value_long_login,
+        invalidPassword: (value) => S.current.error_value_invalid_password,
+        longPassword: (value) => S.current.error_value_long_password,
+        fileDoesNotExists: (value) => S.current.error_value_file_inexists,
+        invalidDeckTitle: (value) => S.current.error_value_invalid_title,
+        shortDeckTitle: (value) => S.current.error_value_title_short,
+        expiredToken: (value) => S.current.error_auth_invalid_session,
+        invalidUniqueId: (value) => S.current.error_auth_invalid_session,
+      );
     }
     return _message;
   }
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'ValueFailure<$T>.shortDeckTitle(failedValue: $failedValue, message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.shortDeckTitle'))
+      ..add(DiagnosticsProperty('failedValue', failedValue))
+      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -1996,7 +2066,9 @@ class _$InvalidDeckTitleCopyWithImpl<T, $Res>
   }
 }
 
-class _$InvalidDeckTitle<T> implements InvalidDeckTitle<T> {
+class _$InvalidDeckTitle<T>
+    with DiagnosticableTreeMixin
+    implements InvalidDeckTitle<T> {
   _$InvalidDeckTitle({@required this.failedValue})
       : assert(failedValue != null);
 
@@ -2011,28 +2083,34 @@ class _$InvalidDeckTitle<T> implements InvalidDeckTitle<T> {
     if (_didmessage == false) {
       _didmessage = true;
       _message = this.map(
-          invalidEmail: (value) => 'Email is incorrect.',
-          shortPassword: (value) =>
-              'Password must be longer than 8 characters.',
-          invalidLogin: (value) =>
-              "Login could contain letters, numbers, '.' or '_'.",
-          longLogin: (value) => 'Login must be shorter than 30 characters.',
-          invalidPassword: (value) =>
-              'Pasword must contain at least 1 number, 1 uppercase letter and 1 bottomcase letter.',
-          longPassword: (value) =>
-              'Password must be shorter than 24 characters.',
-          fileDoesNotExists: (value) => "File doesn't exists.",
-          invalidDeckTitle: (value) =>
-              "Title could contain letters, numbers, '.' or '_'.",
-          shortDeckTitle: (value) => 'Title must be longer than 6 characters.',
-          expiredToken: (value) => 'Token expired.');
+        invalidEmail: (value) => S.current.error_value_email_incorrect,
+        shortPassword: (value) => S.current.error_value_short_passwor,
+        invalidLogin: (value) => S.current.error_value_invalid_login,
+        longLogin: (value) => S.current.error_value_long_login,
+        invalidPassword: (value) => S.current.error_value_invalid_password,
+        longPassword: (value) => S.current.error_value_long_password,
+        fileDoesNotExists: (value) => S.current.error_value_file_inexists,
+        invalidDeckTitle: (value) => S.current.error_value_invalid_title,
+        shortDeckTitle: (value) => S.current.error_value_title_short,
+        expiredToken: (value) => S.current.error_auth_invalid_session,
+        invalidUniqueId: (value) => S.current.error_auth_invalid_session,
+      );
     }
     return _message;
   }
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'ValueFailure<$T>.invalidDeckTitle(failedValue: $failedValue, message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.invalidDeckTitle'))
+      ..add(DiagnosticsProperty('failedValue', failedValue))
+      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -2196,7 +2274,9 @@ class _$ExpiredTokenCopyWithImpl<T, $Res>
   }
 }
 
-class _$ExpiredToken<T> implements ExpiredToken<T> {
+class _$ExpiredToken<T>
+    with DiagnosticableTreeMixin
+    implements ExpiredToken<T> {
   _$ExpiredToken({@required this.failedValue}) : assert(failedValue != null);
 
   @override
@@ -2210,28 +2290,34 @@ class _$ExpiredToken<T> implements ExpiredToken<T> {
     if (_didmessage == false) {
       _didmessage = true;
       _message = this.map(
-          invalidEmail: (value) => 'Email is incorrect.',
-          shortPassword: (value) =>
-              'Password must be longer than 8 characters.',
-          invalidLogin: (value) =>
-              "Login could contain letters, numbers, '.' or '_'.",
-          longLogin: (value) => 'Login must be shorter than 30 characters.',
-          invalidPassword: (value) =>
-              'Pasword must contain at least 1 number, 1 uppercase letter and 1 bottomcase letter.',
-          longPassword: (value) =>
-              'Password must be shorter than 24 characters.',
-          fileDoesNotExists: (value) => "File doesn't exists.",
-          invalidDeckTitle: (value) =>
-              "Title could contain letters, numbers, '.' or '_'.",
-          shortDeckTitle: (value) => 'Title must be longer than 6 characters.',
-          expiredToken: (value) => 'Token expired.');
+        invalidEmail: (value) => S.current.error_value_email_incorrect,
+        shortPassword: (value) => S.current.error_value_short_passwor,
+        invalidLogin: (value) => S.current.error_value_invalid_login,
+        longLogin: (value) => S.current.error_value_long_login,
+        invalidPassword: (value) => S.current.error_value_invalid_password,
+        longPassword: (value) => S.current.error_value_long_password,
+        fileDoesNotExists: (value) => S.current.error_value_file_inexists,
+        invalidDeckTitle: (value) => S.current.error_value_invalid_title,
+        shortDeckTitle: (value) => S.current.error_value_title_short,
+        expiredToken: (value) => S.current.error_auth_invalid_session,
+        invalidUniqueId: (value) => S.current.error_auth_invalid_session,
+      );
     }
     return _message;
   }
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'ValueFailure<$T>.expiredToken(failedValue: $failedValue, message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.expiredToken'))
+      ..add(DiagnosticsProperty('failedValue', failedValue))
+      ..add(DiagnosticsProperty('message', message));
   }
 
   @override

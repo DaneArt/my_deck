@@ -14,6 +14,7 @@ import 'package:mydeck/features/social/presentation/bloc/decks_feed_tile/decks_f
 import 'package:mydeck/features/social/presentation/widgets/deck_chart_tile.dart';
 import 'package:mydeck/features/social/presentation/widgets/featured_decks_widget.dart';
 import 'package:mydeck/features/social/presentation/widgets/featured_decks_widget_small.dart';
+import 'package:mydeck/generated/l10n.dart';
 
 class SocialPage extends StatelessWidget {
   @override
@@ -46,7 +47,7 @@ class _SocialPageBodyState extends State<_SocialPageBody> {
                 child: Padding(
                   padding: const EdgeInsets.all(48),
                   child: Text(
-                    'FEATURED DECKS',
+                    S.of(context).social_decks_chart,
                     style: Theme.of(context).textTheme.headline5.copyWith(
                         color: Colors.white.withOpacity(0.95),
                         fontWeight: FontWeight.bold),
@@ -77,7 +78,7 @@ class _SocialPageBodyState extends State<_SocialPageBody> {
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: Text(
-                      'Decks chart',
+                      S.of(context).social_decks_chart,
                       style: Theme.of(context)
                           .textTheme
                           .headline3

@@ -18,6 +18,7 @@ import 'package:mydeck/features/my_deck/domain/entities/card.dart' as Entity;
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/shared/sliver_tab_bar_delegate.dart';
 import 'package:mydeck/features/sign_in/data/datasources/user_config.dart';
+import 'package:mydeck/generated/l10n.dart';
 
 enum AddDeckGoal { edit, create, lookup }
 
@@ -127,7 +128,7 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
           builder: (context) => AlertDialog(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(8))),
-                title: Text("Can't save deck. Correct mistakes and try again.",
+                title: Text(S.of(context).editor_cant_save,
                     textAlign: TextAlign.center),
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -193,9 +194,9 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                         }, insertFailure: (f) {
                           Scaffold.of(context).showSnackBar(
                             SnackBar(
-                              content: Text('Error while saving.'),
+                              content: Text(S.of(context).editor_error_saving),
                               action: SnackBarAction(
-                                  label: 'Retry',
+                                  label: S.of(context).editor_retry,
                                   onPressed: () =>
                                       BlocProvider.of<AddDeckBloc>(context)
                                           .add(AddDeckEvent.saveChanges())),
@@ -204,9 +205,9 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                         }, updateFailure: (f) {
                           Scaffold.of(context).showSnackBar(
                             SnackBar(
-                              content: Text('Error while saving.'),
+                              content: Text(S.of(context).editor_error_saving),
                               action: SnackBarAction(
-                                  label: 'Retry',
+                                  label: S.of(context).editor_retry,
                                   onPressed: () =>
                                       BlocProvider.of<AddDeckBloc>(context)
                                           .add(AddDeckEvent.saveChanges())),
@@ -215,9 +216,9 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                         }, deleteFailure: (f) {
                           Scaffold.of(context).showSnackBar(
                             SnackBar(
-                              content: Text('Error while saving.'),
+                              content: Text(S.of(context).editor_error_saving),
                               action: SnackBarAction(
-                                  label: 'Retry',
+                                  label: S.of(context).editor_retry,
                                   onPressed: () =>
                                       BlocProvider.of<AddDeckBloc>(context)
                                           .add(AddDeckEvent.deleteDeck())),
@@ -253,7 +254,7 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                         floating: false,
                         pinned: false,
                         title: Text(
-                          "Edit deck",
+                          S.of(context).editor_edit_deck,
                           style: TextStyle(color: Colors.white),
                         ),
                         leading: IconButton(
@@ -294,13 +295,13 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                           unselectedLabelColor: Colors.white.withAlpha(125),
                           tabs: [
                             Tab(
-                              text: 'Deck',
+                              text: S.of(context).meta_deck,
                               icon: Icon(
                                 Icons.book,
                               ),
                             ),
                             Tab(
-                                text: 'Cards',
+                                text: S.of(context).meta_cards,
                                 icon: Icon(
                                   CustomIcons.cards,
                                 )),
@@ -498,9 +499,9 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
               .add(AddDeckEvent.descriptionChanged(input)),
           textCapitalization: TextCapitalization.sentences,
           decoration: InputDecoration(
-            hintText: 'Enter description(optional)',
+            hintText: S.of(context).editor_description_enter,
             hintMaxLines: 2,
-            labelText: 'Description',
+            labelText: S.of(context).editor_description,
             contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
             hoverColor: Theme.of(context).accentColor,
           ),
@@ -513,7 +514,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              'Description:',
+              '${S.of(context).editor_description}:',
               style: Theme.of(context)
                   .textTheme
                   .subtitle1
@@ -523,8 +524,9 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
               padding: const EdgeInsets.all(4),
             ),
             Text(state.description.value.fold(
-                (l) =>
-                    l.failedValue.isNotEmpty ? l.failedValue : 'No description',
+                (l) => l.failedValue.isNotEmpty
+                    ? l.failedValue
+                    : S.of(context).editor_no_description,
                 (r) => r)),
           ],
         );
@@ -541,8 +543,8 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
           textInputAction: TextInputAction.done,
           textCapitalization: TextCapitalization.sentences,
           decoration: InputDecoration(
-            hintText: 'Enter title',
-            labelText: 'Title*',
+            hintText: S.of(context).editor_title_enter,
+            labelText: S.of(context).editor_title,
             contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
           ),
           inputFormatters: [
@@ -556,7 +558,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                'Title:',
+                '${S.of(context).editor_title}:',
                 style: Theme.of(context)
                     .textTheme
                     .subtitle2
@@ -566,7 +568,9 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
                 padding: const EdgeInsets.all(4),
               ),
               Text(state.title.value.fold(
-                  (l) => l.failedValue.isNotEmpty ? l.failedValue : 'No title',
+                  (l) => l.failedValue.isNotEmpty
+                      ? l.failedValue
+                      : S.of(context).editor_no_title,
                   (r) => r)),
             ],
           ),
@@ -588,7 +592,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
                     if (trainedCards != null) {
                       context.bloc<AddDeckBloc>().add(AddDeckEvent.updateCards(
                           cards: (trainedCards as List)
-                              .map((c) => Entity.Card.fromModel(c))
+                              .map((c) => c.toDomain())
                               .toList()));
                     }
                   } else {
@@ -604,7 +608,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
           child: Row(
             children: <Widget>[
               Text(
-                'TRAIN',
+                S.of(context).train,
                 style: TextStyle(color: Colors.black),
               ),
               Icon(
@@ -623,7 +627,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                'Share with community?',
+                S.of(context).editor_share,
                 style: Theme.of(context).textTheme.bodyText2,
               ),
               Switch.adaptive(
@@ -644,14 +648,14 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text('Category'),
-            CategoryPicker(
-              onChanged: (value) {
-                BlocProvider.of<AddDeckBloc>(context)
-                    .add(AddDeckEvent.categoryChanged(value));
-              },
-              baseCategory: state.category,
-            ),
+            Text(S.of(context).editor_category),
+            // CategoryPicker(
+            //   onChanged: (value) {
+            //     BlocProvider.of<AddDeckBloc>(context)
+            //         .add(AddDeckEvent.categoryChanged(value));
+            //   },
+            //   baseCategory: state.category,
+            // ),
           ],
         ),
       );
@@ -711,7 +715,7 @@ class _CardsPageState extends State<_CardsPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text('Oops, card collection is Empty.',
+          Text(S.of(context).editor_cards_empty,
               style: Theme.of(context).textTheme.bodyText1),
           _isEditing
               ? RaisedButton(
@@ -734,7 +738,7 @@ class _CardsPageState extends State<_CardsPage> {
                           .add(AddDeckEvent.updateCards(cards: cards));
                   },
                   child: Text(
-                    "Let's create a new one!",
+                    S.of(context).editor_lets_create_card,
                     style: TextStyle(color: Colors.white),
                   ),
                 )

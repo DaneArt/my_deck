@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/injection/dependency_injection.dart';
-import 'core/meta/my_deck_routes.dart';
 import 'core/meta/my_deck_constants.dart';
-
+import 'core/meta/my_deck_routes.dart';
 import 'features/my_deck/presentation/bloc/library/library_bloc.dart';
 import 'features/my_deck/presentation/bloc/tab/tab_bloc.dart';
-import 'features/sign_in/presentation/pages/profile_page.dart';
-import 'features/my_deck/presentation/pages/splash_page.dart';
 import 'features/my_deck/presentation/pages/home_page.dart';
-import 'features/social/presentation/pages/social_page.dart';
-import 'features/train/presentation/pages/training_page.dart';
+import 'features/my_deck/presentation/pages/splash_page.dart';
 import 'features/sign_in/bloc/sign_in/sign_in_bloc.dart';
 import 'features/sign_in/presentation/pages/login_page.dart';
+import 'features/sign_in/presentation/pages/profile_page.dart';
+import 'features/social/presentation/pages/social_page.dart';
 import 'features/train/presentation/bloc/train/train_bloc.dart';
+import 'features/train/presentation/pages/training_page.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'generated/l10n.dart';
 
 class App {
   static SharedPreferences localStorage;
@@ -42,6 +42,14 @@ class MyDeckApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      locale: Locale('ru'),
+      localizationsDelegates: [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
       debugShowCheckedModeBanner: false,
       title: 'MyDeck',
       theme: ThemeData(

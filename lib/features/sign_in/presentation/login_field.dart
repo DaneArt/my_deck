@@ -83,7 +83,7 @@ class _LoginFieldState extends State<LoginField> {
               focusNode: fieldFocusNode,
               controller: widget.controller,
               onChanged: widget.onChanged,
-              style: Theme.of(context).textTheme.body2,
+              style: Theme.of(context).textTheme.bodyText2,
               validator: widget.validator,
               autovalidate: widget.autovalidate,
               obscureText: widget.isObscureText,

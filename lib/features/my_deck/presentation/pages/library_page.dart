@@ -21,6 +21,7 @@ import 'package:mydeck/features/my_deck/presentation/widgets/deck_hub/deck_hub_i
 import 'package:mydeck/features/my_deck/presentation/widgets/shared/undo_snackbar.dart';
 import 'package:mydeck/features/sign_in/data/datasources/user_config.dart';
 import 'package:mydeck/features/social/domain/usecases/upload_online_deck.dart';
+import 'package:mydeck/generated/l10n.dart';
 
 class LibraryPage extends StatefulWidget {
   LibraryPage({Key key}) : super(key: key);
@@ -138,7 +139,7 @@ class _LibraryPageState extends State<LibraryPage>
                             .add(LibraryEvent.updateDeck(deck: changedDeck));
 
                         _showUndoSnackBar(
-                            'Deck successfully changed',
+                            S.of(context).library_deck_changed,
                             () => context.bloc<LibraryBloc>().add(
                                   LibraryEvent.undoEditing(oldDeck: oldDeck),
                                 ));
@@ -148,7 +149,7 @@ class _LibraryPageState extends State<LibraryPage>
                             .bloc<LibraryBloc>()
                             .add(LibraryEvent.deleteDeck(deck: decks[index]));
                         _showUndoSnackBar(
-                          'Deck successfully deleted',
+                          S.of(context).library_deck_deleted,
                           () => context.bloc<LibraryBloc>().add(
                               LibraryEvent.undoDeleting(deck: decks[index])),
                         );
@@ -177,7 +178,7 @@ class _LibraryPageState extends State<LibraryPage>
           return DeckHubIdleView(
             refreshKey: _refreshIndicatorKey,
             onRefresh: () => _loadDecksData(context),
-            errorMessage: "No decks",
+            errorMessage: S.of(context).meta_no_decks,
           );
         }
         return RefreshIndicator(
@@ -214,7 +215,7 @@ class _LibraryPageState extends State<LibraryPage>
     if (newDeck != null && newDeck is Deck) {
       context.bloc<LibraryBloc>().add(LibraryEvent.addDeck(deck: newDeck));
       _showUndoSnackBar(
-          'Deck successfully created',
+          S.of(context).library_deck_created,
           () => context
               .bloc<LibraryBloc>()
               .add(LibraryEvent.undoAdding(deck: newDeck)));
@@ -230,7 +231,7 @@ class _LibraryPageState extends State<LibraryPage>
         elevation: 0,
         automaticallyImplyLeading: false,
         title: Text(
-            "${UserConfig.currentUser.username[0].toUpperCase()}${UserConfig.currentUser.username.substring(1)}'s library",
+            "${UserConfig.currentUser.username[0].toUpperCase()}${UserConfig.currentUser.username.substring(1)} ${S.of(context).library_title}",
             style: Theme.of(context).textTheme.headline6.copyWith(
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).primaryColor)),
@@ -246,9 +247,10 @@ class _LibraryPageState extends State<LibraryPage>
                         Scaffold.of(context).hideCurrentSnackBar();
                         Scaffold.of(context).showSnackBar(
                           SnackBar(
-                            content: Text('No trainable decks'),
+                            content:
+                                Text(S.of(context).train_no_trainable_decks),
                             action: SnackBarAction(
-                              label: 'Create deck',
+                              label: S.of(context).editor_create_deck,
                               onPressed: () async => addDeck(context),
                             ),
                           ),

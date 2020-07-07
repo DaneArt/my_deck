@@ -128,7 +128,9 @@ class _$CanselledByUserCopyWithImpl<$Res>
   CanselledByUser get _value => super._value as CanselledByUser;
 }
 
-class _$CanselledByUser implements CanselledByUser {
+class _$CanselledByUser
+    with DiagnosticableTreeMixin
+    implements CanselledByUser {
   _$CanselledByUser();
 
   bool _didmessage = false;
@@ -139,21 +141,29 @@ class _$CanselledByUser implements CanselledByUser {
     if (_didmessage == false) {
       _didmessage = true;
       _message = this.map(
-          canselledByuser: (v) => '',
-          serverError: (v) => '',
-          emailAreadyInUse: (v) => '',
-          loginAreadyInUse: (v) => '',
-          userNotFound: (v) => '',
-          wrongPassword: (v) => '',
-          noInternetConnection: (v) => '',
-          tokenExpired: (v) => '');
+          canselledByuser: (v) => S.current.error_auth_canselled_by_user,
+          serverError: (v) => S.current.error_auth_network_error,
+          emailAreadyInUse: (v) => S.current.error_auth_email_in_use,
+          loginAreadyInUse: (v) => S.current.error_auth_username_in_use,
+          userNotFound: (v) => S.current.error_user_not_found,
+          wrongPassword: (v) => S.current.error_auth_wrong_password,
+          noInternetConnection: (v) => S.current.error_auth_no_internet,
+          tokenExpired: (v) => S.current.error_auth_invalid_session);
     }
     return _message;
   }
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AuthFailure.canselledByuser(message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'AuthFailure.canselledByuser'))
+      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -271,7 +281,7 @@ class _$ServerErrorCopyWithImpl<$Res> extends _$AuthFailureCopyWithImpl<$Res>
   ServerError get _value => super._value as ServerError;
 }
 
-class _$ServerError implements ServerError {
+class _$ServerError with DiagnosticableTreeMixin implements ServerError {
   _$ServerError();
 
   bool _didmessage = false;
@@ -282,21 +292,29 @@ class _$ServerError implements ServerError {
     if (_didmessage == false) {
       _didmessage = true;
       _message = this.map(
-          canselledByuser: (v) => '',
-          serverError: (v) => '',
-          emailAreadyInUse: (v) => '',
-          loginAreadyInUse: (v) => '',
-          userNotFound: (v) => '',
-          wrongPassword: (v) => '',
-          noInternetConnection: (v) => '',
-          tokenExpired: (v) => '');
+          canselledByuser: (v) => S.current.error_auth_canselled_by_user,
+          serverError: (v) => S.current.error_auth_network_error,
+          emailAreadyInUse: (v) => S.current.error_auth_email_in_use,
+          loginAreadyInUse: (v) => S.current.error_auth_username_in_use,
+          userNotFound: (v) => S.current.error_user_not_found,
+          wrongPassword: (v) => S.current.error_auth_wrong_password,
+          noInternetConnection: (v) => S.current.error_auth_no_internet,
+          tokenExpired: (v) => S.current.error_auth_invalid_session);
     }
     return _message;
   }
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AuthFailure.serverError(message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'AuthFailure.serverError'))
+      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -415,7 +433,9 @@ class _$EmailAlreadyInUseCopyWithImpl<$Res>
   EmailAlreadyInUse get _value => super._value as EmailAlreadyInUse;
 }
 
-class _$EmailAlreadyInUse implements EmailAlreadyInUse {
+class _$EmailAlreadyInUse
+    with DiagnosticableTreeMixin
+    implements EmailAlreadyInUse {
   _$EmailAlreadyInUse();
 
   bool _didmessage = false;
@@ -426,21 +446,29 @@ class _$EmailAlreadyInUse implements EmailAlreadyInUse {
     if (_didmessage == false) {
       _didmessage = true;
       _message = this.map(
-          canselledByuser: (v) => '',
-          serverError: (v) => '',
-          emailAreadyInUse: (v) => '',
-          loginAreadyInUse: (v) => '',
-          userNotFound: (v) => '',
-          wrongPassword: (v) => '',
-          noInternetConnection: (v) => '',
-          tokenExpired: (v) => '');
+          canselledByuser: (v) => S.current.error_auth_canselled_by_user,
+          serverError: (v) => S.current.error_auth_network_error,
+          emailAreadyInUse: (v) => S.current.error_auth_email_in_use,
+          loginAreadyInUse: (v) => S.current.error_auth_username_in_use,
+          userNotFound: (v) => S.current.error_user_not_found,
+          wrongPassword: (v) => S.current.error_auth_wrong_password,
+          noInternetConnection: (v) => S.current.error_auth_no_internet,
+          tokenExpired: (v) => S.current.error_auth_invalid_session);
     }
     return _message;
   }
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AuthFailure.emailAreadyInUse(message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'AuthFailure.emailAreadyInUse'))
+      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -559,7 +587,9 @@ class _$LoginAlreadyInUseCopyWithImpl<$Res>
   LoginAlreadyInUse get _value => super._value as LoginAlreadyInUse;
 }
 
-class _$LoginAlreadyInUse implements LoginAlreadyInUse {
+class _$LoginAlreadyInUse
+    with DiagnosticableTreeMixin
+    implements LoginAlreadyInUse {
   _$LoginAlreadyInUse();
 
   bool _didmessage = false;
@@ -570,21 +600,29 @@ class _$LoginAlreadyInUse implements LoginAlreadyInUse {
     if (_didmessage == false) {
       _didmessage = true;
       _message = this.map(
-          canselledByuser: (v) => '',
-          serverError: (v) => '',
-          emailAreadyInUse: (v) => '',
-          loginAreadyInUse: (v) => '',
-          userNotFound: (v) => '',
-          wrongPassword: (v) => '',
-          noInternetConnection: (v) => '',
-          tokenExpired: (v) => '');
+          canselledByuser: (v) => S.current.error_auth_canselled_by_user,
+          serverError: (v) => S.current.error_auth_network_error,
+          emailAreadyInUse: (v) => S.current.error_auth_email_in_use,
+          loginAreadyInUse: (v) => S.current.error_auth_username_in_use,
+          userNotFound: (v) => S.current.error_user_not_found,
+          wrongPassword: (v) => S.current.error_auth_wrong_password,
+          noInternetConnection: (v) => S.current.error_auth_no_internet,
+          tokenExpired: (v) => S.current.error_auth_invalid_session);
     }
     return _message;
   }
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AuthFailure.loginAreadyInUse(message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'AuthFailure.loginAreadyInUse'))
+      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -702,7 +740,7 @@ class _$UserNotFoundCopyWithImpl<$Res> extends _$AuthFailureCopyWithImpl<$Res>
   UserNotFound get _value => super._value as UserNotFound;
 }
 
-class _$UserNotFound implements UserNotFound {
+class _$UserNotFound with DiagnosticableTreeMixin implements UserNotFound {
   _$UserNotFound();
 
   bool _didmessage = false;
@@ -713,21 +751,29 @@ class _$UserNotFound implements UserNotFound {
     if (_didmessage == false) {
       _didmessage = true;
       _message = this.map(
-          canselledByuser: (v) => '',
-          serverError: (v) => '',
-          emailAreadyInUse: (v) => '',
-          loginAreadyInUse: (v) => '',
-          userNotFound: (v) => '',
-          wrongPassword: (v) => '',
-          noInternetConnection: (v) => '',
-          tokenExpired: (v) => '');
+          canselledByuser: (v) => S.current.error_auth_canselled_by_user,
+          serverError: (v) => S.current.error_auth_network_error,
+          emailAreadyInUse: (v) => S.current.error_auth_email_in_use,
+          loginAreadyInUse: (v) => S.current.error_auth_username_in_use,
+          userNotFound: (v) => S.current.error_user_not_found,
+          wrongPassword: (v) => S.current.error_auth_wrong_password,
+          noInternetConnection: (v) => S.current.error_auth_no_internet,
+          tokenExpired: (v) => S.current.error_auth_invalid_session);
     }
     return _message;
   }
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AuthFailure.userNotFound(message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'AuthFailure.userNotFound'))
+      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -845,7 +891,7 @@ class _$WrongPasswordCopyWithImpl<$Res> extends _$AuthFailureCopyWithImpl<$Res>
   WrongPassword get _value => super._value as WrongPassword;
 }
 
-class _$WrongPassword implements WrongPassword {
+class _$WrongPassword with DiagnosticableTreeMixin implements WrongPassword {
   _$WrongPassword();
 
   bool _didmessage = false;
@@ -856,21 +902,29 @@ class _$WrongPassword implements WrongPassword {
     if (_didmessage == false) {
       _didmessage = true;
       _message = this.map(
-          canselledByuser: (v) => '',
-          serverError: (v) => '',
-          emailAreadyInUse: (v) => '',
-          loginAreadyInUse: (v) => '',
-          userNotFound: (v) => '',
-          wrongPassword: (v) => '',
-          noInternetConnection: (v) => '',
-          tokenExpired: (v) => '');
+          canselledByuser: (v) => S.current.error_auth_canselled_by_user,
+          serverError: (v) => S.current.error_auth_network_error,
+          emailAreadyInUse: (v) => S.current.error_auth_email_in_use,
+          loginAreadyInUse: (v) => S.current.error_auth_username_in_use,
+          userNotFound: (v) => S.current.error_user_not_found,
+          wrongPassword: (v) => S.current.error_auth_wrong_password,
+          noInternetConnection: (v) => S.current.error_auth_no_internet,
+          tokenExpired: (v) => S.current.error_auth_invalid_session);
     }
     return _message;
   }
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AuthFailure.wrongPassword(message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'AuthFailure.wrongPassword'))
+      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -989,7 +1043,9 @@ class _$NoInternetConnectionCopyWithImpl<$Res>
   NoInternetConnection get _value => super._value as NoInternetConnection;
 }
 
-class _$NoInternetConnection implements NoInternetConnection {
+class _$NoInternetConnection
+    with DiagnosticableTreeMixin
+    implements NoInternetConnection {
   _$NoInternetConnection();
 
   bool _didmessage = false;
@@ -1000,21 +1056,29 @@ class _$NoInternetConnection implements NoInternetConnection {
     if (_didmessage == false) {
       _didmessage = true;
       _message = this.map(
-          canselledByuser: (v) => '',
-          serverError: (v) => '',
-          emailAreadyInUse: (v) => '',
-          loginAreadyInUse: (v) => '',
-          userNotFound: (v) => '',
-          wrongPassword: (v) => '',
-          noInternetConnection: (v) => '',
-          tokenExpired: (v) => '');
+          canselledByuser: (v) => S.current.error_auth_canselled_by_user,
+          serverError: (v) => S.current.error_auth_network_error,
+          emailAreadyInUse: (v) => S.current.error_auth_email_in_use,
+          loginAreadyInUse: (v) => S.current.error_auth_username_in_use,
+          userNotFound: (v) => S.current.error_user_not_found,
+          wrongPassword: (v) => S.current.error_auth_wrong_password,
+          noInternetConnection: (v) => S.current.error_auth_no_internet,
+          tokenExpired: (v) => S.current.error_auth_invalid_session);
     }
     return _message;
   }
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AuthFailure.noInternetConnection(message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'AuthFailure.noInternetConnection'))
+      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -1132,7 +1196,7 @@ class _$TokenExpiredCopyWithImpl<$Res> extends _$AuthFailureCopyWithImpl<$Res>
   TokenExpired get _value => super._value as TokenExpired;
 }
 
-class _$TokenExpired implements TokenExpired {
+class _$TokenExpired with DiagnosticableTreeMixin implements TokenExpired {
   _$TokenExpired();
 
   bool _didmessage = false;
@@ -1143,21 +1207,29 @@ class _$TokenExpired implements TokenExpired {
     if (_didmessage == false) {
       _didmessage = true;
       _message = this.map(
-          canselledByuser: (v) => '',
-          serverError: (v) => '',
-          emailAreadyInUse: (v) => '',
-          loginAreadyInUse: (v) => '',
-          userNotFound: (v) => '',
-          wrongPassword: (v) => '',
-          noInternetConnection: (v) => '',
-          tokenExpired: (v) => '');
+          canselledByuser: (v) => S.current.error_auth_canselled_by_user,
+          serverError: (v) => S.current.error_auth_network_error,
+          emailAreadyInUse: (v) => S.current.error_auth_email_in_use,
+          loginAreadyInUse: (v) => S.current.error_auth_username_in_use,
+          userNotFound: (v) => S.current.error_user_not_found,
+          wrongPassword: (v) => S.current.error_auth_wrong_password,
+          noInternetConnection: (v) => S.current.error_auth_no_internet,
+          tokenExpired: (v) => S.current.error_auth_invalid_session);
     }
     return _message;
   }
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AuthFailure.tokenExpired(message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'AuthFailure.tokenExpired'))
+      ..add(DiagnosticsProperty('message', message));
   }
 
   @override

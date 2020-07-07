@@ -1,5 +1,8 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
+import 'package:mydeck/generated/l10n.dart';
 
 part "value_failure.freezed.dart";
 
@@ -39,17 +42,16 @@ abstract class ValueFailure<T> with _$ValueFailure<T> {
 
   @late
   String get message => this.map(
-      invalidEmail: (value) => 'Email is incorrect.',
-      shortPassword: (value) => 'Password must be longer than 8 characters.',
-      invalidLogin: (value) =>
-          "Login could contain letters, numbers, '.' or '_'.",
-      longLogin: (value) => 'Login must be shorter than 30 characters.',
-      invalidPassword: (value) =>
-          'Pasword must contain at least 1 number, 1 uppercase letter and 1 bottomcase letter.',
-      longPassword: (value) => 'Password must be shorter than 24 characters.',
-      fileDoesNotExists: (value) => "File doesn't exists.",
-      invalidDeckTitle: (value) =>
-          "Title could contain letters, numbers, '.' or '_'.",
-      shortDeckTitle: (value) => 'Title must be longer than 6 characters.',
-      expiredToken: (value) => 'Token expired.');
+        invalidEmail: (value) => S.current.error_value_email_incorrect,
+        shortPassword: (value) => S.current.error_value_short_passwor,
+        invalidLogin: (value) => S.current.error_value_invalid_login,
+        longLogin: (value) => S.current.error_value_long_login,
+        invalidPassword: (value) => S.current.error_value_invalid_password,
+        longPassword: (value) => S.current.error_value_long_password,
+        fileDoesNotExists: (value) => S.current.error_value_file_inexists,
+        invalidDeckTitle: (value) => S.current.error_value_invalid_title,
+        shortDeckTitle: (value) => S.current.error_value_title_short,
+        expiredToken: (value) => S.current.error_auth_invalid_session,
+        invalidUniqueId: (value) => S.current.error_auth_invalid_session,
+      );
 }

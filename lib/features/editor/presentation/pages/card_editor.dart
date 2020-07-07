@@ -9,6 +9,7 @@ import 'package:mydeck/features/editor/presentation/widgets/card_fraction_pagina
 import 'package:mydeck/features/my_deck/domain/entities/card.dart' as Entity;
 import 'package:mydeck/features/my_deck/domain/entities/card_content.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/shared/card_content_widget.dart';
+import 'package:mydeck/generated/l10n.dart';
 
 class CardEditor extends StatefulWidget {
   final bool isCreating;
@@ -69,7 +70,6 @@ class _CardEditorState extends State<CardEditor> {
           onPressed: () {
             context.bloc<AddCardBloc>().add(AddCardEvent.saveChangesAndExit());
           },
-          tooltip: 'Increment',
           child: Icon(
             Icons.check,
             color: Colors.white,
@@ -115,7 +115,7 @@ class _CardEditorState extends State<CardEditor> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          Text('Pick from gallery'),
+                          Text(S.of(context).image_pick_gallery),
                           Icon(Icons.filter)
                         ],
                       ),
@@ -131,7 +131,7 @@ class _CardEditorState extends State<CardEditor> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          Text('Pick a photo'),
+                          Text(S.of(context).image_pick_photo),
                           Icon(Icons.camera_alt)
                         ],
                       ),
@@ -243,7 +243,10 @@ class _CardEditorState extends State<CardEditor> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text(state.isQuestion ? 'Question' : 'Answer',
+                Text(
+                    state.isQuestion
+                        ? S.of(context).meta_question
+                        : S.of(context).meta_answer,
                     style: Theme.of(context).textTheme.headline5),
                 IconButton(
                   onPressed: () {

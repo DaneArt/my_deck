@@ -5,7 +5,6 @@ import 'package:mydeck/features/my_deck/data/repositories/my_deck_repository.dar
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/usecase.dart';
 
-
 class AddDeckUseCase extends UseCase<StorageFailure<Deck>, Deck, Params> {
   final MyDeckRepository myDeckRepository;
 
@@ -13,7 +12,7 @@ class AddDeckUseCase extends UseCase<StorageFailure<Deck>, Deck, Params> {
 
   @override
   Future<Either<StorageFailure<Deck>, Deck>> call(params) async {
-    return await myDeckRepository.addDeckWithCards(params.deck);
+    return await myDeckRepository.addDeck(params.deck);
   }
 }
 

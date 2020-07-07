@@ -50,15 +50,15 @@ class _EndOfTrainViewState extends State<EndOfTrainView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text("You've successfully learned ",
-                style: Theme.of(context).textTheme.body2),
+                style: Theme.of(context).textTheme.bodyText2),
             Text(
               widget.successfullTrainedCardsCount.toString(),
               style: Theme.of(context)
                   .textTheme
-                  .body2
+                  .bodyText2
                   .copyWith(fontWeight: FontWeight.bold),
             ),
-            Text(' cards', style: Theme.of(context).textTheme.body2),
+            Text(' cards', style: Theme.of(context).textTheme.bodyText2),
           ],
         ),
         Padding(

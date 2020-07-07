@@ -5,6 +5,7 @@ import 'package:mydeck/features/social/domain/usecases/load_decks_page_for_categ
 import 'package:mydeck/features/social/presentation/bloc/decks_feed_tile/decks_feed_tile_bloc.dart';
 import 'package:mydeck/features/social/presentation/pages/category_feed_page.dart';
 import 'package:mydeck/features/social/presentation/widgets/small_deck_card.dart';
+import 'package:mydeck/generated/l10n.dart';
 
 class DeckChartTile extends StatelessWidget {
   @override
@@ -20,7 +21,7 @@ class DeckChartTile extends StatelessWidget {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('${state.categoryModel.categoryName}',
+                  child: Text('${state.categoryModel.getLocale(context)}',
                       style: Theme.of(context).textTheme.headline6),
                 ),
                 InkWell(
@@ -36,7 +37,7 @@ class DeckChartTile extends StatelessWidget {
                     ));
                   },
                   child: Text(
-                    'More...',
+                    S.of(context).social_more,
                     style: Theme.of(context)
                         .textTheme
                         .bodyText2
@@ -144,7 +145,7 @@ class _DeckChartTileFeedState extends State<DeckChartTileFeed> {
                             padding: const EdgeInsets.all(8.0),
                             child: Center(
                               child: Text(
-                                'No more decks',
+                                S.of(context).meta_no_decks,
                                 style: Theme.of(context).textTheme.subtitle2,
                               ),
                             ),
