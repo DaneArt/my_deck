@@ -11,18 +11,18 @@ class GetDecksForTrain
   @override
   Future<Either<StorageFailure, List<DeckLibrary>>> call(Params params) async {
     params.decks.removeWhere((d) =>
-        d.title.isEmpty ||
-        d.icon.path.isEmpty ||
+        !d.title.isValid ||
+        d.avatar.isValid ||
         d.cardsList
             .any((c) => c.answer is NoContent || c.question is NoContent));
     params.decks.removeWhere((d) => d.cardsList.isEmpty);
-    params.decks.forEach((d) => d.cardsList.sort((c1, c2) => compareR(c1, c2)));
+    //params.decks.forEach((d) => d.cardsList.sort((c1, c2) => compareR(c1, c2)));
     return Future.value(params.decks.isNotEmpty
         ? right(params.decks)
         : left(StorageFailure.getFailure()));
   }
 
-  int compareR(Card c1, Card c2) {
+  /* int compareR(Card c1, Card c2) {
     var c1Winrate = c1.wins / c1.trains;
 
     var c2Winrate = c2.wins / c2.trains;
@@ -46,7 +46,7 @@ class GetDecksForTrain
       return 1;
     }
     return 0;
-  }
+  } */
 }
 
 class Params extends Equatable {

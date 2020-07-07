@@ -1,9 +1,9 @@
 import 'dart:io';
 
-
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mydeck/core/injection/dependency_injection.dart';
+import 'package:mydeck/features/editor/domain/value_objects/deck_description.dart';
 import 'package:mydeck/features/my_deck/data/models/category_model.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +14,7 @@ import 'package:mydeck/features/social/presentation/bloc/decks_feed_tile/decks_f
 import 'package:mydeck/features/social/presentation/widgets/deck_chart_tile.dart';
 import 'package:mydeck/features/social/presentation/widgets/featured_decks_widget.dart';
 import 'package:mydeck/features/social/presentation/widgets/featured_decks_widget_small.dart';
+import 'package:mydeck/generated/l10n.dart';
 
 class SocialPage extends StatelessWidget {
   @override
@@ -38,30 +39,18 @@ class _SocialPageBodyState extends State<_SocialPageBody> {
         children: <Widget>[
           Stack(
             children: <Widget>[
-               FeaturedDeckList(
-                  decks: List.generate(
-                      5,
-                      (index) => Deck.online(
-                          cardsCount: 0,
-                          author: UserModel('', ',', ',', ','),
-                          category: CategoryModel(''),
-                          description: 'null',
-                          deckId: ',',
-                          icon: File(''),
-                          isPrivate: false,
-                          title: '',
-                          subscribersCount: 0)),
-                ),
-
+              FeaturedDeckList(
+                decks: List.generate(5, (index) => Deck.basic()),
+              ),
               Align(
                 alignment: Alignment.topCenter,
                 child: Padding(
                   padding: const EdgeInsets.all(48),
                   child: Text(
-                    'FEATURED DECKS',
+                    S.of(context).social_decks_chart,
                     style: Theme.of(context).textTheme.headline5.copyWith(
-                      color:Colors.white.withOpacity(0.95),
-                    fontWeight: FontWeight.bold),
+                        color: Colors.white.withOpacity(0.95),
+                        fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -83,25 +72,17 @@ class _SocialPageBodyState extends State<_SocialPageBody> {
                     width: 300,
                     height: 250,
                     child: FeaturedDeckListSmall(
-                      decks: List.generate(
-                          5,
-                          (index) => Deck.online(
-                              author: UserModel('', ',', ',', ','),
-                              category: CategoryModel(''),
-                              description: 'null',
-                              deckId: ',',
-                              icon: File(''),
-                              isPrivate: false,
-                              title: '',
-                              subscribersCount: 0,
-                              cardsCount: 0)),
+                      decks: List.generate(5, (index) => Deck.basic()),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: Text(
-                      'Decks chart',
-                      style: Theme.of(context).textTheme.headline3.copyWith(fontWeight: FontWeight.bold),
+                      S.of(context).social_decks_chart,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline3
+                          .copyWith(fontWeight: FontWeight.bold),
                     ),
                   ),
                 ]),

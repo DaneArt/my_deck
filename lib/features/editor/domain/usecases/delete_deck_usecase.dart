@@ -6,9 +6,6 @@ import 'package:mydeck/features/my_deck/domain/usecases/usecase.dart';
 
 import 'add_deck_usecase.dart';
 
-
-
-
 class DeleteDeckUseCase extends UseCase<StorageFailure<Deck>, void, Params> {
   final MyDeckRepository myDeckRepository;
 
@@ -16,7 +13,7 @@ class DeleteDeckUseCase extends UseCase<StorageFailure<Deck>, void, Params> {
 
   @override
   Future<Either<StorageFailure<Deck>, void>> call(Params params) async {
-    final callResult = await myDeckRepository.deleteDeckWithCards(params.deck);
+    final callResult = await myDeckRepository.deleteDeck(params.deck);
 
     return callResult.fold(() => Right(null), (failure) => left(failure));
   }

@@ -4,6 +4,7 @@ import 'package:mydeck/core/helpers/images_util.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mydeck/features/editor/domain/value_objects/deck_avatar.dart';
+import 'package:mydeck/generated/l10n.dart';
 
 class ImagePickerWidget extends StatefulWidget {
   final Function(File image) onImagePicked;
@@ -25,7 +26,8 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
 
   @override
   void initState() {
-    _image = widget.defaultImage.value.fold((failure) => null, (file) => file);
+    _image =
+        widget.defaultImage.value.fold((failure) => null, (file) => File(file));
     super.initState();
   }
 
@@ -65,7 +67,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: <Widget>[
-                                      Text('Pick from gallery'),
+                                      Text(S.of(context).image_pick_gallery),
                                       Icon(Icons.filter)
                                     ],
                                   ),
@@ -83,7 +85,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: <Widget>[
-                                      Text('Pick a photo'),
+                                      Text(S.of(context).image_pick_photo),
                                       Icon(Icons.camera_alt)
                                     ],
                                   ),
@@ -107,10 +109,10 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                     child: Center(
                       child: Text(
                         _image == null && widget.isEditing
-                            ? 'Pick deck avatar'
-                            : 'No avatar',
+                            ? S.of(context).image_pick_avatar
+                            : S.of(context).image_no_image,
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.body2,
+                        style: Theme.of(context).textTheme.bodyText2,
                       ),
                     ),
                   ),

@@ -9,6 +9,9 @@ abstract class ValueObject<T> {
 
   const ValueObject();
 
+  T get getOrCrash => value.fold(
+      (failedValue) => throw ArgumentError(failedValue), (value) => value);
+
   bool get isValid => value.isRight();
 
   @override

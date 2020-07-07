@@ -3,6 +3,9 @@ part of 'add_card_bloc.dart';
 @freezed
 abstract class AddCardEvent with _$AddCardEvent {
   factory AddCardEvent.rotateCard() = RotateCard;
+  factory AddCardEvent.deleteCard() = DeleteCard;
+
+  factory AddCardEvent.changeIndex({@required int newIndex}) = ChangeIndex;
 
   factory AddCardEvent.questionChanged({@required CardContent newQuestion}) =
       QuestionChanged;

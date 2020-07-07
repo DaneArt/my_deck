@@ -14,10 +14,10 @@ class _$DeckTearOff {
 
   DeckOnline online(
       {@required int subscribersCount,
-      @required String deckId,
-      @required String title,
-      @required File icon,
-      @required String description,
+      @required UniqueId deckId,
+      @required DeckTitle title,
+      @required DeckAvatar avatar,
+      @required DeckDescription description,
       @required UserModel author,
       @required CategoryModel category,
       @required bool isPrivate,
@@ -26,7 +26,7 @@ class _$DeckTearOff {
       subscribersCount: subscribersCount,
       deckId: deckId,
       title: title,
-      icon: icon,
+      avatar: avatar,
       description: description,
       author: author,
       category: category,
@@ -37,10 +37,10 @@ class _$DeckTearOff {
 
   DeckLibrary library(
       {List<UserModel> subscribers,
-      @required String deckId,
-      @required String title,
-      @required File icon,
-      @required String description,
+      @required UniqueId deckId,
+      @required DeckTitle title,
+      @required DeckAvatar avatar,
+      @required DeckDescription description,
       @required UserModel author,
       @required CategoryModel category,
       @required bool isPrivate,
@@ -49,7 +49,7 @@ class _$DeckTearOff {
       subscribers: subscribers,
       deckId: deckId,
       title: title,
-      icon: icon,
+      avatar: avatar,
       description: description,
       author: author,
       category: category,
@@ -63,10 +63,10 @@ class _$DeckTearOff {
 const $Deck = _$DeckTearOff();
 
 mixin _$Deck {
-  String get deckId;
-  String get title;
-  File get icon;
-  String get description;
+  UniqueId get deckId;
+  DeckTitle get title;
+  DeckAvatar get avatar;
+  DeckDescription get description;
   UserModel get author;
   CategoryModel get category;
   bool get isPrivate;
@@ -76,10 +76,10 @@ mixin _$Deck {
     @required
         Result online(
             int subscribersCount,
-            String deckId,
-            String title,
-            File icon,
-            String description,
+            UniqueId deckId,
+            DeckTitle title,
+            DeckAvatar avatar,
+            DeckDescription description,
             UserModel author,
             CategoryModel category,
             bool isPrivate,
@@ -87,10 +87,10 @@ mixin _$Deck {
     @required
         Result library(
             List<UserModel> subscribers,
-            String deckId,
-            String title,
-            File icon,
-            String description,
+            UniqueId deckId,
+            DeckTitle title,
+            DeckAvatar avatar,
+            DeckDescription description,
             UserModel author,
             CategoryModel category,
             bool isPrivate,
@@ -100,20 +100,20 @@ mixin _$Deck {
   Result maybeWhen<Result extends Object>({
     Result online(
         int subscribersCount,
-        String deckId,
-        String title,
-        File icon,
-        String description,
+        UniqueId deckId,
+        DeckTitle title,
+        DeckAvatar avatar,
+        DeckDescription description,
         UserModel author,
         CategoryModel category,
         bool isPrivate,
         int cardsCount),
     Result library(
         List<UserModel> subscribers,
-        String deckId,
-        String title,
-        File icon,
-        String description,
+        UniqueId deckId,
+        DeckTitle title,
+        DeckAvatar avatar,
+        DeckDescription description,
         UserModel author,
         CategoryModel category,
         bool isPrivate,
@@ -139,10 +139,10 @@ abstract class $DeckCopyWith<$Res> {
   factory $DeckCopyWith(Deck value, $Res Function(Deck) then) =
       _$DeckCopyWithImpl<$Res>;
   $Res call(
-      {String deckId,
-      String title,
-      File icon,
-      String description,
+      {UniqueId deckId,
+      DeckTitle title,
+      DeckAvatar avatar,
+      DeckDescription description,
       UserModel author,
       CategoryModel category,
       bool isPrivate});
@@ -159,18 +159,19 @@ class _$DeckCopyWithImpl<$Res> implements $DeckCopyWith<$Res> {
   $Res call({
     Object deckId = freezed,
     Object title = freezed,
-    Object icon = freezed,
+    Object avatar = freezed,
     Object description = freezed,
     Object author = freezed,
     Object category = freezed,
     Object isPrivate = freezed,
   }) {
     return _then(_value.copyWith(
-      deckId: deckId == freezed ? _value.deckId : deckId as String,
-      title: title == freezed ? _value.title : title as String,
-      icon: icon == freezed ? _value.icon : icon as File,
-      description:
-          description == freezed ? _value.description : description as String,
+      deckId: deckId == freezed ? _value.deckId : deckId as UniqueId,
+      title: title == freezed ? _value.title : title as DeckTitle,
+      avatar: avatar == freezed ? _value.avatar : avatar as DeckAvatar,
+      description: description == freezed
+          ? _value.description
+          : description as DeckDescription,
       author: author == freezed ? _value.author : author as UserModel,
       category:
           category == freezed ? _value.category : category as CategoryModel,
@@ -186,10 +187,10 @@ abstract class $DeckOnlineCopyWith<$Res> implements $DeckCopyWith<$Res> {
   @override
   $Res call(
       {int subscribersCount,
-      String deckId,
-      String title,
-      File icon,
-      String description,
+      UniqueId deckId,
+      DeckTitle title,
+      DeckAvatar avatar,
+      DeckDescription description,
       UserModel author,
       CategoryModel category,
       bool isPrivate,
@@ -209,7 +210,7 @@ class _$DeckOnlineCopyWithImpl<$Res> extends _$DeckCopyWithImpl<$Res>
     Object subscribersCount = freezed,
     Object deckId = freezed,
     Object title = freezed,
-    Object icon = freezed,
+    Object avatar = freezed,
     Object description = freezed,
     Object author = freezed,
     Object category = freezed,
@@ -220,11 +221,12 @@ class _$DeckOnlineCopyWithImpl<$Res> extends _$DeckCopyWithImpl<$Res>
       subscribersCount: subscribersCount == freezed
           ? _value.subscribersCount
           : subscribersCount as int,
-      deckId: deckId == freezed ? _value.deckId : deckId as String,
-      title: title == freezed ? _value.title : title as String,
-      icon: icon == freezed ? _value.icon : icon as File,
-      description:
-          description == freezed ? _value.description : description as String,
+      deckId: deckId == freezed ? _value.deckId : deckId as UniqueId,
+      title: title == freezed ? _value.title : title as DeckTitle,
+      avatar: avatar == freezed ? _value.avatar : avatar as DeckAvatar,
+      description: description == freezed
+          ? _value.description
+          : description as DeckDescription,
       author: author == freezed ? _value.author : author as UserModel,
       category:
           category == freezed ? _value.category : category as CategoryModel,
@@ -234,12 +236,12 @@ class _$DeckOnlineCopyWithImpl<$Res> extends _$DeckCopyWithImpl<$Res>
   }
 }
 
-class _$DeckOnline implements DeckOnline {
+class _$DeckOnline extends DeckOnline {
   _$DeckOnline(
       {@required this.subscribersCount,
       @required this.deckId,
       @required this.title,
-      @required this.icon,
+      @required this.avatar,
       @required this.description,
       @required this.author,
       @required this.category,
@@ -248,23 +250,24 @@ class _$DeckOnline implements DeckOnline {
       : assert(subscribersCount != null),
         assert(deckId != null),
         assert(title != null),
-        assert(icon != null),
+        assert(avatar != null),
         assert(description != null),
         assert(author != null),
         assert(category != null),
         assert(isPrivate != null),
-        assert(cardsCount != null);
+        assert(cardsCount != null),
+        super._();
 
   @override
   final int subscribersCount;
   @override
-  final String deckId;
+  final UniqueId deckId;
   @override
-  final String title;
+  final DeckTitle title;
   @override
-  final File icon;
+  final DeckAvatar avatar;
   @override
-  final String description;
+  final DeckDescription description;
   @override
   final UserModel author;
   @override
@@ -274,42 +277,9 @@ class _$DeckOnline implements DeckOnline {
   @override
   final int cardsCount;
 
-  bool _didmodel = false;
-  DeckModel _model;
-
-  @override
-  DeckModel get model {
-    if (_didmodel == false) {
-      _didmodel = true;
-      _model = this.map(
-          online: (d) => DeckModel(
-                d.deckId,
-                d.title,
-                d.icon.path,
-                d.description,
-                d.category.categoryName,
-                d.isPrivate,
-                d.author.userId,
-                d.subscribersCount,
-                d.cardsCount,
-              ),
-          library: (d) => DeckModel(
-              d.deckId,
-              d.title,
-              d.icon.path,
-              d.description,
-              d.category.categoryName,
-              d.isPrivate,
-              d.author.userId,
-              d.subscribers.length,
-              d.cardsList.length));
-    }
-    return _model;
-  }
-
   @override
   String toString() {
-    return 'Deck.online(subscribersCount: $subscribersCount, deckId: $deckId, title: $title, icon: $icon, description: $description, author: $author, category: $category, isPrivate: $isPrivate, cardsCount: $cardsCount, model: $model)';
+    return 'Deck.online(subscribersCount: $subscribersCount, deckId: $deckId, title: $title, avatar: $avatar, description: $description, author: $author, category: $category, isPrivate: $isPrivate, cardsCount: $cardsCount)';
   }
 
   @override
@@ -323,8 +293,8 @@ class _$DeckOnline implements DeckOnline {
                 const DeepCollectionEquality().equals(other.deckId, deckId)) &&
             (identical(other.title, title) ||
                 const DeepCollectionEquality().equals(other.title, title)) &&
-            (identical(other.icon, icon) ||
-                const DeepCollectionEquality().equals(other.icon, icon)) &&
+            (identical(other.avatar, avatar) ||
+                const DeepCollectionEquality().equals(other.avatar, avatar)) &&
             (identical(other.description, description) ||
                 const DeepCollectionEquality()
                     .equals(other.description, description)) &&
@@ -347,7 +317,7 @@ class _$DeckOnline implements DeckOnline {
       const DeepCollectionEquality().hash(subscribersCount) ^
       const DeepCollectionEquality().hash(deckId) ^
       const DeepCollectionEquality().hash(title) ^
-      const DeepCollectionEquality().hash(icon) ^
+      const DeepCollectionEquality().hash(avatar) ^
       const DeepCollectionEquality().hash(description) ^
       const DeepCollectionEquality().hash(author) ^
       const DeepCollectionEquality().hash(category) ^
@@ -364,10 +334,10 @@ class _$DeckOnline implements DeckOnline {
     @required
         Result online(
             int subscribersCount,
-            String deckId,
-            String title,
-            File icon,
-            String description,
+            UniqueId deckId,
+            DeckTitle title,
+            DeckAvatar avatar,
+            DeckDescription description,
             UserModel author,
             CategoryModel category,
             bool isPrivate,
@@ -375,10 +345,10 @@ class _$DeckOnline implements DeckOnline {
     @required
         Result library(
             List<UserModel> subscribers,
-            String deckId,
-            String title,
-            File icon,
-            String description,
+            UniqueId deckId,
+            DeckTitle title,
+            DeckAvatar avatar,
+            DeckDescription description,
             UserModel author,
             CategoryModel category,
             bool isPrivate,
@@ -386,7 +356,7 @@ class _$DeckOnline implements DeckOnline {
   }) {
     assert(online != null);
     assert(library != null);
-    return online(subscribersCount, deckId, title, icon, description, author,
+    return online(subscribersCount, deckId, title, avatar, description, author,
         category, isPrivate, cardsCount);
   }
 
@@ -395,20 +365,20 @@ class _$DeckOnline implements DeckOnline {
   Result maybeWhen<Result extends Object>({
     Result online(
         int subscribersCount,
-        String deckId,
-        String title,
-        File icon,
-        String description,
+        UniqueId deckId,
+        DeckTitle title,
+        DeckAvatar avatar,
+        DeckDescription description,
         UserModel author,
         CategoryModel category,
         bool isPrivate,
         int cardsCount),
     Result library(
         List<UserModel> subscribers,
-        String deckId,
-        String title,
-        File icon,
-        String description,
+        UniqueId deckId,
+        DeckTitle title,
+        DeckAvatar avatar,
+        DeckDescription description,
         UserModel author,
         CategoryModel category,
         bool isPrivate,
@@ -417,8 +387,8 @@ class _$DeckOnline implements DeckOnline {
   }) {
     assert(orElse != null);
     if (online != null) {
-      return online(subscribersCount, deckId, title, icon, description, author,
-          category, isPrivate, cardsCount);
+      return online(subscribersCount, deckId, title, avatar, description,
+          author, category, isPrivate, cardsCount);
     }
     return orElse();
   }
@@ -449,13 +419,14 @@ class _$DeckOnline implements DeckOnline {
   }
 }
 
-abstract class DeckOnline implements Deck {
+abstract class DeckOnline extends Deck {
+  DeckOnline._() : super._();
   factory DeckOnline(
       {@required int subscribersCount,
-      @required String deckId,
-      @required String title,
-      @required File icon,
-      @required String description,
+      @required UniqueId deckId,
+      @required DeckTitle title,
+      @required DeckAvatar avatar,
+      @required DeckDescription description,
       @required UserModel author,
       @required CategoryModel category,
       @required bool isPrivate,
@@ -463,13 +434,13 @@ abstract class DeckOnline implements Deck {
 
   int get subscribersCount;
   @override
-  String get deckId;
+  UniqueId get deckId;
   @override
-  String get title;
+  DeckTitle get title;
   @override
-  File get icon;
+  DeckAvatar get avatar;
   @override
-  String get description;
+  DeckDescription get description;
   @override
   UserModel get author;
   @override
@@ -488,10 +459,10 @@ abstract class $DeckLibraryCopyWith<$Res> implements $DeckCopyWith<$Res> {
   @override
   $Res call(
       {List<UserModel> subscribers,
-      String deckId,
-      String title,
-      File icon,
-      String description,
+      UniqueId deckId,
+      DeckTitle title,
+      DeckAvatar avatar,
+      DeckDescription description,
       UserModel author,
       CategoryModel category,
       bool isPrivate,
@@ -512,7 +483,7 @@ class _$DeckLibraryCopyWithImpl<$Res> extends _$DeckCopyWithImpl<$Res>
     Object subscribers = freezed,
     Object deckId = freezed,
     Object title = freezed,
-    Object icon = freezed,
+    Object avatar = freezed,
     Object description = freezed,
     Object author = freezed,
     Object category = freezed,
@@ -523,11 +494,12 @@ class _$DeckLibraryCopyWithImpl<$Res> extends _$DeckCopyWithImpl<$Res>
       subscribers: subscribers == freezed
           ? _value.subscribers
           : subscribers as List<UserModel>,
-      deckId: deckId == freezed ? _value.deckId : deckId as String,
-      title: title == freezed ? _value.title : title as String,
-      icon: icon == freezed ? _value.icon : icon as File,
-      description:
-          description == freezed ? _value.description : description as String,
+      deckId: deckId == freezed ? _value.deckId : deckId as UniqueId,
+      title: title == freezed ? _value.title : title as DeckTitle,
+      avatar: avatar == freezed ? _value.avatar : avatar as DeckAvatar,
+      description: description == freezed
+          ? _value.description
+          : description as DeckDescription,
       author: author == freezed ? _value.author : author as UserModel,
       category:
           category == freezed ? _value.category : category as CategoryModel,
@@ -538,12 +510,12 @@ class _$DeckLibraryCopyWithImpl<$Res> extends _$DeckCopyWithImpl<$Res>
   }
 }
 
-class _$DeckLibrary implements DeckLibrary {
+class _$DeckLibrary extends DeckLibrary {
   _$DeckLibrary(
       {this.subscribers,
       @required this.deckId,
       @required this.title,
-      @required this.icon,
+      @required this.avatar,
       @required this.description,
       @required this.author,
       @required this.category,
@@ -551,23 +523,24 @@ class _$DeckLibrary implements DeckLibrary {
       @required this.cardsList})
       : assert(deckId != null),
         assert(title != null),
-        assert(icon != null),
+        assert(avatar != null),
         assert(description != null),
         assert(author != null),
         assert(category != null),
         assert(isPrivate != null),
-        assert(cardsList != null);
+        assert(cardsList != null),
+        super._();
 
   @override
   final List<UserModel> subscribers;
   @override
-  final String deckId;
+  final UniqueId deckId;
   @override
-  final String title;
+  final DeckTitle title;
   @override
-  final File icon;
+  final DeckAvatar avatar;
   @override
-  final String description;
+  final DeckDescription description;
   @override
   final UserModel author;
   @override
@@ -577,42 +550,9 @@ class _$DeckLibrary implements DeckLibrary {
   @override
   final List<Card> cardsList;
 
-  bool _didmodel = false;
-  DeckModel _model;
-
-  @override
-  DeckModel get model {
-    if (_didmodel == false) {
-      _didmodel = true;
-      _model = this.map(
-          online: (d) => DeckModel(
-                d.deckId,
-                d.title,
-                d.icon.path,
-                d.description,
-                d.category.categoryName,
-                d.isPrivate,
-                d.author.userId,
-                d.subscribersCount,
-                d.cardsCount,
-              ),
-          library: (d) => DeckModel(
-              d.deckId,
-              d.title,
-              d.icon.path,
-              d.description,
-              d.category.categoryName,
-              d.isPrivate,
-              d.author.userId,
-              d.subscribers.length,
-              d.cardsList.length));
-    }
-    return _model;
-  }
-
   @override
   String toString() {
-    return 'Deck.library(subscribers: $subscribers, deckId: $deckId, title: $title, icon: $icon, description: $description, author: $author, category: $category, isPrivate: $isPrivate, cardsList: $cardsList, model: $model)';
+    return 'Deck.library(subscribers: $subscribers, deckId: $deckId, title: $title, avatar: $avatar, description: $description, author: $author, category: $category, isPrivate: $isPrivate, cardsList: $cardsList)';
   }
 
   @override
@@ -626,8 +566,8 @@ class _$DeckLibrary implements DeckLibrary {
                 const DeepCollectionEquality().equals(other.deckId, deckId)) &&
             (identical(other.title, title) ||
                 const DeepCollectionEquality().equals(other.title, title)) &&
-            (identical(other.icon, icon) ||
-                const DeepCollectionEquality().equals(other.icon, icon)) &&
+            (identical(other.avatar, avatar) ||
+                const DeepCollectionEquality().equals(other.avatar, avatar)) &&
             (identical(other.description, description) ||
                 const DeepCollectionEquality()
                     .equals(other.description, description)) &&
@@ -650,7 +590,7 @@ class _$DeckLibrary implements DeckLibrary {
       const DeepCollectionEquality().hash(subscribers) ^
       const DeepCollectionEquality().hash(deckId) ^
       const DeepCollectionEquality().hash(title) ^
-      const DeepCollectionEquality().hash(icon) ^
+      const DeepCollectionEquality().hash(avatar) ^
       const DeepCollectionEquality().hash(description) ^
       const DeepCollectionEquality().hash(author) ^
       const DeepCollectionEquality().hash(category) ^
@@ -667,10 +607,10 @@ class _$DeckLibrary implements DeckLibrary {
     @required
         Result online(
             int subscribersCount,
-            String deckId,
-            String title,
-            File icon,
-            String description,
+            UniqueId deckId,
+            DeckTitle title,
+            DeckAvatar avatar,
+            DeckDescription description,
             UserModel author,
             CategoryModel category,
             bool isPrivate,
@@ -678,10 +618,10 @@ class _$DeckLibrary implements DeckLibrary {
     @required
         Result library(
             List<UserModel> subscribers,
-            String deckId,
-            String title,
-            File icon,
-            String description,
+            UniqueId deckId,
+            DeckTitle title,
+            DeckAvatar avatar,
+            DeckDescription description,
             UserModel author,
             CategoryModel category,
             bool isPrivate,
@@ -689,7 +629,7 @@ class _$DeckLibrary implements DeckLibrary {
   }) {
     assert(online != null);
     assert(library != null);
-    return library(subscribers, deckId, title, icon, description, author,
+    return library(subscribers, deckId, title, avatar, description, author,
         category, isPrivate, cardsList);
   }
 
@@ -698,20 +638,20 @@ class _$DeckLibrary implements DeckLibrary {
   Result maybeWhen<Result extends Object>({
     Result online(
         int subscribersCount,
-        String deckId,
-        String title,
-        File icon,
-        String description,
+        UniqueId deckId,
+        DeckTitle title,
+        DeckAvatar avatar,
+        DeckDescription description,
         UserModel author,
         CategoryModel category,
         bool isPrivate,
         int cardsCount),
     Result library(
         List<UserModel> subscribers,
-        String deckId,
-        String title,
-        File icon,
-        String description,
+        UniqueId deckId,
+        DeckTitle title,
+        DeckAvatar avatar,
+        DeckDescription description,
         UserModel author,
         CategoryModel category,
         bool isPrivate,
@@ -720,7 +660,7 @@ class _$DeckLibrary implements DeckLibrary {
   }) {
     assert(orElse != null);
     if (library != null) {
-      return library(subscribers, deckId, title, icon, description, author,
+      return library(subscribers, deckId, title, avatar, description, author,
           category, isPrivate, cardsList);
     }
     return orElse();
@@ -752,13 +692,14 @@ class _$DeckLibrary implements DeckLibrary {
   }
 }
 
-abstract class DeckLibrary implements Deck {
+abstract class DeckLibrary extends Deck {
+  DeckLibrary._() : super._();
   factory DeckLibrary(
       {List<UserModel> subscribers,
-      @required String deckId,
-      @required String title,
-      @required File icon,
-      @required String description,
+      @required UniqueId deckId,
+      @required DeckTitle title,
+      @required DeckAvatar avatar,
+      @required DeckDescription description,
       @required UserModel author,
       @required CategoryModel category,
       @required bool isPrivate,
@@ -766,13 +707,13 @@ abstract class DeckLibrary implements Deck {
 
   List<UserModel> get subscribers;
   @override
-  String get deckId;
+  UniqueId get deckId;
   @override
-  String get title;
+  DeckTitle get title;
   @override
-  File get icon;
+  DeckAvatar get avatar;
   @override
-  String get description;
+  DeckDescription get description;
   @override
   UserModel get author;
   @override

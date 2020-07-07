@@ -24,31 +24,31 @@ class SaveDeckChangesUsecase
     final updateDeckResult = await myDeckRepository.updateDeck(params.newDeck);
     return updateDeckResult.fold((failure) => left(failure),
         (updatedDeck) async {
-      if (cardsToDelete.isNotEmpty) {
-        final deleteCardsResult = await myDeckRepository.deleteCards(
-            cardsToDelete
-                .map((c) => c.toModel(params.newDeck.deckId))
-                .toList());
-        if (deleteCardsResult.isSome())
-          return deleteCardsResult.fold(
-              () => right(updatedDeck), (failure) => left(failure));
-      }
-      if (cardsToAdd.isNotEmpty) {
-        final addCardsResult = await myDeckRepository.addCards(
-            cardsToAdd.map((c) => c.toModel(params.newDeck.deckId)).toList());
-        if (addCardsResult.isLeft())
-          return addCardsResult.fold(
-              (failure) => left(failure), (result) => right(updatedDeck));
-      }
-      if (cardsToUpdate.isNotEmpty) {
-        final updateCardsResult = await myDeckRepository.updateCards(
-            cardsToUpdate
-                .map((c) => c.toModel(params.newDeck.deckId))
-                .toList());
-        if (updateCardsResult.isLeft())
-          return updateCardsResult.fold(
-              (failure) => left(failure), (result) => right(updatedDeck));
-      }
+      // if (cardsToDelete.isNotEmpty) {
+      //   final deleteCardsResult = await myDeckRepository.deleteCards(
+      //       cardsToDelete
+      //           .map((c) => c.toModel(params.newDeck.deckId))
+      //           .toList());
+      //   if (deleteCardsResult.isSome())
+      //     return deleteCardsResult.fold(
+      //         () => right(updatedDeck), (failure) => left(failure));
+      // }
+      // if (cardsToAdd.isNotEmpty) {
+      //   final addCardsResult = await myDeckRepository.addCards(
+      //       cardsToAdd.map((c) => c.toModel(params.newDeck.deckId)).toList());
+      //   if (addCardsResult.isLeft())
+      //     return addCardsResult.fold(
+      //         (failure) => left(failure), (result) => right(updatedDeck));
+      // }
+      // if (cardsToUpdate.isNotEmpty) {
+      //   final updateCardsResult = await myDeckRepository.updateCards(
+      //       cardsToUpdate
+      //           .map((c) => c.toModel(params.newDeck.deckId))
+      //           .toList());
+      //   if (updateCardsResult.isLeft())
+      //     return updateCardsResult.fold(
+      //         (failure) => left(failure), (result) => right(updatedDeck));
+      // }
 
       return right(updatedDeck);
     });

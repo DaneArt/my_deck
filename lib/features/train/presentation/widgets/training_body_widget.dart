@@ -25,15 +25,9 @@ class _TrainingBodyState extends State<TrainingBody> {
         Padding(
           padding: const EdgeInsets.all(8),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              Text(
-                'Level ${widget.stateData.currentCard.level}',
-                style: Theme.of(context)
-                    .textTheme
-                    .title
-                    .copyWith(fontWeight: FontWeight.w500),
-              ),
               IconButton(
                 icon: Icon(CustomIcons.drop_progress,
                     color: Theme.of(context).brightness == Brightness.dark

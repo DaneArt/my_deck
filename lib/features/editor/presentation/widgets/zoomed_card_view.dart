@@ -1,10 +1,9 @@
 import 'package:mydeck/core/helpers/images_util.dart';
-import 'package:mydeck/features/my_deck/domain/entities/card.dart'
-    as Entity;
+import 'package:mydeck/features/my_deck/domain/entities/card.dart' as Entity;
 import 'package:mydeck/features/my_deck/domain/entities/card_content.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/shared/card_content_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:mydeck/generated/l10n.dart';
 
 class ZoomedCardView extends StatefulWidget {
   ZoomedCardView(
@@ -124,7 +123,7 @@ class _ZoomedCardViewState extends State<ZoomedCardView> {
                 child: Padding(
                   padding: const EdgeInsets.all(8),
                   child: Text(
-                    'Answer',
+                    S.of(context).meta_answer,
                     style: Theme.of(context).textTheme.caption,
                   ),
                 ),
@@ -197,7 +196,7 @@ class _ZoomedCardViewState extends State<ZoomedCardView> {
                 child: Padding(
                   padding: const EdgeInsets.all(8),
                   child: Text(
-                    'Question',
+                    S.of(context).meta_question,
                     style: Theme.of(context).textTheme.caption,
                   ),
                 ),
@@ -261,12 +260,9 @@ class _ZoomedCardViewState extends State<ZoomedCardView> {
         Container(
           width: MediaQuery.of(context).size.width - 32,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              Text(
-                'Level ${card != null ? card.level : 1}',
-                style: Theme.of(context).textTheme.title,
-              ),
               isEditing
                   ? IconButton(
                       icon: Icon(Icons.delete, color: Colors.black),

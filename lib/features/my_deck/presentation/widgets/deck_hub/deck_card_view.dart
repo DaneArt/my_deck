@@ -1,22 +1,18 @@
-import 'dart:io';
-
-import 'package:animations/animations.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mydeck/core/extensions/widget_extensions.dart';
 import 'package:mydeck/core/icons/custom_icons_icons.dart';
 import 'package:mydeck/core/injection/dependency_injection.dart';
-import 'package:mydeck/core/meta/my_deck_routes.dart';
-import 'package:mydeck/features/editor/presentation/bloc/add_deck/add_deck_bloc.dart';
-import 'package:mydeck/features/my_deck/domain/entities/card_content.dart';
-import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/editor/domain/usecases/add_deck_usecase.dart';
 import 'package:mydeck/features/editor/domain/usecases/delete_deck_usecase.dart';
 import 'package:mydeck/features/editor/domain/usecases/save_deck_changes_usecase.dart';
-import 'package:mydeck/features/social/domain/usecases/upload_online_deck.dart';
-import 'package:mydeck/core/extensions/widget_extensions.dart';
+import 'package:mydeck/features/editor/presentation/bloc/add_deck/add_deck_bloc.dart';
 import 'package:mydeck/features/editor/presentation/pages/add_deck_page.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mydeck/features/my_deck/domain/entities/card_content.dart';
+import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/shared/triangle_clipper.dart';
 import 'package:mydeck/features/sign_in/data/datasources/user_config.dart';
+import 'package:mydeck/features/social/domain/usecases/upload_online_deck.dart';
 
 class DeckCard extends StatefulWidget {
   final Deck deck;
@@ -28,8 +24,8 @@ class DeckCard extends StatefulWidget {
       {Key key,
       @required this.deck,
       @required this.isEditing,
-      @required this.onDelete,
-      @required this.onUpdate})
+      this.onDelete,
+      this.onUpdate})
       : super(key: key);
 
   @override
@@ -37,16 +33,17 @@ class DeckCard extends StatefulWidget {
 }
 
 class _DeckCardState extends State<DeckCard> {
-
-  Widget getImageFile() =>
-      Image.file(File(widget.deck.icon.path), fit: BoxFit.cover);
+  Widget getImageFile() => Image.network(
+      widget.deck.avatar.value
+          .fold((failure) => failure.failedValue, (value) => value),
+      fit: BoxFit.cover);
 
   Deck get deck => widget.deck;
 
   bool get _isDraft =>
       (deck is DeckLibrary) &&
-      (deck.title.length < 6 ||
-          !deck.icon.existsSync() ||
+      (!deck.title.isValid ||
+          !deck.avatar.isValid ||
           (deck as DeckLibrary)
               .cardsList
               .any((c) => c.answer is NoContent || c.question is NoContent));
@@ -112,7 +109,7 @@ class _DeckCardState extends State<DeckCard> {
   }
 
   Widget _mainCardWidget(double cardHeight) => Card(
-    color: Colors.white,
+        color: Colors.white,
         key: widget.key,
         elevation: 4,
         shape: RoundedRectangleBorder(
@@ -125,20 +122,25 @@ class _DeckCardState extends State<DeckCard> {
             children: <Widget>[
               //Deck Avatar
               ClipRRect(
-                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8),topLeft: Radius.circular(8)),
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(8),
+                    topLeft: Radius.circular(8)),
                 child: ClipPath(
                   clipper: TriangleClipper(),
                   child: Container(
                     height: double.infinity,
                     width: cardHeight * 2 / 3,
-                    child: Image.file(deck.icon, fit: BoxFit.cover),
+                    child: Image.network(
+                        deck.avatar.value.fold(
+                            (failure) => failure.failedValue, (value) => value),
+                        fit: BoxFit.cover),
                   ),
                 ),
               ),
               //Top row
               Padding(
-                padding:  EdgeInsets.only(
-                  left: deck.icon.existsSync() ? 32:8,
+                padding: EdgeInsets.only(
+                  left: deck.avatar.isValid ? 32 : 8,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -146,7 +148,12 @@ class _DeckCardState extends State<DeckCard> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text(deck.title.isNotEmpty? deck.title:'No title',
+                        Text(
+                            deck.title.value.fold(
+                                    (failure) => failure.failedValue.isNotEmpty,
+                                    (value) => value.isNotEmpty)
+                                ? deck.title
+                                : 'No title',
                             style: Theme.of(context)
                                 .textTheme
                                 .headline5
@@ -157,12 +164,15 @@ class _DeckCardState extends State<DeckCard> {
                                   Icons.warning,
                                   color: Colors.yellow,
                                 )
-                              : Icon(deck.author.userId ==
-                              UserConfig.currentUser.userId
-                                  ? deck.isPrivate
-                                      ? Icons.lock
-                                      : Icons.lock_open
-                                  : Icons.star_border, color: Colors.black38,),
+                              : Icon(
+                                  deck.author.userId ==
+                                          UserConfig.currentUser.userId
+                                      ? deck.isPrivate
+                                          ? Icons.lock
+                                          : Icons.lock_open
+                                      : Icons.star_border,
+                                  color: Colors.black38,
+                                ),
                           onPressed: () {
                             //TODO: implement deck subscription
                           },
@@ -171,19 +181,22 @@ class _DeckCardState extends State<DeckCard> {
                     ),
                     Transform.translate(
                       offset: Offset(0, -8),
-                      child:  Padding(
-                        padding:  EdgeInsets.only(left:deck.icon.existsSync()? 8.0:0),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            left: deck.avatar.isValid ? 8.0 : 0),
                         child: Text('Category: ${deck.category.categoryName}',
-                              style: Theme.of(context).textTheme.bodyText2 ),
+                            style: Theme.of(context).textTheme.bodyText2),
                       ),
-                      ),
-
+                    ),
                   ],
                 ),
               ),
               //Bottom row
               Padding(
-                padding:  EdgeInsets.only(left: deck.icon.existsSync()? cardHeight*0.75:8, bottom: 8, right: 8),
+                padding: EdgeInsets.only(
+                    left: deck.avatar.isValid ? cardHeight * 0.75 : 8,
+                    bottom: 8,
+                    right: 8),
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Row(
@@ -191,13 +204,15 @@ class _DeckCardState extends State<DeckCard> {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          Icon(CustomIcons.subscribers_count,color: Theme.of(context).accentIconTheme.color,),
+                          Icon(
+                            CustomIcons.subscribers_count,
+                            color: Theme.of(context).accentIconTheme.color,
+                          ),
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0),
                             child: Text(
-                                '${deck is DeckOnline ? (deck as DeckOnline).subscribersCount : (deck as DeckLibrary).subscribers.length}',
-
-                                ),
+                              '${deck is DeckOnline ? (deck as DeckOnline).subscribersCount : (deck as DeckLibrary).subscribers.length}',
+                            ),
                           ),
                         ],
                       ),
@@ -206,12 +221,12 @@ class _DeckCardState extends State<DeckCard> {
                           Padding(
                             padding: const EdgeInsets.only(right: 8.0),
                             child: Text(
-                                '${deck is DeckOnline ? (deck as DeckOnline).cardsCount : (deck as DeckLibrary).cardsList.length}',
-                                textAlign: TextAlign.right,
-
-                                ),
+                              '${deck is DeckOnline ? (deck as DeckOnline).cardsCount : (deck as DeckLibrary).cardsList.length}',
+                              textAlign: TextAlign.right,
+                            ),
                           ),
-                          Icon(CustomIcons.cards,color: Theme.of(context).accentIconTheme.color),
+                          Icon(CustomIcons.cards,
+                              color: Theme.of(context).accentIconTheme.color),
                         ],
                       ),
                     ],

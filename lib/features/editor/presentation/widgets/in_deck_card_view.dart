@@ -1,6 +1,7 @@
 import 'package:mydeck/features/my_deck/domain/entities/card.dart' as Entity;
 import 'package:mydeck/features/my_deck/domain/entities/card_content.dart';
 import 'package:flutter/material.dart';
+import 'package:mydeck/generated/l10n.dart';
 
 class InDeckCardView extends StatefulWidget {
   final Entity.Card sourceCard;
@@ -48,8 +49,12 @@ class _InDeckCardViewState extends State<InDeckCardView>
         fit: BoxFit.cover,
       );
     } else if (content is TextContent) {
-      return Text(content.text, style: TextStyle(fontSize: 18),textAlign: TextAlign.center,);
-    } else  {
+      return Text(
+        content.text,
+        style: TextStyle(fontSize: 18),
+        textAlign: TextAlign.center,
+      );
+    } else {
       return Text('');
     }
   }
@@ -75,8 +80,16 @@ class _InDeckCardViewState extends State<InDeckCardView>
                     child: Padding(
                       padding: const EdgeInsets.all(8),
                       child: Text(
-                        isQuestion ? 'Question' : 'Answer',
-                        style: TextStyle(color: Theme.of(context).textTheme.bodyText2.color.withOpacity(0.3), fontSize: 12),
+                        isQuestion
+                            ? S.of(context).meta_question
+                            : S.of(context).meta_answer,
+                        style: TextStyle(
+                            color: Theme.of(context)
+                                .textTheme
+                                .bodyText2
+                                .color
+                                .withOpacity(0.3),
+                            fontSize: 12),
                       ),
                     ),
                   ),

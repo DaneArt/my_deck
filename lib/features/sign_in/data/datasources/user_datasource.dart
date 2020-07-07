@@ -6,7 +6,6 @@ import 'package:mydeck/core/error/auth_failure.dart';
 import 'package:mydeck/core/error/exception.dart';
 import 'package:mydeck/features/sign_in/data/datasources/user_config.dart';
 import 'package:mydeck/features/sign_in/data/models/user_model.dart';
-import 'package:meta/meta.dart';
 
 abstract class UserDataSource {
   Future<Option<AuthFailure>> refreshTokens();
@@ -19,7 +18,6 @@ abstract class UserDataSource {
 class UserDataSourceImpl implements UserDataSource {
   final client = Dio(
       BaseOptions(baseUrl: 'http://mydeck-001-site1.dtempurl.com/mydeckapi'));
-
 
   UserDataSourceImpl();
 
@@ -58,22 +56,22 @@ class UserDataSourceImpl implements UserDataSource {
       return none();
     } on DioError catch (e) {
       return some(AuthFailure.tokenExpired());
-    }catch (e){
+    } catch (e) {
       return some(AuthFailure.tokenExpired());
     }
   }
 
   @override
   Future<Response> signInWithGoogleToken(String userToken) {
-   try{
-     return client.post(
-       '/User/SignInByGoogle',
-       options: Options(headers: {'idtoken': userToken}),
-     );
-   } on DioError catch(e){
-     throw NetworkException();
-   }catch(e){
-     throw NetworkException();
-   }
+    try {
+      return client.post(
+        '/User/SignInByGoogle',
+        options: Options(headers: {'idtoken': userToken}),
+      );
+    } on DioError catch (e) {
+      throw NetworkException();
+    } catch (e) {
+      throw NetworkException();
+    }
   }
 }

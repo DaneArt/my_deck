@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mydeck/core/injection/dependency_injection.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/deck_hub/deck_card_view.dart';
 import 'package:mydeck/features/sign_in/data/datasources/user_config.dart';
+import 'package:mydeck/generated/l10n.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({Key key}) : super(key: key);
@@ -16,7 +16,7 @@ class ProfilePage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(
-            "${UserConfig.currentUser.username[0].toUpperCase()}${UserConfig.currentUser.username.substring(1)}'s profile",
+            "${UserConfig.currentUser.username[0].toUpperCase()}${UserConfig.currentUser.username.substring(1)} ${S.of(context).profile_title}",
             style: Theme.of(context).textTheme.headline6.copyWith(
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).primaryColor)),
@@ -27,7 +27,7 @@ class ProfilePage extends StatelessWidget {
           ProfilePageHat(screenSize: screenSize),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('Decks: 224',
+            child: Text('${S.of(context).meta_decks}: 224',
                 style: Theme.of(context)
                     .textTheme
                     .headline5
@@ -117,13 +117,14 @@ class ProfilePageHat extends StatelessWidget {
               FlatButton(
                 onPressed: () {},
                 child: Text(
-                  'Subsribers: 24',
+                  '${S.of(context).profile_subsribers} 24',
                   textAlign: TextAlign.left,
                 ),
               ),
               FlatButton(
                 onPressed: () {},
-                child: Text('Subscribtions: 24', textAlign: TextAlign.left),
+                child: Text('${S.of(context).profile_subscribtions} 24',
+                    textAlign: TextAlign.left),
               ),
             ],
           ),
