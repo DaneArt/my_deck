@@ -263,13 +263,13 @@ class _EmailInputFormState extends State<EmailInputForm>
               autovalidate: autovalidate,
               onChanged: (input) => BlocProvider.of<SignInBloc>(context)
                   .add(SignInEvent.emailChanged(input)),
-              hint: S.of(context).login_enter_email,
+              hint: S.current.login_enter_email,
               validator: _validateEmail,
               prefix: Icon(
                 Icons.email,
                 color: Colors.indigo,
               ),
-              label: S.of(context).login_email_address),
+              label: S.current.login_email_address),
           Padding(
             padding: const EdgeInsets.only(top: 24, left: 8, right: 8),
             child: Row(
@@ -289,7 +289,7 @@ class _EmailInputFormState extends State<EmailInputForm>
                 LoginButton(
                   content: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(S.of(context).login_confirm,
+                    child: Text(S.current.login_confirm,
                         style: TextStyle(
                             fontWeight: FontWeight.w500, color: Colors.white)),
                   ),
@@ -376,18 +376,18 @@ class _LoginInputFormState extends State<LoginInputForm>
             controller: loginTextController,
             onChanged: (input) => BlocProvider.of<SignInBloc>(context)
                 .add(SignInEvent.loginChanged(input)),
-            hint: S.of(context).login_how_call_you,
+            hint: S.current.login_how_call_you,
             prefix: Icon(Icons.person),
             validator: _validateLogin,
             autovalidate: autovalidate,
-            label: S.of(context).login_username,
+            label: S.current.login_username,
           ),
           Padding(
             padding: const EdgeInsets.only(top: 24, left: 8, right: 8),
             child: Container(
               width: MediaQuery.of(context).size.width,
               child: LoginButton(
-                content: Text(S.of(context).login_confirm,
+                content: Text(S.current.login_confirm,
                     style: TextStyle(fontWeight: FontWeight.w500)),
                 onPressed: () {
                   setState(() {
@@ -475,7 +475,7 @@ class _PasswordInputFormState extends State<PasswordInputForm>
           children: <Widget>[
             LoginField(
               fieldKey: passwordFieldKey,
-              hint: S.of(context).login_enter_password,
+              hint: S.current.login_enter_password,
               validator: _validatePassword,
               prefix: Icon(Icons.lock),
               isObscureText: obscurePassword,
@@ -487,11 +487,11 @@ class _PasswordInputFormState extends State<PasswordInputForm>
                   obscurePassword = !obscurePassword;
                 }),
               ),
-              label: S.of(context).login_password,
+              label: S.current.login_password,
             ),
             LoginField(
                 fieldKey: confirmPasswordFieldKey,
-                hint: S.of(context).login_confirm_password,
+                hint: S.current.login_confirm_password,
                 validator: _confirmPassword,
                 prefix: Icon(Icons.lock),
                 isObscureText: obscureConfrimPassword,
@@ -505,13 +505,13 @@ class _PasswordInputFormState extends State<PasswordInputForm>
                     obscureConfrimPassword = !obscureConfrimPassword;
                   }),
                 ),
-                label: S.of(context).login_confirm_password),
+                label: S.current.login_confirm_password),
             Padding(
               padding: const EdgeInsets.only(top: 24, left: 8, right: 8),
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 child: LoginButton(
-                    content: Text(S.of(context).login_here_we_go,
+                    content: Text(S.current.login_here_we_go,
                         style: TextStyle(fontWeight: FontWeight.w500)),
                     onPressed: () {
                       setState(() {
@@ -595,16 +595,16 @@ class _SignInFormState extends State<SignInForm> with WidgetsBindingObserver {
               controller: emailOrLoginInputController,
               onChanged: (input) => BlocProvider.of<SignInBloc>(context)
                   .add(SignInEvent.emailOrLoginChanged(input)),
-              hint: S.of(context).login_enter_email_or_login,
+              hint: S.current.login_enter_email_or_login,
               prefix: Icon(Icons.person),
-              label: S.of(context).login_email_or_login,
+              label: S.current.login_email_or_login,
             ),
             LoginField(
               fieldKey: passwordFieldKey,
               controller: passwordInputController,
               onChanged: (input) => BlocProvider.of<SignInBloc>(context)
                   .add(SignInEvent.passwordChanged(input)),
-              hint: S.of(context).login_enter_password.padRight(1),
+              hint: S.current.login_enter_password.padRight(1),
               prefix: Icon(Icons.lock),
               isObscureText: isObscurePassword,
               suffix: IconButton(
@@ -615,14 +615,14 @@ class _SignInFormState extends State<SignInForm> with WidgetsBindingObserver {
                   isObscurePassword = !isObscurePassword;
                 }),
               ),
-              label: S.of(context).login_enter_password.padRight(1),
+              label: S.current.login_enter_password.padRight(1),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 24, left: 8, right: 8),
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 child: LoginButton(
-                  content: Text(S.of(context).login_sign_in,
+                  content: Text(S.current.login_sign_in,
                       style: TextStyle(fontWeight: FontWeight.w500)),
                   onPressed: () =>
                       Navigator.pushNamed(context, MyDeckRoutes.home),
@@ -699,25 +699,25 @@ class _InitialLoginFormState extends State<InitialLoginForm>
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           LoginField(
-            label: S.of(context).login_email_or_login,
+            label: S.current.login_email_or_login,
             fieldKey: emailInputFieldKey,
             controller: emailInputTextController,
             onChanged: (input) => BlocProvider.of<SignInBloc>(context)
                 .add(SignInEvent.emailOrLoginChanged(input)),
             validator: _validateInputField,
-            hint: S.of(context).login_enter_email_or_login,
+            hint: S.current.login_enter_email_or_login,
             prefix: Icon(Icons.person),
             autovalidate: isAutoValidate,
           ),
           LoginField(
-            label: S.of(context).login_password,
+            label: S.current.login_password,
             fieldKey: passwordInputFieldKey,
             controller: passwordInputTextController,
             onChanged: (input) => BlocProvider.of<SignInBloc>(context)
                 .add(SignInEvent.passwordChanged(input)),
             validator: null,
             isObscureText: obscurePassword,
-            hint: S.of(context).login_enter_password,
+            hint: S.current.login_enter_password,
             prefix: Icon(Icons.lock),
             suffix: IconButton(
               icon: Icon(
@@ -739,7 +739,7 @@ class _InitialLoginFormState extends State<InitialLoginForm>
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Text(S.of(context).login_sign_in_google,
+                      Text(S.current.login_sign_in_google,
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               color: Colors.white)),
@@ -762,7 +762,7 @@ class _InitialLoginFormState extends State<InitialLoginForm>
                     enabled: true,
                     content: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(S.of(context).login_sign_up,
+                      child: Text(S.current.login_sign_up,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.white)),
@@ -782,7 +782,7 @@ class _InitialLoginFormState extends State<InitialLoginForm>
                   enabled: true,
                   content: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(S.of(context).login_sign_in,
+                    child: Text(S.current.login_sign_in,
                         style: TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.white)),
                   ),
