@@ -37,7 +37,7 @@ final sl = GetIt.I;
 
 void setUp() {
   //RestApi
-  sl.registerFactory(
+  sl.registerSingleton(
     () => Dio(
       BaseOptions(
         headers: {
