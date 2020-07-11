@@ -2,7 +2,7 @@
   "project_info": {
     "project_number": "292694254456",
     "firebase_url": "https://mydeck-a171b.firebaseio.com",
-    "project_id": "mydeck-a171b",
+    "project_id": "mydeck-a171b",google-services
     "storage_bucket": "mydeck-a171b.appspot.com"
   },
   "client": [
@@ -14,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "292694254456-3svudgjielnagvong528vhpi7t0fqudn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.daneart.my_deck",
+            "certificate_hash": "4f5c78cf91e74479b2e2f0586452759e52792a16"
+          }
+        },
         {
           "client_id": "292694254456-dau67egnnm7s513fofc4gvu5ftjut9le.apps.googleusercontent.com",
           "client_type": 3
