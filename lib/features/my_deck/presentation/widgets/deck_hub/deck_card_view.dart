@@ -33,10 +33,21 @@ class DeckCard extends StatefulWidget {
 }
 
 class _DeckCardState extends State<DeckCard> {
-  Widget getImageFile() => Image.network(
-      widget.deck.avatar.value
-          .fold((failure) => failure.failedValue, (value) => value),
-      fit: BoxFit.cover);
+  Widget _imageWidget() => Stack(
+    fit: StackFit.expand,
+        children: [
+          Container(
+            height: double.infinity,
+            width: double.infinity,
+            color: Colors.grey,
+          ),
+          Image.network(
+              'http://mydeck-001-site1.dtempurl.com/mydeckapi/media/media/' +
+                  widget.deck.avatar.value
+                      .fold((failure) => failure.failedValue, (value) => value),
+              fit: BoxFit.cover),
+        ],
+      );
 
   Deck get deck => widget.deck;
 
@@ -128,19 +139,15 @@ class _DeckCardState extends State<DeckCard> {
                 child: ClipPath(
                   clipper: TriangleClipper(),
                   child: Container(
-                    height: double.infinity,
-                    width: cardHeight * 2 / 3,
-                    child: Image.network(
-                        deck.avatar.value.fold(
-                            (failure) => failure.failedValue, (value) => value),
-                        fit: BoxFit.cover),
-                  ),
+                      height: double.infinity,
+                      width: cardHeight * 2 / 3,
+                      child: _imageWidget()),
                 ),
               ),
               //Top row
               Padding(
                 padding: EdgeInsets.only(
-                  left: deck.avatar.isValid ? 32 : 8,
+                  left: 32,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,7 +159,7 @@ class _DeckCardState extends State<DeckCard> {
                             deck.title.value.fold(
                                     (failure) => failure.failedValue.isNotEmpty,
                                     (value) => value.isNotEmpty)
-                                ? deck.title
+                                ? deck.title.getOrCrash
                                 : 'No title',
                             style: Theme.of(context)
                                 .textTheme
@@ -182,8 +189,7 @@ class _DeckCardState extends State<DeckCard> {
                     Transform.translate(
                       offset: Offset(0, -8),
                       child: Padding(
-                        padding: EdgeInsets.only(
-                            left: deck.avatar.isValid ? 8.0 : 0),
+                        padding: EdgeInsets.only(left: 8),
                         child: Text('Category: ${deck.category.categoryName}',
                             style: Theme.of(context).textTheme.bodyText2),
                       ),
@@ -194,9 +200,7 @@ class _DeckCardState extends State<DeckCard> {
               //Bottom row
               Padding(
                 padding: EdgeInsets.only(
-                    left: deck.avatar.isValid ? cardHeight * 0.75 : 8,
-                    bottom: 8,
-                    right: 8),
+                    left: cardHeight * 0.75, bottom: 8, right: 8),
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Row(
@@ -211,7 +215,7 @@ class _DeckCardState extends State<DeckCard> {
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0),
                             child: Text(
-                              '${deck is DeckOnline ? (deck as DeckOnline).subscribersCount : (deck as DeckLibrary).subscribers.length}',
+                              '${deck is DeckOnline ? (deck as DeckOnline).subscribersCount : (deck as DeckLibrary).subscribers != null ? (deck as DeckLibrary).subscribers.length : 0}',
                             ),
                           ),
                         ],

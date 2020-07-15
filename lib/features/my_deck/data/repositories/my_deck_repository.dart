@@ -46,7 +46,7 @@ class MyDeckRepositoryImpl extends MyDeckRepository {
       if (await networkConnection.isConnected) {
         final networkDecks = await networkDataSource.getAllDecksOfCurrentUser();
         final deckEntities =
-            networkDecks.map((deck) => deck.toDomain()).toList();
+            networkDecks.map((deck) => deck.toDomain() as DeckLibrary).toList();
         return right(deckEntities);
       } else {
         return left(StorageFailure.networkFailure());

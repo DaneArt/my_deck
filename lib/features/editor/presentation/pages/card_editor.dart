@@ -216,21 +216,7 @@ class _CardEditorState extends State<CardEditor> {
                 newAnswer: CardContent.textContent(text: input)));
           },
         ),
-        imageContent: (s) => ClipRRect(
-          borderRadius: BorderRadius.only(
-              bottomRight: Radius.circular(4), bottomLeft: Radius.circular(4)),
-          child: InkWell(
-            onTap: () {
-              _showImagePickerDialog();
-            },
-            child: Image.network(
-              s.model,
-              fit: BoxFit.cover,
-              height: MediaQuery.of(context).size.height * 0.65,
-              width: MediaQuery.of(context).size.width,
-            ),
-          ),
-        ),
+        imageContent: (s) => ImageCardContentWidget(imageFile: s.image),
       );
 
   Widget _renderCard(BuildContext context, AddCardState state, int cardIndex) {

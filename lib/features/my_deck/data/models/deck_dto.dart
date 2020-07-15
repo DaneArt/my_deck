@@ -15,6 +15,7 @@ import 'card_dto.dart';
 import 'category_model.dart';
 
 part 'deck_dto.freezed.dart';
+
 part 'deck_dto.g.dart';
 
 const _kUndefinedCardsCount = -1;
@@ -23,15 +24,16 @@ const _kUndefinedSubscribersCount = -1;
 @freezed
 abstract class DeckDto implements _$DeckDto {
   const DeckDto._();
+
   const factory DeckDto({
     @required @JsonKey(name: 'deck_id') String deckId,
     @required String title,
     @required @DeckAvatarConverter() @JsonKey(name: 'icon') String avatar,
     @required String description,
-    @required @JsonKey(name: 'subscribers_count') int subscribersCount,
-    @required List<UserModel> subscribers,
-    @required @JsonKey(name: 'cards_count') int cardsCount,
-    @required @JsonKey(name: 'cards') List<CardDto> cardDtos,
+    @JsonKey(name: 'subscribers_count', nullable: true) int subscribersCount,
+    @JsonKey(nullable: true) List<UserModel> subscribers,
+    @JsonKey(name: 'cards_count', nullable: true) int cardsCount,
+    @JsonKey(name: 'cards', nullable: true) List<CardDto> cardDtos,
     @required @JsonKey(name: 'category_name') String categoryName,
     @required @JsonKey(name: 'is_private') bool isPrivate,
     @required @JsonKey(name: 'author') String authorId,

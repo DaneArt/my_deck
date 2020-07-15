@@ -17,10 +17,12 @@ class _CategoryPickerState extends State<CategoryPicker> {
   final List<Color> colors = [
     Colors.redAccent,
     Colors.orangeAccent,
+    Colors.yellowAccent,
     Colors.greenAccent,
     Colors.lightBlueAccent,
     Colors.blueAccent,
     Colors.purpleAccent,
+
   ];
 
   CategoryModel pickedCategory;

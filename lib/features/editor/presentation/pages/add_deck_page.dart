@@ -649,13 +649,13 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(S.of(context).editor_category),
-            // CategoryPicker(
-            //   onChanged: (value) {
-            //     BlocProvider.of<AddDeckBloc>(context)
-            //         .add(AddDeckEvent.categoryChanged(value));
-            //   },
-            //   baseCategory: state.category,
-            // ),
+             CategoryPicker(
+               onChanged: (value) {
+                 BlocProvider.of<AddDeckBloc>(context)
+                     .add(AddDeckEvent.categoryChanged(value));
+               },
+               baseCategory: state.category,
+             ),
           ],
         ),
       );

@@ -20,10 +20,10 @@ class _$DeckDtoTearOff {
       @required String title,
       @required @DeckAvatarConverter() @JsonKey(name: 'icon') String avatar,
       @required String description,
-      @required @JsonKey(name: 'subscribers_count') int subscribersCount,
-      @required List<UserModel> subscribers,
-      @required @JsonKey(name: 'cards_count') int cardsCount,
-      @required @JsonKey(name: 'cards') List<CardDto> cardDtos,
+      @JsonKey(name: 'subscribers_count', nullable: true) int subscribersCount,
+      @JsonKey(nullable: true) List<UserModel> subscribers,
+      @JsonKey(name: 'cards_count', nullable: true) int cardsCount,
+      @JsonKey(name: 'cards', nullable: true) List<CardDto> cardDtos,
       @required @JsonKey(name: 'category_name') String categoryName,
       @required @JsonKey(name: 'is_private') bool isPrivate,
       @required @JsonKey(name: 'author') String authorId}) {
@@ -54,12 +54,13 @@ mixin _$DeckDto {
   @JsonKey(name: 'icon')
   String get avatar;
   String get description;
-  @JsonKey(name: 'subscribers_count')
+  @JsonKey(name: 'subscribers_count', nullable: true)
   int get subscribersCount;
+  @JsonKey(nullable: true)
   List<UserModel> get subscribers;
-  @JsonKey(name: 'cards_count')
+  @JsonKey(name: 'cards_count', nullable: true)
   int get cardsCount;
-  @JsonKey(name: 'cards')
+  @JsonKey(name: 'cards', nullable: true)
   List<CardDto> get cardDtos;
   @JsonKey(name: 'category_name')
   String get categoryName;
@@ -80,10 +81,10 @@ abstract class $DeckDtoCopyWith<$Res> {
       String title,
       @DeckAvatarConverter() @JsonKey(name: 'icon') String avatar,
       String description,
-      @JsonKey(name: 'subscribers_count') int subscribersCount,
-      List<UserModel> subscribers,
-      @JsonKey(name: 'cards_count') int cardsCount,
-      @JsonKey(name: 'cards') List<CardDto> cardDtos,
+      @JsonKey(name: 'subscribers_count', nullable: true) int subscribersCount,
+      @JsonKey(nullable: true) List<UserModel> subscribers,
+      @JsonKey(name: 'cards_count', nullable: true) int cardsCount,
+      @JsonKey(name: 'cards', nullable: true) List<CardDto> cardDtos,
       @JsonKey(name: 'category_name') String categoryName,
       @JsonKey(name: 'is_private') bool isPrivate,
       @JsonKey(name: 'author') String authorId});
@@ -143,10 +144,10 @@ abstract class _$DeckDtoCopyWith<$Res> implements $DeckDtoCopyWith<$Res> {
       String title,
       @DeckAvatarConverter() @JsonKey(name: 'icon') String avatar,
       String description,
-      @JsonKey(name: 'subscribers_count') int subscribersCount,
-      List<UserModel> subscribers,
-      @JsonKey(name: 'cards_count') int cardsCount,
-      @JsonKey(name: 'cards') List<CardDto> cardDtos,
+      @JsonKey(name: 'subscribers_count', nullable: true) int subscribersCount,
+      @JsonKey(nullable: true) List<UserModel> subscribers,
+      @JsonKey(name: 'cards_count', nullable: true) int cardsCount,
+      @JsonKey(name: 'cards', nullable: true) List<CardDto> cardDtos,
       @JsonKey(name: 'category_name') String categoryName,
       @JsonKey(name: 'is_private') bool isPrivate,
       @JsonKey(name: 'author') String authorId});
@@ -205,10 +206,10 @@ class _$_DeckDto extends _DeckDto with DiagnosticableTreeMixin {
       @required this.title,
       @required @DeckAvatarConverter() @JsonKey(name: 'icon') this.avatar,
       @required this.description,
-      @required @JsonKey(name: 'subscribers_count') this.subscribersCount,
-      @required this.subscribers,
-      @required @JsonKey(name: 'cards_count') this.cardsCount,
-      @required @JsonKey(name: 'cards') this.cardDtos,
+      @JsonKey(name: 'subscribers_count', nullable: true) this.subscribersCount,
+      @JsonKey(nullable: true) this.subscribers,
+      @JsonKey(name: 'cards_count', nullable: true) this.cardsCount,
+      @JsonKey(name: 'cards', nullable: true) this.cardDtos,
       @required @JsonKey(name: 'category_name') this.categoryName,
       @required @JsonKey(name: 'is_private') this.isPrivate,
       @required @JsonKey(name: 'author') this.authorId})
@@ -216,10 +217,6 @@ class _$_DeckDto extends _DeckDto with DiagnosticableTreeMixin {
         assert(title != null),
         assert(avatar != null),
         assert(description != null),
-        assert(subscribersCount != null),
-        assert(subscribers != null),
-        assert(cardsCount != null),
-        assert(cardDtos != null),
         assert(categoryName != null),
         assert(isPrivate != null),
         assert(authorId != null),
@@ -240,15 +237,16 @@ class _$_DeckDto extends _DeckDto with DiagnosticableTreeMixin {
   @override
   final String description;
   @override
-  @JsonKey(name: 'subscribers_count')
+  @JsonKey(name: 'subscribers_count', nullable: true)
   final int subscribersCount;
   @override
+  @JsonKey(nullable: true)
   final List<UserModel> subscribers;
   @override
-  @JsonKey(name: 'cards_count')
+  @JsonKey(name: 'cards_count', nullable: true)
   final int cardsCount;
   @override
-  @JsonKey(name: 'cards')
+  @JsonKey(name: 'cards', nullable: true)
   final List<CardDto> cardDtos;
   @override
   @JsonKey(name: 'category_name')
@@ -351,10 +349,10 @@ abstract class _DeckDto extends DeckDto {
       @required String title,
       @required @DeckAvatarConverter() @JsonKey(name: 'icon') String avatar,
       @required String description,
-      @required @JsonKey(name: 'subscribers_count') int subscribersCount,
-      @required List<UserModel> subscribers,
-      @required @JsonKey(name: 'cards_count') int cardsCount,
-      @required @JsonKey(name: 'cards') List<CardDto> cardDtos,
+      @JsonKey(name: 'subscribers_count', nullable: true) int subscribersCount,
+      @JsonKey(nullable: true) List<UserModel> subscribers,
+      @JsonKey(name: 'cards_count', nullable: true) int cardsCount,
+      @JsonKey(name: 'cards', nullable: true) List<CardDto> cardDtos,
       @required @JsonKey(name: 'category_name') String categoryName,
       @required @JsonKey(name: 'is_private') bool isPrivate,
       @required @JsonKey(name: 'author') String authorId}) = _$_DeckDto;
@@ -373,15 +371,16 @@ abstract class _DeckDto extends DeckDto {
   @override
   String get description;
   @override
-  @JsonKey(name: 'subscribers_count')
+  @JsonKey(name: 'subscribers_count', nullable: true)
   int get subscribersCount;
   @override
+  @JsonKey(nullable: true)
   List<UserModel> get subscribers;
   @override
-  @JsonKey(name: 'cards_count')
+  @JsonKey(name: 'cards_count', nullable: true)
   int get cardsCount;
   @override
-  @JsonKey(name: 'cards')
+  @JsonKey(name: 'cards', nullable: true)
   List<CardDto> get cardDtos;
   @override
   @JsonKey(name: 'category_name')
