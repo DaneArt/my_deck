@@ -42,7 +42,7 @@ class MyDeckApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      locale: Locale('ru'),
+
       localizationsDelegates: [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
