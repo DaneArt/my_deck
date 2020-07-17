@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:jose/jose.dart';
 import 'package:mydeck/core/error/value_failure.dart';
+import 'package:mydeck/features/my_deck/domain/entities/my_deck_file.dart';
+import 'package:mydeck/features/my_deck/domain/entities/unique_id.dart';
 
 final _kPasswordRegexp =
     RegExp(r'(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,24}');
@@ -65,13 +67,32 @@ Either<ValueFailure<String>, String> validateDeckTitle(String input) {
   }
 }
 
-Either<ValueFailure<String>, String> validateDeckAvatar(String input) {
-  if (input == null || input.isEmpty) {
-    return left(ValueFailure.fileDoesNotExists(failedValue: 'null'));
-  } else if (!File(input).existsSync()) {
-    return left(ValueFailure.fileDoesNotExists(failedValue: input));
+Either<ValueFailure<MyDeckFile>, MyDeckFile> validateDeckAvatar(File input) {
+  if (input == null) {
+    return left(
+      ValueFailure.fileDoesNotExists(
+        failedValue: MyDeckFile.image(
+          image: input,
+          uniqueId: UniqueId(),
+        ),
+      ),
+    );
+  } else if (!input.existsSync()) {
+    return left(
+      ValueFailure.fileDoesNotExists(
+        failedValue: MyDeckFile.image(
+          image: input,
+          uniqueId: UniqueId(),
+        ),
+      ),
+    );
   } else {
-    return right(input);
+    return right(
+      MyDeckFile.image(
+        image: input,
+        uniqueId: UniqueId(),
+      ),
+    );
   }
 }
 

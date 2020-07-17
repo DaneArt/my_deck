@@ -18,7 +18,7 @@ class _$DeckDtoTearOff {
   _DeckDto call(
       {@required @JsonKey(name: 'deck_id') String deckId,
       @required String title,
-      @required @DeckAvatarConverter() @JsonKey(name: 'icon') String avatar,
+      @required @JsonKey(name: 'icon') FileDto avatar,
       @required String description,
       @JsonKey(name: 'subscribers_count', nullable: true) int subscribersCount,
       @JsonKey(nullable: true) List<UserModel> subscribers,
@@ -50,9 +50,8 @@ mixin _$DeckDto {
   @JsonKey(name: 'deck_id')
   String get deckId;
   String get title;
-  @DeckAvatarConverter()
   @JsonKey(name: 'icon')
-  String get avatar;
+  FileDto get avatar;
   String get description;
   @JsonKey(name: 'subscribers_count', nullable: true)
   int get subscribersCount;
@@ -79,7 +78,7 @@ abstract class $DeckDtoCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'deck_id') String deckId,
       String title,
-      @DeckAvatarConverter() @JsonKey(name: 'icon') String avatar,
+      @JsonKey(name: 'icon') FileDto avatar,
       String description,
       @JsonKey(name: 'subscribers_count', nullable: true) int subscribersCount,
       @JsonKey(nullable: true) List<UserModel> subscribers,
@@ -88,6 +87,8 @@ abstract class $DeckDtoCopyWith<$Res> {
       @JsonKey(name: 'category_name') String categoryName,
       @JsonKey(name: 'is_private') bool isPrivate,
       @JsonKey(name: 'author') String authorId});
+
+  $FileDtoCopyWith<$Res> get avatar;
 }
 
 class _$DeckDtoCopyWithImpl<$Res> implements $DeckDtoCopyWith<$Res> {
@@ -114,7 +115,7 @@ class _$DeckDtoCopyWithImpl<$Res> implements $DeckDtoCopyWith<$Res> {
     return _then(_value.copyWith(
       deckId: deckId == freezed ? _value.deckId : deckId as String,
       title: title == freezed ? _value.title : title as String,
-      avatar: avatar == freezed ? _value.avatar : avatar as String,
+      avatar: avatar == freezed ? _value.avatar : avatar as FileDto,
       description:
           description == freezed ? _value.description : description as String,
       subscribersCount: subscribersCount == freezed
@@ -133,6 +134,16 @@ class _$DeckDtoCopyWithImpl<$Res> implements $DeckDtoCopyWith<$Res> {
       authorId: authorId == freezed ? _value.authorId : authorId as String,
     ));
   }
+
+  @override
+  $FileDtoCopyWith<$Res> get avatar {
+    if (_value.avatar == null) {
+      return null;
+    }
+    return $FileDtoCopyWith<$Res>(_value.avatar, (value) {
+      return _then(_value.copyWith(avatar: value));
+    });
+  }
 }
 
 abstract class _$DeckDtoCopyWith<$Res> implements $DeckDtoCopyWith<$Res> {
@@ -142,7 +153,7 @@ abstract class _$DeckDtoCopyWith<$Res> implements $DeckDtoCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'deck_id') String deckId,
       String title,
-      @DeckAvatarConverter() @JsonKey(name: 'icon') String avatar,
+      @JsonKey(name: 'icon') FileDto avatar,
       String description,
       @JsonKey(name: 'subscribers_count', nullable: true) int subscribersCount,
       @JsonKey(nullable: true) List<UserModel> subscribers,
@@ -151,6 +162,9 @@ abstract class _$DeckDtoCopyWith<$Res> implements $DeckDtoCopyWith<$Res> {
       @JsonKey(name: 'category_name') String categoryName,
       @JsonKey(name: 'is_private') bool isPrivate,
       @JsonKey(name: 'author') String authorId});
+
+  @override
+  $FileDtoCopyWith<$Res> get avatar;
 }
 
 class __$DeckDtoCopyWithImpl<$Res> extends _$DeckDtoCopyWithImpl<$Res>
@@ -178,7 +192,7 @@ class __$DeckDtoCopyWithImpl<$Res> extends _$DeckDtoCopyWithImpl<$Res>
     return _then(_DeckDto(
       deckId: deckId == freezed ? _value.deckId : deckId as String,
       title: title == freezed ? _value.title : title as String,
-      avatar: avatar == freezed ? _value.avatar : avatar as String,
+      avatar: avatar == freezed ? _value.avatar : avatar as FileDto,
       description:
           description == freezed ? _value.description : description as String,
       subscribersCount: subscribersCount == freezed
@@ -204,7 +218,7 @@ class _$_DeckDto extends _DeckDto with DiagnosticableTreeMixin {
   const _$_DeckDto(
       {@required @JsonKey(name: 'deck_id') this.deckId,
       @required this.title,
-      @required @DeckAvatarConverter() @JsonKey(name: 'icon') this.avatar,
+      @required @JsonKey(name: 'icon') this.avatar,
       @required this.description,
       @JsonKey(name: 'subscribers_count', nullable: true) this.subscribersCount,
       @JsonKey(nullable: true) this.subscribers,
@@ -231,9 +245,8 @@ class _$_DeckDto extends _DeckDto with DiagnosticableTreeMixin {
   @override
   final String title;
   @override
-  @DeckAvatarConverter()
   @JsonKey(name: 'icon')
-  final String avatar;
+  final FileDto avatar;
   @override
   final String description;
   @override
@@ -347,7 +360,7 @@ abstract class _DeckDto extends DeckDto {
   const factory _DeckDto(
       {@required @JsonKey(name: 'deck_id') String deckId,
       @required String title,
-      @required @DeckAvatarConverter() @JsonKey(name: 'icon') String avatar,
+      @required @JsonKey(name: 'icon') FileDto avatar,
       @required String description,
       @JsonKey(name: 'subscribers_count', nullable: true) int subscribersCount,
       @JsonKey(nullable: true) List<UserModel> subscribers,
@@ -365,9 +378,8 @@ abstract class _DeckDto extends DeckDto {
   @override
   String get title;
   @override
-  @DeckAvatarConverter()
   @JsonKey(name: 'icon')
-  String get avatar;
+  FileDto get avatar;
   @override
   String get description;
   @override

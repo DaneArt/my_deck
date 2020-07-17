@@ -11,7 +11,7 @@ import 'package:mydeck/features/editor/domain/usecases/save_deck_changes_usecase
 import 'package:mydeck/features/social/domain/usecases/upload_online_deck.dart';
 
 class SmallDeckCard extends StatelessWidget {
-  final DeckOnline deck;
+  final Deck deck;
 
   const SmallDeckCard({Key key, this.deck}) : super(key: key);
 

@@ -82,7 +82,7 @@ class _$FeedTileStateTearOff {
   const _$FeedTileStateTearOff();
 
   _DecksFeedTileState call(
-      {@required CategoryModel categoryModel,
+      {@required DeckCategory categoryModel,
       @required List<Deck> decksList,
       @required Option<StorageFailure<dynamic>> loadingPageFailureOrSuccess,
       @required bool isLoading}) {
@@ -99,7 +99,7 @@ class _$FeedTileStateTearOff {
 const $FeedTileState = _$FeedTileStateTearOff();
 
 mixin _$FeedTileState {
-  CategoryModel get categoryModel;
+  DeckCategory get categoryModel;
   List<Deck> get decksList;
   Option<StorageFailure<dynamic>> get loadingPageFailureOrSuccess;
   bool get isLoading;
@@ -112,7 +112,7 @@ abstract class $FeedTileStateCopyWith<$Res> {
           FeedTileState value, $Res Function(FeedTileState) then) =
       _$FeedTileStateCopyWithImpl<$Res>;
   $Res call(
-      {CategoryModel categoryModel,
+      {DeckCategory categoryModel,
       List<Deck> decksList,
       Option<StorageFailure<dynamic>> loadingPageFailureOrSuccess,
       bool isLoading});
@@ -136,7 +136,7 @@ class _$FeedTileStateCopyWithImpl<$Res>
     return _then(_value.copyWith(
       categoryModel: categoryModel == freezed
           ? _value.categoryModel
-          : categoryModel as CategoryModel,
+          : categoryModel as DeckCategory,
       decksList:
           decksList == freezed ? _value.decksList : decksList as List<Deck>,
       loadingPageFailureOrSuccess: loadingPageFailureOrSuccess == freezed
@@ -154,7 +154,7 @@ abstract class _$DecksFeedTileStateCopyWith<$Res>
       __$DecksFeedTileStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {CategoryModel categoryModel,
+      {DeckCategory categoryModel,
       List<Deck> decksList,
       Option<StorageFailure<dynamic>> loadingPageFailureOrSuccess,
       bool isLoading});
@@ -180,7 +180,7 @@ class __$DecksFeedTileStateCopyWithImpl<$Res>
     return _then(_DecksFeedTileState(
       categoryModel: categoryModel == freezed
           ? _value.categoryModel
-          : categoryModel as CategoryModel,
+          : categoryModel as DeckCategory,
       decksList:
           decksList == freezed ? _value.decksList : decksList as List<Deck>,
       loadingPageFailureOrSuccess: loadingPageFailureOrSuccess == freezed
@@ -203,7 +203,7 @@ class _$_DecksFeedTileState implements _DecksFeedTileState {
         assert(isLoading != null);
 
   @override
-  final CategoryModel categoryModel;
+  final DeckCategory categoryModel;
   @override
   final List<Deck> decksList;
   @override
@@ -251,13 +251,13 @@ class _$_DecksFeedTileState implements _DecksFeedTileState {
 
 abstract class _DecksFeedTileState implements FeedTileState {
   const factory _DecksFeedTileState(
-      {@required CategoryModel categoryModel,
+      {@required DeckCategory categoryModel,
       @required List<Deck> decksList,
       @required Option<StorageFailure<dynamic>> loadingPageFailureOrSuccess,
       @required bool isLoading}) = _$_DecksFeedTileState;
 
   @override
-  CategoryModel get categoryModel;
+  DeckCategory get categoryModel;
   @override
   List<Deck> get decksList;
   @override

@@ -7,10 +7,10 @@ abstract class AddCardEvent with _$AddCardEvent {
 
   factory AddCardEvent.changeIndex({@required int newIndex}) = ChangeIndex;
 
-  factory AddCardEvent.questionChanged({@required CardContent newQuestion}) =
+  factory AddCardEvent.questionChanged({@required MyDeckFile newQuestion}) =
       QuestionChanged;
 
-  factory AddCardEvent.answerChanged({@required CardContent newAnswer}) =
+  factory AddCardEvent.answerChanged({@required MyDeckFile newAnswer}) =
       AnswerChanged;
 
   factory AddCardEvent.setTextContent() = SetText;

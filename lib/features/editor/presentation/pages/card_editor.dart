@@ -7,7 +7,7 @@ import 'package:mydeck/core/helpers/images_util.dart';
 import 'package:mydeck/features/editor/presentation/bloc/add_card/add_card_bloc.dart';
 import 'package:mydeck/features/editor/presentation/widgets/card_fraction_pagination_builder.dart';
 import 'package:mydeck/features/my_deck/domain/entities/card.dart' as Entity;
-import 'package:mydeck/features/my_deck/domain/entities/card_content.dart';
+import 'package:mydeck/features/my_deck/domain/entities/my_deck_file.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/shared/card_content_widget.dart';
 import 'package:mydeck/generated/l10n.dart';
 
@@ -177,20 +177,20 @@ class _CardEditorState extends State<CardEditor> {
       card.question.map(
         noContent: (s) => TextCardWidget(
           key: Key('CQue ${card.cardId}'),
-          content: CardContent.textContent(text: ''),
+          content: MyDeckFile.text(text: ''),
           isEditing: true,
           onTextChanged: (input) {
             context.bloc<AddCardBloc>().add(AddCardEvent.questionChanged(
-                newQuestion: CardContent.textContent(text: input)));
+                newQuestion: MyDeckFile.text(text: input)));
           },
         ),
         textContent: (s) => TextCardWidget(
           key: Key('CQue ${card.cardId}'),
-          content: CardContent.textContent(text: s.model),
+          content: MyDeckFile.text(text: s.model),
           isEditing: true,
           onTextChanged: (input) {
             context.bloc<AddCardBloc>().add(AddCardEvent.questionChanged(
-                newQuestion: CardContent.textContent(text: input)));
+                newQuestion: MyDeckFile.text(text: input)));
           },
         ),
         imageContent: (s) => ImageCardContentWidget(imageFile: s.image),
@@ -200,11 +200,11 @@ class _CardEditorState extends State<CardEditor> {
       card.answer.map(
         noContent: (s) => TextCardWidget(
           key: Key('CAns ${card.cardId}'),
-          content: CardContent.textContent(text: ''),
+          content: MyDeckFile.text(text: ''),
           isEditing: true,
           onTextChanged: (input) {
             context.bloc<AddCardBloc>().add(AddCardEvent.answerChanged(
-                newAnswer: CardContent.textContent(text: input)));
+                newAnswer: MyDeckFile.text(text: input)));
           },
         ),
         textContent: (s) => TextCardWidget(
@@ -213,7 +213,7 @@ class _CardEditorState extends State<CardEditor> {
           isEditing: true,
           onTextChanged: (input) {
             context.bloc<AddCardBloc>().add(AddCardEvent.answerChanged(
-                newAnswer: CardContent.textContent(text: input)));
+                newAnswer: MyDeckFile.text(text: input)));
           },
         ),
         imageContent: (s) => ImageCardContentWidget(imageFile: s.image),

@@ -3,7 +3,8 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mydeck/features/my_deck/domain/entities/card.dart';
-import 'package:mydeck/features/my_deck/domain/entities/card_content.dart';
+import 'package:mydeck/features/my_deck/domain/entities/my_deck_file.dart';
+import 'package:mydeck/features/my_deck/domain/entities/unique_id.dart';
 
 part 'add_card_bloc.freezed.dart';
 
@@ -46,17 +47,18 @@ class AddCardBloc extends Bloc<AddCardEvent, AddCardState> {
     }, setImageContent: (e) async* {
       final card = state.isQuestion
           ? state.sourceCards[state.currentCardIndex]
-              .copyWith(question: CardContent.imageContent(image: e.image))
+              .copyWith(question: MyDeckFile.image(image: e.image))
           : state.sourceCards[state.currentCardIndex]
-              .copyWith(answer: CardContent.imageContent(image: e.image));
+              .copyWith(answer: MyDeckFile.image(image: e.image));
       state.sourceCards[state.currentCardIndex] = card;
       yield state.copyWith(sourceCards: List.from(state.sourceCards));
     }, setTextContent: (e) async* {
       final card = state.isQuestion
-          ? state.sourceCards[state.currentCardIndex]
-              .copyWith(question: CardContent.textContent(text: ''))
+          ? state.sourceCards[state.currentCardIndex].copyWith(
+              question:
+                  MyDeckFile.text(text: File("${UniqueId().getOrCrash}.txt")))
           : state.sourceCards[state.currentCardIndex]
-              .copyWith(answer: CardContent.textContent(text: ''));
+              .copyWith(answer: MyDeckFile.text(text: ''));
       state.sourceCards[state.currentCardIndex] = card;
       yield state.copyWith(sourceCards: List.from(state.sourceCards));
     }, changeIndex: (e) async* {

@@ -2,14 +2,13 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mydeck/core/error/storage_failure.dart';
 import 'package:mydeck/features/my_deck/domain/entities/card.dart';
-import 'package:mydeck/features/my_deck/domain/entities/card_content.dart';
+import 'package:mydeck/features/my_deck/domain/entities/my_deck_file.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/usecase.dart';
 
-class GetDecksForTrain
-    extends UseCase<StorageFailure, List<DeckLibrary>, Params> {
+class GetDecksForTrain extends UseCase<StorageFailure, List<Deck>, Params> {
   @override
-  Future<Either<StorageFailure, List<DeckLibrary>>> call(Params params) async {
+  Future<Either<StorageFailure, List<Deck>>> call(Params params) async {
     params.decks.removeWhere((d) =>
         !d.title.isValid ||
         d.avatar.isValid ||
@@ -50,7 +49,7 @@ class GetDecksForTrain
 }
 
 class Params extends Equatable {
-  final List<DeckLibrary> decks;
+  final List<Deck> decks;
 
   Params(this.decks);
 

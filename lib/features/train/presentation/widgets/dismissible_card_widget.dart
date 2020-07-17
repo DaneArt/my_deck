@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:mydeck/features/my_deck/domain/entities/card.dart' as Entity;
-import 'package:mydeck/features/my_deck/domain/entities/card_content.dart';
+import 'package:mydeck/features/my_deck/domain/entities/my_deck_file.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -179,7 +179,7 @@ class _DismissibleCardState extends State<DismissibleCard>
     _dismissController.forward();
   }
 
-  Widget createWidgetFromContent(CardContent content, BuildContext context) =>
+  Widget createWidgetFromContent(MyDeckFile content, BuildContext context) =>
       content.map(
           noContent: (noContent) => Text(''),
           textContent: (textContent) => TextCardWidget(

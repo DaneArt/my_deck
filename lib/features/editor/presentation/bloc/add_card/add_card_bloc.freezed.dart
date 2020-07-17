@@ -26,13 +26,13 @@ class _$AddCardEventTearOff {
     );
   }
 
-  QuestionChanged questionChanged({@required CardContent newQuestion}) {
+  QuestionChanged questionChanged({@required MyDeckFile newQuestion}) {
     return QuestionChanged(
       newQuestion: newQuestion,
     );
   }
 
-  AnswerChanged answerChanged({@required CardContent newAnswer}) {
+  AnswerChanged answerChanged({@required MyDeckFile newAnswer}) {
     return AnswerChanged(
       newAnswer: newAnswer,
     );
@@ -62,8 +62,8 @@ mixin _$AddCardEvent {
     @required Result rotateCard(),
     @required Result deleteCard(),
     @required Result changeIndex(int newIndex),
-    @required Result questionChanged(CardContent newQuestion),
-    @required Result answerChanged(CardContent newAnswer),
+    @required Result questionChanged(MyDeckFile newQuestion),
+    @required Result answerChanged(MyDeckFile newAnswer),
     @required Result setTextContent(),
     @required Result setImageContent(File image),
     @required Result saveChangesAndExit(),
@@ -73,8 +73,8 @@ mixin _$AddCardEvent {
     Result rotateCard(),
     Result deleteCard(),
     Result changeIndex(int newIndex),
-    Result questionChanged(CardContent newQuestion),
-    Result answerChanged(CardContent newAnswer),
+    Result questionChanged(MyDeckFile newQuestion),
+    Result answerChanged(MyDeckFile newAnswer),
     Result setTextContent(),
     Result setImageContent(File image),
     Result saveChangesAndExit(),
@@ -156,8 +156,8 @@ class _$RotateCard implements RotateCard {
     @required Result rotateCard(),
     @required Result deleteCard(),
     @required Result changeIndex(int newIndex),
-    @required Result questionChanged(CardContent newQuestion),
-    @required Result answerChanged(CardContent newAnswer),
+    @required Result questionChanged(MyDeckFile newQuestion),
+    @required Result answerChanged(MyDeckFile newAnswer),
     @required Result setTextContent(),
     @required Result setImageContent(File image),
     @required Result saveChangesAndExit(),
@@ -179,8 +179,8 @@ class _$RotateCard implements RotateCard {
     Result rotateCard(),
     Result deleteCard(),
     Result changeIndex(int newIndex),
-    Result questionChanged(CardContent newQuestion),
-    Result answerChanged(CardContent newAnswer),
+    Result questionChanged(MyDeckFile newQuestion),
+    Result answerChanged(MyDeckFile newAnswer),
     Result setTextContent(),
     Result setImageContent(File image),
     Result saveChangesAndExit(),
@@ -278,8 +278,8 @@ class _$DeleteCard implements DeleteCard {
     @required Result rotateCard(),
     @required Result deleteCard(),
     @required Result changeIndex(int newIndex),
-    @required Result questionChanged(CardContent newQuestion),
-    @required Result answerChanged(CardContent newAnswer),
+    @required Result questionChanged(MyDeckFile newQuestion),
+    @required Result answerChanged(MyDeckFile newAnswer),
     @required Result setTextContent(),
     @required Result setImageContent(File image),
     @required Result saveChangesAndExit(),
@@ -301,8 +301,8 @@ class _$DeleteCard implements DeleteCard {
     Result rotateCard(),
     Result deleteCard(),
     Result changeIndex(int newIndex),
-    Result questionChanged(CardContent newQuestion),
-    Result answerChanged(CardContent newAnswer),
+    Result questionChanged(MyDeckFile newQuestion),
+    Result answerChanged(MyDeckFile newAnswer),
     Result setTextContent(),
     Result setImageContent(File image),
     Result saveChangesAndExit(),
@@ -423,8 +423,8 @@ class _$ChangeIndex implements ChangeIndex {
     @required Result rotateCard(),
     @required Result deleteCard(),
     @required Result changeIndex(int newIndex),
-    @required Result questionChanged(CardContent newQuestion),
-    @required Result answerChanged(CardContent newAnswer),
+    @required Result questionChanged(MyDeckFile newQuestion),
+    @required Result answerChanged(MyDeckFile newAnswer),
     @required Result setTextContent(),
     @required Result setImageContent(File image),
     @required Result saveChangesAndExit(),
@@ -446,8 +446,8 @@ class _$ChangeIndex implements ChangeIndex {
     Result rotateCard(),
     Result deleteCard(),
     Result changeIndex(int newIndex),
-    Result questionChanged(CardContent newQuestion),
-    Result answerChanged(CardContent newAnswer),
+    Result questionChanged(MyDeckFile newQuestion),
+    Result answerChanged(MyDeckFile newAnswer),
     Result setTextContent(),
     Result setImageContent(File image),
     Result saveChangesAndExit(),
@@ -515,9 +515,9 @@ abstract class $QuestionChangedCopyWith<$Res> {
   factory $QuestionChangedCopyWith(
           QuestionChanged value, $Res Function(QuestionChanged) then) =
       _$QuestionChangedCopyWithImpl<$Res>;
-  $Res call({CardContent newQuestion});
+  $Res call({MyDeckFile newQuestion});
 
-  $CardContentCopyWith<$Res> get newQuestion;
+  $MyDeckFileCopyWith<$Res> get newQuestion;
 }
 
 class _$QuestionChangedCopyWithImpl<$Res>
@@ -537,16 +537,16 @@ class _$QuestionChangedCopyWithImpl<$Res>
     return _then(QuestionChanged(
       newQuestion: newQuestion == freezed
           ? _value.newQuestion
-          : newQuestion as CardContent,
+          : newQuestion as MyDeckFile,
     ));
   }
 
   @override
-  $CardContentCopyWith<$Res> get newQuestion {
+  $MyDeckFileCopyWith<$Res> get newQuestion {
     if (_value.newQuestion == null) {
       return null;
     }
-    return $CardContentCopyWith<$Res>(_value.newQuestion, (value) {
+    return $MyDeckFileCopyWith<$Res>(_value.newQuestion, (value) {
       return _then(_value.copyWith(newQuestion: value));
     });
   }
@@ -556,7 +556,7 @@ class _$QuestionChanged implements QuestionChanged {
   _$QuestionChanged({@required this.newQuestion}) : assert(newQuestion != null);
 
   @override
-  final CardContent newQuestion;
+  final MyDeckFile newQuestion;
 
   @override
   String toString() {
@@ -586,8 +586,8 @@ class _$QuestionChanged implements QuestionChanged {
     @required Result rotateCard(),
     @required Result deleteCard(),
     @required Result changeIndex(int newIndex),
-    @required Result questionChanged(CardContent newQuestion),
-    @required Result answerChanged(CardContent newAnswer),
+    @required Result questionChanged(MyDeckFile newQuestion),
+    @required Result answerChanged(MyDeckFile newAnswer),
     @required Result setTextContent(),
     @required Result setImageContent(File image),
     @required Result saveChangesAndExit(),
@@ -609,8 +609,8 @@ class _$QuestionChanged implements QuestionChanged {
     Result rotateCard(),
     Result deleteCard(),
     Result changeIndex(int newIndex),
-    Result questionChanged(CardContent newQuestion),
-    Result answerChanged(CardContent newAnswer),
+    Result questionChanged(MyDeckFile newQuestion),
+    Result answerChanged(MyDeckFile newAnswer),
     Result setTextContent(),
     Result setImageContent(File image),
     Result saveChangesAndExit(),
@@ -668,10 +668,10 @@ class _$QuestionChanged implements QuestionChanged {
 }
 
 abstract class QuestionChanged implements AddCardEvent {
-  factory QuestionChanged({@required CardContent newQuestion}) =
+  factory QuestionChanged({@required MyDeckFile newQuestion}) =
       _$QuestionChanged;
 
-  CardContent get newQuestion;
+  MyDeckFile get newQuestion;
   $QuestionChangedCopyWith<QuestionChanged> get copyWith;
 }
 
@@ -679,9 +679,9 @@ abstract class $AnswerChangedCopyWith<$Res> {
   factory $AnswerChangedCopyWith(
           AnswerChanged value, $Res Function(AnswerChanged) then) =
       _$AnswerChangedCopyWithImpl<$Res>;
-  $Res call({CardContent newAnswer});
+  $Res call({MyDeckFile newAnswer});
 
-  $CardContentCopyWith<$Res> get newAnswer;
+  $MyDeckFileCopyWith<$Res> get newAnswer;
 }
 
 class _$AnswerChangedCopyWithImpl<$Res> extends _$AddCardEventCopyWithImpl<$Res>
@@ -699,16 +699,16 @@ class _$AnswerChangedCopyWithImpl<$Res> extends _$AddCardEventCopyWithImpl<$Res>
   }) {
     return _then(AnswerChanged(
       newAnswer:
-          newAnswer == freezed ? _value.newAnswer : newAnswer as CardContent,
+          newAnswer == freezed ? _value.newAnswer : newAnswer as MyDeckFile,
     ));
   }
 
   @override
-  $CardContentCopyWith<$Res> get newAnswer {
+  $MyDeckFileCopyWith<$Res> get newAnswer {
     if (_value.newAnswer == null) {
       return null;
     }
-    return $CardContentCopyWith<$Res>(_value.newAnswer, (value) {
+    return $MyDeckFileCopyWith<$Res>(_value.newAnswer, (value) {
       return _then(_value.copyWith(newAnswer: value));
     });
   }
@@ -718,7 +718,7 @@ class _$AnswerChanged implements AnswerChanged {
   _$AnswerChanged({@required this.newAnswer}) : assert(newAnswer != null);
 
   @override
-  final CardContent newAnswer;
+  final MyDeckFile newAnswer;
 
   @override
   String toString() {
@@ -748,8 +748,8 @@ class _$AnswerChanged implements AnswerChanged {
     @required Result rotateCard(),
     @required Result deleteCard(),
     @required Result changeIndex(int newIndex),
-    @required Result questionChanged(CardContent newQuestion),
-    @required Result answerChanged(CardContent newAnswer),
+    @required Result questionChanged(MyDeckFile newQuestion),
+    @required Result answerChanged(MyDeckFile newAnswer),
     @required Result setTextContent(),
     @required Result setImageContent(File image),
     @required Result saveChangesAndExit(),
@@ -771,8 +771,8 @@ class _$AnswerChanged implements AnswerChanged {
     Result rotateCard(),
     Result deleteCard(),
     Result changeIndex(int newIndex),
-    Result questionChanged(CardContent newQuestion),
-    Result answerChanged(CardContent newAnswer),
+    Result questionChanged(MyDeckFile newQuestion),
+    Result answerChanged(MyDeckFile newAnswer),
     Result setTextContent(),
     Result setImageContent(File image),
     Result saveChangesAndExit(),
@@ -830,9 +830,9 @@ class _$AnswerChanged implements AnswerChanged {
 }
 
 abstract class AnswerChanged implements AddCardEvent {
-  factory AnswerChanged({@required CardContent newAnswer}) = _$AnswerChanged;
+  factory AnswerChanged({@required MyDeckFile newAnswer}) = _$AnswerChanged;
 
-  CardContent get newAnswer;
+  MyDeckFile get newAnswer;
   $AnswerChangedCopyWith<AnswerChanged> get copyWith;
 }
 
@@ -872,8 +872,8 @@ class _$SetText implements SetText {
     @required Result rotateCard(),
     @required Result deleteCard(),
     @required Result changeIndex(int newIndex),
-    @required Result questionChanged(CardContent newQuestion),
-    @required Result answerChanged(CardContent newAnswer),
+    @required Result questionChanged(MyDeckFile newQuestion),
+    @required Result answerChanged(MyDeckFile newAnswer),
     @required Result setTextContent(),
     @required Result setImageContent(File image),
     @required Result saveChangesAndExit(),
@@ -895,8 +895,8 @@ class _$SetText implements SetText {
     Result rotateCard(),
     Result deleteCard(),
     Result changeIndex(int newIndex),
-    Result questionChanged(CardContent newQuestion),
-    Result answerChanged(CardContent newAnswer),
+    Result questionChanged(MyDeckFile newQuestion),
+    Result answerChanged(MyDeckFile newAnswer),
     Result setTextContent(),
     Result setImageContent(File image),
     Result saveChangesAndExit(),
@@ -1014,8 +1014,8 @@ class _$SetImage implements SetImage {
     @required Result rotateCard(),
     @required Result deleteCard(),
     @required Result changeIndex(int newIndex),
-    @required Result questionChanged(CardContent newQuestion),
-    @required Result answerChanged(CardContent newAnswer),
+    @required Result questionChanged(MyDeckFile newQuestion),
+    @required Result answerChanged(MyDeckFile newAnswer),
     @required Result setTextContent(),
     @required Result setImageContent(File image),
     @required Result saveChangesAndExit(),
@@ -1037,8 +1037,8 @@ class _$SetImage implements SetImage {
     Result rotateCard(),
     Result deleteCard(),
     Result changeIndex(int newIndex),
-    Result questionChanged(CardContent newQuestion),
-    Result answerChanged(CardContent newAnswer),
+    Result questionChanged(MyDeckFile newQuestion),
+    Result answerChanged(MyDeckFile newAnswer),
     Result setTextContent(),
     Result setImageContent(File image),
     Result saveChangesAndExit(),
@@ -1141,8 +1141,8 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
     @required Result rotateCard(),
     @required Result deleteCard(),
     @required Result changeIndex(int newIndex),
-    @required Result questionChanged(CardContent newQuestion),
-    @required Result answerChanged(CardContent newAnswer),
+    @required Result questionChanged(MyDeckFile newQuestion),
+    @required Result answerChanged(MyDeckFile newAnswer),
     @required Result setTextContent(),
     @required Result setImageContent(File image),
     @required Result saveChangesAndExit(),
@@ -1164,8 +1164,8 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
     Result rotateCard(),
     Result deleteCard(),
     Result changeIndex(int newIndex),
-    Result questionChanged(CardContent newQuestion),
-    Result answerChanged(CardContent newAnswer),
+    Result questionChanged(MyDeckFile newQuestion),
+    Result answerChanged(MyDeckFile newAnswer),
     Result setTextContent(),
     Result setImageContent(File image),
     Result saveChangesAndExit(),

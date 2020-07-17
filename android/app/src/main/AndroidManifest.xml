@@ -8,7 +8,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="my_deck"
-        android:icon="@drawable/ic_launch_icon">
+        android:icon="@mipmap/ic_launch_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

@@ -14,8 +14,8 @@ class _$CardTearOff {
 
   _Card call(
       {@required UniqueId cardId,
-      @required CardContent answer,
-      @required CardContent question}) {
+      @required MyDeckFile answer,
+      @required MyDeckFile question}) {
     return _Card(
       cardId: cardId,
       answer: answer,
@@ -29,8 +29,8 @@ const $Card = _$CardTearOff();
 
 mixin _$Card {
   UniqueId get cardId;
-  CardContent get answer;
-  CardContent get question;
+  MyDeckFile get answer;
+  MyDeckFile get question;
 
   $CardCopyWith<Card> get copyWith;
 }
@@ -38,10 +38,10 @@ mixin _$Card {
 abstract class $CardCopyWith<$Res> {
   factory $CardCopyWith(Card value, $Res Function(Card) then) =
       _$CardCopyWithImpl<$Res>;
-  $Res call({UniqueId cardId, CardContent answer, CardContent question});
+  $Res call({UniqueId cardId, MyDeckFile answer, MyDeckFile question});
 
-  $CardContentCopyWith<$Res> get answer;
-  $CardContentCopyWith<$Res> get question;
+  $MyDeckFileCopyWith<$Res> get answer;
+  $MyDeckFileCopyWith<$Res> get question;
 }
 
 class _$CardCopyWithImpl<$Res> implements $CardCopyWith<$Res> {
@@ -59,27 +59,27 @@ class _$CardCopyWithImpl<$Res> implements $CardCopyWith<$Res> {
   }) {
     return _then(_value.copyWith(
       cardId: cardId == freezed ? _value.cardId : cardId as UniqueId,
-      answer: answer == freezed ? _value.answer : answer as CardContent,
-      question: question == freezed ? _value.question : question as CardContent,
+      answer: answer == freezed ? _value.answer : answer as MyDeckFile,
+      question: question == freezed ? _value.question : question as MyDeckFile,
     ));
   }
 
   @override
-  $CardContentCopyWith<$Res> get answer {
+  $MyDeckFileCopyWith<$Res> get answer {
     if (_value.answer == null) {
       return null;
     }
-    return $CardContentCopyWith<$Res>(_value.answer, (value) {
+    return $MyDeckFileCopyWith<$Res>(_value.answer, (value) {
       return _then(_value.copyWith(answer: value));
     });
   }
 
   @override
-  $CardContentCopyWith<$Res> get question {
+  $MyDeckFileCopyWith<$Res> get question {
     if (_value.question == null) {
       return null;
     }
-    return $CardContentCopyWith<$Res>(_value.question, (value) {
+    return $MyDeckFileCopyWith<$Res>(_value.question, (value) {
       return _then(_value.copyWith(question: value));
     });
   }
@@ -89,12 +89,12 @@ abstract class _$CardCopyWith<$Res> implements $CardCopyWith<$Res> {
   factory _$CardCopyWith(_Card value, $Res Function(_Card) then) =
       __$CardCopyWithImpl<$Res>;
   @override
-  $Res call({UniqueId cardId, CardContent answer, CardContent question});
+  $Res call({UniqueId cardId, MyDeckFile answer, MyDeckFile question});
 
   @override
-  $CardContentCopyWith<$Res> get answer;
+  $MyDeckFileCopyWith<$Res> get answer;
   @override
-  $CardContentCopyWith<$Res> get question;
+  $MyDeckFileCopyWith<$Res> get question;
 }
 
 class __$CardCopyWithImpl<$Res> extends _$CardCopyWithImpl<$Res>
@@ -113,8 +113,8 @@ class __$CardCopyWithImpl<$Res> extends _$CardCopyWithImpl<$Res>
   }) {
     return _then(_Card(
       cardId: cardId == freezed ? _value.cardId : cardId as UniqueId,
-      answer: answer == freezed ? _value.answer : answer as CardContent,
-      question: question == freezed ? _value.question : question as CardContent,
+      answer: answer == freezed ? _value.answer : answer as MyDeckFile,
+      question: question == freezed ? _value.question : question as MyDeckFile,
     ));
   }
 }
@@ -130,9 +130,9 @@ class _$_Card extends _Card {
   @override
   final UniqueId cardId;
   @override
-  final CardContent answer;
+  final MyDeckFile answer;
   @override
-  final CardContent question;
+  final MyDeckFile question;
 
   @override
   String toString() {
@@ -168,15 +168,15 @@ abstract class _Card extends Card {
   const _Card._() : super._();
   const factory _Card(
       {@required UniqueId cardId,
-      @required CardContent answer,
-      @required CardContent question}) = _$_Card;
+      @required MyDeckFile answer,
+      @required MyDeckFile question}) = _$_Card;
 
   @override
   UniqueId get cardId;
   @override
-  CardContent get answer;
+  MyDeckFile get answer;
   @override
-  CardContent get question;
+  MyDeckFile get question;
   @override
   _$CardCopyWith<_Card> get copyWith;
 }

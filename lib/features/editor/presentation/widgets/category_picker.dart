@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mydeck/features/my_deck/data/models/category_model.dart';
+import 'package:mydeck/features/my_deck/data/models/deck_category.dart';
 
 class CategoryPicker extends StatefulWidget {
-  final CategoryModel baseCategory;
+  final DeckCategory baseCategory;
   final ValueChanged<dynamic> onChanged;
 
   const CategoryPicker(
@@ -22,10 +22,9 @@ class _CategoryPickerState extends State<CategoryPicker> {
     Colors.lightBlueAccent,
     Colors.blueAccent,
     Colors.purpleAccent,
-
   ];
 
-  CategoryModel pickedCategory;
+  DeckCategory pickedCategory;
 
   @override
   void initState() {
@@ -37,8 +36,8 @@ class _CategoryPickerState extends State<CategoryPicker> {
   Widget build(BuildContext context) {
     return DropdownButton(
       items: [
-        for (CategoryModel c in kDefaultCategories)
-          DropdownMenuItem<CategoryModel>(
+        for (DeckCategory c in kDefaultCategories)
+          DropdownMenuItem<DeckCategory>(
             value: c,
             child: Container(
               child: Padding(
@@ -51,7 +50,7 @@ class _CategoryPickerState extends State<CategoryPicker> {
           ),
       ],
       value: pickedCategory,
-      onChanged: (CategoryModel value) {
+      onChanged: (DeckCategory value) {
         setState(() {
           pickedCategory = value;
         });

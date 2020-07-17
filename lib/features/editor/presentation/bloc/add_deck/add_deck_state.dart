@@ -8,7 +8,7 @@ abstract class AddDeckState with _$AddDeckState {
     @required DeckDescription description,
     @required DeckAvatar avatar,
     @required bool isShared,
-    @required CategoryModel category,
+    @required DeckCategory category,
     @required UserModel author,
     @required List<Card> cardsList,
     @required Option<Either<StorageFailure, Deck>> saveFailureOrSuccessOption,
@@ -17,9 +17,7 @@ abstract class AddDeckState with _$AddDeckState {
 
   factory AddDeckState.initial({@required Deck initialDeck}) => AddDeckState(
         avatar: initialDeck.avatar,
-        cardsList: initialDeck is DeckOnline
-            ? []
-            : (initialDeck as DeckLibrary).cardsList,
+        cardsList: initialDeck is Deck ? [] : (initialDeck as Deck).cardsList,
         category: initialDeck.category,
         description: initialDeck.description,
         isShared: !initialDeck.isPrivate,

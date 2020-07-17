@@ -33,7 +33,7 @@ class TrainBloc extends Bloc<TrainEvent, TrainState> {
   //worst decision EVER. Flag to check was last card successful.
   bool isLastCardTrue = false;
 
-  DeckLibrary get _currentDeck => _decksToTrain.first;
+  Deck get _currentDeck => _decksToTrain.first;
 
   Card get _currentCard => _currentDeck.cardsList[_currentCardIndex];
 

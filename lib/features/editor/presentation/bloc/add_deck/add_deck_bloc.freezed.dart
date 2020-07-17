@@ -24,7 +24,7 @@ class _$AddDeckStateTearOff {
       @required
           bool isShared,
       @required
-          CategoryModel category,
+          DeckCategory category,
       @required
           UserModel author,
       @required
@@ -58,7 +58,7 @@ mixin _$AddDeckState {
   DeckDescription get description;
   DeckAvatar get avatar;
   bool get isShared;
-  CategoryModel get category;
+  DeckCategory get category;
   UserModel get author;
   List<Card> get cardsList;
   Option<Either<StorageFailure<dynamic>, Deck>> get saveFailureOrSuccessOption;
@@ -77,7 +77,7 @@ abstract class $AddDeckStateCopyWith<$Res> {
       DeckDescription description,
       DeckAvatar avatar,
       bool isShared,
-      CategoryModel category,
+      DeckCategory category,
       UserModel author,
       List<Card> cardsList,
       Option<Either<StorageFailure<dynamic>, Deck>> saveFailureOrSuccessOption,
@@ -115,7 +115,7 @@ class _$AddDeckStateCopyWithImpl<$Res> implements $AddDeckStateCopyWith<$Res> {
       avatar: avatar == freezed ? _value.avatar : avatar as DeckAvatar,
       isShared: isShared == freezed ? _value.isShared : isShared as bool,
       category:
-          category == freezed ? _value.category : category as CategoryModel,
+          category == freezed ? _value.category : category as DeckCategory,
       author: author == freezed ? _value.author : author as UserModel,
       cardsList:
           cardsList == freezed ? _value.cardsList : cardsList as List<Card>,
@@ -151,7 +151,7 @@ abstract class _$AddDeckStateCopyWith<$Res>
       DeckDescription description,
       DeckAvatar avatar,
       bool isShared,
-      CategoryModel category,
+      DeckCategory category,
       UserModel author,
       List<Card> cardsList,
       Option<Either<StorageFailure<dynamic>, Deck>> saveFailureOrSuccessOption,
@@ -192,7 +192,7 @@ class __$AddDeckStateCopyWithImpl<$Res> extends _$AddDeckStateCopyWithImpl<$Res>
       avatar: avatar == freezed ? _value.avatar : avatar as DeckAvatar,
       isShared: isShared == freezed ? _value.isShared : isShared as bool,
       category:
-          category == freezed ? _value.category : category as CategoryModel,
+          category == freezed ? _value.category : category as DeckCategory,
       author: author == freezed ? _value.author : author as UserModel,
       cardsList:
           cardsList == freezed ? _value.cardsList : cardsList as List<Card>,
@@ -240,7 +240,7 @@ class _$_AddDeckState implements _AddDeckState {
   @override
   final bool isShared;
   @override
-  final CategoryModel category;
+  final DeckCategory category;
   @override
   final UserModel author;
   @override
@@ -323,7 +323,7 @@ abstract class _AddDeckState implements AddDeckState {
       @required
           bool isShared,
       @required
-          CategoryModel category,
+          DeckCategory category,
       @required
           UserModel author,
       @required
@@ -345,7 +345,7 @@ abstract class _AddDeckState implements AddDeckState {
   @override
   bool get isShared;
   @override
-  CategoryModel get category;
+  DeckCategory get category;
   @override
   UserModel get author;
   @override
@@ -405,7 +405,7 @@ class _$AddDeckEventTearOff {
     );
   }
 
-  CategoryChanged categoryChanged(CategoryModel category) {
+  CategoryChanged categoryChanged(DeckCategory category) {
     return CategoryChanged(
       category,
     );
@@ -433,7 +433,7 @@ mixin _$AddDeckEvent {
     @required Result descriptionChanged(String descStr),
     @required Result avatarChanged(String avatar),
     @required Result privacyChanged(bool isShared),
-    @required Result categoryChanged(CategoryModel category),
+    @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
   });
   @optionalTypeArgs
@@ -447,7 +447,7 @@ mixin _$AddDeckEvent {
     Result descriptionChanged(String descStr),
     Result avatarChanged(String avatar),
     Result privacyChanged(bool isShared),
-    Result categoryChanged(CategoryModel category),
+    Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
   });
@@ -541,7 +541,7 @@ class _$InitFromOnline implements InitFromOnline {
     @required Result descriptionChanged(String descStr),
     @required Result avatarChanged(String avatar),
     @required Result privacyChanged(bool isShared),
-    @required Result categoryChanged(CategoryModel category),
+    @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
   }) {
     assert(initFromOnline != null);
@@ -570,7 +570,7 @@ class _$InitFromOnline implements InitFromOnline {
     Result descriptionChanged(String descStr),
     Result avatarChanged(String avatar),
     Result privacyChanged(bool isShared),
-    Result categoryChanged(CategoryModel category),
+    Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
   }) {
@@ -683,7 +683,7 @@ class _$SaveDeckChanges implements SaveDeckChanges {
     @required Result descriptionChanged(String descStr),
     @required Result avatarChanged(String avatar),
     @required Result privacyChanged(bool isShared),
-    @required Result categoryChanged(CategoryModel category),
+    @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
   }) {
     assert(initFromOnline != null);
@@ -712,7 +712,7 @@ class _$SaveDeckChanges implements SaveDeckChanges {
     Result descriptionChanged(String descStr),
     Result avatarChanged(String avatar),
     Result privacyChanged(bool isShared),
-    Result categoryChanged(CategoryModel category),
+    Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
   }) {
@@ -822,7 +822,7 @@ class _$SaveDraft implements SaveDraft {
     @required Result descriptionChanged(String descStr),
     @required Result avatarChanged(String avatar),
     @required Result privacyChanged(bool isShared),
-    @required Result categoryChanged(CategoryModel category),
+    @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
   }) {
     assert(initFromOnline != null);
@@ -851,7 +851,7 @@ class _$SaveDraft implements SaveDraft {
     Result descriptionChanged(String descStr),
     Result avatarChanged(String avatar),
     Result privacyChanged(bool isShared),
-    Result categoryChanged(CategoryModel category),
+    Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
   }) {
@@ -964,7 +964,7 @@ class _$DiscardChanges implements DiscardChanges {
     @required Result descriptionChanged(String descStr),
     @required Result avatarChanged(String avatar),
     @required Result privacyChanged(bool isShared),
-    @required Result categoryChanged(CategoryModel category),
+    @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
   }) {
     assert(initFromOnline != null);
@@ -993,7 +993,7 @@ class _$DiscardChanges implements DiscardChanges {
     Result descriptionChanged(String descStr),
     Result avatarChanged(String avatar),
     Result privacyChanged(bool isShared),
-    Result categoryChanged(CategoryModel category),
+    Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
   }) {
@@ -1104,7 +1104,7 @@ class _$DeleteDeck implements DeleteDeck {
     @required Result descriptionChanged(String descStr),
     @required Result avatarChanged(String avatar),
     @required Result privacyChanged(bool isShared),
-    @required Result categoryChanged(CategoryModel category),
+    @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
   }) {
     assert(initFromOnline != null);
@@ -1133,7 +1133,7 @@ class _$DeleteDeck implements DeleteDeck {
     Result descriptionChanged(String descStr),
     Result avatarChanged(String avatar),
     Result privacyChanged(bool isShared),
-    Result categoryChanged(CategoryModel category),
+    Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
   }) {
@@ -1267,7 +1267,7 @@ class _$TitleChanged implements TitleChanged {
     @required Result descriptionChanged(String descStr),
     @required Result avatarChanged(String avatar),
     @required Result privacyChanged(bool isShared),
-    @required Result categoryChanged(CategoryModel category),
+    @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
   }) {
     assert(initFromOnline != null);
@@ -1296,7 +1296,7 @@ class _$TitleChanged implements TitleChanged {
     Result descriptionChanged(String descStr),
     Result avatarChanged(String avatar),
     Result privacyChanged(bool isShared),
-    Result categoryChanged(CategoryModel category),
+    Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
   }) {
@@ -1433,7 +1433,7 @@ class _$DescriptionChanged implements DescriptionChanged {
     @required Result descriptionChanged(String descStr),
     @required Result avatarChanged(String avatar),
     @required Result privacyChanged(bool isShared),
-    @required Result categoryChanged(CategoryModel category),
+    @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
   }) {
     assert(initFromOnline != null);
@@ -1462,7 +1462,7 @@ class _$DescriptionChanged implements DescriptionChanged {
     Result descriptionChanged(String descStr),
     Result avatarChanged(String avatar),
     Result privacyChanged(bool isShared),
-    Result categoryChanged(CategoryModel category),
+    Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
   }) {
@@ -1598,7 +1598,7 @@ class _$AvatarChanged implements AvatarChanged {
     @required Result descriptionChanged(String descStr),
     @required Result avatarChanged(String avatar),
     @required Result privacyChanged(bool isShared),
-    @required Result categoryChanged(CategoryModel category),
+    @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
   }) {
     assert(initFromOnline != null);
@@ -1627,7 +1627,7 @@ class _$AvatarChanged implements AvatarChanged {
     Result descriptionChanged(String descStr),
     Result avatarChanged(String avatar),
     Result privacyChanged(bool isShared),
-    Result categoryChanged(CategoryModel category),
+    Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
   }) {
@@ -1765,7 +1765,7 @@ class _$PrivacyChanged implements PrivacyChanged {
     @required Result descriptionChanged(String descStr),
     @required Result avatarChanged(String avatar),
     @required Result privacyChanged(bool isShared),
-    @required Result categoryChanged(CategoryModel category),
+    @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
   }) {
     assert(initFromOnline != null);
@@ -1794,7 +1794,7 @@ class _$PrivacyChanged implements PrivacyChanged {
     Result descriptionChanged(String descStr),
     Result avatarChanged(String avatar),
     Result privacyChanged(bool isShared),
-    Result categoryChanged(CategoryModel category),
+    Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
   }) {
@@ -1869,7 +1869,7 @@ abstract class $CategoryChangedCopyWith<$Res> {
   factory $CategoryChangedCopyWith(
           CategoryChanged value, $Res Function(CategoryChanged) then) =
       _$CategoryChangedCopyWithImpl<$Res>;
-  $Res call({CategoryModel category});
+  $Res call({DeckCategory category});
 }
 
 class _$CategoryChangedCopyWithImpl<$Res>
@@ -1887,7 +1887,7 @@ class _$CategoryChangedCopyWithImpl<$Res>
     Object category = freezed,
   }) {
     return _then(CategoryChanged(
-      category == freezed ? _value.category : category as CategoryModel,
+      category == freezed ? _value.category : category as DeckCategory,
     ));
   }
 }
@@ -1896,7 +1896,7 @@ class _$CategoryChanged implements CategoryChanged {
   _$CategoryChanged(this.category) : assert(category != null);
 
   @override
-  final CategoryModel category;
+  final DeckCategory category;
 
   @override
   String toString() {
@@ -1932,7 +1932,7 @@ class _$CategoryChanged implements CategoryChanged {
     @required Result descriptionChanged(String descStr),
     @required Result avatarChanged(String avatar),
     @required Result privacyChanged(bool isShared),
-    @required Result categoryChanged(CategoryModel category),
+    @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
   }) {
     assert(initFromOnline != null);
@@ -1961,7 +1961,7 @@ class _$CategoryChanged implements CategoryChanged {
     Result descriptionChanged(String descStr),
     Result avatarChanged(String avatar),
     Result privacyChanged(bool isShared),
-    Result categoryChanged(CategoryModel category),
+    Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
   }) {
@@ -2026,9 +2026,9 @@ class _$CategoryChanged implements CategoryChanged {
 }
 
 abstract class CategoryChanged implements AddDeckEvent {
-  factory CategoryChanged(CategoryModel category) = _$CategoryChanged;
+  factory CategoryChanged(DeckCategory category) = _$CategoryChanged;
 
-  CategoryModel get category;
+  DeckCategory get category;
   $CategoryChangedCopyWith<CategoryChanged> get copyWith;
 }
 
@@ -2097,7 +2097,7 @@ class _$UpdateCards implements UpdateCards {
     @required Result descriptionChanged(String descStr),
     @required Result avatarChanged(String avatar),
     @required Result privacyChanged(bool isShared),
-    @required Result categoryChanged(CategoryModel category),
+    @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
   }) {
     assert(initFromOnline != null);
@@ -2126,7 +2126,7 @@ class _$UpdateCards implements UpdateCards {
     Result descriptionChanged(String descStr),
     Result avatarChanged(String avatar),
     Result privacyChanged(bool isShared),
-    Result categoryChanged(CategoryModel category),
+    Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
   }) {

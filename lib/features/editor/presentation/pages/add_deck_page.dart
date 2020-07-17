@@ -586,8 +586,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
                   if (cards.length >= 2) {
                     final trainedCards = await Navigator.of(context)
                         .pushNamed(MyDeckRoutes.train, arguments: [
-                      (state.initialDeck as DeckLibrary)
-                          .copyWith(cardsList: cards)
+                      (state.initialDeck as Deck).copyWith(cardsList: cards)
                     ]);
                     if (trainedCards != null) {
                       context.bloc<AddDeckBloc>().add(AddDeckEvent.updateCards(
@@ -649,13 +648,13 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(S.of(context).editor_category),
-             CategoryPicker(
-               onChanged: (value) {
-                 BlocProvider.of<AddDeckBloc>(context)
-                     .add(AddDeckEvent.categoryChanged(value));
-               },
-               baseCategory: state.category,
-             ),
+            CategoryPicker(
+              onChanged: (value) {
+                BlocProvider.of<AddDeckBloc>(context)
+                    .add(AddDeckEvent.categoryChanged(value));
+              },
+              baseCategory: state.category,
+            ),
           ],
         ),
       );

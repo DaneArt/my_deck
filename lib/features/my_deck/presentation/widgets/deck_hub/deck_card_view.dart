@@ -8,7 +8,7 @@ import 'package:mydeck/features/editor/domain/usecases/delete_deck_usecase.dart'
 import 'package:mydeck/features/editor/domain/usecases/save_deck_changes_usecase.dart';
 import 'package:mydeck/features/editor/presentation/bloc/add_deck/add_deck_bloc.dart';
 import 'package:mydeck/features/editor/presentation/pages/add_deck_page.dart';
-import 'package:mydeck/features/my_deck/domain/entities/card_content.dart';
+import 'package:mydeck/features/my_deck/domain/entities/my_deck_file.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/shared/triangle_clipper.dart';
 import 'package:mydeck/features/sign_in/data/datasources/user_config.dart';
@@ -34,7 +34,7 @@ class DeckCard extends StatefulWidget {
 
 class _DeckCardState extends State<DeckCard> {
   Widget _imageWidget() => Stack(
-    fit: StackFit.expand,
+        fit: StackFit.expand,
         children: [
           Container(
             height: double.infinity,
@@ -52,10 +52,10 @@ class _DeckCardState extends State<DeckCard> {
   Deck get deck => widget.deck;
 
   bool get _isDraft =>
-      (deck is DeckLibrary) &&
+      (deck is Deck) &&
       (!deck.title.isValid ||
           !deck.avatar.isValid ||
-          (deck as DeckLibrary)
+          (deck as Deck)
               .cardsList
               .any((c) => c.answer is NoContent || c.question is NoContent));
 
@@ -75,19 +75,19 @@ class _DeckCardState extends State<DeckCard> {
                           uploadOnlineDeckUsecase:
                               sl.get<UploadOnlineDeckUsecase>(),
                           addDeckUseCase: sl.get<AddDeckUseCase>(),
-                          deck: deck is DeckLibrary
-                              ? (deck as DeckLibrary).copyWith(
-                                  cardsList: List.from(
-                                      (deck as DeckLibrary).cardsList))
+                          deck: deck is Deck
+                              ? (deck as Deck).copyWith(
+                                  cardsList:
+                                      List.from((deck as Deck).cardsList))
                               : deck,
                           deleteDeckUsecase: sl.get<DeleteDeckUseCase>(),
                           saveDeckChangesUsecase:
                               sl.get<SaveDeckChangesUsecase>(),
-                          goal: deck is DeckOnline
+                          goal: deck is Deck
                               ? AddDeckGoal.lookup
                               : AddDeckGoal.edit),
                       child: AddDeckPage(
-                        goal: deck is DeckOnline
+                        goal: deck is Deck
                             ? AddDeckGoal.lookup
                             : AddDeckGoal.edit,
                       ),
@@ -215,7 +215,7 @@ class _DeckCardState extends State<DeckCard> {
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0),
                             child: Text(
-                              '${deck is DeckOnline ? (deck as DeckOnline).subscribersCount : (deck as DeckLibrary).subscribers != null ? (deck as DeckLibrary).subscribers.length : 0}',
+                              '${deck is Deck ? (deck as Deck).subscribersCount : (deck as Deck).subscribers != null ? (deck as Deck).subscribers.length : 0}',
                             ),
                           ),
                         ],
@@ -225,7 +225,7 @@ class _DeckCardState extends State<DeckCard> {
                           Padding(
                             padding: const EdgeInsets.only(right: 8.0),
                             child: Text(
-                              '${deck is DeckOnline ? (deck as DeckOnline).cardsCount : (deck as DeckLibrary).cardsList.length}',
+                              '${deck is Deck ? (deck as Deck).cardsCount : (deck as Deck).cardsList.length}',
                               textAlign: TextAlign.right,
                             ),
                           ),

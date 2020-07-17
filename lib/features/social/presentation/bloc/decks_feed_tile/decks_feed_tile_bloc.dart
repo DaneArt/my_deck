@@ -5,7 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:mydeck/core/error/failures.dart';
-import 'package:mydeck/features/my_deck/data/models/category_model.dart';
+import 'package:mydeck/features/my_deck/data/models/deck_category.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/social/domain/usecases/load_decks_page_for_category_usecase.dart';
 
@@ -16,13 +16,13 @@ part 'decks_feed_tile_bloc.freezed.dart';
 
 class FeedTileBloc extends Bloc<FeedTileEvent, FeedTileState> {
   final LoadDecksPageForCategoryUsecase _loadDecksPageForCategoryUsecase;
-  final CategoryModel _category;
+  final DeckCategory _category;
 
   FeedTileBloc(
       {@required
           LoadDecksPageForCategoryUsecase loadDecksPageForCategoryUsecase,
       @required
-          CategoryModel categoryModel})
+          DeckCategory categoryModel})
       : assert(loadDecksPageForCategoryUsecase != null),
         assert(categoryModel != null),
         _category = categoryModel,

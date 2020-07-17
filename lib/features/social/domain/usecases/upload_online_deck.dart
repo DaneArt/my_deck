@@ -6,8 +6,7 @@ import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/my_deck/domain/entities/unique_id.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/usecase.dart';
 
-class UploadOnlineDeckUsecase
-    extends UseCase<StorageFailure, DeckLibrary, Params> {
+class UploadOnlineDeckUsecase extends UseCase<StorageFailure, Deck, Params> {
   final MyDeckRepository myDeckRepository;
 
   UploadOnlineDeckUsecase({
@@ -15,7 +14,7 @@ class UploadOnlineDeckUsecase
   });
 
   @override
-  Future<Either<StorageFailure, DeckLibrary>> call(Params params) async {
+  Future<Either<StorageFailure, Deck>> call(Params params) async {
     return myDeckRepository.getDeckById(params.deckId);
   }
 }

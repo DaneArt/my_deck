@@ -3,8 +3,9 @@ import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:mydeck/features/my_deck/data/models/file_dto.dart';
 import 'package:mydeck/features/my_deck/domain/entities/card.dart';
-import 'package:mydeck/features/my_deck/domain/entities/card_content.dart';
+import 'package:mydeck/features/my_deck/domain/entities/my_deck_file.dart';
 import 'package:mydeck/features/my_deck/domain/entities/unique_id.dart';
 
 part 'card_dto.freezed.dart';
@@ -16,19 +17,20 @@ abstract class CardDto implements _$CardDto {
 
   const factory CardDto({
     @JsonKey(name: 'card_id') @required String cardId,
-    @required @CardContentConverter() String answer,
-    @required @CardContentConverter() String question,
+    @required @CardContentConverter() FileDto answer,
+    @required @CardContentConverter() FileDto question,
   }) = _CardDto;
 
   factory CardDto.fromDomain(Card card) => CardDto(
-      answer: card.answer.model,
-      cardId: card.cardId.getOrCrash,
-      question: card.question.model);
+        answer: FileDto.fromDomain(card.answer),
+        cardId: card.cardId.getOrCrash,
+        question: FileDto.fromDomain(card.question),
+      );
 
   Card toDomain() => Card(
-      answer: CardContent.fromModel(answer),
+      answer: answer.toDomain(),
       cardId: UniqueId.fromString(cardId),
-      question: CardContent.fromModel(question));
+      question: question.toDomain());
 
   factory CardDto.fromJson(Map<String, dynamic> json) =>
       _$CardDtoFromJson(json);
@@ -36,19 +38,14 @@ abstract class CardDto implements _$CardDto {
   Map<String, dynamic> toJson() => _$_$_CardDtoToJson(this);
 }
 
-class CardContentConverter implements JsonConverter<String, Object> {
+class CardContentConverter implements JsonConverter<FileDto, Object> {
   const CardContentConverter();
 
   @override
-  String fromJson(Object json) {
-    //TODO: implement controller route late
-    return json.toString();
+  FileDto fromJson(Object json) {
+    return FileDto.fromJson(json);
   }
 
   @override
-  Object toJson(String fieldValue) => File(fieldValue).existsSync()
-      ? MultipartFile.fromFile(fieldValue,
-          filename:
-              'CC_${Random().nextInt(10000)}_${Random().nextInt(10000)}.${fieldValue.split('.').last}')
-      : fieldValue;
+  Object toJson(FileDto fieldValue) => fieldValue.id;
 }

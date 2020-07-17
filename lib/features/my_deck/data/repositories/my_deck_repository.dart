@@ -6,7 +6,7 @@ import 'package:mydeck/core/injection/dependency_injection.dart';
 import 'package:mydeck/core/network/network_connection.dart';
 
 import 'package:mydeck/features/my_deck/data/datasources/my_deck_network_datasource.dart';
-import 'package:mydeck/features/my_deck/data/models/category_model.dart';
+import 'package:mydeck/features/my_deck/data/models/deck_category.dart';
 import 'package:mydeck/features/my_deck/data/models/deck_dto.dart';
 import 'package:mydeck/features/my_deck/domain/entities/card.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
@@ -14,20 +14,18 @@ import 'package:mydeck/features/my_deck/domain/entities/unique_id.dart';
 import 'package:rxdart/rxdart.dart';
 
 abstract class MyDeckRepository {
-  Future<Either<StorageFailure, List<DeckLibrary>>> getCurrentUserAllDecks();
+  Future<Either<StorageFailure, List<Deck>>> getCurrentUserAllDecks();
 
-  Future<Either<StorageFailure, List<DeckOnline>>> loadDecksPageForCategory(
-      CategoryModel category, int pageCount);
+  Future<Either<StorageFailure, List<Deck>>> loadDecksPageForCategory(
+      DeckCategory category, int pageCount);
 
   Future<Either<StorageFailure, Deck>> getDeckById(UniqueId id);
 
-  Future<Either<StorageFailure<DeckLibrary>, DeckLibrary>> addDeck(
-      DeckLibrary deck);
+  Future<Either<StorageFailure<Deck>, Deck>> addDeck(Deck deck);
 
-  Future<Either<StorageFailure<DeckLibrary>, DeckLibrary>> updateDeck(
-      Deck deck);
+  Future<Either<StorageFailure<Deck>, Deck>> updateDeck(Deck deck);
 
-  Future<Option<StorageFailure<DeckLibrary>>> deleteDeck(DeckLibrary deck);
+  Future<Option<StorageFailure<Deck>>> deleteDeck(Deck deck);
 }
 
 class MyDeckRepositoryImpl extends MyDeckRepository {
@@ -40,13 +38,12 @@ class MyDeckRepositoryImpl extends MyDeckRepository {
   });
 
   @override
-  Future<Either<StorageFailure, List<DeckLibrary>>>
-      getCurrentUserAllDecks() async {
+  Future<Either<StorageFailure, List<Deck>>> getCurrentUserAllDecks() async {
     try {
       if (await networkConnection.isConnected) {
         final networkDecks = await networkDataSource.getAllDecksOfCurrentUser();
         final deckEntities =
-            networkDecks.map((deck) => deck.toDomain() as DeckLibrary).toList();
+            networkDecks.map((deck) => deck.toDomain()).toList();
         return right(deckEntities);
       } else {
         return left(StorageFailure.networkFailure());
@@ -57,7 +54,7 @@ class MyDeckRepositoryImpl extends MyDeckRepository {
   }
 
   @override
-  Future<Either<StorageFailure, DeckLibrary>> getDeckById(UniqueId id) async {
+  Future<Either<StorageFailure, Deck>> getDeckById(UniqueId id) async {
     try {
       if (await networkConnection.isConnected) {
         return id.value.fold((failure) => Left(StorageFailure.getFailure()),
@@ -76,8 +73,7 @@ class MyDeckRepositoryImpl extends MyDeckRepository {
   }
 
   @override
-  Future<Either<StorageFailure<DeckLibrary>, DeckLibrary>> addDeck(
-      Deck deck) async {
+  Future<Either<StorageFailure<Deck>, Deck>> addDeck(Deck deck) async {
     try {
 //      final bothers = await entitiesSeparator.separateMediaContentOfDeck(deck);
 //      await mediaDataSource.addFileToAppCache(bothers.right);
@@ -96,8 +92,7 @@ class MyDeckRepositoryImpl extends MyDeckRepository {
   }
 
   @override
-  Future<Either<StorageFailure<DeckLibrary>, DeckLibrary>> updateDeck(
-      Deck deck) async {
+  Future<Either<StorageFailure<Deck>, Deck>> updateDeck(Deck deck) async {
     try {
 //      final bothers = await entitiesSeparator.separateMediaContentOfDeck(deck);
 //      await mediaDataSource.addFileToAppCache(bothers.right);
@@ -116,8 +111,7 @@ class MyDeckRepositoryImpl extends MyDeckRepository {
   }
 
   @override
-  Future<Option<StorageFailure<DeckLibrary>>> deleteDeck(
-      DeckLibrary deck) async {
+  Future<Option<StorageFailure<Deck>>> deleteDeck(Deck deck) async {
     try {
 //      final bother = await entitiesSeparator.separateMediaContentOfDeck(deck);
 //      await mediaDataSource.deleteFileFromAppCache(bother.right.right);
@@ -141,14 +135,13 @@ class MyDeckRepositoryImpl extends MyDeckRepository {
   }
 
   @override
-  Future<Either<StorageFailure, List<DeckOnline>>> loadDecksPageForCategory(
-      CategoryModel category, int pageCount) async {
+  Future<Either<StorageFailure, List<Deck>>> loadDecksPageForCategory(
+      DeckCategory category, int pageCount) async {
     try {
       if (await networkConnection.isConnected) {
         final decks = await networkDataSource.loadDecksPageForCategory(
             category.categoryName, pageCount);
-        return right(
-            decks.map((deck) => deck.toDomain() as DeckOnline).toList());
+        return right(decks.map((deck) => deck.toDomain()).toList());
       } else {
         return left(StorageFailure.networkFailure());
       }

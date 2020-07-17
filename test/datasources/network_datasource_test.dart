@@ -24,7 +24,7 @@ class MockValidateToken extends Mock implements AccessTokenValidator {}
 void main() {
   Dio dio;
   MockDioAdapter mockDioAdapter;
-  MockUserDataSource mockUserDataSource;
+  MockUserDataSource mockUsStringerDataSource;
   MockUserConfig mockUserConfig;
   MockValidateToken mockValidateToken;
   MyDeckNetworkDataSource myDeckNetworkDataSource;

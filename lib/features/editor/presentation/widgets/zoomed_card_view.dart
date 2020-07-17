@@ -1,6 +1,6 @@
 import 'package:mydeck/core/helpers/images_util.dart';
 import 'package:mydeck/features/my_deck/domain/entities/card.dart' as Entity;
-import 'package:mydeck/features/my_deck/domain/entities/card_content.dart';
+import 'package:mydeck/features/my_deck/domain/entities/my_deck_file.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/shared/card_content_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:mydeck/generated/l10n.dart';
@@ -40,7 +40,7 @@ class _ZoomedCardViewState extends State<ZoomedCardView> {
     card = widget.card;
   }
 
-  Widget _getWidgetFromContent(CardContent cardContent, bool isAnswer) {
+  Widget _getWidgetFromContent(MyDeckFile cardContent, bool isAnswer) {
     if (cardContent is ImageContent) {
       return Padding(
           padding: EdgeInsets.symmetric(vertical: 36, horizontal: 0),
@@ -51,11 +51,11 @@ class _ZoomedCardViewState extends State<ZoomedCardView> {
     } else if (cardContent is TextContent) {
       if (isAnswer) {
         return TextCardWidget(
-          content: CardContent.textContent(text: cardContent.text),
+          content: MyDeckFile.text(text: cardContent.text),
           onTextChanged: (text) {
             print(text);
             setState(() {
-              card = card.copyWith(answer: CardContent.textContent(text: text));
+              card = card.copyWith(answer: MyDeckFile.text(text: text));
               onUpdateCard(card);
             });
           },
@@ -63,12 +63,11 @@ class _ZoomedCardViewState extends State<ZoomedCardView> {
         );
       } else {
         return TextCardWidget(
-          content: CardContent.textContent(text: cardContent.text),
+          content: MyDeckFile.text(text: cardContent.text),
           onTextChanged: (text) {
             print(text);
             setState(() {
-              card =
-                  card.copyWith(question: CardContent.textContent(text: text));
+              card = card.copyWith(question: MyDeckFile.text(text: text));
               onUpdateCard(card);
             });
           },
@@ -78,11 +77,11 @@ class _ZoomedCardViewState extends State<ZoomedCardView> {
     } else {
       if (isAnswer) {
         return TextCardWidget(
-          content: CardContent.textContent(text: ''),
+          content: MyDeckFile.text(text: ''),
           onTextChanged: (text) {
             print(text);
             setState(() {
-              card = card.copyWith(answer: CardContent.textContent(text: text));
+              card = card.copyWith(answer: MyDeckFile.text(text: text));
               onUpdateCard(card);
             });
           },
@@ -90,12 +89,11 @@ class _ZoomedCardViewState extends State<ZoomedCardView> {
         );
       } else {
         return TextCardWidget(
-          content: CardContent.textContent(text: ''),
+          content: MyDeckFile.text(text: ''),
           onTextChanged: (text) {
             print(text);
             setState(() {
-              card =
-                  card.copyWith(question: CardContent.textContent(text: text));
+              card = card.copyWith(question: MyDeckFile.text(text: text));
               onUpdateCard(card);
             });
           },
@@ -143,8 +141,7 @@ class _ZoomedCardViewState extends State<ZoomedCardView> {
                               if (image != null) {
                                 setState(() {
                                   card = card.copyWith(
-                                      answer: CardContent.imageContent(
-                                          image: image));
+                                      answer: MyDeckFile.image(image: image));
 
                                   onUpdateCard(card);
                                 });
@@ -156,7 +153,7 @@ class _ZoomedCardViewState extends State<ZoomedCardView> {
                             onPressed: () async {
                               setState(() {
                                 card = card.copyWith(
-                                    answer: CardContent.textContent(text: ''));
+                                    answer: MyDeckFile.text(text: ''));
                                 onUpdateCard(card);
                               });
                             },
@@ -216,8 +213,7 @@ class _ZoomedCardViewState extends State<ZoomedCardView> {
                               if (image != null) {
                                 setState(() {
                                   card = card.copyWith(
-                                      question: CardContent.imageContent(
-                                          image: image));
+                                      question: MyDeckFile.image(image: image));
 
                                   onUpdateCard(card);
                                 });
@@ -229,8 +225,7 @@ class _ZoomedCardViewState extends State<ZoomedCardView> {
                             onPressed: () async {
                               setState(() {
                                 card = card.copyWith(
-                                    question:
-                                        CardContent.textContent(text: ''));
+                                    question: MyDeckFile.text(text: ''));
                                 onUpdateCard(card);
                               });
                             },

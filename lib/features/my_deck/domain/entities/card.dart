@@ -1,8 +1,10 @@
+import 'dart:io';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:mydeck/features/my_deck/domain/entities/unique_id.dart';
 
-import 'card_content.dart';
+import 'my_deck_file.dart';
 
 part 'card.freezed.dart';
 
@@ -12,13 +14,7 @@ abstract class Card implements _$Card {
 
   const factory Card({
     @required UniqueId cardId,
-    @required CardContent answer,
-    @required CardContent question,
+    @required MyDeckFile answer,
+    @required MyDeckFile question,
   }) = _Card;
-
-  factory Card.basic() => Card(
-        cardId: UniqueId(),
-        answer: CardContent.noContent(),
-        question: CardContent.noContent(),
-      );
 }

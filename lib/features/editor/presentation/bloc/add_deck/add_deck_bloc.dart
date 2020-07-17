@@ -7,7 +7,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mydeck/core/error/storage_failure.dart';
 import 'package:mydeck/features/editor/domain/value_objects/deck_description.dart';
 import 'package:mydeck/features/editor/domain/value_objects/deck_title.dart';
-import 'package:mydeck/features/my_deck/data/models/category_model.dart';
+import 'package:mydeck/features/my_deck/data/models/deck_category.dart';
 import 'package:mydeck/features/my_deck/domain/entities/card.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/editor/domain/usecases/add_deck_usecase.dart';
@@ -82,7 +82,7 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
               final saveResult = await saveDeckChangesUsecase(
                 save.Params(
                   deck,
-                  (deck as DeckLibrary).copyWith(
+                  (deck as Deck).copyWith(
                     author: UserConfig.currentUser,
                     cardsList: state.cardsList,
                     category: state.category,
@@ -170,7 +170,7 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
               final saveResult = await saveDeckChangesUsecase(
                 save.Params(
                   deck,
-                  (deck as DeckLibrary).copyWith(
+                  (deck as Deck).copyWith(
                     author: UserConfig.currentUser,
                     cardsList: state.cardsList,
                     category: state.category,
