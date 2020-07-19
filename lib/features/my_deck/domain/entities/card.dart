@@ -13,8 +13,10 @@ abstract class Card implements _$Card {
   const Card._();
 
   const factory Card({
-    @required UniqueId cardId,
+    @required UniqueId id,
     @required MyDeckFile answer,
     @required MyDeckFile question,
   }) = _Card;
+
+  factory Card.basic() => Card(id: UniqueId(), answer: null, question: null);
 }

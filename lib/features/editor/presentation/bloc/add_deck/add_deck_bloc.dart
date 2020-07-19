@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 
@@ -62,7 +63,7 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
         saveChanges: (e) async* {
           if (_isFieldsValid) {
             if (goal == AddDeckGoal.create) {
-              final saveResult = await addDeckUseCase(Params(Deck.library(
+              final saveResult = await addDeckUseCase(Params(Deck(
                 deckId: UniqueId(),
                 cardsList: state.cardsList,
                 category: state.category,
@@ -82,7 +83,7 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
               final saveResult = await saveDeckChangesUsecase(
                 save.Params(
                   deck,
-                  (deck as Deck).copyWith(
+                  deck.copyWith(
                     author: UserConfig.currentUser,
                     cardsList: state.cardsList,
                     category: state.category,
@@ -130,7 +131,8 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
         },
         avatarChanged: (e) async* {
           yield state.copyWith(
-              avatar: DeckAvatar(e.avatar), saveFailureOrSuccessOption: none());
+              avatar: DeckAvatar.makeNewFromFile(e.avatar),
+              saveFailureOrSuccessOption: none());
         },
         privacyChanged: (e) async* {
           yield state.copyWith(
@@ -151,7 +153,7 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
             );
           } else {
             if (goal == AddDeckGoal.create) {
-              final saveResult = await addDeckUseCase(Params(Deck.library(
+              final saveResult = await addDeckUseCase(Params(Deck(
                   deckId: UniqueId(),
                   cardsList: state.cardsList,
                   category: state.category,
@@ -170,7 +172,7 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
               final saveResult = await saveDeckChangesUsecase(
                 save.Params(
                   deck,
-                  (deck as Deck).copyWith(
+                  deck.copyWith(
                     author: UserConfig.currentUser,
                     cardsList: state.cardsList,
                     category: state.category,

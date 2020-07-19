@@ -1,7 +1,30 @@
-class CacheException implements Exception{}
+class CacheException implements Exception {
+  final String message;
 
-class NetworkException implements Exception {}
+  CacheException(this.message);
+}
 
-class MissingUserException implements NetworkException{}
+class NetworkException implements Exception {
+  final String message;
 
-class UnauthorizedException implements NetworkException{}
+  NetworkException([this.message = "Unhandled exception"]);
+}
+
+class NetworkTimeoutException implements NetworkException {
+  final String message;
+  final Duration duration;
+
+  NetworkTimeoutException(this.message, [this.duration]);
+}
+
+class MissingUserException implements NetworkException {
+  final String message;
+
+  MissingUserException(this.message);
+}
+
+class UnauthorizedException implements NetworkException {
+  final String message;
+
+  UnauthorizedException(this.message);
+}

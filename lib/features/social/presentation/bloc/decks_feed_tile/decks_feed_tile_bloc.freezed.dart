@@ -116,6 +116,8 @@ abstract class $FeedTileStateCopyWith<$Res> {
       List<Deck> decksList,
       Option<StorageFailure<dynamic>> loadingPageFailureOrSuccess,
       bool isLoading});
+
+  $DeckCategoryCopyWith<$Res> get categoryModel;
 }
 
 class _$FeedTileStateCopyWithImpl<$Res>
@@ -145,6 +147,16 @@ class _$FeedTileStateCopyWithImpl<$Res>
       isLoading: isLoading == freezed ? _value.isLoading : isLoading as bool,
     ));
   }
+
+  @override
+  $DeckCategoryCopyWith<$Res> get categoryModel {
+    if (_value.categoryModel == null) {
+      return null;
+    }
+    return $DeckCategoryCopyWith<$Res>(_value.categoryModel, (value) {
+      return _then(_value.copyWith(categoryModel: value));
+    });
+  }
 }
 
 abstract class _$DecksFeedTileStateCopyWith<$Res>
@@ -158,6 +170,9 @@ abstract class _$DecksFeedTileStateCopyWith<$Res>
       List<Deck> decksList,
       Option<StorageFailure<dynamic>> loadingPageFailureOrSuccess,
       bool isLoading});
+
+  @override
+  $DeckCategoryCopyWith<$Res> get categoryModel;
 }
 
 class __$DecksFeedTileStateCopyWithImpl<$Res>

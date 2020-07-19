@@ -6,16 +6,13 @@ import 'package:mydeck/features/my_deck/domain/entities/my_deck_file.dart';
 import 'package:mydeck/features/sign_in/data/models/value_object.dart';
 import 'package:mydeck/features/sign_in/helpers/value_validators.dart';
 
-class DeckAvatar extends ValueObject<MyDeckFile> {
-  @override
-  final Either<ValueFailure<MyDeckFile>, MyDeckFile> value;
+class DeckAvatar extends ValueObject<ImageFile> {
+  final Either<ValueFailure<ImageFile>, ImageFile> value;
 
-  factory DeckAvatar(File input) {
-    return DeckAvatar._(validateDeckAvatar(input));
-  }
+  factory DeckAvatar(ImageFile mdFile) => DeckAvatar._(right(mdFile));
 
-  factory DeckAvatar.fromMyDeckFile(MyDeckFile file) =>
-      DeckAvatar._(right(file));
+  factory DeckAvatar.makeNewFromFile(File file) =>
+      DeckAvatar._(validateDeckAvatar(file));
 
   const DeckAvatar._(this.value);
 }

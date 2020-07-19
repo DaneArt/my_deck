@@ -23,13 +23,13 @@ abstract class CardDto implements _$CardDto {
 
   factory CardDto.fromDomain(Card card) => CardDto(
         answer: FileDto.fromDomain(card.answer),
-        cardId: card.cardId.getOrCrash,
+        cardId: card.id.getOrCrash,
         question: FileDto.fromDomain(card.question),
       );
 
   Card toDomain() => Card(
       answer: answer.toDomain(),
-      cardId: UniqueId.fromString(cardId),
+      id: UniqueId.fromString(cardId),
       question: question.toDomain());
 
   factory CardDto.fromJson(Map<String, dynamic> json) =>

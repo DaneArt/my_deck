@@ -421,7 +421,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
                       onImagePicked: goal != AddDeckGoal.lookup
                           ? (image) {
                               BlocProvider.of<AddDeckBloc>(context)
-                                  .add(AddDeckEvent.avatarChanged(image.path));
+                                  .add(AddDeckEvent.avatarChanged(image));
                             }
                           : (image) {},
                       defaultImage: state.avatar,
@@ -581,12 +581,12 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
           onPressed: state.cardsList.isNotEmpty
               ? () async {
                   final cards = List<Entity.Card>.from(state.cardsList);
-                  cards.removeWhere((c) =>
-                      c.answer.model.isEmpty || c.question.model.isEmpty);
+                  cards.removeWhere(
+                      (c) => c.answer == null || c.question == null);
                   if (cards.length >= 2) {
                     final trainedCards = await Navigator.of(context)
                         .pushNamed(MyDeckRoutes.train, arguments: [
-                      (state.initialDeck as Deck).copyWith(cardsList: cards)
+                      state.initialDeck.copyWith(cardsList: cards)
                     ]);
                     if (trainedCards != null) {
                       context.bloc<AddDeckBloc>().add(AddDeckEvent.updateCards(
@@ -754,7 +754,7 @@ class _CardsPageState extends State<_CardsPage> {
       children: List.generate(
         state.cardsList.length,
         (index) => InDeckCardView(
-          key: ValueKey(state.cardsList[index].cardId),
+          key: ValueKey(state.cardsList[index].id),
           onTap: _isEditing
               ? () async {
                   final cards = await context.navigator.push(MaterialPageRoute(

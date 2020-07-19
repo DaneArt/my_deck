@@ -46,10 +46,13 @@ class MyDeckRepositoryImpl extends MyDeckRepository {
             networkDecks.map((deck) => deck.toDomain()).toList();
         return right(deckEntities);
       } else {
-        return left(StorageFailure.networkFailure());
+        return left(
+            StorageFailure.networkFailure(message: "No internet connection"));
       }
     } catch (exception) {
       return left(StorageFailure.getFailure());
+    } on NetworkTimeoutException catch (e) {
+      return left(StorageFailure.networkFailure(message: e.message));
     }
   }
 

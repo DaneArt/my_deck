@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -175,48 +177,42 @@ class _CardEditorState extends State<CardEditor> {
 
   Widget _renderQuestion(BuildContext context, Entity.Card card) =>
       card.question.map(
-        noContent: (s) => TextCardWidget(
-          key: Key('CQue ${card.cardId}'),
-          content: MyDeckFile.text(text: ''),
+        image: (image) => ImageCardContentWidget(imageFile: image.image),
+        text: (text) => TextCardWidget(
+          key: Key('CQue ${card.id}'),
+          content: text,
           isEditing: true,
           onTextChanged: (input) {
-            context.bloc<AddCardBloc>().add(AddCardEvent.questionChanged(
-                newQuestion: MyDeckFile.text(text: input)));
+            context.bloc<AddCardBloc>().add(
+                  AddCardEvent.questionChanged(
+                    newQuestion: text.copyWith(
+                      text: File("CQue ${card.id}")
+                        ..writeAsStringSync(input, mode: FileMode.writeOnly),
+                    ),
+                  ),
+                );
           },
         ),
-        textContent: (s) => TextCardWidget(
-          key: Key('CQue ${card.cardId}'),
-          content: MyDeckFile.text(text: s.model),
-          isEditing: true,
-          onTextChanged: (input) {
-            context.bloc<AddCardBloc>().add(AddCardEvent.questionChanged(
-                newQuestion: MyDeckFile.text(text: input)));
-          },
-        ),
-        imageContent: (s) => ImageCardContentWidget(imageFile: s.image),
       );
 
   Widget _renderAnswer(BuildContext context, Entity.Card card) =>
-      card.answer.map(
-        noContent: (s) => TextCardWidget(
-          key: Key('CAns ${card.cardId}'),
-          content: MyDeckFile.text(text: ''),
+      card.question.map(
+        image: (image) => ImageCardContentWidget(imageFile: image.image),
+        text: (text) => TextCardWidget(
+          key: Key('CAns ${card.id}'),
+          content: text,
           isEditing: true,
           onTextChanged: (input) {
-            context.bloc<AddCardBloc>().add(AddCardEvent.answerChanged(
-                newAnswer: MyDeckFile.text(text: input)));
+            context.bloc<AddCardBloc>().add(
+                  AddCardEvent.questionChanged(
+                    newQuestion: text.copyWith(
+                      text: File('CAns ${card.id}')
+                        ..writeAsStringSync(input, mode: FileMode.writeOnly),
+                    ),
+                  ),
+                );
           },
         ),
-        textContent: (s) => TextCardWidget(
-          key: Key('CAns ${card.cardId}'),
-          content: s,
-          isEditing: true,
-          onTextChanged: (input) {
-            context.bloc<AddCardBloc>().add(AddCardEvent.answerChanged(
-                newAnswer: MyDeckFile.text(text: input)));
-          },
-        ),
-        imageContent: (s) => ImageCardContentWidget(imageFile: s.image),
       );
 
   Widget _renderCard(BuildContext context, AddCardState state, int cardIndex) {

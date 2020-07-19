@@ -83,6 +83,7 @@ abstract class $AddDeckStateCopyWith<$Res> {
       Option<Either<StorageFailure<dynamic>, Deck>> saveFailureOrSuccessOption,
       Deck initialDeck});
 
+  $DeckCategoryCopyWith<$Res> get category;
   $DeckCopyWith<$Res> get initialDeck;
 }
 
@@ -129,6 +130,16 @@ class _$AddDeckStateCopyWithImpl<$Res> implements $AddDeckStateCopyWith<$Res> {
   }
 
   @override
+  $DeckCategoryCopyWith<$Res> get category {
+    if (_value.category == null) {
+      return null;
+    }
+    return $DeckCategoryCopyWith<$Res>(_value.category, (value) {
+      return _then(_value.copyWith(category: value));
+    });
+  }
+
+  @override
   $DeckCopyWith<$Res> get initialDeck {
     if (_value.initialDeck == null) {
       return null;
@@ -157,6 +168,8 @@ abstract class _$AddDeckStateCopyWith<$Res>
       Option<Either<StorageFailure<dynamic>, Deck>> saveFailureOrSuccessOption,
       Deck initialDeck});
 
+  @override
+  $DeckCategoryCopyWith<$Res> get category;
   @override
   $DeckCopyWith<$Res> get initialDeck;
 }
@@ -393,7 +406,7 @@ class _$AddDeckEventTearOff {
     );
   }
 
-  AvatarChanged avatarChanged(String avatar) {
+  AvatarChanged avatarChanged(File avatar) {
     return AvatarChanged(
       avatar,
     );
@@ -431,7 +444,7 @@ mixin _$AddDeckEvent {
     @required Result deleteDeck(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(String avatar),
+    @required Result avatarChanged(File avatar),
     @required Result privacyChanged(bool isShared),
     @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
@@ -445,7 +458,7 @@ mixin _$AddDeckEvent {
     Result deleteDeck(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(String avatar),
+    Result avatarChanged(File avatar),
     Result privacyChanged(bool isShared),
     Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
@@ -539,7 +552,7 @@ class _$InitFromOnline implements InitFromOnline {
     @required Result deleteDeck(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(String avatar),
+    @required Result avatarChanged(File avatar),
     @required Result privacyChanged(bool isShared),
     @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
@@ -568,7 +581,7 @@ class _$InitFromOnline implements InitFromOnline {
     Result deleteDeck(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(String avatar),
+    Result avatarChanged(File avatar),
     Result privacyChanged(bool isShared),
     Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
@@ -681,7 +694,7 @@ class _$SaveDeckChanges implements SaveDeckChanges {
     @required Result deleteDeck(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(String avatar),
+    @required Result avatarChanged(File avatar),
     @required Result privacyChanged(bool isShared),
     @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
@@ -710,7 +723,7 @@ class _$SaveDeckChanges implements SaveDeckChanges {
     Result deleteDeck(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(String avatar),
+    Result avatarChanged(File avatar),
     Result privacyChanged(bool isShared),
     Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
@@ -820,7 +833,7 @@ class _$SaveDraft implements SaveDraft {
     @required Result deleteDeck(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(String avatar),
+    @required Result avatarChanged(File avatar),
     @required Result privacyChanged(bool isShared),
     @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
@@ -849,7 +862,7 @@ class _$SaveDraft implements SaveDraft {
     Result deleteDeck(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(String avatar),
+    Result avatarChanged(File avatar),
     Result privacyChanged(bool isShared),
     Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
@@ -962,7 +975,7 @@ class _$DiscardChanges implements DiscardChanges {
     @required Result deleteDeck(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(String avatar),
+    @required Result avatarChanged(File avatar),
     @required Result privacyChanged(bool isShared),
     @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
@@ -991,7 +1004,7 @@ class _$DiscardChanges implements DiscardChanges {
     Result deleteDeck(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(String avatar),
+    Result avatarChanged(File avatar),
     Result privacyChanged(bool isShared),
     Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
@@ -1102,7 +1115,7 @@ class _$DeleteDeck implements DeleteDeck {
     @required Result deleteDeck(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(String avatar),
+    @required Result avatarChanged(File avatar),
     @required Result privacyChanged(bool isShared),
     @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
@@ -1131,7 +1144,7 @@ class _$DeleteDeck implements DeleteDeck {
     Result deleteDeck(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(String avatar),
+    Result avatarChanged(File avatar),
     Result privacyChanged(bool isShared),
     Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
@@ -1265,7 +1278,7 @@ class _$TitleChanged implements TitleChanged {
     @required Result deleteDeck(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(String avatar),
+    @required Result avatarChanged(File avatar),
     @required Result privacyChanged(bool isShared),
     @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
@@ -1294,7 +1307,7 @@ class _$TitleChanged implements TitleChanged {
     Result deleteDeck(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(String avatar),
+    Result avatarChanged(File avatar),
     Result privacyChanged(bool isShared),
     Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
@@ -1431,7 +1444,7 @@ class _$DescriptionChanged implements DescriptionChanged {
     @required Result deleteDeck(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(String avatar),
+    @required Result avatarChanged(File avatar),
     @required Result privacyChanged(bool isShared),
     @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
@@ -1460,7 +1473,7 @@ class _$DescriptionChanged implements DescriptionChanged {
     Result deleteDeck(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(String avatar),
+    Result avatarChanged(File avatar),
     Result privacyChanged(bool isShared),
     Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
@@ -1537,7 +1550,7 @@ abstract class $AvatarChangedCopyWith<$Res> {
   factory $AvatarChangedCopyWith(
           AvatarChanged value, $Res Function(AvatarChanged) then) =
       _$AvatarChangedCopyWithImpl<$Res>;
-  $Res call({String avatar});
+  $Res call({File avatar});
 }
 
 class _$AvatarChangedCopyWithImpl<$Res> extends _$AddDeckEventCopyWithImpl<$Res>
@@ -1554,7 +1567,7 @@ class _$AvatarChangedCopyWithImpl<$Res> extends _$AddDeckEventCopyWithImpl<$Res>
     Object avatar = freezed,
   }) {
     return _then(AvatarChanged(
-      avatar == freezed ? _value.avatar : avatar as String,
+      avatar == freezed ? _value.avatar : avatar as File,
     ));
   }
 }
@@ -1563,7 +1576,7 @@ class _$AvatarChanged implements AvatarChanged {
   _$AvatarChanged(this.avatar) : assert(avatar != null);
 
   @override
-  final String avatar;
+  final File avatar;
 
   @override
   String toString() {
@@ -1596,7 +1609,7 @@ class _$AvatarChanged implements AvatarChanged {
     @required Result deleteDeck(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(String avatar),
+    @required Result avatarChanged(File avatar),
     @required Result privacyChanged(bool isShared),
     @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
@@ -1625,7 +1638,7 @@ class _$AvatarChanged implements AvatarChanged {
     Result deleteDeck(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(String avatar),
+    Result avatarChanged(File avatar),
     Result privacyChanged(bool isShared),
     Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
@@ -1692,9 +1705,9 @@ class _$AvatarChanged implements AvatarChanged {
 }
 
 abstract class AvatarChanged implements AddDeckEvent {
-  factory AvatarChanged(String avatar) = _$AvatarChanged;
+  factory AvatarChanged(File avatar) = _$AvatarChanged;
 
-  String get avatar;
+  File get avatar;
   $AvatarChangedCopyWith<AvatarChanged> get copyWith;
 }
 
@@ -1763,7 +1776,7 @@ class _$PrivacyChanged implements PrivacyChanged {
     @required Result deleteDeck(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(String avatar),
+    @required Result avatarChanged(File avatar),
     @required Result privacyChanged(bool isShared),
     @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
@@ -1792,7 +1805,7 @@ class _$PrivacyChanged implements PrivacyChanged {
     Result deleteDeck(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(String avatar),
+    Result avatarChanged(File avatar),
     Result privacyChanged(bool isShared),
     Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
@@ -1870,6 +1883,8 @@ abstract class $CategoryChangedCopyWith<$Res> {
           CategoryChanged value, $Res Function(CategoryChanged) then) =
       _$CategoryChangedCopyWithImpl<$Res>;
   $Res call({DeckCategory category});
+
+  $DeckCategoryCopyWith<$Res> get category;
 }
 
 class _$CategoryChangedCopyWithImpl<$Res>
@@ -1889,6 +1904,16 @@ class _$CategoryChangedCopyWithImpl<$Res>
     return _then(CategoryChanged(
       category == freezed ? _value.category : category as DeckCategory,
     ));
+  }
+
+  @override
+  $DeckCategoryCopyWith<$Res> get category {
+    if (_value.category == null) {
+      return null;
+    }
+    return $DeckCategoryCopyWith<$Res>(_value.category, (value) {
+      return _then(_value.copyWith(category: value));
+    });
   }
 }
 
@@ -1930,7 +1955,7 @@ class _$CategoryChanged implements CategoryChanged {
     @required Result deleteDeck(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(String avatar),
+    @required Result avatarChanged(File avatar),
     @required Result privacyChanged(bool isShared),
     @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
@@ -1959,7 +1984,7 @@ class _$CategoryChanged implements CategoryChanged {
     Result deleteDeck(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(String avatar),
+    Result avatarChanged(File avatar),
     Result privacyChanged(bool isShared),
     Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
@@ -2095,7 +2120,7 @@ class _$UpdateCards implements UpdateCards {
     @required Result deleteDeck(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(String avatar),
+    @required Result avatarChanged(File avatar),
     @required Result privacyChanged(bool isShared),
     @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
@@ -2124,7 +2149,7 @@ class _$UpdateCards implements UpdateCards {
     Result deleteDeck(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(String avatar),
+    Result avatarChanged(File avatar),
     Result privacyChanged(bool isShared),
     Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),

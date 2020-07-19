@@ -12,15 +12,15 @@ T _$identity<T>(T value) => value;
 class _$MyDeckFileTearOff {
   const _$MyDeckFileTearOff();
 
-  TextContent text({@required File text, @required UniqueId uniqueId}) {
-    return TextContent(
+  TextFile text({@required File text, @required UniqueId uniqueId}) {
+    return TextFile(
       text: text,
       uniqueId: uniqueId,
     );
   }
 
-  ImageContent image({@required File image, @required UniqueId uniqueId}) {
-    return ImageContent(
+  ImageFile image({@required File image, @required UniqueId uniqueId}) {
+    return ImageFile(
       image: image,
       uniqueId: uniqueId,
     );
@@ -46,13 +46,13 @@ mixin _$MyDeckFile {
   });
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result text(TextContent value),
-    @required Result image(ImageContent value),
+    @required Result text(TextFile value),
+    @required Result image(ImageFile value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result text(TextContent value),
-    Result image(ImageContent value),
+    Result text(TextFile value),
+    Result image(ImageFile value),
     @required Result orElse(),
   });
 
@@ -83,37 +83,35 @@ class _$MyDeckFileCopyWithImpl<$Res> implements $MyDeckFileCopyWith<$Res> {
   }
 }
 
-abstract class $TextContentCopyWith<$Res> implements $MyDeckFileCopyWith<$Res> {
-  factory $TextContentCopyWith(
-          TextContent value, $Res Function(TextContent) then) =
-      _$TextContentCopyWithImpl<$Res>;
+abstract class $TextFileCopyWith<$Res> implements $MyDeckFileCopyWith<$Res> {
+  factory $TextFileCopyWith(TextFile value, $Res Function(TextFile) then) =
+      _$TextFileCopyWithImpl<$Res>;
   @override
   $Res call({File text, UniqueId uniqueId});
 }
 
-class _$TextContentCopyWithImpl<$Res> extends _$MyDeckFileCopyWithImpl<$Res>
-    implements $TextContentCopyWith<$Res> {
-  _$TextContentCopyWithImpl(
-      TextContent _value, $Res Function(TextContent) _then)
-      : super(_value, (v) => _then(v as TextContent));
+class _$TextFileCopyWithImpl<$Res> extends _$MyDeckFileCopyWithImpl<$Res>
+    implements $TextFileCopyWith<$Res> {
+  _$TextFileCopyWithImpl(TextFile _value, $Res Function(TextFile) _then)
+      : super(_value, (v) => _then(v as TextFile));
 
   @override
-  TextContent get _value => super._value as TextContent;
+  TextFile get _value => super._value as TextFile;
 
   @override
   $Res call({
     Object text = freezed,
     Object uniqueId = freezed,
   }) {
-    return _then(TextContent(
+    return _then(TextFile(
       text: text == freezed ? _value.text : text as File,
       uniqueId: uniqueId == freezed ? _value.uniqueId : uniqueId as UniqueId,
     ));
   }
 }
 
-class _$TextContent implements TextContent {
-  _$TextContent({@required this.text, @required this.uniqueId})
+class _$TextFile implements TextFile {
+  _$TextFile({@required this.text, @required this.uniqueId})
       : assert(text != null),
         assert(uniqueId != null);
 
@@ -130,7 +128,7 @@ class _$TextContent implements TextContent {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is TextContent &&
+        (other is TextFile &&
             (identical(other.text, text) ||
                 const DeepCollectionEquality().equals(other.text, text)) &&
             (identical(other.uniqueId, uniqueId) ||
@@ -145,8 +143,8 @@ class _$TextContent implements TextContent {
       const DeepCollectionEquality().hash(uniqueId);
 
   @override
-  $TextContentCopyWith<TextContent> get copyWith =>
-      _$TextContentCopyWithImpl<TextContent>(this, _$identity);
+  $TextFileCopyWith<TextFile> get copyWith =>
+      _$TextFileCopyWithImpl<TextFile>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -176,8 +174,8 @@ class _$TextContent implements TextContent {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result text(TextContent value),
-    @required Result image(ImageContent value),
+    @required Result text(TextFile value),
+    @required Result image(ImageFile value),
   }) {
     assert(text != null);
     assert(image != null);
@@ -187,8 +185,8 @@ class _$TextContent implements TextContent {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result text(TextContent value),
-    Result image(ImageContent value),
+    Result text(TextFile value),
+    Result image(ImageFile value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -199,49 +197,46 @@ class _$TextContent implements TextContent {
   }
 }
 
-abstract class TextContent implements MyDeckFile {
-  factory TextContent({@required File text, @required UniqueId uniqueId}) =
-      _$TextContent;
+abstract class TextFile implements MyDeckFile {
+  factory TextFile({@required File text, @required UniqueId uniqueId}) =
+      _$TextFile;
 
   File get text;
   @override
   UniqueId get uniqueId;
   @override
-  $TextContentCopyWith<TextContent> get copyWith;
+  $TextFileCopyWith<TextFile> get copyWith;
 }
 
-abstract class $ImageContentCopyWith<$Res>
-    implements $MyDeckFileCopyWith<$Res> {
-  factory $ImageContentCopyWith(
-          ImageContent value, $Res Function(ImageContent) then) =
-      _$ImageContentCopyWithImpl<$Res>;
+abstract class $ImageFileCopyWith<$Res> implements $MyDeckFileCopyWith<$Res> {
+  factory $ImageFileCopyWith(ImageFile value, $Res Function(ImageFile) then) =
+      _$ImageFileCopyWithImpl<$Res>;
   @override
   $Res call({File image, UniqueId uniqueId});
 }
 
-class _$ImageContentCopyWithImpl<$Res> extends _$MyDeckFileCopyWithImpl<$Res>
-    implements $ImageContentCopyWith<$Res> {
-  _$ImageContentCopyWithImpl(
-      ImageContent _value, $Res Function(ImageContent) _then)
-      : super(_value, (v) => _then(v as ImageContent));
+class _$ImageFileCopyWithImpl<$Res> extends _$MyDeckFileCopyWithImpl<$Res>
+    implements $ImageFileCopyWith<$Res> {
+  _$ImageFileCopyWithImpl(ImageFile _value, $Res Function(ImageFile) _then)
+      : super(_value, (v) => _then(v as ImageFile));
 
   @override
-  ImageContent get _value => super._value as ImageContent;
+  ImageFile get _value => super._value as ImageFile;
 
   @override
   $Res call({
     Object image = freezed,
     Object uniqueId = freezed,
   }) {
-    return _then(ImageContent(
+    return _then(ImageFile(
       image: image == freezed ? _value.image : image as File,
       uniqueId: uniqueId == freezed ? _value.uniqueId : uniqueId as UniqueId,
     ));
   }
 }
 
-class _$ImageContent implements ImageContent {
-  _$ImageContent({@required this.image, @required this.uniqueId})
+class _$ImageFile implements ImageFile {
+  _$ImageFile({@required this.image, @required this.uniqueId})
       : assert(image != null),
         assert(uniqueId != null);
 
@@ -258,7 +253,7 @@ class _$ImageContent implements ImageContent {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is ImageContent &&
+        (other is ImageFile &&
             (identical(other.image, image) ||
                 const DeepCollectionEquality().equals(other.image, image)) &&
             (identical(other.uniqueId, uniqueId) ||
@@ -273,8 +268,8 @@ class _$ImageContent implements ImageContent {
       const DeepCollectionEquality().hash(uniqueId);
 
   @override
-  $ImageContentCopyWith<ImageContent> get copyWith =>
-      _$ImageContentCopyWithImpl<ImageContent>(this, _$identity);
+  $ImageFileCopyWith<ImageFile> get copyWith =>
+      _$ImageFileCopyWithImpl<ImageFile>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -304,8 +299,8 @@ class _$ImageContent implements ImageContent {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result text(TextContent value),
-    @required Result image(ImageContent value),
+    @required Result text(TextFile value),
+    @required Result image(ImageFile value),
   }) {
     assert(text != null);
     assert(image != null);
@@ -315,8 +310,8 @@ class _$ImageContent implements ImageContent {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result text(TextContent value),
-    Result image(ImageContent value),
+    Result text(TextFile value),
+    Result image(ImageFile value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -327,13 +322,13 @@ class _$ImageContent implements ImageContent {
   }
 }
 
-abstract class ImageContent implements MyDeckFile {
-  factory ImageContent({@required File image, @required UniqueId uniqueId}) =
-      _$ImageContent;
+abstract class ImageFile implements MyDeckFile {
+  factory ImageFile({@required File image, @required UniqueId uniqueId}) =
+      _$ImageFile;
 
   File get image;
   @override
   UniqueId get uniqueId;
   @override
-  $ImageContentCopyWith<ImageContent> get copyWith;
+  $ImageFileCopyWith<ImageFile> get copyWith;
 }

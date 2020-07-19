@@ -9,8 +9,8 @@ part 'my_deck_file.freezed.dart';
 @freezed
 abstract class MyDeckFile with _$MyDeckFile {
   factory MyDeckFile.text({@required File text, @required UniqueId uniqueId}) =
-      TextContent;
+      TextFile;
 
   factory MyDeckFile.image(
-      {@required File image, @required UniqueId uniqueId}) = ImageContent;
+      {@required File image, @required UniqueId uniqueId}) = ImageFile;
 }

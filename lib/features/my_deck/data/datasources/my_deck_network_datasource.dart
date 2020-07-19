@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
@@ -44,7 +45,13 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
         data: FormData.fromMap(deckDto.toJson()),
       );
     } on DioError catch (e) {
-      throw NetworkException();
+      if (e.type == DioErrorType.CONNECT_TIMEOUT ||
+          e.type == DioErrorType.RECEIVE_TIMEOUT) {
+        throw NetworkTimeoutException(
+          e.message,
+        );
+      }
+      throw NetworkException(e.message);
     } catch (e) {
       throw NetworkException();
     }
@@ -54,9 +61,15 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
   Future<void> deleteDeck(DeckDto deckDto) async {
     try {
       await client.delete(
-        '/deck/deletebyid/${deckDto.deckId}',
+        '/deck/deletebyid/${deckDto.id}',
       );
-    } on DioError {
+    } on DioError catch (e) {
+      if (e.type == DioErrorType.CONNECT_TIMEOUT ||
+          e.type == DioErrorType.RECEIVE_TIMEOUT) {
+        throw NetworkTimeoutException(
+          e.message,
+        );
+      }
       throw NetworkException();
     } catch (e) {
       throw NetworkException();
@@ -75,7 +88,13 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
       final author = UserModel.fromJson(aj);
 
       return DeckDtoWithUserModel(deck, author);
-    } on DioError {
+    } on DioError catch (e) {
+      if (e.type == DioErrorType.CONNECT_TIMEOUT ||
+          e.type == DioErrorType.RECEIVE_TIMEOUT) {
+        throw NetworkTimeoutException(
+          e.message,
+        );
+      }
       throw NetworkException();
     } catch (e) {
       throw NetworkException();
@@ -89,7 +108,13 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
         '/deck/update',
         data: FormData.fromMap(deckDto.toJson()),
       );
-    } on DioError {
+    } on DioError catch (e) {
+      if (e.type == DioErrorType.CONNECT_TIMEOUT ||
+          e.type == DioErrorType.RECEIVE_TIMEOUT) {
+        throw NetworkTimeoutException(
+          e.message,
+        );
+      }
       throw NetworkException();
     } catch (e) {
       throw NetworkException();
@@ -108,6 +133,12 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
 
       return mappedDecks;
     } on DioError catch (exception) {
+      if (exception.type == DioErrorType.CONNECT_TIMEOUT ||
+          exception.type == DioErrorType.RECEIVE_TIMEOUT) {
+        throw NetworkTimeoutException(
+          exception.message,
+        );
+      }
       if (exception.response.statusCode == 404) {
         return [];
       } else {
@@ -129,6 +160,12 @@ class MyDeckNetworkDataSourceImpl implements MyDeckNetworkDataSource {
 
       return mappedDecks;
     } on DioError catch (exception) {
+      if (exception.type == DioErrorType.CONNECT_TIMEOUT ||
+          exception.type == DioErrorType.RECEIVE_TIMEOUT) {
+        throw NetworkTimeoutException(
+          exception.message,
+        );
+      }
       if (exception.response.statusCode == 404) {
         return [];
       } else {

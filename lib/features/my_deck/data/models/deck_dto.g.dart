@@ -8,7 +8,7 @@ part of 'deck_dto.dart';
 
 _$_DeckDto _$_$_DeckDtoFromJson(Map<String, dynamic> json) {
   return _$_DeckDto(
-    deckId: json['deck_id'] as String,
+    id: json['deck_id'] as String,
     title: json['title'] as String,
     avatar: json['icon'] == null
         ? null
@@ -32,7 +32,7 @@ _$_DeckDto _$_$_DeckDtoFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$_DeckDtoToJson(_$_DeckDto instance) =>
     <String, dynamic>{
-      'deck_id': instance.deckId,
+      'deck_id': instance.id,
       'title': instance.title,
       'icon': instance.avatar,
       'description': instance.description,

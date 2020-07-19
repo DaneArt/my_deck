@@ -41,14 +41,14 @@ class _ZoomedCardViewState extends State<ZoomedCardView> {
   }
 
   Widget _getWidgetFromContent(MyDeckFile cardContent, bool isAnswer) {
-    if (cardContent is ImageContent) {
+    if (cardContent is ImageFile) {
       return Padding(
           padding: EdgeInsets.symmetric(vertical: 36, horizontal: 0),
           child: Image.file(
             cardContent.image,
             fit: BoxFit.cover,
           ));
-    } else if (cardContent is TextContent) {
+    } else if (cardContent is TextFile) {
       if (isAnswer) {
         return TextCardWidget(
           content: MyDeckFile.text(text: cardContent.text),

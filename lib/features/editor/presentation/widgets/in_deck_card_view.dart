@@ -43,14 +43,14 @@ class _InDeckCardViewState extends State<InDeckCardView>
   }
 
   Widget createWidgetFromContent(MyDeckFile content) {
-    if (content is ImageContent) {
+    if (content is ImageFile) {
       return Image.file(
         content.image,
         fit: BoxFit.cover,
       );
-    } else if (content is TextContent) {
+    } else if (content is TextFile) {
       return Text(
-        content.text,
+        content.text.readAsStringSync(),
         style: TextStyle(fontSize: 18),
         textAlign: TextAlign.center,
       );

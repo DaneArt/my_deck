@@ -12,67 +12,76 @@ T _$identity<T>(T value) => value;
 class _$StorageFailureTearOff {
   const _$StorageFailureTearOff();
 
-  FieldsInvalid<T> fieldsInvalid<T>() {
-    return FieldsInvalid<T>();
+  FieldsInvalid<T> fieldsInvalid<T>({T failureObject}) {
+    return FieldsInvalid<T>(
+      failureObject: failureObject,
+    );
   }
 
-  UnsaveableDraft<T> unsaveableDraft<T>() {
-    return UnsaveableDraft<T>();
+  UnsaveableDraft<T> unsaveableDraft<T>({T failureObject}) {
+    return UnsaveableDraft<T>(
+      failureObject: failureObject,
+    );
   }
 
-  InsertFailure<T> insertFailure<T>({@required T failureObject}) {
+  InsertFailure<T> insertFailure<T>({T failureObject}) {
     return InsertFailure<T>(
       failureObject: failureObject,
     );
   }
 
-  UpdateFailure<T> updateFailure<T>({@required T failureObject}) {
+  UpdateFailure<T> updateFailure<T>({T failureObject}) {
     return UpdateFailure<T>(
       failureObject: failureObject,
     );
   }
 
-  DeleteFailure<T> deleteFailure<T>({@required T failureObject}) {
+  DeleteFailure<T> deleteFailure<T>({T failureObject}) {
     return DeleteFailure<T>(
       failureObject: failureObject,
     );
   }
 
-  GetFailure<T> getFailure<T>() {
-    return GetFailure<T>();
+  GetFailure<T> getFailure<T>({T failureObject}) {
+    return GetFailure<T>(
+      failureObject: failureObject,
+    );
   }
 
-  InsertToServerFailure<T> insertToServerFailure<T>(
-      {@required T failureObject}) {
+  InsertToServerFailure<T> insertToServerFailure<T>({T failureObject}) {
     return InsertToServerFailure<T>(
       failureObject: failureObject,
     );
   }
 
-  UpdateToServerFailure<T> updateToServerFailure<T>(
-      {@required T failureObject}) {
+  UpdateToServerFailure<T> updateToServerFailure<T>({T failureObject}) {
     return UpdateToServerFailure<T>(
       failureObject: failureObject,
     );
   }
 
-  DeleteFromServerFailure<T> deleteFromServerFailure<T>(
-      {@required T failureObject}) {
+  DeleteFromServerFailure<T> deleteFromServerFailure<T>({T failureObject}) {
     return DeleteFromServerFailure<T>(
       failureObject: failureObject,
     );
   }
 
-  GetFromServerFailure<T> getFromServerFailure<T>() {
-    return GetFromServerFailure<T>();
+  GetFromServerFailure<T> getFromServerFailure<T>({T failureObject}) {
+    return GetFromServerFailure<T>(
+      failureObject: failureObject,
+    );
   }
 
-  ServerFailure<T> serverFailure<T>() {
-    return ServerFailure<T>();
+  ServerFailure<T> serverFailure<T>({T failureObject}) {
+    return ServerFailure<T>(
+      failureObject: failureObject,
+    );
   }
 
-  NetworkFailure<T> networkFailure<T>() {
-    return NetworkFailure<T>();
+  NetworkFailure<T> networkFailure<T>({String message}) {
+    return NetworkFailure<T>(
+      message: message,
+    );
   }
 }
 
@@ -82,33 +91,33 @@ const $StorageFailure = _$StorageFailureTearOff();
 mixin _$StorageFailure<T> {
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result fieldsInvalid(),
-    @required Result unsaveableDraft(),
+    @required Result fieldsInvalid(T failureObject),
+    @required Result unsaveableDraft(T failureObject),
     @required Result insertFailure(T failureObject),
     @required Result updateFailure(T failureObject),
     @required Result deleteFailure(T failureObject),
-    @required Result getFailure(),
+    @required Result getFailure(T failureObject),
     @required Result insertToServerFailure(T failureObject),
     @required Result updateToServerFailure(T failureObject),
     @required Result deleteFromServerFailure(T failureObject),
-    @required Result getFromServerFailure(),
-    @required Result serverFailure(),
-    @required Result networkFailure(),
+    @required Result getFromServerFailure(T failureObject),
+    @required Result serverFailure(T failureObject),
+    @required Result networkFailure(String message),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result fieldsInvalid(),
-    Result unsaveableDraft(),
+    Result fieldsInvalid(T failureObject),
+    Result unsaveableDraft(T failureObject),
     Result insertFailure(T failureObject),
     Result updateFailure(T failureObject),
     Result deleteFailure(T failureObject),
-    Result getFailure(),
+    Result getFailure(T failureObject),
     Result insertToServerFailure(T failureObject),
     Result updateToServerFailure(T failureObject),
     Result deleteFromServerFailure(T failureObject),
-    Result getFromServerFailure(),
-    Result serverFailure(),
-    Result networkFailure(),
+    Result getFromServerFailure(T failureObject),
+    Result serverFailure(T failureObject),
+    Result networkFailure(String message),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -163,6 +172,7 @@ abstract class $FieldsInvalidCopyWith<T, $Res> {
   factory $FieldsInvalidCopyWith(
           FieldsInvalid<T> value, $Res Function(FieldsInvalid<T>) then) =
       _$FieldsInvalidCopyWithImpl<T, $Res>;
+  $Res call({T failureObject});
 }
 
 class _$FieldsInvalidCopyWithImpl<T, $Res>
@@ -174,39 +184,61 @@ class _$FieldsInvalidCopyWithImpl<T, $Res>
 
   @override
   FieldsInvalid<T> get _value => super._value as FieldsInvalid<T>;
+
+  @override
+  $Res call({
+    Object failureObject = freezed,
+  }) {
+    return _then(FieldsInvalid<T>(
+      failureObject:
+          failureObject == freezed ? _value.failureObject : failureObject as T,
+    ));
+  }
 }
 
 class _$FieldsInvalid<T> implements FieldsInvalid<T> {
-  const _$FieldsInvalid();
+  const _$FieldsInvalid({this.failureObject});
+
+  @override
+  final T failureObject;
 
   @override
   String toString() {
-    return 'StorageFailure<$T>.fieldsInvalid()';
+    return 'StorageFailure<$T>.fieldsInvalid(failureObject: $failureObject)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is FieldsInvalid<T>);
+    return identical(this, other) ||
+        (other is FieldsInvalid<T> &&
+            (identical(other.failureObject, failureObject) ||
+                const DeepCollectionEquality()
+                    .equals(other.failureObject, failureObject)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(failureObject);
+
+  @override
+  $FieldsInvalidCopyWith<T, FieldsInvalid<T>> get copyWith =>
+      _$FieldsInvalidCopyWithImpl<T, FieldsInvalid<T>>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result fieldsInvalid(),
-    @required Result unsaveableDraft(),
+    @required Result fieldsInvalid(T failureObject),
+    @required Result unsaveableDraft(T failureObject),
     @required Result insertFailure(T failureObject),
     @required Result updateFailure(T failureObject),
     @required Result deleteFailure(T failureObject),
-    @required Result getFailure(),
+    @required Result getFailure(T failureObject),
     @required Result insertToServerFailure(T failureObject),
     @required Result updateToServerFailure(T failureObject),
     @required Result deleteFromServerFailure(T failureObject),
-    @required Result getFromServerFailure(),
-    @required Result serverFailure(),
-    @required Result networkFailure(),
+    @required Result getFromServerFailure(T failureObject),
+    @required Result serverFailure(T failureObject),
+    @required Result networkFailure(String message),
   }) {
     assert(fieldsInvalid != null);
     assert(unsaveableDraft != null);
@@ -220,29 +252,29 @@ class _$FieldsInvalid<T> implements FieldsInvalid<T> {
     assert(getFromServerFailure != null);
     assert(serverFailure != null);
     assert(networkFailure != null);
-    return fieldsInvalid();
+    return fieldsInvalid(failureObject);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result fieldsInvalid(),
-    Result unsaveableDraft(),
+    Result fieldsInvalid(T failureObject),
+    Result unsaveableDraft(T failureObject),
     Result insertFailure(T failureObject),
     Result updateFailure(T failureObject),
     Result deleteFailure(T failureObject),
-    Result getFailure(),
+    Result getFailure(T failureObject),
     Result insertToServerFailure(T failureObject),
     Result updateToServerFailure(T failureObject),
     Result deleteFromServerFailure(T failureObject),
-    Result getFromServerFailure(),
-    Result serverFailure(),
-    Result networkFailure(),
+    Result getFromServerFailure(T failureObject),
+    Result serverFailure(T failureObject),
+    Result networkFailure(String message),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (fieldsInvalid != null) {
-      return fieldsInvalid();
+      return fieldsInvalid(failureObject);
     }
     return orElse();
   }
@@ -304,13 +336,17 @@ class _$FieldsInvalid<T> implements FieldsInvalid<T> {
 }
 
 abstract class FieldsInvalid<T> implements StorageFailure<T> {
-  const factory FieldsInvalid() = _$FieldsInvalid<T>;
+  const factory FieldsInvalid({T failureObject}) = _$FieldsInvalid<T>;
+
+  T get failureObject;
+  $FieldsInvalidCopyWith<T, FieldsInvalid<T>> get copyWith;
 }
 
 abstract class $UnsaveableDraftCopyWith<T, $Res> {
   factory $UnsaveableDraftCopyWith(
           UnsaveableDraft<T> value, $Res Function(UnsaveableDraft<T>) then) =
       _$UnsaveableDraftCopyWithImpl<T, $Res>;
+  $Res call({T failureObject});
 }
 
 class _$UnsaveableDraftCopyWithImpl<T, $Res>
@@ -322,39 +358,61 @@ class _$UnsaveableDraftCopyWithImpl<T, $Res>
 
   @override
   UnsaveableDraft<T> get _value => super._value as UnsaveableDraft<T>;
+
+  @override
+  $Res call({
+    Object failureObject = freezed,
+  }) {
+    return _then(UnsaveableDraft<T>(
+      failureObject:
+          failureObject == freezed ? _value.failureObject : failureObject as T,
+    ));
+  }
 }
 
 class _$UnsaveableDraft<T> implements UnsaveableDraft<T> {
-  const _$UnsaveableDraft();
+  const _$UnsaveableDraft({this.failureObject});
+
+  @override
+  final T failureObject;
 
   @override
   String toString() {
-    return 'StorageFailure<$T>.unsaveableDraft()';
+    return 'StorageFailure<$T>.unsaveableDraft(failureObject: $failureObject)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is UnsaveableDraft<T>);
+    return identical(this, other) ||
+        (other is UnsaveableDraft<T> &&
+            (identical(other.failureObject, failureObject) ||
+                const DeepCollectionEquality()
+                    .equals(other.failureObject, failureObject)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(failureObject);
+
+  @override
+  $UnsaveableDraftCopyWith<T, UnsaveableDraft<T>> get copyWith =>
+      _$UnsaveableDraftCopyWithImpl<T, UnsaveableDraft<T>>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result fieldsInvalid(),
-    @required Result unsaveableDraft(),
+    @required Result fieldsInvalid(T failureObject),
+    @required Result unsaveableDraft(T failureObject),
     @required Result insertFailure(T failureObject),
     @required Result updateFailure(T failureObject),
     @required Result deleteFailure(T failureObject),
-    @required Result getFailure(),
+    @required Result getFailure(T failureObject),
     @required Result insertToServerFailure(T failureObject),
     @required Result updateToServerFailure(T failureObject),
     @required Result deleteFromServerFailure(T failureObject),
-    @required Result getFromServerFailure(),
-    @required Result serverFailure(),
-    @required Result networkFailure(),
+    @required Result getFromServerFailure(T failureObject),
+    @required Result serverFailure(T failureObject),
+    @required Result networkFailure(String message),
   }) {
     assert(fieldsInvalid != null);
     assert(unsaveableDraft != null);
@@ -368,29 +426,29 @@ class _$UnsaveableDraft<T> implements UnsaveableDraft<T> {
     assert(getFromServerFailure != null);
     assert(serverFailure != null);
     assert(networkFailure != null);
-    return unsaveableDraft();
+    return unsaveableDraft(failureObject);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result fieldsInvalid(),
-    Result unsaveableDraft(),
+    Result fieldsInvalid(T failureObject),
+    Result unsaveableDraft(T failureObject),
     Result insertFailure(T failureObject),
     Result updateFailure(T failureObject),
     Result deleteFailure(T failureObject),
-    Result getFailure(),
+    Result getFailure(T failureObject),
     Result insertToServerFailure(T failureObject),
     Result updateToServerFailure(T failureObject),
     Result deleteFromServerFailure(T failureObject),
-    Result getFromServerFailure(),
-    Result serverFailure(),
-    Result networkFailure(),
+    Result getFromServerFailure(T failureObject),
+    Result serverFailure(T failureObject),
+    Result networkFailure(String message),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (unsaveableDraft != null) {
-      return unsaveableDraft();
+      return unsaveableDraft(failureObject);
     }
     return orElse();
   }
@@ -452,7 +510,10 @@ class _$UnsaveableDraft<T> implements UnsaveableDraft<T> {
 }
 
 abstract class UnsaveableDraft<T> implements StorageFailure<T> {
-  const factory UnsaveableDraft() = _$UnsaveableDraft<T>;
+  const factory UnsaveableDraft({T failureObject}) = _$UnsaveableDraft<T>;
+
+  T get failureObject;
+  $UnsaveableDraftCopyWith<T, UnsaveableDraft<T>> get copyWith;
 }
 
 abstract class $InsertFailureCopyWith<T, $Res> {
@@ -484,8 +545,7 @@ class _$InsertFailureCopyWithImpl<T, $Res>
 }
 
 class _$InsertFailure<T> implements InsertFailure<T> {
-  const _$InsertFailure({@required this.failureObject})
-      : assert(failureObject != null);
+  const _$InsertFailure({this.failureObject});
 
   @override
   final T failureObject;
@@ -515,18 +575,18 @@ class _$InsertFailure<T> implements InsertFailure<T> {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result fieldsInvalid(),
-    @required Result unsaveableDraft(),
+    @required Result fieldsInvalid(T failureObject),
+    @required Result unsaveableDraft(T failureObject),
     @required Result insertFailure(T failureObject),
     @required Result updateFailure(T failureObject),
     @required Result deleteFailure(T failureObject),
-    @required Result getFailure(),
+    @required Result getFailure(T failureObject),
     @required Result insertToServerFailure(T failureObject),
     @required Result updateToServerFailure(T failureObject),
     @required Result deleteFromServerFailure(T failureObject),
-    @required Result getFromServerFailure(),
-    @required Result serverFailure(),
-    @required Result networkFailure(),
+    @required Result getFromServerFailure(T failureObject),
+    @required Result serverFailure(T failureObject),
+    @required Result networkFailure(String message),
   }) {
     assert(fieldsInvalid != null);
     assert(unsaveableDraft != null);
@@ -546,18 +606,18 @@ class _$InsertFailure<T> implements InsertFailure<T> {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result fieldsInvalid(),
-    Result unsaveableDraft(),
+    Result fieldsInvalid(T failureObject),
+    Result unsaveableDraft(T failureObject),
     Result insertFailure(T failureObject),
     Result updateFailure(T failureObject),
     Result deleteFailure(T failureObject),
-    Result getFailure(),
+    Result getFailure(T failureObject),
     Result insertToServerFailure(T failureObject),
     Result updateToServerFailure(T failureObject),
     Result deleteFromServerFailure(T failureObject),
-    Result getFromServerFailure(),
-    Result serverFailure(),
-    Result networkFailure(),
+    Result getFromServerFailure(T failureObject),
+    Result serverFailure(T failureObject),
+    Result networkFailure(String message),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -624,7 +684,7 @@ class _$InsertFailure<T> implements InsertFailure<T> {
 }
 
 abstract class InsertFailure<T> implements StorageFailure<T> {
-  const factory InsertFailure({@required T failureObject}) = _$InsertFailure<T>;
+  const factory InsertFailure({T failureObject}) = _$InsertFailure<T>;
 
   T get failureObject;
   $InsertFailureCopyWith<T, InsertFailure<T>> get copyWith;
@@ -659,8 +719,7 @@ class _$UpdateFailureCopyWithImpl<T, $Res>
 }
 
 class _$UpdateFailure<T> implements UpdateFailure<T> {
-  const _$UpdateFailure({@required this.failureObject})
-      : assert(failureObject != null);
+  const _$UpdateFailure({this.failureObject});
 
   @override
   final T failureObject;
@@ -690,18 +749,18 @@ class _$UpdateFailure<T> implements UpdateFailure<T> {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result fieldsInvalid(),
-    @required Result unsaveableDraft(),
+    @required Result fieldsInvalid(T failureObject),
+    @required Result unsaveableDraft(T failureObject),
     @required Result insertFailure(T failureObject),
     @required Result updateFailure(T failureObject),
     @required Result deleteFailure(T failureObject),
-    @required Result getFailure(),
+    @required Result getFailure(T failureObject),
     @required Result insertToServerFailure(T failureObject),
     @required Result updateToServerFailure(T failureObject),
     @required Result deleteFromServerFailure(T failureObject),
-    @required Result getFromServerFailure(),
-    @required Result serverFailure(),
-    @required Result networkFailure(),
+    @required Result getFromServerFailure(T failureObject),
+    @required Result serverFailure(T failureObject),
+    @required Result networkFailure(String message),
   }) {
     assert(fieldsInvalid != null);
     assert(unsaveableDraft != null);
@@ -721,18 +780,18 @@ class _$UpdateFailure<T> implements UpdateFailure<T> {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result fieldsInvalid(),
-    Result unsaveableDraft(),
+    Result fieldsInvalid(T failureObject),
+    Result unsaveableDraft(T failureObject),
     Result insertFailure(T failureObject),
     Result updateFailure(T failureObject),
     Result deleteFailure(T failureObject),
-    Result getFailure(),
+    Result getFailure(T failureObject),
     Result insertToServerFailure(T failureObject),
     Result updateToServerFailure(T failureObject),
     Result deleteFromServerFailure(T failureObject),
-    Result getFromServerFailure(),
-    Result serverFailure(),
-    Result networkFailure(),
+    Result getFromServerFailure(T failureObject),
+    Result serverFailure(T failureObject),
+    Result networkFailure(String message),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -799,7 +858,7 @@ class _$UpdateFailure<T> implements UpdateFailure<T> {
 }
 
 abstract class UpdateFailure<T> implements StorageFailure<T> {
-  const factory UpdateFailure({@required T failureObject}) = _$UpdateFailure<T>;
+  const factory UpdateFailure({T failureObject}) = _$UpdateFailure<T>;
 
   T get failureObject;
   $UpdateFailureCopyWith<T, UpdateFailure<T>> get copyWith;
@@ -834,8 +893,7 @@ class _$DeleteFailureCopyWithImpl<T, $Res>
 }
 
 class _$DeleteFailure<T> implements DeleteFailure<T> {
-  const _$DeleteFailure({@required this.failureObject})
-      : assert(failureObject != null);
+  const _$DeleteFailure({this.failureObject});
 
   @override
   final T failureObject;
@@ -865,18 +923,18 @@ class _$DeleteFailure<T> implements DeleteFailure<T> {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result fieldsInvalid(),
-    @required Result unsaveableDraft(),
+    @required Result fieldsInvalid(T failureObject),
+    @required Result unsaveableDraft(T failureObject),
     @required Result insertFailure(T failureObject),
     @required Result updateFailure(T failureObject),
     @required Result deleteFailure(T failureObject),
-    @required Result getFailure(),
+    @required Result getFailure(T failureObject),
     @required Result insertToServerFailure(T failureObject),
     @required Result updateToServerFailure(T failureObject),
     @required Result deleteFromServerFailure(T failureObject),
-    @required Result getFromServerFailure(),
-    @required Result serverFailure(),
-    @required Result networkFailure(),
+    @required Result getFromServerFailure(T failureObject),
+    @required Result serverFailure(T failureObject),
+    @required Result networkFailure(String message),
   }) {
     assert(fieldsInvalid != null);
     assert(unsaveableDraft != null);
@@ -896,18 +954,18 @@ class _$DeleteFailure<T> implements DeleteFailure<T> {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result fieldsInvalid(),
-    Result unsaveableDraft(),
+    Result fieldsInvalid(T failureObject),
+    Result unsaveableDraft(T failureObject),
     Result insertFailure(T failureObject),
     Result updateFailure(T failureObject),
     Result deleteFailure(T failureObject),
-    Result getFailure(),
+    Result getFailure(T failureObject),
     Result insertToServerFailure(T failureObject),
     Result updateToServerFailure(T failureObject),
     Result deleteFromServerFailure(T failureObject),
-    Result getFromServerFailure(),
-    Result serverFailure(),
-    Result networkFailure(),
+    Result getFromServerFailure(T failureObject),
+    Result serverFailure(T failureObject),
+    Result networkFailure(String message),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -974,7 +1032,7 @@ class _$DeleteFailure<T> implements DeleteFailure<T> {
 }
 
 abstract class DeleteFailure<T> implements StorageFailure<T> {
-  const factory DeleteFailure({@required T failureObject}) = _$DeleteFailure<T>;
+  const factory DeleteFailure({T failureObject}) = _$DeleteFailure<T>;
 
   T get failureObject;
   $DeleteFailureCopyWith<T, DeleteFailure<T>> get copyWith;
@@ -984,6 +1042,7 @@ abstract class $GetFailureCopyWith<T, $Res> {
   factory $GetFailureCopyWith(
           GetFailure<T> value, $Res Function(GetFailure<T>) then) =
       _$GetFailureCopyWithImpl<T, $Res>;
+  $Res call({T failureObject});
 }
 
 class _$GetFailureCopyWithImpl<T, $Res>
@@ -995,39 +1054,61 @@ class _$GetFailureCopyWithImpl<T, $Res>
 
   @override
   GetFailure<T> get _value => super._value as GetFailure<T>;
+
+  @override
+  $Res call({
+    Object failureObject = freezed,
+  }) {
+    return _then(GetFailure<T>(
+      failureObject:
+          failureObject == freezed ? _value.failureObject : failureObject as T,
+    ));
+  }
 }
 
 class _$GetFailure<T> implements GetFailure<T> {
-  const _$GetFailure();
+  const _$GetFailure({this.failureObject});
+
+  @override
+  final T failureObject;
 
   @override
   String toString() {
-    return 'StorageFailure<$T>.getFailure()';
+    return 'StorageFailure<$T>.getFailure(failureObject: $failureObject)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is GetFailure<T>);
+    return identical(this, other) ||
+        (other is GetFailure<T> &&
+            (identical(other.failureObject, failureObject) ||
+                const DeepCollectionEquality()
+                    .equals(other.failureObject, failureObject)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(failureObject);
+
+  @override
+  $GetFailureCopyWith<T, GetFailure<T>> get copyWith =>
+      _$GetFailureCopyWithImpl<T, GetFailure<T>>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result fieldsInvalid(),
-    @required Result unsaveableDraft(),
+    @required Result fieldsInvalid(T failureObject),
+    @required Result unsaveableDraft(T failureObject),
     @required Result insertFailure(T failureObject),
     @required Result updateFailure(T failureObject),
     @required Result deleteFailure(T failureObject),
-    @required Result getFailure(),
+    @required Result getFailure(T failureObject),
     @required Result insertToServerFailure(T failureObject),
     @required Result updateToServerFailure(T failureObject),
     @required Result deleteFromServerFailure(T failureObject),
-    @required Result getFromServerFailure(),
-    @required Result serverFailure(),
-    @required Result networkFailure(),
+    @required Result getFromServerFailure(T failureObject),
+    @required Result serverFailure(T failureObject),
+    @required Result networkFailure(String message),
   }) {
     assert(fieldsInvalid != null);
     assert(unsaveableDraft != null);
@@ -1041,29 +1122,29 @@ class _$GetFailure<T> implements GetFailure<T> {
     assert(getFromServerFailure != null);
     assert(serverFailure != null);
     assert(networkFailure != null);
-    return getFailure();
+    return getFailure(failureObject);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result fieldsInvalid(),
-    Result unsaveableDraft(),
+    Result fieldsInvalid(T failureObject),
+    Result unsaveableDraft(T failureObject),
     Result insertFailure(T failureObject),
     Result updateFailure(T failureObject),
     Result deleteFailure(T failureObject),
-    Result getFailure(),
+    Result getFailure(T failureObject),
     Result insertToServerFailure(T failureObject),
     Result updateToServerFailure(T failureObject),
     Result deleteFromServerFailure(T failureObject),
-    Result getFromServerFailure(),
-    Result serverFailure(),
-    Result networkFailure(),
+    Result getFromServerFailure(T failureObject),
+    Result serverFailure(T failureObject),
+    Result networkFailure(String message),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (getFailure != null) {
-      return getFailure();
+      return getFailure(failureObject);
     }
     return orElse();
   }
@@ -1125,7 +1206,10 @@ class _$GetFailure<T> implements GetFailure<T> {
 }
 
 abstract class GetFailure<T> implements StorageFailure<T> {
-  const factory GetFailure() = _$GetFailure<T>;
+  const factory GetFailure({T failureObject}) = _$GetFailure<T>;
+
+  T get failureObject;
+  $GetFailureCopyWith<T, GetFailure<T>> get copyWith;
 }
 
 abstract class $InsertToServerFailureCopyWith<T, $Res> {
@@ -1158,8 +1242,7 @@ class _$InsertToServerFailureCopyWithImpl<T, $Res>
 }
 
 class _$InsertToServerFailure<T> implements InsertToServerFailure<T> {
-  const _$InsertToServerFailure({@required this.failureObject})
-      : assert(failureObject != null);
+  const _$InsertToServerFailure({this.failureObject});
 
   @override
   final T failureObject;
@@ -1190,18 +1273,18 @@ class _$InsertToServerFailure<T> implements InsertToServerFailure<T> {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result fieldsInvalid(),
-    @required Result unsaveableDraft(),
+    @required Result fieldsInvalid(T failureObject),
+    @required Result unsaveableDraft(T failureObject),
     @required Result insertFailure(T failureObject),
     @required Result updateFailure(T failureObject),
     @required Result deleteFailure(T failureObject),
-    @required Result getFailure(),
+    @required Result getFailure(T failureObject),
     @required Result insertToServerFailure(T failureObject),
     @required Result updateToServerFailure(T failureObject),
     @required Result deleteFromServerFailure(T failureObject),
-    @required Result getFromServerFailure(),
-    @required Result serverFailure(),
-    @required Result networkFailure(),
+    @required Result getFromServerFailure(T failureObject),
+    @required Result serverFailure(T failureObject),
+    @required Result networkFailure(String message),
   }) {
     assert(fieldsInvalid != null);
     assert(unsaveableDraft != null);
@@ -1221,18 +1304,18 @@ class _$InsertToServerFailure<T> implements InsertToServerFailure<T> {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result fieldsInvalid(),
-    Result unsaveableDraft(),
+    Result fieldsInvalid(T failureObject),
+    Result unsaveableDraft(T failureObject),
     Result insertFailure(T failureObject),
     Result updateFailure(T failureObject),
     Result deleteFailure(T failureObject),
-    Result getFailure(),
+    Result getFailure(T failureObject),
     Result insertToServerFailure(T failureObject),
     Result updateToServerFailure(T failureObject),
     Result deleteFromServerFailure(T failureObject),
-    Result getFromServerFailure(),
-    Result serverFailure(),
-    Result networkFailure(),
+    Result getFromServerFailure(T failureObject),
+    Result serverFailure(T failureObject),
+    Result networkFailure(String message),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1299,7 +1382,7 @@ class _$InsertToServerFailure<T> implements InsertToServerFailure<T> {
 }
 
 abstract class InsertToServerFailure<T> implements StorageFailure<T> {
-  const factory InsertToServerFailure({@required T failureObject}) =
+  const factory InsertToServerFailure({T failureObject}) =
       _$InsertToServerFailure<T>;
 
   T get failureObject;
@@ -1336,8 +1419,7 @@ class _$UpdateToServerFailureCopyWithImpl<T, $Res>
 }
 
 class _$UpdateToServerFailure<T> implements UpdateToServerFailure<T> {
-  const _$UpdateToServerFailure({@required this.failureObject})
-      : assert(failureObject != null);
+  const _$UpdateToServerFailure({this.failureObject});
 
   @override
   final T failureObject;
@@ -1368,18 +1450,18 @@ class _$UpdateToServerFailure<T> implements UpdateToServerFailure<T> {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result fieldsInvalid(),
-    @required Result unsaveableDraft(),
+    @required Result fieldsInvalid(T failureObject),
+    @required Result unsaveableDraft(T failureObject),
     @required Result insertFailure(T failureObject),
     @required Result updateFailure(T failureObject),
     @required Result deleteFailure(T failureObject),
-    @required Result getFailure(),
+    @required Result getFailure(T failureObject),
     @required Result insertToServerFailure(T failureObject),
     @required Result updateToServerFailure(T failureObject),
     @required Result deleteFromServerFailure(T failureObject),
-    @required Result getFromServerFailure(),
-    @required Result serverFailure(),
-    @required Result networkFailure(),
+    @required Result getFromServerFailure(T failureObject),
+    @required Result serverFailure(T failureObject),
+    @required Result networkFailure(String message),
   }) {
     assert(fieldsInvalid != null);
     assert(unsaveableDraft != null);
@@ -1399,18 +1481,18 @@ class _$UpdateToServerFailure<T> implements UpdateToServerFailure<T> {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result fieldsInvalid(),
-    Result unsaveableDraft(),
+    Result fieldsInvalid(T failureObject),
+    Result unsaveableDraft(T failureObject),
     Result insertFailure(T failureObject),
     Result updateFailure(T failureObject),
     Result deleteFailure(T failureObject),
-    Result getFailure(),
+    Result getFailure(T failureObject),
     Result insertToServerFailure(T failureObject),
     Result updateToServerFailure(T failureObject),
     Result deleteFromServerFailure(T failureObject),
-    Result getFromServerFailure(),
-    Result serverFailure(),
-    Result networkFailure(),
+    Result getFromServerFailure(T failureObject),
+    Result serverFailure(T failureObject),
+    Result networkFailure(String message),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1477,7 +1559,7 @@ class _$UpdateToServerFailure<T> implements UpdateToServerFailure<T> {
 }
 
 abstract class UpdateToServerFailure<T> implements StorageFailure<T> {
-  const factory UpdateToServerFailure({@required T failureObject}) =
+  const factory UpdateToServerFailure({T failureObject}) =
       _$UpdateToServerFailure<T>;
 
   T get failureObject;
@@ -1514,8 +1596,7 @@ class _$DeleteFromServerFailureCopyWithImpl<T, $Res>
 }
 
 class _$DeleteFromServerFailure<T> implements DeleteFromServerFailure<T> {
-  const _$DeleteFromServerFailure({@required this.failureObject})
-      : assert(failureObject != null);
+  const _$DeleteFromServerFailure({this.failureObject});
 
   @override
   final T failureObject;
@@ -1547,18 +1628,18 @@ class _$DeleteFromServerFailure<T> implements DeleteFromServerFailure<T> {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result fieldsInvalid(),
-    @required Result unsaveableDraft(),
+    @required Result fieldsInvalid(T failureObject),
+    @required Result unsaveableDraft(T failureObject),
     @required Result insertFailure(T failureObject),
     @required Result updateFailure(T failureObject),
     @required Result deleteFailure(T failureObject),
-    @required Result getFailure(),
+    @required Result getFailure(T failureObject),
     @required Result insertToServerFailure(T failureObject),
     @required Result updateToServerFailure(T failureObject),
     @required Result deleteFromServerFailure(T failureObject),
-    @required Result getFromServerFailure(),
-    @required Result serverFailure(),
-    @required Result networkFailure(),
+    @required Result getFromServerFailure(T failureObject),
+    @required Result serverFailure(T failureObject),
+    @required Result networkFailure(String message),
   }) {
     assert(fieldsInvalid != null);
     assert(unsaveableDraft != null);
@@ -1578,18 +1659,18 @@ class _$DeleteFromServerFailure<T> implements DeleteFromServerFailure<T> {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result fieldsInvalid(),
-    Result unsaveableDraft(),
+    Result fieldsInvalid(T failureObject),
+    Result unsaveableDraft(T failureObject),
     Result insertFailure(T failureObject),
     Result updateFailure(T failureObject),
     Result deleteFailure(T failureObject),
-    Result getFailure(),
+    Result getFailure(T failureObject),
     Result insertToServerFailure(T failureObject),
     Result updateToServerFailure(T failureObject),
     Result deleteFromServerFailure(T failureObject),
-    Result getFromServerFailure(),
-    Result serverFailure(),
-    Result networkFailure(),
+    Result getFromServerFailure(T failureObject),
+    Result serverFailure(T failureObject),
+    Result networkFailure(String message),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1656,7 +1737,7 @@ class _$DeleteFromServerFailure<T> implements DeleteFromServerFailure<T> {
 }
 
 abstract class DeleteFromServerFailure<T> implements StorageFailure<T> {
-  const factory DeleteFromServerFailure({@required T failureObject}) =
+  const factory DeleteFromServerFailure({T failureObject}) =
       _$DeleteFromServerFailure<T>;
 
   T get failureObject;
@@ -1667,6 +1748,7 @@ abstract class $GetFromServerFailureCopyWith<T, $Res> {
   factory $GetFromServerFailureCopyWith(GetFromServerFailure<T> value,
           $Res Function(GetFromServerFailure<T>) then) =
       _$GetFromServerFailureCopyWithImpl<T, $Res>;
+  $Res call({T failureObject});
 }
 
 class _$GetFromServerFailureCopyWithImpl<T, $Res>
@@ -1678,39 +1760,62 @@ class _$GetFromServerFailureCopyWithImpl<T, $Res>
 
   @override
   GetFromServerFailure<T> get _value => super._value as GetFromServerFailure<T>;
+
+  @override
+  $Res call({
+    Object failureObject = freezed,
+  }) {
+    return _then(GetFromServerFailure<T>(
+      failureObject:
+          failureObject == freezed ? _value.failureObject : failureObject as T,
+    ));
+  }
 }
 
 class _$GetFromServerFailure<T> implements GetFromServerFailure<T> {
-  const _$GetFromServerFailure();
+  const _$GetFromServerFailure({this.failureObject});
+
+  @override
+  final T failureObject;
 
   @override
   String toString() {
-    return 'StorageFailure<$T>.getFromServerFailure()';
+    return 'StorageFailure<$T>.getFromServerFailure(failureObject: $failureObject)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is GetFromServerFailure<T>);
+    return identical(this, other) ||
+        (other is GetFromServerFailure<T> &&
+            (identical(other.failureObject, failureObject) ||
+                const DeepCollectionEquality()
+                    .equals(other.failureObject, failureObject)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(failureObject);
+
+  @override
+  $GetFromServerFailureCopyWith<T, GetFromServerFailure<T>> get copyWith =>
+      _$GetFromServerFailureCopyWithImpl<T, GetFromServerFailure<T>>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result fieldsInvalid(),
-    @required Result unsaveableDraft(),
+    @required Result fieldsInvalid(T failureObject),
+    @required Result unsaveableDraft(T failureObject),
     @required Result insertFailure(T failureObject),
     @required Result updateFailure(T failureObject),
     @required Result deleteFailure(T failureObject),
-    @required Result getFailure(),
+    @required Result getFailure(T failureObject),
     @required Result insertToServerFailure(T failureObject),
     @required Result updateToServerFailure(T failureObject),
     @required Result deleteFromServerFailure(T failureObject),
-    @required Result getFromServerFailure(),
-    @required Result serverFailure(),
-    @required Result networkFailure(),
+    @required Result getFromServerFailure(T failureObject),
+    @required Result serverFailure(T failureObject),
+    @required Result networkFailure(String message),
   }) {
     assert(fieldsInvalid != null);
     assert(unsaveableDraft != null);
@@ -1724,29 +1829,29 @@ class _$GetFromServerFailure<T> implements GetFromServerFailure<T> {
     assert(getFromServerFailure != null);
     assert(serverFailure != null);
     assert(networkFailure != null);
-    return getFromServerFailure();
+    return getFromServerFailure(failureObject);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result fieldsInvalid(),
-    Result unsaveableDraft(),
+    Result fieldsInvalid(T failureObject),
+    Result unsaveableDraft(T failureObject),
     Result insertFailure(T failureObject),
     Result updateFailure(T failureObject),
     Result deleteFailure(T failureObject),
-    Result getFailure(),
+    Result getFailure(T failureObject),
     Result insertToServerFailure(T failureObject),
     Result updateToServerFailure(T failureObject),
     Result deleteFromServerFailure(T failureObject),
-    Result getFromServerFailure(),
-    Result serverFailure(),
-    Result networkFailure(),
+    Result getFromServerFailure(T failureObject),
+    Result serverFailure(T failureObject),
+    Result networkFailure(String message),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (getFromServerFailure != null) {
-      return getFromServerFailure();
+      return getFromServerFailure(failureObject);
     }
     return orElse();
   }
@@ -1808,13 +1913,18 @@ class _$GetFromServerFailure<T> implements GetFromServerFailure<T> {
 }
 
 abstract class GetFromServerFailure<T> implements StorageFailure<T> {
-  const factory GetFromServerFailure() = _$GetFromServerFailure<T>;
+  const factory GetFromServerFailure({T failureObject}) =
+      _$GetFromServerFailure<T>;
+
+  T get failureObject;
+  $GetFromServerFailureCopyWith<T, GetFromServerFailure<T>> get copyWith;
 }
 
 abstract class $ServerFailureCopyWith<T, $Res> {
   factory $ServerFailureCopyWith(
           ServerFailure<T> value, $Res Function(ServerFailure<T>) then) =
       _$ServerFailureCopyWithImpl<T, $Res>;
+  $Res call({T failureObject});
 }
 
 class _$ServerFailureCopyWithImpl<T, $Res>
@@ -1826,39 +1936,61 @@ class _$ServerFailureCopyWithImpl<T, $Res>
 
   @override
   ServerFailure<T> get _value => super._value as ServerFailure<T>;
+
+  @override
+  $Res call({
+    Object failureObject = freezed,
+  }) {
+    return _then(ServerFailure<T>(
+      failureObject:
+          failureObject == freezed ? _value.failureObject : failureObject as T,
+    ));
+  }
 }
 
 class _$ServerFailure<T> implements ServerFailure<T> {
-  const _$ServerFailure();
+  const _$ServerFailure({this.failureObject});
+
+  @override
+  final T failureObject;
 
   @override
   String toString() {
-    return 'StorageFailure<$T>.serverFailure()';
+    return 'StorageFailure<$T>.serverFailure(failureObject: $failureObject)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is ServerFailure<T>);
+    return identical(this, other) ||
+        (other is ServerFailure<T> &&
+            (identical(other.failureObject, failureObject) ||
+                const DeepCollectionEquality()
+                    .equals(other.failureObject, failureObject)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(failureObject);
+
+  @override
+  $ServerFailureCopyWith<T, ServerFailure<T>> get copyWith =>
+      _$ServerFailureCopyWithImpl<T, ServerFailure<T>>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result fieldsInvalid(),
-    @required Result unsaveableDraft(),
+    @required Result fieldsInvalid(T failureObject),
+    @required Result unsaveableDraft(T failureObject),
     @required Result insertFailure(T failureObject),
     @required Result updateFailure(T failureObject),
     @required Result deleteFailure(T failureObject),
-    @required Result getFailure(),
+    @required Result getFailure(T failureObject),
     @required Result insertToServerFailure(T failureObject),
     @required Result updateToServerFailure(T failureObject),
     @required Result deleteFromServerFailure(T failureObject),
-    @required Result getFromServerFailure(),
-    @required Result serverFailure(),
-    @required Result networkFailure(),
+    @required Result getFromServerFailure(T failureObject),
+    @required Result serverFailure(T failureObject),
+    @required Result networkFailure(String message),
   }) {
     assert(fieldsInvalid != null);
     assert(unsaveableDraft != null);
@@ -1872,29 +2004,29 @@ class _$ServerFailure<T> implements ServerFailure<T> {
     assert(getFromServerFailure != null);
     assert(serverFailure != null);
     assert(networkFailure != null);
-    return serverFailure();
+    return serverFailure(failureObject);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result fieldsInvalid(),
-    Result unsaveableDraft(),
+    Result fieldsInvalid(T failureObject),
+    Result unsaveableDraft(T failureObject),
     Result insertFailure(T failureObject),
     Result updateFailure(T failureObject),
     Result deleteFailure(T failureObject),
-    Result getFailure(),
+    Result getFailure(T failureObject),
     Result insertToServerFailure(T failureObject),
     Result updateToServerFailure(T failureObject),
     Result deleteFromServerFailure(T failureObject),
-    Result getFromServerFailure(),
-    Result serverFailure(),
-    Result networkFailure(),
+    Result getFromServerFailure(T failureObject),
+    Result serverFailure(T failureObject),
+    Result networkFailure(String message),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (serverFailure != null) {
-      return serverFailure();
+      return serverFailure(failureObject);
     }
     return orElse();
   }
@@ -1956,13 +2088,17 @@ class _$ServerFailure<T> implements ServerFailure<T> {
 }
 
 abstract class ServerFailure<T> implements StorageFailure<T> {
-  const factory ServerFailure() = _$ServerFailure<T>;
+  const factory ServerFailure({T failureObject}) = _$ServerFailure<T>;
+
+  T get failureObject;
+  $ServerFailureCopyWith<T, ServerFailure<T>> get copyWith;
 }
 
 abstract class $NetworkFailureCopyWith<T, $Res> {
   factory $NetworkFailureCopyWith(
           NetworkFailure<T> value, $Res Function(NetworkFailure<T>) then) =
       _$NetworkFailureCopyWithImpl<T, $Res>;
+  $Res call({String message});
 }
 
 class _$NetworkFailureCopyWithImpl<T, $Res>
@@ -1974,39 +2110,59 @@ class _$NetworkFailureCopyWithImpl<T, $Res>
 
   @override
   NetworkFailure<T> get _value => super._value as NetworkFailure<T>;
+
+  @override
+  $Res call({
+    Object message = freezed,
+  }) {
+    return _then(NetworkFailure<T>(
+      message: message == freezed ? _value.message : message as String,
+    ));
+  }
 }
 
 class _$NetworkFailure<T> implements NetworkFailure<T> {
-  const _$NetworkFailure();
+  const _$NetworkFailure({this.message});
+
+  @override
+  final String message;
 
   @override
   String toString() {
-    return 'StorageFailure<$T>.networkFailure()';
+    return 'StorageFailure<$T>.networkFailure(message: $message)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is NetworkFailure<T>);
+    return identical(this, other) ||
+        (other is NetworkFailure<T> &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality().equals(other.message, message)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(message);
+
+  @override
+  $NetworkFailureCopyWith<T, NetworkFailure<T>> get copyWith =>
+      _$NetworkFailureCopyWithImpl<T, NetworkFailure<T>>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result fieldsInvalid(),
-    @required Result unsaveableDraft(),
+    @required Result fieldsInvalid(T failureObject),
+    @required Result unsaveableDraft(T failureObject),
     @required Result insertFailure(T failureObject),
     @required Result updateFailure(T failureObject),
     @required Result deleteFailure(T failureObject),
-    @required Result getFailure(),
+    @required Result getFailure(T failureObject),
     @required Result insertToServerFailure(T failureObject),
     @required Result updateToServerFailure(T failureObject),
     @required Result deleteFromServerFailure(T failureObject),
-    @required Result getFromServerFailure(),
-    @required Result serverFailure(),
-    @required Result networkFailure(),
+    @required Result getFromServerFailure(T failureObject),
+    @required Result serverFailure(T failureObject),
+    @required Result networkFailure(String message),
   }) {
     assert(fieldsInvalid != null);
     assert(unsaveableDraft != null);
@@ -2020,29 +2176,29 @@ class _$NetworkFailure<T> implements NetworkFailure<T> {
     assert(getFromServerFailure != null);
     assert(serverFailure != null);
     assert(networkFailure != null);
-    return networkFailure();
+    return networkFailure(message);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result fieldsInvalid(),
-    Result unsaveableDraft(),
+    Result fieldsInvalid(T failureObject),
+    Result unsaveableDraft(T failureObject),
     Result insertFailure(T failureObject),
     Result updateFailure(T failureObject),
     Result deleteFailure(T failureObject),
-    Result getFailure(),
+    Result getFailure(T failureObject),
     Result insertToServerFailure(T failureObject),
     Result updateToServerFailure(T failureObject),
     Result deleteFromServerFailure(T failureObject),
-    Result getFromServerFailure(),
-    Result serverFailure(),
-    Result networkFailure(),
+    Result getFromServerFailure(T failureObject),
+    Result serverFailure(T failureObject),
+    Result networkFailure(String message),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (networkFailure != null) {
-      return networkFailure();
+      return networkFailure(message);
     }
     return orElse();
   }
@@ -2104,5 +2260,8 @@ class _$NetworkFailure<T> implements NetworkFailure<T> {
 }
 
 abstract class NetworkFailure<T> implements StorageFailure<T> {
-  const factory NetworkFailure() = _$NetworkFailure<T>;
+  const factory NetworkFailure({String message}) = _$NetworkFailure<T>;
+
+  String get message;
+  $NetworkFailureCopyWith<T, NetworkFailure<T>> get copyWith;
 }

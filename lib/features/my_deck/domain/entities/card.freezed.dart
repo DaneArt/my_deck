@@ -13,11 +13,11 @@ class _$CardTearOff {
   const _$CardTearOff();
 
   _Card call(
-      {@required UniqueId cardId,
+      {@required UniqueId id,
       @required MyDeckFile answer,
       @required MyDeckFile question}) {
     return _Card(
-      cardId: cardId,
+      id: id,
       answer: answer,
       question: question,
     );
@@ -28,7 +28,7 @@ class _$CardTearOff {
 const $Card = _$CardTearOff();
 
 mixin _$Card {
-  UniqueId get cardId;
+  UniqueId get id;
   MyDeckFile get answer;
   MyDeckFile get question;
 
@@ -38,7 +38,7 @@ mixin _$Card {
 abstract class $CardCopyWith<$Res> {
   factory $CardCopyWith(Card value, $Res Function(Card) then) =
       _$CardCopyWithImpl<$Res>;
-  $Res call({UniqueId cardId, MyDeckFile answer, MyDeckFile question});
+  $Res call({UniqueId id, MyDeckFile answer, MyDeckFile question});
 
   $MyDeckFileCopyWith<$Res> get answer;
   $MyDeckFileCopyWith<$Res> get question;
@@ -53,12 +53,12 @@ class _$CardCopyWithImpl<$Res> implements $CardCopyWith<$Res> {
 
   @override
   $Res call({
-    Object cardId = freezed,
+    Object id = freezed,
     Object answer = freezed,
     Object question = freezed,
   }) {
     return _then(_value.copyWith(
-      cardId: cardId == freezed ? _value.cardId : cardId as UniqueId,
+      id: id == freezed ? _value.id : id as UniqueId,
       answer: answer == freezed ? _value.answer : answer as MyDeckFile,
       question: question == freezed ? _value.question : question as MyDeckFile,
     ));
@@ -89,7 +89,7 @@ abstract class _$CardCopyWith<$Res> implements $CardCopyWith<$Res> {
   factory _$CardCopyWith(_Card value, $Res Function(_Card) then) =
       __$CardCopyWithImpl<$Res>;
   @override
-  $Res call({UniqueId cardId, MyDeckFile answer, MyDeckFile question});
+  $Res call({UniqueId id, MyDeckFile answer, MyDeckFile question});
 
   @override
   $MyDeckFileCopyWith<$Res> get answer;
@@ -107,12 +107,12 @@ class __$CardCopyWithImpl<$Res> extends _$CardCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object cardId = freezed,
+    Object id = freezed,
     Object answer = freezed,
     Object question = freezed,
   }) {
     return _then(_Card(
-      cardId: cardId == freezed ? _value.cardId : cardId as UniqueId,
+      id: id == freezed ? _value.id : id as UniqueId,
       answer: answer == freezed ? _value.answer : answer as MyDeckFile,
       question: question == freezed ? _value.question : question as MyDeckFile,
     ));
@@ -121,14 +121,14 @@ class __$CardCopyWithImpl<$Res> extends _$CardCopyWithImpl<$Res>
 
 class _$_Card extends _Card {
   const _$_Card(
-      {@required this.cardId, @required this.answer, @required this.question})
-      : assert(cardId != null),
+      {@required this.id, @required this.answer, @required this.question})
+      : assert(id != null),
         assert(answer != null),
         assert(question != null),
         super._();
 
   @override
-  final UniqueId cardId;
+  final UniqueId id;
   @override
   final MyDeckFile answer;
   @override
@@ -136,15 +136,15 @@ class _$_Card extends _Card {
 
   @override
   String toString() {
-    return 'Card(cardId: $cardId, answer: $answer, question: $question)';
+    return 'Card(id: $id, answer: $answer, question: $question)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Card &&
-            (identical(other.cardId, cardId) ||
-                const DeepCollectionEquality().equals(other.cardId, cardId)) &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.answer, answer) ||
                 const DeepCollectionEquality().equals(other.answer, answer)) &&
             (identical(other.question, question) ||
@@ -155,7 +155,7 @@ class _$_Card extends _Card {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(cardId) ^
+      const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(answer) ^
       const DeepCollectionEquality().hash(question);
 
@@ -167,12 +167,12 @@ class _$_Card extends _Card {
 abstract class _Card extends Card {
   const _Card._() : super._();
   const factory _Card(
-      {@required UniqueId cardId,
+      {@required UniqueId id,
       @required MyDeckFile answer,
       @required MyDeckFile question}) = _$_Card;
 
   @override
-  UniqueId get cardId;
+  UniqueId get id;
   @override
   MyDeckFile get answer;
   @override

@@ -8,7 +8,7 @@ import 'package:mydeck/features/my_deck/domain/entities/my_deck_file.dart';
 import 'package:mydeck/features/my_deck/presentation/widgets/shared/ensure_field_visibility.dart';
 
 class TextCardWidget extends StatefulWidget {
-  final TextContent content;
+  final TextFile content;
   final Function(String text) onTextChanged;
   final bool isEditing;
 

@@ -16,7 +16,7 @@ class _$DeckDtoTearOff {
   const _$DeckDtoTearOff();
 
   _DeckDto call(
-      {@required @JsonKey(name: 'deck_id') String deckId,
+      {@required @JsonKey(name: 'deck_id') String id,
       @required String title,
       @required @JsonKey(name: 'icon') FileDto avatar,
       @required String description,
@@ -28,7 +28,7 @@ class _$DeckDtoTearOff {
       @required @JsonKey(name: 'is_private') bool isPrivate,
       @required @JsonKey(name: 'author') String authorId}) {
     return _DeckDto(
-      deckId: deckId,
+      id: id,
       title: title,
       avatar: avatar,
       description: description,
@@ -48,7 +48,7 @@ const $DeckDto = _$DeckDtoTearOff();
 
 mixin _$DeckDto {
   @JsonKey(name: 'deck_id')
-  String get deckId;
+  String get id;
   String get title;
   @JsonKey(name: 'icon')
   FileDto get avatar;
@@ -76,7 +76,7 @@ abstract class $DeckDtoCopyWith<$Res> {
   factory $DeckDtoCopyWith(DeckDto value, $Res Function(DeckDto) then) =
       _$DeckDtoCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'deck_id') String deckId,
+      {@JsonKey(name: 'deck_id') String id,
       String title,
       @JsonKey(name: 'icon') FileDto avatar,
       String description,
@@ -100,7 +100,7 @@ class _$DeckDtoCopyWithImpl<$Res> implements $DeckDtoCopyWith<$Res> {
 
   @override
   $Res call({
-    Object deckId = freezed,
+    Object id = freezed,
     Object title = freezed,
     Object avatar = freezed,
     Object description = freezed,
@@ -113,7 +113,7 @@ class _$DeckDtoCopyWithImpl<$Res> implements $DeckDtoCopyWith<$Res> {
     Object authorId = freezed,
   }) {
     return _then(_value.copyWith(
-      deckId: deckId == freezed ? _value.deckId : deckId as String,
+      id: id == freezed ? _value.id : id as String,
       title: title == freezed ? _value.title : title as String,
       avatar: avatar == freezed ? _value.avatar : avatar as FileDto,
       description:
@@ -151,7 +151,7 @@ abstract class _$DeckDtoCopyWith<$Res> implements $DeckDtoCopyWith<$Res> {
       __$DeckDtoCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'deck_id') String deckId,
+      {@JsonKey(name: 'deck_id') String id,
       String title,
       @JsonKey(name: 'icon') FileDto avatar,
       String description,
@@ -177,7 +177,7 @@ class __$DeckDtoCopyWithImpl<$Res> extends _$DeckDtoCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object deckId = freezed,
+    Object id = freezed,
     Object title = freezed,
     Object avatar = freezed,
     Object description = freezed,
@@ -190,7 +190,7 @@ class __$DeckDtoCopyWithImpl<$Res> extends _$DeckDtoCopyWithImpl<$Res>
     Object authorId = freezed,
   }) {
     return _then(_DeckDto(
-      deckId: deckId == freezed ? _value.deckId : deckId as String,
+      id: id == freezed ? _value.id : id as String,
       title: title == freezed ? _value.title : title as String,
       avatar: avatar == freezed ? _value.avatar : avatar as FileDto,
       description:
@@ -216,7 +216,7 @@ class __$DeckDtoCopyWithImpl<$Res> extends _$DeckDtoCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_DeckDto extends _DeckDto with DiagnosticableTreeMixin {
   const _$_DeckDto(
-      {@required @JsonKey(name: 'deck_id') this.deckId,
+      {@required @JsonKey(name: 'deck_id') this.id,
       @required this.title,
       @required @JsonKey(name: 'icon') this.avatar,
       @required this.description,
@@ -227,7 +227,7 @@ class _$_DeckDto extends _DeckDto with DiagnosticableTreeMixin {
       @required @JsonKey(name: 'category_name') this.categoryName,
       @required @JsonKey(name: 'is_private') this.isPrivate,
       @required @JsonKey(name: 'author') this.authorId})
-      : assert(deckId != null),
+      : assert(id != null),
         assert(title != null),
         assert(avatar != null),
         assert(description != null),
@@ -241,7 +241,7 @@ class _$_DeckDto extends _DeckDto with DiagnosticableTreeMixin {
 
   @override
   @JsonKey(name: 'deck_id')
-  final String deckId;
+  final String id;
   @override
   final String title;
   @override
@@ -273,7 +273,7 @@ class _$_DeckDto extends _DeckDto with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'DeckDto(deckId: $deckId, title: $title, avatar: $avatar, description: $description, subscribersCount: $subscribersCount, subscribers: $subscribers, cardsCount: $cardsCount, cardDtos: $cardDtos, categoryName: $categoryName, isPrivate: $isPrivate, authorId: $authorId)';
+    return 'DeckDto(id: $id, title: $title, avatar: $avatar, description: $description, subscribersCount: $subscribersCount, subscribers: $subscribers, cardsCount: $cardsCount, cardDtos: $cardDtos, categoryName: $categoryName, isPrivate: $isPrivate, authorId: $authorId)';
   }
 
   @override
@@ -281,7 +281,7 @@ class _$_DeckDto extends _DeckDto with DiagnosticableTreeMixin {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'DeckDto'))
-      ..add(DiagnosticsProperty('deckId', deckId))
+      ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('title', title))
       ..add(DiagnosticsProperty('avatar', avatar))
       ..add(DiagnosticsProperty('description', description))
@@ -298,8 +298,8 @@ class _$_DeckDto extends _DeckDto with DiagnosticableTreeMixin {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _DeckDto &&
-            (identical(other.deckId, deckId) ||
-                const DeepCollectionEquality().equals(other.deckId, deckId)) &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.title, title) ||
                 const DeepCollectionEquality().equals(other.title, title)) &&
             (identical(other.avatar, avatar) ||
@@ -333,7 +333,7 @@ class _$_DeckDto extends _DeckDto with DiagnosticableTreeMixin {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(deckId) ^
+      const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(title) ^
       const DeepCollectionEquality().hash(avatar) ^
       const DeepCollectionEquality().hash(description) ^
@@ -358,7 +358,7 @@ class _$_DeckDto extends _DeckDto with DiagnosticableTreeMixin {
 abstract class _DeckDto extends DeckDto {
   const _DeckDto._() : super._();
   const factory _DeckDto(
-      {@required @JsonKey(name: 'deck_id') String deckId,
+      {@required @JsonKey(name: 'deck_id') String id,
       @required String title,
       @required @JsonKey(name: 'icon') FileDto avatar,
       @required String description,
@@ -374,7 +374,7 @@ abstract class _DeckDto extends DeckDto {
 
   @override
   @JsonKey(name: 'deck_id')
-  String get deckId;
+  String get id;
   @override
   String get title;
   @override

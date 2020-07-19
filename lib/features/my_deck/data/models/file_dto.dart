@@ -16,7 +16,7 @@ abstract class FileDto implements _$FileDto {
       @required @ContentTypeConverter() ContentType type}) = _CardContentDto;
 
   factory FileDto.fromDomain(MyDeckFile domain) {
-    if (domain is ImageContent) {
+    if (domain is ImageFile) {
       return FileDto(id: domain.uniqueId.getOrCrash, type: ContentType.IMAGE);
     } else {
       return FileDto(id: domain.uniqueId.getOrCrash, type: ContentType.TEXT);

@@ -77,6 +77,12 @@ class _$ValueFailureTearOff {
       failedValue: failedValue,
     );
   }
+
+  WrongFileExtension<T> wrongFileExtension<T>({@required T failedValue}) {
+    return WrongFileExtension<T>(
+      failedValue: failedValue,
+    );
+  }
 }
 
 // ignore: unused_element
@@ -98,6 +104,7 @@ mixin _$ValueFailure<T> {
     @required Result shortDeckTitle(T failedValue),
     @required Result invalidDeckTitle(T failedValue),
     @required Result expiredToken(T failedValue),
+    @required Result wrongFileExtension(T failedValue),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
@@ -112,6 +119,7 @@ mixin _$ValueFailure<T> {
     Result shortDeckTitle(T failedValue),
     Result invalidDeckTitle(T failedValue),
     Result expiredToken(T failedValue),
+    Result wrongFileExtension(T failedValue),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -127,6 +135,7 @@ mixin _$ValueFailure<T> {
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
     @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
     @required Result expiredToken(ExpiredToken<T> value),
+    @required Result wrongFileExtension(WrongFileExtension<T> value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
@@ -141,6 +150,7 @@ mixin _$ValueFailure<T> {
     Result shortDeckTitle(ShortDeckTitle<T> value),
     Result invalidDeckTitle(InvalidDeckTitle<T> value),
     Result expiredToken(ExpiredToken<T> value),
+    Result wrongFileExtension(WrongFileExtension<T> value),
     @required Result orElse(),
   });
 
@@ -230,6 +240,7 @@ class _$InvalidEmail<T>
         shortDeckTitle: (value) => S.current.error_value_title_short,
         expiredToken: (value) => S.current.error_auth_invalid_session,
         invalidUniqueId: (value) => S.current.error_auth_invalid_session,
+        wrongFileExtension: (value) => S.current.error_value_file_inexists,
       );
     }
     return _message;
@@ -280,6 +291,7 @@ class _$InvalidEmail<T>
     @required Result shortDeckTitle(T failedValue),
     @required Result invalidDeckTitle(T failedValue),
     @required Result expiredToken(T failedValue),
+    @required Result wrongFileExtension(T failedValue),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -292,6 +304,7 @@ class _$InvalidEmail<T>
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
     assert(expiredToken != null);
+    assert(wrongFileExtension != null);
     return invalidEmail(failedValue);
   }
 
@@ -309,6 +322,7 @@ class _$InvalidEmail<T>
     Result shortDeckTitle(T failedValue),
     Result invalidDeckTitle(T failedValue),
     Result expiredToken(T failedValue),
+    Result wrongFileExtension(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -332,6 +346,7 @@ class _$InvalidEmail<T>
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
     @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
     @required Result expiredToken(ExpiredToken<T> value),
+    @required Result wrongFileExtension(WrongFileExtension<T> value),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -344,6 +359,7 @@ class _$InvalidEmail<T>
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
     assert(expiredToken != null);
+    assert(wrongFileExtension != null);
     return invalidEmail(this);
   }
 
@@ -361,6 +377,7 @@ class _$InvalidEmail<T>
     Result shortDeckTitle(ShortDeckTitle<T> value),
     Result invalidDeckTitle(InvalidDeckTitle<T> value),
     Result expiredToken(ExpiredToken<T> value),
+    Result wrongFileExtension(WrongFileExtension<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -437,6 +454,7 @@ class _$ShortPassword<T>
         shortDeckTitle: (value) => S.current.error_value_title_short,
         expiredToken: (value) => S.current.error_auth_invalid_session,
         invalidUniqueId: (value) => S.current.error_auth_invalid_session,
+        wrongFileExtension: (value) => S.current.error_value_file_inexists,
       );
     }
     return _message;
@@ -487,6 +505,7 @@ class _$ShortPassword<T>
     @required Result shortDeckTitle(T failedValue),
     @required Result invalidDeckTitle(T failedValue),
     @required Result expiredToken(T failedValue),
+    @required Result wrongFileExtension(T failedValue),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -499,6 +518,7 @@ class _$ShortPassword<T>
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
     assert(expiredToken != null);
+    assert(wrongFileExtension != null);
     return shortPassword(failedValue);
   }
 
@@ -516,6 +536,7 @@ class _$ShortPassword<T>
     Result shortDeckTitle(T failedValue),
     Result invalidDeckTitle(T failedValue),
     Result expiredToken(T failedValue),
+    Result wrongFileExtension(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -539,6 +560,7 @@ class _$ShortPassword<T>
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
     @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
     @required Result expiredToken(ExpiredToken<T> value),
+    @required Result wrongFileExtension(WrongFileExtension<T> value),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -551,6 +573,7 @@ class _$ShortPassword<T>
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
     assert(expiredToken != null);
+    assert(wrongFileExtension != null);
     return shortPassword(this);
   }
 
@@ -568,6 +591,7 @@ class _$ShortPassword<T>
     Result shortDeckTitle(ShortDeckTitle<T> value),
     Result invalidDeckTitle(InvalidDeckTitle<T> value),
     Result expiredToken(ExpiredToken<T> value),
+    Result wrongFileExtension(WrongFileExtension<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -644,6 +668,7 @@ class _$InvalidUniqueId<T>
         shortDeckTitle: (value) => S.current.error_value_title_short,
         expiredToken: (value) => S.current.error_auth_invalid_session,
         invalidUniqueId: (value) => S.current.error_auth_invalid_session,
+        wrongFileExtension: (value) => S.current.error_value_file_inexists,
       );
     }
     return _message;
@@ -694,6 +719,7 @@ class _$InvalidUniqueId<T>
     @required Result shortDeckTitle(T failedValue),
     @required Result invalidDeckTitle(T failedValue),
     @required Result expiredToken(T failedValue),
+    @required Result wrongFileExtension(T failedValue),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -706,6 +732,7 @@ class _$InvalidUniqueId<T>
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
     assert(expiredToken != null);
+    assert(wrongFileExtension != null);
     return invalidUniqueId(failedValue);
   }
 
@@ -723,6 +750,7 @@ class _$InvalidUniqueId<T>
     Result shortDeckTitle(T failedValue),
     Result invalidDeckTitle(T failedValue),
     Result expiredToken(T failedValue),
+    Result wrongFileExtension(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -746,6 +774,7 @@ class _$InvalidUniqueId<T>
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
     @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
     @required Result expiredToken(ExpiredToken<T> value),
+    @required Result wrongFileExtension(WrongFileExtension<T> value),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -758,6 +787,7 @@ class _$InvalidUniqueId<T>
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
     assert(expiredToken != null);
+    assert(wrongFileExtension != null);
     return invalidUniqueId(this);
   }
 
@@ -775,6 +805,7 @@ class _$InvalidUniqueId<T>
     Result shortDeckTitle(ShortDeckTitle<T> value),
     Result invalidDeckTitle(InvalidDeckTitle<T> value),
     Result expiredToken(ExpiredToken<T> value),
+    Result wrongFileExtension(WrongFileExtension<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -851,6 +882,7 @@ class _$LongPassword<T>
         shortDeckTitle: (value) => S.current.error_value_title_short,
         expiredToken: (value) => S.current.error_auth_invalid_session,
         invalidUniqueId: (value) => S.current.error_auth_invalid_session,
+        wrongFileExtension: (value) => S.current.error_value_file_inexists,
       );
     }
     return _message;
@@ -901,6 +933,7 @@ class _$LongPassword<T>
     @required Result shortDeckTitle(T failedValue),
     @required Result invalidDeckTitle(T failedValue),
     @required Result expiredToken(T failedValue),
+    @required Result wrongFileExtension(T failedValue),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -913,6 +946,7 @@ class _$LongPassword<T>
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
     assert(expiredToken != null);
+    assert(wrongFileExtension != null);
     return longPassword(failedValue);
   }
 
@@ -930,6 +964,7 @@ class _$LongPassword<T>
     Result shortDeckTitle(T failedValue),
     Result invalidDeckTitle(T failedValue),
     Result expiredToken(T failedValue),
+    Result wrongFileExtension(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -953,6 +988,7 @@ class _$LongPassword<T>
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
     @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
     @required Result expiredToken(ExpiredToken<T> value),
+    @required Result wrongFileExtension(WrongFileExtension<T> value),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -965,6 +1001,7 @@ class _$LongPassword<T>
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
     assert(expiredToken != null);
+    assert(wrongFileExtension != null);
     return longPassword(this);
   }
 
@@ -982,6 +1019,7 @@ class _$LongPassword<T>
     Result shortDeckTitle(ShortDeckTitle<T> value),
     Result invalidDeckTitle(InvalidDeckTitle<T> value),
     Result expiredToken(ExpiredToken<T> value),
+    Result wrongFileExtension(WrongFileExtension<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1058,6 +1096,7 @@ class _$InvalidLogin<T>
         shortDeckTitle: (value) => S.current.error_value_title_short,
         expiredToken: (value) => S.current.error_auth_invalid_session,
         invalidUniqueId: (value) => S.current.error_auth_invalid_session,
+        wrongFileExtension: (value) => S.current.error_value_file_inexists,
       );
     }
     return _message;
@@ -1108,6 +1147,7 @@ class _$InvalidLogin<T>
     @required Result shortDeckTitle(T failedValue),
     @required Result invalidDeckTitle(T failedValue),
     @required Result expiredToken(T failedValue),
+    @required Result wrongFileExtension(T failedValue),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -1120,6 +1160,7 @@ class _$InvalidLogin<T>
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
     assert(expiredToken != null);
+    assert(wrongFileExtension != null);
     return invalidLogin(failedValue);
   }
 
@@ -1137,6 +1178,7 @@ class _$InvalidLogin<T>
     Result shortDeckTitle(T failedValue),
     Result invalidDeckTitle(T failedValue),
     Result expiredToken(T failedValue),
+    Result wrongFileExtension(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1160,6 +1202,7 @@ class _$InvalidLogin<T>
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
     @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
     @required Result expiredToken(ExpiredToken<T> value),
+    @required Result wrongFileExtension(WrongFileExtension<T> value),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -1172,6 +1215,7 @@ class _$InvalidLogin<T>
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
     assert(expiredToken != null);
+    assert(wrongFileExtension != null);
     return invalidLogin(this);
   }
 
@@ -1189,6 +1233,7 @@ class _$InvalidLogin<T>
     Result shortDeckTitle(ShortDeckTitle<T> value),
     Result invalidDeckTitle(InvalidDeckTitle<T> value),
     Result expiredToken(ExpiredToken<T> value),
+    Result wrongFileExtension(WrongFileExtension<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1263,6 +1308,7 @@ class _$LongLogin<T> with DiagnosticableTreeMixin implements LongLogin<T> {
         shortDeckTitle: (value) => S.current.error_value_title_short,
         expiredToken: (value) => S.current.error_auth_invalid_session,
         invalidUniqueId: (value) => S.current.error_auth_invalid_session,
+        wrongFileExtension: (value) => S.current.error_value_file_inexists,
       );
     }
     return _message;
@@ -1313,6 +1359,7 @@ class _$LongLogin<T> with DiagnosticableTreeMixin implements LongLogin<T> {
     @required Result shortDeckTitle(T failedValue),
     @required Result invalidDeckTitle(T failedValue),
     @required Result expiredToken(T failedValue),
+    @required Result wrongFileExtension(T failedValue),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -1325,6 +1372,7 @@ class _$LongLogin<T> with DiagnosticableTreeMixin implements LongLogin<T> {
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
     assert(expiredToken != null);
+    assert(wrongFileExtension != null);
     return longLogin(failedValue);
   }
 
@@ -1342,6 +1390,7 @@ class _$LongLogin<T> with DiagnosticableTreeMixin implements LongLogin<T> {
     Result shortDeckTitle(T failedValue),
     Result invalidDeckTitle(T failedValue),
     Result expiredToken(T failedValue),
+    Result wrongFileExtension(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1365,6 +1414,7 @@ class _$LongLogin<T> with DiagnosticableTreeMixin implements LongLogin<T> {
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
     @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
     @required Result expiredToken(ExpiredToken<T> value),
+    @required Result wrongFileExtension(WrongFileExtension<T> value),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -1377,6 +1427,7 @@ class _$LongLogin<T> with DiagnosticableTreeMixin implements LongLogin<T> {
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
     assert(expiredToken != null);
+    assert(wrongFileExtension != null);
     return longLogin(this);
   }
 
@@ -1394,6 +1445,7 @@ class _$LongLogin<T> with DiagnosticableTreeMixin implements LongLogin<T> {
     Result shortDeckTitle(ShortDeckTitle<T> value),
     Result invalidDeckTitle(InvalidDeckTitle<T> value),
     Result expiredToken(ExpiredToken<T> value),
+    Result wrongFileExtension(WrongFileExtension<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1470,6 +1522,7 @@ class _$InvalidPassword<T>
         shortDeckTitle: (value) => S.current.error_value_title_short,
         expiredToken: (value) => S.current.error_auth_invalid_session,
         invalidUniqueId: (value) => S.current.error_auth_invalid_session,
+        wrongFileExtension: (value) => S.current.error_value_file_inexists,
       );
     }
     return _message;
@@ -1520,6 +1573,7 @@ class _$InvalidPassword<T>
     @required Result shortDeckTitle(T failedValue),
     @required Result invalidDeckTitle(T failedValue),
     @required Result expiredToken(T failedValue),
+    @required Result wrongFileExtension(T failedValue),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -1532,6 +1586,7 @@ class _$InvalidPassword<T>
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
     assert(expiredToken != null);
+    assert(wrongFileExtension != null);
     return invalidPassword(failedValue);
   }
 
@@ -1549,6 +1604,7 @@ class _$InvalidPassword<T>
     Result shortDeckTitle(T failedValue),
     Result invalidDeckTitle(T failedValue),
     Result expiredToken(T failedValue),
+    Result wrongFileExtension(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1572,6 +1628,7 @@ class _$InvalidPassword<T>
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
     @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
     @required Result expiredToken(ExpiredToken<T> value),
+    @required Result wrongFileExtension(WrongFileExtension<T> value),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -1584,6 +1641,7 @@ class _$InvalidPassword<T>
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
     assert(expiredToken != null);
+    assert(wrongFileExtension != null);
     return invalidPassword(this);
   }
 
@@ -1601,6 +1659,7 @@ class _$InvalidPassword<T>
     Result shortDeckTitle(ShortDeckTitle<T> value),
     Result invalidDeckTitle(InvalidDeckTitle<T> value),
     Result expiredToken(ExpiredToken<T> value),
+    Result wrongFileExtension(WrongFileExtension<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1678,6 +1737,7 @@ class _$FileDoesNotExists<T>
         shortDeckTitle: (value) => S.current.error_value_title_short,
         expiredToken: (value) => S.current.error_auth_invalid_session,
         invalidUniqueId: (value) => S.current.error_auth_invalid_session,
+        wrongFileExtension: (value) => S.current.error_value_file_inexists,
       );
     }
     return _message;
@@ -1729,6 +1789,7 @@ class _$FileDoesNotExists<T>
     @required Result shortDeckTitle(T failedValue),
     @required Result invalidDeckTitle(T failedValue),
     @required Result expiredToken(T failedValue),
+    @required Result wrongFileExtension(T failedValue),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -1741,6 +1802,7 @@ class _$FileDoesNotExists<T>
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
     assert(expiredToken != null);
+    assert(wrongFileExtension != null);
     return fileDoesNotExists(failedValue);
   }
 
@@ -1758,6 +1820,7 @@ class _$FileDoesNotExists<T>
     Result shortDeckTitle(T failedValue),
     Result invalidDeckTitle(T failedValue),
     Result expiredToken(T failedValue),
+    Result wrongFileExtension(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1781,6 +1844,7 @@ class _$FileDoesNotExists<T>
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
     @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
     @required Result expiredToken(ExpiredToken<T> value),
+    @required Result wrongFileExtension(WrongFileExtension<T> value),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -1793,6 +1857,7 @@ class _$FileDoesNotExists<T>
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
     assert(expiredToken != null);
+    assert(wrongFileExtension != null);
     return fileDoesNotExists(this);
   }
 
@@ -1810,6 +1875,7 @@ class _$FileDoesNotExists<T>
     Result shortDeckTitle(ShortDeckTitle<T> value),
     Result invalidDeckTitle(InvalidDeckTitle<T> value),
     Result expiredToken(ExpiredToken<T> value),
+    Result wrongFileExtension(WrongFileExtension<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1886,6 +1952,7 @@ class _$ShortDeckTitle<T>
         shortDeckTitle: (value) => S.current.error_value_title_short,
         expiredToken: (value) => S.current.error_auth_invalid_session,
         invalidUniqueId: (value) => S.current.error_auth_invalid_session,
+        wrongFileExtension: (value) => S.current.error_value_file_inexists,
       );
     }
     return _message;
@@ -1936,6 +2003,7 @@ class _$ShortDeckTitle<T>
     @required Result shortDeckTitle(T failedValue),
     @required Result invalidDeckTitle(T failedValue),
     @required Result expiredToken(T failedValue),
+    @required Result wrongFileExtension(T failedValue),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -1948,6 +2016,7 @@ class _$ShortDeckTitle<T>
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
     assert(expiredToken != null);
+    assert(wrongFileExtension != null);
     return shortDeckTitle(failedValue);
   }
 
@@ -1965,6 +2034,7 @@ class _$ShortDeckTitle<T>
     Result shortDeckTitle(T failedValue),
     Result invalidDeckTitle(T failedValue),
     Result expiredToken(T failedValue),
+    Result wrongFileExtension(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1988,6 +2058,7 @@ class _$ShortDeckTitle<T>
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
     @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
     @required Result expiredToken(ExpiredToken<T> value),
+    @required Result wrongFileExtension(WrongFileExtension<T> value),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -2000,6 +2071,7 @@ class _$ShortDeckTitle<T>
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
     assert(expiredToken != null);
+    assert(wrongFileExtension != null);
     return shortDeckTitle(this);
   }
 
@@ -2017,6 +2089,7 @@ class _$ShortDeckTitle<T>
     Result shortDeckTitle(ShortDeckTitle<T> value),
     Result invalidDeckTitle(InvalidDeckTitle<T> value),
     Result expiredToken(ExpiredToken<T> value),
+    Result wrongFileExtension(WrongFileExtension<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -2094,6 +2167,7 @@ class _$InvalidDeckTitle<T>
         shortDeckTitle: (value) => S.current.error_value_title_short,
         expiredToken: (value) => S.current.error_auth_invalid_session,
         invalidUniqueId: (value) => S.current.error_auth_invalid_session,
+        wrongFileExtension: (value) => S.current.error_value_file_inexists,
       );
     }
     return _message;
@@ -2144,6 +2218,7 @@ class _$InvalidDeckTitle<T>
     @required Result shortDeckTitle(T failedValue),
     @required Result invalidDeckTitle(T failedValue),
     @required Result expiredToken(T failedValue),
+    @required Result wrongFileExtension(T failedValue),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -2156,6 +2231,7 @@ class _$InvalidDeckTitle<T>
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
     assert(expiredToken != null);
+    assert(wrongFileExtension != null);
     return invalidDeckTitle(failedValue);
   }
 
@@ -2173,6 +2249,7 @@ class _$InvalidDeckTitle<T>
     Result shortDeckTitle(T failedValue),
     Result invalidDeckTitle(T failedValue),
     Result expiredToken(T failedValue),
+    Result wrongFileExtension(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -2196,6 +2273,7 @@ class _$InvalidDeckTitle<T>
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
     @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
     @required Result expiredToken(ExpiredToken<T> value),
+    @required Result wrongFileExtension(WrongFileExtension<T> value),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -2208,6 +2286,7 @@ class _$InvalidDeckTitle<T>
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
     assert(expiredToken != null);
+    assert(wrongFileExtension != null);
     return invalidDeckTitle(this);
   }
 
@@ -2225,6 +2304,7 @@ class _$InvalidDeckTitle<T>
     Result shortDeckTitle(ShortDeckTitle<T> value),
     Result invalidDeckTitle(InvalidDeckTitle<T> value),
     Result expiredToken(ExpiredToken<T> value),
+    Result wrongFileExtension(WrongFileExtension<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -2301,6 +2381,7 @@ class _$ExpiredToken<T>
         shortDeckTitle: (value) => S.current.error_value_title_short,
         expiredToken: (value) => S.current.error_auth_invalid_session,
         invalidUniqueId: (value) => S.current.error_auth_invalid_session,
+        wrongFileExtension: (value) => S.current.error_value_file_inexists,
       );
     }
     return _message;
@@ -2351,6 +2432,7 @@ class _$ExpiredToken<T>
     @required Result shortDeckTitle(T failedValue),
     @required Result invalidDeckTitle(T failedValue),
     @required Result expiredToken(T failedValue),
+    @required Result wrongFileExtension(T failedValue),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -2363,6 +2445,7 @@ class _$ExpiredToken<T>
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
     assert(expiredToken != null);
+    assert(wrongFileExtension != null);
     return expiredToken(failedValue);
   }
 
@@ -2380,6 +2463,7 @@ class _$ExpiredToken<T>
     Result shortDeckTitle(T failedValue),
     Result invalidDeckTitle(T failedValue),
     Result expiredToken(T failedValue),
+    Result wrongFileExtension(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -2403,6 +2487,7 @@ class _$ExpiredToken<T>
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
     @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
     @required Result expiredToken(ExpiredToken<T> value),
+    @required Result wrongFileExtension(WrongFileExtension<T> value),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
@@ -2415,6 +2500,7 @@ class _$ExpiredToken<T>
     assert(shortDeckTitle != null);
     assert(invalidDeckTitle != null);
     assert(expiredToken != null);
+    assert(wrongFileExtension != null);
     return expiredToken(this);
   }
 
@@ -2432,6 +2518,7 @@ class _$ExpiredToken<T>
     Result shortDeckTitle(ShortDeckTitle<T> value),
     Result invalidDeckTitle(InvalidDeckTitle<T> value),
     Result expiredToken(ExpiredToken<T> value),
+    Result wrongFileExtension(WrongFileExtension<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -2449,4 +2536,221 @@ abstract class ExpiredToken<T> implements ValueFailure<T> {
   T get failedValue;
   @override
   $ExpiredTokenCopyWith<T, ExpiredToken<T>> get copyWith;
+}
+
+abstract class $WrongFileExtensionCopyWith<T, $Res>
+    implements $ValueFailureCopyWith<T, $Res> {
+  factory $WrongFileExtensionCopyWith(WrongFileExtension<T> value,
+          $Res Function(WrongFileExtension<T>) then) =
+      _$WrongFileExtensionCopyWithImpl<T, $Res>;
+  @override
+  $Res call({T failedValue});
+}
+
+class _$WrongFileExtensionCopyWithImpl<T, $Res>
+    extends _$ValueFailureCopyWithImpl<T, $Res>
+    implements $WrongFileExtensionCopyWith<T, $Res> {
+  _$WrongFileExtensionCopyWithImpl(
+      WrongFileExtension<T> _value, $Res Function(WrongFileExtension<T>) _then)
+      : super(_value, (v) => _then(v as WrongFileExtension<T>));
+
+  @override
+  WrongFileExtension<T> get _value => super._value as WrongFileExtension<T>;
+
+  @override
+  $Res call({
+    Object failedValue = freezed,
+  }) {
+    return _then(WrongFileExtension<T>(
+      failedValue:
+          failedValue == freezed ? _value.failedValue : failedValue as T,
+    ));
+  }
+}
+
+class _$WrongFileExtension<T>
+    with DiagnosticableTreeMixin
+    implements WrongFileExtension<T> {
+  _$WrongFileExtension({@required this.failedValue})
+      : assert(failedValue != null);
+
+  @override
+  final T failedValue;
+
+  bool _didmessage = false;
+  String _message;
+
+  @override
+  String get message {
+    if (_didmessage == false) {
+      _didmessage = true;
+      _message = this.map(
+        invalidEmail: (value) => S.current.error_value_email_incorrect,
+        shortPassword: (value) => S.current.error_value_short_passwor,
+        invalidLogin: (value) => S.current.error_value_invalid_login,
+        longLogin: (value) => S.current.error_value_long_login,
+        invalidPassword: (value) => S.current.error_value_invalid_password,
+        longPassword: (value) => S.current.error_value_long_password,
+        fileDoesNotExists: (value) => S.current.error_value_file_inexists,
+        invalidDeckTitle: (value) => S.current.error_value_invalid_title,
+        shortDeckTitle: (value) => S.current.error_value_title_short,
+        expiredToken: (value) => S.current.error_auth_invalid_session,
+        invalidUniqueId: (value) => S.current.error_auth_invalid_session,
+        wrongFileExtension: (value) => S.current.error_value_file_inexists,
+      );
+    }
+    return _message;
+  }
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ValueFailure<$T>.wrongFileExtension(failedValue: $failedValue, message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.wrongFileExtension'))
+      ..add(DiagnosticsProperty('failedValue', failedValue))
+      ..add(DiagnosticsProperty('message', message));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is WrongFileExtension<T> &&
+            (identical(other.failedValue, failedValue) ||
+                const DeepCollectionEquality()
+                    .equals(other.failedValue, failedValue)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(failedValue);
+
+  @override
+  $WrongFileExtensionCopyWith<T, WrongFileExtension<T>> get copyWith =>
+      _$WrongFileExtensionCopyWithImpl<T, WrongFileExtension<T>>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result invalidEmail(T failedValue),
+    @required Result shortPassword(T failedValue),
+    @required Result invalidUniqueId(T failedValue),
+    @required Result longPassword(T failedValue),
+    @required Result invalidLogin(T failedValue),
+    @required Result longLogin(T failedValue),
+    @required Result invalidPassword(T failedValue),
+    @required Result fileDoesNotExists(T failedValue),
+    @required Result shortDeckTitle(T failedValue),
+    @required Result invalidDeckTitle(T failedValue),
+    @required Result expiredToken(T failedValue),
+    @required Result wrongFileExtension(T failedValue),
+  }) {
+    assert(invalidEmail != null);
+    assert(shortPassword != null);
+    assert(invalidUniqueId != null);
+    assert(longPassword != null);
+    assert(invalidLogin != null);
+    assert(longLogin != null);
+    assert(invalidPassword != null);
+    assert(fileDoesNotExists != null);
+    assert(shortDeckTitle != null);
+    assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
+    assert(wrongFileExtension != null);
+    return wrongFileExtension(failedValue);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result invalidEmail(T failedValue),
+    Result shortPassword(T failedValue),
+    Result invalidUniqueId(T failedValue),
+    Result longPassword(T failedValue),
+    Result invalidLogin(T failedValue),
+    Result longLogin(T failedValue),
+    Result invalidPassword(T failedValue),
+    Result fileDoesNotExists(T failedValue),
+    Result shortDeckTitle(T failedValue),
+    Result invalidDeckTitle(T failedValue),
+    Result expiredToken(T failedValue),
+    Result wrongFileExtension(T failedValue),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (wrongFileExtension != null) {
+      return wrongFileExtension(failedValue);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result invalidEmail(InvalidEmail<T> value),
+    @required Result shortPassword(ShortPassword<T> value),
+    @required Result invalidUniqueId(InvalidUniqueId<T> value),
+    @required Result longPassword(LongPassword<T> value),
+    @required Result invalidLogin(InvalidLogin<T> value),
+    @required Result longLogin(LongLogin<T> value),
+    @required Result invalidPassword(InvalidPassword<T> value),
+    @required Result fileDoesNotExists(FileDoesNotExists<T> value),
+    @required Result shortDeckTitle(ShortDeckTitle<T> value),
+    @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    @required Result expiredToken(ExpiredToken<T> value),
+    @required Result wrongFileExtension(WrongFileExtension<T> value),
+  }) {
+    assert(invalidEmail != null);
+    assert(shortPassword != null);
+    assert(invalidUniqueId != null);
+    assert(longPassword != null);
+    assert(invalidLogin != null);
+    assert(longLogin != null);
+    assert(invalidPassword != null);
+    assert(fileDoesNotExists != null);
+    assert(shortDeckTitle != null);
+    assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
+    assert(wrongFileExtension != null);
+    return wrongFileExtension(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result invalidEmail(InvalidEmail<T> value),
+    Result shortPassword(ShortPassword<T> value),
+    Result invalidUniqueId(InvalidUniqueId<T> value),
+    Result longPassword(LongPassword<T> value),
+    Result invalidLogin(InvalidLogin<T> value),
+    Result longLogin(LongLogin<T> value),
+    Result invalidPassword(InvalidPassword<T> value),
+    Result fileDoesNotExists(FileDoesNotExists<T> value),
+    Result shortDeckTitle(ShortDeckTitle<T> value),
+    Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    Result expiredToken(ExpiredToken<T> value),
+    Result wrongFileExtension(WrongFileExtension<T> value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (wrongFileExtension != null) {
+      return wrongFileExtension(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class WrongFileExtension<T> implements ValueFailure<T> {
+  factory WrongFileExtension({@required T failedValue}) =
+      _$WrongFileExtension<T>;
+
+  @override
+  T get failedValue;
+  @override
+  $WrongFileExtensionCopyWith<T, WrongFileExtension<T>> get copyWith;
 }

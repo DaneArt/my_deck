@@ -55,15 +55,15 @@ class SaveDeckChangesUsecase extends UseCase<StorageFailure, Deck, Params> {
 
   List<Card> _sortCardsToAdd(List<Card> oldCards, List<Card> newCards) {
     final List<Card> result = List.from(newCards);
-    result.removeWhere((newCard) =>
-        oldCards.any((oldCard) => oldCard.cardId == newCard.cardId));
+    result.removeWhere(
+        (newCard) => oldCards.any((oldCard) => oldCard.id == newCard.id));
     return result;
   }
 
   List<Card> _sortCardsToDelete(List<Card> oldCards, List<Card> newCards) {
     final List<Card> result = List.from(oldCards);
-    result.removeWhere((oldCard) =>
-        newCards.any((newCard) => newCard.cardId == oldCard.cardId));
+    result.removeWhere(
+        (oldCard) => newCards.any((newCard) => newCard.id == oldCard.id));
     return result;
   }
 

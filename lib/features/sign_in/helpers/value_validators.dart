@@ -5,6 +5,7 @@ import 'package:jose/jose.dart';
 import 'package:mydeck/core/error/value_failure.dart';
 import 'package:mydeck/features/my_deck/domain/entities/my_deck_file.dart';
 import 'package:mydeck/features/my_deck/domain/entities/unique_id.dart';
+import 'package:mydeck/core/extensions/file.dart';
 
 final _kPasswordRegexp =
     RegExp(r'(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,24}');
@@ -67,7 +68,7 @@ Either<ValueFailure<String>, String> validateDeckTitle(String input) {
   }
 }
 
-Either<ValueFailure<MyDeckFile>, MyDeckFile> validateDeckAvatar(File input) {
+Either<ValueFailure<ImageFile>, ImageFile> validateDeckAvatar(File input) {
   if (input == null) {
     return left(
       ValueFailure.fileDoesNotExists(
@@ -80,6 +81,17 @@ Either<ValueFailure<MyDeckFile>, MyDeckFile> validateDeckAvatar(File input) {
   } else if (!input.existsSync()) {
     return left(
       ValueFailure.fileDoesNotExists(
+        failedValue: MyDeckFile.image(
+          image: input,
+          uniqueId: UniqueId(),
+        ),
+      ),
+    );
+  } else if (input.extension != 'jpg' ||
+      input.extension != 'png' ||
+      input.extension != 'jpeg') {
+    return left(
+      ValueFailure.wrongFileExtension(
         failedValue: MyDeckFile.image(
           image: input,
           uniqueId: UniqueId(),

@@ -24,7 +24,7 @@ abstract class DeckDto implements _$DeckDto {
   const DeckDto._();
 
   const factory DeckDto({
-    @required @JsonKey(name: 'deck_id') String deckId,
+    @required @JsonKey(name: 'deck_id') String id,
     @required String title,
     @required @JsonKey(name: 'icon') FileDto avatar,
     @required String description,
@@ -40,7 +40,7 @@ abstract class DeckDto implements _$DeckDto {
   factory DeckDto.fromDomain(Deck deck) => DeckDto(
       authorId: deck.author.userId,
       categoryName: deck.category.categoryName,
-      deckId: deck.deckId.getOrCrash,
+      id: deck.deckId.getOrCrash,
       description: deck.description.getOrCrash,
       avatar: FileDto.fromDomain(deck.avatar.getOrCrash),
       isPrivate: deck.isPrivate,
@@ -51,9 +51,9 @@ abstract class DeckDto implements _$DeckDto {
       subscribersCount: deck.subscribersCount);
 
   Deck toDomain() => Deck(
-      deckId: UniqueId.fromString(deckId),
+      deckId: UniqueId.fromString(id),
       title: DeckTitle(title),
-      avatar: DeckAvatar.fromMyDeckFile(avatar.toDomain()),
+      avatar: DeckAvatar(avatar.toDomain()),
       description: DeckDescription(description),
       author: UserModel(authorId, '', '', ''),
       category: DeckCategory(categoryName: categoryName),

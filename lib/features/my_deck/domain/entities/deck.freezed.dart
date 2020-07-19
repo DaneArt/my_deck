@@ -74,6 +74,8 @@ abstract class $DeckCopyWith<$Res> {
       int subscribersCount,
       List<UserModel> subscribers,
       List<Card> cardsList});
+
+  $DeckCategoryCopyWith<$Res> get category;
 }
 
 class _$DeckCopyWithImpl<$Res> implements $DeckCopyWith<$Res> {
@@ -119,6 +121,16 @@ class _$DeckCopyWithImpl<$Res> implements $DeckCopyWith<$Res> {
           cardsList == freezed ? _value.cardsList : cardsList as List<Card>,
     ));
   }
+
+  @override
+  $DeckCategoryCopyWith<$Res> get category {
+    if (_value.category == null) {
+      return null;
+    }
+    return $DeckCategoryCopyWith<$Res>(_value.category, (value) {
+      return _then(_value.copyWith(category: value));
+    });
+  }
 }
 
 abstract class _$DeckCopyWith<$Res> implements $DeckCopyWith<$Res> {
@@ -137,6 +149,9 @@ abstract class _$DeckCopyWith<$Res> implements $DeckCopyWith<$Res> {
       int subscribersCount,
       List<UserModel> subscribers,
       List<Card> cardsList});
+
+  @override
+  $DeckCategoryCopyWith<$Res> get category;
 }
 
 class __$DeckCopyWithImpl<$Res> extends _$DeckCopyWithImpl<$Res>

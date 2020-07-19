@@ -9,7 +9,7 @@ abstract class AddDeckEvent with _$AddDeckEvent {
   factory AddDeckEvent.deleteDeck() = DeleteDeck;
   factory AddDeckEvent.titleChanged(String titleStr) = TitleChanged;
   factory AddDeckEvent.descriptionChanged(String descStr) = DescriptionChanged;
-  factory AddDeckEvent.avatarChanged(String avatar) = AvatarChanged;
+  factory AddDeckEvent.avatarChanged(File avatar) = AvatarChanged;
   factory AddDeckEvent.privacyChanged(bool isShared) = PrivacyChanged;
   factory AddDeckEvent.categoryChanged(DeckCategory category) = CategoryChanged;
   factory AddDeckEvent.updateCards({@required List<Card> cards}) = UpdateCards;
