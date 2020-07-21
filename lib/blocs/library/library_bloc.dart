@@ -5,11 +5,11 @@ import 'package:dartz/dartz.dart';
 
 import 'package:meta/meta.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
-import 'package:mydeck/features/editor/domain/usecases/delete_deck_usecase.dart';
+import 'package:mydeck/services/usecases/delete_deck_usecase.dart';
 import 'package:mydeck/features/my_deck/domain/usecases/get_all_current_user_decks_usecase.dart';
-import 'package:mydeck/features/editor/domain/usecases/add_deck_usecase.dart'
+import 'package:mydeck/services/usecases/add_deck_usecase.dart'
     as add;
-import 'package:mydeck/features/editor/domain/usecases/save_deck_changes_usecase.dart'
+import 'package:mydeck/services/usecases/save_deck_changes_usecase.dart'
     as save;
 import 'package:mydeck/features/my_deck/domain/usecases/usecase.dart';
 import 'package:mydeck/features/train/domain/usecases/get_decks_for_train_usecase.dart';

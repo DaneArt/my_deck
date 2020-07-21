@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
-import 'package:mydeck/core/error/exception.dart';
-import 'package:mydeck/core/error/storage_failure.dart';
-import 'package:mydeck/core/injection/dependency_injection.dart';
-import 'package:mydeck/core/network/network_connection.dart';
+import 'package:mydeck/errors/exception.dart';
+import 'package:mydeck/errors/storage_failure.dart';
+import 'package:mydeck/utils/dependency_injection.dart';
+import 'package:mydeck/utils/network_connection.dart';
 
-import 'package:mydeck/features/my_deck/data/datasources/my_deck_network_datasource.dart';
+import 'package:mydeck/services/datasources/my_deck_network_datasource.dart';
 import 'package:mydeck/features/my_deck/data/models/deck_category.dart';
 import 'package:mydeck/features/my_deck/data/models/deck_dto.dart';
 import 'package:mydeck/features/my_deck/domain/entities/card.dart';

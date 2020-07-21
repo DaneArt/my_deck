@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
-import 'package:mydeck/core/error/storage_failure.dart';
+import 'package:mydeck/errors/storage_failure.dart';
 import 'package:mydeck/features/my_deck/data/repositories/my_deck_repository.dart';
 import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
 import 'package:mydeck/features/my_deck/domain/entities/unique_id.dart';
