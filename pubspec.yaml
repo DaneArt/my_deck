@@ -91,9 +91,9 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - lib/assets/gavno.jpg
-    - lib/assets/mydeck_logo.svg
-    - lib/assets/my_deck_logo_big.png
+    - assets/gavno.jpg
+    - assets/mydeck_logo.svg
+    - assets/my_deck_logo_big.png
   fonts:
     - family: 'Rubik One-Regular'
       fonts:

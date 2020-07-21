@@ -4,13 +4,14 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:mydeck/features/editor/domain/value_objects/deck_avatar.dart';
-import 'package:mydeck/features/editor/domain/value_objects/deck_description.dart';
-import 'package:mydeck/features/editor/domain/value_objects/deck_title.dart';
-import 'package:mydeck/features/my_deck/data/models/file_dto.dart';
-import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
-import 'package:mydeck/features/my_deck/domain/entities/unique_id.dart';
-import 'package:mydeck/features/sign_in/data/models/user_model.dart';
+
+import 'package:mydeck/models/dtos/file_dto.dart';
+import 'package:mydeck/models/entitites/deck.dart';
+import 'package:mydeck/models/entitites/unique_id.dart';
+import 'package:mydeck/models/value_objects/deck_avatar.dart';
+import 'package:mydeck/models/value_objects/deck_description.dart';
+import 'package:mydeck/models/value_objects/deck_title.dart';
+import 'package:mydeck/models/value_objects/user_model.dart';
 
 import 'card_dto.dart';
 import 'deck_category.dart';

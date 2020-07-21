@@ -1,37 +1,37 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:mydeck/core/network/token_interceptor.dart';
+import 'package:mydeck/blocs/library/library_bloc.dart';
+import 'package:mydeck/blocs/sign_in/sign_in_bloc.dart';
+import 'package:mydeck/blocs/tab/tab_bloc.dart';
+import 'package:mydeck/blocs/train/train_bloc.dart';
+import 'package:mydeck/utils/token_interceptor.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import 'package:mydeck/core/network/network_connection.dart';
+import 'package:mydeck/utils/network_connection.dart';
 
-import 'package:mydeck/features/my_deck/data/datasources/my_deck_network_datasource.dart';
+import 'package:mydeck/services/datasources/deck_network_datasource.dart';
 
-import 'package:mydeck/features/my_deck/data/repositories/my_deck_repository.dart';
+import 'package:mydeck/services/repositories/deck_repository.dart';
 
-import 'package:mydeck/features/editor/domain/usecases/add_deck_usecase.dart';
-import 'package:mydeck/features/editor/domain/usecases/delete_deck_usecase.dart';
-import 'package:mydeck/features/my_deck/domain/usecases/get_all_current_user_decks_usecase.dart';
-import 'package:mydeck/features/train/domain/usecases/get_decks_for_train_usecase.dart';
-import 'package:mydeck/features/social/domain/usecases/load_decks_page_for_category_usecase.dart';
-import 'package:mydeck/features/editor/domain/usecases/save_deck_changes_usecase.dart';
-import 'package:mydeck/features/editor/domain/usecases/update_deck_usecase.dart';
-import 'package:mydeck/features/my_deck/presentation/bloc/library/library_bloc.dart';
-import 'package:mydeck/features/train/domain/usecases/update_trained_cards.dart';
-import 'package:mydeck/features/social/domain/usecases/upload_online_deck.dart';
+import 'package:mydeck/services/usecases/add_deck_usecase.dart';
+import 'package:mydeck/services/usecases/delete_deck_usecase.dart';
+import 'package:mydeck/services/usecases/get_all_current_user_decks_usecase.dart';
+import 'package:mydeck/services/usecases/get_decks_for_train_usecase.dart';
+import 'package:mydeck/services/usecases/load_decks_page_for_category_usecase.dart';
+import 'package:mydeck/services/usecases/save_deck_changes_usecase.dart';
+import 'package:mydeck/services/usecases/update_deck_usecase.dart';
+import 'package:mydeck/services/usecases/update_trained_cards.dart';
+import 'package:mydeck/services/usecases/upload_online_deck.dart';
 
-import 'package:mydeck/features/my_deck/presentation/bloc/tab/tab_bloc.dart';
-import 'package:mydeck/features/sign_in/bloc/sign_in/sign_in_bloc.dart';
-import 'package:mydeck/features/sign_in/data/datasources/user_config.dart';
-import 'package:mydeck/features/sign_in/data/datasources/user_datasource.dart';
+import 'package:mydeck/services/datasources/user_config.dart';
+import 'package:mydeck/services/datasources/user_network_datasource.dart';
 
-import 'package:mydeck/features/sign_in/helpers/auth_facade.dart';
-import 'package:mydeck/features/sign_in/helpers/value_validators.dart';
-import 'package:mydeck/features/sign_in/usecases/google_signin_usecase.dart';
-import 'package:mydeck/features/train/presentation/bloc/train/train_bloc.dart';
+import 'package:mydeck/utils/auth_facade.dart';
+import 'package:mydeck/utils/value_validators.dart';
+import 'package:mydeck/services/usecases/google_signin_usecase.dart';
 
 final sl = GetIt.I;
 
@@ -57,14 +57,15 @@ void setUp() {
 
   //data sources
 
-  sl.registerLazySingleton<MyDeckNetworkDataSource>(
-      () => MyDeckNetworkDataSourceImpl(
+  sl.registerLazySingleton<DeckNetworkDataSource>(
+      () => DeckNetworkDataSourceImpl(
             client: sl(),
           ));
-  sl.registerLazySingleton<UserDataSource>(() => UserDataSourceImpl());
+  sl.registerLazySingleton<UserNetworkDataSource>(
+      () => UserNetworkDataSourceImpl());
   //repository
-  sl.registerLazySingleton<MyDeckRepository>(() =>
-      MyDeckRepositoryImpl(networkDataSource: sl(), networkConnection: sl()));
+  sl.registerLazySingleton<DeckRepository>(() =>
+      DeckRepositoryImpl(networkDataSource: sl(), networkConnection: sl()));
 
   //use cases
   sl.registerFactory(() => UploadOnlineDeckUsecase(myDeckRepository: sl()));

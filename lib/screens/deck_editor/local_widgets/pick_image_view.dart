@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:mydeck/core/helpers/images_util.dart';
+import 'package:mydeck/models/value_objects/deck_avatar.dart';
+import 'package:mydeck/utils/images_util.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mydeck/features/editor/domain/value_objects/deck_avatar.dart';
 import 'package:mydeck/generated/l10n.dart';
 
 class ImagePickerWidget extends StatefulWidget {

@@ -3,10 +3,10 @@ import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:mydeck/features/my_deck/data/models/file_dto.dart';
-import 'package:mydeck/features/my_deck/domain/entities/card.dart';
-import 'package:mydeck/features/my_deck/domain/entities/my_deck_file.dart';
-import 'package:mydeck/features/my_deck/domain/entities/unique_id.dart';
+import 'package:mydeck/models/dtos/file_dto.dart';
+import 'package:mydeck/models/entitites/card.dart';
+import 'package:mydeck/models/entitites/my_deck_file.dart';
+import 'package:mydeck/models/entitites/unique_id.dart';
 
 part 'card_dto.freezed.dart';
 part 'card_dto.g.dart';

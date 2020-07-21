@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mydeck/features/my_deck/data/models/deck_category.dart';
+import 'package:mydeck/models/dtos/deck_category.dart';
 
 class CategoryPicker extends StatefulWidget {
   final DeckCategory baseCategory;

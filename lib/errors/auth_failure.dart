@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mydeck/generated/l10n.dart';
 
-part "auth_failure.freezed.dart";
+part 'auth_failure.freezed.dart';
 
 @freezed
 abstract class AuthFailure with _$AuthFailure {

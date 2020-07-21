@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:mydeck/features/my_deck/domain/entities/my_deck_file.dart';
-import 'package:mydeck/features/my_deck/domain/entities/unique_id.dart';
+import 'package:mydeck/models/entitites/my_deck_file.dart';
+import 'package:mydeck/models/entitites/unique_id.dart';
 
 part 'file_dto.freezed.dart';
 part 'file_dto.g.dart';

@@ -1,7 +1,10 @@
-import 'package:mydeck/core/helpers/images_util.dart';
-import 'package:mydeck/features/my_deck/domain/entities/card.dart' as Entity;
-import 'package:mydeck/features/my_deck/domain/entities/my_deck_file.dart';
-import 'package:mydeck/features/my_deck/presentation/widgets/shared/card_content_widget.dart';
+import 'dart:io';
+
+import 'package:mydeck/models/entitites/card.dart' as Entity;
+import 'package:mydeck/models/entitites/my_deck_file.dart';
+import 'package:mydeck/models/entitites/unique_id.dart';
+import 'package:mydeck/utils/images_util.dart';
+import 'package:mydeck/widgets/card_content_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:mydeck/generated/l10n.dart';
 
@@ -51,11 +54,13 @@ class _ZoomedCardViewState extends State<ZoomedCardView> {
     } else if (cardContent is TextFile) {
       if (isAnswer) {
         return TextCardWidget(
-          content: MyDeckFile.text(text: cardContent.text),
+          content: cardContent,
           onTextChanged: (text) {
             print(text);
             setState(() {
-              card = card.copyWith(answer: MyDeckFile.text(text: text));
+              card = card.copyWith(
+                  answer: cardContent.copyWith(
+                      text: File('CA_${card.id}')..writeAsStringSync(text)));
               onUpdateCard(card);
             });
           },
@@ -63,11 +68,13 @@ class _ZoomedCardViewState extends State<ZoomedCardView> {
         );
       } else {
         return TextCardWidget(
-          content: MyDeckFile.text(text: cardContent.text),
+          content: cardContent,
           onTextChanged: (text) {
             print(text);
             setState(() {
-              card = card.copyWith(question: MyDeckFile.text(text: text));
+              card = card.copyWith(
+                  question: cardContent.copyWith(
+                      text: File('CQ_${card.id}')..writeAsStringSync(text)));
               onUpdateCard(card);
             });
           },
@@ -77,11 +84,12 @@ class _ZoomedCardViewState extends State<ZoomedCardView> {
     } else {
       if (isAnswer) {
         return TextCardWidget(
-          content: MyDeckFile.text(text: ''),
+          content: cardContent,
           onTextChanged: (text) {
-            print(text);
             setState(() {
-              card = card.copyWith(answer: MyDeckFile.text(text: text));
+              card = card.copyWith(
+                  answer: (cardContent as TextFile).copyWith(
+                      text: File('CA_${card.id}')..writeAsStringSync(text)));
               onUpdateCard(card);
             });
           },
@@ -89,11 +97,13 @@ class _ZoomedCardViewState extends State<ZoomedCardView> {
         );
       } else {
         return TextCardWidget(
-          content: MyDeckFile.text(text: ''),
+          content: cardContent,
           onTextChanged: (text) {
             print(text);
             setState(() {
-              card = card.copyWith(question: MyDeckFile.text(text: text));
+              card = card.copyWith(
+                  question: (cardContent as TextFile).copyWith(
+                      text: File('CQ_${card.id}')..writeAsStringSync(text)));
               onUpdateCard(card);
             });
           },
@@ -141,7 +151,8 @@ class _ZoomedCardViewState extends State<ZoomedCardView> {
                               if (image != null) {
                                 setState(() {
                                   card = card.copyWith(
-                                      answer: MyDeckFile.image(image: image));
+                                      answer: MyDeckFile.image(
+                                          uniqueId: UniqueId(), image: image));
 
                                   onUpdateCard(card);
                                 });
@@ -153,7 +164,11 @@ class _ZoomedCardViewState extends State<ZoomedCardView> {
                             onPressed: () async {
                               setState(() {
                                 card = card.copyWith(
-                                    answer: MyDeckFile.text(text: ''));
+                                  answer: MyDeckFile.text(
+                                    uniqueId: UniqueId(),
+                                    text: File("CA_${card.id}"),
+                                  ),
+                                );
                                 onUpdateCard(card);
                               });
                             },
@@ -213,7 +228,8 @@ class _ZoomedCardViewState extends State<ZoomedCardView> {
                               if (image != null) {
                                 setState(() {
                                   card = card.copyWith(
-                                      question: MyDeckFile.image(image: image));
+                                      question: MyDeckFile.image(
+                                          uniqueId: UniqueId(), image: image));
 
                                   onUpdateCard(card);
                                 });
@@ -225,7 +241,9 @@ class _ZoomedCardViewState extends State<ZoomedCardView> {
                             onPressed: () async {
                               setState(() {
                                 card = card.copyWith(
-                                    question: MyDeckFile.text(text: ''));
+                                    question: MyDeckFile.text(
+                                        uniqueId: UniqueId(),
+                                        text: File("CQ_${card.id}")));
                                 onUpdateCard(card);
                               });
                             },

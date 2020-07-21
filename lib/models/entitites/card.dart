@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
-import 'package:mydeck/features/my_deck/domain/entities/unique_id.dart';
+import 'package:mydeck/models/entitites/unique_id.dart';
 
 import 'my_deck_file.dart';
 

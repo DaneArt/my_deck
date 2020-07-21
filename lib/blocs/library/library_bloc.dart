@@ -4,16 +4,15 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 
 import 'package:meta/meta.dart';
-import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
+import 'package:mydeck/blocs/train/train_bloc.dart';
+import 'package:mydeck/models/entitites/deck.dart';
 import 'package:mydeck/services/usecases/delete_deck_usecase.dart';
-import 'package:mydeck/features/my_deck/domain/usecases/get_all_current_user_decks_usecase.dart';
-import 'package:mydeck/services/usecases/add_deck_usecase.dart'
-    as add;
+import 'package:mydeck/services/usecases/get_all_current_user_decks_usecase.dart';
+import 'package:mydeck/services/usecases/add_deck_usecase.dart' as add;
 import 'package:mydeck/services/usecases/save_deck_changes_usecase.dart'
     as save;
-import 'package:mydeck/features/my_deck/domain/usecases/usecase.dart';
-import 'package:mydeck/features/train/domain/usecases/get_decks_for_train_usecase.dart';
-import 'package:mydeck/features/train/presentation/bloc/train/train_bloc.dart';
+import 'package:mydeck/services/usecases/usecase.dart';
+import 'package:mydeck/services/usecases/get_decks_for_train_usecase.dart';
 
 import 'library_event.dart';
 import 'library_state.dart';
@@ -82,6 +81,11 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
               trainStartFailureOrSuccess: some(left(NoTrainableDecks)));
         }
       });
+      yield Future.delayed(
+          Duration(milliseconds: 300),
+          () => state.copyWith(
+                trainStartFailureOrSuccess: none(),
+              ));
     }, addDeck: (e) async* {
       final decks = [e.deck];
       decks.addAll(state.decksSourceList);

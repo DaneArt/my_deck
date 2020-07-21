@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mydeck/core/extensions/widget_extensions.dart';
-import 'package:mydeck/core/helpers/images_util.dart';
-import 'package:mydeck/features/editor/presentation/bloc/add_card/add_card_bloc.dart';
-import 'package:mydeck/features/editor/presentation/widgets/card_fraction_pagination_builder.dart';
-import 'package:mydeck/features/my_deck/domain/entities/card.dart' as Entity;
-import 'package:mydeck/features/my_deck/domain/entities/my_deck_file.dart';
-import 'package:mydeck/features/my_deck/presentation/widgets/shared/card_content_widget.dart';
+import 'package:mydeck/blocs/add_card/add_card_bloc.dart';
+import 'package:mydeck/utils/widget_extensions.dart';
+import 'package:mydeck/utils/images_util.dart';
+import 'package:mydeck/screens/deck_editor/local_widgets/card_fraction_pagination_builder.dart';
+import 'package:mydeck/models/entitites/card.dart' as Entity;
+import 'package:mydeck/models/entitites/my_deck_file.dart';
+import 'package:mydeck/widgets/card_content_widget.dart';
 import 'package:mydeck/generated/l10n.dart';
 
 class CardEditor extends StatefulWidget {

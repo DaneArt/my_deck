@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
-
-import '../../app_tab.dart';
+import 'package:mydeck/blocs/tab/app_tab.dart';
 
 abstract class TabEvent extends Equatable {
   const TabEvent();

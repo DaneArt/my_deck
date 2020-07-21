@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
+import 'package:mydeck/models/entitites/deck.dart';
 
 part 'library_state.freezed.dart';
 

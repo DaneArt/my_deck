@@ -17,7 +17,7 @@ abstract class AddDeckState with _$AddDeckState {
 
   factory AddDeckState.initial({@required Deck initialDeck}) => AddDeckState(
         avatar: initialDeck.avatar,
-        cardsList: initialDeck is Deck ? [] : (initialDeck as Deck).cardsList,
+        cardsList: initialDeck is Deck ? [] : initialDeck.cardsList,
         category: initialDeck.category,
         description: initialDeck.description,
         isShared: !initialDeck.isPrivate,

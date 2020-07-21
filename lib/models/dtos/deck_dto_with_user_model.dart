@@ -1,5 +1,5 @@
-import 'package:mydeck/features/my_deck/data/models/deck_dto.dart';
-import 'package:mydeck/features/sign_in/data/models/user_model.dart';
+import 'package:mydeck/models/dtos/deck_dto.dart';
+import 'package:mydeck/models/value_objects/user_model.dart';
 
 class DeckDtoWithUserModel {
   final DeckDto deck;

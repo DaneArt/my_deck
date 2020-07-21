@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part "storage_failure.freezed.dart";
+part 'storage_failure.freezed.dart';
 
 @freezed
 abstract class StorageFailure<T> with _$StorageFailure<T> {

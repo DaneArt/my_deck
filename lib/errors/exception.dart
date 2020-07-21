@@ -1,7 +1,7 @@
 class CacheException implements Exception {
   final String message;
 
-  CacheException(this.message);
+  CacheException([this.message]);
 }
 
 class NetworkException implements Exception {
@@ -14,17 +14,17 @@ class NetworkTimeoutException implements NetworkException {
   final String message;
   final Duration duration;
 
-  NetworkTimeoutException(this.message, [this.duration]);
+  NetworkTimeoutException([this.message, this.duration]);
 }
 
 class MissingUserException implements NetworkException {
   final String message;
 
-  MissingUserException(this.message);
+  MissingUserException([this.message]);
 }
 
 class UnauthorizedException implements NetworkException {
   final String message;
 
-  UnauthorizedException(this.message);
+  UnauthorizedException([this.message]);
 }

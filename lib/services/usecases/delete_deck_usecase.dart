@@ -1,13 +1,13 @@
 import 'package:dartz/dartz.dart';
-import 'package:mydeck/core/error/storage_failure.dart';
-import 'package:mydeck/features/my_deck/data/repositories/my_deck_repository.dart';
-import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
-import 'package:mydeck/features/my_deck/domain/usecases/usecase.dart';
+import 'package:mydeck/errors/storage_failure.dart';
+import 'package:mydeck/services/repositories/deck_repository.dart';
+import 'package:mydeck/models/entitites/deck.dart';
+import 'package:mydeck/services/usecases/usecase.dart';
 
 import 'add_deck_usecase.dart';
 
 class DeleteDeckUseCase extends UseCase<StorageFailure<Deck>, void, Params> {
-  final MyDeckRepository myDeckRepository;
+  final DeckRepository myDeckRepository;
 
   DeleteDeckUseCase(this.myDeckRepository);
 

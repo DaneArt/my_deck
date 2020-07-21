@@ -4,20 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mydeck/blocs/add_card/add_card_bloc.dart';
+import 'package:mydeck/blocs/add_deck/add_deck_bloc.dart';
 
-import 'package:mydeck/core/extensions/widget_extensions.dart';
-import 'package:mydeck/core/icons/custom_icons_icons.dart';
-import 'package:mydeck/core/meta/my_deck_routes.dart';
-import 'package:mydeck/features/editor/presentation/bloc/add_card/add_card_bloc.dart';
-import 'package:mydeck/features/editor/presentation/bloc/add_deck/add_deck_bloc.dart';
-import 'package:mydeck/features/editor/presentation/pages/card_editor.dart';
-import 'package:mydeck/features/editor/presentation/widgets/category_picker.dart';
-import 'package:mydeck/features/editor/presentation/widgets/in_deck_card_view.dart';
-import 'package:mydeck/features/editor/presentation/widgets/pick_image_view.dart';
-import 'package:mydeck/features/my_deck/domain/entities/card.dart' as Entity;
-import 'package:mydeck/features/my_deck/domain/entities/deck.dart';
-import 'package:mydeck/features/my_deck/presentation/widgets/shared/sliver_tab_bar_delegate.dart';
-import 'package:mydeck/features/sign_in/data/datasources/user_config.dart';
+import 'package:mydeck/utils/widget_extensions.dart';
+import 'package:mydeck/utils/custom_icons_icons.dart';
+import 'package:mydeck/theme/my_deck_routes.dart';
+
+import 'package:mydeck/screens/deck_editor/card_editor.dart';
+import 'package:mydeck/screens/deck_editor/local_widgets/category_picker.dart';
+import 'package:mydeck/screens/deck_editor/local_widgets/in_deck_card_view.dart';
+import 'package:mydeck/screens/deck_editor/local_widgets/pick_image_view.dart';
+import 'package:mydeck/models/entitites/card.dart' as Entity;
+import 'package:mydeck/models/entitites/deck.dart';
+import 'package:mydeck/widgets/sliver_tab_bar_delegate.dart';
+import 'package:mydeck/services/datasources/user_config.dart';
 import 'package:mydeck/generated/l10n.dart';
 
 enum AddDeckGoal { edit, create, lookup }

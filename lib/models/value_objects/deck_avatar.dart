@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
-import 'package:mydeck/core/error/value_failure.dart';
-import 'package:mydeck/features/my_deck/domain/entities/my_deck_file.dart';
-import 'package:mydeck/features/sign_in/data/models/value_object.dart';
-import 'package:mydeck/features/sign_in/helpers/value_validators.dart';
+import 'package:mydeck/errors/value_failure.dart';
+import 'package:mydeck/models/entitites/my_deck_file.dart';
+import 'package:mydeck/models/value_objects/value_object.dart';
+import 'package:mydeck/utils/value_validators.dart';
 
 class DeckAvatar extends ValueObject<ImageFile> {
   final Either<ValueFailure<ImageFile>, ImageFile> value;

@@ -6,24 +6,21 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mydeck/errors/storage_failure.dart';
-import 'package:mydeck/features/editor/domain/value_objects/deck_description.dart';
-import 'package:mydeck/features/editor/domain/value_objects/deck_title.dart';
 import 'package:mydeck/models/dtos/deck_category.dart';
 import 'package:mydeck/models/entitites/card.dart';
 import 'package:mydeck/models/entitites/deck.dart';
+import 'package:mydeck/models/value_objects/deck_avatar.dart';
+import 'package:mydeck/models/value_objects/deck_description.dart';
+import 'package:mydeck/models/value_objects/deck_title.dart';
+import 'package:mydeck/models/value_objects/user_model.dart';
 import 'package:mydeck/services/usecases/add_deck_usecase.dart';
 import 'package:mydeck/services/usecases/delete_deck_usecase.dart';
 import 'package:mydeck/services/usecases/save_deck_changes_usecase.dart'
     as save;
 import 'package:mydeck/models/entitites/unique_id.dart';
-import 'package:mydeck/features/social/domain/usecases/upload_online_deck.dart'
-    as upload;
+import 'package:mydeck/services/usecases/upload_online_deck.dart' as upload;
 import 'package:mydeck/screens/deck_editor/add_deck_page.dart';
-import 'package:mydeck/features/sign_in/data/datasources/user_config.dart';
-import 'package:mydeck/features/sign_in/data/models/user_model.dart';
-import 'package:uuid/uuid.dart';
-
-import '../../../domain/value_objects/deck_avatar.dart';
+import 'package:mydeck/services/datasources/user_config.dart';
 
 part 'add_deck_state.dart';
 

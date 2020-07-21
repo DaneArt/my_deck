@@ -1,6 +1,5 @@
 class MyDeckRoutes {
-  static String get home => '/home';
-  static String get initial => '/';
+  static String get home => '/';
   static String get login => '/login';
   static String get profile => '/profile';
   static String get train => '/train';

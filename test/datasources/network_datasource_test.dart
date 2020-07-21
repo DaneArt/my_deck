@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:mockito/mockito.dart';
-import 'package:mydeck/core/error/exception.dart';
-import 'package:mydeck/features/my_deck/data/datasources/my_deck_network_datasource.dart';
-import 'package:mydeck/features/sign_in/data/datasources/user_config.dart';
-import 'package:mydeck/features/sign_in/data/datasources/user_datasource.dart';
-import 'package:mydeck/features/sign_in/helpers/value_validators.dart';
+import 'package:mydeck/errors/exception.dart';
+import 'package:mydeck/services/datasources/deck_network_datasource.dart';
+import 'package:mydeck/services/datasources/user_config.dart';
+import 'package:mydeck/services/datasources/user_network_datasource.dart';
+import 'package:mydeck/utils/value_validators.dart';
 import 'package:mydeck/main.dart';
 import 'package:test/test.dart';
 import 'package:http/http.dart' as http;
@@ -17,7 +17,7 @@ class MockDioAdapter extends Mock implements HttpClientAdapter {}
 
 class MockUserConfig extends Mock implements UserConfig {}
 
-class MockUserDataSource extends Mock implements UserDataSource {}
+class MockUserDataSource extends Mock implements UserNetworkDataSource {}
 
 class MockValidateToken extends Mock implements AccessTokenValidator {}
 
@@ -27,13 +27,13 @@ void main() {
   MockUserDataSource mockUsStringerDataSource;
   MockUserConfig mockUserConfig;
   MockValidateToken mockValidateToken;
-  MyDeckNetworkDataSource myDeckNetworkDataSource;
+  DeckNetworkDataSource myDeckNetworkDataSource;
 
   setUp(() {
     dio = Dio();
     mockDioAdapter = MockDioAdapter();
     dio.httpClientAdapter = mockDioAdapter;
-    myDeckNetworkDataSource = MyDeckNetworkDataSourceImpl(
+    myDeckNetworkDataSource = DeckNetworkDataSourceImpl(
       client: dio,
     );
   });
@@ -43,11 +43,6 @@ void main() {
       final tDeckWithCards = jsonDecode(fixture('deck_model.json'));
       tDeckWithCards['cards'] = [jsonDecode(fixture('card_model.json'))];
 
-      final tDeckModel = DeckWithCardModels(
-          DeckModel.fromJson(tDeckWithCards),
-          (tDeckWithCards['cards'] as List)
-              .map((e) => CardDto.fromJson(e))
-              .toList());
       final responsePayload = jsonEncode([tDeckWithCards]);
       final httpResponse = ResponseBody.fromString(responsePayload, 200);
 
