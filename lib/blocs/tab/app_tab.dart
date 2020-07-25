@@ -1,6 +1,1 @@
-enum AppTab {
-  social,
-  library,
-  //stats,
-  profile
-}
+enum AppTab { social, library, stats, profile }

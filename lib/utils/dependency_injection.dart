@@ -41,7 +41,7 @@ void setUp() {
     () => Dio(
       BaseOptions(
         headers: {
-          HttpHeaders.authorizationHeader: 'Bearer ' + UserConfig.accessToken
+          HttpHeaders.authorizationHeader: 'Bearer ${UserConfig.accessToken}'
         },
         baseUrl: 'http://mydeck-001-site1.dtempurl.com/mydeckapi',
       ),

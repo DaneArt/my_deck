@@ -33,8 +33,6 @@ class LibraryPage extends StatefulWidget {
 class _LibraryPageState extends State<LibraryPage>
     with SingleTickerProviderStateMixin {
   ScrollController _controller;
-  AnimationController _animationController;
-  Animation _fabAnimation;
 
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -44,12 +42,7 @@ class _LibraryPageState extends State<LibraryPage>
 
   @override
   void initState() {
-    _animationController =
-        AnimationController(duration: Duration(milliseconds: 200), vsync: this);
-    _fabAnimation =
-        Tween<double>(begin: 1, end: 0).animate(_animationController);
     _controller = ScrollController();
-    _controller.addListener(_onDeckListScrollListener);
     super.initState();
     if (!initialized) {
       _loadDecksData(context);
@@ -61,66 +54,12 @@ class _LibraryPageState extends State<LibraryPage>
 
   @override
   void dispose() {
-    _controller.removeListener(_onDeckListScrollListener);
     _controller.dispose();
-    _animationController.dispose();
     super.dispose();
-  }
-
-  _onDeckListScrollListener() {
-    switch (_controller.position.userScrollDirection) {
-      case ScrollDirection.forward:
-        _animationController.reverse();
-        break;
-      case ScrollDirection.reverse:
-        _animationController.forward();
-        break;
-      case ScrollDirection.idle:
-        break;
-    }
   }
 
   void _loadDecksData(BuildContext context) {
     BlocProvider.of<LibraryBloc>(context).add(GetAllUsersDecks());
-  }
-
-  List<Widget> _buildFabs(BuildContext context) {
-    return [
-      FadeTransition(
-        opacity: _fabAnimation,
-        child: ScaleTransition(
-          scale: _fabAnimation,
-          child: FloatingActionButton(
-            key: Key(MyDeckTestKeys.addDeckFab),
-            heroTag: MyDeckHeroTags.addDeckFab,
-            elevation: 4,
-            child: Icon(
-              Icons.add,
-              color: Theme.of(context).iconTheme.color,
-            ),
-            onPressed: () async => addDeck(context),
-          ),
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.all(8),
-      ),
-      FadeTransition(
-        opacity: _fabAnimation,
-        child: ScaleTransition(
-          scale: _fabAnimation,
-          child: FloatingActionButton(
-            heroTag: MyDeckHeroTags.startTrainFab,
-            elevation: 4,
-            child: Icon(
-              CustomIcons.dumbbell,
-              color: Theme.of(context).iconTheme.color,
-            ),
-            onPressed: _tryToStartTrain,
-          ),
-        ),
-      ),
-    ];
   }
 
   Widget _decksList(List<Deck> decks) => CustomScrollView(
@@ -175,7 +114,7 @@ class _LibraryPageState extends State<LibraryPage>
           return Center(child: CircularProgressIndicator());
         } else if (state.decksSourceList.isEmpty ||
             state.loadingFailureOrSuccess.isSome()) {
-          return DeckHubIdleView(
+          return DeckLibraryIdleView(
             refreshKey: _refreshIndicatorKey,
             onRefresh: () => _loadDecksData(context),
             errorMessage: S.of(context).meta_no_decks,
@@ -191,11 +130,6 @@ class _LibraryPageState extends State<LibraryPage>
         );
       },
     );
-  }
-
-  void _tryToStartTrain() {
-    BlocProvider.of<LibraryBloc>(_refreshIndicatorKey.currentContext)
-        .add(TryToStartTrain());
   }
 
   Future<void> addDeck(BuildContext context) async {
@@ -229,12 +163,33 @@ class _LibraryPageState extends State<LibraryPage>
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.add,
+              color: Theme.of(context).iconTheme.color,
+              semanticLabel: S.of(context).editor_create_deck,
+              size: 32,
+            ),
+            onPressed: () {
+              if (UserConfig.currentUser == null) {
+                Scaffold.of(context).showSnackBar(SnackBar(
+                  content: Text("Войдите, чтобы создать колоду"),
+                  action: SnackBarAction(
+                    label: "Войти",
+                    onPressed: () {},
+                  ),
+                ));
+              }
+            },
+          )
+        ],
         automaticallyImplyLeading: false,
-        title: Text(
-            "${UserConfig.currentUser.username[0].toUpperCase()}${UserConfig.currentUser.username.substring(1)} ${S.of(context).library_title}",
-            style: Theme.of(context).textTheme.headline6.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor)),
+        title: Text("${S.of(context).library_title}",
+            style: Theme.of(context)
+                .textTheme
+                .headline4
+                .copyWith(color: Theme.of(context).primaryColor)),
       ),
       body: SafeArea(
         top: true,
@@ -261,12 +216,33 @@ class _LibraryPageState extends State<LibraryPage>
                           .pushNamed(MyDeckRoutes.train, arguments: result);
                     }));
           },
-          child: _buildBody(context),
+          child: UserConfig.currentUser == null
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Присоединитесь, чтобы наполнить свою библиотеку колодами.",
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyText2,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    RaisedButton(
+                        color: Theme.of(context).accentColor,
+                        child: Text(
+                          "Присоединиться".toUpperCase(),
+                          style: Theme.of(context).textTheme.button,
+                        ),
+                        onPressed: () {
+                          context.navigator.pushNamed(MyDeckRoutes.login);
+                          //TODO: implement registration
+                        }),
+                  ],
+                )
+              : _buildBody(context),
         ),
-      ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: _buildFabs(context),
       ),
     );
   }

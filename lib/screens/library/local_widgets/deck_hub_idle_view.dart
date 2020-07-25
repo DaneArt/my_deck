@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mydeck/generated/l10n.dart';
 
-class DeckHubIdleView extends StatelessWidget {
+class DeckLibraryIdleView extends StatelessWidget {
   final Function onRefresh;
   final String errorMessage;
   final GlobalKey<RefreshIndicatorState> refreshKey;
 
-  const DeckHubIdleView(
+  const DeckLibraryIdleView(
       {Key key,
       @required this.onRefresh,
       @required this.refreshKey,

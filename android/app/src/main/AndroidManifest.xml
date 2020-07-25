@@ -7,8 +7,8 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="my_deck"
-        android:icon="@mipmap/ic_launch_icon">
+        android:label="My Deck"
+        android:icon="@mipmap/ic_my_deck_launcher">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

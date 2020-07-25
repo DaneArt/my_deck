@@ -12,9 +12,9 @@ class MyDeckTheme {
         buttonTheme:
             ButtonThemeData(buttonColor: Colors.white.withOpacity(0.95)),
         iconTheme: IconThemeData(
-          color: Colors.white.withOpacity(0.95),
-          opacity: 1,
+          color: kThemeTextColor,
         ),
+        accentIconTheme: IconThemeData(color: Colors.white),
         primaryIconTheme: IconThemeData(color: Colors.white.withOpacity(0.95)),
         floatingActionButtonTheme:
             FloatingActionButtonThemeData(foregroundColor: kThemeAccentColor),
@@ -32,6 +32,6 @@ class MyDeckTheme {
             bodyText2: TextStyle(color: kThemeTextColor),
             bodyText1: TextStyle(color: kThemeTextColor),
             button: TextStyle(
-                letterSpacing: 1.2, color: Colors.white.withOpacity(0.95))),
+                letterSpacing: 1.6, color: Colors.white.withOpacity(0.95))),
       );
 }

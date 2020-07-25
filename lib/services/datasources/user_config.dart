@@ -28,7 +28,4 @@ class UserConfig {
       App.localStorage.setString(kRefreshToken, newToken);
 
   static String get refreshToken => App.localStorage.getString(kRefreshToken);
-
-  static Future<bool> get isSessionValid async =>
-      (await UserNetworkDataSourceImpl().refreshTokens()).isNone();
 }

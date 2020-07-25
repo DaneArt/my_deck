@@ -9,11 +9,9 @@ import 'blocs/sign_in/sign_in_bloc.dart';
 import 'blocs/tab/tab_bloc.dart';
 import 'blocs/train/train_bloc.dart';
 import 'utils/dependency_injection.dart';
-import 'theme/my_deck_constants.dart';
 import 'theme/my_deck_routes.dart';
 
-import 'screens/library/home_page.dart';
-import 'screens/library/splash_page.dart';
+import 'screens/home/home_page.dart';
 import 'screens/login/login_page.dart';
 import 'screens/login/profile_page.dart';
 import 'screens/social/social_page.dart';

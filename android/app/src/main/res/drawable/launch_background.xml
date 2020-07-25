@@ -2,9 +2,15 @@
 <!-- Modify this file to customize your launch splash screen -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@color/primaryColor" />
+
+
     <item
         android:gravity="center"
-        android:drawable="@mipmap/ic_launch_icon"/>
+        android:drawable="@drawable/ic_my_deck_logo_splash">
+
+    </item>
+
+   
 
     <!-- You can insert your own image assets here -->
     <!-- <item>

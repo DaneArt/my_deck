@@ -7,7 +7,8 @@ import 'package:mydeck/blocs/tab/tab_event.dart';
 import 'package:mydeck/blocs/tab/app_tab.dart';
 
 import 'package:mydeck/screens/library/library_page.dart';
-import 'package:mydeck/widgets/selectable_tab_bar.dart';
+import 'package:mydeck/utils/custom_icons_icons.dart';
+import 'package:mydeck/widgets/md_bottom_bar.dart';
 import 'package:mydeck/screens/login/profile_page.dart';
 import 'package:mydeck/screens/social/social_page.dart';
 
@@ -33,7 +34,16 @@ class HomePage extends StatelessWidget {
               },
               child: _buildBody(activeTab),
             ),
-            bottomNavigationBar: SelectableTabBar(
+            floatingActionButton: FloatingActionButton(
+              child: Icon(
+                CustomIcons.dumbbell,
+                color: Theme.of(context).accentIconTheme.color,
+              ),
+              onPressed: () {},
+            ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
+            bottomNavigationBar: MDBottomBar(
               activeTab: activeTab,
               onTabSelected: (tab) {
                 BlocProvider.of<TabBloc>(context).add(UpdateTab(tab));
@@ -52,6 +62,9 @@ class HomePage extends StatelessWidget {
         break;
       case AppTab.social:
         return SocialPage();
+        break;
+      case AppTab.stats:
+        return ProfilePage();
         break;
       case AppTab.profile:
         return ProfilePage();

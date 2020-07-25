@@ -63,6 +63,7 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
     }, tryToStartTrain: (e) async* {
       final decksForTrain = await getDecksForTrain(
           Params(List<Deck>.from(state.decksSourceList)));
+
       yield decksForTrain.fold((failure) {
         return state.copyWith(
             loadingFailureOrSuccess: none(),
@@ -81,11 +82,10 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
               trainStartFailureOrSuccess: some(left(NoTrainableDecks)));
         }
       });
-      yield Future.delayed(
-          Duration(milliseconds: 300),
-          () => state.copyWith(
-                trainStartFailureOrSuccess: none(),
-              ));
+
+      yield state.copyWith(
+        trainStartFailureOrSuccess: none(),
+      );
     }, addDeck: (e) async* {
       final decks = [e.deck];
       decks.addAll(state.decksSourceList);
