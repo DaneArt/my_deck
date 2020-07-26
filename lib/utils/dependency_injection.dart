@@ -5,6 +5,9 @@ import 'package:mydeck/blocs/library/library_bloc.dart';
 import 'package:mydeck/blocs/sign_in/sign_in_bloc.dart';
 import 'package:mydeck/blocs/tab/tab_bloc.dart';
 import 'package:mydeck/blocs/train/train_bloc.dart';
+import 'package:mydeck/services/datasources/file_local_datasource.dart';
+import 'package:mydeck/services/datasources/file_network_datasource.dart';
+import 'package:mydeck/services/repositories/fille_repository.dart';
 import 'package:mydeck/utils/token_interceptor.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:get_it/get_it.dart';
@@ -56,7 +59,10 @@ void setUp() {
   sl.registerFactory(() => GoogleSignIn());
 
   //data sources
-
+  sl.registerLazySingleton<FileNetworkDataSource>(
+      () => FileNetworkDataSourceImpl());
+  sl.registerLazySingleton<FileLocalDataSource>(
+      () => FileLocalDataSourceImpl());
   sl.registerLazySingleton<DeckNetworkDataSource>(
       () => DeckNetworkDataSourceImpl(
             client: sl(),
@@ -66,6 +72,8 @@ void setUp() {
   //repository
   sl.registerLazySingleton<DeckRepository>(() =>
       DeckRepositoryImpl(networkDataSource: sl(), networkConnection: sl()));
+  sl.registerLazySingleton<FileRepository>(
+      () => FileRepositoryImpl(sl(), sl(), sl()));
 
   //use cases
   sl.registerFactory(() => UploadOnlineDeckUsecase(myDeckRepository: sl()));
