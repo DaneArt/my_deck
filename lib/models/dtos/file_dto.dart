@@ -9,6 +9,21 @@ part 'file_dto.g.dart';
 
 enum ContentType { TEXT, AUDIO, IMAGE }
 
+extension ContentExt on ContentType {
+  String extension() {
+    switch (this) {
+      case ContentType.TEXT:
+        return "txt";
+        break;
+      case ContentType.IMAGE:
+        return "jpg";
+        break;
+      default:
+        return "txt";
+    }
+  }
+}
+
 @freezed
 abstract class MyDeckFileDto implements _$MyDeckFileDto {
   const MyDeckFileDto._();
@@ -23,12 +38,12 @@ abstract class MyDeckFileDto implements _$MyDeckFileDto {
       return MyDeckFileDto(
           id: domain.uniqueId.getOrCrash,
           type: ContentType.IMAGE,
-          file: domain.image);
+          file: domain.file.fold((failure) => null, (file) => file));
     } else {
       return MyDeckFileDto(
           id: domain.uniqueId.getOrCrash,
           type: ContentType.TEXT,
-          file: (domain as TextFile).text);
+          file: domain.file.fold((failure) => null, (file) => file));
     }
   }
 
@@ -37,9 +52,9 @@ abstract class MyDeckFileDto implements _$MyDeckFileDto {
 
   MyDeckFile toDomain() {
     if (type == ContentType.IMAGE) {
-      return MyDeckFile.image(image: file, uniqueId: UniqueId.fromString(id));
+      return ImageFile(file: file, uniqueId: UniqueId.fromString(id));
     } else {
-      return MyDeckFile.text(text: file, uniqueId: UniqueId.fromString(id));
+      return TextFile(file: file, uniqueId: UniqueId.fromString(id));
     }
   }
 }

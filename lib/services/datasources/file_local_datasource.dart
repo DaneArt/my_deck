@@ -7,7 +7,7 @@ import 'package:mydeck/models/entitites/my_deck_file.dart';
 import 'package:path_provider/path_provider.dart';
 
 abstract class FileLocalDataSource {
-  Future<MyDeckFileDto> getFileById(String id);
+  Future<MyDeckFileDto> getFileByMeta(MyDeckFileDto meta);
   Future<void> addFile(MyDeckFileDto file);
 }
 
@@ -23,14 +23,14 @@ class FileLocalDataSourceImpl implements FileLocalDataSource {
   }
 
   @override
-  Future<MyDeckFileDto> getFileById(String id) async {
+  Future<MyDeckFileDto> getFileByMeta(MyDeckFileDto meta) async {
     try {
       final dir = await getApplicationDocumentsDirectory();
-      final f = File("${dir.path}/files/$id");
+      final f = File("${dir.path}/files/${meta.id}.${meta.type.extension()}");
       return f.existsSync()
           ? MyDeckFileDto(
               file: f,
-              id: id,
+              id: meta.id,
               type:
                   f.extension == "image" ? ContentType.IMAGE : ContentType.TEXT)
           : null;

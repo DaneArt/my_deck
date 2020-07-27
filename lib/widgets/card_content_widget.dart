@@ -8,13 +8,13 @@ import 'package:mydeck/models/entitites/my_deck_file.dart';
 import 'package:mydeck/widgets/ensure_field_visibility.dart';
 
 class TextCardWidget extends StatefulWidget {
-  final TextFile content;
+  final String contentText;
   final Function(String text) onTextChanged;
   final bool isEditing;
 
   const TextCardWidget({
     Key key,
-    this.content,
+    this.contentText,
     this.onTextChanged,
     this.isEditing,
   }) : super(key: key);
@@ -28,6 +28,8 @@ class _TextCardWidgetState extends State<TextCardWidget> {
   GlobalKey<FormFieldState> formState;
   final area_lost_percent = 5;
   final kCharactersLimit = 210;
+
+  String get contentText => widget.contentText;
 
   @override
   void initState() {
@@ -56,7 +58,7 @@ class _TextCardWidgetState extends State<TextCardWidget> {
               ? EnsureVisibleWhenFocused(
                   focusNode: contentFocusNode,
                   child: TextFormField(
-                    initialValue: widget.content.text.readAsStringSync(),
+                    initialValue: contentText,
                     textInputAction: TextInputAction.newline,
                     focusNode: contentFocusNode,
                     textAlign: TextAlign.center,
@@ -83,18 +85,13 @@ class _TextCardWidgetState extends State<TextCardWidget> {
                   ),
                 )
               : Text(
-                  widget.content.text.readAsStringSync(),
+                  contentText,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
                       fontSize: autoSizeFont(
-                          textLength:
-                              widget.content.text.readAsStringSync().length,
+                          textLength: contentText.length,
                           parentArea: ((screenSize.width * 0.9 - 32 * 2) *
-                                  (128 *
-                                      widget.content.text
-                                          .readAsStringSync()
-                                          .length /
-                                      30))
+                                  (128 * contentText.length / 30))
                               .toInt())),
                 ),
         ),
@@ -113,7 +110,7 @@ class _TextCardWidgetState extends State<TextCardWidget> {
 }
 
 class ImageCardContentWidget extends StatefulWidget {
-  final File imageFile;
+  final MyDeckFile imageFile;
   final double width;
   final double heigth;
   final BorderRadius radius;
@@ -140,7 +137,7 @@ class _ImageCardContentWidgetState extends State<ImageCardContentWidget> {
                   bottomRight: Radius.circular(4),
                   bottomLeft: Radius.circular(4)),
           child: Image.file(
-            widget.imageFile,
+            widget.imageFile.file.fold((l) => File(""), (r) => r),
             fit: BoxFit.cover,
             height: widget.heigth ?? MediaQuery.of(context).size.height * 0.65,
             width: widget.width ?? MediaQuery.of(context).size.width,
