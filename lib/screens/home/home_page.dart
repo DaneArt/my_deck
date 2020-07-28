@@ -17,41 +17,38 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => Future.value(false),
-      child: BlocBuilder<TabBloc, AppTab>(
-        builder: (context, activeTab) {
-          return Scaffold(
-            body: PageTransitionSwitcher(
-              transitionBuilder: (Widget child,
-                  Animation<double> primaryAnimation,
-                  Animation<double> secondaryAnimation) {
-                return FadeThroughTransition(
-                  animation: primaryAnimation,
-                  secondaryAnimation: secondaryAnimation,
-                  child: child,
-                );
-              },
-              child: _buildBody(activeTab),
+    return BlocBuilder<TabBloc, AppTab>(
+      builder: (context, activeTab) {
+        return Scaffold(
+          body: PageTransitionSwitcher(
+            transitionBuilder: (Widget child,
+                Animation<double> primaryAnimation,
+                Animation<double> secondaryAnimation) {
+              return FadeThroughTransition(
+                animation: primaryAnimation,
+                secondaryAnimation: secondaryAnimation,
+                child: child,
+              );
+            },
+            child: _buildBody(activeTab),
+          ),
+          floatingActionButton: FloatingActionButton(
+            child: Icon(
+              CustomIcons.dumbbell,
+              color: Theme.of(context).accentIconTheme.color,
             ),
-            floatingActionButton: FloatingActionButton(
-              child: Icon(
-                CustomIcons.dumbbell,
-                color: Theme.of(context).accentIconTheme.color,
-              ),
-              onPressed: () {},
-            ),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerDocked,
-            bottomNavigationBar: MDBottomBar(
-              activeTab: activeTab,
-              onTabSelected: (tab) {
-                BlocProvider.of<TabBloc>(context).add(UpdateTab(tab));
-              },
-            ),
-          );
-        },
-      ),
+            onPressed: () {},
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          bottomNavigationBar: MDBottomBar(
+            activeTab: activeTab,
+            onTabSelected: (tab) {
+              BlocProvider.of<TabBloc>(context).add(UpdateTab(tab));
+            },
+          ),
+        );
+      },
     );
   }
 

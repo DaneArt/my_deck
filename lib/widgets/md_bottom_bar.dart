@@ -23,7 +23,6 @@ class MDBottomBarState extends State<MDBottomBar> {
   Widget build(BuildContext context) {
     return BottomAppBar(
       shape: CircularNotchedRectangle(),
-      notchMargin: 8,
       child: MediaQuery.of(context).orientation == Orientation.landscape
           ? _landscapeBottomBar()
           : _portraitBottomBar(),

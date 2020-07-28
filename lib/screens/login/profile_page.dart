@@ -3,6 +3,7 @@ import 'package:mydeck/models/entitites/deck.dart';
 import 'package:mydeck/screens/library/local_widgets/deck_card_view.dart';
 import 'package:mydeck/services/datasources/user_config.dart';
 import 'package:mydeck/generated/l10n.dart';
+import 'package:mydeck/utils/custom_icons_icons.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({Key key}) : super(key: key);
@@ -70,6 +71,10 @@ class _DecksListWidgetState extends State<DecksListWidget> {
                     deck: decks[index],
                     key: ValueKey(decks[index].deckId),
                     isEditing: false,
+                    iconButton: IconButton(
+                      icon: Icon(CustomIcons.dumbbell),
+                      onPressed: () {},
+                    ),
                   ),
               childCount: decks.length),
         ),

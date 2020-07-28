@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mydeck/blocs/decks_feed_tile/decks_feed_tile_bloc.dart';
 import 'package:mydeck/screens/library/local_widgets/deck_card_view.dart';
+import 'package:mydeck/utils/custom_icons_icons.dart';
 
 class CategoryFeedPage extends StatelessWidget {
   @override
@@ -71,6 +72,10 @@ class _FeedListState extends State<FeedList> {
                 ? DeckCard(
                     deck: state.decksList[index],
                     isEditing: false,
+                    iconButton: IconButton(
+                      icon: Icon(Icons.beenhere),
+                      onPressed: () {},
+                    ),
                   )
                 : state.isLoading
                     ? Padding(

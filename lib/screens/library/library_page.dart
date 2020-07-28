@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:mydeck/blocs/add_deck/add_deck_bloc.dart';
 import 'package:mydeck/blocs/library/library_bloc.dart';
+import 'package:mydeck/utils/custom_icons_icons.dart';
 import 'package:mydeck/utils/widget_extensions.dart';
 import 'package:mydeck/utils/dependency_injection.dart';
 import 'package:mydeck/theme/my_deck_routes.dart';
@@ -69,6 +70,10 @@ class _LibraryPageState extends State<LibraryPage>
                       deck: decks[index],
                       isEditing: true,
                       key: ValueKey(decks[index].deckId.getOrCrash),
+                      iconButton: IconButton(
+                        icon: Icon(CustomIcons.dumbbell),
+                        onPressed: () {},
+                      ),
                     ),
                 childCount: decks.length),
           ),

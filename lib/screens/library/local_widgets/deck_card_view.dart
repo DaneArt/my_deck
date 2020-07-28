@@ -19,14 +19,18 @@ class DeckCard extends StatefulWidget {
   final bool isEditing;
   final Function() onDelete;
   final Function(Deck, Deck) onUpdate;
+  final IconButton iconButton;
 
   const DeckCard(
       {Key key,
       @required this.deck,
       @required this.isEditing,
       this.onDelete,
-      this.onUpdate})
-      : super(key: key);
+      this.onUpdate,
+      @required IconButton iconButton})
+      : assert(iconButton != null),
+        this.iconButton = iconButton,
+        super(key: key);
 
   @override
   _DeckCardState createState() => _DeckCardState();
@@ -169,10 +173,7 @@ class _DeckCardState extends State<DeckCard> {
                       ),
                     ),
                   ),
-                  IconButton(
-                    icon: Icon(CustomIcons.dumbbell),
-                    onPressed: () {},
-                  ),
+                  widget.iconButton
                 ],
               ),
               Padding(
