@@ -60,17 +60,16 @@ class _CustomStackListState extends State<CustomStackList>
     };
   }
 
-  Widget createWidgetFromContent(MyDeckFile content, BuildContext context) =>
-      content.map(
-        text: (textContent) => TextCardWidget(
-          content: textContent,
-          isEditing: false,
-        ),
-        image: (imageContent) => ImageCardContentWidget(
-          imageFile: imageContent.image,
-          heigth: MediaQuery.of(context).size.height,
-        ),
-      );
+  Widget createWidgetFromContent(MDFile content, BuildContext context) =>
+      content is ImageFile
+          ? ImageCardContentWidget(
+              imageFile: content,
+              heigth: MediaQuery.of(context).size.height,
+            )
+          : TextCardWidget(
+              contentText: content.getFileOrCrash().readAsStringSync(),
+              isEditing: false,
+            );
 
   Widget _backgroundCard(double cardHeight, double cardWidth) {
     return Container(

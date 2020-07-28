@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
 
-part of 'library_state.dart';
+part of 'library_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -9,18 +9,81 @@ part of 'library_state.dart';
 
 T _$identity<T>(T value) => value;
 
+class _$LibraryEventTearOff {
+  const _$LibraryEventTearOff();
+
+  LoadUserLibrary loadUserLibrary() {
+    return LoadUserLibrary();
+  }
+}
+
+// ignore: unused_element
+const $LibraryEvent = _$LibraryEventTearOff();
+
+mixin _$LibraryEvent {}
+
+abstract class $LibraryEventCopyWith<$Res> {
+  factory $LibraryEventCopyWith(
+          LibraryEvent value, $Res Function(LibraryEvent) then) =
+      _$LibraryEventCopyWithImpl<$Res>;
+}
+
+class _$LibraryEventCopyWithImpl<$Res> implements $LibraryEventCopyWith<$Res> {
+  _$LibraryEventCopyWithImpl(this._value, this._then);
+
+  final LibraryEvent _value;
+  // ignore: unused_field
+  final $Res Function(LibraryEvent) _then;
+}
+
+abstract class $LoadUserLibraryCopyWith<$Res> {
+  factory $LoadUserLibraryCopyWith(
+          LoadUserLibrary value, $Res Function(LoadUserLibrary) then) =
+      _$LoadUserLibraryCopyWithImpl<$Res>;
+}
+
+class _$LoadUserLibraryCopyWithImpl<$Res>
+    extends _$LibraryEventCopyWithImpl<$Res>
+    implements $LoadUserLibraryCopyWith<$Res> {
+  _$LoadUserLibraryCopyWithImpl(
+      LoadUserLibrary _value, $Res Function(LoadUserLibrary) _then)
+      : super(_value, (v) => _then(v as LoadUserLibrary));
+
+  @override
+  LoadUserLibrary get _value => super._value as LoadUserLibrary;
+}
+
+class _$LoadUserLibrary implements LoadUserLibrary {
+  _$LoadUserLibrary();
+
+  @override
+  String toString() {
+    return 'LibraryEvent.loadUserLibrary()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is LoadUserLibrary);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+}
+
+abstract class LoadUserLibrary implements LibraryEvent {
+  factory LoadUserLibrary() = _$LoadUserLibrary;
+}
+
 class _$LibraryStateTearOff {
   const _$LibraryStateTearOff();
 
   _LibraryState call(
-      {@required List<Deck> decksSourceList,
+      {@required List<Deck> decks,
       @required bool isLoading,
-      @required Option<Either<String, List<Deck>>> trainStartFailureOrSuccess,
       @required Option<Either<String, Unit>> loadingFailureOrSuccess}) {
     return _LibraryState(
-      decksSourceList: decksSourceList,
+      decks: decks,
       isLoading: isLoading,
-      trainStartFailureOrSuccess: trainStartFailureOrSuccess,
       loadingFailureOrSuccess: loadingFailureOrSuccess,
     );
   }
@@ -30,9 +93,8 @@ class _$LibraryStateTearOff {
 const $LibraryState = _$LibraryStateTearOff();
 
 mixin _$LibraryState {
-  List<Deck> get decksSourceList;
+  List<Deck> get decks;
   bool get isLoading;
-  Option<Either<String, List<Deck>>> get trainStartFailureOrSuccess;
   Option<Either<String, Unit>> get loadingFailureOrSuccess;
 
   $LibraryStateCopyWith<LibraryState> get copyWith;
@@ -43,9 +105,8 @@ abstract class $LibraryStateCopyWith<$Res> {
           LibraryState value, $Res Function(LibraryState) then) =
       _$LibraryStateCopyWithImpl<$Res>;
   $Res call(
-      {List<Deck> decksSourceList,
+      {List<Deck> decks,
       bool isLoading,
-      Option<Either<String, List<Deck>>> trainStartFailureOrSuccess,
       Option<Either<String, Unit>> loadingFailureOrSuccess});
 }
 
@@ -58,19 +119,13 @@ class _$LibraryStateCopyWithImpl<$Res> implements $LibraryStateCopyWith<$Res> {
 
   @override
   $Res call({
-    Object decksSourceList = freezed,
+    Object decks = freezed,
     Object isLoading = freezed,
-    Object trainStartFailureOrSuccess = freezed,
     Object loadingFailureOrSuccess = freezed,
   }) {
     return _then(_value.copyWith(
-      decksSourceList: decksSourceList == freezed
-          ? _value.decksSourceList
-          : decksSourceList as List<Deck>,
+      decks: decks == freezed ? _value.decks : decks as List<Deck>,
       isLoading: isLoading == freezed ? _value.isLoading : isLoading as bool,
-      trainStartFailureOrSuccess: trainStartFailureOrSuccess == freezed
-          ? _value.trainStartFailureOrSuccess
-          : trainStartFailureOrSuccess as Option<Either<String, List<Deck>>>,
       loadingFailureOrSuccess: loadingFailureOrSuccess == freezed
           ? _value.loadingFailureOrSuccess
           : loadingFailureOrSuccess as Option<Either<String, Unit>>,
@@ -85,9 +140,8 @@ abstract class _$LibraryStateCopyWith<$Res>
       __$LibraryStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {List<Deck> decksSourceList,
+      {List<Deck> decks,
       bool isLoading,
-      Option<Either<String, List<Deck>>> trainStartFailureOrSuccess,
       Option<Either<String, Unit>> loadingFailureOrSuccess});
 }
 
@@ -102,19 +156,13 @@ class __$LibraryStateCopyWithImpl<$Res> extends _$LibraryStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object decksSourceList = freezed,
+    Object decks = freezed,
     Object isLoading = freezed,
-    Object trainStartFailureOrSuccess = freezed,
     Object loadingFailureOrSuccess = freezed,
   }) {
     return _then(_LibraryState(
-      decksSourceList: decksSourceList == freezed
-          ? _value.decksSourceList
-          : decksSourceList as List<Deck>,
+      decks: decks == freezed ? _value.decks : decks as List<Deck>,
       isLoading: isLoading == freezed ? _value.isLoading : isLoading as bool,
-      trainStartFailureOrSuccess: trainStartFailureOrSuccess == freezed
-          ? _value.trainStartFailureOrSuccess
-          : trainStartFailureOrSuccess as Option<Either<String, List<Deck>>>,
       loadingFailureOrSuccess: loadingFailureOrSuccess == freezed
           ? _value.loadingFailureOrSuccess
           : loadingFailureOrSuccess as Option<Either<String, Unit>>,
@@ -124,44 +172,34 @@ class __$LibraryStateCopyWithImpl<$Res> extends _$LibraryStateCopyWithImpl<$Res>
 
 class _$_LibraryState implements _LibraryState {
   const _$_LibraryState(
-      {@required this.decksSourceList,
+      {@required this.decks,
       @required this.isLoading,
-      @required this.trainStartFailureOrSuccess,
       @required this.loadingFailureOrSuccess})
-      : assert(decksSourceList != null),
+      : assert(decks != null),
         assert(isLoading != null),
-        assert(trainStartFailureOrSuccess != null),
         assert(loadingFailureOrSuccess != null);
 
   @override
-  final List<Deck> decksSourceList;
+  final List<Deck> decks;
   @override
   final bool isLoading;
-  @override
-  final Option<Either<String, List<Deck>>> trainStartFailureOrSuccess;
   @override
   final Option<Either<String, Unit>> loadingFailureOrSuccess;
 
   @override
   String toString() {
-    return 'LibraryState(decksSourceList: $decksSourceList, isLoading: $isLoading, trainStartFailureOrSuccess: $trainStartFailureOrSuccess, loadingFailureOrSuccess: $loadingFailureOrSuccess)';
+    return 'LibraryState(decks: $decks, isLoading: $isLoading, loadingFailureOrSuccess: $loadingFailureOrSuccess)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _LibraryState &&
-            (identical(other.decksSourceList, decksSourceList) ||
-                const DeepCollectionEquality()
-                    .equals(other.decksSourceList, decksSourceList)) &&
+            (identical(other.decks, decks) ||
+                const DeepCollectionEquality().equals(other.decks, decks)) &&
             (identical(other.isLoading, isLoading) ||
                 const DeepCollectionEquality()
                     .equals(other.isLoading, isLoading)) &&
-            (identical(other.trainStartFailureOrSuccess,
-                    trainStartFailureOrSuccess) ||
-                const DeepCollectionEquality().equals(
-                    other.trainStartFailureOrSuccess,
-                    trainStartFailureOrSuccess)) &&
             (identical(
                     other.loadingFailureOrSuccess, loadingFailureOrSuccess) ||
                 const DeepCollectionEquality().equals(
@@ -171,9 +209,8 @@ class _$_LibraryState implements _LibraryState {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(decksSourceList) ^
+      const DeepCollectionEquality().hash(decks) ^
       const DeepCollectionEquality().hash(isLoading) ^
-      const DeepCollectionEquality().hash(trainStartFailureOrSuccess) ^
       const DeepCollectionEquality().hash(loadingFailureOrSuccess);
 
   @override
@@ -183,22 +220,15 @@ class _$_LibraryState implements _LibraryState {
 
 abstract class _LibraryState implements LibraryState {
   const factory _LibraryState(
-          {@required
-              List<Deck> decksSourceList,
-          @required
-              bool isLoading,
-          @required
-              Option<Either<String, List<Deck>>> trainStartFailureOrSuccess,
-          @required
-              Option<Either<String, Unit>> loadingFailureOrSuccess}) =
+          {@required List<Deck> decks,
+          @required bool isLoading,
+          @required Option<Either<String, Unit>> loadingFailureOrSuccess}) =
       _$_LibraryState;
 
   @override
-  List<Deck> get decksSourceList;
+  List<Deck> get decks;
   @override
   bool get isLoading;
-  @override
-  Option<Either<String, List<Deck>>> get trainStartFailureOrSuccess;
   @override
   Option<Either<String, Unit>> get loadingFailureOrSuccess;
   @override

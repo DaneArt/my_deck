@@ -110,7 +110,7 @@ class _TextCardWidgetState extends State<TextCardWidget> {
 }
 
 class ImageCardContentWidget extends StatefulWidget {
-  final MyDeckFile imageFile;
+  final MDFile imageFile;
   final double width;
   final double heigth;
   final BorderRadius radius;
@@ -137,7 +137,7 @@ class _ImageCardContentWidgetState extends State<ImageCardContentWidget> {
                   bottomRight: Radius.circular(4),
                   bottomLeft: Radius.circular(4)),
           child: Image.file(
-            widget.imageFile.file.fold((l) => File(""), (r) => r),
+            widget.imageFile.getFileOrCrash(),
             fit: BoxFit.cover,
             height: widget.heigth ?? MediaQuery.of(context).size.height * 0.65,
             width: widget.width ?? MediaQuery.of(context).size.width,

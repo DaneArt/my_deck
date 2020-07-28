@@ -72,8 +72,8 @@ Either<ValueFailure<ImageFile>, ImageFile> validateDeckAvatar(File input) {
   if (input == null) {
     return left(
       ValueFailure.fileDoesNotExists(
-        failedValue: MyDeckFile.image(
-          image: input,
+        failedValue: ImageFile(
+          file: input,
           uniqueId: UniqueId(),
         ),
       ),
@@ -81,8 +81,8 @@ Either<ValueFailure<ImageFile>, ImageFile> validateDeckAvatar(File input) {
   } else if (!input.existsSync()) {
     return left(
       ValueFailure.fileDoesNotExists(
-        failedValue: MyDeckFile.image(
-          image: input,
+        failedValue: ImageFile(
+          file: input,
           uniqueId: UniqueId(),
         ),
       ),
@@ -92,16 +92,16 @@ Either<ValueFailure<ImageFile>, ImageFile> validateDeckAvatar(File input) {
       input.extension != 'jpeg') {
     return left(
       ValueFailure.wrongFileExtension(
-        failedValue: MyDeckFile.image(
-          image: input,
+        failedValue: ImageFile(
+          file: input,
           uniqueId: UniqueId(),
         ),
       ),
     );
   } else {
     return right(
-      MyDeckFile.image(
-        image: input,
+      ImageFile(
+        file: input,
         uniqueId: UniqueId(),
       ),
     );

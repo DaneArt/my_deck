@@ -31,6 +31,7 @@ abstract class StorageFailure<T> with _$StorageFailure<T> {
   }) = DeleteFromServerFailure<T>;
   const factory StorageFailure.getFromServerFailure({T failureObject}) =
       GetFromServerFailure<T>;
+
   const factory StorageFailure.serverFailure({T failureObject}) =
       ServerFailure<T>;
   const factory StorageFailure.networkFailure({String message}) =

@@ -11,8 +11,9 @@ import 'package:mydeck/services/datasources/file_network_datasource.dart';
 import 'package:mydeck/utils/network_connection.dart';
 
 abstract class FileRepository {
-  Future<Option<StorageFailure>> addFile(MyDeckFile file);
-  Future<Either<StorageFailure, File>> getFileById(UniqueId id);
+  Future<Option<StorageFailure>> addFile(MDFile file);
+  Future<Either<StorageFailure, File>> getFileByMeta(
+      UniqueId id, ContentType contentType);
 }
 
 class FileRepositoryImpl implements FileRepository {
@@ -24,11 +25,11 @@ class FileRepositoryImpl implements FileRepository {
       this.fileNetworkDataSource);
 
   @override
-  Future<Option<StorageFailure>> addFile(MyDeckFile file) async {
+  Future<Option<StorageFailure>> addFile(MDFile file) async {
     try {
-      await fileLocalDataSource.addFile(MyDeckFileDto.fromDomain(file));
+      await fileLocalDataSource.addFile(MDFileDto.fromDomain(file));
       if (await networkConnection.isConnected) {
-        fileNetworkDataSource.addFile(MyDeckFileDto.fromDomain(file));
+        fileNetworkDataSource.addFile(MDFileDto.fromDomain(file));
       }
       return none();
     } on NetworkException {
@@ -39,24 +40,24 @@ class FileRepositoryImpl implements FileRepository {
   }
 
   @override
-  Future<Either<StorageFailure, File>> getFileById(UniqueId id) async {
-    var cachedFile = await fileLocalDataSource.getFileById(id.getOrCrash);
-    if (cachedFile == null && await networkConnection.isConnected) {
-      cachedFile = await fileNetworkDataSource.getFileById(id.getOrCrash);
-      return cachedFile == null
-          ? left(StorageFailure.getFailure())
-          : right(cachedFile.file);
-    } else if (cachedFile != null) {
-      networkConnection.isConnected.then((connected) async {
-        if (connected) {
-          final netFile =
-              await fileNetworkDataSource.getFileById(id.getOrCrash);
-          fileLocalDataSource.addFile(netFile);
-        }
-      });
-      return right(cachedFile.file);
-    } else {
-      return left(StorageFailure.getFailure());
+  Future<Either<StorageFailure, File>> getFileByMeta(
+      UniqueId id, ContentType contentType) async {
+    try {
+      final localFile =
+          await fileLocalDataSource.getFileByMeta(id.getOrCrash, contentType);
+      if (localFile == null && await networkConnection.isConnected) {
+        final networkFile =
+            await fileNetworkDataSource.getFileById(id.getOrCrash);
+        return right(networkFile.file);
+      } else if (localFile != null) {
+        return right(localFile.file);
+      } else {
+        return left(StorageFailure.networkFailure());
+      }
+    } on NetworkException {
+      return left(StorageFailure.networkFailure());
+    } on CacheException {
+      return left(StorageFailure.insertFailure());
     }
   }
 }

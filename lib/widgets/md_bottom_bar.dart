@@ -24,7 +24,73 @@ class MDBottomBarState extends State<MDBottomBar> {
     return BottomAppBar(
       shape: CircularNotchedRectangle(),
       notchMargin: 8,
-      child: Padding(
+      child: MediaQuery.of(context).orientation == Orientation.landscape
+          ? _landscapeBottomBar()
+          : _portraitBottomBar(),
+    );
+  }
+
+  Widget _landscapeBottomBar() => Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: AppTab.values
+                    .getRange(0, 2)
+                    .map((tab) => Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                          child: IconButton(
+                            onPressed: () => onTabSelected(tab),
+                            icon: tab == activeTab
+                                ? IconShadowWidget(
+                                    Icon(
+                                      _iconFromTab(tab),
+                                      color: Theme.of(context).primaryColor,
+                                      size: 32,
+                                    ),
+                                  )
+                                : Icon(
+                                    _iconFromTab(tab),
+                                    color: Colors.blueGrey.withAlpha(150),
+                                  ),
+                          ),
+                        ))
+                    .toList(),
+              ),
+            ),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: AppTab.values
+                    .getRange(2, 4)
+                    .map((tab) => Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                          child: IconButton(
+                            onPressed: () => onTabSelected(tab),
+                            icon: tab == activeTab
+                                ? IconShadowWidget(
+                                    Icon(
+                                      _iconFromTab(tab),
+                                      color: Theme.of(context).primaryColor,
+                                      size: 32,
+                                    ),
+                                  )
+                                : Icon(
+                                    _iconFromTab(tab),
+                                    color: Colors.blueGrey.withAlpha(150),
+                                  ),
+                          ),
+                        ))
+                    .toList(),
+              ),
+            ),
+          ],
+        ),
+      );
+  Widget _portraitBottomBar() => Padding(
         padding: const EdgeInsets.all(4.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -86,9 +152,7 @@ class MDBottomBarState extends State<MDBottomBar> {
             ),
           ],
         ),
-      ),
-    );
-  }
+      );
 
   IconData _iconFromTab(AppTab tab) {
     IconData result;
@@ -103,7 +167,7 @@ class MDBottomBarState extends State<MDBottomBar> {
         result = CustomIcons.chart_bar;
         break;
       case AppTab.profile:
-        result = CustomIcons.user;
+        result = Icons.person;
         break;
     }
     return result;

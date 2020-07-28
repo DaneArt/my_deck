@@ -17,14 +17,14 @@ abstract class CardDto implements _$CardDto {
 
   const factory CardDto({
     @JsonKey(name: 'card_id') @required String cardId,
-    @required @CardContentConverter() MyDeckFileDto answer,
-    @required @CardContentConverter() MyDeckFileDto question,
+    @required @CardContentConverter() MDFileDto answer,
+    @required @CardContentConverter() MDFileDto question,
   }) = _CardDto;
 
   factory CardDto.fromDomain(Card card) => CardDto(
-        answer: MyDeckFileDto.fromDomain(card.answer),
+        answer: MDFileDto.fromDomain(card.answer),
         cardId: card.id.getOrCrash,
-        question: MyDeckFileDto.fromDomain(card.question),
+        question: MDFileDto.fromDomain(card.question),
       );
 
   Card toDomain() => Card(
@@ -38,14 +38,14 @@ abstract class CardDto implements _$CardDto {
   Map<String, dynamic> toJson() => _$_$_CardDtoToJson(this);
 }
 
-class CardContentConverter implements JsonConverter<MyDeckFileDto, Object> {
+class CardContentConverter implements JsonConverter<MDFileDto, Object> {
   const CardContentConverter();
 
   @override
-  MyDeckFileDto fromJson(Object json) {
-    return MyDeckFileDto.fromJson(json);
+  MDFileDto fromJson(Object json) {
+    return MDFileDto.fromJson(json);
   }
 
   @override
-  Object toJson(MyDeckFileDto fieldValue) => fieldValue.id;
+  Object toJson(MDFileDto fieldValue) => fieldValue.id;
 }

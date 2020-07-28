@@ -18,7 +18,7 @@ class _$DeckDtoTearOff {
   _DeckDto call(
       {@required @JsonKey(name: 'deck_id') String id,
       @required String title,
-      @required @JsonKey(name: 'icon') MyDeckFileDto avatar,
+      @required @JsonKey(name: 'icon') MDFileDto avatar,
       @required String description,
       @JsonKey(name: 'subscribers_count', nullable: true) int subscribersCount,
       @JsonKey(nullable: true) List<UserModel> subscribers,
@@ -51,7 +51,7 @@ mixin _$DeckDto {
   String get id;
   String get title;
   @JsonKey(name: 'icon')
-  MyDeckFileDto get avatar;
+  MDFileDto get avatar;
   String get description;
   @JsonKey(name: 'subscribers_count', nullable: true)
   int get subscribersCount;
@@ -78,7 +78,7 @@ abstract class $DeckDtoCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'deck_id') String id,
       String title,
-      @JsonKey(name: 'icon') MyDeckFileDto avatar,
+      @JsonKey(name: 'icon') MDFileDto avatar,
       String description,
       @JsonKey(name: 'subscribers_count', nullable: true) int subscribersCount,
       @JsonKey(nullable: true) List<UserModel> subscribers,
@@ -88,7 +88,7 @@ abstract class $DeckDtoCopyWith<$Res> {
       @JsonKey(name: 'is_private') bool isPrivate,
       @JsonKey(name: 'author') String authorId});
 
-  $MyDeckFileDtoCopyWith<$Res> get avatar;
+  $MDFileDtoCopyWith<$Res> get avatar;
 }
 
 class _$DeckDtoCopyWithImpl<$Res> implements $DeckDtoCopyWith<$Res> {
@@ -115,7 +115,7 @@ class _$DeckDtoCopyWithImpl<$Res> implements $DeckDtoCopyWith<$Res> {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as String,
       title: title == freezed ? _value.title : title as String,
-      avatar: avatar == freezed ? _value.avatar : avatar as MyDeckFileDto,
+      avatar: avatar == freezed ? _value.avatar : avatar as MDFileDto,
       description:
           description == freezed ? _value.description : description as String,
       subscribersCount: subscribersCount == freezed
@@ -136,11 +136,11 @@ class _$DeckDtoCopyWithImpl<$Res> implements $DeckDtoCopyWith<$Res> {
   }
 
   @override
-  $MyDeckFileDtoCopyWith<$Res> get avatar {
+  $MDFileDtoCopyWith<$Res> get avatar {
     if (_value.avatar == null) {
       return null;
     }
-    return $MyDeckFileDtoCopyWith<$Res>(_value.avatar, (value) {
+    return $MDFileDtoCopyWith<$Res>(_value.avatar, (value) {
       return _then(_value.copyWith(avatar: value));
     });
   }
@@ -153,7 +153,7 @@ abstract class _$DeckDtoCopyWith<$Res> implements $DeckDtoCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'deck_id') String id,
       String title,
-      @JsonKey(name: 'icon') MyDeckFileDto avatar,
+      @JsonKey(name: 'icon') MDFileDto avatar,
       String description,
       @JsonKey(name: 'subscribers_count', nullable: true) int subscribersCount,
       @JsonKey(nullable: true) List<UserModel> subscribers,
@@ -164,7 +164,7 @@ abstract class _$DeckDtoCopyWith<$Res> implements $DeckDtoCopyWith<$Res> {
       @JsonKey(name: 'author') String authorId});
 
   @override
-  $MyDeckFileDtoCopyWith<$Res> get avatar;
+  $MDFileDtoCopyWith<$Res> get avatar;
 }
 
 class __$DeckDtoCopyWithImpl<$Res> extends _$DeckDtoCopyWithImpl<$Res>
@@ -192,7 +192,7 @@ class __$DeckDtoCopyWithImpl<$Res> extends _$DeckDtoCopyWithImpl<$Res>
     return _then(_DeckDto(
       id: id == freezed ? _value.id : id as String,
       title: title == freezed ? _value.title : title as String,
-      avatar: avatar == freezed ? _value.avatar : avatar as MyDeckFileDto,
+      avatar: avatar == freezed ? _value.avatar : avatar as MDFileDto,
       description:
           description == freezed ? _value.description : description as String,
       subscribersCount: subscribersCount == freezed
@@ -246,7 +246,7 @@ class _$_DeckDto extends _DeckDto with DiagnosticableTreeMixin {
   final String title;
   @override
   @JsonKey(name: 'icon')
-  final MyDeckFileDto avatar;
+  final MDFileDto avatar;
   @override
   final String description;
   @override
@@ -360,7 +360,7 @@ abstract class _DeckDto extends DeckDto {
   const factory _DeckDto(
       {@required @JsonKey(name: 'deck_id') String id,
       @required String title,
-      @required @JsonKey(name: 'icon') MyDeckFileDto avatar,
+      @required @JsonKey(name: 'icon') MDFileDto avatar,
       @required String description,
       @JsonKey(name: 'subscribers_count', nullable: true) int subscribersCount,
       @JsonKey(nullable: true) List<UserModel> subscribers,
@@ -379,7 +379,7 @@ abstract class _DeckDto extends DeckDto {
   String get title;
   @override
   @JsonKey(name: 'icon')
-  MyDeckFileDto get avatar;
+  MDFileDto get avatar;
   @override
   String get description;
   @override

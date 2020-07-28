@@ -6,6 +6,7 @@
 
     <item
         android:gravity="center"
+
         android:drawable="@drawable/ic_my_deck_logo_splash">
 
     </item>

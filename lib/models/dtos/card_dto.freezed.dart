@@ -17,8 +17,8 @@ class _$CardDtoTearOff {
 
   _CardDto call(
       {@required @JsonKey(name: 'card_id') String cardId,
-      @required @CardContentConverter() MyDeckFileDto answer,
-      @required @CardContentConverter() MyDeckFileDto question}) {
+      @required @CardContentConverter() MDFileDto answer,
+      @required @CardContentConverter() MDFileDto question}) {
     return _CardDto(
       cardId: cardId,
       answer: answer,
@@ -34,9 +34,9 @@ mixin _$CardDto {
   @JsonKey(name: 'card_id')
   String get cardId;
   @CardContentConverter()
-  MyDeckFileDto get answer;
+  MDFileDto get answer;
   @CardContentConverter()
-  MyDeckFileDto get question;
+  MDFileDto get question;
 
   Map<String, dynamic> toJson();
   $CardDtoCopyWith<CardDto> get copyWith;
@@ -47,11 +47,11 @@ abstract class $CardDtoCopyWith<$Res> {
       _$CardDtoCopyWithImpl<$Res>;
   $Res call(
       {@JsonKey(name: 'card_id') String cardId,
-      @CardContentConverter() MyDeckFileDto answer,
-      @CardContentConverter() MyDeckFileDto question});
+      @CardContentConverter() MDFileDto answer,
+      @CardContentConverter() MDFileDto question});
 
-  $MyDeckFileDtoCopyWith<$Res> get answer;
-  $MyDeckFileDtoCopyWith<$Res> get question;
+  $MDFileDtoCopyWith<$Res> get answer;
+  $MDFileDtoCopyWith<$Res> get question;
 }
 
 class _$CardDtoCopyWithImpl<$Res> implements $CardDtoCopyWith<$Res> {
@@ -69,28 +69,27 @@ class _$CardDtoCopyWithImpl<$Res> implements $CardDtoCopyWith<$Res> {
   }) {
     return _then(_value.copyWith(
       cardId: cardId == freezed ? _value.cardId : cardId as String,
-      answer: answer == freezed ? _value.answer : answer as MyDeckFileDto,
-      question:
-          question == freezed ? _value.question : question as MyDeckFileDto,
+      answer: answer == freezed ? _value.answer : answer as MDFileDto,
+      question: question == freezed ? _value.question : question as MDFileDto,
     ));
   }
 
   @override
-  $MyDeckFileDtoCopyWith<$Res> get answer {
+  $MDFileDtoCopyWith<$Res> get answer {
     if (_value.answer == null) {
       return null;
     }
-    return $MyDeckFileDtoCopyWith<$Res>(_value.answer, (value) {
+    return $MDFileDtoCopyWith<$Res>(_value.answer, (value) {
       return _then(_value.copyWith(answer: value));
     });
   }
 
   @override
-  $MyDeckFileDtoCopyWith<$Res> get question {
+  $MDFileDtoCopyWith<$Res> get question {
     if (_value.question == null) {
       return null;
     }
-    return $MyDeckFileDtoCopyWith<$Res>(_value.question, (value) {
+    return $MDFileDtoCopyWith<$Res>(_value.question, (value) {
       return _then(_value.copyWith(question: value));
     });
   }
@@ -102,13 +101,13 @@ abstract class _$CardDtoCopyWith<$Res> implements $CardDtoCopyWith<$Res> {
   @override
   $Res call(
       {@JsonKey(name: 'card_id') String cardId,
-      @CardContentConverter() MyDeckFileDto answer,
-      @CardContentConverter() MyDeckFileDto question});
+      @CardContentConverter() MDFileDto answer,
+      @CardContentConverter() MDFileDto question});
 
   @override
-  $MyDeckFileDtoCopyWith<$Res> get answer;
+  $MDFileDtoCopyWith<$Res> get answer;
   @override
-  $MyDeckFileDtoCopyWith<$Res> get question;
+  $MDFileDtoCopyWith<$Res> get question;
 }
 
 class __$CardDtoCopyWithImpl<$Res> extends _$CardDtoCopyWithImpl<$Res>
@@ -127,9 +126,8 @@ class __$CardDtoCopyWithImpl<$Res> extends _$CardDtoCopyWithImpl<$Res>
   }) {
     return _then(_CardDto(
       cardId: cardId == freezed ? _value.cardId : cardId as String,
-      answer: answer == freezed ? _value.answer : answer as MyDeckFileDto,
-      question:
-          question == freezed ? _value.question : question as MyDeckFileDto,
+      answer: answer == freezed ? _value.answer : answer as MDFileDto,
+      question: question == freezed ? _value.question : question as MDFileDto,
     ));
   }
 }
@@ -153,10 +151,10 @@ class _$_CardDto extends _CardDto {
   final String cardId;
   @override
   @CardContentConverter()
-  final MyDeckFileDto answer;
+  final MDFileDto answer;
   @override
   @CardContentConverter()
-  final MyDeckFileDto question;
+  final MDFileDto question;
 
   @override
   String toString() {
@@ -197,8 +195,8 @@ abstract class _CardDto extends CardDto {
   const _CardDto._() : super._();
   const factory _CardDto(
       {@required @JsonKey(name: 'card_id') String cardId,
-      @required @CardContentConverter() MyDeckFileDto answer,
-      @required @CardContentConverter() MyDeckFileDto question}) = _$_CardDto;
+      @required @CardContentConverter() MDFileDto answer,
+      @required @CardContentConverter() MDFileDto question}) = _$_CardDto;
 
   factory _CardDto.fromJson(Map<String, dynamic> json) = _$_CardDto.fromJson;
 
@@ -207,10 +205,10 @@ abstract class _CardDto extends CardDto {
   String get cardId;
   @override
   @CardContentConverter()
-  MyDeckFileDto get answer;
+  MDFileDto get answer;
   @override
   @CardContentConverter()
-  MyDeckFileDto get question;
+  MDFileDto get question;
   @override
   _$CardDtoCopyWith<_CardDto> get copyWith;
 }

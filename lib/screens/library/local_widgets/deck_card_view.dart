@@ -8,8 +8,8 @@ import 'package:mydeck/services/usecases/add_deck_usecase.dart';
 import 'package:mydeck/services/usecases/delete_deck_usecase.dart';
 import 'package:mydeck/services/usecases/save_deck_changes_usecase.dart';
 import 'package:mydeck/screens/deck_editor/add_deck_page.dart';
-import 'package:mydeck/models/entitites/my_deck_file.dart';
 import 'package:mydeck/models/entitites/deck.dart';
+import 'package:mydeck/widgets/md_image.dart';
 import 'package:mydeck/widgets/triangle_clipper.dart';
 import 'package:mydeck/services/datasources/user_config.dart';
 import 'package:mydeck/services/usecases/upload_online_deck.dart';
@@ -33,38 +33,22 @@ class DeckCard extends StatefulWidget {
 }
 
 class _DeckCardState extends State<DeckCard> {
-  Widget _imageWidget() => Stack(
-        fit: StackFit.expand,
-        children: [
-          Container(
-            height: double.infinity,
-            width: double.infinity,
-            color: Colors.grey,
-          ),
-          Image.file(
-              widget.deck.avatar.value.fold(
-                  (failure) => failure.failedValue.image,
-                  (value) => value.image),
-              fit: BoxFit.cover),
-        ],
-      );
-
   Deck get deck => widget.deck;
 
   bool get _isDraft =>
-      (deck is Deck) &&
-      (!deck.title.isValid ||
-          !deck.avatar.isValid ||
-          deck.cardsList.any((c) => c.answer == null || c.question == null));
+      (deck is Deck) && (!deck.title.isValid || !deck.avatar.isValid);
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final cardHeight = size.height / 5;
+    final cardHeight =
+        MediaQuery.of(context).orientation == Orientation.landscape
+            ? size.height / 2
+            : size.height / 5;
 
     return Padding(
         key: widget.key,
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         child: InkWell(
           onTap: () async {
             final deckUpdate = await context.navigator.push(MaterialPageRoute(
@@ -126,112 +110,104 @@ class _DeckCardState extends State<DeckCard> {
         child: Container(
           height: cardHeight,
           width: double.infinity,
-          child: Stack(
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              //Deck Avatar
-              ClipRRect(
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(8),
-                    topLeft: Radius.circular(8)),
-                child: ClipPath(
-                  clipper: TriangleClipper(),
-                  child: Container(
-                      height: double.infinity,
-                      width: cardHeight * 2 / 3,
-                      child: _imageWidget()),
-                ),
-              ),
-              //Top row
-              Padding(
-                padding: EdgeInsets.only(
-                  left: 32,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                            deck.title.value.fold(
-                                    (failure) => failure.failedValue.isNotEmpty,
-                                    (value) => value.isNotEmpty)
-                                ? deck.title.getOrCrash
-                                : 'No title',
+              _imageWidget(cardHeight),
+              _deckInfo(),
+            ],
+          ),
+        ),
+      );
+
+  _imageWidget(double cardHeight) => ClipRRect(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(8), bottomLeft: Radius.circular(8)),
+        child: MDImage(
+          image: deck.avatar.getOrCrash,
+          height: cardHeight,
+          width: cardHeight / 1.69,
+        ),
+      );
+
+  _deckInfo() => Expanded(
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(8),
+                  bottomRight: Radius.circular(8))),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              //TopRow
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 8.0, left: 8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            deck.title.value
+                                .fold((l) => l.failedValue, (r) => r),
                             style: Theme.of(context)
                                 .textTheme
                                 .headline5
-                                .copyWith(fontWeight: FontWeight.bold)),
-                        IconButton(
-                          icon: _isDraft
-                              ? Icon(
-                                  Icons.warning,
-                                  color: Colors.yellow,
-                                )
-                              : Icon(
-                                  deck.author.userId ==
-                                          UserConfig.currentUser.userId
-                                      ? deck.isPrivate
-                                          ? Icons.lock
-                                          : Icons.lock_open
-                                      : Icons.star_border,
-                                  color: Colors.black38,
-                                ),
-                          onPressed: () {
-                            //TODO: implement deck subscription
-                          },
+                                .copyWith(fontWeight: FontWeight.bold),
+                            overflow: TextOverflow.fade,
+                            maxLines: 1,
+                            softWrap: false,
+                          ),
+                          Text(
+                            deck.category.categoryName,
+                            style: Theme.of(context).textTheme.subtitle1,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(CustomIcons.dumbbell),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(CustomIcons.cards),
+                        SizedBox(
+                          width: 4,
                         ),
+                        Text(
+                          deck.cardsCount.toString() ??
+                              deck.cardsList.length.toString() ??
+                              0,
+                          style: Theme.of(context).textTheme.subtitle1,
+                        )
                       ],
                     ),
-                    Transform.translate(
-                      offset: Offset(0, -8),
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 8),
-                        child: Text('Category: ${deck.category.categoryName}',
-                            style: Theme.of(context).textTheme.bodyText2),
-                      ),
-                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.person),
+                        Text(
+                          deck.subscribersCount?.toString() ??
+                              deck.subscribers?.length.toString() ??
+                              0,
+                          style: Theme.of(context).textTheme.subtitle1,
+                        )
+                      ],
+                    )
                   ],
-                ),
-              ),
-              //Bottom row
-              Padding(
-                padding: EdgeInsets.only(
-                    left: cardHeight * 0.75, bottom: 8, right: 8),
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Icon(
-                            CustomIcons.subscribers_count,
-                            color: Theme.of(context).accentIconTheme.color,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Text(
-                              '${deck is Deck ? (deck as Deck).subscribersCount : (deck as Deck).subscribers != null ? (deck as Deck).subscribers.length : 0}',
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(right: 8.0),
-                            child: Text(
-                              '${deck is Deck ? (deck as Deck).cardsCount : (deck as Deck).cardsList.length}',
-                              textAlign: TextAlign.right,
-                            ),
-                          ),
-                          Icon(CustomIcons.cards,
-                              color: Theme.of(context).accentIconTheme.color),
-                        ],
-                      ),
-                    ],
-                  ),
                 ),
               ),
             ],

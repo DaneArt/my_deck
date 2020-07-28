@@ -7,7 +7,7 @@ import 'package:mydeck/blocs/tab/tab_bloc.dart';
 import 'package:mydeck/blocs/train/train_bloc.dart';
 import 'package:mydeck/services/datasources/file_local_datasource.dart';
 import 'package:mydeck/services/datasources/file_network_datasource.dart';
-import 'package:mydeck/services/repositories/fille_repository.dart';
+import 'package:mydeck/services/repositories/file_repository.dart';
 import 'package:mydeck/utils/token_interceptor.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:get_it/get_it.dart';
@@ -60,7 +60,7 @@ void setUp() {
 
   //data sources
   sl.registerLazySingleton<FileNetworkDataSource>(
-      () => FileNetworkDataSourceImpl());
+      () => FakeFileNetworkDataSource());
   sl.registerLazySingleton<FileLocalDataSource>(
       () => FileLocalDataSourceImpl());
   sl.registerLazySingleton<DeckNetworkDataSource>(
@@ -70,8 +70,7 @@ void setUp() {
   sl.registerLazySingleton<UserNetworkDataSource>(
       () => UserNetworkDataSourceImpl());
   //repository
-  sl.registerLazySingleton<DeckRepository>(() =>
-      DeckRepositoryImpl(networkDataSource: sl(), networkConnection: sl()));
+  sl.registerLazySingleton<DeckRepository>(() => FakeDeckRepository(sl()));
   sl.registerLazySingleton<FileRepository>(
       () => FileRepositoryImpl(sl(), sl(), sl()));
 
@@ -83,18 +82,15 @@ void setUp() {
   sl.registerFactory(() => DeleteDeckUseCase(sl()));
   sl.registerFactory(() => UpdateDeckUsecase(myDeckRepository: sl()));
   sl.registerFactory(() => GetDecksForTrain());
-  sl.registerFactory(() => GetAllCurrentUserDecksUsecase(repository: sl()));
+  sl.registerFactory(() => LoadUserLibraryUseCase(repository: sl()));
   sl.registerFactory(() => AddDeckUseCase(myDeckRepository: sl()));
   sl.registerFactory(() => UpdateTrainedCards(repository: sl()));
   //blocs
   sl.registerFactory(() => SignInBloc(sl()));
 
   sl.registerFactory(() => LibraryBloc(
-      getDecksForTrain: sl(),
-      allUserDecks: sl(),
-      deleteDeckUseCase: sl(),
-      addDeckUseCase: sl(),
-      saveDeckChangesUsecase: sl()));
+        loadUserLibrary: sl(),
+      ));
   sl.registerFactory(() => TabBloc());
   sl.registerFactory(() => TrainBloc(updateTrainedCards: sl()));
   //helpers

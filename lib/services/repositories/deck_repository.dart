@@ -1,7 +1,15 @@
+import 'dart:math';
+
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
 import 'package:mydeck/errors/exception.dart';
 import 'package:mydeck/errors/storage_failure.dart';
+import 'package:mydeck/models/dtos/file_dto.dart';
+import 'package:mydeck/models/entitites/my_deck_file.dart';
+import 'package:mydeck/models/value_objects/deck_avatar.dart';
+import 'package:mydeck/models/value_objects/deck_description.dart';
+import 'package:mydeck/models/value_objects/deck_title.dart';
+import 'package:mydeck/models/value_objects/user_model.dart';
 import 'package:mydeck/utils/dependency_injection.dart';
 import 'package:mydeck/utils/network_connection.dart';
 
@@ -12,6 +20,8 @@ import 'package:mydeck/models/entitites/card.dart';
 import 'package:mydeck/models/entitites/deck.dart';
 import 'package:mydeck/models/entitites/unique_id.dart';
 import 'package:rxdart/rxdart.dart';
+
+import 'file_repository.dart';
 
 abstract class DeckRepository {
   Future<Either<StorageFailure, List<Deck>>> getCurrentUserAllDecks();
@@ -28,7 +38,7 @@ abstract class DeckRepository {
   Future<Option<StorageFailure<Deck>>> deleteDeck(Deck deck);
 }
 
-class DeckRepositoryImpl extends DeckRepository {
+class DeckRepositoryImpl implements DeckRepository {
   final DeckNetworkDataSource networkDataSource;
   final NetworkConnection networkConnection;
 
@@ -151,5 +161,77 @@ class DeckRepositoryImpl extends DeckRepository {
     } catch (e) {
       return left(StorageFailure.networkFailure());
     }
+  }
+}
+
+class FakeDeckRepository implements DeckRepository {
+  final FileRepository fileRepository;
+
+  FakeDeckRepository(this.fileRepository);
+
+  final _deckTitles = [
+    'Gaymoda',
+    'Society',
+    'English',
+    'Brands',
+    'Americas',
+    'Global warmingggggggggggg',
+    'USA presidents'
+  ];
+
+  @override
+  Future<Either<StorageFailure<Deck>, Deck>> addDeck(Deck deck) {
+    // TODO: implement addDeck
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Option<StorageFailure<Deck>>> deleteDeck(Deck deck) {
+    // TODO: implement deleteDeck
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<StorageFailure, List<Deck>>> getCurrentUserAllDecks() async {
+    final List<Deck> result = [];
+    for (int i = 0; i <= Random().nextInt(20); i++) {
+      final deckAvatar = ImageFile(uniqueId: UniqueId());
+      await fileRepository.getFileByMeta(UniqueId(), ContentType.TEXT);
+      result.add(Deck(
+          author: UserModel(UniqueId().getOrCrash, 'UserMuser', 'he@gmail.com',
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQbGZWvtAbu8uQvxvm7LBZQHNDJU5SZJhAjqw&usqp=CAU'),
+          avatar: DeckAvatar(deckAvatar),
+          category: kDefaultCategories[
+              Random().nextInt(kDefaultCategories.length - 1)],
+          deckId: UniqueId(),
+          description: DeckDescription('Some'),
+          isPrivate: Random().nextBool(),
+          cardsCount: Random().nextInt(20),
+          subscribers: [],
+          subscribersCount: Random().nextInt(100),
+          cardsList: [],
+          title: DeckTitle(
+              _deckTitles[Random().nextInt(_deckTitles.length - 1)])));
+    }
+    return right(result);
+  }
+
+  @override
+  Future<Either<StorageFailure, Deck>> getDeckById(UniqueId deckId) {
+    // TODO: implement getDeckById
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<StorageFailure, List<Deck>>> loadDecksPageForCategory(
+      DeckCategory deckCategory, int pageCount) {
+    // TODO: implement loadDecksPageForCategory
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<StorageFailure<Deck>, Deck>> updateDeck(Deck deck) {
+    // TODO: implement updateDeck
+    throw UnimplementedError();
   }
 }

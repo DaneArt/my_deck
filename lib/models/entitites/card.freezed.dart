@@ -14,8 +14,8 @@ class _$CardTearOff {
 
   _Card call(
       {@required UniqueId id,
-      @required MyDeckFile answer,
-      @required MyDeckFile question}) {
+      @required MDFile answer,
+      @required MDFile question}) {
     return _Card(
       id: id,
       answer: answer,
@@ -29,8 +29,8 @@ const $Card = _$CardTearOff();
 
 mixin _$Card {
   UniqueId get id;
-  MyDeckFile get answer;
-  MyDeckFile get question;
+  MDFile get answer;
+  MDFile get question;
 
   $CardCopyWith<Card> get copyWith;
 }
@@ -38,7 +38,7 @@ mixin _$Card {
 abstract class $CardCopyWith<$Res> {
   factory $CardCopyWith(Card value, $Res Function(Card) then) =
       _$CardCopyWithImpl<$Res>;
-  $Res call({UniqueId id, MyDeckFile answer, MyDeckFile question});
+  $Res call({UniqueId id, MDFile answer, MDFile question});
 }
 
 class _$CardCopyWithImpl<$Res> implements $CardCopyWith<$Res> {
@@ -56,8 +56,8 @@ class _$CardCopyWithImpl<$Res> implements $CardCopyWith<$Res> {
   }) {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as UniqueId,
-      answer: answer == freezed ? _value.answer : answer as MyDeckFile,
-      question: question == freezed ? _value.question : question as MyDeckFile,
+      answer: answer == freezed ? _value.answer : answer as MDFile,
+      question: question == freezed ? _value.question : question as MDFile,
     ));
   }
 }
@@ -66,7 +66,7 @@ abstract class _$CardCopyWith<$Res> implements $CardCopyWith<$Res> {
   factory _$CardCopyWith(_Card value, $Res Function(_Card) then) =
       __$CardCopyWithImpl<$Res>;
   @override
-  $Res call({UniqueId id, MyDeckFile answer, MyDeckFile question});
+  $Res call({UniqueId id, MDFile answer, MDFile question});
 }
 
 class __$CardCopyWithImpl<$Res> extends _$CardCopyWithImpl<$Res>
@@ -85,8 +85,8 @@ class __$CardCopyWithImpl<$Res> extends _$CardCopyWithImpl<$Res>
   }) {
     return _then(_Card(
       id: id == freezed ? _value.id : id as UniqueId,
-      answer: answer == freezed ? _value.answer : answer as MyDeckFile,
-      question: question == freezed ? _value.question : question as MyDeckFile,
+      answer: answer == freezed ? _value.answer : answer as MDFile,
+      question: question == freezed ? _value.question : question as MDFile,
     ));
   }
 }
@@ -102,9 +102,9 @@ class _$_Card extends _Card {
   @override
   final UniqueId id;
   @override
-  final MyDeckFile answer;
+  final MDFile answer;
   @override
-  final MyDeckFile question;
+  final MDFile question;
 
   @override
   String toString() {
@@ -140,15 +140,15 @@ abstract class _Card extends Card {
   const _Card._() : super._();
   const factory _Card(
       {@required UniqueId id,
-      @required MyDeckFile answer,
-      @required MyDeckFile question}) = _$_Card;
+      @required MDFile answer,
+      @required MDFile question}) = _$_Card;
 
   @override
   UniqueId get id;
   @override
-  MyDeckFile get answer;
+  MDFile get answer;
   @override
-  MyDeckFile get question;
+  MDFile get question;
   @override
   _$CardCopyWith<_Card> get copyWith;
 }

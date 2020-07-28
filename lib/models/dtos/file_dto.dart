@@ -25,32 +25,32 @@ extension ContentExt on ContentType {
 }
 
 @freezed
-abstract class MyDeckFileDto implements _$MyDeckFileDto {
-  const MyDeckFileDto._();
+abstract class MDFileDto implements _$MDFileDto {
+  const MDFileDto._();
 
-  const factory MyDeckFileDto(
+  const factory MDFileDto(
       {@required String id,
       @required @ContentTypeConverter() ContentType type,
       @JsonKey(ignore: true) @required File file}) = _MyDeckFileDto;
 
-  factory MyDeckFileDto.fromDomain(MyDeckFile domain) {
+  factory MDFileDto.fromDomain(MDFile domain) {
     if (domain is ImageFile) {
-      return MyDeckFileDto(
+      return MDFileDto(
           id: domain.uniqueId.getOrCrash,
           type: ContentType.IMAGE,
-          file: domain.file.fold((failure) => null, (file) => file));
+          file: domain.getFileOrCrash());
     } else {
-      return MyDeckFileDto(
+      return MDFileDto(
           id: domain.uniqueId.getOrCrash,
           type: ContentType.TEXT,
-          file: domain.file.fold((failure) => null, (file) => file));
+          file: domain.getFileOrCrash());
     }
   }
 
-  factory MyDeckFileDto.fromJson(Map<String, Object> json) =>
-      _$MyDeckFileDtoFromJson(json);
+  factory MDFileDto.fromJson(Map<String, Object> json) =>
+      _$MDFileDtoFromJson(json);
 
-  MyDeckFile toDomain() {
+  MDFile toDomain() {
     if (type == ContentType.IMAGE) {
       return ImageFile(file: file, uniqueId: UniqueId.fromString(id));
     } else {

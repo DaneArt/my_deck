@@ -179,21 +179,16 @@ class _DismissibleCardState extends State<DismissibleCard>
     _dismissController.forward();
   }
 
-  Widget createWidgetFromContent(MyDeckFile content, BuildContext context) =>
-      content.map(
-          text: (textContent) => TextCardWidget(
-                content: textContent,
-                isEditing: false,
-              ),
-          image: (imageContent) => Padding(
-                padding: const EdgeInsets.only(top: 40.0),
-                child: ImageCardContentWidget(
-                  imageFile: imageContent.image,
-                  heigth: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
-                ),
-              ));
-
+  Widget createWidgetFromContent(MDFile content, BuildContext context) =>
+      content is ImageFile
+          ? ImageCardContentWidget(
+              imageFile: content,
+              heigth: MediaQuery.of(context).size.height,
+            )
+          : TextCardWidget(
+              contentText: content.getFileOrCrash().readAsStringSync(),
+              isEditing: false,
+            );
   @override
   Widget build(BuildContext context) {
     return Column(

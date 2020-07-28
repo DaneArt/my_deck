@@ -12,7 +12,7 @@ _$_DeckDto _$_$_DeckDtoFromJson(Map<String, dynamic> json) {
     title: json['title'] as String,
     avatar: json['icon'] == null
         ? null
-        : MyDeckFileDto.fromJson(json['icon'] as Map<String, dynamic>),
+        : MDFileDto.fromJson(json['icon'] as Map<String, dynamic>),
     description: json['description'] as String,
     subscribersCount: json['subscribers_count'] as int,
     subscribers: (json['subscribers'] as List)

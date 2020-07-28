@@ -8,12 +8,12 @@ part of 'file_dto.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
-MyDeckFileDto _$MyDeckFileDtoFromJson(Map<String, dynamic> json) {
+MDFileDto _$MDFileDtoFromJson(Map<String, dynamic> json) {
   return _MyDeckFileDto.fromJson(json);
 }
 
-class _$MyDeckFileDtoTearOff {
-  const _$MyDeckFileDtoTearOff();
+class _$MDFileDtoTearOff {
+  const _$MDFileDtoTearOff();
 
   _MyDeckFileDto call(
       {@required String id,
@@ -28,9 +28,9 @@ class _$MyDeckFileDtoTearOff {
 }
 
 // ignore: unused_element
-const $MyDeckFileDto = _$MyDeckFileDtoTearOff();
+const $MDFileDto = _$MDFileDtoTearOff();
 
-mixin _$MyDeckFileDto {
+mixin _$MDFileDto {
   String get id;
   @ContentTypeConverter()
   ContentType get type;
@@ -38,26 +38,24 @@ mixin _$MyDeckFileDto {
   File get file;
 
   Map<String, dynamic> toJson();
-  $MyDeckFileDtoCopyWith<MyDeckFileDto> get copyWith;
+  $MDFileDtoCopyWith<MDFileDto> get copyWith;
 }
 
-abstract class $MyDeckFileDtoCopyWith<$Res> {
-  factory $MyDeckFileDtoCopyWith(
-          MyDeckFileDto value, $Res Function(MyDeckFileDto) then) =
-      _$MyDeckFileDtoCopyWithImpl<$Res>;
+abstract class $MDFileDtoCopyWith<$Res> {
+  factory $MDFileDtoCopyWith(MDFileDto value, $Res Function(MDFileDto) then) =
+      _$MDFileDtoCopyWithImpl<$Res>;
   $Res call(
       {String id,
       @ContentTypeConverter() ContentType type,
       @JsonKey(ignore: true) File file});
 }
 
-class _$MyDeckFileDtoCopyWithImpl<$Res>
-    implements $MyDeckFileDtoCopyWith<$Res> {
-  _$MyDeckFileDtoCopyWithImpl(this._value, this._then);
+class _$MDFileDtoCopyWithImpl<$Res> implements $MDFileDtoCopyWith<$Res> {
+  _$MDFileDtoCopyWithImpl(this._value, this._then);
 
-  final MyDeckFileDto _value;
+  final MDFileDto _value;
   // ignore: unused_field
-  final $Res Function(MyDeckFileDto) _then;
+  final $Res Function(MDFileDto) _then;
 
   @override
   $Res call({
@@ -74,7 +72,7 @@ class _$MyDeckFileDtoCopyWithImpl<$Res>
 }
 
 abstract class _$MyDeckFileDtoCopyWith<$Res>
-    implements $MyDeckFileDtoCopyWith<$Res> {
+    implements $MDFileDtoCopyWith<$Res> {
   factory _$MyDeckFileDtoCopyWith(
           _MyDeckFileDto value, $Res Function(_MyDeckFileDto) then) =
       __$MyDeckFileDtoCopyWithImpl<$Res>;
@@ -85,8 +83,7 @@ abstract class _$MyDeckFileDtoCopyWith<$Res>
       @JsonKey(ignore: true) File file});
 }
 
-class __$MyDeckFileDtoCopyWithImpl<$Res>
-    extends _$MyDeckFileDtoCopyWithImpl<$Res>
+class __$MyDeckFileDtoCopyWithImpl<$Res> extends _$MDFileDtoCopyWithImpl<$Res>
     implements _$MyDeckFileDtoCopyWith<$Res> {
   __$MyDeckFileDtoCopyWithImpl(
       _MyDeckFileDto _value, $Res Function(_MyDeckFileDto) _then)
@@ -134,7 +131,7 @@ class _$_MyDeckFileDto extends _MyDeckFileDto {
 
   @override
   String toString() {
-    return 'MyDeckFileDto(id: $id, type: $type, file: $file)';
+    return 'MDFileDto(id: $id, type: $type, file: $file)';
   }
 
   @override
@@ -166,7 +163,7 @@ class _$_MyDeckFileDto extends _MyDeckFileDto {
   }
 }
 
-abstract class _MyDeckFileDto extends MyDeckFileDto {
+abstract class _MyDeckFileDto extends MDFileDto {
   const _MyDeckFileDto._() : super._();
   const factory _MyDeckFileDto(
       {@required String id,

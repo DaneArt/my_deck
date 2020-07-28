@@ -1,22 +1,16 @@
-import 'package:dartz/dartz.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:mydeck/models/entitites/deck.dart';
-
-part 'library_state.freezed.dart';
+part of 'library_bloc.dart';
 
 @freezed
 abstract class LibraryState with _$LibraryState {
   const factory LibraryState({
-    @required List<Deck> decksSourceList,
+    @required List<Deck> decks,
     @required bool isLoading,
-    @required Option<Either<String, List<Deck>>> trainStartFailureOrSuccess,
     @required Option<Either<String, Unit>> loadingFailureOrSuccess,
   }) = _LibraryState;
 
   factory LibraryState.initial() => LibraryState(
         loadingFailureOrSuccess: none(),
-        decksSourceList: <Deck>[],
-        trainStartFailureOrSuccess: none(),
+        decks: <Deck>[],
         isLoading: false,
       );
 }

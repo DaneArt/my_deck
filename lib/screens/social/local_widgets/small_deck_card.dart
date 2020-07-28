@@ -47,8 +47,8 @@ class SmallDeckCard extends StatelessWidget {
               children: <Widget>[
                 Image.file(
                     deck.avatar.value.fold(
-                        (failure) => failure.failedValue.image,
-                        (file) => file.image),
+                        (failure) => failure.failedValue.getFileOrCrash(),
+                        (file) => file.getFileOrCrash()),
                     width: screenSize.height / 4.5,
                     height: screenSize.height / 4.5,
                     fit: BoxFit.cover),

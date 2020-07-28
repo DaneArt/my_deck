@@ -42,15 +42,15 @@ class _InDeckCardViewState extends State<InDeckCardView>
     super.dispose();
   }
 
-  Widget createWidgetFromContent(MyDeckFile content) {
+  Widget createWidgetFromContent(MDFile content) {
     if (content is ImageFile) {
       return Image.file(
-        content.image,
+        content.getFileOrCrash(),
         fit: BoxFit.cover,
       );
     } else if (content is TextFile) {
       return Text(
-        content.text.readAsStringSync(),
+        content.getFileOrCrash().readAsStringSync(),
         style: TextStyle(fontSize: 18),
         textAlign: TextAlign.center,
       );

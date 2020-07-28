@@ -5,6 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mydeck/models/entitites/card.dart';
 import 'package:mydeck/models/entitites/my_deck_file.dart';
 import 'package:mydeck/models/entitites/unique_id.dart';
+import 'package:mydeck/utils/file_factory.dart';
 
 part 'add_card_bloc.freezed.dart';
 
@@ -47,14 +48,14 @@ class AddCardBloc extends Bloc<AddCardEvent, AddCardState> {
     }, setImageContent: (e) async* {
       final card = state.isQuestion
           ? state.sourceCards[state.currentCardIndex].copyWith(
-              question: MyDeckFile.image(
-                image: e.image,
+              question: ImageFile(
+                file: e.image,
                 uniqueId: UniqueId(),
               ),
             )
           : state.sourceCards[state.currentCardIndex].copyWith(
-              answer: MyDeckFile.image(
-                image: e.image,
+              answer: ImageFile(
+                file: e.image,
                 uniqueId: UniqueId(),
               ),
             );
@@ -63,17 +64,15 @@ class AddCardBloc extends Bloc<AddCardEvent, AddCardState> {
     }, setTextContent: (e) async* {
       final card = state.isQuestion
           ? state.sourceCards[state.currentCardIndex].copyWith(
-              question: MyDeckFile.text(
-                text: File(
-                    "CQ_${state.sourceCards[state.currentCardIndex].id}.txt"),
+              question: TextFile(
+                file: await TextFileFactory().create(UniqueId().getOrCrash),
                 uniqueId: UniqueId(),
               ),
             )
           : state.sourceCards[state.currentCardIndex].copyWith(
               answer: TextFile(
-                text: File(
-                    "CA_${state.sourceCards[state.currentCardIndex].id}.txt"),
-                id: UniqueId(),
+                file: await TextFileFactory().create(UniqueId().getOrCrash),
+                uniqueId: UniqueId(),
               ),
             );
       state.sourceCards[state.currentCardIndex] = card;

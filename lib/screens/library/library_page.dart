@@ -2,14 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:mydeck/blocs/add_deck/add_deck_bloc.dart';
 import 'package:mydeck/blocs/library/library_bloc.dart';
-import 'package:mydeck/blocs/library/library_event.dart';
-import 'package:mydeck/blocs/library/library_state.dart';
 import 'package:mydeck/utils/widget_extensions.dart';
-import 'package:mydeck/utils/custom_icons_icons.dart';
 import 'package:mydeck/utils/dependency_injection.dart';
-import 'package:mydeck/theme/my_deck_keys.dart';
 import 'package:mydeck/theme/my_deck_routes.dart';
 import 'package:mydeck/services/usecases/add_deck_usecase.dart';
 import 'package:mydeck/services/usecases/delete_deck_usecase.dart';
@@ -59,7 +56,7 @@ class _LibraryPageState extends State<LibraryPage>
   }
 
   void _loadDecksData(BuildContext context) {
-    BlocProvider.of<LibraryBloc>(context).add(GetAllUsersDecks());
+    BlocProvider.of<LibraryBloc>(context).add(LibraryEvent.loadUserLibrary());
   }
 
   Widget _decksList(List<Deck> decks) => CustomScrollView(
@@ -71,49 +68,19 @@ class _LibraryPageState extends State<LibraryPage>
                 (context, index) => DeckCard(
                       deck: decks[index],
                       isEditing: true,
-                      key: ValueKey(decks[index].deckId),
-                      onUpdate: (oldDeck, changedDeck) {
-                        context
-                            .bloc<LibraryBloc>()
-                            .add(LibraryEvent.updateDeck(deck: changedDeck));
-
-                        _showUndoSnackBar(
-                            S.of(context).library_deck_changed,
-                            () => context.bloc<LibraryBloc>().add(
-                                  LibraryEvent.undoEditing(oldDeck: oldDeck),
-                                ));
-                      },
-                      onDelete: () {
-                        context
-                            .bloc<LibraryBloc>()
-                            .add(LibraryEvent.deleteDeck(deck: decks[index]));
-                        _showUndoSnackBar(
-                          S.of(context).library_deck_deleted,
-                          () => context.bloc<LibraryBloc>().add(
-                              LibraryEvent.undoDeleting(deck: decks[index])),
-                        );
-                      },
+                      key: ValueKey(decks[index].deckId.getOrCrash),
                     ),
                 childCount: decks.length),
           ),
         ],
       );
 
-  void _showUndoSnackBar(String title, Function() action) {
-    _scaffoldKey.currentState.hideCurrentSnackBar();
-    _scaffoldKey.currentState.showSnackBar(UndoSnackBar(
-      title: title,
-      undoCallback: action,
-    ));
-  }
-
   BlocBuilder<LibraryBloc, LibraryState> _buildBody(BuildContext context) {
     return BlocBuilder<LibraryBloc, LibraryState>(
       builder: (context, state) {
         if (state.isLoading) {
           return Center(child: CircularProgressIndicator());
-        } else if (state.decksSourceList.isEmpty ||
-            state.loadingFailureOrSuccess.isSome()) {
+        } else if (state.decks.isEmpty) {
           return DeckLibraryIdleView(
             refreshKey: _refreshIndicatorKey,
             onRefresh: () => _loadDecksData(context),
@@ -126,7 +93,7 @@ class _LibraryPageState extends State<LibraryPage>
             _loadDecksData(context);
             return Future.value();
           },
-          child: _decksList(state.decksSourceList),
+          child: _decksList(state.decks),
         );
       },
     );
@@ -146,14 +113,14 @@ class _LibraryPageState extends State<LibraryPage>
                 goal: AddDeckGoal.create,
               ),
             )));
-    if (newDeck != null && newDeck is Deck) {
-      context.bloc<LibraryBloc>().add(LibraryEvent.addDeck(deck: newDeck));
-      _showUndoSnackBar(
-          S.of(context).library_deck_created,
-          () => context
-              .bloc<LibraryBloc>()
-              .add(LibraryEvent.undoAdding(deck: newDeck)));
-    }
+    // if (newDeck != null && newDeck is Deck) {
+    //   context.bloc<LibraryBloc>().add(LibraryEvent.addDeck(deck: newDeck));
+    //   _showUndoSnackBar(
+    //       S.of(context).library_deck_created,
+    //       () => context
+    //           .bloc<LibraryBloc>()
+    //           .add(LibraryEvent.undoAdding(deck: newDeck)));
+    // }
   }
 
   @override
@@ -193,56 +160,34 @@ class _LibraryPageState extends State<LibraryPage>
       ),
       body: SafeArea(
         top: true,
-        child: BlocListener<LibraryBloc, LibraryState>(
-          listener: (context, state) async {
-            state.trainStartFailureOrSuccess.fold(
-                () {},
-                (some) => some.fold((failure) {
-                      Scaffold.of(context).hideCurrentSnackBar();
-                      Scaffold.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(S.of(context).train_no_trainable_decks),
-                          action: SnackBarAction(
-                            label: S.of(context).editor_create_deck,
-                            onPressed: () async => addDeck(context),
-                          ),
-                        ),
-                      );
-                    }, (result) async {
-                      context
-                          .bloc<LibraryBloc>()
-                          .add(LibraryEvent.trainStarted());
-                      final trainResult = await Navigator.of(context)
-                          .pushNamed(MyDeckRoutes.train, arguments: result);
-                    }));
-          },
-          child: UserConfig.currentUser == null
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Присоединитесь, чтобы наполнить свою библиотеку колодами.",
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyText2,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    RaisedButton(
-                        color: Theme.of(context).accentColor,
-                        child: Text(
-                          "Присоединиться".toUpperCase(),
-                          style: Theme.of(context).textTheme.button,
-                        ),
-                        onPressed: () {
-                          context.navigator.pushNamed(MyDeckRoutes.login);
-                          //TODO: implement registration
-                        }),
-                  ],
-                )
-              : _buildBody(context),
-        ),
+        child:
+            //  UserConfig.currentUser == null
+            //     ? Column(
+            //         mainAxisAlignment: MainAxisAlignment.center,
+            //         children: <Widget>[
+            //           Padding(
+            //             padding: const EdgeInsets.all(8.0),
+            //             child: Text(
+            //               "Присоединитесь, чтобы наполнить свою библиотеку колодами.",
+            //               textAlign: TextAlign.center,
+            //               style: Theme.of(context).textTheme.bodyText2,
+            //             ),
+            //           ),
+            //           SizedBox(height: 8),
+            //           RaisedButton(
+            //               color: Theme.of(context).accentColor,
+            //               child: Text(
+            //                 "Присоединиться".toUpperCase(),
+            //                 style: Theme.of(context).textTheme.button,
+            //               ),
+            //               onPressed: () {
+            //                 context.navigator.pushNamed(MyDeckRoutes.login);
+            //                 //TODO: implement registration
+            //               }),
+            //         ],
+            //       )
+            //     :
+            _buildBody(context),
       ),
     );
   }
