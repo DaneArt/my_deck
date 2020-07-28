@@ -180,7 +180,7 @@ class _CardEditorState extends State<CardEditor> {
           ? ImageCardContentWidget(imageFile: card.question)
           : TextCardWidget(
               key: Key('CQue ${card.id}'),
-              contentText: card.question.getFileOrCrash().readAsStringSync(),
+              content: card.question,
               isEditing: true,
               onTextChanged: (input) {
                 context.bloc<AddCardBloc>().add(
@@ -194,7 +194,7 @@ class _CardEditorState extends State<CardEditor> {
           ? ImageCardContentWidget(imageFile: card.answer)
           : TextCardWidget(
               key: Key('CAns ${card.id}'),
-              contentText: card.answer.getFileOrCrash().readAsStringSync(),
+              content: card.answer,
               isEditing: true,
               onTextChanged: (input) {
                 context.bloc<AddCardBloc>().add(

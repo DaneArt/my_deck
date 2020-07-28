@@ -37,9 +37,9 @@ abstract class MDFileDto implements _$MDFileDto {
 
   MDFile toDomain() {
     if (type == ContentType.IMAGE) {
-      return MyDeckFile.image(image: file, uniqueId: UniqueId.fromString(id));
+      return ImageFile(file: file, uniqueId: UniqueId.fromString(id));
     } else {
-      return MyDeckFile.text(text: file, uniqueId: UniqueId.fromString(id));
+      return TextFile(file: file, uniqueId: UniqueId.fromString(id));
     }
   }
 }

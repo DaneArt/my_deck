@@ -186,7 +186,7 @@ class _DismissibleCardState extends State<DismissibleCard>
               heigth: MediaQuery.of(context).size.height,
             )
           : TextCardWidget(
-              contentText: content.getFileOrCrash().readAsStringSync(),
+              content: content,
               isEditing: false,
             );
   @override

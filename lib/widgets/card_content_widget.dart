@@ -56,7 +56,8 @@ class _TextCardWidgetState extends State<TextCardWidget> {
               ? EnsureVisibleWhenFocused(
                   focusNode: contentFocusNode,
                   child: TextFormField(
-                    initialValue: widget.content.text.readAsStringSync(),
+                    initialValue:
+                        widget.content.getFileOrCrash().readAsStringSync(),
                     textInputAction: TextInputAction.newline,
                     focusNode: contentFocusNode,
                     textAlign: TextAlign.center,
@@ -83,15 +84,18 @@ class _TextCardWidgetState extends State<TextCardWidget> {
                   ),
                 )
               : Text(
-                  widget.content.text.readAsStringSync(),
+                  widget.content.getFileOrCrash().readAsStringSync(),
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
                       fontSize: autoSizeFont(
-                          textLength:
-                              widget.content.text.readAsStringSync().length,
+                          textLength: widget.content
+                              .getFileOrCrash()
+                              .readAsStringSync()
+                              .length,
                           parentArea: ((screenSize.width * 0.9 - 32 * 2) *
                                   (128 *
-                                      widget.content.text
+                                      widget.content
+                                          .getFileOrCrash()
                                           .readAsStringSync()
                                           .length /
                                       30))

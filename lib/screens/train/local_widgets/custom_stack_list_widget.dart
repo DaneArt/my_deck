@@ -67,7 +67,7 @@ class _CustomStackListState extends State<CustomStackList>
               heigth: MediaQuery.of(context).size.height,
             )
           : TextCardWidget(
-              contentText: content.getFileOrCrash().readAsStringSync(),
+              content: content,
               isEditing: false,
             );
 

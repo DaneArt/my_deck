@@ -537,16 +537,6 @@ class _$QuestionChangedCopyWithImpl<$Res>
           newQuestion == freezed ? _value.newQuestion : newQuestion as MDFile,
     ));
   }
-
-  @override
-  $MyDeckFileCopyWith<$Res> get newQuestion {
-    if (_value.newQuestion == null) {
-      return null;
-    }
-    return $MyDeckFileCopyWith<$Res>(_value.newQuestion, (value) {
-      return _then(_value.copyWith(newQuestion: value));
-    });
-  }
 }
 
 class _$QuestionChanged implements QuestionChanged {
@@ -694,16 +684,6 @@ class _$AnswerChangedCopyWithImpl<$Res> extends _$AddCardEventCopyWithImpl<$Res>
     return _then(AnswerChanged(
       newAnswer: newAnswer == freezed ? _value.newAnswer : newAnswer as MDFile,
     ));
-  }
-
-  @override
-  $MyDeckFileCopyWith<$Res> get newAnswer {
-    if (_value.newAnswer == null) {
-      return null;
-    }
-    return $MyDeckFileCopyWith<$Res>(_value.newAnswer, (value) {
-      return _then(_value.copyWith(newAnswer: value));
-    });
   }
 }
 
