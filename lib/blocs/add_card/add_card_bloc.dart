@@ -70,10 +70,10 @@ class AddCardBloc extends Bloc<AddCardEvent, AddCardState> {
               ),
             )
           : state.sourceCards[state.currentCardIndex].copyWith(
-              answer: MyDeckFile.text(
+              answer: TextFile(
                 text: File(
                     "CA_${state.sourceCards[state.currentCardIndex].id}.txt"),
-                uniqueId: UniqueId(),
+                id: UniqueId(),
               ),
             );
       state.sourceCards[state.currentCardIndex] = card;

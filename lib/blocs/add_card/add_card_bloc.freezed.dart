@@ -516,8 +516,6 @@ abstract class $QuestionChangedCopyWith<$Res> {
           QuestionChanged value, $Res Function(QuestionChanged) then) =
       _$QuestionChangedCopyWithImpl<$Res>;
   $Res call({MyDeckFile newQuestion});
-
-  $MyDeckFileCopyWith<$Res> get newQuestion;
 }
 
 class _$QuestionChangedCopyWithImpl<$Res>
@@ -539,16 +537,6 @@ class _$QuestionChangedCopyWithImpl<$Res>
           ? _value.newQuestion
           : newQuestion as MyDeckFile,
     ));
-  }
-
-  @override
-  $MyDeckFileCopyWith<$Res> get newQuestion {
-    if (_value.newQuestion == null) {
-      return null;
-    }
-    return $MyDeckFileCopyWith<$Res>(_value.newQuestion, (value) {
-      return _then(_value.copyWith(newQuestion: value));
-    });
   }
 }
 
@@ -680,8 +668,6 @@ abstract class $AnswerChangedCopyWith<$Res> {
           AnswerChanged value, $Res Function(AnswerChanged) then) =
       _$AnswerChangedCopyWithImpl<$Res>;
   $Res call({MyDeckFile newAnswer});
-
-  $MyDeckFileCopyWith<$Res> get newAnswer;
 }
 
 class _$AnswerChangedCopyWithImpl<$Res> extends _$AddCardEventCopyWithImpl<$Res>
@@ -701,16 +687,6 @@ class _$AnswerChangedCopyWithImpl<$Res> extends _$AddCardEventCopyWithImpl<$Res>
       newAnswer:
           newAnswer == freezed ? _value.newAnswer : newAnswer as MyDeckFile,
     ));
-  }
-
-  @override
-  $MyDeckFileCopyWith<$Res> get newAnswer {
-    if (_value.newAnswer == null) {
-      return null;
-    }
-    return $MyDeckFileCopyWith<$Res>(_value.newAnswer, (value) {
-      return _then(_value.copyWith(newAnswer: value));
-    });
   }
 }
 

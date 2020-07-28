@@ -39,9 +39,6 @@ abstract class $CardCopyWith<$Res> {
   factory $CardCopyWith(Card value, $Res Function(Card) then) =
       _$CardCopyWithImpl<$Res>;
   $Res call({UniqueId id, MyDeckFile answer, MyDeckFile question});
-
-  $MyDeckFileCopyWith<$Res> get answer;
-  $MyDeckFileCopyWith<$Res> get question;
 }
 
 class _$CardCopyWithImpl<$Res> implements $CardCopyWith<$Res> {
@@ -63,26 +60,6 @@ class _$CardCopyWithImpl<$Res> implements $CardCopyWith<$Res> {
       question: question == freezed ? _value.question : question as MyDeckFile,
     ));
   }
-
-  @override
-  $MyDeckFileCopyWith<$Res> get answer {
-    if (_value.answer == null) {
-      return null;
-    }
-    return $MyDeckFileCopyWith<$Res>(_value.answer, (value) {
-      return _then(_value.copyWith(answer: value));
-    });
-  }
-
-  @override
-  $MyDeckFileCopyWith<$Res> get question {
-    if (_value.question == null) {
-      return null;
-    }
-    return $MyDeckFileCopyWith<$Res>(_value.question, (value) {
-      return _then(_value.copyWith(question: value));
-    });
-  }
 }
 
 abstract class _$CardCopyWith<$Res> implements $CardCopyWith<$Res> {
@@ -90,11 +67,6 @@ abstract class _$CardCopyWith<$Res> implements $CardCopyWith<$Res> {
       __$CardCopyWithImpl<$Res>;
   @override
   $Res call({UniqueId id, MyDeckFile answer, MyDeckFile question});
-
-  @override
-  $MyDeckFileCopyWith<$Res> get answer;
-  @override
-  $MyDeckFileCopyWith<$Res> get question;
 }
 
 class __$CardCopyWithImpl<$Res> extends _$CardCopyWithImpl<$Res>

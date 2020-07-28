@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:mydeck/errors/exception.dart';
 import 'package:mydeck/errors/storage_failure.dart';
@@ -10,7 +12,7 @@ import 'package:mydeck/utils/network_connection.dart';
 
 abstract class FileRepository {
   Future<Option<StorageFailure>> addFile(MyDeckFile file);
-  Future<Either<StorageFailure, MyDeckFile>> getFileById(UniqueId id);
+  Future<Either<StorageFailure, File>> getFileById(UniqueId id);
 }
 
 class FileRepositoryImpl implements FileRepository {
@@ -37,13 +39,13 @@ class FileRepositoryImpl implements FileRepository {
   }
 
   @override
-  Future<Either<StorageFailure, MyDeckFile>> getFileById(UniqueId id) async {
+  Future<Either<StorageFailure, File>> getFileById(UniqueId id) async {
     var cachedFile = await fileLocalDataSource.getFileById(id.getOrCrash);
     if (cachedFile == null && await networkConnection.isConnected) {
       cachedFile = await fileNetworkDataSource.getFileById(id.getOrCrash);
       return cachedFile == null
           ? left(StorageFailure.getFailure())
-          : right(cachedFile.toDomain());
+          : right(cachedFile.file);
     } else if (cachedFile != null) {
       networkConnection.isConnected.then((connected) async {
         if (connected) {
@@ -52,7 +54,7 @@ class FileRepositoryImpl implements FileRepository {
           fileLocalDataSource.addFile(netFile);
         }
       });
-      return right(cachedFile.toDomain());
+      return right(cachedFile.file);
     } else {
       return left(StorageFailure.getFailure());
     }

@@ -176,24 +176,24 @@ class _CardEditorState extends State<CardEditor> {
       );
 
   Widget _renderQuestion(BuildContext context, Entity.Card card) =>
-      card.question.map(
-        image: (image) => ImageCardContentWidget(imageFile: image.image),
-        text: (text) => TextCardWidget(
-          key: Key('CQue ${card.id}'),
-          content: text,
-          isEditing: true,
-          onTextChanged: (input) {
-            context.bloc<AddCardBloc>().add(
-                  AddCardEvent.questionChanged(
-                    newQuestion: text.copyWith(
-                      text: File("CQue ${card.id}")
-                        ..writeAsStringSync(input, mode: FileMode.writeOnly),
-                    ),
-                  ),
-                );
-          },
-        ),
-      );
+      card.question is ImageFile
+          ? ImageCardContentWidget(imageFile: card.question.file)
+          : TextCardWidget(
+              key: Key('CQue ${card.id}'),
+              content: card.question,
+              isEditing: true,
+              onTextChanged: (input) {
+                context.bloc<AddCardBloc>().add(
+                      AddCardEvent.questionChanged(
+                        newQuestion: text.copyWith(
+                          text: File("CQue ${card.id}")
+                            ..writeAsStringSync(input,
+                                mode: FileMode.writeOnly),
+                        ),
+                      ),
+                    );
+              },
+            );
 
   Widget _renderAnswer(BuildContext context, Entity.Card card) =>
       card.question.map(
