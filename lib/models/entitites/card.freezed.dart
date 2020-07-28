@@ -60,6 +60,26 @@ class _$CardCopyWithImpl<$Res> implements $CardCopyWith<$Res> {
       question: question == freezed ? _value.question : question as MDFile,
     ));
   }
+
+  @override
+  $MyDeckFileCopyWith<$Res> get answer {
+    if (_value.answer == null) {
+      return null;
+    }
+    return $MyDeckFileCopyWith<$Res>(_value.answer, (value) {
+      return _then(_value.copyWith(answer: value));
+    });
+  }
+
+  @override
+  $MyDeckFileCopyWith<$Res> get question {
+    if (_value.question == null) {
+      return null;
+    }
+    return $MyDeckFileCopyWith<$Res>(_value.question, (value) {
+      return _then(_value.copyWith(question: value));
+    });
+  }
 }
 
 abstract class _$CardCopyWith<$Res> implements $CardCopyWith<$Res> {

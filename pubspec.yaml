@@ -32,7 +32,6 @@ dependencies:
   # Functional programming thingies
   dartz: ^0.8.9
   rxdart: ^0.22.0
-  lazy_evaluation: ^0.0.6+3
   # Remote API
   google_sign_in: ^4.4.4
   data_connection_checker: ^0.3.4

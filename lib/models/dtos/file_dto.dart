@@ -9,21 +9,6 @@ part 'file_dto.g.dart';
 
 enum ContentType { TEXT, AUDIO, IMAGE }
 
-extension ContentExt on ContentType {
-  String extension() {
-    switch (this) {
-      case ContentType.TEXT:
-        return "txt";
-        break;
-      case ContentType.IMAGE:
-        return "jpg";
-        break;
-      default:
-        return "txt";
-    }
-  }
-}
-
 @freezed
 abstract class MDFileDto implements _$MDFileDto {
   const MDFileDto._();
@@ -52,9 +37,9 @@ abstract class MDFileDto implements _$MDFileDto {
 
   MDFile toDomain() {
     if (type == ContentType.IMAGE) {
-      return ImageFile(file: file, uniqueId: UniqueId.fromString(id));
+      return MyDeckFile.image(image: file, uniqueId: UniqueId.fromString(id));
     } else {
-      return TextFile(file: file, uniqueId: UniqueId.fromString(id));
+      return MyDeckFile.text(text: file, uniqueId: UniqueId.fromString(id));
     }
   }
 }

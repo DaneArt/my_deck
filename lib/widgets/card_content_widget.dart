@@ -8,13 +8,13 @@ import 'package:mydeck/models/entitites/my_deck_file.dart';
 import 'package:mydeck/widgets/ensure_field_visibility.dart';
 
 class TextCardWidget extends StatefulWidget {
-  final String contentText;
+  final TextFile content;
   final Function(String text) onTextChanged;
   final bool isEditing;
 
   const TextCardWidget({
     Key key,
-    this.contentText,
+    this.content,
     this.onTextChanged,
     this.isEditing,
   }) : super(key: key);
@@ -28,8 +28,6 @@ class _TextCardWidgetState extends State<TextCardWidget> {
   GlobalKey<FormFieldState> formState;
   final area_lost_percent = 5;
   final kCharactersLimit = 210;
-
-  String get contentText => widget.contentText;
 
   @override
   void initState() {
@@ -58,7 +56,7 @@ class _TextCardWidgetState extends State<TextCardWidget> {
               ? EnsureVisibleWhenFocused(
                   focusNode: contentFocusNode,
                   child: TextFormField(
-                    initialValue: contentText,
+                    initialValue: widget.content.text.readAsStringSync(),
                     textInputAction: TextInputAction.newline,
                     focusNode: contentFocusNode,
                     textAlign: TextAlign.center,
@@ -85,13 +83,18 @@ class _TextCardWidgetState extends State<TextCardWidget> {
                   ),
                 )
               : Text(
-                  contentText,
+                  widget.content.text.readAsStringSync(),
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
                       fontSize: autoSizeFont(
-                          textLength: contentText.length,
+                          textLength:
+                              widget.content.text.readAsStringSync().length,
                           parentArea: ((screenSize.width * 0.9 - 32 * 2) *
-                                  (128 * contentText.length / 30))
+                                  (128 *
+                                      widget.content.text
+                                          .readAsStringSync()
+                                          .length /
+                                      30))
                               .toInt())),
                 ),
         ),
