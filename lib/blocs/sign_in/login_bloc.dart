@@ -11,26 +11,26 @@ import 'package:mydeck/models/value_objects/email_address.dart';
 import 'package:mydeck/models/value_objects/login.dart';
 import 'package:mydeck/models/value_objects/password.dart';
 
-part 'sign_in_event.dart';
-part 'sign_in_state.dart';
-part "sign_in_bloc.freezed.dart";
+part 'login_event.dart';
+part 'login_state.dart';
+part 'login_bloc.freezed.dart';
 
-class SignInBloc extends Bloc<SignInEvent, SignInState> {
+class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final IAuthFacade authFacade;
 
   EmailAddress _userEmail = EmailAddress('');
   Login _userLogin = Login('');
   Password _userPassword = Password('');
 
-  Stack<SignInState> _statesStack = Stack()..push(SignInState.initial());
+  Stack<LoginState> _statesStack = Stack()..push(LoginState.initial());
 
-  SignInBloc(this.authFacade);
+  LoginBloc(this.authFacade);
   @override
-  SignInState get initialState => SignInState.initial();
+  LoginState get initialState => LoginState.initial();
 
   @override
-  Stream<SignInState> mapEventToState(
-    SignInEvent event,
+  Stream<LoginState> mapEventToState(
+    LoginEvent event,
   ) async* {
     yield* event.map(
       emailOrLoginChanged: (e) async* {
@@ -40,13 +40,13 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
 
           final topState = _statesStack.top();
 
-          yield (topState as _SignInState).copyWith(emailOrLogin: _userLogin);
+          yield (topState as _LoginState).copyWith(emailOrLogin: _userLogin);
         }, (value) async* {
           _userEmail = EmailAddress(value);
 
           final topState = _statesStack.top();
 
-          yield (topState as _SignInState).copyWith(emailOrLogin: _userEmail);
+          yield (topState as _LoginState).copyWith(emailOrLogin: _userEmail);
         });
       },
       emailChanged: (e) async* {
@@ -73,28 +73,28 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         }
       },
       signInWithGooglePressed: (e) async* {
-        yield (_statesStack.top() as _SignInState).copyWith(
+        yield (_statesStack.top() as _LoginState).copyWith(
           isSubmitting: true,
           authFailureOrSuccessOption: none(),
         );
 
         final authResult = await authFacade.signInWithGoogle();
 
-        yield (_statesStack.top() as _SignInState).copyWith(
+        yield (_statesStack.top() as _LoginState).copyWith(
           isSubmitting: false,
           authFailureOrSuccessOption: some(authResult),
         );
       },
       signInPressed: (e) async* {
         if (_userEmail.isValid && _userPassword.isValid) {
-          yield (_statesStack.top() as _SignInState).copyWith(
+          yield (_statesStack.top() as _LoginState).copyWith(
               emailOrLogin: _userEmail,
               password: _userPassword,
               showErrorMessages: false,
               isSubmitting: false,
               authFailureOrSuccessOption: some(right(unit)));
         } else {
-          yield (_statesStack.top() as _SignInState).copyWith(
+          yield (_statesStack.top() as _LoginState).copyWith(
               emailOrLogin: _userLogin,
               password: _userPassword,
               showErrorMessages: false,
@@ -105,14 +105,14 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       signUpPressed: (e) async* {
         if (_userLogin.isValid) {
           _userEmail = EmailAddress('');
-          _statesStack.push(SignInState.emailInput(
+          _statesStack.push(LoginState.emailInput(
               emailAddress: _userEmail,
               showErrorMessages: false,
               isSubmitting: false,
               authFailureOrSuccessOption: none()));
         } else if (_userEmail.isValid) {
           _userLogin = Login('');
-          _statesStack.push(SignInState.loginInput(
+          _statesStack.push(LoginState.loginInput(
               login: _userLogin,
               showErrorMessages: false,
               isSubmitting: false,
@@ -131,7 +131,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
           //     authFailureOrSuccessOption: none()));
         } else {
           _userEmail = EmailAddress('');
-          _statesStack.push(SignInState.emailInput(
+          _statesStack.push(LoginState.emailInput(
               emailAddress: _userEmail,
               showErrorMessages: false,
               isSubmitting: false,
@@ -150,7 +150,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
           //     authFailureOrSuccessOption: none()));
         } else {
           _userLogin = Login('');
-          _statesStack.push(SignInState.loginInput(
+          _statesStack.push(LoginState.loginInput(
               login: _userLogin,
               showErrorMessages: false,
               isSubmitting: false,
@@ -173,14 +173,14 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         if (_statesStack.isNotEmpty) {
           yield _statesStack.top();
         } else {
-          _statesStack.push(SignInState.initial());
+          _statesStack.push(LoginState.initial());
           yield _statesStack.top();
         }
       },
     );
   }
 
-  Stream<SignInState> updateTopStatePassword() async* {
+  Stream<LoginState> updateTopStatePassword() async* {
     final topState = _statesStack.top();
     // if (topState is PasswordInput) {
     //   yield topState.copyWith(

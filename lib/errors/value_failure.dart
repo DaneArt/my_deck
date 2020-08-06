@@ -43,6 +43,9 @@ abstract class ValueFailure<T> with _$ValueFailure<T> {
   factory ValueFailure.wrongFileExtension({@required T failedValue}) =
       WrongFileExtension<T>;
 
+  factory ValueFailure.longDeckTitle({@required T failedValue}) =
+      LongDeckTitle<T>;
+
   @late
   String get message => this.map(
         invalidEmail: (value) => S.current.error_value_email_incorrect,
@@ -57,5 +60,6 @@ abstract class ValueFailure<T> with _$ValueFailure<T> {
         expiredToken: (value) => S.current.error_auth_invalid_session,
         invalidUniqueId: (value) => S.current.error_auth_invalid_session,
         wrongFileExtension: (value) => S.current.error_value_file_inexists,
+        longDeckTitle: (value) => ' ',
       );
 }

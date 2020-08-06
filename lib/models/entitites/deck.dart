@@ -23,6 +23,7 @@ abstract class Deck implements _$Deck {
     @required UserModel author,
     @required DeckCategory category,
     @required bool isPrivate,
+    @required bool availableQuickTrain,
     int cardsCount,
     int subscribersCount,
     List<UserModel> subscribers,
@@ -30,11 +31,13 @@ abstract class Deck implements _$Deck {
   }) = _Deck;
 
   factory Deck.basic() => Deck(
-      author: null,
-      avatar: null,
-      category: null,
-      deckId: null,
-      description: null,
-      isPrivate: null,
-      title: null);
+        author: UserConfig.currentUser ?? UserModel('', '', '', ''),
+        avatar: DeckAvatar.fromFile(null),
+        category: DeckCategory(categoryName: 'Others'),
+        deckId: UniqueId(),
+        description: DeckDescription(''),
+        isPrivate: false,
+        title: DeckTitle(''),
+        availableQuickTrain: true,
+      );
 }

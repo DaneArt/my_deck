@@ -25,11 +25,7 @@ class SmallDeckCard extends StatelessWidget {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => BlocProvider(
                     create: (context) => AddDeckBloc(
-                      addDeckUseCase: sl.get<AddDeckUseCase>(),
                       deck: deck,
-                      deleteDeckUsecase: sl.get<DeleteDeckUseCase>(),
-                      saveDeckChangesUsecase: sl.get<SaveDeckChangesUsecase>(),
-                      goal: AddDeckGoal.lookup,
                       uploadOnlineDeckUsecase:
                           sl.get<UploadOnlineDeckUsecase>(),
                     ),

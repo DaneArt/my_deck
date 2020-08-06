@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:jose/jose.dart';
 import 'package:mydeck/errors/value_failure.dart';
-import 'package:mydeck/models/entitites/my_deck_file.dart';
+import 'package:mydeck/models/entitites/md_file.dart';
 import 'package:mydeck/models/entitites/unique_id.dart';
 import 'package:mydeck/utils/file_extensions.dart';
 
@@ -59,8 +59,8 @@ Either<ValueFailure<String>, String> validateDeckDescription(String input) {
 }
 
 Either<ValueFailure<String>, String> validateDeckTitle(String input) {
-  if (input.length <= 6) {
-    return left(ValueFailure.shortDeckTitle(failedValue: input));
+  if (input.length > 30) {
+    return left(ValueFailure.longDeckTitle(failedValue: input));
   } else if (_kTitleRegexp.hasMatch(input)) {
     return left(ValueFailure.invalidDeckTitle(failedValue: input));
   } else {

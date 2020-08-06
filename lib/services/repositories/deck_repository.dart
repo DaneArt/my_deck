@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:mydeck/errors/exception.dart';
 import 'package:mydeck/errors/storage_failure.dart';
 import 'package:mydeck/models/dtos/file_dto.dart';
-import 'package:mydeck/models/entitites/my_deck_file.dart';
+import 'package:mydeck/models/entitites/md_file.dart';
 import 'package:mydeck/models/value_objects/deck_avatar.dart';
 import 'package:mydeck/models/value_objects/deck_description.dart';
 import 'package:mydeck/models/value_objects/deck_title.dart';
@@ -70,13 +70,10 @@ class DeckRepositoryImpl implements DeckRepository {
   Future<Either<StorageFailure, Deck>> getDeckById(UniqueId id) async {
     try {
       if (await networkConnection.isConnected) {
-        return id.value.fold((failure) => Left(StorageFailure.getFailure()),
-            (uuid) async {
-          final deck = await networkDataSource.getDeckById(id.getOrCrash);
-          final deckDto = deck.deck;
-          final deckAuthor = deck.user;
-          return right(deckDto.toDomain().copyWith(author: deckAuthor));
-        });
+        final deck = await networkDataSource.getDeckById(id.getOrCrash);
+        final deckDto = deck.deck;
+        final deckAuthor = deck.user;
+        return right(deckDto.toDomain().copyWith(author: deckAuthor));
       } else {
         return left(StorageFailure.networkFailure());
       }
@@ -180,15 +177,15 @@ class FakeDeckRepository implements DeckRepository {
   ];
 
   @override
-  Future<Either<StorageFailure<Deck>, Deck>> addDeck(Deck deck) {
+  Future<Either<StorageFailure<Deck>, Deck>> addDeck(Deck deck) async {
     // TODO: implement addDeck
-    throw UnimplementedError();
+    return left(StorageFailure.networkFailure());
   }
 
   @override
-  Future<Option<StorageFailure<Deck>>> deleteDeck(Deck deck) {
+  Future<Option<StorageFailure<Deck>>> deleteDeck(Deck deck) async {
     // TODO: implement deleteDeck
-    throw UnimplementedError();
+    return some(StorageFailure.networkFailure());
   }
 
   @override
@@ -196,7 +193,7 @@ class FakeDeckRepository implements DeckRepository {
     final List<Deck> result = [];
     for (int i = 0; i <= Random().nextInt(20); i++) {
       final deckAvatar = ImageFile(uniqueId: UniqueId());
-      await fileRepository.getFileByMeta(UniqueId(), ContentType.TEXT);
+      await fileRepository.getFileByMeta(UniqueId(), FileType.TEXT);
       result.add(Deck(
           author: UserModel(UniqueId().getOrCrash, 'UserMuser', 'he@gmail.com',
               'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQbGZWvtAbu8uQvxvm7LBZQHNDJU5SZJhAjqw&usqp=CAU'),
@@ -210,28 +207,29 @@ class FakeDeckRepository implements DeckRepository {
           subscribers: [],
           subscribersCount: Random().nextInt(100),
           cardsList: [],
-          title: DeckTitle(
-              _deckTitles[Random().nextInt(_deckTitles.length - 1)])));
+          title:
+              DeckTitle(_deckTitles[Random().nextInt(_deckTitles.length - 1)]),
+          availableQuickTrain: true));
     }
     return right(result);
   }
 
   @override
-  Future<Either<StorageFailure, Deck>> getDeckById(UniqueId deckId) {
+  Future<Either<StorageFailure, Deck>> getDeckById(UniqueId deckId) async {
     // TODO: implement getDeckById
-    throw UnimplementedError();
+    return left(StorageFailure.networkFailure());
   }
 
   @override
   Future<Either<StorageFailure, List<Deck>>> loadDecksPageForCategory(
-      DeckCategory deckCategory, int pageCount) {
+      DeckCategory deckCategory, int pageCount) async {
     // TODO: implement loadDecksPageForCategory
-    throw UnimplementedError();
+    return left(StorageFailure.networkFailure());
   }
 
   @override
-  Future<Either<StorageFailure<Deck>, Deck>> updateDeck(Deck deck) {
+  Future<Either<StorageFailure<Deck>, Deck>> updateDeck(Deck deck) async {
     // TODO: implement updateDeck
-    throw UnimplementedError();
+    return left(StorageFailure.networkFailure());
   }
 }

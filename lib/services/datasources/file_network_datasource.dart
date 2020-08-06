@@ -53,7 +53,7 @@ class FakeFileNetworkDataSource implements FileNetworkDataSource {
       var response = await get(url);
       File file2 = await ImageFileFactory().create(id);
       file2.writeAsBytesSync(response.bodyBytes);
-      return MDFileDto(file: file2, id: id, type: ContentType.IMAGE);
+      return MDFileDto(file: file2, id: id, type: FileType.IMAGE);
     } catch (e) {
       throw NetworkException();
     }

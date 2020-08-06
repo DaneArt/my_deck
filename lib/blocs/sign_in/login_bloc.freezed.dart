@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
 
-part of 'sign_in_bloc.dart';
+part of 'login_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -9,8 +9,8 @@ part of 'sign_in_bloc.dart';
 
 T _$identity<T>(T value) => value;
 
-class _$SignInEventTearOff {
-  const _$SignInEventTearOff();
+class _$LoginEventTearOff {
+  const _$LoginEventTearOff();
 
   EmailOrLoginChanged emailOrLoginChanged(String emailOrLoginStr) {
     return EmailOrLoginChanged(
@@ -74,9 +74,9 @@ class _$SignInEventTearOff {
 }
 
 // ignore: unused_element
-const $SignInEvent = _$SignInEventTearOff();
+const $LoginEvent = _$LoginEventTearOff();
 
-mixin _$SignInEvent {
+mixin _$LoginEvent {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result emailOrLoginChanged(String emailOrLoginStr),
@@ -148,18 +148,18 @@ mixin _$SignInEvent {
   });
 }
 
-abstract class $SignInEventCopyWith<$Res> {
-  factory $SignInEventCopyWith(
-          SignInEvent value, $Res Function(SignInEvent) then) =
-      _$SignInEventCopyWithImpl<$Res>;
+abstract class $LoginEventCopyWith<$Res> {
+  factory $LoginEventCopyWith(
+          LoginEvent value, $Res Function(LoginEvent) then) =
+      _$LoginEventCopyWithImpl<$Res>;
 }
 
-class _$SignInEventCopyWithImpl<$Res> implements $SignInEventCopyWith<$Res> {
-  _$SignInEventCopyWithImpl(this._value, this._then);
+class _$LoginEventCopyWithImpl<$Res> implements $LoginEventCopyWith<$Res> {
+  _$LoginEventCopyWithImpl(this._value, this._then);
 
-  final SignInEvent _value;
+  final LoginEvent _value;
   // ignore: unused_field
-  final $Res Function(SignInEvent) _then;
+  final $Res Function(LoginEvent) _then;
 }
 
 abstract class $EmailOrLoginChangedCopyWith<$Res> {
@@ -170,7 +170,7 @@ abstract class $EmailOrLoginChangedCopyWith<$Res> {
 }
 
 class _$EmailOrLoginChangedCopyWithImpl<$Res>
-    extends _$SignInEventCopyWithImpl<$Res>
+    extends _$LoginEventCopyWithImpl<$Res>
     implements $EmailOrLoginChangedCopyWith<$Res> {
   _$EmailOrLoginChangedCopyWithImpl(
       EmailOrLoginChanged _value, $Res Function(EmailOrLoginChanged) _then)
@@ -199,7 +199,7 @@ class _$EmailOrLoginChanged implements EmailOrLoginChanged {
 
   @override
   String toString() {
-    return 'SignInEvent.emailOrLoginChanged(emailOrLoginStr: $emailOrLoginStr)';
+    return 'LoginEvent.emailOrLoginChanged(emailOrLoginStr: $emailOrLoginStr)';
   }
 
   @override
@@ -340,7 +340,7 @@ class _$EmailOrLoginChanged implements EmailOrLoginChanged {
   }
 }
 
-abstract class EmailOrLoginChanged implements SignInEvent {
+abstract class EmailOrLoginChanged implements LoginEvent {
   factory EmailOrLoginChanged(String emailOrLoginStr) = _$EmailOrLoginChanged;
 
   String get emailOrLoginStr;
@@ -354,7 +354,7 @@ abstract class $EmailChangedCopyWith<$Res> {
   $Res call({String emailStr});
 }
 
-class _$EmailChangedCopyWithImpl<$Res> extends _$SignInEventCopyWithImpl<$Res>
+class _$EmailChangedCopyWithImpl<$Res> extends _$LoginEventCopyWithImpl<$Res>
     implements $EmailChangedCopyWith<$Res> {
   _$EmailChangedCopyWithImpl(
       EmailChanged _value, $Res Function(EmailChanged) _then)
@@ -381,7 +381,7 @@ class _$EmailChanged implements EmailChanged {
 
   @override
   String toString() {
-    return 'SignInEvent.emailChanged(emailStr: $emailStr)';
+    return 'LoginEvent.emailChanged(emailStr: $emailStr)';
   }
 
   @override
@@ -521,7 +521,7 @@ class _$EmailChanged implements EmailChanged {
   }
 }
 
-abstract class EmailChanged implements SignInEvent {
+abstract class EmailChanged implements LoginEvent {
   factory EmailChanged(String emailStr) = _$EmailChanged;
 
   String get emailStr;
@@ -535,8 +535,7 @@ abstract class $PasswordChangedCopyWith<$Res> {
   $Res call({String passwordStr});
 }
 
-class _$PasswordChangedCopyWithImpl<$Res>
-    extends _$SignInEventCopyWithImpl<$Res>
+class _$PasswordChangedCopyWithImpl<$Res> extends _$LoginEventCopyWithImpl<$Res>
     implements $PasswordChangedCopyWith<$Res> {
   _$PasswordChangedCopyWithImpl(
       PasswordChanged _value, $Res Function(PasswordChanged) _then)
@@ -563,7 +562,7 @@ class _$PasswordChanged implements PasswordChanged {
 
   @override
   String toString() {
-    return 'SignInEvent.passwordChanged(passwordStr: $passwordStr)';
+    return 'LoginEvent.passwordChanged(passwordStr: $passwordStr)';
   }
 
   @override
@@ -703,7 +702,7 @@ class _$PasswordChanged implements PasswordChanged {
   }
 }
 
-abstract class PasswordChanged implements SignInEvent {
+abstract class PasswordChanged implements LoginEvent {
   factory PasswordChanged(String passwordStr) = _$PasswordChanged;
 
   String get passwordStr;
@@ -717,7 +716,7 @@ abstract class $LoginChangedCopyWith<$Res> {
   $Res call({String loginStr});
 }
 
-class _$LoginChangedCopyWithImpl<$Res> extends _$SignInEventCopyWithImpl<$Res>
+class _$LoginChangedCopyWithImpl<$Res> extends _$LoginEventCopyWithImpl<$Res>
     implements $LoginChangedCopyWith<$Res> {
   _$LoginChangedCopyWithImpl(
       LoginChanged _value, $Res Function(LoginChanged) _then)
@@ -744,7 +743,7 @@ class _$LoginChanged implements LoginChanged {
 
   @override
   String toString() {
-    return 'SignInEvent.loginChanged(loginStr: $loginStr)';
+    return 'LoginEvent.loginChanged(loginStr: $loginStr)';
   }
 
   @override
@@ -884,7 +883,7 @@ class _$LoginChanged implements LoginChanged {
   }
 }
 
-abstract class LoginChanged implements SignInEvent {
+abstract class LoginChanged implements LoginEvent {
   factory LoginChanged(String loginStr) = _$LoginChanged;
 
   String get loginStr;
@@ -897,7 +896,7 @@ abstract class $PopStatesStackCopyWith<$Res> {
       _$PopStatesStackCopyWithImpl<$Res>;
 }
 
-class _$PopStatesStackCopyWithImpl<$Res> extends _$SignInEventCopyWithImpl<$Res>
+class _$PopStatesStackCopyWithImpl<$Res> extends _$LoginEventCopyWithImpl<$Res>
     implements $PopStatesStackCopyWith<$Res> {
   _$PopStatesStackCopyWithImpl(
       PopStatesStack _value, $Res Function(PopStatesStack) _then)
@@ -912,7 +911,7 @@ class _$PopStatesStack implements PopStatesStack {
 
   @override
   String toString() {
-    return 'SignInEvent.popStatesStack()';
+    return 'LoginEvent.popStatesStack()';
   }
 
   @override
@@ -1043,7 +1042,7 @@ class _$PopStatesStack implements PopStatesStack {
   }
 }
 
-abstract class PopStatesStack implements SignInEvent {
+abstract class PopStatesStack implements LoginEvent {
   factory PopStatesStack() = _$PopStatesStack;
 }
 
@@ -1054,7 +1053,7 @@ abstract class $SignInWithGooglePressedCopyWith<$Res> {
 }
 
 class _$SignInWithGooglePressedCopyWithImpl<$Res>
-    extends _$SignInEventCopyWithImpl<$Res>
+    extends _$LoginEventCopyWithImpl<$Res>
     implements $SignInWithGooglePressedCopyWith<$Res> {
   _$SignInWithGooglePressedCopyWithImpl(SignInWithGooglePressed _value,
       $Res Function(SignInWithGooglePressed) _then)
@@ -1069,7 +1068,7 @@ class _$SignInWithGooglePressed implements SignInWithGooglePressed {
 
   @override
   String toString() {
-    return 'SignInEvent.signInWithGooglePressed()';
+    return 'LoginEvent.signInWithGooglePressed()';
   }
 
   @override
@@ -1200,7 +1199,7 @@ class _$SignInWithGooglePressed implements SignInWithGooglePressed {
   }
 }
 
-abstract class SignInWithGooglePressed implements SignInEvent {
+abstract class SignInWithGooglePressed implements LoginEvent {
   factory SignInWithGooglePressed() = _$SignInWithGooglePressed;
 }
 
@@ -1210,7 +1209,7 @@ abstract class $SignInPressedCopyWith<$Res> {
       _$SignInPressedCopyWithImpl<$Res>;
 }
 
-class _$SignInPressedCopyWithImpl<$Res> extends _$SignInEventCopyWithImpl<$Res>
+class _$SignInPressedCopyWithImpl<$Res> extends _$LoginEventCopyWithImpl<$Res>
     implements $SignInPressedCopyWith<$Res> {
   _$SignInPressedCopyWithImpl(
       SignInPressed _value, $Res Function(SignInPressed) _then)
@@ -1225,7 +1224,7 @@ class _$SignInPressed implements SignInPressed {
 
   @override
   String toString() {
-    return 'SignInEvent.signInPressed()';
+    return 'LoginEvent.signInPressed()';
   }
 
   @override
@@ -1356,7 +1355,7 @@ class _$SignInPressed implements SignInPressed {
   }
 }
 
-abstract class SignInPressed implements SignInEvent {
+abstract class SignInPressed implements LoginEvent {
   factory SignInPressed() = _$SignInPressed;
 }
 
@@ -1366,7 +1365,7 @@ abstract class $SignUpPressedCopyWith<$Res> {
       _$SignUpPressedCopyWithImpl<$Res>;
 }
 
-class _$SignUpPressedCopyWithImpl<$Res> extends _$SignInEventCopyWithImpl<$Res>
+class _$SignUpPressedCopyWithImpl<$Res> extends _$LoginEventCopyWithImpl<$Res>
     implements $SignUpPressedCopyWith<$Res> {
   _$SignUpPressedCopyWithImpl(
       SignUpPressed _value, $Res Function(SignUpPressed) _then)
@@ -1381,7 +1380,7 @@ class _$SignUpPressed implements SignUpPressed {
 
   @override
   String toString() {
-    return 'SignInEvent.signUpPressed()';
+    return 'LoginEvent.signUpPressed()';
   }
 
   @override
@@ -1512,7 +1511,7 @@ class _$SignUpPressed implements SignUpPressed {
   }
 }
 
-abstract class SignUpPressed implements SignInEvent {
+abstract class SignUpPressed implements LoginEvent {
   factory SignUpPressed() = _$SignUpPressed;
 }
 
@@ -1523,7 +1522,7 @@ abstract class $ConfirmLoginPressedCopyWith<$Res> {
 }
 
 class _$ConfirmLoginPressedCopyWithImpl<$Res>
-    extends _$SignInEventCopyWithImpl<$Res>
+    extends _$LoginEventCopyWithImpl<$Res>
     implements $ConfirmLoginPressedCopyWith<$Res> {
   _$ConfirmLoginPressedCopyWithImpl(
       ConfirmLoginPressed _value, $Res Function(ConfirmLoginPressed) _then)
@@ -1538,7 +1537,7 @@ class _$ConfirmLoginPressed implements ConfirmLoginPressed {
 
   @override
   String toString() {
-    return 'SignInEvent.confirmLoginPressed()';
+    return 'LoginEvent.confirmLoginPressed()';
   }
 
   @override
@@ -1669,7 +1668,7 @@ class _$ConfirmLoginPressed implements ConfirmLoginPressed {
   }
 }
 
-abstract class ConfirmLoginPressed implements SignInEvent {
+abstract class ConfirmLoginPressed implements LoginEvent {
   factory ConfirmLoginPressed() = _$ConfirmLoginPressed;
 }
 
@@ -1680,7 +1679,7 @@ abstract class $ConfirmEmailPressedCopyWith<$Res> {
 }
 
 class _$ConfirmEmailPressedCopyWithImpl<$Res>
-    extends _$SignInEventCopyWithImpl<$Res>
+    extends _$LoginEventCopyWithImpl<$Res>
     implements $ConfirmEmailPressedCopyWith<$Res> {
   _$ConfirmEmailPressedCopyWithImpl(
       ConfirmEmailPressed _value, $Res Function(ConfirmEmailPressed) _then)
@@ -1695,7 +1694,7 @@ class _$ConfirmEmailPressed implements ConfirmEmailPressed {
 
   @override
   String toString() {
-    return 'SignInEvent.confirmEmailPressed()';
+    return 'LoginEvent.confirmEmailPressed()';
   }
 
   @override
@@ -1826,7 +1825,7 @@ class _$ConfirmEmailPressed implements ConfirmEmailPressed {
   }
 }
 
-abstract class ConfirmEmailPressed implements SignInEvent {
+abstract class ConfirmEmailPressed implements LoginEvent {
   factory ConfirmEmailPressed() = _$ConfirmEmailPressed;
 }
 
@@ -1837,7 +1836,7 @@ abstract class $ConfirmEmailCodePressedCopyWith<$Res> {
 }
 
 class _$ConfirmEmailCodePressedCopyWithImpl<$Res>
-    extends _$SignInEventCopyWithImpl<$Res>
+    extends _$LoginEventCopyWithImpl<$Res>
     implements $ConfirmEmailCodePressedCopyWith<$Res> {
   _$ConfirmEmailCodePressedCopyWithImpl(ConfirmEmailCodePressed _value,
       $Res Function(ConfirmEmailCodePressed) _then)
@@ -1852,7 +1851,7 @@ class _$ConfirmEmailCodePressed implements ConfirmEmailCodePressed {
 
   @override
   String toString() {
-    return 'SignInEvent.confirmEmailCodePressed()';
+    return 'LoginEvent.confirmEmailCodePressed()';
   }
 
   @override
@@ -1983,7 +1982,7 @@ class _$ConfirmEmailCodePressed implements ConfirmEmailCodePressed {
   }
 }
 
-abstract class ConfirmEmailCodePressed implements SignInEvent {
+abstract class ConfirmEmailCodePressed implements LoginEvent {
   factory ConfirmEmailCodePressed() = _$ConfirmEmailCodePressed;
 }
 
@@ -1994,7 +1993,7 @@ abstract class $ConfirmPasswordPressedCopyWith<$Res> {
 }
 
 class _$ConfirmPasswordPressedCopyWithImpl<$Res>
-    extends _$SignInEventCopyWithImpl<$Res>
+    extends _$LoginEventCopyWithImpl<$Res>
     implements $ConfirmPasswordPressedCopyWith<$Res> {
   _$ConfirmPasswordPressedCopyWithImpl(ConfirmPasswordPressed _value,
       $Res Function(ConfirmPasswordPressed) _then)
@@ -2009,7 +2008,7 @@ class _$ConfirmPasswordPressed implements ConfirmPasswordPressed {
 
   @override
   String toString() {
-    return 'SignInEvent.confirmPasswordPressed()';
+    return 'LoginEvent.confirmPasswordPressed()';
   }
 
   @override
@@ -2140,7 +2139,7 @@ class _$ConfirmPasswordPressed implements ConfirmPasswordPressed {
   }
 }
 
-abstract class ConfirmPasswordPressed implements SignInEvent {
+abstract class ConfirmPasswordPressed implements LoginEvent {
   factory ConfirmPasswordPressed() = _$ConfirmPasswordPressed;
 }
 
@@ -2152,7 +2151,7 @@ abstract class $ConfirmSignInCredentialsPressedCopyWith<$Res> {
 }
 
 class _$ConfirmSignInCredentialsPressedCopyWithImpl<$Res>
-    extends _$SignInEventCopyWithImpl<$Res>
+    extends _$LoginEventCopyWithImpl<$Res>
     implements $ConfirmSignInCredentialsPressedCopyWith<$Res> {
   _$ConfirmSignInCredentialsPressedCopyWithImpl(
       ConfirmSignInCredentialsPressed _value,
@@ -2170,7 +2169,7 @@ class _$ConfirmSignInCredentialsPressed
 
   @override
   String toString() {
-    return 'SignInEvent.confirmSignInCredentialsPressed()';
+    return 'LoginEvent.confirmSignInCredentialsPressed()';
   }
 
   @override
@@ -2301,20 +2300,20 @@ class _$ConfirmSignInCredentialsPressed
   }
 }
 
-abstract class ConfirmSignInCredentialsPressed implements SignInEvent {
+abstract class ConfirmSignInCredentialsPressed implements LoginEvent {
   factory ConfirmSignInCredentialsPressed() = _$ConfirmSignInCredentialsPressed;
 }
 
-class _$SignInStateTearOff {
-  const _$SignInStateTearOff();
+class _$LoginStateTearOff {
+  const _$LoginStateTearOff();
 
-  _SignInState call(
+  _LoginState call(
       {@required ValueObject<String> emailOrLogin,
       @required ValueObject<String> password,
       @required bool showErrorMessages,
       @required bool isSubmitting,
       @required Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption}) {
-    return _SignInState(
+    return _LoginState(
       emailOrLogin: emailOrLogin,
       password: password,
       showErrorMessages: showErrorMessages,
@@ -2366,9 +2365,9 @@ class _$SignInStateTearOff {
 }
 
 // ignore: unused_element
-const $SignInState = _$SignInStateTearOff();
+const $LoginState = _$LoginStateTearOff();
 
-mixin _$SignInState {
+mixin _$LoginState {
   bool get showErrorMessages;
   bool get isSubmitting;
   Option<Either<AuthFailure, Unit>> get authFailureOrSuccessOption;
@@ -2426,39 +2425,39 @@ mixin _$SignInState {
   });
   @optionalTypeArgs
   Result map<Result extends Object>(
-    Result $default(_SignInState value), {
+    Result $default(_LoginState value), {
     @required Result emailInput(EmailInput value),
     @required Result loginInput(LoginInput value),
     @required Result passwordInput(PasswordInput value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>(
-    Result $default(_SignInState value), {
+    Result $default(_LoginState value), {
     Result emailInput(EmailInput value),
     Result loginInput(LoginInput value),
     Result passwordInput(PasswordInput value),
     @required Result orElse(),
   });
 
-  $SignInStateCopyWith<SignInState> get copyWith;
+  $LoginStateCopyWith<LoginState> get copyWith;
 }
 
-abstract class $SignInStateCopyWith<$Res> {
-  factory $SignInStateCopyWith(
-          SignInState value, $Res Function(SignInState) then) =
-      _$SignInStateCopyWithImpl<$Res>;
+abstract class $LoginStateCopyWith<$Res> {
+  factory $LoginStateCopyWith(
+          LoginState value, $Res Function(LoginState) then) =
+      _$LoginStateCopyWithImpl<$Res>;
   $Res call(
       {bool showErrorMessages,
       bool isSubmitting,
       Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption});
 }
 
-class _$SignInStateCopyWithImpl<$Res> implements $SignInStateCopyWith<$Res> {
-  _$SignInStateCopyWithImpl(this._value, this._then);
+class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
+  _$LoginStateCopyWithImpl(this._value, this._then);
 
-  final SignInState _value;
+  final LoginState _value;
   // ignore: unused_field
-  final $Res Function(SignInState) _then;
+  final $Res Function(LoginState) _then;
 
   @override
   $Res call({
@@ -2479,11 +2478,10 @@ class _$SignInStateCopyWithImpl<$Res> implements $SignInStateCopyWith<$Res> {
   }
 }
 
-abstract class _$SignInStateCopyWith<$Res>
-    implements $SignInStateCopyWith<$Res> {
-  factory _$SignInStateCopyWith(
-          _SignInState value, $Res Function(_SignInState) then) =
-      __$SignInStateCopyWithImpl<$Res>;
+abstract class _$LoginStateCopyWith<$Res> implements $LoginStateCopyWith<$Res> {
+  factory _$LoginStateCopyWith(
+          _LoginState value, $Res Function(_LoginState) then) =
+      __$LoginStateCopyWithImpl<$Res>;
   @override
   $Res call(
       {ValueObject<String> emailOrLogin,
@@ -2493,14 +2491,14 @@ abstract class _$SignInStateCopyWith<$Res>
       Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption});
 }
 
-class __$SignInStateCopyWithImpl<$Res> extends _$SignInStateCopyWithImpl<$Res>
-    implements _$SignInStateCopyWith<$Res> {
-  __$SignInStateCopyWithImpl(
-      _SignInState _value, $Res Function(_SignInState) _then)
-      : super(_value, (v) => _then(v as _SignInState));
+class __$LoginStateCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
+    implements _$LoginStateCopyWith<$Res> {
+  __$LoginStateCopyWithImpl(
+      _LoginState _value, $Res Function(_LoginState) _then)
+      : super(_value, (v) => _then(v as _LoginState));
 
   @override
-  _SignInState get _value => super._value as _SignInState;
+  _LoginState get _value => super._value as _LoginState;
 
   @override
   $Res call({
@@ -2510,7 +2508,7 @@ class __$SignInStateCopyWithImpl<$Res> extends _$SignInStateCopyWithImpl<$Res>
     Object isSubmitting = freezed,
     Object authFailureOrSuccessOption = freezed,
   }) {
-    return _then(_SignInState(
+    return _then(_LoginState(
       emailOrLogin: emailOrLogin == freezed
           ? _value.emailOrLogin
           : emailOrLogin as ValueObject<String>,
@@ -2529,8 +2527,8 @@ class __$SignInStateCopyWithImpl<$Res> extends _$SignInStateCopyWithImpl<$Res>
   }
 }
 
-class _$_SignInState implements _SignInState {
-  const _$_SignInState(
+class _$_LoginState implements _LoginState {
+  const _$_LoginState(
       {@required this.emailOrLogin,
       @required this.password,
       @required this.showErrorMessages,
@@ -2555,13 +2553,13 @@ class _$_SignInState implements _SignInState {
 
   @override
   String toString() {
-    return 'SignInState(emailOrLogin: $emailOrLogin, password: $password, showErrorMessages: $showErrorMessages, isSubmitting: $isSubmitting, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
+    return 'LoginState(emailOrLogin: $emailOrLogin, password: $password, showErrorMessages: $showErrorMessages, isSubmitting: $isSubmitting, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SignInState &&
+        (other is _LoginState &&
             (identical(other.emailOrLogin, emailOrLogin) ||
                 const DeepCollectionEquality()
                     .equals(other.emailOrLogin, emailOrLogin)) &&
@@ -2591,8 +2589,8 @@ class _$_SignInState implements _SignInState {
       const DeepCollectionEquality().hash(authFailureOrSuccessOption);
 
   @override
-  _$SignInStateCopyWith<_SignInState> get copyWith =>
-      __$SignInStateCopyWithImpl<_SignInState>(this, _$identity);
+  _$LoginStateCopyWith<_LoginState> get copyWith =>
+      __$LoginStateCopyWithImpl<_LoginState>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2666,7 +2664,7 @@ class _$_SignInState implements _SignInState {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>(
-    Result $default(_SignInState value), {
+    Result $default(_LoginState value), {
     @required Result emailInput(EmailInput value),
     @required Result loginInput(LoginInput value),
     @required Result passwordInput(PasswordInput value),
@@ -2681,7 +2679,7 @@ class _$_SignInState implements _SignInState {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>(
-    Result $default(_SignInState value), {
+    Result $default(_LoginState value), {
     Result emailInput(EmailInput value),
     Result loginInput(LoginInput value),
     Result passwordInput(PasswordInput value),
@@ -2695,8 +2693,8 @@ class _$_SignInState implements _SignInState {
   }
 }
 
-abstract class _SignInState implements SignInState {
-  const factory _SignInState(
+abstract class _LoginState implements LoginState {
+  const factory _LoginState(
           {@required
               ValueObject<String> emailOrLogin,
           @required
@@ -2707,7 +2705,7 @@ abstract class _SignInState implements SignInState {
               bool isSubmitting,
           @required
               Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption}) =
-      _$_SignInState;
+      _$_LoginState;
 
   ValueObject<String> get emailOrLogin;
   ValueObject<String> get password;
@@ -2718,10 +2716,10 @@ abstract class _SignInState implements SignInState {
   @override
   Option<Either<AuthFailure, Unit>> get authFailureOrSuccessOption;
   @override
-  _$SignInStateCopyWith<_SignInState> get copyWith;
+  _$LoginStateCopyWith<_LoginState> get copyWith;
 }
 
-abstract class $EmailInputCopyWith<$Res> implements $SignInStateCopyWith<$Res> {
+abstract class $EmailInputCopyWith<$Res> implements $LoginStateCopyWith<$Res> {
   factory $EmailInputCopyWith(
           EmailInput value, $Res Function(EmailInput) then) =
       _$EmailInputCopyWithImpl<$Res>;
@@ -2733,7 +2731,7 @@ abstract class $EmailInputCopyWith<$Res> implements $SignInStateCopyWith<$Res> {
       Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption});
 }
 
-class _$EmailInputCopyWithImpl<$Res> extends _$SignInStateCopyWithImpl<$Res>
+class _$EmailInputCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
     implements $EmailInputCopyWith<$Res> {
   _$EmailInputCopyWithImpl(EmailInput _value, $Res Function(EmailInput) _then)
       : super(_value, (v) => _then(v as EmailInput));
@@ -2786,7 +2784,7 @@ class _$EmailInput implements EmailInput {
 
   @override
   String toString() {
-    return 'SignInState.emailInput(emailAddress: $emailAddress, showErrorMessages: $showErrorMessages, isSubmitting: $isSubmitting, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
+    return 'LoginState.emailInput(emailAddress: $emailAddress, showErrorMessages: $showErrorMessages, isSubmitting: $isSubmitting, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
   }
 
   @override
@@ -2893,7 +2891,7 @@ class _$EmailInput implements EmailInput {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>(
-    Result $default(_SignInState value), {
+    Result $default(_LoginState value), {
     @required Result emailInput(EmailInput value),
     @required Result loginInput(LoginInput value),
     @required Result passwordInput(PasswordInput value),
@@ -2908,7 +2906,7 @@ class _$EmailInput implements EmailInput {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>(
-    Result $default(_SignInState value), {
+    Result $default(_LoginState value), {
     Result emailInput(EmailInput value),
     Result loginInput(LoginInput value),
     Result passwordInput(PasswordInput value),
@@ -2922,7 +2920,7 @@ class _$EmailInput implements EmailInput {
   }
 }
 
-abstract class EmailInput implements SignInState {
+abstract class EmailInput implements LoginState {
   const factory EmailInput(
           {@required
               EmailAddress emailAddress,
@@ -2945,7 +2943,7 @@ abstract class EmailInput implements SignInState {
   $EmailInputCopyWith<EmailInput> get copyWith;
 }
 
-abstract class $LoginInputCopyWith<$Res> implements $SignInStateCopyWith<$Res> {
+abstract class $LoginInputCopyWith<$Res> implements $LoginStateCopyWith<$Res> {
   factory $LoginInputCopyWith(
           LoginInput value, $Res Function(LoginInput) then) =
       _$LoginInputCopyWithImpl<$Res>;
@@ -2957,7 +2955,7 @@ abstract class $LoginInputCopyWith<$Res> implements $SignInStateCopyWith<$Res> {
       Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption});
 }
 
-class _$LoginInputCopyWithImpl<$Res> extends _$SignInStateCopyWithImpl<$Res>
+class _$LoginInputCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
     implements $LoginInputCopyWith<$Res> {
   _$LoginInputCopyWithImpl(LoginInput _value, $Res Function(LoginInput) _then)
       : super(_value, (v) => _then(v as LoginInput));
@@ -3008,7 +3006,7 @@ class _$LoginInput implements LoginInput {
 
   @override
   String toString() {
-    return 'SignInState.loginInput(login: $login, showErrorMessages: $showErrorMessages, isSubmitting: $isSubmitting, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
+    return 'LoginState.loginInput(login: $login, showErrorMessages: $showErrorMessages, isSubmitting: $isSubmitting, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
   }
 
   @override
@@ -3114,7 +3112,7 @@ class _$LoginInput implements LoginInput {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>(
-    Result $default(_SignInState value), {
+    Result $default(_LoginState value), {
     @required Result emailInput(EmailInput value),
     @required Result loginInput(LoginInput value),
     @required Result passwordInput(PasswordInput value),
@@ -3129,7 +3127,7 @@ class _$LoginInput implements LoginInput {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>(
-    Result $default(_SignInState value), {
+    Result $default(_LoginState value), {
     Result emailInput(EmailInput value),
     Result loginInput(LoginInput value),
     Result passwordInput(PasswordInput value),
@@ -3143,7 +3141,7 @@ class _$LoginInput implements LoginInput {
   }
 }
 
-abstract class LoginInput implements SignInState {
+abstract class LoginInput implements LoginState {
   const factory LoginInput(
           {@required
               Login login,
@@ -3167,7 +3165,7 @@ abstract class LoginInput implements SignInState {
 }
 
 abstract class $PasswordInputCopyWith<$Res>
-    implements $SignInStateCopyWith<$Res> {
+    implements $LoginStateCopyWith<$Res> {
   factory $PasswordInputCopyWith(
           PasswordInput value, $Res Function(PasswordInput) then) =
       _$PasswordInputCopyWithImpl<$Res>;
@@ -3180,7 +3178,7 @@ abstract class $PasswordInputCopyWith<$Res>
       Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption});
 }
 
-class _$PasswordInputCopyWithImpl<$Res> extends _$SignInStateCopyWithImpl<$Res>
+class _$PasswordInputCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
     implements $PasswordInputCopyWith<$Res> {
   _$PasswordInputCopyWithImpl(
       PasswordInput _value, $Res Function(PasswordInput) _then)
@@ -3240,7 +3238,7 @@ class _$PasswordInput implements PasswordInput {
 
   @override
   String toString() {
-    return 'SignInState.passwordInput(password: $password, confirmPassword: $confirmPassword, showErrorMessages: $showErrorMessages, isSubmitting: $isSubmitting, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
+    return 'LoginState.passwordInput(password: $password, confirmPassword: $confirmPassword, showErrorMessages: $showErrorMessages, isSubmitting: $isSubmitting, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
   }
 
   @override
@@ -3351,7 +3349,7 @@ class _$PasswordInput implements PasswordInput {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>(
-    Result $default(_SignInState value), {
+    Result $default(_LoginState value), {
     @required Result emailInput(EmailInput value),
     @required Result loginInput(LoginInput value),
     @required Result passwordInput(PasswordInput value),
@@ -3366,7 +3364,7 @@ class _$PasswordInput implements PasswordInput {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>(
-    Result $default(_SignInState value), {
+    Result $default(_LoginState value), {
     Result emailInput(EmailInput value),
     Result loginInput(LoginInput value),
     Result passwordInput(PasswordInput value),
@@ -3380,7 +3378,7 @@ class _$PasswordInput implements PasswordInput {
   }
 }
 
-abstract class PasswordInput implements SignInState {
+abstract class PasswordInput implements LoginState {
   const factory PasswordInput(
           {@required
               Password password,

@@ -17,7 +17,7 @@ class _$MDFileDtoTearOff {
 
   _MyDeckFileDto call(
       {@required String id,
-      @required @ContentTypeConverter() ContentType type,
+      @required @ContentTypeConverter() FileType type,
       @required @JsonKey(ignore: true) File file}) {
     return _MyDeckFileDto(
       id: id,
@@ -33,7 +33,7 @@ const $MDFileDto = _$MDFileDtoTearOff();
 mixin _$MDFileDto {
   String get id;
   @ContentTypeConverter()
-  ContentType get type;
+  FileType get type;
   @JsonKey(ignore: true)
   File get file;
 
@@ -46,7 +46,7 @@ abstract class $MDFileDtoCopyWith<$Res> {
       _$MDFileDtoCopyWithImpl<$Res>;
   $Res call(
       {String id,
-      @ContentTypeConverter() ContentType type,
+      @ContentTypeConverter() FileType type,
       @JsonKey(ignore: true) File file});
 }
 
@@ -65,7 +65,7 @@ class _$MDFileDtoCopyWithImpl<$Res> implements $MDFileDtoCopyWith<$Res> {
   }) {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as String,
-      type: type == freezed ? _value.type : type as ContentType,
+      type: type == freezed ? _value.type : type as FileType,
       file: file == freezed ? _value.file : file as File,
     ));
   }
@@ -79,7 +79,7 @@ abstract class _$MyDeckFileDtoCopyWith<$Res>
   @override
   $Res call(
       {String id,
-      @ContentTypeConverter() ContentType type,
+      @ContentTypeConverter() FileType type,
       @JsonKey(ignore: true) File file});
 }
 
@@ -100,7 +100,7 @@ class __$MyDeckFileDtoCopyWithImpl<$Res> extends _$MDFileDtoCopyWithImpl<$Res>
   }) {
     return _then(_MyDeckFileDto(
       id: id == freezed ? _value.id : id as String,
-      type: type == freezed ? _value.type : type as ContentType,
+      type: type == freezed ? _value.type : type as FileType,
       file: file == freezed ? _value.file : file as File,
     ));
   }
@@ -124,7 +124,7 @@ class _$_MyDeckFileDto extends _MyDeckFileDto {
   final String id;
   @override
   @ContentTypeConverter()
-  final ContentType type;
+  final FileType type;
   @override
   @JsonKey(ignore: true)
   final File file;
@@ -167,7 +167,7 @@ abstract class _MyDeckFileDto extends MDFileDto {
   const _MyDeckFileDto._() : super._();
   const factory _MyDeckFileDto(
       {@required String id,
-      @required @ContentTypeConverter() ContentType type,
+      @required @ContentTypeConverter() FileType type,
       @required @JsonKey(ignore: true) File file}) = _$_MyDeckFileDto;
 
   factory _MyDeckFileDto.fromJson(Map<String, dynamic> json) =
@@ -177,7 +177,7 @@ abstract class _MyDeckFileDto extends MDFileDto {
   String get id;
   @override
   @ContentTypeConverter()
-  ContentType get type;
+  FileType get type;
   @override
   @JsonKey(ignore: true)
   File get file;

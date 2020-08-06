@@ -58,23 +58,14 @@ class _DeckCardState extends State<DeckCard> {
             final deckUpdate = await context.navigator.push(MaterialPageRoute(
                 builder: (context) => BlocProvider(
                       create: (context) => AddDeckBloc(
-                          uploadOnlineDeckUsecase:
-                              sl.get<UploadOnlineDeckUsecase>(),
-                          addDeckUseCase: sl.get<AddDeckUseCase>(),
-                          deck: deck is Deck
-                              ? deck.copyWith(
-                                  cardsList: List.from(deck.cardsList))
-                              : deck,
-                          deleteDeckUsecase: sl.get<DeleteDeckUseCase>(),
-                          saveDeckChangesUsecase:
-                              sl.get<SaveDeckChangesUsecase>(),
-                          goal: deck is Deck
-                              ? AddDeckGoal.lookup
-                              : AddDeckGoal.edit),
+                        uploadOnlineDeckUsecase:
+                            sl.get<UploadOnlineDeckUsecase>(),
+                        deck: deck,
+                      ),
                       child: AddDeckPage(
-                        goal: deck is Deck
-                            ? AddDeckGoal.lookup
-                            : AddDeckGoal.edit,
+                        goal: widget.isEditing
+                            ? AddDeckGoal.edit
+                            : AddDeckGoal.lookup,
                       ),
                     )));
 

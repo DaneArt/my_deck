@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:mydeck/models/entitites/unique_id.dart';
 
-import 'my_deck_file.dart';
+import 'md_file.dart';
 
 part 'card.freezed.dart';
 
@@ -18,5 +18,8 @@ abstract class Card implements _$Card {
     @required MDFile question,
   }) = _Card;
 
-  factory Card.basic() => Card(id: UniqueId(), answer: null, question: null);
+  factory Card.basic() => Card(
+      id: UniqueId(),
+      answer: TextFile(uniqueId: UniqueId()),
+      question: TextFile(uniqueId: UniqueId()));
 }

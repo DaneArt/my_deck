@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mydeck/models/dtos/file_dto.dart';
 import 'package:mydeck/models/entitites/card.dart';
-import 'package:mydeck/models/entitites/my_deck_file.dart';
+import 'package:mydeck/models/entitites/md_file.dart';
 import 'package:mydeck/models/entitites/unique_id.dart';
 
 part 'card_dto.freezed.dart';

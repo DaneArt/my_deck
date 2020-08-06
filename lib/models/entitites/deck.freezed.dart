@@ -20,6 +20,7 @@ class _$DeckTearOff {
       @required UserModel author,
       @required DeckCategory category,
       @required bool isPrivate,
+      @required bool availableQuickTrain,
       int cardsCount,
       int subscribersCount,
       List<UserModel> subscribers,
@@ -32,6 +33,7 @@ class _$DeckTearOff {
       author: author,
       category: category,
       isPrivate: isPrivate,
+      availableQuickTrain: availableQuickTrain,
       cardsCount: cardsCount,
       subscribersCount: subscribersCount,
       subscribers: subscribers,
@@ -51,6 +53,7 @@ mixin _$Deck {
   UserModel get author;
   DeckCategory get category;
   bool get isPrivate;
+  bool get availableQuickTrain;
   int get cardsCount;
   int get subscribersCount;
   List<UserModel> get subscribers;
@@ -70,6 +73,7 @@ abstract class $DeckCopyWith<$Res> {
       UserModel author,
       DeckCategory category,
       bool isPrivate,
+      bool availableQuickTrain,
       int cardsCount,
       int subscribersCount,
       List<UserModel> subscribers,
@@ -94,6 +98,7 @@ class _$DeckCopyWithImpl<$Res> implements $DeckCopyWith<$Res> {
     Object author = freezed,
     Object category = freezed,
     Object isPrivate = freezed,
+    Object availableQuickTrain = freezed,
     Object cardsCount = freezed,
     Object subscribersCount = freezed,
     Object subscribers = freezed,
@@ -110,6 +115,9 @@ class _$DeckCopyWithImpl<$Res> implements $DeckCopyWith<$Res> {
       category:
           category == freezed ? _value.category : category as DeckCategory,
       isPrivate: isPrivate == freezed ? _value.isPrivate : isPrivate as bool,
+      availableQuickTrain: availableQuickTrain == freezed
+          ? _value.availableQuickTrain
+          : availableQuickTrain as bool,
       cardsCount: cardsCount == freezed ? _value.cardsCount : cardsCount as int,
       subscribersCount: subscribersCount == freezed
           ? _value.subscribersCount
@@ -145,6 +153,7 @@ abstract class _$DeckCopyWith<$Res> implements $DeckCopyWith<$Res> {
       UserModel author,
       DeckCategory category,
       bool isPrivate,
+      bool availableQuickTrain,
       int cardsCount,
       int subscribersCount,
       List<UserModel> subscribers,
@@ -171,6 +180,7 @@ class __$DeckCopyWithImpl<$Res> extends _$DeckCopyWithImpl<$Res>
     Object author = freezed,
     Object category = freezed,
     Object isPrivate = freezed,
+    Object availableQuickTrain = freezed,
     Object cardsCount = freezed,
     Object subscribersCount = freezed,
     Object subscribers = freezed,
@@ -187,6 +197,9 @@ class __$DeckCopyWithImpl<$Res> extends _$DeckCopyWithImpl<$Res>
       category:
           category == freezed ? _value.category : category as DeckCategory,
       isPrivate: isPrivate == freezed ? _value.isPrivate : isPrivate as bool,
+      availableQuickTrain: availableQuickTrain == freezed
+          ? _value.availableQuickTrain
+          : availableQuickTrain as bool,
       cardsCount: cardsCount == freezed ? _value.cardsCount : cardsCount as int,
       subscribersCount: subscribersCount == freezed
           ? _value.subscribersCount
@@ -209,6 +222,7 @@ class _$_Deck extends _Deck {
       @required this.author,
       @required this.category,
       @required this.isPrivate,
+      @required this.availableQuickTrain,
       this.cardsCount,
       this.subscribersCount,
       this.subscribers,
@@ -220,6 +234,7 @@ class _$_Deck extends _Deck {
         assert(author != null),
         assert(category != null),
         assert(isPrivate != null),
+        assert(availableQuickTrain != null),
         super._();
 
   @override
@@ -237,6 +252,8 @@ class _$_Deck extends _Deck {
   @override
   final bool isPrivate;
   @override
+  final bool availableQuickTrain;
+  @override
   final int cardsCount;
   @override
   final int subscribersCount;
@@ -247,7 +264,7 @@ class _$_Deck extends _Deck {
 
   @override
   String toString() {
-    return 'Deck(deckId: $deckId, title: $title, avatar: $avatar, description: $description, author: $author, category: $category, isPrivate: $isPrivate, cardsCount: $cardsCount, subscribersCount: $subscribersCount, subscribers: $subscribers, cardsList: $cardsList)';
+    return 'Deck(deckId: $deckId, title: $title, avatar: $avatar, description: $description, author: $author, category: $category, isPrivate: $isPrivate, availableQuickTrain: $availableQuickTrain, cardsCount: $cardsCount, subscribersCount: $subscribersCount, subscribers: $subscribers, cardsList: $cardsList)';
   }
 
   @override
@@ -271,6 +288,9 @@ class _$_Deck extends _Deck {
             (identical(other.isPrivate, isPrivate) ||
                 const DeepCollectionEquality()
                     .equals(other.isPrivate, isPrivate)) &&
+            (identical(other.availableQuickTrain, availableQuickTrain) ||
+                const DeepCollectionEquality()
+                    .equals(other.availableQuickTrain, availableQuickTrain)) &&
             (identical(other.cardsCount, cardsCount) ||
                 const DeepCollectionEquality()
                     .equals(other.cardsCount, cardsCount)) &&
@@ -295,6 +315,7 @@ class _$_Deck extends _Deck {
       const DeepCollectionEquality().hash(author) ^
       const DeepCollectionEquality().hash(category) ^
       const DeepCollectionEquality().hash(isPrivate) ^
+      const DeepCollectionEquality().hash(availableQuickTrain) ^
       const DeepCollectionEquality().hash(cardsCount) ^
       const DeepCollectionEquality().hash(subscribersCount) ^
       const DeepCollectionEquality().hash(subscribers) ^
@@ -315,6 +336,7 @@ abstract class _Deck extends Deck {
       @required UserModel author,
       @required DeckCategory category,
       @required bool isPrivate,
+      @required bool availableQuickTrain,
       int cardsCount,
       int subscribersCount,
       List<UserModel> subscribers,
@@ -334,6 +356,8 @@ abstract class _Deck extends Deck {
   DeckCategory get category;
   @override
   bool get isPrivate;
+  @override
+  bool get availableQuickTrain;
   @override
   int get cardsCount;
   @override

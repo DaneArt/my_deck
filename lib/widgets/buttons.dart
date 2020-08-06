@@ -34,6 +34,41 @@ class IconRoundButton extends StatelessWidget {
   }
 }
 
+class MDRoundedButton extends StatelessWidget {
+  final Function onPressed;
+  final Widget icon;
+  final Widget title;
+
+  const MDRoundedButton(
+      {Key key,
+      @required this.onPressed,
+      @required this.icon,
+      @required this.title})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return RaisedButton(
+      elevation: 8,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(16))),
+      onPressed: onPressed,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16.0),
+        child: Column(
+          children: <Widget>[
+            title,
+            SizedBox(
+              height: 8,
+            ),
+            icon
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class LoginButton extends StatelessWidget {
   final bool enabled;
   final Widget content;

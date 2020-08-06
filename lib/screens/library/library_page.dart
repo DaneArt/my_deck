@@ -108,12 +108,9 @@ class _LibraryPageState extends State<LibraryPage>
     final newDeck = await context.navigator.push(MaterialPageRoute(
         builder: (context) => BlocProvider(
               create: (context) => AddDeckBloc(
-                  addDeckUseCase: sl.get<AddDeckUseCase>(),
-                  deck: Deck.basic(),
-                  deleteDeckUsecase: sl.get<DeleteDeckUseCase>(),
-                  saveDeckChangesUsecase: sl.get<SaveDeckChangesUsecase>(),
-                  uploadOnlineDeckUsecase: sl.get<UploadOnlineDeckUsecase>(),
-                  goal: AddDeckGoal.create),
+                deck: Deck.basic(),
+                uploadOnlineDeckUsecase: sl.get<UploadOnlineDeckUsecase>(),
+              ),
               child: AddDeckPage(
                 goal: AddDeckGoal.create,
               ),
@@ -144,15 +141,32 @@ class _LibraryPageState extends State<LibraryPage>
               size: 32,
             ),
             onPressed: () {
-              if (UserConfig.currentUser == null) {
+              /* if (UserConfig.currentUser == null) {
                 Scaffold.of(context).showSnackBar(SnackBar(
-                  content: Text("Войдите, чтобы создать колоду"),
+                  content: Text(S.of(context).library_sign_in_to_create),
                   action: SnackBarAction(
-                    label: "Войти",
-                    onPressed: () {},
+                    label: S.of(context).login_sign_in,
+                    onPressed: () {
+                      context.navigator.pushNamed(MyDeckRoutes.login);
+                    },
                   ),
                 ));
-              }
+              } */
+
+              context.navigator.push(
+                MaterialPageRoute(
+                  builder: (ctx) => BlocProvider<AddDeckBloc>(
+                    create: (BuildContext context) => AddDeckBloc(
+                      deck: Deck.basic(),
+                      uploadOnlineDeckUsecase:
+                          sl.get<UploadOnlineDeckUsecase>(),
+                    ),
+                    child: AddDeckPage(
+                      goal: AddDeckGoal.create,
+                    ),
+                  ),
+                ),
+              );
             },
           )
         ],
@@ -166,32 +180,32 @@ class _LibraryPageState extends State<LibraryPage>
       body: SafeArea(
         top: true,
         child:
-            //  UserConfig.currentUser == null
-            //     ? Column(
-            //         mainAxisAlignment: MainAxisAlignment.center,
-            //         children: <Widget>[
-            //           Padding(
-            //             padding: const EdgeInsets.all(8.0),
-            //             child: Text(
-            //               "Присоединитесь, чтобы наполнить свою библиотеку колодами.",
-            //               textAlign: TextAlign.center,
-            //               style: Theme.of(context).textTheme.bodyText2,
-            //             ),
-            //           ),
-            //           SizedBox(height: 8),
-            //           RaisedButton(
-            //               color: Theme.of(context).accentColor,
-            //               child: Text(
-            //                 "Присоединиться".toUpperCase(),
-            //                 style: Theme.of(context).textTheme.button,
-            //               ),
-            //               onPressed: () {
-            //                 context.navigator.pushNamed(MyDeckRoutes.login);
-            //                 //TODO: implement registration
-            //               }),
-            //         ],
-            //       )
-            //     :
+/*         UserConfig.currentUser == null
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      S.of(context).deck_call_to_sign_up,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  RaisedButton(
+                      color: Theme.of(context).accentColor,
+                      child: Text(
+                        S.of(context).login_sign_up.toUpperCase(),
+                        style: Theme.of(context).textTheme.button,
+                      ),
+                      onPressed: () {
+                        context.navigator.pushNamed(MyDeckRoutes.login);
+                        //TODO: implement registration
+                      }),
+                ],
+              )
+            : */
             _buildBody(context),
       ),
     );

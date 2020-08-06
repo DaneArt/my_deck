@@ -1206,11 +1206,13 @@ class _$AddCardStateTearOff {
       {@required List<Card> sourceCards,
       @required int currentCardIndex,
       @required bool isQuestion,
+      bool rebuild,
       @required bool saveChangesAndExit}) {
     return _AddCardState(
       sourceCards: sourceCards,
       currentCardIndex: currentCardIndex,
       isQuestion: isQuestion,
+      rebuild: rebuild,
       saveChangesAndExit: saveChangesAndExit,
     );
   }
@@ -1223,6 +1225,7 @@ mixin _$AddCardState {
   List<Card> get sourceCards;
   int get currentCardIndex;
   bool get isQuestion;
+  bool get rebuild;
   bool get saveChangesAndExit;
 
   $AddCardStateCopyWith<AddCardState> get copyWith;
@@ -1236,6 +1239,7 @@ abstract class $AddCardStateCopyWith<$Res> {
       {List<Card> sourceCards,
       int currentCardIndex,
       bool isQuestion,
+      bool rebuild,
       bool saveChangesAndExit});
 }
 
@@ -1251,6 +1255,7 @@ class _$AddCardStateCopyWithImpl<$Res> implements $AddCardStateCopyWith<$Res> {
     Object sourceCards = freezed,
     Object currentCardIndex = freezed,
     Object isQuestion = freezed,
+    Object rebuild = freezed,
     Object saveChangesAndExit = freezed,
   }) {
     return _then(_value.copyWith(
@@ -1262,6 +1267,7 @@ class _$AddCardStateCopyWithImpl<$Res> implements $AddCardStateCopyWith<$Res> {
           : currentCardIndex as int,
       isQuestion:
           isQuestion == freezed ? _value.isQuestion : isQuestion as bool,
+      rebuild: rebuild == freezed ? _value.rebuild : rebuild as bool,
       saveChangesAndExit: saveChangesAndExit == freezed
           ? _value.saveChangesAndExit
           : saveChangesAndExit as bool,
@@ -1279,6 +1285,7 @@ abstract class _$AddCardStateCopyWith<$Res>
       {List<Card> sourceCards,
       int currentCardIndex,
       bool isQuestion,
+      bool rebuild,
       bool saveChangesAndExit});
 }
 
@@ -1296,6 +1303,7 @@ class __$AddCardStateCopyWithImpl<$Res> extends _$AddCardStateCopyWithImpl<$Res>
     Object sourceCards = freezed,
     Object currentCardIndex = freezed,
     Object isQuestion = freezed,
+    Object rebuild = freezed,
     Object saveChangesAndExit = freezed,
   }) {
     return _then(_AddCardState(
@@ -1307,6 +1315,7 @@ class __$AddCardStateCopyWithImpl<$Res> extends _$AddCardStateCopyWithImpl<$Res>
           : currentCardIndex as int,
       isQuestion:
           isQuestion == freezed ? _value.isQuestion : isQuestion as bool,
+      rebuild: rebuild == freezed ? _value.rebuild : rebuild as bool,
       saveChangesAndExit: saveChangesAndExit == freezed
           ? _value.saveChangesAndExit
           : saveChangesAndExit as bool,
@@ -1319,6 +1328,7 @@ class _$_AddCardState implements _AddCardState {
       {@required this.sourceCards,
       @required this.currentCardIndex,
       @required this.isQuestion,
+      this.rebuild,
       @required this.saveChangesAndExit})
       : assert(sourceCards != null),
         assert(currentCardIndex != null),
@@ -1332,11 +1342,13 @@ class _$_AddCardState implements _AddCardState {
   @override
   final bool isQuestion;
   @override
+  final bool rebuild;
+  @override
   final bool saveChangesAndExit;
 
   @override
   String toString() {
-    return 'AddCardState(sourceCards: $sourceCards, currentCardIndex: $currentCardIndex, isQuestion: $isQuestion, saveChangesAndExit: $saveChangesAndExit)';
+    return 'AddCardState(sourceCards: $sourceCards, currentCardIndex: $currentCardIndex, isQuestion: $isQuestion, rebuild: $rebuild, saveChangesAndExit: $saveChangesAndExit)';
   }
 
   @override
@@ -1352,6 +1364,9 @@ class _$_AddCardState implements _AddCardState {
             (identical(other.isQuestion, isQuestion) ||
                 const DeepCollectionEquality()
                     .equals(other.isQuestion, isQuestion)) &&
+            (identical(other.rebuild, rebuild) ||
+                const DeepCollectionEquality()
+                    .equals(other.rebuild, rebuild)) &&
             (identical(other.saveChangesAndExit, saveChangesAndExit) ||
                 const DeepCollectionEquality()
                     .equals(other.saveChangesAndExit, saveChangesAndExit)));
@@ -1363,6 +1378,7 @@ class _$_AddCardState implements _AddCardState {
       const DeepCollectionEquality().hash(sourceCards) ^
       const DeepCollectionEquality().hash(currentCardIndex) ^
       const DeepCollectionEquality().hash(isQuestion) ^
+      const DeepCollectionEquality().hash(rebuild) ^
       const DeepCollectionEquality().hash(saveChangesAndExit);
 
   @override
@@ -1375,6 +1391,7 @@ abstract class _AddCardState implements AddCardState {
       {@required List<Card> sourceCards,
       @required int currentCardIndex,
       @required bool isQuestion,
+      bool rebuild,
       @required bool saveChangesAndExit}) = _$_AddCardState;
 
   @override
@@ -1383,6 +1400,8 @@ abstract class _AddCardState implements AddCardState {
   int get currentCardIndex;
   @override
   bool get isQuestion;
+  @override
+  bool get rebuild;
   @override
   bool get saveChangesAndExit;
   @override

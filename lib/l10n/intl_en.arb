@@ -16,6 +16,8 @@
     "@category_physics": {},
     "create_card": "Card",
     "@create_card": {},
+    "deck_call_to_sign_up": "Sign Up to fill library with decks.",
+    "@deck_call_to_sign_up": {},
     "editor_cant_save": "Can't save deck. Correct mistakes and try again.",
     "@editor_cant_save": {},
     "editor_cards_empty": "Oops, card collection is empty.",
@@ -68,7 +70,7 @@
     "@error_value_file_inexists": {},
     "error_value_invalid_login": "Login could contain letters, numbers, '.' or '_'.",
     "@error_value_invalid_login": {},
-    "error_value_invalid_password": "Pasword must contain at least 1 number, 1 uppercase letter and 1 bottomcase letter.",
+    "error_value_invalid_password": "Password must contain at least 1 number, 1 uppercase letter and 1 bottomcase letter.",
     "@error_value_invalid_password": {},
     "error_value_invalid_title": "Title could contain letters, numbers, '.' or '_'.",
     "@error_value_invalid_title": {},
@@ -94,7 +96,9 @@
     "@library_deck_created": {},
     "library_deck_deleted": "Deck deleted",
     "@library_deck_deleted": {},
-    "library_title": "'s Library",
+    "library_sign_in_to_create": "Sign In to create deck.",
+    "@library_sign_in_to_create": {},
+    "library_title": "Library",
     "@library_title": {},
     "login_confirm": "Confirm",
     "@login_confirm": {},
@@ -116,11 +120,11 @@
     "@login_how_call_you": {},
     "login_password": "Password*",
     "@login_password": {},
-    "login_sign_in": "SIGN IN",
+    "login_sign_in": "Sign In",
     "@login_sign_in": {},
     "login_sign_in_google": "SIGN IN VIA GOOGLE",
     "@login_sign_in_google": {},
-    "login_sign_up": "SIGN UP",
+    "login_sign_up": "Sign Up",
     "@login_sign_up": {},
     "login_username": "Username",
     "@login_username": {},
@@ -166,8 +170,8 @@
     "@train_end_in": {},
     "train_end_learned": "You've successfully learned",
     "@train_end_learned": {
-        "description": "tr"
+      "description": "tr"
     },
     "train_no_trainable_decks": "No trainable decks",
     "@train_no_trainable_decks": {}
-}
+  }

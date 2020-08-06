@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mydeck/errors/storage_failure.dart';
 import 'package:mydeck/models/entitites/card.dart';
-import 'package:mydeck/models/entitites/my_deck_file.dart';
+import 'package:mydeck/models/entitites/md_file.dart';
 import 'package:mydeck/models/entitites/deck.dart';
 import 'package:mydeck/services/usecases/usecase.dart';
 

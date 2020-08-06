@@ -2,12 +2,13 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:mydeck/blocs/library/library_bloc.dart';
-import 'package:mydeck/blocs/sign_in/sign_in_bloc.dart';
+import 'package:mydeck/blocs/sign_in/login_bloc.dart';
 import 'package:mydeck/blocs/tab/tab_bloc.dart';
 import 'package:mydeck/blocs/train/train_bloc.dart';
 import 'package:mydeck/services/datasources/file_local_datasource.dart';
 import 'package:mydeck/services/datasources/file_network_datasource.dart';
 import 'package:mydeck/services/repositories/file_repository.dart';
+import 'package:mydeck/services/usecases/get_file_by_meta_usecase.dart';
 import 'package:mydeck/utils/token_interceptor.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:get_it/get_it.dart';
@@ -85,8 +86,9 @@ void setUp() {
   sl.registerFactory(() => LoadUserLibraryUseCase(repository: sl()));
   sl.registerFactory(() => AddDeckUseCase(myDeckRepository: sl()));
   sl.registerFactory(() => UpdateTrainedCards(repository: sl()));
+  sl.registerFactory(() => GetFileByMetaUseCase(fileRepository: sl()));
   //blocs
-  sl.registerFactory(() => SignInBloc(sl()));
+  sl.registerFactory(() => LoginBloc(sl()));
 
   sl.registerFactory(() => LibraryBloc(
         loadUserLibrary: sl(),

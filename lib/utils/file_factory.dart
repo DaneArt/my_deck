@@ -21,7 +21,7 @@ class TextFileFactory implements MDFileFactory {
   Future<File> create(String id) async {
     final dir = await getApplicationDocumentsDirectory();
     final dirPath = '${dir.path}/files';
-    Directory(dirPath).createSync(recursive: true);
+    await Directory(dirPath).create(recursive: true);
     return File('$dirPath/$id.txt');
   }
 }

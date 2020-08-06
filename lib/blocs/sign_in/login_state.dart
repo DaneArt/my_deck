@@ -1,35 +1,35 @@
-part of 'sign_in_bloc.dart';
+part of 'login_bloc.dart';
 
 @freezed
-abstract class SignInState with _$SignInState {
-  const factory SignInState({
+abstract class LoginState with _$LoginState {
+  const factory LoginState({
     @required ValueObject<String> emailOrLogin,
     @required ValueObject<String> password,
     @required bool showErrorMessages,
     @required bool isSubmitting,
     @required Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption,
-  }) = _SignInState;
+  }) = _LoginState;
 
-  factory SignInState.initial() => SignInState(
+  factory LoginState.initial() => LoginState(
       emailOrLogin: EmailAddress(''),
       showErrorMessages: false,
       isSubmitting: false,
       authFailureOrSuccessOption: none(),
       password: Password(''));
 
-  const factory SignInState.emailInput({
+  const factory LoginState.emailInput({
     @required EmailAddress emailAddress,
     @required bool showErrorMessages,
     @required bool isSubmitting,
     @required Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption,
   }) = EmailInput;
-  const factory SignInState.loginInput({
+  const factory LoginState.loginInput({
     @required Login login,
     @required bool showErrorMessages,
     @required bool isSubmitting,
     @required Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption,
   }) = LoginInput;
-  const factory SignInState.passwordInput({
+  const factory LoginState.passwordInput({
     @required Password password,
     @required Password confirmPassword,
     @required bool showErrorMessages,

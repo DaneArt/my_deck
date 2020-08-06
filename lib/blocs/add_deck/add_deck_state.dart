@@ -9,10 +9,10 @@ abstract class AddDeckState with _$AddDeckState {
     @required DeckAvatar avatar,
     @required bool isShared,
     @required DeckCategory category,
+    @required bool availableQuickTrain,
     @required UserModel author,
+    @required Option<Either<StorageFailure, Unit>> loadingFailureOrSuccess,
     @required List<Card> cardsList,
-    @required Option<Either<StorageFailure, Deck>> saveFailureOrSuccessOption,
-    @required Deck initialDeck,
   }) = _AddDeckState;
 
   factory AddDeckState.initial({@required Deck initialDeck}) => AddDeckState(
@@ -22,9 +22,9 @@ abstract class AddDeckState with _$AddDeckState {
         description: initialDeck.description,
         isShared: !initialDeck.isPrivate,
         title: initialDeck.title,
-        saveFailureOrSuccessOption: none(),
         author: initialDeck.author,
-        initialDeck: initialDeck,
         isLoading: false,
+        loadingFailureOrSuccess: none(),
+        availableQuickTrain: initialDeck.availableQuickTrain,
       );
 }

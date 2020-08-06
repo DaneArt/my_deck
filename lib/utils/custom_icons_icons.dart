@@ -11,7 +11,7 @@
 ///      fonts:
 ///       - asset: fonts/CustomIcons.ttf
 ///
-///
+/// 
 /// * Material Design Icons, Copyright (C) Google, Inc
 ///         Author:    Google
 ///         License:   Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0)
@@ -20,7 +20,7 @@
 ///         Author:    Daniel Bruce
 ///         License:   SIL (http://scripts.sil.org/OFL)
 ///         Homepage:  http://www.entypo.com
-/// * Font Awesome, Copyright (C) 2016 by Dave Gandy
+/// * Font Awesome 4, Copyright (C) 2016 by Dave Gandy
 ///         Author:    Dave Gandy
 ///         License:   SIL ()
 ///         Homepage:  http://fortawesome.github.com/Font-Awesome/
@@ -33,24 +33,16 @@ class CustomIcons {
   static const _kFontFam = 'CustomIcons';
   static const _kFontPkg = null;
 
-  static const IconData cards =
-      const IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData drop_progress =
-      const IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData subscribers_count =
-      const IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData dumbbell =
-      const IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData search =
-      const IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData user =
-      const IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData chart_bar =
-      const IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData arrow_forward =
-      const IconData(0xe808, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData arrow_back =
-      const IconData(0xe809, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData gplus =
-      const IconData(0xf0d5, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData cards = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData drop_progress = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData subscribers_count = IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData dumbbell = IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData search = IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData user = IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData chart_bar = IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData card_bulleted = IconData(0xe807, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData arrow_forward = IconData(0xe808, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData arrow_back = IconData(0xe809, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData brain = IconData(0xe80a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData gplus = IconData(0xf0d5, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

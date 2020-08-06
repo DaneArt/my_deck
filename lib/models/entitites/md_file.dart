@@ -7,6 +7,7 @@ import 'package:mydeck/errors/storage_failure.dart';
 import 'package:mydeck/models/dtos/file_dto.dart';
 import 'package:mydeck/models/entitites/unique_id.dart';
 import 'package:mydeck/services/repositories/file_repository.dart';
+import 'package:mydeck/services/usecases/get_file_by_meta_usecase.dart';
 
 import 'package:mydeck/utils/dependency_injection.dart';
 
@@ -15,12 +16,14 @@ abstract class MDFile {
 
   File _file;
 
-  Future<Either<StorageFailure, File>> getFileValue() async {
+  Future<Either<StorageFailure<File>, File>> getFileValue() async {
     if (_file != null && _file.existsSync()) {
       return right(_file);
     } else {
-      final storageFile = await sl.get<FileRepository>().getFileByMeta(
-          uniqueId, this is ImageFile ? ContentType.IMAGE : ContentType.TEXT);
+      final storageFile = await sl.get<GetFileByMetaUseCase>().call(Params(
+          id: uniqueId,
+          fileType: this is ImageFile ? FileType.IMAGE : FileType.TEXT));
+
       return storageFile.fold((failure) => left(failure), (value) {
         _file = value;
         return right(_file);

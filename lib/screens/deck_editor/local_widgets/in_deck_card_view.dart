@@ -1,5 +1,5 @@
 import 'package:mydeck/models/entitites/card.dart' as Entity;
-import 'package:mydeck/models/entitites/my_deck_file.dart';
+import 'package:mydeck/models/entitites/md_file.dart';
 import 'package:flutter/material.dart';
 import 'package:mydeck/generated/l10n.dart';
 

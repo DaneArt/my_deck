@@ -55,66 +55,35 @@ class _LoginFieldState extends State<LoginField> {
             textAlign: TextAlign.left,
             style: Theme.of(context)
                 .textTheme
-                .bodyText2
-                .copyWith(color: Colors.white),
+                .bodyText1
+                .copyWith(fontWeight: FontWeight.bold),
           ),
         ),
-        Stack(children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Container(
-              alignment: Alignment.center,
-              height: 58,
-              width: MediaQuery.of(context).size.width * 0.9,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(128)),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black38,
-                        blurRadius: 16,
-                        offset: Offset(0, 4))
-                  ]),
-            ),
-          ),
-          EnsureVisibleWhenFocused(
+        EnsureVisibleWhenFocused(
+          focusNode: fieldFocusNode,
+          child: TextFormField(
+            key: widget.fieldKey,
             focusNode: fieldFocusNode,
-            child: TextFormField(
-              key: widget.fieldKey,
-              focusNode: fieldFocusNode,
-              controller: widget.controller,
-              onChanged: widget.onChanged,
-              style: Theme.of(context).textTheme.bodyText2,
-              validator: widget.validator,
-              autovalidate: widget.autovalidate,
-              obscureText: widget.isObscureText,
-              decoration: InputDecoration(
-                  suffixIcon: widget.suffix ?? null,
-                  prefixIcon: widget.prefix,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(128.0)),
-                    borderSide:
-                        BorderSide(color: Theme.of(context).primaryColorLight),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(128.0)),
-                    borderSide:
-                        BorderSide(color: Theme.of(context).primaryColorLight),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(128.0)),
-                    borderSide:
-                        BorderSide(color: Theme.of(context).primaryColorLight),
-                  ),
-                  fillColor: Theme.of(context).colorScheme.brightness ==
-                          Brightness.dark
-                      ? Colors.grey
-                      : Colors.white,
-                  filled: Theme.of(context).colorScheme.brightness !=
-                      Brightness.dark,
-                  hintText: widget.hint),
-            ),
+            controller: widget.controller,
+            onChanged: widget.onChanged,
+            style: Theme.of(context).textTheme.bodyText2,
+            validator: widget.validator,
+            autovalidate: widget.autovalidate,
+            obscureText: widget.isObscureText,
+            decoration: InputDecoration(
+                hintStyle: Theme.of(context).textTheme.caption.copyWith(
+                    color: Theme.of(context).primaryColor, fontSize: 14),
+                suffixIcon: widget.suffix ?? null,
+                prefixIcon: widget.prefix,
+                fillColor:
+                    Theme.of(context).colorScheme.brightness == Brightness.dark
+                        ? Colors.grey
+                        : Colors.white,
+                filled:
+                    Theme.of(context).colorScheme.brightness != Brightness.dark,
+                hintText: widget.hint),
           ),
-        ]),
+        ),
       ],
     );
   }

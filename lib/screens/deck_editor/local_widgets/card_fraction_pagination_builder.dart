@@ -30,13 +30,10 @@ class CardFractionPaginationBuilder extends SwiperPlugin {
     Color color = this.color ?? themeData.scaffoldBackgroundColor;
 
     if (Axis.vertical == config.scrollDirection) {
-      return  Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(8)),
-            color: Colors.black87
-        ),
+      return Container(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding:
+              const EdgeInsets.only(top: 48.0, left: 8, right: 8, bottom: 8),
           child: new Column(
             key: key,
             mainAxisSize: MainAxisSize.min,
@@ -58,13 +55,10 @@ class CardFractionPaginationBuilder extends SwiperPlugin {
         ),
       );
     } else {
-      return  Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
-          color: Colors.black87
-        ),
+      return Container(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding:
+              const EdgeInsets.only(top: 48.0, left: 8, right: 8, bottom: 8),
           child: Row(
             key: key,
             mainAxisSize: MainAxisSize.min,

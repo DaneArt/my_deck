@@ -1,24 +1,20 @@
-import 'package:colorful_safe_area/colorful_safe_area.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:colorful_safe_area/colorful_safe_area.dart';
+
 import 'package:mydeck/blocs/add_card/add_card_bloc.dart';
 import 'package:mydeck/blocs/add_deck/add_deck_bloc.dart';
-
+import 'package:mydeck/models/entitites/md_file.dart';
 import 'package:mydeck/utils/widget_extensions.dart';
 import 'package:mydeck/utils/custom_icons_icons.dart';
-import 'package:mydeck/theme/my_deck_routes.dart';
-
 import 'package:mydeck/screens/deck_editor/card_editor.dart';
 import 'package:mydeck/screens/deck_editor/local_widgets/category_picker.dart';
 import 'package:mydeck/screens/deck_editor/local_widgets/in_deck_card_view.dart';
-import 'package:mydeck/screens/deck_editor/local_widgets/pick_image_view.dart';
+import 'package:mydeck/screens/deck_editor/local_widgets/image_picker_widget.dart';
 import 'package:mydeck/models/entitites/card.dart' as Entity;
-import 'package:mydeck/models/entitites/deck.dart';
-import 'package:mydeck/widgets/sliver_tab_bar_delegate.dart';
-import 'package:mydeck/services/datasources/user_config.dart';
+import 'package:mydeck/widgets/buttons.dart';
 import 'package:mydeck/generated/l10n.dart';
 
 enum AddDeckGoal { edit, create, lookup }
@@ -46,19 +42,16 @@ class AddDeckTabView extends StatefulWidget {
 class _AddDeckTabViewState extends State<AddDeckTabView>
     with TickerProviderStateMixin<AddDeckTabView>, WidgetsBindingObserver {
   TabController tabController;
-  ScrollController scrollController;
-  AnimationController _animationController;
-  Animation _fabAnimation;
 
   AddDeckGoal get goal => widget.goal;
+
+  bool _showActions = false;
+
+  AddDeckBloc get bloc => BlocProvider.of<AddDeckBloc>(context);
 
   @override
   void initState() {
     super.initState();
-    _animationController =
-        AnimationController(duration: Duration(milliseconds: 200), vsync: this);
-    _fabAnimation =
-        Tween<double>(begin: 0, end: 1).animate(_animationController);
 
     tabController = TabController(
       length: 2,
@@ -66,32 +59,16 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
     );
     tabController.addListener(() {
       FocusScope.of(context).unfocus();
-      if (tabController.index == 1) {
-        _animationController.forward();
-      } else {
-        _animationController.reverse();
-      }
+      setState(() {
+        _showActions = tabController.index == 1 && goal != AddDeckGoal.lookup;
+      });
     });
-
-    scrollController = ScrollController();
-    scrollController.addListener(() {
-      switch (scrollController.position.userScrollDirection) {
-        case ScrollDirection.forward:
-          _animationController.forward();
-          break;
-        case ScrollDirection.reverse:
-          _animationController.reverse();
-          break;
-        case ScrollDirection.idle:
-          break;
-      }
-    });
+    if (goal != AddDeckGoal.create) bloc.add(AddDeckEvent.initFromOnline());
   }
 
   @override
   void dispose() {
     tabController.dispose();
-    _animationController.dispose();
     super.dispose();
   }
 
@@ -159,201 +136,66 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
 
   @override
   Widget build(BuildContext context) {
-    if (goal == AddDeckGoal.lookup &&
-        context.bloc<AddDeckBloc>().state.author.username.isEmpty) {
-      context.bloc<AddDeckBloc>().add(AddDeckEvent.initFromOnline());
-    }
-
-    return WillPopScope(
-      onWillPop: () async {
-        if (goal != AddDeckGoal.lookup) {
-          BlocProvider.of<AddDeckBloc>(context).add(AddDeckEvent.saveChanges());
-        } else {
-          return true;
-        }
-        return false;
-      },
-      child: ColorfulSafeArea(
-        color: Theme.of(context).primaryColorDark,
-        child: Scaffold(
-          body: BlocListener<AddDeckBloc, AddDeckState>(
-            listener: (context, state) {
-              state.saveFailureOrSuccessOption.fold(
-                  () => null,
-                  (some) => some.fold((failure) {
-                        failure.maybeMap(fieldsInvalid: (f) async {
-                          final save = await _showInvalidFieldsDialog(
-                              context: context, state: state);
-                          if (save) {
-                            BlocProvider.of<AddDeckBloc>(context)
-                                .add(AddDeckEvent.saveDraft());
-                          }
-                        }, unsaveableDraft: (f) {
-                          Scaffold.of(context).showSnackBar(SnackBar(
-                            content: Text("Can't save draft of public deck."),
-                          ));
-                        }, insertFailure: (f) {
-                          Scaffold.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(S.of(context).editor_error_saving),
-                              action: SnackBarAction(
-                                  label: S.of(context).editor_retry,
-                                  onPressed: () =>
-                                      BlocProvider.of<AddDeckBloc>(context)
-                                          .add(AddDeckEvent.saveChanges())),
-                            ),
-                          );
-                        }, updateFailure: (f) {
-                          Scaffold.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(S.of(context).editor_error_saving),
-                              action: SnackBarAction(
-                                  label: S.of(context).editor_retry,
-                                  onPressed: () =>
-                                      BlocProvider.of<AddDeckBloc>(context)
-                                          .add(AddDeckEvent.saveChanges())),
-                            ),
-                          );
-                        }, deleteFailure: (f) {
-                          Scaffold.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(S.of(context).editor_error_saving),
-                              action: SnackBarAction(
-                                  label: S.of(context).editor_retry,
-                                  onPressed: () =>
-                                      BlocProvider.of<AddDeckBloc>(context)
-                                          .add(AddDeckEvent.deleteDeck())),
-                            ),
-                          );
-                        }, orElse: () {
-                          Scaffold.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Unhandled failure.'),
-                              action:
-                                  SnackBarAction(label: 'OK', onPressed: () {}),
-                            ),
-                          );
-                        });
-                      },
-                          (success) => Navigator.of(context)
-                              .pop(success != null ? success : true)));
-            },
-            child: DefaultTabController(
-              length: 2, // This is the number of tabs.
-              child: NestedScrollView(
-                physics: tabController.index == 0
-                    ? NeverScrollableScrollPhysics()
-                    : AlwaysScrollableScrollPhysics(),
-                headerSliverBuilder:
-                    (BuildContext context, bool innerBoxIsScrolled) {
-                  return <Widget>[
-                    SliverOverlapAbsorber(
-                      handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
-                          context),
-                      sliver: SliverAppBar(
-                        elevation: 4,
-                        floating: false,
-                        pinned: false,
-                        title: Text(
-                          S.of(context).editor_edit_deck,
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        leading: IconButton(
-                          icon: Icon(
-                              goal != AddDeckGoal.lookup
-                                  ? Icons.clear
-                                  : Icons.arrow_back,
-                              color: Colors.white),
-                          onPressed: () => Navigator.of(context).pop(),
-                        ),
-                        actions: <Widget>[
-                          goal == AddDeckGoal.edit
-                              ? IconButton(
-                                  icon: Icon(Icons.delete, color: Colors.white),
-                                  onPressed: () {
-                                    BlocProvider.of<AddDeckBloc>(context)
-                                        .add(AddDeckEvent.deleteDeck());
-                                  },
-                                )
-                              : Spacer(),
-                          goal != AddDeckGoal.lookup
-                              ? IconButton(
-                                  icon: Icon(Icons.check, color: Colors.white),
-                                  onPressed: () {
-                                    BlocProvider.of<AddDeckBloc>(context)
-                                        .add(AddDeckEvent.saveChanges());
-                                  },
-                                )
-                              : Spacer(),
-                        ],
-                      ),
-                    ),
-                    SliverPersistentHeader(
-                      delegate: SliverTabBarDelegate(
-                        TabBar(
-                          indicatorSize: TabBarIndicatorSize.label,
-                          labelColor: Colors.white,
-                          unselectedLabelColor: Colors.white.withAlpha(125),
-                          tabs: [
-                            Tab(
-                              text: S.of(context).meta_deck,
-                              icon: Icon(
-                                Icons.book,
-                              ),
-                            ),
-                            Tab(
-                                text: S.of(context).meta_cards,
-                                icon: Icon(
-                                  CustomIcons.cards,
-                                )),
-                          ],
-                          controller: tabController,
-                        ),
-                      ),
-                      pinned: true,
-                    ),
-                  ];
-                },
-                body: TabBarView(controller: tabController, children: [
-                  _DeckPage(goal: goal),
-                  _CardsPage(scrollController: scrollController, goal: goal),
-                ]),
-              ),
-            ),
+    return ColorfulSafeArea(
+      color: Theme.of(context).primaryColorDark,
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(
+                goal != AddDeckGoal.lookup ? Icons.clear : Icons.arrow_back,
+                color: Colors.white),
+            onPressed: () => Navigator.of(context).pop(),
           ),
-          floatingActionButton: goal != AddDeckGoal.lookup
-              ? FadeTransition(
-                  opacity: _fabAnimation,
-                  child: ScaleTransition(
-                    scale: _fabAnimation,
-                    child: BlocBuilder<AddDeckBloc, AddDeckState>(
-                      builder: (context, state) => FloatingActionButton(
-                        child: Icon(Icons.add, color: Colors.white),
-                        onPressed: () async {
-                          final newCards = await context.navigator.push(
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      BlocProvider(
-                                        create: (context) => AddCardBloc(
-                                          currentCardIndex:
-                                              state.cardsList.length,
-                                          sourceCards:
-                                              List.from(state.cardsList)
-                                                ..add(Entity.Card.basic()),
-                                        ),
-                                        child: CardEditor(isCreating: true),
-                                      )));
-                          if (newCards != null) {
-                            context
-                                .bloc<AddDeckBloc>()
-                                .add(AddDeckEvent.updateCards(cards: newCards));
-                          }
-                        },
-                      ),
-                    ),
-                  ),
-                )
-              : Container(),
+          actions: <Widget>[
+            _showActions && bloc.state.loadingFailureOrSuccess.isNone()
+                ? IconButton(
+                    icon: Icon(Icons.add, color: Colors.white),
+                    onPressed: () async {
+                      final cards =
+                          await context.navigator.push(MaterialPageRoute(
+                              builder: (BuildContext ctx) => BlocProvider(
+                                    create: (c) => AddCardBloc(
+                                        currentCardIndex:
+                                            bloc.state.cardsList.length,
+                                        sourceCards:
+                                            List.from(bloc.state.cardsList)
+                                              ..add(Entity.Card.basic())),
+                                    child: CardEditor(
+                                      isCreating: true,
+                                    ),
+                                  )));
+                      if (cards != null)
+                        bloc.add(AddDeckEvent.updateCards(cards: cards));
+                    },
+                  )
+                : Container()
+          ],
+          bottom: TabBar(
+            indicatorSize: TabBarIndicatorSize.label,
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.white.withAlpha(125),
+            tabs: [
+              Tab(
+                text: S.of(context).meta_deck,
+                icon: Icon(
+                  CustomIcons.card_bulleted,
+                ),
+              ),
+              Tab(
+                  text: S.of(context).meta_cards,
+                  icon: Icon(
+                    CustomIcons.cards,
+                  )),
+            ],
+            controller: tabController,
+          ),
+        ),
+        body: DefaultTabController(
+          length: 2, // This is the number of tabs.
+          child: TabBarView(controller: tabController, children: [
+            _DeckPage(goal: goal),
+            _CardsPage(goal: goal),
+          ]),
         ),
       ),
     );
@@ -381,6 +223,8 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
   static const _maxTitleCount = 30;
 
   AddDeckGoal get goal => widget.goal;
+
+  AddDeckBloc get bloc => BlocProvider.of<AddDeckBloc>(context);
 
   @override
   void initState() {
@@ -410,83 +254,175 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
         if (state.isLoading) {
           return Center(child: CircularProgressIndicator());
         } else {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    flex: 3,
-                    child: ImagePickerWidget(
-                      isEditing: goal != AddDeckGoal.lookup,
-                      onImagePicked: goal != AddDeckGoal.lookup
-                          ? (image) {
-                              BlocProvider.of<AddDeckBloc>(context)
-                                  .add(AddDeckEvent.avatarChanged(image));
-                            }
-                          : (image) {},
-                      defaultImage: state.avatar,
+          return state.loadingFailureOrSuccess.fold(
+            () => deckWidget(state),
+            (result) => result.fold(
+              (failure) => Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text('Failure'),
+                    MaterialButton(
+                      child: Text('Retry'),
+                      onPressed: () {
+                        bloc.add(AddDeckEvent.initFromOnline());
+                      },
                     ),
-                  ),
-                  Flexible(
-                    flex: 1,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8),
-                    ),
-                  ),
-                  Form(
-                    key: _formKey,
-                    child: Flexible(
-                      flex: 4,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          titleWidget(state),
-                          descriptionWidget(state),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[authorWidget(state), trainWidget(state)],
+                  ],
                 ),
               ),
-              shareWidget(state),
-              categoryWidget(state),
-            ],
+              (success) => deckWidget(state),
+            ),
           );
         }
       },
     );
   }
 
-  Widget authorWidget(AddDeckState state) => Row(
-        children: <Widget>[
-          CircleAvatar(
-            backgroundColor: Colors.grey,
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(32)),
-              child: Image.network(goal != AddDeckGoal.lookup &&
-                      state.author.userId == UserConfig.currentUser.userId
-                  ? UserConfig.currentUser.avatarPath
-                  : state.author.avatarPath),
+  Widget deckWidget(AddDeckState state) => SingleChildScrollView(
+        child: Container(
+          child: Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                SizedBox(
+                  height: 16,
+                ),
+                deckOverviewWidget(state),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 24.0, vertical: 24.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      buttonsWidget(state),
+                      SizedBox(
+                        height: 24,
+                      ),
+                      categoryWidget(state),
+                      authorWidget(state),
+                    ],
+                  ),
+                ),
+                goal == AddDeckGoal.edit
+                    ? MaterialButton(
+                        minWidth: double.infinity,
+                        child: Text(
+                          'DELETE DECK',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                        onPressed: () {},
+                      )
+                    : Container(),
+              ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(4),
+        ),
+      );
+
+  Widget deckOverviewWidget(AddDeckState state) => Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 16.0,
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Flexible(
+              flex: 2,
+              child: ImagePickerWidget(
+                defaultAvatar: state.avatar,
+                onImagePicked: (ImageFile image) {
+                  bloc.add(AddDeckEvent.avatarChanged(image));
+                },
+              ),
+            ),
+            Flexible(
+              flex: 3,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Flexible(
+                      child: titleWidget(state),
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    descriptionWidget(state)
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+
+  Widget buttonsWidget(AddDeckState state) => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          MDRoundedButton(
+            icon: Icon(state.isShared ? Icons.lock_open : Icons.lock),
+            onPressed: () {
+              bloc.add(AddDeckEvent.changePrivacy());
+            },
+            title: Text('PRIVACY'),
           ),
-          Text(goal == AddDeckGoal.lookup
-              ? state.author.username
-              : state.author.userId == UserConfig.currentUser.userId
-                  ? 'you'
-                  : '')
+          Row(
+            children: <Widget>[
+              MDRoundedButton(
+                icon: Icon(CustomIcons.dumbbell),
+                onPressed: () {},
+                title: Text('TRAIN'),
+              ),
+              SizedBox(
+                width: 16,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: Column(
+                  children: <Widget>[
+                    Text('Quick train'),
+                    Checkbox(
+                        value: state.availableQuickTrain,
+                        onChanged: (value) {
+                          bloc.add(AddDeckEvent.quickTrainStateChanged());
+                        }),
+                  ],
+                ),
+              )
+            ],
+          ),
         ],
+      );
+
+  Widget authorWidget(AddDeckState state) => Padding(
+        padding: const EdgeInsets.only(top: 16.0),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text('Author', style: Theme.of(context).textTheme.headline5),
+            Row(
+              children: <Widget>[
+                Text(state.author.username),
+                SizedBox(
+                  width: 8,
+                ),
+                CircleAvatar(
+                  backgroundColor: Colors.grey,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(32)),
+                    child: Image.network(state.author.avatarPath),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       );
 
   Widget descriptionWidget(AddDeckState state) => goal != AddDeckGoal.lookup
@@ -496,8 +432,8 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
           initialValue:
               state.description.value.fold((l) => l.failedValue, (r) => r),
           textInputAction: TextInputAction.done,
-          onChanged: (input) => BlocProvider.of<AddDeckBloc>(context)
-              .add(AddDeckEvent.descriptionChanged(input)),
+          onChanged: (input) =>
+              bloc.add(AddDeckEvent.descriptionChanged(input)),
           textCapitalization: TextCapitalization.sentences,
           decoration: InputDecoration(
             hintText: S.of(context).editor_description_enter,
@@ -505,10 +441,12 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
             labelText: S.of(context).editor_description,
             contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
             hoverColor: Theme.of(context).accentColor,
+            labelStyle: Theme.of(context).textTheme.subtitle1,
           ),
           inputFormatters: [
             new LengthLimitingTextInputFormatter(_maxDescriptionCount),
           ],
+          maxLines: null,
           maxLength: _maxDescriptionCount,
         )
       : Column(
@@ -518,17 +456,20 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
               '${S.of(context).editor_description}:',
               style: Theme.of(context)
                   .textTheme
-                  .subtitle1
+                  .headline6
                   .copyWith(fontWeight: FontWeight.w500),
             ),
             Padding(
               padding: const EdgeInsets.all(4),
             ),
-            Text(state.description.value.fold(
-                (l) => l.failedValue.isNotEmpty
-                    ? l.failedValue
-                    : S.of(context).editor_no_description,
-                (r) => r)),
+            Text(
+              state.description.value.fold(
+                  (l) => l.failedValue.isNotEmpty
+                      ? l.failedValue
+                      : S.of(context).editor_no_description,
+                  (r) => r),
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
           ],
         );
 
@@ -538,126 +479,63 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
           autovalidate: true,
           initialValue: state.title.value.fold((l) => l.failedValue, (r) => r),
           onChanged: (input) {
-            BlocProvider.of<AddDeckBloc>(context)
-                .add(AddDeckEvent.titleChanged(input));
+            bloc.add(AddDeckEvent.titleChanged(input));
           },
           textInputAction: TextInputAction.done,
           textCapitalization: TextCapitalization.sentences,
           decoration: InputDecoration(
             hintText: S.of(context).editor_title_enter,
-            labelText: S.of(context).editor_title,
+            labelText: S.of(context).editor_title + '*',
+            labelStyle: Theme.of(context).textTheme.subtitle1,
             contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
           ),
           inputFormatters: [
             LengthLimitingTextInputFormatter(_maxTitleCount),
           ],
+          maxLines: null,
+          maxLength: _maxTitleCount,
         )
-      : Padding(
-          padding: const EdgeInsets.only(bottom: 32.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                '${S.of(context).editor_title}:',
-                style: Theme.of(context)
-                    .textTheme
-                    .subtitle2
-                    .copyWith(fontWeight: FontWeight.w500),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(4),
-              ),
-              Text(state.title.value.fold(
+      : Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              '${S.of(context).editor_title}:',
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6
+                  .copyWith(fontWeight: FontWeight.w500),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(4),
+            ),
+            Text(
+              state.title.value.fold(
                   (l) => l.failedValue.isNotEmpty
                       ? l.failedValue
                       : S.of(context).editor_no_title,
-                  (r) => r)),
-            ],
-          ),
-        );
-
-  Widget trainWidget(AddDeckState state) => goal != AddDeckGoal.create
-      ? RaisedButton(
-          onPressed: state.cardsList.isNotEmpty
-              ? () async {
-                  final cards = List<Entity.Card>.from(state.cardsList);
-                  cards.removeWhere(
-                      (c) => c.answer == null || c.question == null);
-                  if (cards.length >= 2) {
-                    final trainedCards = await Navigator.of(context)
-                        .pushNamed(MyDeckRoutes.train, arguments: [
-                      state.initialDeck.copyWith(cardsList: cards)
-                    ]);
-                    if (trainedCards != null) {
-                      context.bloc<AddDeckBloc>().add(AddDeckEvent.updateCards(
-                          cards: (trainedCards as List)
-                              .map((c) => c.toDomain())
-                              .toList()));
-                    }
-                  } else {
-                    Scaffold.of(context).showSnackBar(SnackBar(
-                      content: Text(
-                          'Deck must have two filled cards at least. ${goal != AddDeckGoal.lookup ? 'Create cards and save deck.' : ''}'),
-                    ));
-                  }
-                }
-              : () {},
-          color: Colors.white,
-          elevation: 4,
-          child: Row(
-            children: <Widget>[
-              Text(
-                S.of(context).train,
-                style: TextStyle(color: Colors.black),
-              ),
-              Icon(
-                CustomIcons.dumbbell,
-                color: Colors.black,
-              )
-            ],
-          ),
-        )
-      : Spacer();
-
-  Widget shareWidget(AddDeckState state) => goal != AddDeckGoal.lookup
-      ? Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                S.of(context).editor_share,
-                style: Theme.of(context).textTheme.bodyText2,
-              ),
-              Switch.adaptive(
-                value: state.isShared,
-                onChanged: (isChecked) {
-                  context
-                      .bloc<AddDeckBloc>()
-                      .add(AddDeckEvent.privacyChanged(isChecked));
-                },
-              ),
-            ],
-          ),
-        )
-      : Container();
-
-  Widget categoryWidget(AddDeckState state) => Padding(
-        padding: const EdgeInsets.only(top: 4, left: 16),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Text(S.of(context).editor_category),
-            CategoryPicker(
-              onChanged: (value) {
-                BlocProvider.of<AddDeckBloc>(context)
-                    .add(AddDeckEvent.categoryChanged(value));
-              },
-              baseCategory: state.category,
+                  (r) => r),
+              style: Theme.of(context).textTheme.subtitle1,
+              maxLines: null,
+              softWrap: false,
             ),
           ],
-        ),
+        );
+
+  Widget categoryWidget(AddDeckState state) => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
+            S.of(context).editor_category,
+            style: Theme.of(context).textTheme.headline5,
+          ),
+          CategoryPicker(
+            onChanged: (value) {
+              bloc.add(AddDeckEvent.categoryChanged(value));
+            },
+            baseCategory: state.category,
+          ),
+        ],
       );
 }
 
@@ -679,6 +557,7 @@ class _CardsPageState extends State<_CardsPage> {
 
   bool get _isEditing => widget.goal != AddDeckGoal.lookup;
 
+  AddDeckBloc get bloc => BlocProvider.of<AddDeckBloc>(context);
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AddDeckBloc, AddDeckState>(
@@ -688,63 +567,69 @@ class _CardsPageState extends State<_CardsPage> {
             child: CircularProgressIndicator(),
           );
         } else {
-          return Builder(
-            builder: (context) => CustomScrollView(
-              key: PageStorageKey<String>('Cards'),
-              slivers: <Widget>[
-                SliverOverlapInjector(
-                  // This is the flip side of the SliverOverlapAbsorber above.
-                  handle:
-                      NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-                ),
-                SliverPadding(
-                    padding: const EdgeInsets.all(8),
-                    sliver: state.cardsList.isNotEmpty
+          return state.loadingFailureOrSuccess.fold(
+              () => state.cardsList.isNotEmpty
+                  ? _cardsGrid(state)
+                  : _noCardsWidget(state),
+              (result) => result.fold(
+                    (failure) => Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text('Failure'),
+                          MaterialButton(
+                            child: Text('Retry'),
+                            onPressed: () {
+                              bloc.add(AddDeckEvent.initFromOnline());
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    (success) => state.cardsList.isNotEmpty
                         ? _cardsGrid(state)
-                        : _noCardsWidget(state)),
-              ],
-            ),
-          );
+                        : _noCardsWidget(state),
+                  ));
         }
       },
     );
   }
 
   Widget _noCardsWidget(AddDeckState state) {
-    return SliverFillRemaining(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(S.of(context).editor_cards_empty,
-              style: Theme.of(context).textTheme.bodyText1),
-          _isEditing
-              ? RaisedButton(
-                  color: Theme.of(context).accentColor,
-                  onPressed: () async {
-                    final cards =
-                        await context.navigator.push(MaterialPageRoute(
-                            builder: (BuildContext context) => BlocProvider(
-                                  create: (context) => AddCardBloc(
-                                      currentCardIndex: state.cardsList.length,
-                                      sourceCards: List.from(state.cardsList)
-                                        ..add(Entity.Card.basic())),
-                                  child: CardEditor(
-                                    isCreating: true,
-                                  ),
-                                )));
-                    if (cards != null)
-                      context
-                          .bloc<AddDeckBloc>()
-                          .add(AddDeckEvent.updateCards(cards: cards));
-                  },
-                  child: Text(
-                    S.of(context).editor_lets_create_card,
-                    style: TextStyle(color: Colors.white),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(S.of(context).editor_cards_empty,
+            style: Theme.of(context).textTheme.bodyText1),
+        _isEditing
+            ? RaisedButton(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(8),
                   ),
-                )
-              : Container(),
-        ],
-      ),
+                ),
+                color: Theme.of(context).accentColor,
+                onPressed: () async {
+                  final cards = await context.navigator.push(MaterialPageRoute(
+                      builder: (BuildContext context) => BlocProvider(
+                            create: (context) => AddCardBloc(
+                                currentCardIndex: state.cardsList.length,
+                                sourceCards: List.from(state.cardsList)
+                                  ..add(Entity.Card.basic())),
+                            child: CardEditor(
+                              isCreating: true,
+                            ),
+                          )));
+                  if (cards != null)
+                    bloc.add(AddDeckEvent.updateCards(cards: cards));
+                },
+                child: Text(
+                  S.of(context).editor_lets_create_card,
+                  style: TextStyle(color: Colors.white),
+                ),
+              )
+            : Container(),
+      ],
     );
   }
 

@@ -26,14 +26,13 @@ class _$AddDeckStateTearOff {
       @required
           DeckCategory category,
       @required
+          bool availableQuickTrain,
+      @required
           UserModel author,
       @required
-          List<Card> cardsList,
+          Option<Either<StorageFailure<dynamic>, Unit>> loadingFailureOrSuccess,
       @required
-          Option<Either<StorageFailure<dynamic>, Deck>>
-              saveFailureOrSuccessOption,
-      @required
-          Deck initialDeck}) {
+          List<Card> cardsList}) {
     return _AddDeckState(
       isLoading: isLoading,
       title: title,
@@ -41,10 +40,10 @@ class _$AddDeckStateTearOff {
       avatar: avatar,
       isShared: isShared,
       category: category,
+      availableQuickTrain: availableQuickTrain,
       author: author,
+      loadingFailureOrSuccess: loadingFailureOrSuccess,
       cardsList: cardsList,
-      saveFailureOrSuccessOption: saveFailureOrSuccessOption,
-      initialDeck: initialDeck,
     );
   }
 }
@@ -59,10 +58,10 @@ mixin _$AddDeckState {
   DeckAvatar get avatar;
   bool get isShared;
   DeckCategory get category;
+  bool get availableQuickTrain;
   UserModel get author;
+  Option<Either<StorageFailure<dynamic>, Unit>> get loadingFailureOrSuccess;
   List<Card> get cardsList;
-  Option<Either<StorageFailure<dynamic>, Deck>> get saveFailureOrSuccessOption;
-  Deck get initialDeck;
 
   $AddDeckStateCopyWith<AddDeckState> get copyWith;
 }
@@ -78,13 +77,12 @@ abstract class $AddDeckStateCopyWith<$Res> {
       DeckAvatar avatar,
       bool isShared,
       DeckCategory category,
+      bool availableQuickTrain,
       UserModel author,
-      List<Card> cardsList,
-      Option<Either<StorageFailure<dynamic>, Deck>> saveFailureOrSuccessOption,
-      Deck initialDeck});
+      Option<Either<StorageFailure<dynamic>, Unit>> loadingFailureOrSuccess,
+      List<Card> cardsList});
 
   $DeckCategoryCopyWith<$Res> get category;
-  $DeckCopyWith<$Res> get initialDeck;
 }
 
 class _$AddDeckStateCopyWithImpl<$Res> implements $AddDeckStateCopyWith<$Res> {
@@ -102,10 +100,10 @@ class _$AddDeckStateCopyWithImpl<$Res> implements $AddDeckStateCopyWith<$Res> {
     Object avatar = freezed,
     Object isShared = freezed,
     Object category = freezed,
+    Object availableQuickTrain = freezed,
     Object author = freezed,
+    Object loadingFailureOrSuccess = freezed,
     Object cardsList = freezed,
-    Object saveFailureOrSuccessOption = freezed,
-    Object initialDeck = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed ? _value.isLoading : isLoading as bool,
@@ -117,15 +115,16 @@ class _$AddDeckStateCopyWithImpl<$Res> implements $AddDeckStateCopyWith<$Res> {
       isShared: isShared == freezed ? _value.isShared : isShared as bool,
       category:
           category == freezed ? _value.category : category as DeckCategory,
+      availableQuickTrain: availableQuickTrain == freezed
+          ? _value.availableQuickTrain
+          : availableQuickTrain as bool,
       author: author == freezed ? _value.author : author as UserModel,
+      loadingFailureOrSuccess: loadingFailureOrSuccess == freezed
+          ? _value.loadingFailureOrSuccess
+          : loadingFailureOrSuccess
+              as Option<Either<StorageFailure<dynamic>, Unit>>,
       cardsList:
           cardsList == freezed ? _value.cardsList : cardsList as List<Card>,
-      saveFailureOrSuccessOption: saveFailureOrSuccessOption == freezed
-          ? _value.saveFailureOrSuccessOption
-          : saveFailureOrSuccessOption
-              as Option<Either<StorageFailure<dynamic>, Deck>>,
-      initialDeck:
-          initialDeck == freezed ? _value.initialDeck : initialDeck as Deck,
     ));
   }
 
@@ -136,16 +135,6 @@ class _$AddDeckStateCopyWithImpl<$Res> implements $AddDeckStateCopyWith<$Res> {
     }
     return $DeckCategoryCopyWith<$Res>(_value.category, (value) {
       return _then(_value.copyWith(category: value));
-    });
-  }
-
-  @override
-  $DeckCopyWith<$Res> get initialDeck {
-    if (_value.initialDeck == null) {
-      return null;
-    }
-    return $DeckCopyWith<$Res>(_value.initialDeck, (value) {
-      return _then(_value.copyWith(initialDeck: value));
     });
   }
 }
@@ -163,15 +152,13 @@ abstract class _$AddDeckStateCopyWith<$Res>
       DeckAvatar avatar,
       bool isShared,
       DeckCategory category,
+      bool availableQuickTrain,
       UserModel author,
-      List<Card> cardsList,
-      Option<Either<StorageFailure<dynamic>, Deck>> saveFailureOrSuccessOption,
-      Deck initialDeck});
+      Option<Either<StorageFailure<dynamic>, Unit>> loadingFailureOrSuccess,
+      List<Card> cardsList});
 
   @override
   $DeckCategoryCopyWith<$Res> get category;
-  @override
-  $DeckCopyWith<$Res> get initialDeck;
 }
 
 class __$AddDeckStateCopyWithImpl<$Res> extends _$AddDeckStateCopyWithImpl<$Res>
@@ -191,10 +178,10 @@ class __$AddDeckStateCopyWithImpl<$Res> extends _$AddDeckStateCopyWithImpl<$Res>
     Object avatar = freezed,
     Object isShared = freezed,
     Object category = freezed,
+    Object availableQuickTrain = freezed,
     Object author = freezed,
+    Object loadingFailureOrSuccess = freezed,
     Object cardsList = freezed,
-    Object saveFailureOrSuccessOption = freezed,
-    Object initialDeck = freezed,
   }) {
     return _then(_AddDeckState(
       isLoading: isLoading == freezed ? _value.isLoading : isLoading as bool,
@@ -206,15 +193,16 @@ class __$AddDeckStateCopyWithImpl<$Res> extends _$AddDeckStateCopyWithImpl<$Res>
       isShared: isShared == freezed ? _value.isShared : isShared as bool,
       category:
           category == freezed ? _value.category : category as DeckCategory,
+      availableQuickTrain: availableQuickTrain == freezed
+          ? _value.availableQuickTrain
+          : availableQuickTrain as bool,
       author: author == freezed ? _value.author : author as UserModel,
+      loadingFailureOrSuccess: loadingFailureOrSuccess == freezed
+          ? _value.loadingFailureOrSuccess
+          : loadingFailureOrSuccess
+              as Option<Either<StorageFailure<dynamic>, Unit>>,
       cardsList:
           cardsList == freezed ? _value.cardsList : cardsList as List<Card>,
-      saveFailureOrSuccessOption: saveFailureOrSuccessOption == freezed
-          ? _value.saveFailureOrSuccessOption
-          : saveFailureOrSuccessOption
-              as Option<Either<StorageFailure<dynamic>, Deck>>,
-      initialDeck:
-          initialDeck == freezed ? _value.initialDeck : initialDeck as Deck,
     ));
   }
 }
@@ -227,20 +215,20 @@ class _$_AddDeckState implements _AddDeckState {
       @required this.avatar,
       @required this.isShared,
       @required this.category,
+      @required this.availableQuickTrain,
       @required this.author,
-      @required this.cardsList,
-      @required this.saveFailureOrSuccessOption,
-      @required this.initialDeck})
+      @required this.loadingFailureOrSuccess,
+      @required this.cardsList})
       : assert(isLoading != null),
         assert(title != null),
         assert(description != null),
         assert(avatar != null),
         assert(isShared != null),
         assert(category != null),
+        assert(availableQuickTrain != null),
         assert(author != null),
-        assert(cardsList != null),
-        assert(saveFailureOrSuccessOption != null),
-        assert(initialDeck != null);
+        assert(loadingFailureOrSuccess != null),
+        assert(cardsList != null);
 
   @override
   final bool isLoading;
@@ -255,18 +243,17 @@ class _$_AddDeckState implements _AddDeckState {
   @override
   final DeckCategory category;
   @override
+  final bool availableQuickTrain;
+  @override
   final UserModel author;
   @override
+  final Option<Either<StorageFailure<dynamic>, Unit>> loadingFailureOrSuccess;
+  @override
   final List<Card> cardsList;
-  @override
-  final Option<Either<StorageFailure<dynamic>, Deck>>
-      saveFailureOrSuccessOption;
-  @override
-  final Deck initialDeck;
 
   @override
   String toString() {
-    return 'AddDeckState(isLoading: $isLoading, title: $title, description: $description, avatar: $avatar, isShared: $isShared, category: $category, author: $author, cardsList: $cardsList, saveFailureOrSuccessOption: $saveFailureOrSuccessOption, initialDeck: $initialDeck)';
+    return 'AddDeckState(isLoading: $isLoading, title: $title, description: $description, avatar: $avatar, isShared: $isShared, category: $category, availableQuickTrain: $availableQuickTrain, author: $author, loadingFailureOrSuccess: $loadingFailureOrSuccess, cardsList: $cardsList)';
   }
 
   @override
@@ -289,19 +276,18 @@ class _$_AddDeckState implements _AddDeckState {
             (identical(other.category, category) ||
                 const DeepCollectionEquality()
                     .equals(other.category, category)) &&
+            (identical(other.availableQuickTrain, availableQuickTrain) ||
+                const DeepCollectionEquality()
+                    .equals(other.availableQuickTrain, availableQuickTrain)) &&
             (identical(other.author, author) ||
                 const DeepCollectionEquality().equals(other.author, author)) &&
+            (identical(
+                    other.loadingFailureOrSuccess, loadingFailureOrSuccess) ||
+                const DeepCollectionEquality().equals(
+                    other.loadingFailureOrSuccess, loadingFailureOrSuccess)) &&
             (identical(other.cardsList, cardsList) ||
                 const DeepCollectionEquality()
-                    .equals(other.cardsList, cardsList)) &&
-            (identical(other.saveFailureOrSuccessOption,
-                    saveFailureOrSuccessOption) ||
-                const DeepCollectionEquality().equals(
-                    other.saveFailureOrSuccessOption,
-                    saveFailureOrSuccessOption)) &&
-            (identical(other.initialDeck, initialDeck) ||
-                const DeepCollectionEquality()
-                    .equals(other.initialDeck, initialDeck)));
+                    .equals(other.cardsList, cardsList)));
   }
 
   @override
@@ -313,10 +299,10 @@ class _$_AddDeckState implements _AddDeckState {
       const DeepCollectionEquality().hash(avatar) ^
       const DeepCollectionEquality().hash(isShared) ^
       const DeepCollectionEquality().hash(category) ^
+      const DeepCollectionEquality().hash(availableQuickTrain) ^
       const DeepCollectionEquality().hash(author) ^
-      const DeepCollectionEquality().hash(cardsList) ^
-      const DeepCollectionEquality().hash(saveFailureOrSuccessOption) ^
-      const DeepCollectionEquality().hash(initialDeck);
+      const DeepCollectionEquality().hash(loadingFailureOrSuccess) ^
+      const DeepCollectionEquality().hash(cardsList);
 
   @override
   _$AddDeckStateCopyWith<_AddDeckState> get copyWith =>
@@ -338,14 +324,13 @@ abstract class _AddDeckState implements AddDeckState {
       @required
           DeckCategory category,
       @required
+          bool availableQuickTrain,
+      @required
           UserModel author,
       @required
-          List<Card> cardsList,
+          Option<Either<StorageFailure<dynamic>, Unit>> loadingFailureOrSuccess,
       @required
-          Option<Either<StorageFailure<dynamic>, Deck>>
-              saveFailureOrSuccessOption,
-      @required
-          Deck initialDeck}) = _$_AddDeckState;
+          List<Card> cardsList}) = _$_AddDeckState;
 
   @override
   bool get isLoading;
@@ -360,13 +345,13 @@ abstract class _AddDeckState implements AddDeckState {
   @override
   DeckCategory get category;
   @override
+  bool get availableQuickTrain;
+  @override
   UserModel get author;
   @override
+  Option<Either<StorageFailure<dynamic>, Unit>> get loadingFailureOrSuccess;
+  @override
   List<Card> get cardsList;
-  @override
-  Option<Either<StorageFailure<dynamic>, Deck>> get saveFailureOrSuccessOption;
-  @override
-  Deck get initialDeck;
   @override
   _$AddDeckStateCopyWith<_AddDeckState> get copyWith;
 }
@@ -376,22 +361,6 @@ class _$AddDeckEventTearOff {
 
   InitFromOnline initFromOnline() {
     return InitFromOnline();
-  }
-
-  SaveDeckChanges saveChanges() {
-    return SaveDeckChanges();
-  }
-
-  SaveDraft saveDraft() {
-    return SaveDraft();
-  }
-
-  DiscardChanges discardChangesAndExit() {
-    return DiscardChanges();
-  }
-
-  DeleteDeck deleteDeck() {
-    return DeleteDeck();
   }
 
   TitleChanged titleChanged(String titleStr) {
@@ -406,16 +375,18 @@ class _$AddDeckEventTearOff {
     );
   }
 
-  AvatarChanged avatarChanged(File avatar) {
+  AvatarChanged avatarChanged(ImageFile avatar) {
     return AvatarChanged(
       avatar,
     );
   }
 
-  PrivacyChanged privacyChanged(bool isShared) {
-    return PrivacyChanged(
-      isShared,
-    );
+  PrivacyChanged changePrivacy() {
+    return PrivacyChanged();
+  }
+
+  QuickTrainStateChanged quickTrainStateChanged() {
+    return QuickTrainStateChanged();
   }
 
   CategoryChanged categoryChanged(DeckCategory category) {
@@ -438,28 +409,22 @@ mixin _$AddDeckEvent {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result initFromOnline(),
-    @required Result saveChanges(),
-    @required Result saveDraft(),
-    @required Result discardChangesAndExit(),
-    @required Result deleteDeck(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(File avatar),
-    @required Result privacyChanged(bool isShared),
+    @required Result avatarChanged(ImageFile avatar),
+    @required Result changePrivacy(),
+    @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result initFromOnline(),
-    Result saveChanges(),
-    Result saveDraft(),
-    Result discardChangesAndExit(),
-    Result deleteDeck(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(File avatar),
-    Result privacyChanged(bool isShared),
+    Result avatarChanged(ImageFile avatar),
+    Result changePrivacy(),
+    Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
@@ -467,28 +432,22 @@ mixin _$AddDeckEvent {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result initFromOnline(InitFromOnline value),
-    @required Result saveChanges(SaveDeckChanges value),
-    @required Result saveDraft(SaveDraft value),
-    @required Result discardChangesAndExit(DiscardChanges value),
-    @required Result deleteDeck(DeleteDeck value),
     @required Result titleChanged(TitleChanged value),
     @required Result descriptionChanged(DescriptionChanged value),
     @required Result avatarChanged(AvatarChanged value),
-    @required Result privacyChanged(PrivacyChanged value),
+    @required Result changePrivacy(PrivacyChanged value),
+    @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
     @required Result updateCards(UpdateCards value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result initFromOnline(InitFromOnline value),
-    Result saveChanges(SaveDeckChanges value),
-    Result saveDraft(SaveDraft value),
-    Result discardChangesAndExit(DiscardChanges value),
-    Result deleteDeck(DeleteDeck value),
     Result titleChanged(TitleChanged value),
     Result descriptionChanged(DescriptionChanged value),
     Result avatarChanged(AvatarChanged value),
-    Result privacyChanged(PrivacyChanged value),
+    Result changePrivacy(PrivacyChanged value),
+    Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
     Result updateCards(UpdateCards value),
     @required Result orElse(),
@@ -546,26 +505,20 @@ class _$InitFromOnline implements InitFromOnline {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result initFromOnline(),
-    @required Result saveChanges(),
-    @required Result saveDraft(),
-    @required Result discardChangesAndExit(),
-    @required Result deleteDeck(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(File avatar),
-    @required Result privacyChanged(bool isShared),
+    @required Result avatarChanged(ImageFile avatar),
+    @required Result changePrivacy(),
+    @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
   }) {
     assert(initFromOnline != null);
-    assert(saveChanges != null);
-    assert(saveDraft != null);
-    assert(discardChangesAndExit != null);
-    assert(deleteDeck != null);
     assert(titleChanged != null);
     assert(descriptionChanged != null);
     assert(avatarChanged != null);
-    assert(privacyChanged != null);
+    assert(changePrivacy != null);
+    assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(updateCards != null);
     return initFromOnline();
@@ -575,14 +528,11 @@ class _$InitFromOnline implements InitFromOnline {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result initFromOnline(),
-    Result saveChanges(),
-    Result saveDraft(),
-    Result discardChangesAndExit(),
-    Result deleteDeck(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(File avatar),
-    Result privacyChanged(bool isShared),
+    Result avatarChanged(ImageFile avatar),
+    Result changePrivacy(),
+    Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
@@ -598,26 +548,20 @@ class _$InitFromOnline implements InitFromOnline {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result initFromOnline(InitFromOnline value),
-    @required Result saveChanges(SaveDeckChanges value),
-    @required Result saveDraft(SaveDraft value),
-    @required Result discardChangesAndExit(DiscardChanges value),
-    @required Result deleteDeck(DeleteDeck value),
     @required Result titleChanged(TitleChanged value),
     @required Result descriptionChanged(DescriptionChanged value),
     @required Result avatarChanged(AvatarChanged value),
-    @required Result privacyChanged(PrivacyChanged value),
+    @required Result changePrivacy(PrivacyChanged value),
+    @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
     @required Result updateCards(UpdateCards value),
   }) {
     assert(initFromOnline != null);
-    assert(saveChanges != null);
-    assert(saveDraft != null);
-    assert(discardChangesAndExit != null);
-    assert(deleteDeck != null);
     assert(titleChanged != null);
     assert(descriptionChanged != null);
     assert(avatarChanged != null);
-    assert(privacyChanged != null);
+    assert(changePrivacy != null);
+    assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(updateCards != null);
     return initFromOnline(this);
@@ -627,14 +571,11 @@ class _$InitFromOnline implements InitFromOnline {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result initFromOnline(InitFromOnline value),
-    Result saveChanges(SaveDeckChanges value),
-    Result saveDraft(SaveDraft value),
-    Result discardChangesAndExit(DiscardChanges value),
-    Result deleteDeck(DeleteDeck value),
     Result titleChanged(TitleChanged value),
     Result descriptionChanged(DescriptionChanged value),
     Result avatarChanged(AvatarChanged value),
-    Result privacyChanged(PrivacyChanged value),
+    Result changePrivacy(PrivacyChanged value),
+    Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
     Result updateCards(UpdateCards value),
     @required Result orElse(),
@@ -649,569 +590,6 @@ class _$InitFromOnline implements InitFromOnline {
 
 abstract class InitFromOnline implements AddDeckEvent {
   factory InitFromOnline() = _$InitFromOnline;
-}
-
-abstract class $SaveDeckChangesCopyWith<$Res> {
-  factory $SaveDeckChangesCopyWith(
-          SaveDeckChanges value, $Res Function(SaveDeckChanges) then) =
-      _$SaveDeckChangesCopyWithImpl<$Res>;
-}
-
-class _$SaveDeckChangesCopyWithImpl<$Res>
-    extends _$AddDeckEventCopyWithImpl<$Res>
-    implements $SaveDeckChangesCopyWith<$Res> {
-  _$SaveDeckChangesCopyWithImpl(
-      SaveDeckChanges _value, $Res Function(SaveDeckChanges) _then)
-      : super(_value, (v) => _then(v as SaveDeckChanges));
-
-  @override
-  SaveDeckChanges get _value => super._value as SaveDeckChanges;
-}
-
-class _$SaveDeckChanges implements SaveDeckChanges {
-  _$SaveDeckChanges();
-
-  @override
-  String toString() {
-    return 'AddDeckEvent.saveChanges()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is SaveDeckChanges);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result initFromOnline(),
-    @required Result saveChanges(),
-    @required Result saveDraft(),
-    @required Result discardChangesAndExit(),
-    @required Result deleteDeck(),
-    @required Result titleChanged(String titleStr),
-    @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(File avatar),
-    @required Result privacyChanged(bool isShared),
-    @required Result categoryChanged(DeckCategory category),
-    @required Result updateCards(List<Card> cards),
-  }) {
-    assert(initFromOnline != null);
-    assert(saveChanges != null);
-    assert(saveDraft != null);
-    assert(discardChangesAndExit != null);
-    assert(deleteDeck != null);
-    assert(titleChanged != null);
-    assert(descriptionChanged != null);
-    assert(avatarChanged != null);
-    assert(privacyChanged != null);
-    assert(categoryChanged != null);
-    assert(updateCards != null);
-    return saveChanges();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result initFromOnline(),
-    Result saveChanges(),
-    Result saveDraft(),
-    Result discardChangesAndExit(),
-    Result deleteDeck(),
-    Result titleChanged(String titleStr),
-    Result descriptionChanged(String descStr),
-    Result avatarChanged(File avatar),
-    Result privacyChanged(bool isShared),
-    Result categoryChanged(DeckCategory category),
-    Result updateCards(List<Card> cards),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (saveChanges != null) {
-      return saveChanges();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result initFromOnline(InitFromOnline value),
-    @required Result saveChanges(SaveDeckChanges value),
-    @required Result saveDraft(SaveDraft value),
-    @required Result discardChangesAndExit(DiscardChanges value),
-    @required Result deleteDeck(DeleteDeck value),
-    @required Result titleChanged(TitleChanged value),
-    @required Result descriptionChanged(DescriptionChanged value),
-    @required Result avatarChanged(AvatarChanged value),
-    @required Result privacyChanged(PrivacyChanged value),
-    @required Result categoryChanged(CategoryChanged value),
-    @required Result updateCards(UpdateCards value),
-  }) {
-    assert(initFromOnline != null);
-    assert(saveChanges != null);
-    assert(saveDraft != null);
-    assert(discardChangesAndExit != null);
-    assert(deleteDeck != null);
-    assert(titleChanged != null);
-    assert(descriptionChanged != null);
-    assert(avatarChanged != null);
-    assert(privacyChanged != null);
-    assert(categoryChanged != null);
-    assert(updateCards != null);
-    return saveChanges(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result initFromOnline(InitFromOnline value),
-    Result saveChanges(SaveDeckChanges value),
-    Result saveDraft(SaveDraft value),
-    Result discardChangesAndExit(DiscardChanges value),
-    Result deleteDeck(DeleteDeck value),
-    Result titleChanged(TitleChanged value),
-    Result descriptionChanged(DescriptionChanged value),
-    Result avatarChanged(AvatarChanged value),
-    Result privacyChanged(PrivacyChanged value),
-    Result categoryChanged(CategoryChanged value),
-    Result updateCards(UpdateCards value),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (saveChanges != null) {
-      return saveChanges(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class SaveDeckChanges implements AddDeckEvent {
-  factory SaveDeckChanges() = _$SaveDeckChanges;
-}
-
-abstract class $SaveDraftCopyWith<$Res> {
-  factory $SaveDraftCopyWith(SaveDraft value, $Res Function(SaveDraft) then) =
-      _$SaveDraftCopyWithImpl<$Res>;
-}
-
-class _$SaveDraftCopyWithImpl<$Res> extends _$AddDeckEventCopyWithImpl<$Res>
-    implements $SaveDraftCopyWith<$Res> {
-  _$SaveDraftCopyWithImpl(SaveDraft _value, $Res Function(SaveDraft) _then)
-      : super(_value, (v) => _then(v as SaveDraft));
-
-  @override
-  SaveDraft get _value => super._value as SaveDraft;
-}
-
-class _$SaveDraft implements SaveDraft {
-  _$SaveDraft();
-
-  @override
-  String toString() {
-    return 'AddDeckEvent.saveDraft()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is SaveDraft);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result initFromOnline(),
-    @required Result saveChanges(),
-    @required Result saveDraft(),
-    @required Result discardChangesAndExit(),
-    @required Result deleteDeck(),
-    @required Result titleChanged(String titleStr),
-    @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(File avatar),
-    @required Result privacyChanged(bool isShared),
-    @required Result categoryChanged(DeckCategory category),
-    @required Result updateCards(List<Card> cards),
-  }) {
-    assert(initFromOnline != null);
-    assert(saveChanges != null);
-    assert(saveDraft != null);
-    assert(discardChangesAndExit != null);
-    assert(deleteDeck != null);
-    assert(titleChanged != null);
-    assert(descriptionChanged != null);
-    assert(avatarChanged != null);
-    assert(privacyChanged != null);
-    assert(categoryChanged != null);
-    assert(updateCards != null);
-    return saveDraft();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result initFromOnline(),
-    Result saveChanges(),
-    Result saveDraft(),
-    Result discardChangesAndExit(),
-    Result deleteDeck(),
-    Result titleChanged(String titleStr),
-    Result descriptionChanged(String descStr),
-    Result avatarChanged(File avatar),
-    Result privacyChanged(bool isShared),
-    Result categoryChanged(DeckCategory category),
-    Result updateCards(List<Card> cards),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (saveDraft != null) {
-      return saveDraft();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result initFromOnline(InitFromOnline value),
-    @required Result saveChanges(SaveDeckChanges value),
-    @required Result saveDraft(SaveDraft value),
-    @required Result discardChangesAndExit(DiscardChanges value),
-    @required Result deleteDeck(DeleteDeck value),
-    @required Result titleChanged(TitleChanged value),
-    @required Result descriptionChanged(DescriptionChanged value),
-    @required Result avatarChanged(AvatarChanged value),
-    @required Result privacyChanged(PrivacyChanged value),
-    @required Result categoryChanged(CategoryChanged value),
-    @required Result updateCards(UpdateCards value),
-  }) {
-    assert(initFromOnline != null);
-    assert(saveChanges != null);
-    assert(saveDraft != null);
-    assert(discardChangesAndExit != null);
-    assert(deleteDeck != null);
-    assert(titleChanged != null);
-    assert(descriptionChanged != null);
-    assert(avatarChanged != null);
-    assert(privacyChanged != null);
-    assert(categoryChanged != null);
-    assert(updateCards != null);
-    return saveDraft(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result initFromOnline(InitFromOnline value),
-    Result saveChanges(SaveDeckChanges value),
-    Result saveDraft(SaveDraft value),
-    Result discardChangesAndExit(DiscardChanges value),
-    Result deleteDeck(DeleteDeck value),
-    Result titleChanged(TitleChanged value),
-    Result descriptionChanged(DescriptionChanged value),
-    Result avatarChanged(AvatarChanged value),
-    Result privacyChanged(PrivacyChanged value),
-    Result categoryChanged(CategoryChanged value),
-    Result updateCards(UpdateCards value),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (saveDraft != null) {
-      return saveDraft(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class SaveDraft implements AddDeckEvent {
-  factory SaveDraft() = _$SaveDraft;
-}
-
-abstract class $DiscardChangesCopyWith<$Res> {
-  factory $DiscardChangesCopyWith(
-          DiscardChanges value, $Res Function(DiscardChanges) then) =
-      _$DiscardChangesCopyWithImpl<$Res>;
-}
-
-class _$DiscardChangesCopyWithImpl<$Res>
-    extends _$AddDeckEventCopyWithImpl<$Res>
-    implements $DiscardChangesCopyWith<$Res> {
-  _$DiscardChangesCopyWithImpl(
-      DiscardChanges _value, $Res Function(DiscardChanges) _then)
-      : super(_value, (v) => _then(v as DiscardChanges));
-
-  @override
-  DiscardChanges get _value => super._value as DiscardChanges;
-}
-
-class _$DiscardChanges implements DiscardChanges {
-  _$DiscardChanges();
-
-  @override
-  String toString() {
-    return 'AddDeckEvent.discardChangesAndExit()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is DiscardChanges);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result initFromOnline(),
-    @required Result saveChanges(),
-    @required Result saveDraft(),
-    @required Result discardChangesAndExit(),
-    @required Result deleteDeck(),
-    @required Result titleChanged(String titleStr),
-    @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(File avatar),
-    @required Result privacyChanged(bool isShared),
-    @required Result categoryChanged(DeckCategory category),
-    @required Result updateCards(List<Card> cards),
-  }) {
-    assert(initFromOnline != null);
-    assert(saveChanges != null);
-    assert(saveDraft != null);
-    assert(discardChangesAndExit != null);
-    assert(deleteDeck != null);
-    assert(titleChanged != null);
-    assert(descriptionChanged != null);
-    assert(avatarChanged != null);
-    assert(privacyChanged != null);
-    assert(categoryChanged != null);
-    assert(updateCards != null);
-    return discardChangesAndExit();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result initFromOnline(),
-    Result saveChanges(),
-    Result saveDraft(),
-    Result discardChangesAndExit(),
-    Result deleteDeck(),
-    Result titleChanged(String titleStr),
-    Result descriptionChanged(String descStr),
-    Result avatarChanged(File avatar),
-    Result privacyChanged(bool isShared),
-    Result categoryChanged(DeckCategory category),
-    Result updateCards(List<Card> cards),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (discardChangesAndExit != null) {
-      return discardChangesAndExit();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result initFromOnline(InitFromOnline value),
-    @required Result saveChanges(SaveDeckChanges value),
-    @required Result saveDraft(SaveDraft value),
-    @required Result discardChangesAndExit(DiscardChanges value),
-    @required Result deleteDeck(DeleteDeck value),
-    @required Result titleChanged(TitleChanged value),
-    @required Result descriptionChanged(DescriptionChanged value),
-    @required Result avatarChanged(AvatarChanged value),
-    @required Result privacyChanged(PrivacyChanged value),
-    @required Result categoryChanged(CategoryChanged value),
-    @required Result updateCards(UpdateCards value),
-  }) {
-    assert(initFromOnline != null);
-    assert(saveChanges != null);
-    assert(saveDraft != null);
-    assert(discardChangesAndExit != null);
-    assert(deleteDeck != null);
-    assert(titleChanged != null);
-    assert(descriptionChanged != null);
-    assert(avatarChanged != null);
-    assert(privacyChanged != null);
-    assert(categoryChanged != null);
-    assert(updateCards != null);
-    return discardChangesAndExit(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result initFromOnline(InitFromOnline value),
-    Result saveChanges(SaveDeckChanges value),
-    Result saveDraft(SaveDraft value),
-    Result discardChangesAndExit(DiscardChanges value),
-    Result deleteDeck(DeleteDeck value),
-    Result titleChanged(TitleChanged value),
-    Result descriptionChanged(DescriptionChanged value),
-    Result avatarChanged(AvatarChanged value),
-    Result privacyChanged(PrivacyChanged value),
-    Result categoryChanged(CategoryChanged value),
-    Result updateCards(UpdateCards value),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (discardChangesAndExit != null) {
-      return discardChangesAndExit(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class DiscardChanges implements AddDeckEvent {
-  factory DiscardChanges() = _$DiscardChanges;
-}
-
-abstract class $DeleteDeckCopyWith<$Res> {
-  factory $DeleteDeckCopyWith(
-          DeleteDeck value, $Res Function(DeleteDeck) then) =
-      _$DeleteDeckCopyWithImpl<$Res>;
-}
-
-class _$DeleteDeckCopyWithImpl<$Res> extends _$AddDeckEventCopyWithImpl<$Res>
-    implements $DeleteDeckCopyWith<$Res> {
-  _$DeleteDeckCopyWithImpl(DeleteDeck _value, $Res Function(DeleteDeck) _then)
-      : super(_value, (v) => _then(v as DeleteDeck));
-
-  @override
-  DeleteDeck get _value => super._value as DeleteDeck;
-}
-
-class _$DeleteDeck implements DeleteDeck {
-  _$DeleteDeck();
-
-  @override
-  String toString() {
-    return 'AddDeckEvent.deleteDeck()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is DeleteDeck);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result initFromOnline(),
-    @required Result saveChanges(),
-    @required Result saveDraft(),
-    @required Result discardChangesAndExit(),
-    @required Result deleteDeck(),
-    @required Result titleChanged(String titleStr),
-    @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(File avatar),
-    @required Result privacyChanged(bool isShared),
-    @required Result categoryChanged(DeckCategory category),
-    @required Result updateCards(List<Card> cards),
-  }) {
-    assert(initFromOnline != null);
-    assert(saveChanges != null);
-    assert(saveDraft != null);
-    assert(discardChangesAndExit != null);
-    assert(deleteDeck != null);
-    assert(titleChanged != null);
-    assert(descriptionChanged != null);
-    assert(avatarChanged != null);
-    assert(privacyChanged != null);
-    assert(categoryChanged != null);
-    assert(updateCards != null);
-    return deleteDeck();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result initFromOnline(),
-    Result saveChanges(),
-    Result saveDraft(),
-    Result discardChangesAndExit(),
-    Result deleteDeck(),
-    Result titleChanged(String titleStr),
-    Result descriptionChanged(String descStr),
-    Result avatarChanged(File avatar),
-    Result privacyChanged(bool isShared),
-    Result categoryChanged(DeckCategory category),
-    Result updateCards(List<Card> cards),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (deleteDeck != null) {
-      return deleteDeck();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result initFromOnline(InitFromOnline value),
-    @required Result saveChanges(SaveDeckChanges value),
-    @required Result saveDraft(SaveDraft value),
-    @required Result discardChangesAndExit(DiscardChanges value),
-    @required Result deleteDeck(DeleteDeck value),
-    @required Result titleChanged(TitleChanged value),
-    @required Result descriptionChanged(DescriptionChanged value),
-    @required Result avatarChanged(AvatarChanged value),
-    @required Result privacyChanged(PrivacyChanged value),
-    @required Result categoryChanged(CategoryChanged value),
-    @required Result updateCards(UpdateCards value),
-  }) {
-    assert(initFromOnline != null);
-    assert(saveChanges != null);
-    assert(saveDraft != null);
-    assert(discardChangesAndExit != null);
-    assert(deleteDeck != null);
-    assert(titleChanged != null);
-    assert(descriptionChanged != null);
-    assert(avatarChanged != null);
-    assert(privacyChanged != null);
-    assert(categoryChanged != null);
-    assert(updateCards != null);
-    return deleteDeck(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result initFromOnline(InitFromOnline value),
-    Result saveChanges(SaveDeckChanges value),
-    Result saveDraft(SaveDraft value),
-    Result discardChangesAndExit(DiscardChanges value),
-    Result deleteDeck(DeleteDeck value),
-    Result titleChanged(TitleChanged value),
-    Result descriptionChanged(DescriptionChanged value),
-    Result avatarChanged(AvatarChanged value),
-    Result privacyChanged(PrivacyChanged value),
-    Result categoryChanged(CategoryChanged value),
-    Result updateCards(UpdateCards value),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (deleteDeck != null) {
-      return deleteDeck(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class DeleteDeck implements AddDeckEvent {
-  factory DeleteDeck() = _$DeleteDeck;
 }
 
 abstract class $TitleChangedCopyWith<$Res> {
@@ -1272,26 +650,20 @@ class _$TitleChanged implements TitleChanged {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result initFromOnline(),
-    @required Result saveChanges(),
-    @required Result saveDraft(),
-    @required Result discardChangesAndExit(),
-    @required Result deleteDeck(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(File avatar),
-    @required Result privacyChanged(bool isShared),
+    @required Result avatarChanged(ImageFile avatar),
+    @required Result changePrivacy(),
+    @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
   }) {
     assert(initFromOnline != null);
-    assert(saveChanges != null);
-    assert(saveDraft != null);
-    assert(discardChangesAndExit != null);
-    assert(deleteDeck != null);
     assert(titleChanged != null);
     assert(descriptionChanged != null);
     assert(avatarChanged != null);
-    assert(privacyChanged != null);
+    assert(changePrivacy != null);
+    assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(updateCards != null);
     return titleChanged(titleStr);
@@ -1301,14 +673,11 @@ class _$TitleChanged implements TitleChanged {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result initFromOnline(),
-    Result saveChanges(),
-    Result saveDraft(),
-    Result discardChangesAndExit(),
-    Result deleteDeck(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(File avatar),
-    Result privacyChanged(bool isShared),
+    Result avatarChanged(ImageFile avatar),
+    Result changePrivacy(),
+    Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
@@ -1324,26 +693,20 @@ class _$TitleChanged implements TitleChanged {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result initFromOnline(InitFromOnline value),
-    @required Result saveChanges(SaveDeckChanges value),
-    @required Result saveDraft(SaveDraft value),
-    @required Result discardChangesAndExit(DiscardChanges value),
-    @required Result deleteDeck(DeleteDeck value),
     @required Result titleChanged(TitleChanged value),
     @required Result descriptionChanged(DescriptionChanged value),
     @required Result avatarChanged(AvatarChanged value),
-    @required Result privacyChanged(PrivacyChanged value),
+    @required Result changePrivacy(PrivacyChanged value),
+    @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
     @required Result updateCards(UpdateCards value),
   }) {
     assert(initFromOnline != null);
-    assert(saveChanges != null);
-    assert(saveDraft != null);
-    assert(discardChangesAndExit != null);
-    assert(deleteDeck != null);
     assert(titleChanged != null);
     assert(descriptionChanged != null);
     assert(avatarChanged != null);
-    assert(privacyChanged != null);
+    assert(changePrivacy != null);
+    assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(updateCards != null);
     return titleChanged(this);
@@ -1353,14 +716,11 @@ class _$TitleChanged implements TitleChanged {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result initFromOnline(InitFromOnline value),
-    Result saveChanges(SaveDeckChanges value),
-    Result saveDraft(SaveDraft value),
-    Result discardChangesAndExit(DiscardChanges value),
-    Result deleteDeck(DeleteDeck value),
     Result titleChanged(TitleChanged value),
     Result descriptionChanged(DescriptionChanged value),
     Result avatarChanged(AvatarChanged value),
-    Result privacyChanged(PrivacyChanged value),
+    Result changePrivacy(PrivacyChanged value),
+    Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
     Result updateCards(UpdateCards value),
     @required Result orElse(),
@@ -1438,26 +798,20 @@ class _$DescriptionChanged implements DescriptionChanged {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result initFromOnline(),
-    @required Result saveChanges(),
-    @required Result saveDraft(),
-    @required Result discardChangesAndExit(),
-    @required Result deleteDeck(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(File avatar),
-    @required Result privacyChanged(bool isShared),
+    @required Result avatarChanged(ImageFile avatar),
+    @required Result changePrivacy(),
+    @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
   }) {
     assert(initFromOnline != null);
-    assert(saveChanges != null);
-    assert(saveDraft != null);
-    assert(discardChangesAndExit != null);
-    assert(deleteDeck != null);
     assert(titleChanged != null);
     assert(descriptionChanged != null);
     assert(avatarChanged != null);
-    assert(privacyChanged != null);
+    assert(changePrivacy != null);
+    assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(updateCards != null);
     return descriptionChanged(descStr);
@@ -1467,14 +821,11 @@ class _$DescriptionChanged implements DescriptionChanged {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result initFromOnline(),
-    Result saveChanges(),
-    Result saveDraft(),
-    Result discardChangesAndExit(),
-    Result deleteDeck(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(File avatar),
-    Result privacyChanged(bool isShared),
+    Result avatarChanged(ImageFile avatar),
+    Result changePrivacy(),
+    Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
@@ -1490,26 +841,20 @@ class _$DescriptionChanged implements DescriptionChanged {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result initFromOnline(InitFromOnline value),
-    @required Result saveChanges(SaveDeckChanges value),
-    @required Result saveDraft(SaveDraft value),
-    @required Result discardChangesAndExit(DiscardChanges value),
-    @required Result deleteDeck(DeleteDeck value),
     @required Result titleChanged(TitleChanged value),
     @required Result descriptionChanged(DescriptionChanged value),
     @required Result avatarChanged(AvatarChanged value),
-    @required Result privacyChanged(PrivacyChanged value),
+    @required Result changePrivacy(PrivacyChanged value),
+    @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
     @required Result updateCards(UpdateCards value),
   }) {
     assert(initFromOnline != null);
-    assert(saveChanges != null);
-    assert(saveDraft != null);
-    assert(discardChangesAndExit != null);
-    assert(deleteDeck != null);
     assert(titleChanged != null);
     assert(descriptionChanged != null);
     assert(avatarChanged != null);
-    assert(privacyChanged != null);
+    assert(changePrivacy != null);
+    assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(updateCards != null);
     return descriptionChanged(this);
@@ -1519,14 +864,11 @@ class _$DescriptionChanged implements DescriptionChanged {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result initFromOnline(InitFromOnline value),
-    Result saveChanges(SaveDeckChanges value),
-    Result saveDraft(SaveDraft value),
-    Result discardChangesAndExit(DiscardChanges value),
-    Result deleteDeck(DeleteDeck value),
     Result titleChanged(TitleChanged value),
     Result descriptionChanged(DescriptionChanged value),
     Result avatarChanged(AvatarChanged value),
-    Result privacyChanged(PrivacyChanged value),
+    Result changePrivacy(PrivacyChanged value),
+    Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
     Result updateCards(UpdateCards value),
     @required Result orElse(),
@@ -1550,7 +892,7 @@ abstract class $AvatarChangedCopyWith<$Res> {
   factory $AvatarChangedCopyWith(
           AvatarChanged value, $Res Function(AvatarChanged) then) =
       _$AvatarChangedCopyWithImpl<$Res>;
-  $Res call({File avatar});
+  $Res call({ImageFile avatar});
 }
 
 class _$AvatarChangedCopyWithImpl<$Res> extends _$AddDeckEventCopyWithImpl<$Res>
@@ -1567,7 +909,7 @@ class _$AvatarChangedCopyWithImpl<$Res> extends _$AddDeckEventCopyWithImpl<$Res>
     Object avatar = freezed,
   }) {
     return _then(AvatarChanged(
-      avatar == freezed ? _value.avatar : avatar as File,
+      avatar == freezed ? _value.avatar : avatar as ImageFile,
     ));
   }
 }
@@ -1576,7 +918,7 @@ class _$AvatarChanged implements AvatarChanged {
   _$AvatarChanged(this.avatar) : assert(avatar != null);
 
   @override
-  final File avatar;
+  final ImageFile avatar;
 
   @override
   String toString() {
@@ -1603,26 +945,20 @@ class _$AvatarChanged implements AvatarChanged {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result initFromOnline(),
-    @required Result saveChanges(),
-    @required Result saveDraft(),
-    @required Result discardChangesAndExit(),
-    @required Result deleteDeck(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(File avatar),
-    @required Result privacyChanged(bool isShared),
+    @required Result avatarChanged(ImageFile avatar),
+    @required Result changePrivacy(),
+    @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
   }) {
     assert(initFromOnline != null);
-    assert(saveChanges != null);
-    assert(saveDraft != null);
-    assert(discardChangesAndExit != null);
-    assert(deleteDeck != null);
     assert(titleChanged != null);
     assert(descriptionChanged != null);
     assert(avatarChanged != null);
-    assert(privacyChanged != null);
+    assert(changePrivacy != null);
+    assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(updateCards != null);
     return avatarChanged(avatar);
@@ -1632,14 +968,11 @@ class _$AvatarChanged implements AvatarChanged {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result initFromOnline(),
-    Result saveChanges(),
-    Result saveDraft(),
-    Result discardChangesAndExit(),
-    Result deleteDeck(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(File avatar),
-    Result privacyChanged(bool isShared),
+    Result avatarChanged(ImageFile avatar),
+    Result changePrivacy(),
+    Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
@@ -1655,26 +988,20 @@ class _$AvatarChanged implements AvatarChanged {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result initFromOnline(InitFromOnline value),
-    @required Result saveChanges(SaveDeckChanges value),
-    @required Result saveDraft(SaveDraft value),
-    @required Result discardChangesAndExit(DiscardChanges value),
-    @required Result deleteDeck(DeleteDeck value),
     @required Result titleChanged(TitleChanged value),
     @required Result descriptionChanged(DescriptionChanged value),
     @required Result avatarChanged(AvatarChanged value),
-    @required Result privacyChanged(PrivacyChanged value),
+    @required Result changePrivacy(PrivacyChanged value),
+    @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
     @required Result updateCards(UpdateCards value),
   }) {
     assert(initFromOnline != null);
-    assert(saveChanges != null);
-    assert(saveDraft != null);
-    assert(discardChangesAndExit != null);
-    assert(deleteDeck != null);
     assert(titleChanged != null);
     assert(descriptionChanged != null);
     assert(avatarChanged != null);
-    assert(privacyChanged != null);
+    assert(changePrivacy != null);
+    assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(updateCards != null);
     return avatarChanged(this);
@@ -1684,14 +1011,11 @@ class _$AvatarChanged implements AvatarChanged {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result initFromOnline(InitFromOnline value),
-    Result saveChanges(SaveDeckChanges value),
-    Result saveDraft(SaveDraft value),
-    Result discardChangesAndExit(DiscardChanges value),
-    Result deleteDeck(DeleteDeck value),
     Result titleChanged(TitleChanged value),
     Result descriptionChanged(DescriptionChanged value),
     Result avatarChanged(AvatarChanged value),
-    Result privacyChanged(PrivacyChanged value),
+    Result changePrivacy(PrivacyChanged value),
+    Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
     Result updateCards(UpdateCards value),
     @required Result orElse(),
@@ -1705,9 +1029,9 @@ class _$AvatarChanged implements AvatarChanged {
 }
 
 abstract class AvatarChanged implements AddDeckEvent {
-  factory AvatarChanged(File avatar) = _$AvatarChanged;
+  factory AvatarChanged(ImageFile avatar) = _$AvatarChanged;
 
-  File get avatar;
+  ImageFile get avatar;
   $AvatarChangedCopyWith<AvatarChanged> get copyWith;
 }
 
@@ -1715,7 +1039,6 @@ abstract class $PrivacyChangedCopyWith<$Res> {
   factory $PrivacyChangedCopyWith(
           PrivacyChanged value, $Res Function(PrivacyChanged) then) =
       _$PrivacyChangedCopyWithImpl<$Res>;
-  $Res call({bool isShared});
 }
 
 class _$PrivacyChangedCopyWithImpl<$Res>
@@ -1727,93 +1050,63 @@ class _$PrivacyChangedCopyWithImpl<$Res>
 
   @override
   PrivacyChanged get _value => super._value as PrivacyChanged;
-
-  @override
-  $Res call({
-    Object isShared = freezed,
-  }) {
-    return _then(PrivacyChanged(
-      isShared == freezed ? _value.isShared : isShared as bool,
-    ));
-  }
 }
 
 class _$PrivacyChanged implements PrivacyChanged {
-  _$PrivacyChanged(this.isShared) : assert(isShared != null);
-
-  @override
-  final bool isShared;
+  _$PrivacyChanged();
 
   @override
   String toString() {
-    return 'AddDeckEvent.privacyChanged(isShared: $isShared)';
+    return 'AddDeckEvent.changePrivacy()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is PrivacyChanged &&
-            (identical(other.isShared, isShared) ||
-                const DeepCollectionEquality()
-                    .equals(other.isShared, isShared)));
+    return identical(this, other) || (other is PrivacyChanged);
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(isShared);
-
-  @override
-  $PrivacyChangedCopyWith<PrivacyChanged> get copyWith =>
-      _$PrivacyChangedCopyWithImpl<PrivacyChanged>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result initFromOnline(),
-    @required Result saveChanges(),
-    @required Result saveDraft(),
-    @required Result discardChangesAndExit(),
-    @required Result deleteDeck(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(File avatar),
-    @required Result privacyChanged(bool isShared),
+    @required Result avatarChanged(ImageFile avatar),
+    @required Result changePrivacy(),
+    @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
   }) {
     assert(initFromOnline != null);
-    assert(saveChanges != null);
-    assert(saveDraft != null);
-    assert(discardChangesAndExit != null);
-    assert(deleteDeck != null);
     assert(titleChanged != null);
     assert(descriptionChanged != null);
     assert(avatarChanged != null);
-    assert(privacyChanged != null);
+    assert(changePrivacy != null);
+    assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(updateCards != null);
-    return privacyChanged(isShared);
+    return changePrivacy();
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result initFromOnline(),
-    Result saveChanges(),
-    Result saveDraft(),
-    Result discardChangesAndExit(),
-    Result deleteDeck(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(File avatar),
-    Result privacyChanged(bool isShared),
+    Result avatarChanged(ImageFile avatar),
+    Result changePrivacy(),
+    Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (privacyChanged != null) {
-      return privacyChanged(isShared);
+    if (changePrivacy != null) {
+      return changePrivacy();
     }
     return orElse();
   }
@@ -1822,60 +1115,172 @@ class _$PrivacyChanged implements PrivacyChanged {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result initFromOnline(InitFromOnline value),
-    @required Result saveChanges(SaveDeckChanges value),
-    @required Result saveDraft(SaveDraft value),
-    @required Result discardChangesAndExit(DiscardChanges value),
-    @required Result deleteDeck(DeleteDeck value),
     @required Result titleChanged(TitleChanged value),
     @required Result descriptionChanged(DescriptionChanged value),
     @required Result avatarChanged(AvatarChanged value),
-    @required Result privacyChanged(PrivacyChanged value),
+    @required Result changePrivacy(PrivacyChanged value),
+    @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
     @required Result updateCards(UpdateCards value),
   }) {
     assert(initFromOnline != null);
-    assert(saveChanges != null);
-    assert(saveDraft != null);
-    assert(discardChangesAndExit != null);
-    assert(deleteDeck != null);
     assert(titleChanged != null);
     assert(descriptionChanged != null);
     assert(avatarChanged != null);
-    assert(privacyChanged != null);
+    assert(changePrivacy != null);
+    assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(updateCards != null);
-    return privacyChanged(this);
+    return changePrivacy(this);
   }
 
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result initFromOnline(InitFromOnline value),
-    Result saveChanges(SaveDeckChanges value),
-    Result saveDraft(SaveDraft value),
-    Result discardChangesAndExit(DiscardChanges value),
-    Result deleteDeck(DeleteDeck value),
     Result titleChanged(TitleChanged value),
     Result descriptionChanged(DescriptionChanged value),
     Result avatarChanged(AvatarChanged value),
-    Result privacyChanged(PrivacyChanged value),
+    Result changePrivacy(PrivacyChanged value),
+    Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
     Result updateCards(UpdateCards value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (privacyChanged != null) {
-      return privacyChanged(this);
+    if (changePrivacy != null) {
+      return changePrivacy(this);
     }
     return orElse();
   }
 }
 
 abstract class PrivacyChanged implements AddDeckEvent {
-  factory PrivacyChanged(bool isShared) = _$PrivacyChanged;
+  factory PrivacyChanged() = _$PrivacyChanged;
+}
 
-  bool get isShared;
-  $PrivacyChangedCopyWith<PrivacyChanged> get copyWith;
+abstract class $QuickTrainStateChangedCopyWith<$Res> {
+  factory $QuickTrainStateChangedCopyWith(QuickTrainStateChanged value,
+          $Res Function(QuickTrainStateChanged) then) =
+      _$QuickTrainStateChangedCopyWithImpl<$Res>;
+}
+
+class _$QuickTrainStateChangedCopyWithImpl<$Res>
+    extends _$AddDeckEventCopyWithImpl<$Res>
+    implements $QuickTrainStateChangedCopyWith<$Res> {
+  _$QuickTrainStateChangedCopyWithImpl(QuickTrainStateChanged _value,
+      $Res Function(QuickTrainStateChanged) _then)
+      : super(_value, (v) => _then(v as QuickTrainStateChanged));
+
+  @override
+  QuickTrainStateChanged get _value => super._value as QuickTrainStateChanged;
+}
+
+class _$QuickTrainStateChanged implements QuickTrainStateChanged {
+  _$QuickTrainStateChanged();
+
+  @override
+  String toString() {
+    return 'AddDeckEvent.quickTrainStateChanged()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is QuickTrainStateChanged);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result initFromOnline(),
+    @required Result titleChanged(String titleStr),
+    @required Result descriptionChanged(String descStr),
+    @required Result avatarChanged(ImageFile avatar),
+    @required Result changePrivacy(),
+    @required Result quickTrainStateChanged(),
+    @required Result categoryChanged(DeckCategory category),
+    @required Result updateCards(List<Card> cards),
+  }) {
+    assert(initFromOnline != null);
+    assert(titleChanged != null);
+    assert(descriptionChanged != null);
+    assert(avatarChanged != null);
+    assert(changePrivacy != null);
+    assert(quickTrainStateChanged != null);
+    assert(categoryChanged != null);
+    assert(updateCards != null);
+    return quickTrainStateChanged();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result initFromOnline(),
+    Result titleChanged(String titleStr),
+    Result descriptionChanged(String descStr),
+    Result avatarChanged(ImageFile avatar),
+    Result changePrivacy(),
+    Result quickTrainStateChanged(),
+    Result categoryChanged(DeckCategory category),
+    Result updateCards(List<Card> cards),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (quickTrainStateChanged != null) {
+      return quickTrainStateChanged();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result initFromOnline(InitFromOnline value),
+    @required Result titleChanged(TitleChanged value),
+    @required Result descriptionChanged(DescriptionChanged value),
+    @required Result avatarChanged(AvatarChanged value),
+    @required Result changePrivacy(PrivacyChanged value),
+    @required Result quickTrainStateChanged(QuickTrainStateChanged value),
+    @required Result categoryChanged(CategoryChanged value),
+    @required Result updateCards(UpdateCards value),
+  }) {
+    assert(initFromOnline != null);
+    assert(titleChanged != null);
+    assert(descriptionChanged != null);
+    assert(avatarChanged != null);
+    assert(changePrivacy != null);
+    assert(quickTrainStateChanged != null);
+    assert(categoryChanged != null);
+    assert(updateCards != null);
+    return quickTrainStateChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result initFromOnline(InitFromOnline value),
+    Result titleChanged(TitleChanged value),
+    Result descriptionChanged(DescriptionChanged value),
+    Result avatarChanged(AvatarChanged value),
+    Result changePrivacy(PrivacyChanged value),
+    Result quickTrainStateChanged(QuickTrainStateChanged value),
+    Result categoryChanged(CategoryChanged value),
+    Result updateCards(UpdateCards value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (quickTrainStateChanged != null) {
+      return quickTrainStateChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class QuickTrainStateChanged implements AddDeckEvent {
+  factory QuickTrainStateChanged() = _$QuickTrainStateChanged;
 }
 
 abstract class $CategoryChangedCopyWith<$Res> {
@@ -1949,26 +1354,20 @@ class _$CategoryChanged implements CategoryChanged {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result initFromOnline(),
-    @required Result saveChanges(),
-    @required Result saveDraft(),
-    @required Result discardChangesAndExit(),
-    @required Result deleteDeck(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(File avatar),
-    @required Result privacyChanged(bool isShared),
+    @required Result avatarChanged(ImageFile avatar),
+    @required Result changePrivacy(),
+    @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
   }) {
     assert(initFromOnline != null);
-    assert(saveChanges != null);
-    assert(saveDraft != null);
-    assert(discardChangesAndExit != null);
-    assert(deleteDeck != null);
     assert(titleChanged != null);
     assert(descriptionChanged != null);
     assert(avatarChanged != null);
-    assert(privacyChanged != null);
+    assert(changePrivacy != null);
+    assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(updateCards != null);
     return categoryChanged(category);
@@ -1978,14 +1377,11 @@ class _$CategoryChanged implements CategoryChanged {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result initFromOnline(),
-    Result saveChanges(),
-    Result saveDraft(),
-    Result discardChangesAndExit(),
-    Result deleteDeck(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(File avatar),
-    Result privacyChanged(bool isShared),
+    Result avatarChanged(ImageFile avatar),
+    Result changePrivacy(),
+    Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
@@ -2001,26 +1397,20 @@ class _$CategoryChanged implements CategoryChanged {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result initFromOnline(InitFromOnline value),
-    @required Result saveChanges(SaveDeckChanges value),
-    @required Result saveDraft(SaveDraft value),
-    @required Result discardChangesAndExit(DiscardChanges value),
-    @required Result deleteDeck(DeleteDeck value),
     @required Result titleChanged(TitleChanged value),
     @required Result descriptionChanged(DescriptionChanged value),
     @required Result avatarChanged(AvatarChanged value),
-    @required Result privacyChanged(PrivacyChanged value),
+    @required Result changePrivacy(PrivacyChanged value),
+    @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
     @required Result updateCards(UpdateCards value),
   }) {
     assert(initFromOnline != null);
-    assert(saveChanges != null);
-    assert(saveDraft != null);
-    assert(discardChangesAndExit != null);
-    assert(deleteDeck != null);
     assert(titleChanged != null);
     assert(descriptionChanged != null);
     assert(avatarChanged != null);
-    assert(privacyChanged != null);
+    assert(changePrivacy != null);
+    assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(updateCards != null);
     return categoryChanged(this);
@@ -2030,14 +1420,11 @@ class _$CategoryChanged implements CategoryChanged {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result initFromOnline(InitFromOnline value),
-    Result saveChanges(SaveDeckChanges value),
-    Result saveDraft(SaveDraft value),
-    Result discardChangesAndExit(DiscardChanges value),
-    Result deleteDeck(DeleteDeck value),
     Result titleChanged(TitleChanged value),
     Result descriptionChanged(DescriptionChanged value),
     Result avatarChanged(AvatarChanged value),
-    Result privacyChanged(PrivacyChanged value),
+    Result changePrivacy(PrivacyChanged value),
+    Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
     Result updateCards(UpdateCards value),
     @required Result orElse(),
@@ -2114,26 +1501,20 @@ class _$UpdateCards implements UpdateCards {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result initFromOnline(),
-    @required Result saveChanges(),
-    @required Result saveDraft(),
-    @required Result discardChangesAndExit(),
-    @required Result deleteDeck(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(File avatar),
-    @required Result privacyChanged(bool isShared),
+    @required Result avatarChanged(ImageFile avatar),
+    @required Result changePrivacy(),
+    @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
     @required Result updateCards(List<Card> cards),
   }) {
     assert(initFromOnline != null);
-    assert(saveChanges != null);
-    assert(saveDraft != null);
-    assert(discardChangesAndExit != null);
-    assert(deleteDeck != null);
     assert(titleChanged != null);
     assert(descriptionChanged != null);
     assert(avatarChanged != null);
-    assert(privacyChanged != null);
+    assert(changePrivacy != null);
+    assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(updateCards != null);
     return updateCards(cards);
@@ -2143,14 +1524,11 @@ class _$UpdateCards implements UpdateCards {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result initFromOnline(),
-    Result saveChanges(),
-    Result saveDraft(),
-    Result discardChangesAndExit(),
-    Result deleteDeck(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(File avatar),
-    Result privacyChanged(bool isShared),
+    Result avatarChanged(ImageFile avatar),
+    Result changePrivacy(),
+    Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
@@ -2166,26 +1544,20 @@ class _$UpdateCards implements UpdateCards {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result initFromOnline(InitFromOnline value),
-    @required Result saveChanges(SaveDeckChanges value),
-    @required Result saveDraft(SaveDraft value),
-    @required Result discardChangesAndExit(DiscardChanges value),
-    @required Result deleteDeck(DeleteDeck value),
     @required Result titleChanged(TitleChanged value),
     @required Result descriptionChanged(DescriptionChanged value),
     @required Result avatarChanged(AvatarChanged value),
-    @required Result privacyChanged(PrivacyChanged value),
+    @required Result changePrivacy(PrivacyChanged value),
+    @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
     @required Result updateCards(UpdateCards value),
   }) {
     assert(initFromOnline != null);
-    assert(saveChanges != null);
-    assert(saveDraft != null);
-    assert(discardChangesAndExit != null);
-    assert(deleteDeck != null);
     assert(titleChanged != null);
     assert(descriptionChanged != null);
     assert(avatarChanged != null);
-    assert(privacyChanged != null);
+    assert(changePrivacy != null);
+    assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(updateCards != null);
     return updateCards(this);
@@ -2195,14 +1567,11 @@ class _$UpdateCards implements UpdateCards {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result initFromOnline(InitFromOnline value),
-    Result saveChanges(SaveDeckChanges value),
-    Result saveDraft(SaveDraft value),
-    Result discardChangesAndExit(DiscardChanges value),
-    Result deleteDeck(DeleteDeck value),
     Result titleChanged(TitleChanged value),
     Result descriptionChanged(DescriptionChanged value),
     Result avatarChanged(AvatarChanged value),
-    Result privacyChanged(PrivacyChanged value),
+    Result changePrivacy(PrivacyChanged value),
+    Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
     Result updateCards(UpdateCards value),
     @required Result orElse(),

@@ -1,37 +1,36 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 import 'package:mydeck/models/entitites/md_file.dart';
 
-class MDImage extends StatefulWidget {
+class MDText extends StatefulWidget {
   final Key key;
   final double width;
   final double height;
   final Widget placeholder;
   final Widget errorWidget;
   final Widget loadIndicator;
-  final ImageFile sourceImage;
-  MDImage(
+  final TextFile sourceFile;
+  MDText(
       {Key key,
       double width,
       double height,
       this.placeholder,
       this.errorWidget,
       this.loadIndicator,
-      @required ImageFile image})
-      : assert(image != null),
-        sourceImage = image,
+      @required TextFile text})
+      : assert(text != null),
+        sourceFile = text,
         this.width = width ?? 0,
         this.height = height ?? 0,
-        this.key = key ?? Key(image.uniqueId.getOrCrash),
+        this.key = key ?? Key(text.uniqueId.getOrCrash),
         super(key: key);
 
   @override
-  _MDImageState createState() => _MDImageState();
+  _MDTextState createState() => _MDTextState();
 }
 
-class _MDImageState extends State<MDImage> {
+class _MDTextState extends State<MDText> {
   File _sourceFile = null;
   Widget _currentWidget;
 
@@ -55,10 +54,9 @@ class _MDImageState extends State<MDImage> {
   @override
   void initState() {
     _currentWidget = widget.placeholder;
-    Logger().d('Placeholder set');
 
     super.initState();
-    _initializeImage();
+    Future.delayed(Duration(milliseconds: 300), () => _initializeText());
   }
 
   @override
@@ -70,26 +68,20 @@ class _MDImageState extends State<MDImage> {
     );
   }
 
-  Future<void> _initializeImage() async {
+  Future<void> _initializeText() async {
     setState(() {
-      Logger().d('Loading indicator set');
       _currentWidget = widget.loadIndicator;
     });
 
-    final fileResult = await widget.sourceImage.getFileValue();
+    final fileResult = await widget.sourceFile.getFileValue();
     fileResult.fold((failure) {
       setState(() {
-        Logger().d('Error set');
         _currentWidget = errorWidget;
       });
     }, (file) {
       setState(() {
-        Logger().d('Image set');
         _sourceFile = file;
-        _currentWidget = Image.file(
-          _sourceFile,
-          fit: BoxFit.cover,
-        );
+        _currentWidget = Text(file.readAsStringSync());
       });
     });
   }

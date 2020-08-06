@@ -5,7 +5,7 @@ import 'package:mydeck/theme/my_deck_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'blocs/library/library_bloc.dart';
-import 'blocs/sign_in/sign_in_bloc.dart';
+import 'blocs/sign_in/login_bloc.dart';
 import 'blocs/tab/tab_bloc.dart';
 import 'blocs/train/train_bloc.dart';
 import 'utils/dependency_injection.dart';
@@ -64,8 +64,8 @@ class MyDeckApp extends StatelessWidget {
       routes: {
         MyDeckRoutes.profile: (context) => ProfilePage(),
         MyDeckRoutes.login: (context) {
-          return BlocProvider<SignInBloc>(
-              create: (context) => sl.get<SignInBloc>(), child: LoginPage());
+          return BlocProvider<LoginBloc>(
+              create: (context) => sl.get<LoginBloc>(), child: LoginPage());
         },
         MyDeckRoutes.home: (context) {
           return MultiBlocProvider(

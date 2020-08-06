@@ -113,6 +113,16 @@ class S {
     );
   }
 
+  /// `Sign Up to fill library with decks.`
+  String get deck_call_to_sign_up {
+    return Intl.message(
+      'Sign Up to fill library with decks.',
+      name: 'deck_call_to_sign_up',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Can't save deck. Correct mistakes and try again.`
   String get editor_cant_save {
     return Intl.message(
@@ -373,10 +383,10 @@ class S {
     );
   }
 
-  /// `Pasword must contain at least 1 number, 1 uppercase letter and 1 bottomcase letter.`
+  /// `Password must contain at least 1 number, 1 uppercase letter and 1 bottomcase letter.`
   String get error_value_invalid_password {
     return Intl.message(
-      'Pasword must contain at least 1 number, 1 uppercase letter and 1 bottomcase letter.',
+      'Password must contain at least 1 number, 1 uppercase letter and 1 bottomcase letter.',
       name: 'error_value_invalid_password',
       desc: '',
       args: [],
@@ -503,10 +513,20 @@ class S {
     );
   }
 
-  /// `'s Library`
+  /// `Sign In to create deck.`
+  String get library_sign_in_to_create {
+    return Intl.message(
+      'Sign In to create deck.',
+      name: 'library_sign_in_to_create',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Library`
   String get library_title {
     return Intl.message(
-      '\'s Library',
+      'Library',
       name: 'library_title',
       desc: '',
       args: [],
@@ -613,10 +633,10 @@ class S {
     );
   }
 
-  /// `SIGN IN`
+  /// `Sign In`
   String get login_sign_in {
     return Intl.message(
-      'SIGN IN',
+      'Sign In',
       name: 'login_sign_in',
       desc: '',
       args: [],
@@ -633,10 +653,10 @@ class S {
     );
   }
 
-  /// `SIGN UP`
+  /// `Sign Up`
   String get login_sign_up {
     return Intl.message(
-      'SIGN UP',
+      'Sign Up',
       name: 'login_sign_up',
       desc: '',
       args: [],

@@ -6,6 +6,7 @@ abstract class AddCardState with _$AddCardState {
       {@required List<Card> sourceCards,
       @required int currentCardIndex,
       @required bool isQuestion,
+      bool rebuild,
       @required bool saveChangesAndExit}) = _AddCardState;
 
   factory AddCardState.initial(
@@ -14,6 +15,7 @@ abstract class AddCardState with _$AddCardState {
         sourceCards: sourceCards,
         currentCardIndex: currentCardIndex,
         isQuestion: true,
+        rebuild: true,
         saveChangesAndExit: false,
       );
 }

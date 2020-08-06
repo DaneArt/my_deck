@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
-import 'package:mydeck/models/entitites/my_deck_file.dart';
+import 'package:mydeck/models/entitites/md_file.dart';
 import 'package:mydeck/widgets/ensure_field_visibility.dart';
 
 class TextCardWidget extends StatefulWidget {

@@ -1,13 +1,13 @@
 import 'dart:io';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:mydeck/models/entitites/my_deck_file.dart';
+import 'package:mydeck/models/entitites/md_file.dart';
 import 'package:mydeck/models/entitites/unique_id.dart';
 
 part 'file_dto.freezed.dart';
 part 'file_dto.g.dart';
 
-enum ContentType { TEXT, AUDIO, IMAGE }
+enum FileType { TEXT, AUDIO, IMAGE }
 
 @freezed
 abstract class MDFileDto implements _$MDFileDto {
@@ -15,19 +15,19 @@ abstract class MDFileDto implements _$MDFileDto {
 
   const factory MDFileDto(
       {@required String id,
-      @required @ContentTypeConverter() ContentType type,
+      @required @ContentTypeConverter() FileType type,
       @JsonKey(ignore: true) @required File file}) = _MyDeckFileDto;
 
   factory MDFileDto.fromDomain(MDFile domain) {
     if (domain is ImageFile) {
       return MDFileDto(
           id: domain.uniqueId.getOrCrash,
-          type: ContentType.IMAGE,
+          type: FileType.IMAGE,
           file: domain.getFileOrCrash());
     } else {
       return MDFileDto(
           id: domain.uniqueId.getOrCrash,
-          type: ContentType.TEXT,
+          type: FileType.TEXT,
           file: domain.getFileOrCrash());
     }
   }
@@ -36,7 +36,7 @@ abstract class MDFileDto implements _$MDFileDto {
       _$MDFileDtoFromJson(json);
 
   MDFile toDomain() {
-    if (type == ContentType.IMAGE) {
+    if (type == FileType.IMAGE) {
       return ImageFile(file: file, uniqueId: UniqueId.fromString(id));
     } else {
       return TextFile(file: file, uniqueId: UniqueId.fromString(id));
@@ -44,31 +44,31 @@ abstract class MDFileDto implements _$MDFileDto {
   }
 }
 
-class ContentTypeConverter implements JsonConverter<ContentType, Object> {
+class ContentTypeConverter implements JsonConverter<FileType, Object> {
   const ContentTypeConverter();
 
   @override
-  ContentType fromJson(Object json) {
+  FileType fromJson(Object json) {
     switch (json) {
       case "image":
-        return ContentType.IMAGE;
+        return FileType.IMAGE;
         break;
       case "audio":
-        return ContentType.AUDIO;
+        return FileType.AUDIO;
         break;
       default:
-        return ContentType.TEXT;
+        return FileType.TEXT;
         break;
     }
   }
 
   @override
-  Object toJson(ContentType type) {
+  Object toJson(FileType type) {
     switch (type) {
-      case ContentType.IMAGE:
+      case FileType.IMAGE:
         return "image";
         break;
-      case ContentType.AUDIO:
+      case FileType.AUDIO:
         return "audio";
         break;
       default:

@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:mydeck/blocs/train/train_bloc.dart';
 import 'package:mydeck/models/entitites/card.dart' as Entity;
-import 'package:mydeck/models/entitites/my_deck_file.dart';
+import 'package:mydeck/models/entitites/md_file.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
