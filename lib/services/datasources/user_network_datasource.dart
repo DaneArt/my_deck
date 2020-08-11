@@ -1,11 +1,17 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:dio_cookie_manager/dio_cookie_manager.dart';
+import 'package:logger/logger.dart';
 import 'package:mydeck/errors/auth_failure.dart';
 import 'package:mydeck/errors/exception.dart';
+import 'package:mydeck/models/entitites/unique_id.dart';
 import 'package:mydeck/models/value_objects/user_model.dart';
 import 'package:mydeck/services/datasources/user_config.dart';
+import 'package:cookie_jar/cookie_jar.dart';
+import 'package:mydeck/utils/dependency_injection.dart';
 
 abstract class UserNetworkDataSource {
   Future<Option<AuthFailure>> refreshTokens();
@@ -16,20 +22,24 @@ abstract class UserNetworkDataSource {
 }
 
 class UserNetworkDataSourceImpl implements UserNetworkDataSource {
-  final client = Dio(
-      BaseOptions(baseUrl: 'http://mydeck-001-site1.dtempurl.com/mydeckapi'));
+  final Dio client;
+  final CookieJar cookieJar;
 
-  UserNetworkDataSourceImpl();
+  UserNetworkDataSourceImpl(this.cookieJar, this.client);
 
   @override
   Future<UserModel> getUserById(String userId) async {
     try {
+      // final cookies = cookieJar.loadForRequest(
+      //     Uri.parse("http://threetests-001-site1.gtempurl.com"));
+
       final response = await client.get(
         '/User/FindById/$userId',
         options: Options(headers: {
-          'Authorization': 'Bearer ${UserConfig.accessToken}',
+          HttpHeaders.authorizationHeader: 'Bearer ${UserConfig.accessToken}',
         }),
       );
+
       return UserModel.fromJson(jsonDecode(response.data));
     } on DioError catch (e) {
       if (e.response.statusCode == 404) {
@@ -45,6 +55,7 @@ class UserNetworkDataSourceImpl implements UserNetworkDataSource {
   @override
   Future<Option<AuthFailure>> refreshTokens() async {
     try {
+      final cookies = cookieJar.loadForRequest(Uri.parse(BASE_URL_DEV));
       final newPairResponse = await client.post('/User/RefreshTokens',
           data: jsonEncode({
             'access_token': UserConfig.accessToken,
@@ -62,12 +73,24 @@ class UserNetworkDataSourceImpl implements UserNetworkDataSource {
   }
 
   @override
-  Future<Response> signInWithGoogleToken(String userToken) {
+  Future<Response> signInWithGoogleToken(String userToken) async {
     try {
-      return client.post(
+      final cookies = cookieJar.loadForRequest(Uri.parse(BASE_URL_DEV));
+      cookies.clear();
+      cookies.add(Cookie('sessionId', UniqueId().getOrCrash));
+
+      cookieJar.saveFromResponse(Uri.parse(BASE_URL_DEV), cookies);
+
+      var startTime = DateTime.now().millisecondsSinceEpoch;
+      final result = await client.post(
         '/User/SignInByGoogle',
-        options: Options(headers: {'idtoken': userToken}),
+        options: Options(
+          headers: {'idtoken': userToken},
+        ),
       );
+      var endTime = DateTime.now().millisecondsSinceEpoch;
+      Logger().d((endTime - startTime) / 1000 / 60);
+      return result;
     } on DioError catch (e) {
       throw NetworkException();
     } catch (e) {

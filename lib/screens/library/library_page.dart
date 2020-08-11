@@ -141,7 +141,7 @@ class _LibraryPageState extends State<LibraryPage>
               size: 32,
             ),
             onPressed: () {
-              /* if (UserConfig.currentUser == null) {
+              if (UserConfig.currentUser == null) {
                 Scaffold.of(context).showSnackBar(SnackBar(
                   content: Text(S.of(context).library_sign_in_to_create),
                   action: SnackBarAction(
@@ -151,9 +151,9 @@ class _LibraryPageState extends State<LibraryPage>
                     },
                   ),
                 ));
-              } */
+              }
 
-              context.navigator.push(
+              /* context.navigator.push(
                 MaterialPageRoute(
                   builder: (ctx) => BlocProvider<AddDeckBloc>(
                     create: (BuildContext context) => AddDeckBloc(
@@ -166,16 +166,12 @@ class _LibraryPageState extends State<LibraryPage>
                     ),
                   ),
                 ),
-              );
+              ); */
             },
           )
         ],
-        automaticallyImplyLeading: false,
         title: Text("${S.of(context).library_title}",
-            style: Theme.of(context)
-                .textTheme
-                .headline4
-                .copyWith(color: Theme.of(context).primaryColor)),
+            style: Theme.of(context).textTheme.headline4),
       ),
       body: SafeArea(
         top: true,

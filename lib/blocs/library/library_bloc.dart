@@ -26,10 +26,8 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
 
   LibraryBloc({@required LoadUserLibraryUseCase loadUserLibrary})
       : assert(loadUserLibrary != null),
-        this.loadUserLibrary = loadUserLibrary;
-
-  @override
-  LibraryState get initialState => LibraryState.initial();
+        this.loadUserLibrary = loadUserLibrary,
+        super(LibraryState.initial());
 
   @override
   Stream<LibraryState> mapEventToState(

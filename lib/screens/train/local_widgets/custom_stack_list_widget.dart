@@ -3,7 +3,6 @@ import 'package:mydeck/models/entitites/card.dart' as Entity;
 import 'package:mydeck/models/entitites/md_file.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mydeck/widgets/card_content_widget.dart';
 
 import '../../../features/train/presentation/widgets/../../../../screens/train/local_widgets/dismissible_card_widget.dart';
 
@@ -61,15 +60,16 @@ class _CustomStackListState extends State<CustomStackList>
   }
 
   Widget createWidgetFromContent(MDFile content, BuildContext context) =>
-      content is ImageFile
-          ? ImageCardContentWidget(
-              imageFile: content,
-              heigth: MediaQuery.of(context).size.height,
-            )
-          : TextCardWidget(
-              content: content,
-              isEditing: false,
-            );
+      Container();
+  // content is ImageFile
+  //     ? ImageCardContentWidget(
+  //         imageFile: content,
+  //         heigth: MediaQuery.of(context).size.height,
+  //       )
+  //     : TextCardWidget(
+  //         content: content,
+  //         isEditing: false,
+  //       );
 
   Widget _backgroundCard(double cardHeight, double cardWidth) {
     return Container(

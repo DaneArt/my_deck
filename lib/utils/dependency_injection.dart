@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:mydeck/blocs/library/library_bloc.dart';
-import 'package:mydeck/blocs/sign_in/login_bloc.dart';
+import 'package:mydeck/blocs/sign_in/sign_in_bloc.dart';
 import 'package:mydeck/blocs/tab/tab_bloc.dart';
 import 'package:mydeck/blocs/train/train_bloc.dart';
+import 'package:mydeck/cubits/md_image/md_image_cubit.dart';
 import 'package:mydeck/services/datasources/file_local_datasource.dart';
 import 'package:mydeck/services/datasources/file_network_datasource.dart';
 import 'package:mydeck/services/repositories/file_repository.dart';
@@ -36,29 +38,11 @@ import 'package:mydeck/services/datasources/user_network_datasource.dart';
 import 'package:mydeck/utils/auth_facade.dart';
 import 'package:mydeck/utils/value_validators.dart';
 import 'package:mydeck/services/usecases/google_signin_usecase.dart';
+import 'package:cookie_jar/cookie_jar.dart';
 
 final sl = GetIt.I;
-
+final BASE_URL_DEV = Uri.http("127.0.0.1:5001", "").toString();
 void setUp() {
-  //RestApi
-  sl.registerFactory(
-    () => Dio(
-      BaseOptions(
-        headers: {
-          HttpHeaders.authorizationHeader: 'Bearer ${UserConfig.accessToken}'
-        },
-        baseUrl: 'http://mydeck-001-site1.dtempurl.com/mydeckapi',
-      ),
-    )..interceptors.add(TokenInterceptor(
-        accessTokenValidator: sl(),
-        userDataSource: sl(),
-      )),
-  );
-  sl.registerFactory(() => DataConnectionChecker());
-  sl.registerFactory<IAuthFacade>(() => AuthFacadeImpl(sl()));
-  sl.registerFactory<NetworkConnection>(() => NetworkConnectionImpl(sl()));
-  sl.registerFactory(() => GoogleSignIn());
-
   //data sources
   sl.registerLazySingleton<FileNetworkDataSource>(
       () => FakeFileNetworkDataSource());
@@ -69,11 +53,60 @@ void setUp() {
             client: sl(),
           ));
   sl.registerLazySingleton<UserNetworkDataSource>(
-      () => UserNetworkDataSourceImpl());
+    () => UserNetworkDataSourceImpl(
+      sl(),
+      Dio(
+        BaseOptions(
+          baseUrl: BASE_URL_DEV + '/mydeckapi',
+          connectTimeout: 30000,
+          receiveTimeout: 20000,
+          headers: {
+            HttpHeaders.authorizationHeader: 'Bearer ${UserConfig.accessToken}'
+          },
+        ),
+      )..interceptors.add(CookieManager(sl())),
+    ),
+  );
+
+  //RestApi
+  sl.registerFactory(() => DataConnectionChecker());
+  sl.registerFactory<IAuthFacade>(() => AuthFacadeImpl(sl()));
+  sl.registerFactory<NetworkConnection>(() => NetworkConnectionImpl(sl()));
+  sl.registerFactory(() => GoogleSignIn());
+  sl.registerFactory(() => AccessTokenValidator());
+
+  sl.registerSingleton<CookieJar>(CookieJar());
+  sl.registerFactory(
+    () => Dio(
+      BaseOptions(
+        baseUrl: BASE_URL_DEV + '/mydeckapi',
+        connectTimeout: 30000,
+        receiveTimeout: 20000,
+        headers: {
+          HttpHeaders.authorizationHeader: 'Bearer ${UserConfig.accessToken}'
+        },
+      ),
+    )..interceptors.addAll(
+        [
+          CookieManager(
+            sl(),
+          ),
+          TokenInterceptor(
+            accessTokenValidator: sl(),
+          ),
+        ],
+      ),
+  );
+
   //repository
   sl.registerLazySingleton<DeckRepository>(() => FakeDeckRepository(sl()));
   sl.registerLazySingleton<FileRepository>(
-      () => FileRepositoryImpl(sl(), sl(), sl()));
+    () => FileRepositoryImpl(
+      sl(),
+      sl(),
+      sl(),
+    ),
+  );
 
   //use cases
   sl.registerFactory(() => UploadOnlineDeckUsecase(myDeckRepository: sl()));
@@ -88,13 +121,11 @@ void setUp() {
   sl.registerFactory(() => UpdateTrainedCards(repository: sl()));
   sl.registerFactory(() => GetFileByMetaUseCase(fileRepository: sl()));
   //blocs
-  sl.registerFactory(() => LoginBloc(sl()));
-
+  sl.registerFactory(() => SignInBloc(sl()));
+  sl.registerFactory(() => MDContentCubit(sl()));
   sl.registerFactory(() => LibraryBloc(
         loadUserLibrary: sl(),
       ));
   sl.registerFactory(() => TabBloc());
   sl.registerFactory(() => TrainBloc(updateTrainedCards: sl()));
-  //helpers
-  sl.registerFactory(() => AccessTokenValidator());
 }

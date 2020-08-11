@@ -49,7 +49,7 @@ class _LoginFieldState extends State<LoginField> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 8.0, bottom: 8.0),
+          padding: const EdgeInsets.only(bottom: 8.0),
           child: Text(
             widget.label,
             textAlign: TextAlign.left,
@@ -75,12 +75,6 @@ class _LoginFieldState extends State<LoginField> {
                     color: Theme.of(context).primaryColor, fontSize: 14),
                 suffixIcon: widget.suffix ?? null,
                 prefixIcon: widget.prefix,
-                fillColor:
-                    Theme.of(context).colorScheme.brightness == Brightness.dark
-                        ? Colors.grey
-                        : Colors.white,
-                filled:
-                    Theme.of(context).colorScheme.brightness != Brightness.dark,
                 hintText: widget.hint),
           ),
         ),

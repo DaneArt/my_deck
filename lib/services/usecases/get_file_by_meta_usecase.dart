@@ -25,5 +25,5 @@ class Params {
   final UniqueId id;
   final FileType fileType;
 
-  Params({this.id, this.fileType});
+  Params({@required this.id, @required this.fileType});
 }

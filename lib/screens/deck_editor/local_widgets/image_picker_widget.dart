@@ -1,10 +1,14 @@
 import 'dart:io';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mydeck/cubits/md_image/md_image_cubit.dart';
 import 'package:mydeck/models/entitites/md_file.dart';
 import 'package:mydeck/models/entitites/unique_id.dart';
 import 'package:mydeck/models/value_objects/deck_avatar.dart';
+import 'package:mydeck/utils/dependency_injection.dart';
 import 'package:mydeck/utils/images_util.dart';
 import 'package:flutter/material.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:mydeck/generated/l10n.dart';
 import 'package:mydeck/widgets/md_image.dart';
@@ -29,7 +33,8 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
   }
 
   _pickImage(ImageSource source) async {
-    final file = await ImagePicker().getImage(source: source);
+    final file = await ImagePicker()
+        .getImage(source: source, maxHeight: 300 * 1.7, maxWidth: 300);
     if (file != null) {
       setState(() {
         widget.onImagePicked(
@@ -42,7 +47,6 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     return Card(
-      key: Key('ImagePickerWidget'),
       elevation: 8,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
@@ -52,8 +56,8 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
       child: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(16)),
         child: Container(
-          height: screenSize.height / 4,
-          width: screenSize.height / 4 / 1.4,
+          height: screenSize.width / 2.5 * 1.4,
+          width: screenSize.width / 2.5,
           child: InkWell(
             onTap: () {
               showModalBottomSheet(
@@ -74,30 +78,36 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                             Navigator.pop(context);
                             _pickImage(ImageSource.gallery);
                           },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Icon(Icons.image),
-                              SizedBox(
-                                width: 32,
-                              ),
-                              Text('Gallery'),
-                            ],
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(Icons.image),
+                                SizedBox(
+                                  width: 32,
+                                ),
+                                Text('Gallery'),
+                              ],
+                            ),
                           )),
                       MaterialButton(
                         onPressed: () {
                           Navigator.pop(context);
                           _pickImage(ImageSource.camera);
                         },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Icon(Icons.photo_camera),
-                            SizedBox(
-                              width: 32,
-                            ),
-                            Text('Photo'),
-                          ],
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(Icons.photo_camera),
+                              SizedBox(
+                                width: 32,
+                              ),
+                              Text('Photo'),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -106,13 +116,22 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
               );
             },
             child: widget.defaultAvatar.value.fold(
-              (failure) => Center(
-                child: Text('Tap to pick avatar'),
+              (failure) => Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: Text(
+                    'Tap to pick avatar',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               ),
-              (value) => MDImage(
-                image: value,
-                height: screenSize.height / 4,
-                width: screenSize.height / 4 / 1.4,
+              (value) => BlocProvider<MDContentCubit>(
+                create: (context) => sl.get<MDContentCubit>(),
+                child: MDImage(
+                  image: value,
+                  height: screenSize.width / 2.5 * 1.4,
+                  width: screenSize.width / 2.5,
+                ),
               ),
             ),
           ),

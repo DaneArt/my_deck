@@ -26,10 +26,8 @@ class FeedTileBloc extends Bloc<FeedTileEvent, FeedTileState> {
       : assert(loadDecksPageForCategoryUsecase != null),
         assert(categoryModel != null),
         _category = categoryModel,
-        _loadDecksPageForCategoryUsecase = loadDecksPageForCategoryUsecase;
-
-  @override
-  FeedTileState get initialState => FeedTileState.initial(category: _category);
+        _loadDecksPageForCategoryUsecase = loadDecksPageForCategoryUsecase,
+        super(FeedTileState.initial(category: categoryModel));
 
   final int _kDecksPerPage = 15;
 

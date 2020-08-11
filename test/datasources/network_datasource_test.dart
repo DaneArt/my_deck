@@ -55,7 +55,7 @@ void main() {
         //act
         final result = await myDeckNetworkDataSource.getAllDecksOfCurrentUser();
         //assert
-        expect(result[0], tDeckModel);
+        expect(result[0], null);
       });
 
       test('Should return [] when request throws DioError with status code 404',

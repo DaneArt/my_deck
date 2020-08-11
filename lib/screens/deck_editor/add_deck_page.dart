@@ -1,13 +1,13 @@
+import 'package:flutter_bloc/flutter_bloc.dart' as blc;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 
 import 'package:mydeck/blocs/add_card/add_card_bloc.dart';
 import 'package:mydeck/blocs/add_deck/add_deck_bloc.dart';
 import 'package:mydeck/models/entitites/md_file.dart';
-import 'package:mydeck/utils/widget_extensions.dart';
 import 'package:mydeck/utils/custom_icons_icons.dart';
 import 'package:mydeck/screens/deck_editor/card_editor.dart';
 import 'package:mydeck/screens/deck_editor/local_widgets/category_picker.dart';
@@ -47,7 +47,7 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
 
   bool _showActions = false;
 
-  AddDeckBloc get bloc => BlocProvider.of<AddDeckBloc>(context);
+  AddDeckBloc get bloc => blc.BlocProvider.of<AddDeckBloc>(context);
 
   @override
   void initState() {
@@ -152,8 +152,8 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                     icon: Icon(Icons.add, color: Colors.white),
                     onPressed: () async {
                       final cards =
-                          await context.navigator.push(MaterialPageRoute(
-                              builder: (BuildContext ctx) => BlocProvider(
+                          await Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext ctx) => blc.BlocProvider(
                                     create: (c) => AddCardBloc(
                                         currentCardIndex:
                                             bloc.state.cardsList.length,
@@ -183,8 +183,18 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
               ),
               Tab(
                   text: S.of(context).meta_cards,
-                  icon: Icon(
-                    CustomIcons.cards,
+                  icon: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        CustomIcons.cards,
+                      ),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Text(
+                          '${bloc.state.cardsList?.length != null && bloc.state.cardsList?.length != 0 ? bloc.state.cardsList?.length : bloc.deck.cardsCount ?? 0}')
+                    ],
                   )),
             ],
             controller: tabController,
@@ -224,7 +234,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
 
   AddDeckGoal get goal => widget.goal;
 
-  AddDeckBloc get bloc => BlocProvider.of<AddDeckBloc>(context);
+  AddDeckBloc get bloc => context.bloc<AddDeckBloc>();
 
   @override
   void initState() {
@@ -249,7 +259,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AddDeckBloc, AddDeckState>(
+    return blc.BlocBuilder<AddDeckBloc, AddDeckState>(
       builder: (context, state) {
         if (state.isLoading) {
           return Center(child: CircularProgressIndicator());
@@ -331,6 +341,9 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
             Flexible(
               flex: 2,
               child: ImagePickerWidget(
+                key: Key(state.avatar.value.fold(
+                    (l) => l.failedValue.uniqueId.getOrCrash,
+                    (r) => r.uniqueId.getOrCrash)),
                 defaultAvatar: state.avatar,
                 onImagePicked: (ImageFile image) {
                   bloc.add(AddDeckEvent.avatarChanged(image));
@@ -340,10 +353,9 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
             Flexible(
               flex: 3,
               child: Padding(
-                padding: const EdgeInsets.only(right: 16.0),
+                padding:
+                    const EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.end,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Flexible(
@@ -438,6 +450,9 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
           decoration: InputDecoration(
             hintText: S.of(context).editor_description_enter,
             hintMaxLines: 2,
+            filled: true,
+            alignLabelWithHint: true,
+            border: UnderlineInputBorder(),
             labelText: S.of(context).editor_description,
             contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
             hoverColor: Theme.of(context).accentColor,
@@ -446,7 +461,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
           inputFormatters: [
             new LengthLimitingTextInputFormatter(_maxDescriptionCount),
           ],
-          maxLines: null,
+          maxLines: 3,
           maxLength: _maxDescriptionCount,
         )
       : Column(
@@ -456,7 +471,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
               '${S.of(context).editor_description}:',
               style: Theme.of(context)
                   .textTheme
-                  .headline6
+                  .subtitle1
                   .copyWith(fontWeight: FontWeight.w500),
             ),
             Padding(
@@ -468,7 +483,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
                       ? l.failedValue
                       : S.of(context).editor_no_description,
                   (r) => r),
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.headline6,
             ),
           ],
         );
@@ -485,6 +500,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
           textCapitalization: TextCapitalization.sentences,
           decoration: InputDecoration(
             hintText: S.of(context).editor_title_enter,
+            filled: true,
             labelText: S.of(context).editor_title + '*',
             labelStyle: Theme.of(context).textTheme.subtitle1,
             contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
@@ -501,10 +517,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
           children: <Widget>[
             Text(
               '${S.of(context).editor_title}:',
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6
-                  .copyWith(fontWeight: FontWeight.w500),
+              style: Theme.of(context).textTheme.subtitle1,
             ),
             Padding(
               padding: const EdgeInsets.all(4),
@@ -557,10 +570,10 @@ class _CardsPageState extends State<_CardsPage> {
 
   bool get _isEditing => widget.goal != AddDeckGoal.lookup;
 
-  AddDeckBloc get bloc => BlocProvider.of<AddDeckBloc>(context);
+  AddDeckBloc get bloc => blc.BlocProvider.of<AddDeckBloc>(context);
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AddDeckBloc, AddDeckState>(
+    return blc.BlocBuilder<AddDeckBloc, AddDeckState>(
       builder: (context, state) {
         if (state.isLoading) {
           return Center(
@@ -610,16 +623,17 @@ class _CardsPageState extends State<_CardsPage> {
                 ),
                 color: Theme.of(context).accentColor,
                 onPressed: () async {
-                  final cards = await context.navigator.push(MaterialPageRoute(
-                      builder: (BuildContext context) => BlocProvider(
-                            create: (context) => AddCardBloc(
-                                currentCardIndex: state.cardsList.length,
-                                sourceCards: List.from(state.cardsList)
-                                  ..add(Entity.Card.basic())),
-                            child: CardEditor(
-                              isCreating: true,
-                            ),
-                          )));
+                  final cards =
+                      await Navigator.of(context).push(MaterialPageRoute(
+                          builder: (BuildContext context) => blc.BlocProvider(
+                                create: (context) => AddCardBloc(
+                                    currentCardIndex: state.cardsList.length,
+                                    sourceCards: List.from(state.cardsList)
+                                      ..add(Entity.Card.basic())),
+                                child: CardEditor(
+                                  isCreating: true,
+                                ),
+                              )));
                   if (cards != null)
                     bloc.add(AddDeckEvent.updateCards(cards: cards));
                 },
@@ -643,16 +657,17 @@ class _CardsPageState extends State<_CardsPage> {
           key: ValueKey(state.cardsList[index].id),
           onTap: _isEditing
               ? () async {
-                  final cards = await context.navigator.push(MaterialPageRoute(
-                      builder: (BuildContext context) => BlocProvider(
-                            create: (context) => AddCardBloc(
-                              sourceCards: List.from(state.cardsList),
-                              currentCardIndex: index,
-                            ),
-                            child: CardEditor(
-                              isCreating: true,
-                            ),
-                          )));
+                  final cards =
+                      await Navigator.of(context).push(MaterialPageRoute(
+                          builder: (BuildContext context) => blc.BlocProvider(
+                                create: (context) => AddCardBloc(
+                                  sourceCards: List.from(state.cardsList),
+                                  currentCardIndex: index,
+                                ),
+                                child: CardEditor(
+                                  isCreating: true,
+                                ),
+                              )));
                   if (cards != null) {
                     context
                         .bloc<AddDeckBloc>()

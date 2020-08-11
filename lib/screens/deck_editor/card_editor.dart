@@ -5,12 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mydeck/blocs/add_card/add_card_bloc.dart';
-import 'package:mydeck/utils/widget_extensions.dart';
 import 'package:mydeck/utils/images_util.dart';
 import 'package:mydeck/screens/deck_editor/local_widgets/card_fraction_pagination_builder.dart';
 import 'package:mydeck/models/entitites/card.dart' as Entity;
 import 'package:mydeck/models/entitites/md_file.dart';
-import 'package:mydeck/widgets/card_content_widget.dart';
+
 import 'package:mydeck/generated/l10n.dart';
 import 'package:mydeck/widgets/md_image.dart';
 import 'package:mydeck/widgets/md_text.dart';
@@ -31,7 +30,7 @@ class _CardEditorState extends State<CardEditor> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
     return WillPopScope(
       onWillPop: () async {
         context.bloc<AddCardBloc>().add(AddCardEvent.saveChangesAndExit());
@@ -54,7 +53,7 @@ class _CardEditorState extends State<CardEditor> {
           ],
           leading: IconButton(
             onPressed: () {
-              context.navigator.pop();
+              Navigator.of(context).pop();
             },
             icon: Icon(Icons.clear, color: Theme.of(context).iconTheme.color),
           ),
@@ -63,7 +62,7 @@ class _CardEditorState extends State<CardEditor> {
         body: BlocListener<AddCardBloc, AddCardState>(
           listener: (context, state) {
             if (state.saveChangesAndExit) {
-              context.navigator.pop(state.sourceCards);
+              Navigator.of(context).pop(state.sourceCards);
             }
           },
           child: _cardsWidget(),
@@ -223,9 +222,8 @@ class _CardEditorState extends State<CardEditor> {
     );
   }
 
-  Widget _cardsWidget() => BlocBuilder<AddCardBloc, AddCardState>(
-      condition: (prev, next) => next.rebuild,
-      builder: (context, state) {
+  Widget _cardsWidget() =>
+      BlocBuilder<AddCardBloc, AddCardState>(builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 16.0),
           child: Swiper(

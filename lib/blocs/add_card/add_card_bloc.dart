@@ -17,11 +17,9 @@ class AddCardBloc extends Bloc<AddCardEvent, AddCardState> {
   final int currentCardIndex;
   final List<Card> sourceCards;
 
-  AddCardBloc({@required this.currentCardIndex, @required this.sourceCards});
-
-  @override
-  AddCardState get initialState => AddCardState.initial(
-      currentCardIndex: currentCardIndex, sourceCards: sourceCards);
+  AddCardBloc({@required this.currentCardIndex, @required this.sourceCards})
+      : super(AddCardState.initial(
+            currentCardIndex: currentCardIndex, sourceCards: sourceCards));
 
   @override
   Stream<AddCardState> mapEventToState(AddCardEvent event) async* {

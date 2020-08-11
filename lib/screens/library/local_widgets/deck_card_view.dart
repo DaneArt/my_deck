@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mydeck/blocs/add_deck/add_deck_bloc.dart';
+import 'package:mydeck/cubits/md_image/md_image_cubit.dart';
 import 'package:mydeck/utils/widget_extensions.dart';
 import 'package:mydeck/utils/custom_icons_icons.dart';
 import 'package:mydeck/utils/dependency_injection.dart';
@@ -119,10 +120,13 @@ class _DeckCardState extends State<DeckCard> {
   _imageWidget(double cardHeight) => ClipRRect(
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(8), bottomLeft: Radius.circular(8)),
-        child: MDImage(
-          image: deck.avatar.getOrCrash,
-          height: cardHeight,
-          width: cardHeight / 1.69,
+        child: BlocProvider<MDContentCubit>(
+          create: (context) => sl.get<MDContentCubit>(),
+          child: MDImage(
+            image: deck.avatar.getOrCrash,
+            height: cardHeight,
+            width: cardHeight / 1.69,
+          ),
         ),
       );
 
@@ -150,7 +154,7 @@ class _DeckCardState extends State<DeckCard> {
                                 .fold((l) => l.failedValue, (r) => r),
                             style: Theme.of(context)
                                 .textTheme
-                                .headline5
+                                .headline6
                                 .copyWith(fontWeight: FontWeight.bold),
                             overflow: TextOverflow.fade,
                             maxLines: 1,

@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:jose/jose.dart';
+import 'package:logger/logger.dart';
 import 'package:mydeck/errors/auth_failure.dart';
 import 'package:mydeck/models/value_objects/user_model.dart';
 import 'package:mydeck/utils/network_connection.dart';
@@ -53,7 +54,7 @@ class GoogleSignInUsecase extends UseCase<AuthFailure, UserModel, NoParams> {
     try {
       final userPayload =
           await _userDataSource.signInWithGoogleToken(userToken);
-
+      Logger().d('Sign in by google successfull');
       if (userPayload.statusCode == 200) {
         await _setupUserConfig(userPayload.data);
         return right(UserConfig.currentUser);
@@ -94,7 +95,7 @@ class GoogleSignInUsecase extends UseCase<AuthFailure, UserModel, NoParams> {
   }
 
   _setupUserConfig(String userData) async {
-    final userId = json.decode(userData)['userid'];
+    final userId = json.decode(userData)['user_id'];
     final accessToken = json.decode(userData)['access_token'];
     final refreshToken = json.decode(userData)['refresh_token'];
     UserConfig.accessToken = accessToken;

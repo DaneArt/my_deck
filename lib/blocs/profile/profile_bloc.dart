@@ -7,8 +7,7 @@ part 'profile_event.dart';
 part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
-  @override
-  ProfileState get initialState => ProfileInitial();
+  ProfileBloc() : super(ProfileInitial());
 
   @override
   Stream<ProfileState> mapEventToState(

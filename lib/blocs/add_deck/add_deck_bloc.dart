@@ -31,10 +31,7 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
   AddDeckBloc({
     @required this.uploadOnlineDeckUsecase,
     @required this.deck,
-  });
-
-  @override
-  AddDeckState get initialState => AddDeckState.initial(initialDeck: deck);
+  }) : super(AddDeckState.initial(initialDeck: deck));
 
   @override
   Stream<AddDeckState> mapEventToState(

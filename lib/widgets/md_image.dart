@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
+import 'package:mydeck/cubits/md_image/md_image_cubit.dart';
 import 'package:mydeck/models/entitites/md_file.dart';
 
-class MDImage extends StatefulWidget {
+class MDImage extends StatelessWidget {
   final Key key;
   final double width;
   final double height;
@@ -28,69 +30,30 @@ class MDImage extends StatefulWidget {
         super(key: key);
 
   @override
-  _MDImageState createState() => _MDImageState();
-}
-
-class _MDImageState extends State<MDImage> {
-  File _sourceFile = null;
-  Widget _currentWidget;
-
-  Widget get placeholder =>
-      widget.placeholder ??
-      Container(
-        width: widget.width,
-        height: widget.height,
-        color: Colors.blueGrey,
-      );
-  Widget get errorWidget =>
-      widget.errorWidget ??
-      Center(
-        child: Icon(
-          Icons.error,
-        ),
-      );
-  Widget get loadIndicator =>
-      widget.loadIndicator ?? Center(child: CircularProgressIndicator());
-
-  @override
-  void initState() {
-    _currentWidget = widget.placeholder;
-    Logger().d('Placeholder set');
-
-    super.initState();
-    _initializeImage();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Container(
-      width: widget.width,
-      height: widget.height,
-      child: _currentWidget,
+      width: width,
+      height: height,
+      child: BlocBuilder<MDContentCubit, MDContentState>(
+        builder: (context, state) => state.map(
+            initial: (s) {
+              Logger().d('Initializing file');
+              context.bloc<MDContentCubit>().initFile(sourceImage);
+              return placeholder ??
+                  Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      color: Colors.blueGrey);
+            },
+            loading: (s) =>
+                Center(child: loadIndicator ?? CircularProgressIndicator()),
+            error: (s) => errorWidget ?? Icon(Icons.error),
+            loaded: (s) => Image.file(
+                  s.file,
+                  key: Key('MDImage'),
+                  fit: BoxFit.cover,
+                )),
+      ),
     );
-  }
-
-  Future<void> _initializeImage() async {
-    setState(() {
-      Logger().d('Loading indicator set');
-      _currentWidget = widget.loadIndicator;
-    });
-
-    final fileResult = await widget.sourceImage.getFileValue();
-    fileResult.fold((failure) {
-      setState(() {
-        Logger().d('Error set');
-        _currentWidget = errorWidget;
-      });
-    }, (file) {
-      setState(() {
-        Logger().d('Image set');
-        _sourceFile = file;
-        _currentWidget = Image.file(
-          _sourceFile,
-          fit: BoxFit.cover,
-        );
-      });
-    });
   }
 }

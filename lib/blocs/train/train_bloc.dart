@@ -37,10 +37,7 @@ class TrainBloc extends Bloc<TrainEvent, TrainState> {
 
   Card get _currentCard => _currentDeck.cardsList[_currentCardIndex];
 
-  TrainBloc({@required this.updateTrainedCards});
-
-  @override
-  TrainState get initialState => InitialTrainState();
+  TrainBloc({@required this.updateTrainedCards}) : super(InitialTrainState());
 
   @override
   Stream<TrainState> mapEventToState(

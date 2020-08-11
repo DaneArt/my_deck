@@ -4,8 +4,7 @@ import 'package:mydeck/blocs/tab/app_tab.dart';
 import 'tab_event.dart';
 
 class TabBloc extends Bloc<TabEvent, AppTab> {
-  @override
-  AppTab get initialState => AppTab.library;
+  TabBloc() : super(AppTab.library);
 
   @override
   Stream<AppTab> mapEventToState(

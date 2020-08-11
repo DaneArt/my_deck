@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "292694254456-3svudgjielnagvong528vhpi7t0fqudn.apps.googleusercontent.com",
+          "client_id": "292694254456-jj7ump6e19moj70ns67eqdohcci1orkd.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.daneart.my_deck",
-            "certificate_hash": "4f5c78cf91e74479b2e2f0586452759e52792a16"
+            "certificate_hash": "d9e7e35e09e0806df9d2eb673149e622fb571c8f"
           }
         },
         {

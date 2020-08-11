@@ -16,16 +16,16 @@ class UserConfig {
   static UserModel get currentUser =>
       App.localStorage.getString(kUserDataKey) != null
           ? UserModel.fromJson(
-              json.decode(App.localStorage.getString(kUserDataKey)))
+              json.decode(App.localStorage?.getString(kUserDataKey)))
           : null;
 
   static set accessToken(String newToken) =>
       App.localStorage.setString(kAccessTokenKey, newToken);
 
-  static get accessToken => App.localStorage.getString(kAccessTokenKey);
+  static get accessToken => App.localStorage?.getString(kAccessTokenKey);
 
   static set refreshToken(String newToken) =>
       App.localStorage.setString(kRefreshToken, newToken);
 
-  static String get refreshToken => App.localStorage.getString(kRefreshToken);
+  static String get refreshToken => App.localStorage?.getString(kRefreshToken);
 }

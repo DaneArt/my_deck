@@ -14,16 +14,6 @@ class CategoryPicker extends StatefulWidget {
 }
 
 class _CategoryPickerState extends State<CategoryPicker> {
-  final List<Color> colors = [
-    Colors.redAccent,
-    Colors.orangeAccent,
-    Colors.yellowAccent,
-    Colors.greenAccent,
-    Colors.lightBlueAccent,
-    Colors.blueAccent,
-    Colors.purpleAccent,
-  ];
-
   DeckCategory pickedCategory;
 
   @override
@@ -35,6 +25,7 @@ class _CategoryPickerState extends State<CategoryPicker> {
   @override
   Widget build(BuildContext context) {
     return DropdownButton(
+      underline: Container(),
       items: [
         for (DeckCategory c in kDefaultCategories)
           DropdownMenuItem<DeckCategory>(
@@ -42,9 +33,7 @@ class _CategoryPickerState extends State<CategoryPicker> {
             child: Container(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(c.categoryName,
-                    style: TextStyle(
-                        color: colors[kDefaultCategories.indexOf(c)])),
+                child: Text(c.categoryName),
               ),
             ),
           ),
