@@ -28,7 +28,7 @@ class _$AddDeckStateTearOff {
       @required
           bool availableQuickTrain,
       @required
-          UserModel author,
+          UserDto author,
       @required
           Option<Either<StorageFailure<dynamic>, Unit>> loadingFailureOrSuccess,
       @required
@@ -59,7 +59,7 @@ mixin _$AddDeckState {
   bool get isShared;
   DeckCategory get category;
   bool get availableQuickTrain;
-  UserModel get author;
+  UserDto get author;
   Option<Either<StorageFailure<dynamic>, Unit>> get loadingFailureOrSuccess;
   List<Card> get cardsList;
 
@@ -78,11 +78,12 @@ abstract class $AddDeckStateCopyWith<$Res> {
       bool isShared,
       DeckCategory category,
       bool availableQuickTrain,
-      UserModel author,
+      UserDto author,
       Option<Either<StorageFailure<dynamic>, Unit>> loadingFailureOrSuccess,
       List<Card> cardsList});
 
   $DeckCategoryCopyWith<$Res> get category;
+  $UserDtoCopyWith<$Res> get author;
 }
 
 class _$AddDeckStateCopyWithImpl<$Res> implements $AddDeckStateCopyWith<$Res> {
@@ -118,7 +119,7 @@ class _$AddDeckStateCopyWithImpl<$Res> implements $AddDeckStateCopyWith<$Res> {
       availableQuickTrain: availableQuickTrain == freezed
           ? _value.availableQuickTrain
           : availableQuickTrain as bool,
-      author: author == freezed ? _value.author : author as UserModel,
+      author: author == freezed ? _value.author : author as UserDto,
       loadingFailureOrSuccess: loadingFailureOrSuccess == freezed
           ? _value.loadingFailureOrSuccess
           : loadingFailureOrSuccess
@@ -137,6 +138,16 @@ class _$AddDeckStateCopyWithImpl<$Res> implements $AddDeckStateCopyWith<$Res> {
       return _then(_value.copyWith(category: value));
     });
   }
+
+  @override
+  $UserDtoCopyWith<$Res> get author {
+    if (_value.author == null) {
+      return null;
+    }
+    return $UserDtoCopyWith<$Res>(_value.author, (value) {
+      return _then(_value.copyWith(author: value));
+    });
+  }
 }
 
 abstract class _$AddDeckStateCopyWith<$Res>
@@ -153,12 +164,14 @@ abstract class _$AddDeckStateCopyWith<$Res>
       bool isShared,
       DeckCategory category,
       bool availableQuickTrain,
-      UserModel author,
+      UserDto author,
       Option<Either<StorageFailure<dynamic>, Unit>> loadingFailureOrSuccess,
       List<Card> cardsList});
 
   @override
   $DeckCategoryCopyWith<$Res> get category;
+  @override
+  $UserDtoCopyWith<$Res> get author;
 }
 
 class __$AddDeckStateCopyWithImpl<$Res> extends _$AddDeckStateCopyWithImpl<$Res>
@@ -196,7 +209,7 @@ class __$AddDeckStateCopyWithImpl<$Res> extends _$AddDeckStateCopyWithImpl<$Res>
       availableQuickTrain: availableQuickTrain == freezed
           ? _value.availableQuickTrain
           : availableQuickTrain as bool,
-      author: author == freezed ? _value.author : author as UserModel,
+      author: author == freezed ? _value.author : author as UserDto,
       loadingFailureOrSuccess: loadingFailureOrSuccess == freezed
           ? _value.loadingFailureOrSuccess
           : loadingFailureOrSuccess
@@ -245,7 +258,7 @@ class _$_AddDeckState implements _AddDeckState {
   @override
   final bool availableQuickTrain;
   @override
-  final UserModel author;
+  final UserDto author;
   @override
   final Option<Either<StorageFailure<dynamic>, Unit>> loadingFailureOrSuccess;
   @override
@@ -326,7 +339,7 @@ abstract class _AddDeckState implements AddDeckState {
       @required
           bool availableQuickTrain,
       @required
-          UserModel author,
+          UserDto author,
       @required
           Option<Either<StorageFailure<dynamic>, Unit>> loadingFailureOrSuccess,
       @required
@@ -347,7 +360,7 @@ abstract class _AddDeckState implements AddDeckState {
   @override
   bool get availableQuickTrain;
   @override
-  UserModel get author;
+  UserDto get author;
   @override
   Option<Either<StorageFailure<dynamic>, Unit>> get loadingFailureOrSuccess;
   @override

@@ -18,8 +18,32 @@ class _$ValueFailureTearOff {
     );
   }
 
+  EmptyEmail<T> emptyEmail<T>({@required T failedValue}) {
+    return EmptyEmail<T>(
+      failedValue: failedValue,
+    );
+  }
+
+  ShortUsername<T> shortUsername<T>({@required T failedValue}) {
+    return ShortUsername<T>(
+      failedValue: failedValue,
+    );
+  }
+
+  EmptyUsername<T> emptyUsername<T>({@required T failedValue}) {
+    return EmptyUsername<T>(
+      failedValue: failedValue,
+    );
+  }
+
   ShortPassword<T> shortPassword<T>({@required T failedValue}) {
     return ShortPassword<T>(
+      failedValue: failedValue,
+    );
+  }
+
+  EmptyPassword<T> emptyPassword<T>({@required T failedValue}) {
+    return EmptyPassword<T>(
       failedValue: failedValue,
     );
   }
@@ -36,14 +60,14 @@ class _$ValueFailureTearOff {
     );
   }
 
-  InvalidLogin<T> invalidLogin<T>({@required T failedValue}) {
-    return InvalidLogin<T>(
+  InvalidUsername<T> invalidUsername<T>({@required T failedValue}) {
+    return InvalidUsername<T>(
       failedValue: failedValue,
     );
   }
 
-  LongLogin<T> longLogin<T>({@required T failedValue}) {
-    return LongLogin<T>(
+  LongUsername<T> longUsername<T>({@required T failedValue}) {
+    return LongUsername<T>(
       failedValue: failedValue,
     );
   }
@@ -100,11 +124,15 @@ mixin _$ValueFailure<T> {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result invalidEmail(T failedValue),
+    @required Result emptyEmail(T failedValue),
+    @required Result shortUsername(T failedValue),
+    @required Result emptyUsername(T failedValue),
     @required Result shortPassword(T failedValue),
+    @required Result emptyPassword(T failedValue),
     @required Result invalidUniqueId(T failedValue),
     @required Result longPassword(T failedValue),
-    @required Result invalidLogin(T failedValue),
-    @required Result longLogin(T failedValue),
+    @required Result invalidUsername(T failedValue),
+    @required Result longUsername(T failedValue),
     @required Result invalidPassword(T failedValue),
     @required Result fileDoesNotExists(T failedValue),
     @required Result shortDeckTitle(T failedValue),
@@ -116,11 +144,15 @@ mixin _$ValueFailure<T> {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result invalidEmail(T failedValue),
+    Result emptyEmail(T failedValue),
+    Result shortUsername(T failedValue),
+    Result emptyUsername(T failedValue),
     Result shortPassword(T failedValue),
+    Result emptyPassword(T failedValue),
     Result invalidUniqueId(T failedValue),
     Result longPassword(T failedValue),
-    Result invalidLogin(T failedValue),
-    Result longLogin(T failedValue),
+    Result invalidUsername(T failedValue),
+    Result longUsername(T failedValue),
     Result invalidPassword(T failedValue),
     Result fileDoesNotExists(T failedValue),
     Result shortDeckTitle(T failedValue),
@@ -133,11 +165,15 @@ mixin _$ValueFailure<T> {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result invalidEmail(InvalidEmail<T> value),
+    @required Result emptyEmail(EmptyEmail<T> value),
+    @required Result shortUsername(ShortUsername<T> value),
+    @required Result emptyUsername(EmptyUsername<T> value),
     @required Result shortPassword(ShortPassword<T> value),
+    @required Result emptyPassword(EmptyPassword<T> value),
     @required Result invalidUniqueId(InvalidUniqueId<T> value),
     @required Result longPassword(LongPassword<T> value),
-    @required Result invalidLogin(InvalidLogin<T> value),
-    @required Result longLogin(LongLogin<T> value),
+    @required Result invalidUsername(InvalidUsername<T> value),
+    @required Result longUsername(LongUsername<T> value),
     @required Result invalidPassword(InvalidPassword<T> value),
     @required Result fileDoesNotExists(FileDoesNotExists<T> value),
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
@@ -149,11 +185,15 @@ mixin _$ValueFailure<T> {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result invalidEmail(InvalidEmail<T> value),
+    Result emptyEmail(EmptyEmail<T> value),
+    Result shortUsername(ShortUsername<T> value),
+    Result emptyUsername(EmptyUsername<T> value),
     Result shortPassword(ShortPassword<T> value),
+    Result emptyPassword(EmptyPassword<T> value),
     Result invalidUniqueId(InvalidUniqueId<T> value),
     Result longPassword(LongPassword<T> value),
-    Result invalidLogin(InvalidLogin<T> value),
-    Result longLogin(LongLogin<T> value),
+    Result invalidUsername(InvalidUsername<T> value),
+    Result longUsername(LongUsername<T> value),
     Result invalidPassword(InvalidPassword<T> value),
     Result fileDoesNotExists(FileDoesNotExists<T> value),
     Result shortDeckTitle(ShortDeckTitle<T> value),
@@ -241,8 +281,8 @@ class _$InvalidEmail<T>
       _message = this.map(
         invalidEmail: (value) => S.current.error_value_email_incorrect,
         shortPassword: (value) => S.current.error_value_short_passwor,
-        invalidLogin: (value) => S.current.error_value_invalid_login,
-        longLogin: (value) => S.current.error_value_long_login,
+        invalidUsername: (value) => S.current.error_value_invalid_login,
+        longUsername: (value) => S.current.error_value_long_login,
         invalidPassword: (value) => S.current.error_value_invalid_password,
         longPassword: (value) => S.current.error_value_long_password,
         fileDoesNotExists: (value) => S.current.error_value_file_inexists,
@@ -251,7 +291,12 @@ class _$InvalidEmail<T>
         expiredToken: (value) => S.current.error_auth_invalid_session,
         invalidUniqueId: (value) => S.current.error_auth_invalid_session,
         wrongFileExtension: (value) => S.current.error_value_file_inexists,
-        longDeckTitle: (value) => ' ',
+        longDeckTitle: (value) =>
+            'Deck title should be shorter than 30 characters',
+        shortUsername: (value) => 'Username must be longer than 4 characters',
+        emptyPassword: (value) => 'Password is required',
+        emptyEmail: (value) => 'Email is required',
+        emptyUsername: (value) => 'Username is required',
       );
     }
     return _message;
@@ -292,11 +337,15 @@ class _$InvalidEmail<T>
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result invalidEmail(T failedValue),
+    @required Result emptyEmail(T failedValue),
+    @required Result shortUsername(T failedValue),
+    @required Result emptyUsername(T failedValue),
     @required Result shortPassword(T failedValue),
+    @required Result emptyPassword(T failedValue),
     @required Result invalidUniqueId(T failedValue),
     @required Result longPassword(T failedValue),
-    @required Result invalidLogin(T failedValue),
-    @required Result longLogin(T failedValue),
+    @required Result invalidUsername(T failedValue),
+    @required Result longUsername(T failedValue),
     @required Result invalidPassword(T failedValue),
     @required Result fileDoesNotExists(T failedValue),
     @required Result shortDeckTitle(T failedValue),
@@ -306,11 +355,15 @@ class _$InvalidEmail<T>
     @required Result longDeckTitle(T failedValue),
   }) {
     assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
     assert(shortPassword != null);
+    assert(emptyPassword != null);
     assert(invalidUniqueId != null);
     assert(longPassword != null);
-    assert(invalidLogin != null);
-    assert(longLogin != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
     assert(invalidPassword != null);
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
@@ -325,11 +378,15 @@ class _$InvalidEmail<T>
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result invalidEmail(T failedValue),
+    Result emptyEmail(T failedValue),
+    Result shortUsername(T failedValue),
+    Result emptyUsername(T failedValue),
     Result shortPassword(T failedValue),
+    Result emptyPassword(T failedValue),
     Result invalidUniqueId(T failedValue),
     Result longPassword(T failedValue),
-    Result invalidLogin(T failedValue),
-    Result longLogin(T failedValue),
+    Result invalidUsername(T failedValue),
+    Result longUsername(T failedValue),
     Result invalidPassword(T failedValue),
     Result fileDoesNotExists(T failedValue),
     Result shortDeckTitle(T failedValue),
@@ -350,11 +407,15 @@ class _$InvalidEmail<T>
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result invalidEmail(InvalidEmail<T> value),
+    @required Result emptyEmail(EmptyEmail<T> value),
+    @required Result shortUsername(ShortUsername<T> value),
+    @required Result emptyUsername(EmptyUsername<T> value),
     @required Result shortPassword(ShortPassword<T> value),
+    @required Result emptyPassword(EmptyPassword<T> value),
     @required Result invalidUniqueId(InvalidUniqueId<T> value),
     @required Result longPassword(LongPassword<T> value),
-    @required Result invalidLogin(InvalidLogin<T> value),
-    @required Result longLogin(LongLogin<T> value),
+    @required Result invalidUsername(InvalidUsername<T> value),
+    @required Result longUsername(LongUsername<T> value),
     @required Result invalidPassword(InvalidPassword<T> value),
     @required Result fileDoesNotExists(FileDoesNotExists<T> value),
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
@@ -364,11 +425,15 @@ class _$InvalidEmail<T>
     @required Result longDeckTitle(LongDeckTitle<T> value),
   }) {
     assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
     assert(shortPassword != null);
+    assert(emptyPassword != null);
     assert(invalidUniqueId != null);
     assert(longPassword != null);
-    assert(invalidLogin != null);
-    assert(longLogin != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
     assert(invalidPassword != null);
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
@@ -383,11 +448,15 @@ class _$InvalidEmail<T>
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result invalidEmail(InvalidEmail<T> value),
+    Result emptyEmail(EmptyEmail<T> value),
+    Result shortUsername(ShortUsername<T> value),
+    Result emptyUsername(EmptyUsername<T> value),
     Result shortPassword(ShortPassword<T> value),
+    Result emptyPassword(EmptyPassword<T> value),
     Result invalidUniqueId(InvalidUniqueId<T> value),
     Result longPassword(LongPassword<T> value),
-    Result invalidLogin(InvalidLogin<T> value),
-    Result longLogin(LongLogin<T> value),
+    Result invalidUsername(InvalidUsername<T> value),
+    Result longUsername(LongUsername<T> value),
     Result invalidPassword(InvalidPassword<T> value),
     Result fileDoesNotExists(FileDoesNotExists<T> value),
     Result shortDeckTitle(ShortDeckTitle<T> value),
@@ -412,6 +481,754 @@ abstract class InvalidEmail<T> implements ValueFailure<T> {
   T get failedValue;
   @override
   $InvalidEmailCopyWith<T, InvalidEmail<T>> get copyWith;
+}
+
+abstract class $EmptyEmailCopyWith<T, $Res>
+    implements $ValueFailureCopyWith<T, $Res> {
+  factory $EmptyEmailCopyWith(
+          EmptyEmail<T> value, $Res Function(EmptyEmail<T>) then) =
+      _$EmptyEmailCopyWithImpl<T, $Res>;
+  @override
+  $Res call({T failedValue});
+}
+
+class _$EmptyEmailCopyWithImpl<T, $Res>
+    extends _$ValueFailureCopyWithImpl<T, $Res>
+    implements $EmptyEmailCopyWith<T, $Res> {
+  _$EmptyEmailCopyWithImpl(
+      EmptyEmail<T> _value, $Res Function(EmptyEmail<T>) _then)
+      : super(_value, (v) => _then(v as EmptyEmail<T>));
+
+  @override
+  EmptyEmail<T> get _value => super._value as EmptyEmail<T>;
+
+  @override
+  $Res call({
+    Object failedValue = freezed,
+  }) {
+    return _then(EmptyEmail<T>(
+      failedValue:
+          failedValue == freezed ? _value.failedValue : failedValue as T,
+    ));
+  }
+}
+
+class _$EmptyEmail<T> with DiagnosticableTreeMixin implements EmptyEmail<T> {
+  _$EmptyEmail({@required this.failedValue}) : assert(failedValue != null);
+
+  @override
+  final T failedValue;
+
+  bool _didmessage = false;
+  String _message;
+
+  @override
+  String get message {
+    if (_didmessage == false) {
+      _didmessage = true;
+      _message = this.map(
+        invalidEmail: (value) => S.current.error_value_email_incorrect,
+        shortPassword: (value) => S.current.error_value_short_passwor,
+        invalidUsername: (value) => S.current.error_value_invalid_login,
+        longUsername: (value) => S.current.error_value_long_login,
+        invalidPassword: (value) => S.current.error_value_invalid_password,
+        longPassword: (value) => S.current.error_value_long_password,
+        fileDoesNotExists: (value) => S.current.error_value_file_inexists,
+        invalidDeckTitle: (value) => S.current.error_value_invalid_title,
+        shortDeckTitle: (value) => S.current.error_value_title_short,
+        expiredToken: (value) => S.current.error_auth_invalid_session,
+        invalidUniqueId: (value) => S.current.error_auth_invalid_session,
+        wrongFileExtension: (value) => S.current.error_value_file_inexists,
+        longDeckTitle: (value) =>
+            'Deck title should be shorter than 30 characters',
+        shortUsername: (value) => 'Username must be longer than 4 characters',
+        emptyPassword: (value) => 'Password is required',
+        emptyEmail: (value) => 'Email is required',
+        emptyUsername: (value) => 'Username is required',
+      );
+    }
+    return _message;
+  }
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ValueFailure<$T>.emptyEmail(failedValue: $failedValue, message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.emptyEmail'))
+      ..add(DiagnosticsProperty('failedValue', failedValue))
+      ..add(DiagnosticsProperty('message', message));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is EmptyEmail<T> &&
+            (identical(other.failedValue, failedValue) ||
+                const DeepCollectionEquality()
+                    .equals(other.failedValue, failedValue)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(failedValue);
+
+  @override
+  $EmptyEmailCopyWith<T, EmptyEmail<T>> get copyWith =>
+      _$EmptyEmailCopyWithImpl<T, EmptyEmail<T>>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result invalidEmail(T failedValue),
+    @required Result emptyEmail(T failedValue),
+    @required Result shortUsername(T failedValue),
+    @required Result emptyUsername(T failedValue),
+    @required Result shortPassword(T failedValue),
+    @required Result emptyPassword(T failedValue),
+    @required Result invalidUniqueId(T failedValue),
+    @required Result longPassword(T failedValue),
+    @required Result invalidUsername(T failedValue),
+    @required Result longUsername(T failedValue),
+    @required Result invalidPassword(T failedValue),
+    @required Result fileDoesNotExists(T failedValue),
+    @required Result shortDeckTitle(T failedValue),
+    @required Result invalidDeckTitle(T failedValue),
+    @required Result expiredToken(T failedValue),
+    @required Result wrongFileExtension(T failedValue),
+    @required Result longDeckTitle(T failedValue),
+  }) {
+    assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
+    assert(shortPassword != null);
+    assert(emptyPassword != null);
+    assert(invalidUniqueId != null);
+    assert(longPassword != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
+    assert(invalidPassword != null);
+    assert(fileDoesNotExists != null);
+    assert(shortDeckTitle != null);
+    assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
+    assert(wrongFileExtension != null);
+    assert(longDeckTitle != null);
+    return emptyEmail(failedValue);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result invalidEmail(T failedValue),
+    Result emptyEmail(T failedValue),
+    Result shortUsername(T failedValue),
+    Result emptyUsername(T failedValue),
+    Result shortPassword(T failedValue),
+    Result emptyPassword(T failedValue),
+    Result invalidUniqueId(T failedValue),
+    Result longPassword(T failedValue),
+    Result invalidUsername(T failedValue),
+    Result longUsername(T failedValue),
+    Result invalidPassword(T failedValue),
+    Result fileDoesNotExists(T failedValue),
+    Result shortDeckTitle(T failedValue),
+    Result invalidDeckTitle(T failedValue),
+    Result expiredToken(T failedValue),
+    Result wrongFileExtension(T failedValue),
+    Result longDeckTitle(T failedValue),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (emptyEmail != null) {
+      return emptyEmail(failedValue);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result invalidEmail(InvalidEmail<T> value),
+    @required Result emptyEmail(EmptyEmail<T> value),
+    @required Result shortUsername(ShortUsername<T> value),
+    @required Result emptyUsername(EmptyUsername<T> value),
+    @required Result shortPassword(ShortPassword<T> value),
+    @required Result emptyPassword(EmptyPassword<T> value),
+    @required Result invalidUniqueId(InvalidUniqueId<T> value),
+    @required Result longPassword(LongPassword<T> value),
+    @required Result invalidUsername(InvalidUsername<T> value),
+    @required Result longUsername(LongUsername<T> value),
+    @required Result invalidPassword(InvalidPassword<T> value),
+    @required Result fileDoesNotExists(FileDoesNotExists<T> value),
+    @required Result shortDeckTitle(ShortDeckTitle<T> value),
+    @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    @required Result expiredToken(ExpiredToken<T> value),
+    @required Result wrongFileExtension(WrongFileExtension<T> value),
+    @required Result longDeckTitle(LongDeckTitle<T> value),
+  }) {
+    assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
+    assert(shortPassword != null);
+    assert(emptyPassword != null);
+    assert(invalidUniqueId != null);
+    assert(longPassword != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
+    assert(invalidPassword != null);
+    assert(fileDoesNotExists != null);
+    assert(shortDeckTitle != null);
+    assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
+    assert(wrongFileExtension != null);
+    assert(longDeckTitle != null);
+    return emptyEmail(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result invalidEmail(InvalidEmail<T> value),
+    Result emptyEmail(EmptyEmail<T> value),
+    Result shortUsername(ShortUsername<T> value),
+    Result emptyUsername(EmptyUsername<T> value),
+    Result shortPassword(ShortPassword<T> value),
+    Result emptyPassword(EmptyPassword<T> value),
+    Result invalidUniqueId(InvalidUniqueId<T> value),
+    Result longPassword(LongPassword<T> value),
+    Result invalidUsername(InvalidUsername<T> value),
+    Result longUsername(LongUsername<T> value),
+    Result invalidPassword(InvalidPassword<T> value),
+    Result fileDoesNotExists(FileDoesNotExists<T> value),
+    Result shortDeckTitle(ShortDeckTitle<T> value),
+    Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    Result expiredToken(ExpiredToken<T> value),
+    Result wrongFileExtension(WrongFileExtension<T> value),
+    Result longDeckTitle(LongDeckTitle<T> value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (emptyEmail != null) {
+      return emptyEmail(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class EmptyEmail<T> implements ValueFailure<T> {
+  factory EmptyEmail({@required T failedValue}) = _$EmptyEmail<T>;
+
+  @override
+  T get failedValue;
+  @override
+  $EmptyEmailCopyWith<T, EmptyEmail<T>> get copyWith;
+}
+
+abstract class $ShortUsernameCopyWith<T, $Res>
+    implements $ValueFailureCopyWith<T, $Res> {
+  factory $ShortUsernameCopyWith(
+          ShortUsername<T> value, $Res Function(ShortUsername<T>) then) =
+      _$ShortUsernameCopyWithImpl<T, $Res>;
+  @override
+  $Res call({T failedValue});
+}
+
+class _$ShortUsernameCopyWithImpl<T, $Res>
+    extends _$ValueFailureCopyWithImpl<T, $Res>
+    implements $ShortUsernameCopyWith<T, $Res> {
+  _$ShortUsernameCopyWithImpl(
+      ShortUsername<T> _value, $Res Function(ShortUsername<T>) _then)
+      : super(_value, (v) => _then(v as ShortUsername<T>));
+
+  @override
+  ShortUsername<T> get _value => super._value as ShortUsername<T>;
+
+  @override
+  $Res call({
+    Object failedValue = freezed,
+  }) {
+    return _then(ShortUsername<T>(
+      failedValue:
+          failedValue == freezed ? _value.failedValue : failedValue as T,
+    ));
+  }
+}
+
+class _$ShortUsername<T>
+    with DiagnosticableTreeMixin
+    implements ShortUsername<T> {
+  _$ShortUsername({@required this.failedValue}) : assert(failedValue != null);
+
+  @override
+  final T failedValue;
+
+  bool _didmessage = false;
+  String _message;
+
+  @override
+  String get message {
+    if (_didmessage == false) {
+      _didmessage = true;
+      _message = this.map(
+        invalidEmail: (value) => S.current.error_value_email_incorrect,
+        shortPassword: (value) => S.current.error_value_short_passwor,
+        invalidUsername: (value) => S.current.error_value_invalid_login,
+        longUsername: (value) => S.current.error_value_long_login,
+        invalidPassword: (value) => S.current.error_value_invalid_password,
+        longPassword: (value) => S.current.error_value_long_password,
+        fileDoesNotExists: (value) => S.current.error_value_file_inexists,
+        invalidDeckTitle: (value) => S.current.error_value_invalid_title,
+        shortDeckTitle: (value) => S.current.error_value_title_short,
+        expiredToken: (value) => S.current.error_auth_invalid_session,
+        invalidUniqueId: (value) => S.current.error_auth_invalid_session,
+        wrongFileExtension: (value) => S.current.error_value_file_inexists,
+        longDeckTitle: (value) =>
+            'Deck title should be shorter than 30 characters',
+        shortUsername: (value) => 'Username must be longer than 4 characters',
+        emptyPassword: (value) => 'Password is required',
+        emptyEmail: (value) => 'Email is required',
+        emptyUsername: (value) => 'Username is required',
+      );
+    }
+    return _message;
+  }
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ValueFailure<$T>.shortUsername(failedValue: $failedValue, message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.shortUsername'))
+      ..add(DiagnosticsProperty('failedValue', failedValue))
+      ..add(DiagnosticsProperty('message', message));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is ShortUsername<T> &&
+            (identical(other.failedValue, failedValue) ||
+                const DeepCollectionEquality()
+                    .equals(other.failedValue, failedValue)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(failedValue);
+
+  @override
+  $ShortUsernameCopyWith<T, ShortUsername<T>> get copyWith =>
+      _$ShortUsernameCopyWithImpl<T, ShortUsername<T>>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result invalidEmail(T failedValue),
+    @required Result emptyEmail(T failedValue),
+    @required Result shortUsername(T failedValue),
+    @required Result emptyUsername(T failedValue),
+    @required Result shortPassword(T failedValue),
+    @required Result emptyPassword(T failedValue),
+    @required Result invalidUniqueId(T failedValue),
+    @required Result longPassword(T failedValue),
+    @required Result invalidUsername(T failedValue),
+    @required Result longUsername(T failedValue),
+    @required Result invalidPassword(T failedValue),
+    @required Result fileDoesNotExists(T failedValue),
+    @required Result shortDeckTitle(T failedValue),
+    @required Result invalidDeckTitle(T failedValue),
+    @required Result expiredToken(T failedValue),
+    @required Result wrongFileExtension(T failedValue),
+    @required Result longDeckTitle(T failedValue),
+  }) {
+    assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
+    assert(shortPassword != null);
+    assert(emptyPassword != null);
+    assert(invalidUniqueId != null);
+    assert(longPassword != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
+    assert(invalidPassword != null);
+    assert(fileDoesNotExists != null);
+    assert(shortDeckTitle != null);
+    assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
+    assert(wrongFileExtension != null);
+    assert(longDeckTitle != null);
+    return shortUsername(failedValue);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result invalidEmail(T failedValue),
+    Result emptyEmail(T failedValue),
+    Result shortUsername(T failedValue),
+    Result emptyUsername(T failedValue),
+    Result shortPassword(T failedValue),
+    Result emptyPassword(T failedValue),
+    Result invalidUniqueId(T failedValue),
+    Result longPassword(T failedValue),
+    Result invalidUsername(T failedValue),
+    Result longUsername(T failedValue),
+    Result invalidPassword(T failedValue),
+    Result fileDoesNotExists(T failedValue),
+    Result shortDeckTitle(T failedValue),
+    Result invalidDeckTitle(T failedValue),
+    Result expiredToken(T failedValue),
+    Result wrongFileExtension(T failedValue),
+    Result longDeckTitle(T failedValue),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (shortUsername != null) {
+      return shortUsername(failedValue);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result invalidEmail(InvalidEmail<T> value),
+    @required Result emptyEmail(EmptyEmail<T> value),
+    @required Result shortUsername(ShortUsername<T> value),
+    @required Result emptyUsername(EmptyUsername<T> value),
+    @required Result shortPassword(ShortPassword<T> value),
+    @required Result emptyPassword(EmptyPassword<T> value),
+    @required Result invalidUniqueId(InvalidUniqueId<T> value),
+    @required Result longPassword(LongPassword<T> value),
+    @required Result invalidUsername(InvalidUsername<T> value),
+    @required Result longUsername(LongUsername<T> value),
+    @required Result invalidPassword(InvalidPassword<T> value),
+    @required Result fileDoesNotExists(FileDoesNotExists<T> value),
+    @required Result shortDeckTitle(ShortDeckTitle<T> value),
+    @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    @required Result expiredToken(ExpiredToken<T> value),
+    @required Result wrongFileExtension(WrongFileExtension<T> value),
+    @required Result longDeckTitle(LongDeckTitle<T> value),
+  }) {
+    assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
+    assert(shortPassword != null);
+    assert(emptyPassword != null);
+    assert(invalidUniqueId != null);
+    assert(longPassword != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
+    assert(invalidPassword != null);
+    assert(fileDoesNotExists != null);
+    assert(shortDeckTitle != null);
+    assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
+    assert(wrongFileExtension != null);
+    assert(longDeckTitle != null);
+    return shortUsername(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result invalidEmail(InvalidEmail<T> value),
+    Result emptyEmail(EmptyEmail<T> value),
+    Result shortUsername(ShortUsername<T> value),
+    Result emptyUsername(EmptyUsername<T> value),
+    Result shortPassword(ShortPassword<T> value),
+    Result emptyPassword(EmptyPassword<T> value),
+    Result invalidUniqueId(InvalidUniqueId<T> value),
+    Result longPassword(LongPassword<T> value),
+    Result invalidUsername(InvalidUsername<T> value),
+    Result longUsername(LongUsername<T> value),
+    Result invalidPassword(InvalidPassword<T> value),
+    Result fileDoesNotExists(FileDoesNotExists<T> value),
+    Result shortDeckTitle(ShortDeckTitle<T> value),
+    Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    Result expiredToken(ExpiredToken<T> value),
+    Result wrongFileExtension(WrongFileExtension<T> value),
+    Result longDeckTitle(LongDeckTitle<T> value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (shortUsername != null) {
+      return shortUsername(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ShortUsername<T> implements ValueFailure<T> {
+  factory ShortUsername({@required T failedValue}) = _$ShortUsername<T>;
+
+  @override
+  T get failedValue;
+  @override
+  $ShortUsernameCopyWith<T, ShortUsername<T>> get copyWith;
+}
+
+abstract class $EmptyUsernameCopyWith<T, $Res>
+    implements $ValueFailureCopyWith<T, $Res> {
+  factory $EmptyUsernameCopyWith(
+          EmptyUsername<T> value, $Res Function(EmptyUsername<T>) then) =
+      _$EmptyUsernameCopyWithImpl<T, $Res>;
+  @override
+  $Res call({T failedValue});
+}
+
+class _$EmptyUsernameCopyWithImpl<T, $Res>
+    extends _$ValueFailureCopyWithImpl<T, $Res>
+    implements $EmptyUsernameCopyWith<T, $Res> {
+  _$EmptyUsernameCopyWithImpl(
+      EmptyUsername<T> _value, $Res Function(EmptyUsername<T>) _then)
+      : super(_value, (v) => _then(v as EmptyUsername<T>));
+
+  @override
+  EmptyUsername<T> get _value => super._value as EmptyUsername<T>;
+
+  @override
+  $Res call({
+    Object failedValue = freezed,
+  }) {
+    return _then(EmptyUsername<T>(
+      failedValue:
+          failedValue == freezed ? _value.failedValue : failedValue as T,
+    ));
+  }
+}
+
+class _$EmptyUsername<T>
+    with DiagnosticableTreeMixin
+    implements EmptyUsername<T> {
+  _$EmptyUsername({@required this.failedValue}) : assert(failedValue != null);
+
+  @override
+  final T failedValue;
+
+  bool _didmessage = false;
+  String _message;
+
+  @override
+  String get message {
+    if (_didmessage == false) {
+      _didmessage = true;
+      _message = this.map(
+        invalidEmail: (value) => S.current.error_value_email_incorrect,
+        shortPassword: (value) => S.current.error_value_short_passwor,
+        invalidUsername: (value) => S.current.error_value_invalid_login,
+        longUsername: (value) => S.current.error_value_long_login,
+        invalidPassword: (value) => S.current.error_value_invalid_password,
+        longPassword: (value) => S.current.error_value_long_password,
+        fileDoesNotExists: (value) => S.current.error_value_file_inexists,
+        invalidDeckTitle: (value) => S.current.error_value_invalid_title,
+        shortDeckTitle: (value) => S.current.error_value_title_short,
+        expiredToken: (value) => S.current.error_auth_invalid_session,
+        invalidUniqueId: (value) => S.current.error_auth_invalid_session,
+        wrongFileExtension: (value) => S.current.error_value_file_inexists,
+        longDeckTitle: (value) =>
+            'Deck title should be shorter than 30 characters',
+        shortUsername: (value) => 'Username must be longer than 4 characters',
+        emptyPassword: (value) => 'Password is required',
+        emptyEmail: (value) => 'Email is required',
+        emptyUsername: (value) => 'Username is required',
+      );
+    }
+    return _message;
+  }
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ValueFailure<$T>.emptyUsername(failedValue: $failedValue, message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.emptyUsername'))
+      ..add(DiagnosticsProperty('failedValue', failedValue))
+      ..add(DiagnosticsProperty('message', message));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is EmptyUsername<T> &&
+            (identical(other.failedValue, failedValue) ||
+                const DeepCollectionEquality()
+                    .equals(other.failedValue, failedValue)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(failedValue);
+
+  @override
+  $EmptyUsernameCopyWith<T, EmptyUsername<T>> get copyWith =>
+      _$EmptyUsernameCopyWithImpl<T, EmptyUsername<T>>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result invalidEmail(T failedValue),
+    @required Result emptyEmail(T failedValue),
+    @required Result shortUsername(T failedValue),
+    @required Result emptyUsername(T failedValue),
+    @required Result shortPassword(T failedValue),
+    @required Result emptyPassword(T failedValue),
+    @required Result invalidUniqueId(T failedValue),
+    @required Result longPassword(T failedValue),
+    @required Result invalidUsername(T failedValue),
+    @required Result longUsername(T failedValue),
+    @required Result invalidPassword(T failedValue),
+    @required Result fileDoesNotExists(T failedValue),
+    @required Result shortDeckTitle(T failedValue),
+    @required Result invalidDeckTitle(T failedValue),
+    @required Result expiredToken(T failedValue),
+    @required Result wrongFileExtension(T failedValue),
+    @required Result longDeckTitle(T failedValue),
+  }) {
+    assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
+    assert(shortPassword != null);
+    assert(emptyPassword != null);
+    assert(invalidUniqueId != null);
+    assert(longPassword != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
+    assert(invalidPassword != null);
+    assert(fileDoesNotExists != null);
+    assert(shortDeckTitle != null);
+    assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
+    assert(wrongFileExtension != null);
+    assert(longDeckTitle != null);
+    return emptyUsername(failedValue);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result invalidEmail(T failedValue),
+    Result emptyEmail(T failedValue),
+    Result shortUsername(T failedValue),
+    Result emptyUsername(T failedValue),
+    Result shortPassword(T failedValue),
+    Result emptyPassword(T failedValue),
+    Result invalidUniqueId(T failedValue),
+    Result longPassword(T failedValue),
+    Result invalidUsername(T failedValue),
+    Result longUsername(T failedValue),
+    Result invalidPassword(T failedValue),
+    Result fileDoesNotExists(T failedValue),
+    Result shortDeckTitle(T failedValue),
+    Result invalidDeckTitle(T failedValue),
+    Result expiredToken(T failedValue),
+    Result wrongFileExtension(T failedValue),
+    Result longDeckTitle(T failedValue),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (emptyUsername != null) {
+      return emptyUsername(failedValue);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result invalidEmail(InvalidEmail<T> value),
+    @required Result emptyEmail(EmptyEmail<T> value),
+    @required Result shortUsername(ShortUsername<T> value),
+    @required Result emptyUsername(EmptyUsername<T> value),
+    @required Result shortPassword(ShortPassword<T> value),
+    @required Result emptyPassword(EmptyPassword<T> value),
+    @required Result invalidUniqueId(InvalidUniqueId<T> value),
+    @required Result longPassword(LongPassword<T> value),
+    @required Result invalidUsername(InvalidUsername<T> value),
+    @required Result longUsername(LongUsername<T> value),
+    @required Result invalidPassword(InvalidPassword<T> value),
+    @required Result fileDoesNotExists(FileDoesNotExists<T> value),
+    @required Result shortDeckTitle(ShortDeckTitle<T> value),
+    @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    @required Result expiredToken(ExpiredToken<T> value),
+    @required Result wrongFileExtension(WrongFileExtension<T> value),
+    @required Result longDeckTitle(LongDeckTitle<T> value),
+  }) {
+    assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
+    assert(shortPassword != null);
+    assert(emptyPassword != null);
+    assert(invalidUniqueId != null);
+    assert(longPassword != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
+    assert(invalidPassword != null);
+    assert(fileDoesNotExists != null);
+    assert(shortDeckTitle != null);
+    assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
+    assert(wrongFileExtension != null);
+    assert(longDeckTitle != null);
+    return emptyUsername(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result invalidEmail(InvalidEmail<T> value),
+    Result emptyEmail(EmptyEmail<T> value),
+    Result shortUsername(ShortUsername<T> value),
+    Result emptyUsername(EmptyUsername<T> value),
+    Result shortPassword(ShortPassword<T> value),
+    Result emptyPassword(EmptyPassword<T> value),
+    Result invalidUniqueId(InvalidUniqueId<T> value),
+    Result longPassword(LongPassword<T> value),
+    Result invalidUsername(InvalidUsername<T> value),
+    Result longUsername(LongUsername<T> value),
+    Result invalidPassword(InvalidPassword<T> value),
+    Result fileDoesNotExists(FileDoesNotExists<T> value),
+    Result shortDeckTitle(ShortDeckTitle<T> value),
+    Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    Result expiredToken(ExpiredToken<T> value),
+    Result wrongFileExtension(WrongFileExtension<T> value),
+    Result longDeckTitle(LongDeckTitle<T> value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (emptyUsername != null) {
+      return emptyUsername(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class EmptyUsername<T> implements ValueFailure<T> {
+  factory EmptyUsername({@required T failedValue}) = _$EmptyUsername<T>;
+
+  @override
+  T get failedValue;
+  @override
+  $EmptyUsernameCopyWith<T, EmptyUsername<T>> get copyWith;
 }
 
 abstract class $ShortPasswordCopyWith<T, $Res>
@@ -462,8 +1279,8 @@ class _$ShortPassword<T>
       _message = this.map(
         invalidEmail: (value) => S.current.error_value_email_incorrect,
         shortPassword: (value) => S.current.error_value_short_passwor,
-        invalidLogin: (value) => S.current.error_value_invalid_login,
-        longLogin: (value) => S.current.error_value_long_login,
+        invalidUsername: (value) => S.current.error_value_invalid_login,
+        longUsername: (value) => S.current.error_value_long_login,
         invalidPassword: (value) => S.current.error_value_invalid_password,
         longPassword: (value) => S.current.error_value_long_password,
         fileDoesNotExists: (value) => S.current.error_value_file_inexists,
@@ -472,7 +1289,12 @@ class _$ShortPassword<T>
         expiredToken: (value) => S.current.error_auth_invalid_session,
         invalidUniqueId: (value) => S.current.error_auth_invalid_session,
         wrongFileExtension: (value) => S.current.error_value_file_inexists,
-        longDeckTitle: (value) => ' ',
+        longDeckTitle: (value) =>
+            'Deck title should be shorter than 30 characters',
+        shortUsername: (value) => 'Username must be longer than 4 characters',
+        emptyPassword: (value) => 'Password is required',
+        emptyEmail: (value) => 'Email is required',
+        emptyUsername: (value) => 'Username is required',
       );
     }
     return _message;
@@ -513,11 +1335,15 @@ class _$ShortPassword<T>
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result invalidEmail(T failedValue),
+    @required Result emptyEmail(T failedValue),
+    @required Result shortUsername(T failedValue),
+    @required Result emptyUsername(T failedValue),
     @required Result shortPassword(T failedValue),
+    @required Result emptyPassword(T failedValue),
     @required Result invalidUniqueId(T failedValue),
     @required Result longPassword(T failedValue),
-    @required Result invalidLogin(T failedValue),
-    @required Result longLogin(T failedValue),
+    @required Result invalidUsername(T failedValue),
+    @required Result longUsername(T failedValue),
     @required Result invalidPassword(T failedValue),
     @required Result fileDoesNotExists(T failedValue),
     @required Result shortDeckTitle(T failedValue),
@@ -527,11 +1353,15 @@ class _$ShortPassword<T>
     @required Result longDeckTitle(T failedValue),
   }) {
     assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
     assert(shortPassword != null);
+    assert(emptyPassword != null);
     assert(invalidUniqueId != null);
     assert(longPassword != null);
-    assert(invalidLogin != null);
-    assert(longLogin != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
     assert(invalidPassword != null);
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
@@ -546,11 +1376,15 @@ class _$ShortPassword<T>
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result invalidEmail(T failedValue),
+    Result emptyEmail(T failedValue),
+    Result shortUsername(T failedValue),
+    Result emptyUsername(T failedValue),
     Result shortPassword(T failedValue),
+    Result emptyPassword(T failedValue),
     Result invalidUniqueId(T failedValue),
     Result longPassword(T failedValue),
-    Result invalidLogin(T failedValue),
-    Result longLogin(T failedValue),
+    Result invalidUsername(T failedValue),
+    Result longUsername(T failedValue),
     Result invalidPassword(T failedValue),
     Result fileDoesNotExists(T failedValue),
     Result shortDeckTitle(T failedValue),
@@ -571,11 +1405,15 @@ class _$ShortPassword<T>
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result invalidEmail(InvalidEmail<T> value),
+    @required Result emptyEmail(EmptyEmail<T> value),
+    @required Result shortUsername(ShortUsername<T> value),
+    @required Result emptyUsername(EmptyUsername<T> value),
     @required Result shortPassword(ShortPassword<T> value),
+    @required Result emptyPassword(EmptyPassword<T> value),
     @required Result invalidUniqueId(InvalidUniqueId<T> value),
     @required Result longPassword(LongPassword<T> value),
-    @required Result invalidLogin(InvalidLogin<T> value),
-    @required Result longLogin(LongLogin<T> value),
+    @required Result invalidUsername(InvalidUsername<T> value),
+    @required Result longUsername(LongUsername<T> value),
     @required Result invalidPassword(InvalidPassword<T> value),
     @required Result fileDoesNotExists(FileDoesNotExists<T> value),
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
@@ -585,11 +1423,15 @@ class _$ShortPassword<T>
     @required Result longDeckTitle(LongDeckTitle<T> value),
   }) {
     assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
     assert(shortPassword != null);
+    assert(emptyPassword != null);
     assert(invalidUniqueId != null);
     assert(longPassword != null);
-    assert(invalidLogin != null);
-    assert(longLogin != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
     assert(invalidPassword != null);
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
@@ -604,11 +1446,15 @@ class _$ShortPassword<T>
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result invalidEmail(InvalidEmail<T> value),
+    Result emptyEmail(EmptyEmail<T> value),
+    Result shortUsername(ShortUsername<T> value),
+    Result emptyUsername(EmptyUsername<T> value),
     Result shortPassword(ShortPassword<T> value),
+    Result emptyPassword(EmptyPassword<T> value),
     Result invalidUniqueId(InvalidUniqueId<T> value),
     Result longPassword(LongPassword<T> value),
-    Result invalidLogin(InvalidLogin<T> value),
-    Result longLogin(LongLogin<T> value),
+    Result invalidUsername(InvalidUsername<T> value),
+    Result longUsername(LongUsername<T> value),
     Result invalidPassword(InvalidPassword<T> value),
     Result fileDoesNotExists(FileDoesNotExists<T> value),
     Result shortDeckTitle(ShortDeckTitle<T> value),
@@ -633,6 +1479,256 @@ abstract class ShortPassword<T> implements ValueFailure<T> {
   T get failedValue;
   @override
   $ShortPasswordCopyWith<T, ShortPassword<T>> get copyWith;
+}
+
+abstract class $EmptyPasswordCopyWith<T, $Res>
+    implements $ValueFailureCopyWith<T, $Res> {
+  factory $EmptyPasswordCopyWith(
+          EmptyPassword<T> value, $Res Function(EmptyPassword<T>) then) =
+      _$EmptyPasswordCopyWithImpl<T, $Res>;
+  @override
+  $Res call({T failedValue});
+}
+
+class _$EmptyPasswordCopyWithImpl<T, $Res>
+    extends _$ValueFailureCopyWithImpl<T, $Res>
+    implements $EmptyPasswordCopyWith<T, $Res> {
+  _$EmptyPasswordCopyWithImpl(
+      EmptyPassword<T> _value, $Res Function(EmptyPassword<T>) _then)
+      : super(_value, (v) => _then(v as EmptyPassword<T>));
+
+  @override
+  EmptyPassword<T> get _value => super._value as EmptyPassword<T>;
+
+  @override
+  $Res call({
+    Object failedValue = freezed,
+  }) {
+    return _then(EmptyPassword<T>(
+      failedValue:
+          failedValue == freezed ? _value.failedValue : failedValue as T,
+    ));
+  }
+}
+
+class _$EmptyPassword<T>
+    with DiagnosticableTreeMixin
+    implements EmptyPassword<T> {
+  _$EmptyPassword({@required this.failedValue}) : assert(failedValue != null);
+
+  @override
+  final T failedValue;
+
+  bool _didmessage = false;
+  String _message;
+
+  @override
+  String get message {
+    if (_didmessage == false) {
+      _didmessage = true;
+      _message = this.map(
+        invalidEmail: (value) => S.current.error_value_email_incorrect,
+        shortPassword: (value) => S.current.error_value_short_passwor,
+        invalidUsername: (value) => S.current.error_value_invalid_login,
+        longUsername: (value) => S.current.error_value_long_login,
+        invalidPassword: (value) => S.current.error_value_invalid_password,
+        longPassword: (value) => S.current.error_value_long_password,
+        fileDoesNotExists: (value) => S.current.error_value_file_inexists,
+        invalidDeckTitle: (value) => S.current.error_value_invalid_title,
+        shortDeckTitle: (value) => S.current.error_value_title_short,
+        expiredToken: (value) => S.current.error_auth_invalid_session,
+        invalidUniqueId: (value) => S.current.error_auth_invalid_session,
+        wrongFileExtension: (value) => S.current.error_value_file_inexists,
+        longDeckTitle: (value) =>
+            'Deck title should be shorter than 30 characters',
+        shortUsername: (value) => 'Username must be longer than 4 characters',
+        emptyPassword: (value) => 'Password is required',
+        emptyEmail: (value) => 'Email is required',
+        emptyUsername: (value) => 'Username is required',
+      );
+    }
+    return _message;
+  }
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ValueFailure<$T>.emptyPassword(failedValue: $failedValue, message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.emptyPassword'))
+      ..add(DiagnosticsProperty('failedValue', failedValue))
+      ..add(DiagnosticsProperty('message', message));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is EmptyPassword<T> &&
+            (identical(other.failedValue, failedValue) ||
+                const DeepCollectionEquality()
+                    .equals(other.failedValue, failedValue)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(failedValue);
+
+  @override
+  $EmptyPasswordCopyWith<T, EmptyPassword<T>> get copyWith =>
+      _$EmptyPasswordCopyWithImpl<T, EmptyPassword<T>>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result invalidEmail(T failedValue),
+    @required Result emptyEmail(T failedValue),
+    @required Result shortUsername(T failedValue),
+    @required Result emptyUsername(T failedValue),
+    @required Result shortPassword(T failedValue),
+    @required Result emptyPassword(T failedValue),
+    @required Result invalidUniqueId(T failedValue),
+    @required Result longPassword(T failedValue),
+    @required Result invalidUsername(T failedValue),
+    @required Result longUsername(T failedValue),
+    @required Result invalidPassword(T failedValue),
+    @required Result fileDoesNotExists(T failedValue),
+    @required Result shortDeckTitle(T failedValue),
+    @required Result invalidDeckTitle(T failedValue),
+    @required Result expiredToken(T failedValue),
+    @required Result wrongFileExtension(T failedValue),
+    @required Result longDeckTitle(T failedValue),
+  }) {
+    assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
+    assert(shortPassword != null);
+    assert(emptyPassword != null);
+    assert(invalidUniqueId != null);
+    assert(longPassword != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
+    assert(invalidPassword != null);
+    assert(fileDoesNotExists != null);
+    assert(shortDeckTitle != null);
+    assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
+    assert(wrongFileExtension != null);
+    assert(longDeckTitle != null);
+    return emptyPassword(failedValue);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result invalidEmail(T failedValue),
+    Result emptyEmail(T failedValue),
+    Result shortUsername(T failedValue),
+    Result emptyUsername(T failedValue),
+    Result shortPassword(T failedValue),
+    Result emptyPassword(T failedValue),
+    Result invalidUniqueId(T failedValue),
+    Result longPassword(T failedValue),
+    Result invalidUsername(T failedValue),
+    Result longUsername(T failedValue),
+    Result invalidPassword(T failedValue),
+    Result fileDoesNotExists(T failedValue),
+    Result shortDeckTitle(T failedValue),
+    Result invalidDeckTitle(T failedValue),
+    Result expiredToken(T failedValue),
+    Result wrongFileExtension(T failedValue),
+    Result longDeckTitle(T failedValue),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (emptyPassword != null) {
+      return emptyPassword(failedValue);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result invalidEmail(InvalidEmail<T> value),
+    @required Result emptyEmail(EmptyEmail<T> value),
+    @required Result shortUsername(ShortUsername<T> value),
+    @required Result emptyUsername(EmptyUsername<T> value),
+    @required Result shortPassword(ShortPassword<T> value),
+    @required Result emptyPassword(EmptyPassword<T> value),
+    @required Result invalidUniqueId(InvalidUniqueId<T> value),
+    @required Result longPassword(LongPassword<T> value),
+    @required Result invalidUsername(InvalidUsername<T> value),
+    @required Result longUsername(LongUsername<T> value),
+    @required Result invalidPassword(InvalidPassword<T> value),
+    @required Result fileDoesNotExists(FileDoesNotExists<T> value),
+    @required Result shortDeckTitle(ShortDeckTitle<T> value),
+    @required Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    @required Result expiredToken(ExpiredToken<T> value),
+    @required Result wrongFileExtension(WrongFileExtension<T> value),
+    @required Result longDeckTitle(LongDeckTitle<T> value),
+  }) {
+    assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
+    assert(shortPassword != null);
+    assert(emptyPassword != null);
+    assert(invalidUniqueId != null);
+    assert(longPassword != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
+    assert(invalidPassword != null);
+    assert(fileDoesNotExists != null);
+    assert(shortDeckTitle != null);
+    assert(invalidDeckTitle != null);
+    assert(expiredToken != null);
+    assert(wrongFileExtension != null);
+    assert(longDeckTitle != null);
+    return emptyPassword(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result invalidEmail(InvalidEmail<T> value),
+    Result emptyEmail(EmptyEmail<T> value),
+    Result shortUsername(ShortUsername<T> value),
+    Result emptyUsername(EmptyUsername<T> value),
+    Result shortPassword(ShortPassword<T> value),
+    Result emptyPassword(EmptyPassword<T> value),
+    Result invalidUniqueId(InvalidUniqueId<T> value),
+    Result longPassword(LongPassword<T> value),
+    Result invalidUsername(InvalidUsername<T> value),
+    Result longUsername(LongUsername<T> value),
+    Result invalidPassword(InvalidPassword<T> value),
+    Result fileDoesNotExists(FileDoesNotExists<T> value),
+    Result shortDeckTitle(ShortDeckTitle<T> value),
+    Result invalidDeckTitle(InvalidDeckTitle<T> value),
+    Result expiredToken(ExpiredToken<T> value),
+    Result wrongFileExtension(WrongFileExtension<T> value),
+    Result longDeckTitle(LongDeckTitle<T> value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (emptyPassword != null) {
+      return emptyPassword(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class EmptyPassword<T> implements ValueFailure<T> {
+  factory EmptyPassword({@required T failedValue}) = _$EmptyPassword<T>;
+
+  @override
+  T get failedValue;
+  @override
+  $EmptyPasswordCopyWith<T, EmptyPassword<T>> get copyWith;
 }
 
 abstract class $InvalidUniqueIdCopyWith<T, $Res>
@@ -683,8 +1779,8 @@ class _$InvalidUniqueId<T>
       _message = this.map(
         invalidEmail: (value) => S.current.error_value_email_incorrect,
         shortPassword: (value) => S.current.error_value_short_passwor,
-        invalidLogin: (value) => S.current.error_value_invalid_login,
-        longLogin: (value) => S.current.error_value_long_login,
+        invalidUsername: (value) => S.current.error_value_invalid_login,
+        longUsername: (value) => S.current.error_value_long_login,
         invalidPassword: (value) => S.current.error_value_invalid_password,
         longPassword: (value) => S.current.error_value_long_password,
         fileDoesNotExists: (value) => S.current.error_value_file_inexists,
@@ -693,7 +1789,12 @@ class _$InvalidUniqueId<T>
         expiredToken: (value) => S.current.error_auth_invalid_session,
         invalidUniqueId: (value) => S.current.error_auth_invalid_session,
         wrongFileExtension: (value) => S.current.error_value_file_inexists,
-        longDeckTitle: (value) => ' ',
+        longDeckTitle: (value) =>
+            'Deck title should be shorter than 30 characters',
+        shortUsername: (value) => 'Username must be longer than 4 characters',
+        emptyPassword: (value) => 'Password is required',
+        emptyEmail: (value) => 'Email is required',
+        emptyUsername: (value) => 'Username is required',
       );
     }
     return _message;
@@ -734,11 +1835,15 @@ class _$InvalidUniqueId<T>
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result invalidEmail(T failedValue),
+    @required Result emptyEmail(T failedValue),
+    @required Result shortUsername(T failedValue),
+    @required Result emptyUsername(T failedValue),
     @required Result shortPassword(T failedValue),
+    @required Result emptyPassword(T failedValue),
     @required Result invalidUniqueId(T failedValue),
     @required Result longPassword(T failedValue),
-    @required Result invalidLogin(T failedValue),
-    @required Result longLogin(T failedValue),
+    @required Result invalidUsername(T failedValue),
+    @required Result longUsername(T failedValue),
     @required Result invalidPassword(T failedValue),
     @required Result fileDoesNotExists(T failedValue),
     @required Result shortDeckTitle(T failedValue),
@@ -748,11 +1853,15 @@ class _$InvalidUniqueId<T>
     @required Result longDeckTitle(T failedValue),
   }) {
     assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
     assert(shortPassword != null);
+    assert(emptyPassword != null);
     assert(invalidUniqueId != null);
     assert(longPassword != null);
-    assert(invalidLogin != null);
-    assert(longLogin != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
     assert(invalidPassword != null);
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
@@ -767,11 +1876,15 @@ class _$InvalidUniqueId<T>
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result invalidEmail(T failedValue),
+    Result emptyEmail(T failedValue),
+    Result shortUsername(T failedValue),
+    Result emptyUsername(T failedValue),
     Result shortPassword(T failedValue),
+    Result emptyPassword(T failedValue),
     Result invalidUniqueId(T failedValue),
     Result longPassword(T failedValue),
-    Result invalidLogin(T failedValue),
-    Result longLogin(T failedValue),
+    Result invalidUsername(T failedValue),
+    Result longUsername(T failedValue),
     Result invalidPassword(T failedValue),
     Result fileDoesNotExists(T failedValue),
     Result shortDeckTitle(T failedValue),
@@ -792,11 +1905,15 @@ class _$InvalidUniqueId<T>
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result invalidEmail(InvalidEmail<T> value),
+    @required Result emptyEmail(EmptyEmail<T> value),
+    @required Result shortUsername(ShortUsername<T> value),
+    @required Result emptyUsername(EmptyUsername<T> value),
     @required Result shortPassword(ShortPassword<T> value),
+    @required Result emptyPassword(EmptyPassword<T> value),
     @required Result invalidUniqueId(InvalidUniqueId<T> value),
     @required Result longPassword(LongPassword<T> value),
-    @required Result invalidLogin(InvalidLogin<T> value),
-    @required Result longLogin(LongLogin<T> value),
+    @required Result invalidUsername(InvalidUsername<T> value),
+    @required Result longUsername(LongUsername<T> value),
     @required Result invalidPassword(InvalidPassword<T> value),
     @required Result fileDoesNotExists(FileDoesNotExists<T> value),
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
@@ -806,11 +1923,15 @@ class _$InvalidUniqueId<T>
     @required Result longDeckTitle(LongDeckTitle<T> value),
   }) {
     assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
     assert(shortPassword != null);
+    assert(emptyPassword != null);
     assert(invalidUniqueId != null);
     assert(longPassword != null);
-    assert(invalidLogin != null);
-    assert(longLogin != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
     assert(invalidPassword != null);
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
@@ -825,11 +1946,15 @@ class _$InvalidUniqueId<T>
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result invalidEmail(InvalidEmail<T> value),
+    Result emptyEmail(EmptyEmail<T> value),
+    Result shortUsername(ShortUsername<T> value),
+    Result emptyUsername(EmptyUsername<T> value),
     Result shortPassword(ShortPassword<T> value),
+    Result emptyPassword(EmptyPassword<T> value),
     Result invalidUniqueId(InvalidUniqueId<T> value),
     Result longPassword(LongPassword<T> value),
-    Result invalidLogin(InvalidLogin<T> value),
-    Result longLogin(LongLogin<T> value),
+    Result invalidUsername(InvalidUsername<T> value),
+    Result longUsername(LongUsername<T> value),
     Result invalidPassword(InvalidPassword<T> value),
     Result fileDoesNotExists(FileDoesNotExists<T> value),
     Result shortDeckTitle(ShortDeckTitle<T> value),
@@ -904,8 +2029,8 @@ class _$LongPassword<T>
       _message = this.map(
         invalidEmail: (value) => S.current.error_value_email_incorrect,
         shortPassword: (value) => S.current.error_value_short_passwor,
-        invalidLogin: (value) => S.current.error_value_invalid_login,
-        longLogin: (value) => S.current.error_value_long_login,
+        invalidUsername: (value) => S.current.error_value_invalid_login,
+        longUsername: (value) => S.current.error_value_long_login,
         invalidPassword: (value) => S.current.error_value_invalid_password,
         longPassword: (value) => S.current.error_value_long_password,
         fileDoesNotExists: (value) => S.current.error_value_file_inexists,
@@ -914,7 +2039,12 @@ class _$LongPassword<T>
         expiredToken: (value) => S.current.error_auth_invalid_session,
         invalidUniqueId: (value) => S.current.error_auth_invalid_session,
         wrongFileExtension: (value) => S.current.error_value_file_inexists,
-        longDeckTitle: (value) => ' ',
+        longDeckTitle: (value) =>
+            'Deck title should be shorter than 30 characters',
+        shortUsername: (value) => 'Username must be longer than 4 characters',
+        emptyPassword: (value) => 'Password is required',
+        emptyEmail: (value) => 'Email is required',
+        emptyUsername: (value) => 'Username is required',
       );
     }
     return _message;
@@ -955,11 +2085,15 @@ class _$LongPassword<T>
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result invalidEmail(T failedValue),
+    @required Result emptyEmail(T failedValue),
+    @required Result shortUsername(T failedValue),
+    @required Result emptyUsername(T failedValue),
     @required Result shortPassword(T failedValue),
+    @required Result emptyPassword(T failedValue),
     @required Result invalidUniqueId(T failedValue),
     @required Result longPassword(T failedValue),
-    @required Result invalidLogin(T failedValue),
-    @required Result longLogin(T failedValue),
+    @required Result invalidUsername(T failedValue),
+    @required Result longUsername(T failedValue),
     @required Result invalidPassword(T failedValue),
     @required Result fileDoesNotExists(T failedValue),
     @required Result shortDeckTitle(T failedValue),
@@ -969,11 +2103,15 @@ class _$LongPassword<T>
     @required Result longDeckTitle(T failedValue),
   }) {
     assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
     assert(shortPassword != null);
+    assert(emptyPassword != null);
     assert(invalidUniqueId != null);
     assert(longPassword != null);
-    assert(invalidLogin != null);
-    assert(longLogin != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
     assert(invalidPassword != null);
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
@@ -988,11 +2126,15 @@ class _$LongPassword<T>
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result invalidEmail(T failedValue),
+    Result emptyEmail(T failedValue),
+    Result shortUsername(T failedValue),
+    Result emptyUsername(T failedValue),
     Result shortPassword(T failedValue),
+    Result emptyPassword(T failedValue),
     Result invalidUniqueId(T failedValue),
     Result longPassword(T failedValue),
-    Result invalidLogin(T failedValue),
-    Result longLogin(T failedValue),
+    Result invalidUsername(T failedValue),
+    Result longUsername(T failedValue),
     Result invalidPassword(T failedValue),
     Result fileDoesNotExists(T failedValue),
     Result shortDeckTitle(T failedValue),
@@ -1013,11 +2155,15 @@ class _$LongPassword<T>
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result invalidEmail(InvalidEmail<T> value),
+    @required Result emptyEmail(EmptyEmail<T> value),
+    @required Result shortUsername(ShortUsername<T> value),
+    @required Result emptyUsername(EmptyUsername<T> value),
     @required Result shortPassword(ShortPassword<T> value),
+    @required Result emptyPassword(EmptyPassword<T> value),
     @required Result invalidUniqueId(InvalidUniqueId<T> value),
     @required Result longPassword(LongPassword<T> value),
-    @required Result invalidLogin(InvalidLogin<T> value),
-    @required Result longLogin(LongLogin<T> value),
+    @required Result invalidUsername(InvalidUsername<T> value),
+    @required Result longUsername(LongUsername<T> value),
     @required Result invalidPassword(InvalidPassword<T> value),
     @required Result fileDoesNotExists(FileDoesNotExists<T> value),
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
@@ -1027,11 +2173,15 @@ class _$LongPassword<T>
     @required Result longDeckTitle(LongDeckTitle<T> value),
   }) {
     assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
     assert(shortPassword != null);
+    assert(emptyPassword != null);
     assert(invalidUniqueId != null);
     assert(longPassword != null);
-    assert(invalidLogin != null);
-    assert(longLogin != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
     assert(invalidPassword != null);
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
@@ -1046,11 +2196,15 @@ class _$LongPassword<T>
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result invalidEmail(InvalidEmail<T> value),
+    Result emptyEmail(EmptyEmail<T> value),
+    Result shortUsername(ShortUsername<T> value),
+    Result emptyUsername(EmptyUsername<T> value),
     Result shortPassword(ShortPassword<T> value),
+    Result emptyPassword(EmptyPassword<T> value),
     Result invalidUniqueId(InvalidUniqueId<T> value),
     Result longPassword(LongPassword<T> value),
-    Result invalidLogin(InvalidLogin<T> value),
-    Result longLogin(LongLogin<T> value),
+    Result invalidUsername(InvalidUsername<T> value),
+    Result longUsername(LongUsername<T> value),
     Result invalidPassword(InvalidPassword<T> value),
     Result fileDoesNotExists(FileDoesNotExists<T> value),
     Result shortDeckTitle(ShortDeckTitle<T> value),
@@ -1077,40 +2231,40 @@ abstract class LongPassword<T> implements ValueFailure<T> {
   $LongPasswordCopyWith<T, LongPassword<T>> get copyWith;
 }
 
-abstract class $InvalidLoginCopyWith<T, $Res>
+abstract class $InvalidUsernameCopyWith<T, $Res>
     implements $ValueFailureCopyWith<T, $Res> {
-  factory $InvalidLoginCopyWith(
-          InvalidLogin<T> value, $Res Function(InvalidLogin<T>) then) =
-      _$InvalidLoginCopyWithImpl<T, $Res>;
+  factory $InvalidUsernameCopyWith(
+          InvalidUsername<T> value, $Res Function(InvalidUsername<T>) then) =
+      _$InvalidUsernameCopyWithImpl<T, $Res>;
   @override
   $Res call({T failedValue});
 }
 
-class _$InvalidLoginCopyWithImpl<T, $Res>
+class _$InvalidUsernameCopyWithImpl<T, $Res>
     extends _$ValueFailureCopyWithImpl<T, $Res>
-    implements $InvalidLoginCopyWith<T, $Res> {
-  _$InvalidLoginCopyWithImpl(
-      InvalidLogin<T> _value, $Res Function(InvalidLogin<T>) _then)
-      : super(_value, (v) => _then(v as InvalidLogin<T>));
+    implements $InvalidUsernameCopyWith<T, $Res> {
+  _$InvalidUsernameCopyWithImpl(
+      InvalidUsername<T> _value, $Res Function(InvalidUsername<T>) _then)
+      : super(_value, (v) => _then(v as InvalidUsername<T>));
 
   @override
-  InvalidLogin<T> get _value => super._value as InvalidLogin<T>;
+  InvalidUsername<T> get _value => super._value as InvalidUsername<T>;
 
   @override
   $Res call({
     Object failedValue = freezed,
   }) {
-    return _then(InvalidLogin<T>(
+    return _then(InvalidUsername<T>(
       failedValue:
           failedValue == freezed ? _value.failedValue : failedValue as T,
     ));
   }
 }
 
-class _$InvalidLogin<T>
+class _$InvalidUsername<T>
     with DiagnosticableTreeMixin
-    implements InvalidLogin<T> {
-  _$InvalidLogin({@required this.failedValue}) : assert(failedValue != null);
+    implements InvalidUsername<T> {
+  _$InvalidUsername({@required this.failedValue}) : assert(failedValue != null);
 
   @override
   final T failedValue;
@@ -1125,8 +2279,8 @@ class _$InvalidLogin<T>
       _message = this.map(
         invalidEmail: (value) => S.current.error_value_email_incorrect,
         shortPassword: (value) => S.current.error_value_short_passwor,
-        invalidLogin: (value) => S.current.error_value_invalid_login,
-        longLogin: (value) => S.current.error_value_long_login,
+        invalidUsername: (value) => S.current.error_value_invalid_login,
+        longUsername: (value) => S.current.error_value_long_login,
         invalidPassword: (value) => S.current.error_value_invalid_password,
         longPassword: (value) => S.current.error_value_long_password,
         fileDoesNotExists: (value) => S.current.error_value_file_inexists,
@@ -1135,7 +2289,12 @@ class _$InvalidLogin<T>
         expiredToken: (value) => S.current.error_auth_invalid_session,
         invalidUniqueId: (value) => S.current.error_auth_invalid_session,
         wrongFileExtension: (value) => S.current.error_value_file_inexists,
-        longDeckTitle: (value) => ' ',
+        longDeckTitle: (value) =>
+            'Deck title should be shorter than 30 characters',
+        shortUsername: (value) => 'Username must be longer than 4 characters',
+        emptyPassword: (value) => 'Password is required',
+        emptyEmail: (value) => 'Email is required',
+        emptyUsername: (value) => 'Username is required',
       );
     }
     return _message;
@@ -1143,14 +2302,14 @@ class _$InvalidLogin<T>
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ValueFailure<$T>.invalidLogin(failedValue: $failedValue, message: $message)';
+    return 'ValueFailure<$T>.invalidUsername(failedValue: $failedValue, message: $message)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.invalidLogin'))
+      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.invalidUsername'))
       ..add(DiagnosticsProperty('failedValue', failedValue))
       ..add(DiagnosticsProperty('message', message));
   }
@@ -1158,7 +2317,7 @@ class _$InvalidLogin<T>
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is InvalidLogin<T> &&
+        (other is InvalidUsername<T> &&
             (identical(other.failedValue, failedValue) ||
                 const DeepCollectionEquality()
                     .equals(other.failedValue, failedValue)));
@@ -1169,18 +2328,22 @@ class _$InvalidLogin<T>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(failedValue);
 
   @override
-  $InvalidLoginCopyWith<T, InvalidLogin<T>> get copyWith =>
-      _$InvalidLoginCopyWithImpl<T, InvalidLogin<T>>(this, _$identity);
+  $InvalidUsernameCopyWith<T, InvalidUsername<T>> get copyWith =>
+      _$InvalidUsernameCopyWithImpl<T, InvalidUsername<T>>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result invalidEmail(T failedValue),
+    @required Result emptyEmail(T failedValue),
+    @required Result shortUsername(T failedValue),
+    @required Result emptyUsername(T failedValue),
     @required Result shortPassword(T failedValue),
+    @required Result emptyPassword(T failedValue),
     @required Result invalidUniqueId(T failedValue),
     @required Result longPassword(T failedValue),
-    @required Result invalidLogin(T failedValue),
-    @required Result longLogin(T failedValue),
+    @required Result invalidUsername(T failedValue),
+    @required Result longUsername(T failedValue),
     @required Result invalidPassword(T failedValue),
     @required Result fileDoesNotExists(T failedValue),
     @required Result shortDeckTitle(T failedValue),
@@ -1190,11 +2353,15 @@ class _$InvalidLogin<T>
     @required Result longDeckTitle(T failedValue),
   }) {
     assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
     assert(shortPassword != null);
+    assert(emptyPassword != null);
     assert(invalidUniqueId != null);
     assert(longPassword != null);
-    assert(invalidLogin != null);
-    assert(longLogin != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
     assert(invalidPassword != null);
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
@@ -1202,18 +2369,22 @@ class _$InvalidLogin<T>
     assert(expiredToken != null);
     assert(wrongFileExtension != null);
     assert(longDeckTitle != null);
-    return invalidLogin(failedValue);
+    return invalidUsername(failedValue);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result invalidEmail(T failedValue),
+    Result emptyEmail(T failedValue),
+    Result shortUsername(T failedValue),
+    Result emptyUsername(T failedValue),
     Result shortPassword(T failedValue),
+    Result emptyPassword(T failedValue),
     Result invalidUniqueId(T failedValue),
     Result longPassword(T failedValue),
-    Result invalidLogin(T failedValue),
-    Result longLogin(T failedValue),
+    Result invalidUsername(T failedValue),
+    Result longUsername(T failedValue),
     Result invalidPassword(T failedValue),
     Result fileDoesNotExists(T failedValue),
     Result shortDeckTitle(T failedValue),
@@ -1224,8 +2395,8 @@ class _$InvalidLogin<T>
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (invalidLogin != null) {
-      return invalidLogin(failedValue);
+    if (invalidUsername != null) {
+      return invalidUsername(failedValue);
     }
     return orElse();
   }
@@ -1234,11 +2405,15 @@ class _$InvalidLogin<T>
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result invalidEmail(InvalidEmail<T> value),
+    @required Result emptyEmail(EmptyEmail<T> value),
+    @required Result shortUsername(ShortUsername<T> value),
+    @required Result emptyUsername(EmptyUsername<T> value),
     @required Result shortPassword(ShortPassword<T> value),
+    @required Result emptyPassword(EmptyPassword<T> value),
     @required Result invalidUniqueId(InvalidUniqueId<T> value),
     @required Result longPassword(LongPassword<T> value),
-    @required Result invalidLogin(InvalidLogin<T> value),
-    @required Result longLogin(LongLogin<T> value),
+    @required Result invalidUsername(InvalidUsername<T> value),
+    @required Result longUsername(LongUsername<T> value),
     @required Result invalidPassword(InvalidPassword<T> value),
     @required Result fileDoesNotExists(FileDoesNotExists<T> value),
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
@@ -1248,11 +2423,15 @@ class _$InvalidLogin<T>
     @required Result longDeckTitle(LongDeckTitle<T> value),
   }) {
     assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
     assert(shortPassword != null);
+    assert(emptyPassword != null);
     assert(invalidUniqueId != null);
     assert(longPassword != null);
-    assert(invalidLogin != null);
-    assert(longLogin != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
     assert(invalidPassword != null);
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
@@ -1260,18 +2439,22 @@ class _$InvalidLogin<T>
     assert(expiredToken != null);
     assert(wrongFileExtension != null);
     assert(longDeckTitle != null);
-    return invalidLogin(this);
+    return invalidUsername(this);
   }
 
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result invalidEmail(InvalidEmail<T> value),
+    Result emptyEmail(EmptyEmail<T> value),
+    Result shortUsername(ShortUsername<T> value),
+    Result emptyUsername(EmptyUsername<T> value),
     Result shortPassword(ShortPassword<T> value),
+    Result emptyPassword(EmptyPassword<T> value),
     Result invalidUniqueId(InvalidUniqueId<T> value),
     Result longPassword(LongPassword<T> value),
-    Result invalidLogin(InvalidLogin<T> value),
-    Result longLogin(LongLogin<T> value),
+    Result invalidUsername(InvalidUsername<T> value),
+    Result longUsername(LongUsername<T> value),
     Result invalidPassword(InvalidPassword<T> value),
     Result fileDoesNotExists(FileDoesNotExists<T> value),
     Result shortDeckTitle(ShortDeckTitle<T> value),
@@ -1282,54 +2465,56 @@ class _$InvalidLogin<T>
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (invalidLogin != null) {
-      return invalidLogin(this);
+    if (invalidUsername != null) {
+      return invalidUsername(this);
     }
     return orElse();
   }
 }
 
-abstract class InvalidLogin<T> implements ValueFailure<T> {
-  factory InvalidLogin({@required T failedValue}) = _$InvalidLogin<T>;
+abstract class InvalidUsername<T> implements ValueFailure<T> {
+  factory InvalidUsername({@required T failedValue}) = _$InvalidUsername<T>;
 
   @override
   T get failedValue;
   @override
-  $InvalidLoginCopyWith<T, InvalidLogin<T>> get copyWith;
+  $InvalidUsernameCopyWith<T, InvalidUsername<T>> get copyWith;
 }
 
-abstract class $LongLoginCopyWith<T, $Res>
+abstract class $LongUsernameCopyWith<T, $Res>
     implements $ValueFailureCopyWith<T, $Res> {
-  factory $LongLoginCopyWith(
-          LongLogin<T> value, $Res Function(LongLogin<T>) then) =
-      _$LongLoginCopyWithImpl<T, $Res>;
+  factory $LongUsernameCopyWith(
+          LongUsername<T> value, $Res Function(LongUsername<T>) then) =
+      _$LongUsernameCopyWithImpl<T, $Res>;
   @override
   $Res call({T failedValue});
 }
 
-class _$LongLoginCopyWithImpl<T, $Res>
+class _$LongUsernameCopyWithImpl<T, $Res>
     extends _$ValueFailureCopyWithImpl<T, $Res>
-    implements $LongLoginCopyWith<T, $Res> {
-  _$LongLoginCopyWithImpl(
-      LongLogin<T> _value, $Res Function(LongLogin<T>) _then)
-      : super(_value, (v) => _then(v as LongLogin<T>));
+    implements $LongUsernameCopyWith<T, $Res> {
+  _$LongUsernameCopyWithImpl(
+      LongUsername<T> _value, $Res Function(LongUsername<T>) _then)
+      : super(_value, (v) => _then(v as LongUsername<T>));
 
   @override
-  LongLogin<T> get _value => super._value as LongLogin<T>;
+  LongUsername<T> get _value => super._value as LongUsername<T>;
 
   @override
   $Res call({
     Object failedValue = freezed,
   }) {
-    return _then(LongLogin<T>(
+    return _then(LongUsername<T>(
       failedValue:
           failedValue == freezed ? _value.failedValue : failedValue as T,
     ));
   }
 }
 
-class _$LongLogin<T> with DiagnosticableTreeMixin implements LongLogin<T> {
-  _$LongLogin({@required this.failedValue}) : assert(failedValue != null);
+class _$LongUsername<T>
+    with DiagnosticableTreeMixin
+    implements LongUsername<T> {
+  _$LongUsername({@required this.failedValue}) : assert(failedValue != null);
 
   @override
   final T failedValue;
@@ -1344,8 +2529,8 @@ class _$LongLogin<T> with DiagnosticableTreeMixin implements LongLogin<T> {
       _message = this.map(
         invalidEmail: (value) => S.current.error_value_email_incorrect,
         shortPassword: (value) => S.current.error_value_short_passwor,
-        invalidLogin: (value) => S.current.error_value_invalid_login,
-        longLogin: (value) => S.current.error_value_long_login,
+        invalidUsername: (value) => S.current.error_value_invalid_login,
+        longUsername: (value) => S.current.error_value_long_login,
         invalidPassword: (value) => S.current.error_value_invalid_password,
         longPassword: (value) => S.current.error_value_long_password,
         fileDoesNotExists: (value) => S.current.error_value_file_inexists,
@@ -1354,7 +2539,12 @@ class _$LongLogin<T> with DiagnosticableTreeMixin implements LongLogin<T> {
         expiredToken: (value) => S.current.error_auth_invalid_session,
         invalidUniqueId: (value) => S.current.error_auth_invalid_session,
         wrongFileExtension: (value) => S.current.error_value_file_inexists,
-        longDeckTitle: (value) => ' ',
+        longDeckTitle: (value) =>
+            'Deck title should be shorter than 30 characters',
+        shortUsername: (value) => 'Username must be longer than 4 characters',
+        emptyPassword: (value) => 'Password is required',
+        emptyEmail: (value) => 'Email is required',
+        emptyUsername: (value) => 'Username is required',
       );
     }
     return _message;
@@ -1362,14 +2552,14 @@ class _$LongLogin<T> with DiagnosticableTreeMixin implements LongLogin<T> {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ValueFailure<$T>.longLogin(failedValue: $failedValue, message: $message)';
+    return 'ValueFailure<$T>.longUsername(failedValue: $failedValue, message: $message)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.longLogin'))
+      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.longUsername'))
       ..add(DiagnosticsProperty('failedValue', failedValue))
       ..add(DiagnosticsProperty('message', message));
   }
@@ -1377,7 +2567,7 @@ class _$LongLogin<T> with DiagnosticableTreeMixin implements LongLogin<T> {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is LongLogin<T> &&
+        (other is LongUsername<T> &&
             (identical(other.failedValue, failedValue) ||
                 const DeepCollectionEquality()
                     .equals(other.failedValue, failedValue)));
@@ -1388,18 +2578,22 @@ class _$LongLogin<T> with DiagnosticableTreeMixin implements LongLogin<T> {
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(failedValue);
 
   @override
-  $LongLoginCopyWith<T, LongLogin<T>> get copyWith =>
-      _$LongLoginCopyWithImpl<T, LongLogin<T>>(this, _$identity);
+  $LongUsernameCopyWith<T, LongUsername<T>> get copyWith =>
+      _$LongUsernameCopyWithImpl<T, LongUsername<T>>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result invalidEmail(T failedValue),
+    @required Result emptyEmail(T failedValue),
+    @required Result shortUsername(T failedValue),
+    @required Result emptyUsername(T failedValue),
     @required Result shortPassword(T failedValue),
+    @required Result emptyPassword(T failedValue),
     @required Result invalidUniqueId(T failedValue),
     @required Result longPassword(T failedValue),
-    @required Result invalidLogin(T failedValue),
-    @required Result longLogin(T failedValue),
+    @required Result invalidUsername(T failedValue),
+    @required Result longUsername(T failedValue),
     @required Result invalidPassword(T failedValue),
     @required Result fileDoesNotExists(T failedValue),
     @required Result shortDeckTitle(T failedValue),
@@ -1409,11 +2603,15 @@ class _$LongLogin<T> with DiagnosticableTreeMixin implements LongLogin<T> {
     @required Result longDeckTitle(T failedValue),
   }) {
     assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
     assert(shortPassword != null);
+    assert(emptyPassword != null);
     assert(invalidUniqueId != null);
     assert(longPassword != null);
-    assert(invalidLogin != null);
-    assert(longLogin != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
     assert(invalidPassword != null);
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
@@ -1421,18 +2619,22 @@ class _$LongLogin<T> with DiagnosticableTreeMixin implements LongLogin<T> {
     assert(expiredToken != null);
     assert(wrongFileExtension != null);
     assert(longDeckTitle != null);
-    return longLogin(failedValue);
+    return longUsername(failedValue);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result invalidEmail(T failedValue),
+    Result emptyEmail(T failedValue),
+    Result shortUsername(T failedValue),
+    Result emptyUsername(T failedValue),
     Result shortPassword(T failedValue),
+    Result emptyPassword(T failedValue),
     Result invalidUniqueId(T failedValue),
     Result longPassword(T failedValue),
-    Result invalidLogin(T failedValue),
-    Result longLogin(T failedValue),
+    Result invalidUsername(T failedValue),
+    Result longUsername(T failedValue),
     Result invalidPassword(T failedValue),
     Result fileDoesNotExists(T failedValue),
     Result shortDeckTitle(T failedValue),
@@ -1443,8 +2645,8 @@ class _$LongLogin<T> with DiagnosticableTreeMixin implements LongLogin<T> {
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (longLogin != null) {
-      return longLogin(failedValue);
+    if (longUsername != null) {
+      return longUsername(failedValue);
     }
     return orElse();
   }
@@ -1453,11 +2655,15 @@ class _$LongLogin<T> with DiagnosticableTreeMixin implements LongLogin<T> {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result invalidEmail(InvalidEmail<T> value),
+    @required Result emptyEmail(EmptyEmail<T> value),
+    @required Result shortUsername(ShortUsername<T> value),
+    @required Result emptyUsername(EmptyUsername<T> value),
     @required Result shortPassword(ShortPassword<T> value),
+    @required Result emptyPassword(EmptyPassword<T> value),
     @required Result invalidUniqueId(InvalidUniqueId<T> value),
     @required Result longPassword(LongPassword<T> value),
-    @required Result invalidLogin(InvalidLogin<T> value),
-    @required Result longLogin(LongLogin<T> value),
+    @required Result invalidUsername(InvalidUsername<T> value),
+    @required Result longUsername(LongUsername<T> value),
     @required Result invalidPassword(InvalidPassword<T> value),
     @required Result fileDoesNotExists(FileDoesNotExists<T> value),
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
@@ -1467,11 +2673,15 @@ class _$LongLogin<T> with DiagnosticableTreeMixin implements LongLogin<T> {
     @required Result longDeckTitle(LongDeckTitle<T> value),
   }) {
     assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
     assert(shortPassword != null);
+    assert(emptyPassword != null);
     assert(invalidUniqueId != null);
     assert(longPassword != null);
-    assert(invalidLogin != null);
-    assert(longLogin != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
     assert(invalidPassword != null);
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
@@ -1479,18 +2689,22 @@ class _$LongLogin<T> with DiagnosticableTreeMixin implements LongLogin<T> {
     assert(expiredToken != null);
     assert(wrongFileExtension != null);
     assert(longDeckTitle != null);
-    return longLogin(this);
+    return longUsername(this);
   }
 
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result invalidEmail(InvalidEmail<T> value),
+    Result emptyEmail(EmptyEmail<T> value),
+    Result shortUsername(ShortUsername<T> value),
+    Result emptyUsername(EmptyUsername<T> value),
     Result shortPassword(ShortPassword<T> value),
+    Result emptyPassword(EmptyPassword<T> value),
     Result invalidUniqueId(InvalidUniqueId<T> value),
     Result longPassword(LongPassword<T> value),
-    Result invalidLogin(InvalidLogin<T> value),
-    Result longLogin(LongLogin<T> value),
+    Result invalidUsername(InvalidUsername<T> value),
+    Result longUsername(LongUsername<T> value),
     Result invalidPassword(InvalidPassword<T> value),
     Result fileDoesNotExists(FileDoesNotExists<T> value),
     Result shortDeckTitle(ShortDeckTitle<T> value),
@@ -1501,20 +2715,20 @@ class _$LongLogin<T> with DiagnosticableTreeMixin implements LongLogin<T> {
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (longLogin != null) {
-      return longLogin(this);
+    if (longUsername != null) {
+      return longUsername(this);
     }
     return orElse();
   }
 }
 
-abstract class LongLogin<T> implements ValueFailure<T> {
-  factory LongLogin({@required T failedValue}) = _$LongLogin<T>;
+abstract class LongUsername<T> implements ValueFailure<T> {
+  factory LongUsername({@required T failedValue}) = _$LongUsername<T>;
 
   @override
   T get failedValue;
   @override
-  $LongLoginCopyWith<T, LongLogin<T>> get copyWith;
+  $LongUsernameCopyWith<T, LongUsername<T>> get copyWith;
 }
 
 abstract class $InvalidPasswordCopyWith<T, $Res>
@@ -1565,8 +2779,8 @@ class _$InvalidPassword<T>
       _message = this.map(
         invalidEmail: (value) => S.current.error_value_email_incorrect,
         shortPassword: (value) => S.current.error_value_short_passwor,
-        invalidLogin: (value) => S.current.error_value_invalid_login,
-        longLogin: (value) => S.current.error_value_long_login,
+        invalidUsername: (value) => S.current.error_value_invalid_login,
+        longUsername: (value) => S.current.error_value_long_login,
         invalidPassword: (value) => S.current.error_value_invalid_password,
         longPassword: (value) => S.current.error_value_long_password,
         fileDoesNotExists: (value) => S.current.error_value_file_inexists,
@@ -1575,7 +2789,12 @@ class _$InvalidPassword<T>
         expiredToken: (value) => S.current.error_auth_invalid_session,
         invalidUniqueId: (value) => S.current.error_auth_invalid_session,
         wrongFileExtension: (value) => S.current.error_value_file_inexists,
-        longDeckTitle: (value) => ' ',
+        longDeckTitle: (value) =>
+            'Deck title should be shorter than 30 characters',
+        shortUsername: (value) => 'Username must be longer than 4 characters',
+        emptyPassword: (value) => 'Password is required',
+        emptyEmail: (value) => 'Email is required',
+        emptyUsername: (value) => 'Username is required',
       );
     }
     return _message;
@@ -1616,11 +2835,15 @@ class _$InvalidPassword<T>
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result invalidEmail(T failedValue),
+    @required Result emptyEmail(T failedValue),
+    @required Result shortUsername(T failedValue),
+    @required Result emptyUsername(T failedValue),
     @required Result shortPassword(T failedValue),
+    @required Result emptyPassword(T failedValue),
     @required Result invalidUniqueId(T failedValue),
     @required Result longPassword(T failedValue),
-    @required Result invalidLogin(T failedValue),
-    @required Result longLogin(T failedValue),
+    @required Result invalidUsername(T failedValue),
+    @required Result longUsername(T failedValue),
     @required Result invalidPassword(T failedValue),
     @required Result fileDoesNotExists(T failedValue),
     @required Result shortDeckTitle(T failedValue),
@@ -1630,11 +2853,15 @@ class _$InvalidPassword<T>
     @required Result longDeckTitle(T failedValue),
   }) {
     assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
     assert(shortPassword != null);
+    assert(emptyPassword != null);
     assert(invalidUniqueId != null);
     assert(longPassword != null);
-    assert(invalidLogin != null);
-    assert(longLogin != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
     assert(invalidPassword != null);
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
@@ -1649,11 +2876,15 @@ class _$InvalidPassword<T>
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result invalidEmail(T failedValue),
+    Result emptyEmail(T failedValue),
+    Result shortUsername(T failedValue),
+    Result emptyUsername(T failedValue),
     Result shortPassword(T failedValue),
+    Result emptyPassword(T failedValue),
     Result invalidUniqueId(T failedValue),
     Result longPassword(T failedValue),
-    Result invalidLogin(T failedValue),
-    Result longLogin(T failedValue),
+    Result invalidUsername(T failedValue),
+    Result longUsername(T failedValue),
     Result invalidPassword(T failedValue),
     Result fileDoesNotExists(T failedValue),
     Result shortDeckTitle(T failedValue),
@@ -1674,11 +2905,15 @@ class _$InvalidPassword<T>
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result invalidEmail(InvalidEmail<T> value),
+    @required Result emptyEmail(EmptyEmail<T> value),
+    @required Result shortUsername(ShortUsername<T> value),
+    @required Result emptyUsername(EmptyUsername<T> value),
     @required Result shortPassword(ShortPassword<T> value),
+    @required Result emptyPassword(EmptyPassword<T> value),
     @required Result invalidUniqueId(InvalidUniqueId<T> value),
     @required Result longPassword(LongPassword<T> value),
-    @required Result invalidLogin(InvalidLogin<T> value),
-    @required Result longLogin(LongLogin<T> value),
+    @required Result invalidUsername(InvalidUsername<T> value),
+    @required Result longUsername(LongUsername<T> value),
     @required Result invalidPassword(InvalidPassword<T> value),
     @required Result fileDoesNotExists(FileDoesNotExists<T> value),
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
@@ -1688,11 +2923,15 @@ class _$InvalidPassword<T>
     @required Result longDeckTitle(LongDeckTitle<T> value),
   }) {
     assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
     assert(shortPassword != null);
+    assert(emptyPassword != null);
     assert(invalidUniqueId != null);
     assert(longPassword != null);
-    assert(invalidLogin != null);
-    assert(longLogin != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
     assert(invalidPassword != null);
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
@@ -1707,11 +2946,15 @@ class _$InvalidPassword<T>
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result invalidEmail(InvalidEmail<T> value),
+    Result emptyEmail(EmptyEmail<T> value),
+    Result shortUsername(ShortUsername<T> value),
+    Result emptyUsername(EmptyUsername<T> value),
     Result shortPassword(ShortPassword<T> value),
+    Result emptyPassword(EmptyPassword<T> value),
     Result invalidUniqueId(InvalidUniqueId<T> value),
     Result longPassword(LongPassword<T> value),
-    Result invalidLogin(InvalidLogin<T> value),
-    Result longLogin(LongLogin<T> value),
+    Result invalidUsername(InvalidUsername<T> value),
+    Result longUsername(LongUsername<T> value),
     Result invalidPassword(InvalidPassword<T> value),
     Result fileDoesNotExists(FileDoesNotExists<T> value),
     Result shortDeckTitle(ShortDeckTitle<T> value),
@@ -1787,8 +3030,8 @@ class _$FileDoesNotExists<T>
       _message = this.map(
         invalidEmail: (value) => S.current.error_value_email_incorrect,
         shortPassword: (value) => S.current.error_value_short_passwor,
-        invalidLogin: (value) => S.current.error_value_invalid_login,
-        longLogin: (value) => S.current.error_value_long_login,
+        invalidUsername: (value) => S.current.error_value_invalid_login,
+        longUsername: (value) => S.current.error_value_long_login,
         invalidPassword: (value) => S.current.error_value_invalid_password,
         longPassword: (value) => S.current.error_value_long_password,
         fileDoesNotExists: (value) => S.current.error_value_file_inexists,
@@ -1797,7 +3040,12 @@ class _$FileDoesNotExists<T>
         expiredToken: (value) => S.current.error_auth_invalid_session,
         invalidUniqueId: (value) => S.current.error_auth_invalid_session,
         wrongFileExtension: (value) => S.current.error_value_file_inexists,
-        longDeckTitle: (value) => ' ',
+        longDeckTitle: (value) =>
+            'Deck title should be shorter than 30 characters',
+        shortUsername: (value) => 'Username must be longer than 4 characters',
+        emptyPassword: (value) => 'Password is required',
+        emptyEmail: (value) => 'Email is required',
+        emptyUsername: (value) => 'Username is required',
       );
     }
     return _message;
@@ -1839,11 +3087,15 @@ class _$FileDoesNotExists<T>
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result invalidEmail(T failedValue),
+    @required Result emptyEmail(T failedValue),
+    @required Result shortUsername(T failedValue),
+    @required Result emptyUsername(T failedValue),
     @required Result shortPassword(T failedValue),
+    @required Result emptyPassword(T failedValue),
     @required Result invalidUniqueId(T failedValue),
     @required Result longPassword(T failedValue),
-    @required Result invalidLogin(T failedValue),
-    @required Result longLogin(T failedValue),
+    @required Result invalidUsername(T failedValue),
+    @required Result longUsername(T failedValue),
     @required Result invalidPassword(T failedValue),
     @required Result fileDoesNotExists(T failedValue),
     @required Result shortDeckTitle(T failedValue),
@@ -1853,11 +3105,15 @@ class _$FileDoesNotExists<T>
     @required Result longDeckTitle(T failedValue),
   }) {
     assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
     assert(shortPassword != null);
+    assert(emptyPassword != null);
     assert(invalidUniqueId != null);
     assert(longPassword != null);
-    assert(invalidLogin != null);
-    assert(longLogin != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
     assert(invalidPassword != null);
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
@@ -1872,11 +3128,15 @@ class _$FileDoesNotExists<T>
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result invalidEmail(T failedValue),
+    Result emptyEmail(T failedValue),
+    Result shortUsername(T failedValue),
+    Result emptyUsername(T failedValue),
     Result shortPassword(T failedValue),
+    Result emptyPassword(T failedValue),
     Result invalidUniqueId(T failedValue),
     Result longPassword(T failedValue),
-    Result invalidLogin(T failedValue),
-    Result longLogin(T failedValue),
+    Result invalidUsername(T failedValue),
+    Result longUsername(T failedValue),
     Result invalidPassword(T failedValue),
     Result fileDoesNotExists(T failedValue),
     Result shortDeckTitle(T failedValue),
@@ -1897,11 +3157,15 @@ class _$FileDoesNotExists<T>
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result invalidEmail(InvalidEmail<T> value),
+    @required Result emptyEmail(EmptyEmail<T> value),
+    @required Result shortUsername(ShortUsername<T> value),
+    @required Result emptyUsername(EmptyUsername<T> value),
     @required Result shortPassword(ShortPassword<T> value),
+    @required Result emptyPassword(EmptyPassword<T> value),
     @required Result invalidUniqueId(InvalidUniqueId<T> value),
     @required Result longPassword(LongPassword<T> value),
-    @required Result invalidLogin(InvalidLogin<T> value),
-    @required Result longLogin(LongLogin<T> value),
+    @required Result invalidUsername(InvalidUsername<T> value),
+    @required Result longUsername(LongUsername<T> value),
     @required Result invalidPassword(InvalidPassword<T> value),
     @required Result fileDoesNotExists(FileDoesNotExists<T> value),
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
@@ -1911,11 +3175,15 @@ class _$FileDoesNotExists<T>
     @required Result longDeckTitle(LongDeckTitle<T> value),
   }) {
     assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
     assert(shortPassword != null);
+    assert(emptyPassword != null);
     assert(invalidUniqueId != null);
     assert(longPassword != null);
-    assert(invalidLogin != null);
-    assert(longLogin != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
     assert(invalidPassword != null);
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
@@ -1930,11 +3198,15 @@ class _$FileDoesNotExists<T>
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result invalidEmail(InvalidEmail<T> value),
+    Result emptyEmail(EmptyEmail<T> value),
+    Result shortUsername(ShortUsername<T> value),
+    Result emptyUsername(EmptyUsername<T> value),
     Result shortPassword(ShortPassword<T> value),
+    Result emptyPassword(EmptyPassword<T> value),
     Result invalidUniqueId(InvalidUniqueId<T> value),
     Result longPassword(LongPassword<T> value),
-    Result invalidLogin(InvalidLogin<T> value),
-    Result longLogin(LongLogin<T> value),
+    Result invalidUsername(InvalidUsername<T> value),
+    Result longUsername(LongUsername<T> value),
     Result invalidPassword(InvalidPassword<T> value),
     Result fileDoesNotExists(FileDoesNotExists<T> value),
     Result shortDeckTitle(ShortDeckTitle<T> value),
@@ -2009,8 +3281,8 @@ class _$ShortDeckTitle<T>
       _message = this.map(
         invalidEmail: (value) => S.current.error_value_email_incorrect,
         shortPassword: (value) => S.current.error_value_short_passwor,
-        invalidLogin: (value) => S.current.error_value_invalid_login,
-        longLogin: (value) => S.current.error_value_long_login,
+        invalidUsername: (value) => S.current.error_value_invalid_login,
+        longUsername: (value) => S.current.error_value_long_login,
         invalidPassword: (value) => S.current.error_value_invalid_password,
         longPassword: (value) => S.current.error_value_long_password,
         fileDoesNotExists: (value) => S.current.error_value_file_inexists,
@@ -2019,7 +3291,12 @@ class _$ShortDeckTitle<T>
         expiredToken: (value) => S.current.error_auth_invalid_session,
         invalidUniqueId: (value) => S.current.error_auth_invalid_session,
         wrongFileExtension: (value) => S.current.error_value_file_inexists,
-        longDeckTitle: (value) => ' ',
+        longDeckTitle: (value) =>
+            'Deck title should be shorter than 30 characters',
+        shortUsername: (value) => 'Username must be longer than 4 characters',
+        emptyPassword: (value) => 'Password is required',
+        emptyEmail: (value) => 'Email is required',
+        emptyUsername: (value) => 'Username is required',
       );
     }
     return _message;
@@ -2060,11 +3337,15 @@ class _$ShortDeckTitle<T>
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result invalidEmail(T failedValue),
+    @required Result emptyEmail(T failedValue),
+    @required Result shortUsername(T failedValue),
+    @required Result emptyUsername(T failedValue),
     @required Result shortPassword(T failedValue),
+    @required Result emptyPassword(T failedValue),
     @required Result invalidUniqueId(T failedValue),
     @required Result longPassword(T failedValue),
-    @required Result invalidLogin(T failedValue),
-    @required Result longLogin(T failedValue),
+    @required Result invalidUsername(T failedValue),
+    @required Result longUsername(T failedValue),
     @required Result invalidPassword(T failedValue),
     @required Result fileDoesNotExists(T failedValue),
     @required Result shortDeckTitle(T failedValue),
@@ -2074,11 +3355,15 @@ class _$ShortDeckTitle<T>
     @required Result longDeckTitle(T failedValue),
   }) {
     assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
     assert(shortPassword != null);
+    assert(emptyPassword != null);
     assert(invalidUniqueId != null);
     assert(longPassword != null);
-    assert(invalidLogin != null);
-    assert(longLogin != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
     assert(invalidPassword != null);
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
@@ -2093,11 +3378,15 @@ class _$ShortDeckTitle<T>
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result invalidEmail(T failedValue),
+    Result emptyEmail(T failedValue),
+    Result shortUsername(T failedValue),
+    Result emptyUsername(T failedValue),
     Result shortPassword(T failedValue),
+    Result emptyPassword(T failedValue),
     Result invalidUniqueId(T failedValue),
     Result longPassword(T failedValue),
-    Result invalidLogin(T failedValue),
-    Result longLogin(T failedValue),
+    Result invalidUsername(T failedValue),
+    Result longUsername(T failedValue),
     Result invalidPassword(T failedValue),
     Result fileDoesNotExists(T failedValue),
     Result shortDeckTitle(T failedValue),
@@ -2118,11 +3407,15 @@ class _$ShortDeckTitle<T>
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result invalidEmail(InvalidEmail<T> value),
+    @required Result emptyEmail(EmptyEmail<T> value),
+    @required Result shortUsername(ShortUsername<T> value),
+    @required Result emptyUsername(EmptyUsername<T> value),
     @required Result shortPassword(ShortPassword<T> value),
+    @required Result emptyPassword(EmptyPassword<T> value),
     @required Result invalidUniqueId(InvalidUniqueId<T> value),
     @required Result longPassword(LongPassword<T> value),
-    @required Result invalidLogin(InvalidLogin<T> value),
-    @required Result longLogin(LongLogin<T> value),
+    @required Result invalidUsername(InvalidUsername<T> value),
+    @required Result longUsername(LongUsername<T> value),
     @required Result invalidPassword(InvalidPassword<T> value),
     @required Result fileDoesNotExists(FileDoesNotExists<T> value),
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
@@ -2132,11 +3425,15 @@ class _$ShortDeckTitle<T>
     @required Result longDeckTitle(LongDeckTitle<T> value),
   }) {
     assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
     assert(shortPassword != null);
+    assert(emptyPassword != null);
     assert(invalidUniqueId != null);
     assert(longPassword != null);
-    assert(invalidLogin != null);
-    assert(longLogin != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
     assert(invalidPassword != null);
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
@@ -2151,11 +3448,15 @@ class _$ShortDeckTitle<T>
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result invalidEmail(InvalidEmail<T> value),
+    Result emptyEmail(EmptyEmail<T> value),
+    Result shortUsername(ShortUsername<T> value),
+    Result emptyUsername(EmptyUsername<T> value),
     Result shortPassword(ShortPassword<T> value),
+    Result emptyPassword(EmptyPassword<T> value),
     Result invalidUniqueId(InvalidUniqueId<T> value),
     Result longPassword(LongPassword<T> value),
-    Result invalidLogin(InvalidLogin<T> value),
-    Result longLogin(LongLogin<T> value),
+    Result invalidUsername(InvalidUsername<T> value),
+    Result longUsername(LongUsername<T> value),
     Result invalidPassword(InvalidPassword<T> value),
     Result fileDoesNotExists(FileDoesNotExists<T> value),
     Result shortDeckTitle(ShortDeckTitle<T> value),
@@ -2231,8 +3532,8 @@ class _$InvalidDeckTitle<T>
       _message = this.map(
         invalidEmail: (value) => S.current.error_value_email_incorrect,
         shortPassword: (value) => S.current.error_value_short_passwor,
-        invalidLogin: (value) => S.current.error_value_invalid_login,
-        longLogin: (value) => S.current.error_value_long_login,
+        invalidUsername: (value) => S.current.error_value_invalid_login,
+        longUsername: (value) => S.current.error_value_long_login,
         invalidPassword: (value) => S.current.error_value_invalid_password,
         longPassword: (value) => S.current.error_value_long_password,
         fileDoesNotExists: (value) => S.current.error_value_file_inexists,
@@ -2241,7 +3542,12 @@ class _$InvalidDeckTitle<T>
         expiredToken: (value) => S.current.error_auth_invalid_session,
         invalidUniqueId: (value) => S.current.error_auth_invalid_session,
         wrongFileExtension: (value) => S.current.error_value_file_inexists,
-        longDeckTitle: (value) => ' ',
+        longDeckTitle: (value) =>
+            'Deck title should be shorter than 30 characters',
+        shortUsername: (value) => 'Username must be longer than 4 characters',
+        emptyPassword: (value) => 'Password is required',
+        emptyEmail: (value) => 'Email is required',
+        emptyUsername: (value) => 'Username is required',
       );
     }
     return _message;
@@ -2282,11 +3588,15 @@ class _$InvalidDeckTitle<T>
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result invalidEmail(T failedValue),
+    @required Result emptyEmail(T failedValue),
+    @required Result shortUsername(T failedValue),
+    @required Result emptyUsername(T failedValue),
     @required Result shortPassword(T failedValue),
+    @required Result emptyPassword(T failedValue),
     @required Result invalidUniqueId(T failedValue),
     @required Result longPassword(T failedValue),
-    @required Result invalidLogin(T failedValue),
-    @required Result longLogin(T failedValue),
+    @required Result invalidUsername(T failedValue),
+    @required Result longUsername(T failedValue),
     @required Result invalidPassword(T failedValue),
     @required Result fileDoesNotExists(T failedValue),
     @required Result shortDeckTitle(T failedValue),
@@ -2296,11 +3606,15 @@ class _$InvalidDeckTitle<T>
     @required Result longDeckTitle(T failedValue),
   }) {
     assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
     assert(shortPassword != null);
+    assert(emptyPassword != null);
     assert(invalidUniqueId != null);
     assert(longPassword != null);
-    assert(invalidLogin != null);
-    assert(longLogin != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
     assert(invalidPassword != null);
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
@@ -2315,11 +3629,15 @@ class _$InvalidDeckTitle<T>
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result invalidEmail(T failedValue),
+    Result emptyEmail(T failedValue),
+    Result shortUsername(T failedValue),
+    Result emptyUsername(T failedValue),
     Result shortPassword(T failedValue),
+    Result emptyPassword(T failedValue),
     Result invalidUniqueId(T failedValue),
     Result longPassword(T failedValue),
-    Result invalidLogin(T failedValue),
-    Result longLogin(T failedValue),
+    Result invalidUsername(T failedValue),
+    Result longUsername(T failedValue),
     Result invalidPassword(T failedValue),
     Result fileDoesNotExists(T failedValue),
     Result shortDeckTitle(T failedValue),
@@ -2340,11 +3658,15 @@ class _$InvalidDeckTitle<T>
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result invalidEmail(InvalidEmail<T> value),
+    @required Result emptyEmail(EmptyEmail<T> value),
+    @required Result shortUsername(ShortUsername<T> value),
+    @required Result emptyUsername(EmptyUsername<T> value),
     @required Result shortPassword(ShortPassword<T> value),
+    @required Result emptyPassword(EmptyPassword<T> value),
     @required Result invalidUniqueId(InvalidUniqueId<T> value),
     @required Result longPassword(LongPassword<T> value),
-    @required Result invalidLogin(InvalidLogin<T> value),
-    @required Result longLogin(LongLogin<T> value),
+    @required Result invalidUsername(InvalidUsername<T> value),
+    @required Result longUsername(LongUsername<T> value),
     @required Result invalidPassword(InvalidPassword<T> value),
     @required Result fileDoesNotExists(FileDoesNotExists<T> value),
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
@@ -2354,11 +3676,15 @@ class _$InvalidDeckTitle<T>
     @required Result longDeckTitle(LongDeckTitle<T> value),
   }) {
     assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
     assert(shortPassword != null);
+    assert(emptyPassword != null);
     assert(invalidUniqueId != null);
     assert(longPassword != null);
-    assert(invalidLogin != null);
-    assert(longLogin != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
     assert(invalidPassword != null);
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
@@ -2373,11 +3699,15 @@ class _$InvalidDeckTitle<T>
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result invalidEmail(InvalidEmail<T> value),
+    Result emptyEmail(EmptyEmail<T> value),
+    Result shortUsername(ShortUsername<T> value),
+    Result emptyUsername(EmptyUsername<T> value),
     Result shortPassword(ShortPassword<T> value),
+    Result emptyPassword(EmptyPassword<T> value),
     Result invalidUniqueId(InvalidUniqueId<T> value),
     Result longPassword(LongPassword<T> value),
-    Result invalidLogin(InvalidLogin<T> value),
-    Result longLogin(LongLogin<T> value),
+    Result invalidUsername(InvalidUsername<T> value),
+    Result longUsername(LongUsername<T> value),
     Result invalidPassword(InvalidPassword<T> value),
     Result fileDoesNotExists(FileDoesNotExists<T> value),
     Result shortDeckTitle(ShortDeckTitle<T> value),
@@ -2452,8 +3782,8 @@ class _$ExpiredToken<T>
       _message = this.map(
         invalidEmail: (value) => S.current.error_value_email_incorrect,
         shortPassword: (value) => S.current.error_value_short_passwor,
-        invalidLogin: (value) => S.current.error_value_invalid_login,
-        longLogin: (value) => S.current.error_value_long_login,
+        invalidUsername: (value) => S.current.error_value_invalid_login,
+        longUsername: (value) => S.current.error_value_long_login,
         invalidPassword: (value) => S.current.error_value_invalid_password,
         longPassword: (value) => S.current.error_value_long_password,
         fileDoesNotExists: (value) => S.current.error_value_file_inexists,
@@ -2462,7 +3792,12 @@ class _$ExpiredToken<T>
         expiredToken: (value) => S.current.error_auth_invalid_session,
         invalidUniqueId: (value) => S.current.error_auth_invalid_session,
         wrongFileExtension: (value) => S.current.error_value_file_inexists,
-        longDeckTitle: (value) => ' ',
+        longDeckTitle: (value) =>
+            'Deck title should be shorter than 30 characters',
+        shortUsername: (value) => 'Username must be longer than 4 characters',
+        emptyPassword: (value) => 'Password is required',
+        emptyEmail: (value) => 'Email is required',
+        emptyUsername: (value) => 'Username is required',
       );
     }
     return _message;
@@ -2503,11 +3838,15 @@ class _$ExpiredToken<T>
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result invalidEmail(T failedValue),
+    @required Result emptyEmail(T failedValue),
+    @required Result shortUsername(T failedValue),
+    @required Result emptyUsername(T failedValue),
     @required Result shortPassword(T failedValue),
+    @required Result emptyPassword(T failedValue),
     @required Result invalidUniqueId(T failedValue),
     @required Result longPassword(T failedValue),
-    @required Result invalidLogin(T failedValue),
-    @required Result longLogin(T failedValue),
+    @required Result invalidUsername(T failedValue),
+    @required Result longUsername(T failedValue),
     @required Result invalidPassword(T failedValue),
     @required Result fileDoesNotExists(T failedValue),
     @required Result shortDeckTitle(T failedValue),
@@ -2517,11 +3856,15 @@ class _$ExpiredToken<T>
     @required Result longDeckTitle(T failedValue),
   }) {
     assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
     assert(shortPassword != null);
+    assert(emptyPassword != null);
     assert(invalidUniqueId != null);
     assert(longPassword != null);
-    assert(invalidLogin != null);
-    assert(longLogin != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
     assert(invalidPassword != null);
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
@@ -2536,11 +3879,15 @@ class _$ExpiredToken<T>
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result invalidEmail(T failedValue),
+    Result emptyEmail(T failedValue),
+    Result shortUsername(T failedValue),
+    Result emptyUsername(T failedValue),
     Result shortPassword(T failedValue),
+    Result emptyPassword(T failedValue),
     Result invalidUniqueId(T failedValue),
     Result longPassword(T failedValue),
-    Result invalidLogin(T failedValue),
-    Result longLogin(T failedValue),
+    Result invalidUsername(T failedValue),
+    Result longUsername(T failedValue),
     Result invalidPassword(T failedValue),
     Result fileDoesNotExists(T failedValue),
     Result shortDeckTitle(T failedValue),
@@ -2561,11 +3908,15 @@ class _$ExpiredToken<T>
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result invalidEmail(InvalidEmail<T> value),
+    @required Result emptyEmail(EmptyEmail<T> value),
+    @required Result shortUsername(ShortUsername<T> value),
+    @required Result emptyUsername(EmptyUsername<T> value),
     @required Result shortPassword(ShortPassword<T> value),
+    @required Result emptyPassword(EmptyPassword<T> value),
     @required Result invalidUniqueId(InvalidUniqueId<T> value),
     @required Result longPassword(LongPassword<T> value),
-    @required Result invalidLogin(InvalidLogin<T> value),
-    @required Result longLogin(LongLogin<T> value),
+    @required Result invalidUsername(InvalidUsername<T> value),
+    @required Result longUsername(LongUsername<T> value),
     @required Result invalidPassword(InvalidPassword<T> value),
     @required Result fileDoesNotExists(FileDoesNotExists<T> value),
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
@@ -2575,11 +3926,15 @@ class _$ExpiredToken<T>
     @required Result longDeckTitle(LongDeckTitle<T> value),
   }) {
     assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
     assert(shortPassword != null);
+    assert(emptyPassword != null);
     assert(invalidUniqueId != null);
     assert(longPassword != null);
-    assert(invalidLogin != null);
-    assert(longLogin != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
     assert(invalidPassword != null);
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
@@ -2594,11 +3949,15 @@ class _$ExpiredToken<T>
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result invalidEmail(InvalidEmail<T> value),
+    Result emptyEmail(EmptyEmail<T> value),
+    Result shortUsername(ShortUsername<T> value),
+    Result emptyUsername(EmptyUsername<T> value),
     Result shortPassword(ShortPassword<T> value),
+    Result emptyPassword(EmptyPassword<T> value),
     Result invalidUniqueId(InvalidUniqueId<T> value),
     Result longPassword(LongPassword<T> value),
-    Result invalidLogin(InvalidLogin<T> value),
-    Result longLogin(LongLogin<T> value),
+    Result invalidUsername(InvalidUsername<T> value),
+    Result longUsername(LongUsername<T> value),
     Result invalidPassword(InvalidPassword<T> value),
     Result fileDoesNotExists(FileDoesNotExists<T> value),
     Result shortDeckTitle(ShortDeckTitle<T> value),
@@ -2674,8 +4033,8 @@ class _$WrongFileExtension<T>
       _message = this.map(
         invalidEmail: (value) => S.current.error_value_email_incorrect,
         shortPassword: (value) => S.current.error_value_short_passwor,
-        invalidLogin: (value) => S.current.error_value_invalid_login,
-        longLogin: (value) => S.current.error_value_long_login,
+        invalidUsername: (value) => S.current.error_value_invalid_login,
+        longUsername: (value) => S.current.error_value_long_login,
         invalidPassword: (value) => S.current.error_value_invalid_password,
         longPassword: (value) => S.current.error_value_long_password,
         fileDoesNotExists: (value) => S.current.error_value_file_inexists,
@@ -2684,7 +4043,12 @@ class _$WrongFileExtension<T>
         expiredToken: (value) => S.current.error_auth_invalid_session,
         invalidUniqueId: (value) => S.current.error_auth_invalid_session,
         wrongFileExtension: (value) => S.current.error_value_file_inexists,
-        longDeckTitle: (value) => ' ',
+        longDeckTitle: (value) =>
+            'Deck title should be shorter than 30 characters',
+        shortUsername: (value) => 'Username must be longer than 4 characters',
+        emptyPassword: (value) => 'Password is required',
+        emptyEmail: (value) => 'Email is required',
+        emptyUsername: (value) => 'Username is required',
       );
     }
     return _message;
@@ -2726,11 +4090,15 @@ class _$WrongFileExtension<T>
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result invalidEmail(T failedValue),
+    @required Result emptyEmail(T failedValue),
+    @required Result shortUsername(T failedValue),
+    @required Result emptyUsername(T failedValue),
     @required Result shortPassword(T failedValue),
+    @required Result emptyPassword(T failedValue),
     @required Result invalidUniqueId(T failedValue),
     @required Result longPassword(T failedValue),
-    @required Result invalidLogin(T failedValue),
-    @required Result longLogin(T failedValue),
+    @required Result invalidUsername(T failedValue),
+    @required Result longUsername(T failedValue),
     @required Result invalidPassword(T failedValue),
     @required Result fileDoesNotExists(T failedValue),
     @required Result shortDeckTitle(T failedValue),
@@ -2740,11 +4108,15 @@ class _$WrongFileExtension<T>
     @required Result longDeckTitle(T failedValue),
   }) {
     assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
     assert(shortPassword != null);
+    assert(emptyPassword != null);
     assert(invalidUniqueId != null);
     assert(longPassword != null);
-    assert(invalidLogin != null);
-    assert(longLogin != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
     assert(invalidPassword != null);
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
@@ -2759,11 +4131,15 @@ class _$WrongFileExtension<T>
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result invalidEmail(T failedValue),
+    Result emptyEmail(T failedValue),
+    Result shortUsername(T failedValue),
+    Result emptyUsername(T failedValue),
     Result shortPassword(T failedValue),
+    Result emptyPassword(T failedValue),
     Result invalidUniqueId(T failedValue),
     Result longPassword(T failedValue),
-    Result invalidLogin(T failedValue),
-    Result longLogin(T failedValue),
+    Result invalidUsername(T failedValue),
+    Result longUsername(T failedValue),
     Result invalidPassword(T failedValue),
     Result fileDoesNotExists(T failedValue),
     Result shortDeckTitle(T failedValue),
@@ -2784,11 +4160,15 @@ class _$WrongFileExtension<T>
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result invalidEmail(InvalidEmail<T> value),
+    @required Result emptyEmail(EmptyEmail<T> value),
+    @required Result shortUsername(ShortUsername<T> value),
+    @required Result emptyUsername(EmptyUsername<T> value),
     @required Result shortPassword(ShortPassword<T> value),
+    @required Result emptyPassword(EmptyPassword<T> value),
     @required Result invalidUniqueId(InvalidUniqueId<T> value),
     @required Result longPassword(LongPassword<T> value),
-    @required Result invalidLogin(InvalidLogin<T> value),
-    @required Result longLogin(LongLogin<T> value),
+    @required Result invalidUsername(InvalidUsername<T> value),
+    @required Result longUsername(LongUsername<T> value),
     @required Result invalidPassword(InvalidPassword<T> value),
     @required Result fileDoesNotExists(FileDoesNotExists<T> value),
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
@@ -2798,11 +4178,15 @@ class _$WrongFileExtension<T>
     @required Result longDeckTitle(LongDeckTitle<T> value),
   }) {
     assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
     assert(shortPassword != null);
+    assert(emptyPassword != null);
     assert(invalidUniqueId != null);
     assert(longPassword != null);
-    assert(invalidLogin != null);
-    assert(longLogin != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
     assert(invalidPassword != null);
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
@@ -2817,11 +4201,15 @@ class _$WrongFileExtension<T>
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result invalidEmail(InvalidEmail<T> value),
+    Result emptyEmail(EmptyEmail<T> value),
+    Result shortUsername(ShortUsername<T> value),
+    Result emptyUsername(EmptyUsername<T> value),
     Result shortPassword(ShortPassword<T> value),
+    Result emptyPassword(EmptyPassword<T> value),
     Result invalidUniqueId(InvalidUniqueId<T> value),
     Result longPassword(LongPassword<T> value),
-    Result invalidLogin(InvalidLogin<T> value),
-    Result longLogin(LongLogin<T> value),
+    Result invalidUsername(InvalidUsername<T> value),
+    Result longUsername(LongUsername<T> value),
     Result invalidPassword(InvalidPassword<T> value),
     Result fileDoesNotExists(FileDoesNotExists<T> value),
     Result shortDeckTitle(ShortDeckTitle<T> value),
@@ -2897,8 +4285,8 @@ class _$LongDeckTitle<T>
       _message = this.map(
         invalidEmail: (value) => S.current.error_value_email_incorrect,
         shortPassword: (value) => S.current.error_value_short_passwor,
-        invalidLogin: (value) => S.current.error_value_invalid_login,
-        longLogin: (value) => S.current.error_value_long_login,
+        invalidUsername: (value) => S.current.error_value_invalid_login,
+        longUsername: (value) => S.current.error_value_long_login,
         invalidPassword: (value) => S.current.error_value_invalid_password,
         longPassword: (value) => S.current.error_value_long_password,
         fileDoesNotExists: (value) => S.current.error_value_file_inexists,
@@ -2907,7 +4295,12 @@ class _$LongDeckTitle<T>
         expiredToken: (value) => S.current.error_auth_invalid_session,
         invalidUniqueId: (value) => S.current.error_auth_invalid_session,
         wrongFileExtension: (value) => S.current.error_value_file_inexists,
-        longDeckTitle: (value) => ' ',
+        longDeckTitle: (value) =>
+            'Deck title should be shorter than 30 characters',
+        shortUsername: (value) => 'Username must be longer than 4 characters',
+        emptyPassword: (value) => 'Password is required',
+        emptyEmail: (value) => 'Email is required',
+        emptyUsername: (value) => 'Username is required',
       );
     }
     return _message;
@@ -2948,11 +4341,15 @@ class _$LongDeckTitle<T>
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result invalidEmail(T failedValue),
+    @required Result emptyEmail(T failedValue),
+    @required Result shortUsername(T failedValue),
+    @required Result emptyUsername(T failedValue),
     @required Result shortPassword(T failedValue),
+    @required Result emptyPassword(T failedValue),
     @required Result invalidUniqueId(T failedValue),
     @required Result longPassword(T failedValue),
-    @required Result invalidLogin(T failedValue),
-    @required Result longLogin(T failedValue),
+    @required Result invalidUsername(T failedValue),
+    @required Result longUsername(T failedValue),
     @required Result invalidPassword(T failedValue),
     @required Result fileDoesNotExists(T failedValue),
     @required Result shortDeckTitle(T failedValue),
@@ -2962,11 +4359,15 @@ class _$LongDeckTitle<T>
     @required Result longDeckTitle(T failedValue),
   }) {
     assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
     assert(shortPassword != null);
+    assert(emptyPassword != null);
     assert(invalidUniqueId != null);
     assert(longPassword != null);
-    assert(invalidLogin != null);
-    assert(longLogin != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
     assert(invalidPassword != null);
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
@@ -2981,11 +4382,15 @@ class _$LongDeckTitle<T>
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result invalidEmail(T failedValue),
+    Result emptyEmail(T failedValue),
+    Result shortUsername(T failedValue),
+    Result emptyUsername(T failedValue),
     Result shortPassword(T failedValue),
+    Result emptyPassword(T failedValue),
     Result invalidUniqueId(T failedValue),
     Result longPassword(T failedValue),
-    Result invalidLogin(T failedValue),
-    Result longLogin(T failedValue),
+    Result invalidUsername(T failedValue),
+    Result longUsername(T failedValue),
     Result invalidPassword(T failedValue),
     Result fileDoesNotExists(T failedValue),
     Result shortDeckTitle(T failedValue),
@@ -3006,11 +4411,15 @@ class _$LongDeckTitle<T>
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result invalidEmail(InvalidEmail<T> value),
+    @required Result emptyEmail(EmptyEmail<T> value),
+    @required Result shortUsername(ShortUsername<T> value),
+    @required Result emptyUsername(EmptyUsername<T> value),
     @required Result shortPassword(ShortPassword<T> value),
+    @required Result emptyPassword(EmptyPassword<T> value),
     @required Result invalidUniqueId(InvalidUniqueId<T> value),
     @required Result longPassword(LongPassword<T> value),
-    @required Result invalidLogin(InvalidLogin<T> value),
-    @required Result longLogin(LongLogin<T> value),
+    @required Result invalidUsername(InvalidUsername<T> value),
+    @required Result longUsername(LongUsername<T> value),
     @required Result invalidPassword(InvalidPassword<T> value),
     @required Result fileDoesNotExists(FileDoesNotExists<T> value),
     @required Result shortDeckTitle(ShortDeckTitle<T> value),
@@ -3020,11 +4429,15 @@ class _$LongDeckTitle<T>
     @required Result longDeckTitle(LongDeckTitle<T> value),
   }) {
     assert(invalidEmail != null);
+    assert(emptyEmail != null);
+    assert(shortUsername != null);
+    assert(emptyUsername != null);
     assert(shortPassword != null);
+    assert(emptyPassword != null);
     assert(invalidUniqueId != null);
     assert(longPassword != null);
-    assert(invalidLogin != null);
-    assert(longLogin != null);
+    assert(invalidUsername != null);
+    assert(longUsername != null);
     assert(invalidPassword != null);
     assert(fileDoesNotExists != null);
     assert(shortDeckTitle != null);
@@ -3039,11 +4452,15 @@ class _$LongDeckTitle<T>
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result invalidEmail(InvalidEmail<T> value),
+    Result emptyEmail(EmptyEmail<T> value),
+    Result shortUsername(ShortUsername<T> value),
+    Result emptyUsername(EmptyUsername<T> value),
     Result shortPassword(ShortPassword<T> value),
+    Result emptyPassword(EmptyPassword<T> value),
     Result invalidUniqueId(InvalidUniqueId<T> value),
     Result longPassword(LongPassword<T> value),
-    Result invalidLogin(InvalidLogin<T> value),
-    Result longLogin(LongLogin<T> value),
+    Result invalidUsername(InvalidUsername<T> value),
+    Result longUsername(LongUsername<T> value),
     Result invalidPassword(InvalidPassword<T> value),
     Result fileDoesNotExists(FileDoesNotExists<T> value),
     Result shortDeckTitle(ShortDeckTitle<T> value),

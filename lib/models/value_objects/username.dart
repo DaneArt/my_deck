@@ -4,16 +4,16 @@ import 'package:mydeck/utils/value_validators.dart';
 
 import 'package:dartz/dartz.dart';
 
-class Login extends ValueObject<String> {
+class Username extends ValueObject<String> {
   @override
   final Either<ValueFailure<String>, String> value;
 
-  factory Login(String input) {
+  factory Username(String input) {
     assert(input != null);
-    return Login._(
-      validateLogin(input),
+    return Username._(
+      validateUsername(input),
     );
   }
 
-  const Login._(this.value);
+  const Username._(this.value);
 }

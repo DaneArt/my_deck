@@ -56,23 +56,26 @@ class CardFractionPaginationBuilder extends SwiperPlugin {
       );
     } else {
       return Container(
-        child: Padding(
-          padding:
-              const EdgeInsets.only(top: 48.0, left: 8, right: 8, bottom: 8),
-          child: Row(
-            key: key,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              new Text(
+        child: Row(
+          key: key,
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(top: 24.0),
+              child: Text(
                 "${config.activeIndex + 1}",
                 style: TextStyle(color: activeColor, fontSize: activeFontSize),
               ),
-              new Text(
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 24.0),
+              child: Text(
                 " / ${config.itemCount - 1}",
                 style: TextStyle(color: color, fontSize: fontSize),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       );
     }

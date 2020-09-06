@@ -1,9 +1,9 @@
 import 'package:mydeck/models/dtos/deck_dto.dart';
-import 'package:mydeck/models/value_objects/user_model.dart';
+import 'package:mydeck/models/dtos/user_dto.dart';
 
 class DeckDtoWithUserModel {
   final DeckDto deck;
-  final UserModel user;
+  final UserDto user;
 
   DeckDtoWithUserModel(this.deck, this.user);
 }

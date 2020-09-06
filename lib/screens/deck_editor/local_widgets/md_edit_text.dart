@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mydeck/models/entitites/md_file.dart';
 import 'package:mydeck/models/entitites/unique_id.dart';
+import 'package:mydeck/widgets/ensure_field_visibility.dart';
 
 class MDEditText extends StatefulWidget {
   final TextFile initialFile;
   final Function(TextFile) onChanged;
-  MDEditText({Key key, this.initialFile, this.onChanged}) : super(key: key);
+  final double height;
+  final double width;
+  MDEditText(
+      {Key key, this.initialFile, this.onChanged, this.height, this.width})
+      : super(key: key);
 
   @override
   _MDEditTextState createState() => _MDEditTextState();
@@ -14,6 +19,7 @@ class MDEditText extends StatefulWidget {
 
 class _MDEditTextState extends State<MDEditText> {
   TextFile _textFile;
+  final fieldFocusNode = FocusNode();
 
   @override
   void initState() {
@@ -23,8 +29,20 @@ class _MDEditTextState extends State<MDEditText> {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      initialValue: _textFile.getFileOrCrash().readAsStringSync(),
+    return Container(
+      width: widget.width,
+      height: widget.height,
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: EnsureVisibleWhenFocused(
+            focusNode: fieldFocusNode,
+            child: TextFormField(
+              initialValue: _textFile.getFileOrCrash().readAsStringSync(),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

@@ -4,15 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mydeck/blocs/add_card/add_card_bloc.dart';
+import 'package:mydeck/blocs/card_editor/card_editor_bloc.dart';
 import 'package:mydeck/utils/images_util.dart';
 import 'package:mydeck/screens/deck_editor/local_widgets/card_fraction_pagination_builder.dart';
 import 'package:mydeck/models/entitites/card.dart' as Entity;
 import 'package:mydeck/models/entitites/md_file.dart';
 
 import 'package:mydeck/generated/l10n.dart';
+import 'package:mydeck/widgets/image_picker_modal_bottom_sheet.dart';
 import 'package:mydeck/widgets/md_image.dart';
 import 'package:mydeck/widgets/md_text.dart';
+
+import 'local_widgets/md_edit_text.dart';
 
 class CardEditor extends StatefulWidget {
   final bool isCreating;
@@ -33,7 +36,9 @@ class _CardEditorState extends State<CardEditor> {
   Widget build(context) {
     return WillPopScope(
       onWillPop: () async {
-        context.bloc<AddCardBloc>().add(AddCardEvent.saveChangesAndExit());
+        context
+            .bloc<CardEditorBloc>()
+            .add(CardEditorEvent.saveChangesAndExit());
         return false;
       },
       child: Scaffold(
@@ -43,8 +48,8 @@ class _CardEditorState extends State<CardEditor> {
             widget.isCreating
                 ? IconButton(
                     onPressed: () {
-                      BlocProvider.of<AddCardBloc>(context)
-                          .add(AddCardEvent.deleteCard());
+                      BlocProvider.of<CardEditorBloc>(context)
+                          .add(CardEditorEvent.deleteCard());
                     },
                     icon: Icon(Icons.delete,
                         color: Theme.of(context).iconTheme.color),
@@ -59,7 +64,7 @@ class _CardEditorState extends State<CardEditor> {
           ),
           backgroundColor: Colors.transparent,
         ),
-        body: BlocListener<AddCardBloc, AddCardState>(
+        body: BlocListener<CardEditorBloc, CardEditorState>(
           listener: (context, state) {
             if (state.saveChangesAndExit) {
               Navigator.of(context).pop(state.sourceCards);
@@ -83,62 +88,13 @@ class _CardEditorState extends State<CardEditor> {
         : await ImagesUtil.pickImageFromGallery();
     if (image != null) {
       context
-          .bloc<AddCardBloc>()
-          .add(AddCardEvent.setImageContent(image: image));
+          .bloc<CardEditorBloc>()
+          .add(CardEditorEvent.setImageContent(image: image));
     }
   }
 
-  _showImagePickerDialog() {
-    showModalBottomSheet(
-        context: context,
-        elevation: 4,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(8), topRight: Radius.circular(8))),
-        builder: (context) => Padding(
-              padding: const EdgeInsets.only(bottom: 16),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: FlatButton(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Text(S.of(context).image_pick_gallery),
-                          Icon(Icons.filter)
-                        ],
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                        _getImage(ImageSource.gallery);
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: FlatButton(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Text(S.of(context).image_pick_photo),
-                          Icon(Icons.camera_alt)
-                        ],
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                        _getImage(ImageSource.camera);
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ));
-  }
-
   Widget _controls() => Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(4.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
@@ -148,7 +104,16 @@ class _CardEditorState extends State<CardEditor> {
                 color: Theme.of(context).iconTheme.color,
               ),
               onPressed: () {
-                _showImagePickerDialog();
+                showModalBottomSheet(
+                    context: context,
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(8),
+                            topRight: Radius.circular(8))),
+                    builder: (context) => ImagePickerModalBottomSheet(
+                          onPickImage: _getImage,
+                        ));
               },
             ),
             IconButton(
@@ -157,7 +122,9 @@ class _CardEditorState extends State<CardEditor> {
                 color: Theme.of(context).iconTheme.color,
               ),
               onPressed: () {
-                context.bloc<AddCardBloc>().add(AddCardEvent.setTextContent());
+                context
+                    .bloc<CardEditorBloc>()
+                    .add(CardEditorEvent.setTextContent());
               },
             ),
           ],
@@ -169,27 +136,27 @@ class _CardEditorState extends State<CardEditor> {
           height: MediaQuery.of(context).size.height * 0.6,
           width: MediaQuery.of(context).size.width * 0.9,
           image: card.question)
-      : MDText(
+      : MDEditText(
           height: MediaQuery.of(context).size.height * 0.6,
           width: MediaQuery.of(context).size.width * 0.9,
-          text: card.question);
+          initialFile: card.question);
 
   Widget _renderAnswer(Entity.Card card) => card.answer is ImageFile
       ? MDImage(
           height: MediaQuery.of(context).size.height * 0.6,
           width: MediaQuery.of(context).size.width * 0.9,
           image: card.answer)
-      : MDText(
+      : MDEditText(
           height: MediaQuery.of(context).size.height * 0.6,
           width: MediaQuery.of(context).size.width * 0.9,
-          text: card.answer);
+          initialFile: card.answer);
 
-  Widget _renderCard(AddCardState state, int cardIndex) {
+  Widget _renderCard(CardEditorState state, int cardIndex) {
     return Card(
       elevation: 8,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(16))),
-      margin: const EdgeInsets.only(bottom: 16.0),
+      margin: const EdgeInsets.only(bottom: 56.0),
       key: ValueKey(cardIndex),
       child: Column(
         children: <Widget>[
@@ -205,8 +172,8 @@ class _CardEditorState extends State<CardEditor> {
                     style: Theme.of(context).textTheme.headline5),
                 IconButton(
                   onPressed: () {
-                    BlocProvider.of<AddCardBloc>(context)
-                        .add(AddCardEvent.rotateCard());
+                    BlocProvider.of<CardEditorBloc>(context)
+                        .add(CardEditorEvent.rotateCard());
                   },
                   icon: Icon(Icons.refresh,
                       color: Theme.of(context).iconTheme.color, size: 32),
@@ -223,50 +190,47 @@ class _CardEditorState extends State<CardEditor> {
   }
 
   Widget _cardsWidget() =>
-      BlocBuilder<AddCardBloc, AddCardState>(builder: (context, state) {
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 16.0),
-          child: Swiper(
-            key: UniqueKey(),
-            //It fixes the 'ScrollController not attached to any scroll views. Dunno why))'
-            loop: false,
-            viewportFraction: 0.8,
-            scale: 0.9,
-            itemWidth: MediaQuery.of(context).size.width,
-            itemHeight: MediaQuery.of(context).size.height,
-            onIndexChanged: (newIndex) {
-              BlocProvider.of<AddCardBloc>(context)
-                  .add(AddCardEvent.changeIndex(newIndex: newIndex));
-            },
-            pagination: SwiperPagination(
-              builder: CardFractionPaginationBuilder(
-                activeColor: Theme.of(context).accentColor,
-                color: Theme.of(context).accentColor.withOpacity(0.5),
-              ),
+      BlocBuilder<CardEditorBloc, CardEditorState>(builder: (context, state) {
+        return Swiper(
+          key: UniqueKey(),
+          //It fixes the 'ScrollController not attached to any scroll views. Dunno why))'
+          loop: false,
+          viewportFraction: 0.8,
+          scale: 0.9,
+          itemWidth: MediaQuery.of(context).size.width,
+          itemHeight: MediaQuery.of(context).size.height,
+          onIndexChanged: (newIndex) {
+            BlocProvider.of<CardEditorBloc>(context)
+                .add(CardEditorEvent.changeIndex(newIndex: newIndex));
+          },
+          pagination: SwiperPagination(
+            builder: CardFractionPaginationBuilder(
+              activeColor: Colors.blueGrey,
+              color: Colors.blueGrey.withOpacity(0.5),
             ),
-            index: state.currentCardIndex,
-            itemCount: state.sourceCards.length + 1,
-            itemBuilder: (context, index) => index == state.sourceCards.length
-                ? Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(16))),
-                    margin: const EdgeInsets.only(bottom: 16.0),
-                    elevation: 8,
-                    key: ValueKey(state.sourceCards.length),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      child: Center(
-                        child: Icon(
-                          Icons.add,
-                          color: Theme.of(context).iconTheme.color,
-                          size: 168,
-                        ),
+          ),
+          index: state.currentCardIndex,
+          itemCount: state.sourceCards.length + 1,
+          itemBuilder: (context, index) => index == state.sourceCards.length
+              ? Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(16))),
+                  margin: const EdgeInsets.only(bottom: 56.0),
+                  elevation: 8,
+                  key: ValueKey(state.sourceCards.length),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    child: Center(
+                      child: Icon(
+                        Icons.add,
+                        color: Theme.of(context).iconTheme.color,
+                        size: 168,
                       ),
                     ),
-                  )
-                : _renderCard(state, index),
-          ),
+                  ),
+                )
+              : _renderCard(state, index),
         );
       });
 }

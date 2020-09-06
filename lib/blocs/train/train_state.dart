@@ -1,6 +1,6 @@
 part of 'train_bloc.dart';
 
-abstract class TrainState extends Equatable {
+abstract class TrainState {
   const TrainState();
 }
 

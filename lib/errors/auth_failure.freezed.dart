@@ -16,6 +16,10 @@ class _$AuthFailureTearOff {
     return CanselledByUser();
   }
 
+  InvalidFields invalidFields() {
+    return InvalidFields();
+  }
+
   ServerError serverError() {
     return ServerError();
   }
@@ -52,6 +56,7 @@ mixin _$AuthFailure {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result canselledByuser(),
+    @required Result invalidFields(),
     @required Result serverError(),
     @required Result emailAreadyInUse(),
     @required Result loginAreadyInUse(),
@@ -63,6 +68,7 @@ mixin _$AuthFailure {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result canselledByuser(),
+    Result invalidFields(),
     Result serverError(),
     Result emailAreadyInUse(),
     Result loginAreadyInUse(),
@@ -75,6 +81,7 @@ mixin _$AuthFailure {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result canselledByuser(CanselledByUser value),
+    @required Result invalidFields(InvalidFields value),
     @required Result serverError(ServerError value),
     @required Result emailAreadyInUse(EmailAlreadyInUse value),
     @required Result loginAreadyInUse(LoginAlreadyInUse value),
@@ -86,6 +93,7 @@ mixin _$AuthFailure {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result canselledByuser(CanselledByUser value),
+    Result invalidFields(InvalidFields value),
     Result serverError(ServerError value),
     Result emailAreadyInUse(EmailAlreadyInUse value),
     Result loginAreadyInUse(LoginAlreadyInUse value),
@@ -148,7 +156,8 @@ class _$CanselledByUser
           userNotFound: (v) => S.current.error_user_not_found,
           wrongPassword: (v) => S.current.error_auth_wrong_password,
           noInternetConnection: (v) => S.current.error_auth_no_internet,
-          tokenExpired: (v) => S.current.error_auth_invalid_session);
+          tokenExpired: (v) => S.current.error_auth_invalid_session,
+          invalidFields: (v) => S.current.error_auth_network_error);
     }
     return _message;
   }
@@ -178,6 +187,7 @@ class _$CanselledByUser
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result canselledByuser(),
+    @required Result invalidFields(),
     @required Result serverError(),
     @required Result emailAreadyInUse(),
     @required Result loginAreadyInUse(),
@@ -187,6 +197,7 @@ class _$CanselledByUser
     @required Result tokenExpired(),
   }) {
     assert(canselledByuser != null);
+    assert(invalidFields != null);
     assert(serverError != null);
     assert(emailAreadyInUse != null);
     assert(loginAreadyInUse != null);
@@ -201,6 +212,7 @@ class _$CanselledByUser
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result canselledByuser(),
+    Result invalidFields(),
     Result serverError(),
     Result emailAreadyInUse(),
     Result loginAreadyInUse(),
@@ -221,6 +233,7 @@ class _$CanselledByUser
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result canselledByuser(CanselledByUser value),
+    @required Result invalidFields(InvalidFields value),
     @required Result serverError(ServerError value),
     @required Result emailAreadyInUse(EmailAlreadyInUse value),
     @required Result loginAreadyInUse(LoginAlreadyInUse value),
@@ -230,6 +243,7 @@ class _$CanselledByUser
     @required Result tokenExpired(TokenExpired value),
   }) {
     assert(canselledByuser != null);
+    assert(invalidFields != null);
     assert(serverError != null);
     assert(emailAreadyInUse != null);
     assert(loginAreadyInUse != null);
@@ -244,6 +258,7 @@ class _$CanselledByUser
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result canselledByuser(CanselledByUser value),
+    Result invalidFields(InvalidFields value),
     Result serverError(ServerError value),
     Result emailAreadyInUse(EmailAlreadyInUse value),
     Result loginAreadyInUse(LoginAlreadyInUse value),
@@ -263,6 +278,164 @@ class _$CanselledByUser
 
 abstract class CanselledByUser implements AuthFailure {
   factory CanselledByUser() = _$CanselledByUser;
+}
+
+abstract class $InvalidFieldsCopyWith<$Res> {
+  factory $InvalidFieldsCopyWith(
+          InvalidFields value, $Res Function(InvalidFields) then) =
+      _$InvalidFieldsCopyWithImpl<$Res>;
+}
+
+class _$InvalidFieldsCopyWithImpl<$Res> extends _$AuthFailureCopyWithImpl<$Res>
+    implements $InvalidFieldsCopyWith<$Res> {
+  _$InvalidFieldsCopyWithImpl(
+      InvalidFields _value, $Res Function(InvalidFields) _then)
+      : super(_value, (v) => _then(v as InvalidFields));
+
+  @override
+  InvalidFields get _value => super._value as InvalidFields;
+}
+
+class _$InvalidFields with DiagnosticableTreeMixin implements InvalidFields {
+  _$InvalidFields();
+
+  bool _didmessage = false;
+  String _message;
+
+  @override
+  String get message {
+    if (_didmessage == false) {
+      _didmessage = true;
+      _message = this.map(
+          canselledByuser: (v) => S.current.error_auth_canselled_by_user,
+          serverError: (v) => S.current.error_auth_network_error,
+          emailAreadyInUse: (v) => S.current.error_auth_email_in_use,
+          loginAreadyInUse: (v) => S.current.error_auth_username_in_use,
+          userNotFound: (v) => S.current.error_user_not_found,
+          wrongPassword: (v) => S.current.error_auth_wrong_password,
+          noInternetConnection: (v) => S.current.error_auth_no_internet,
+          tokenExpired: (v) => S.current.error_auth_invalid_session,
+          invalidFields: (v) => S.current.error_auth_network_error);
+    }
+    return _message;
+  }
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'AuthFailure.invalidFields(message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'AuthFailure.invalidFields'))
+      ..add(DiagnosticsProperty('message', message));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is InvalidFields);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result canselledByuser(),
+    @required Result invalidFields(),
+    @required Result serverError(),
+    @required Result emailAreadyInUse(),
+    @required Result loginAreadyInUse(),
+    @required Result userNotFound(),
+    @required Result wrongPassword(),
+    @required Result noInternetConnection(),
+    @required Result tokenExpired(),
+  }) {
+    assert(canselledByuser != null);
+    assert(invalidFields != null);
+    assert(serverError != null);
+    assert(emailAreadyInUse != null);
+    assert(loginAreadyInUse != null);
+    assert(userNotFound != null);
+    assert(wrongPassword != null);
+    assert(noInternetConnection != null);
+    assert(tokenExpired != null);
+    return invalidFields();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result canselledByuser(),
+    Result invalidFields(),
+    Result serverError(),
+    Result emailAreadyInUse(),
+    Result loginAreadyInUse(),
+    Result userNotFound(),
+    Result wrongPassword(),
+    Result noInternetConnection(),
+    Result tokenExpired(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (invalidFields != null) {
+      return invalidFields();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result canselledByuser(CanselledByUser value),
+    @required Result invalidFields(InvalidFields value),
+    @required Result serverError(ServerError value),
+    @required Result emailAreadyInUse(EmailAlreadyInUse value),
+    @required Result loginAreadyInUse(LoginAlreadyInUse value),
+    @required Result userNotFound(UserNotFound value),
+    @required Result wrongPassword(WrongPassword value),
+    @required Result noInternetConnection(NoInternetConnection value),
+    @required Result tokenExpired(TokenExpired value),
+  }) {
+    assert(canselledByuser != null);
+    assert(invalidFields != null);
+    assert(serverError != null);
+    assert(emailAreadyInUse != null);
+    assert(loginAreadyInUse != null);
+    assert(userNotFound != null);
+    assert(wrongPassword != null);
+    assert(noInternetConnection != null);
+    assert(tokenExpired != null);
+    return invalidFields(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result canselledByuser(CanselledByUser value),
+    Result invalidFields(InvalidFields value),
+    Result serverError(ServerError value),
+    Result emailAreadyInUse(EmailAlreadyInUse value),
+    Result loginAreadyInUse(LoginAlreadyInUse value),
+    Result userNotFound(UserNotFound value),
+    Result wrongPassword(WrongPassword value),
+    Result noInternetConnection(NoInternetConnection value),
+    Result tokenExpired(TokenExpired value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (invalidFields != null) {
+      return invalidFields(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InvalidFields implements AuthFailure {
+  factory InvalidFields() = _$InvalidFields;
 }
 
 abstract class $ServerErrorCopyWith<$Res> {
@@ -299,7 +472,8 @@ class _$ServerError with DiagnosticableTreeMixin implements ServerError {
           userNotFound: (v) => S.current.error_user_not_found,
           wrongPassword: (v) => S.current.error_auth_wrong_password,
           noInternetConnection: (v) => S.current.error_auth_no_internet,
-          tokenExpired: (v) => S.current.error_auth_invalid_session);
+          tokenExpired: (v) => S.current.error_auth_invalid_session,
+          invalidFields: (v) => S.current.error_auth_network_error);
     }
     return _message;
   }
@@ -329,6 +503,7 @@ class _$ServerError with DiagnosticableTreeMixin implements ServerError {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result canselledByuser(),
+    @required Result invalidFields(),
     @required Result serverError(),
     @required Result emailAreadyInUse(),
     @required Result loginAreadyInUse(),
@@ -338,6 +513,7 @@ class _$ServerError with DiagnosticableTreeMixin implements ServerError {
     @required Result tokenExpired(),
   }) {
     assert(canselledByuser != null);
+    assert(invalidFields != null);
     assert(serverError != null);
     assert(emailAreadyInUse != null);
     assert(loginAreadyInUse != null);
@@ -352,6 +528,7 @@ class _$ServerError with DiagnosticableTreeMixin implements ServerError {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result canselledByuser(),
+    Result invalidFields(),
     Result serverError(),
     Result emailAreadyInUse(),
     Result loginAreadyInUse(),
@@ -372,6 +549,7 @@ class _$ServerError with DiagnosticableTreeMixin implements ServerError {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result canselledByuser(CanselledByUser value),
+    @required Result invalidFields(InvalidFields value),
     @required Result serverError(ServerError value),
     @required Result emailAreadyInUse(EmailAlreadyInUse value),
     @required Result loginAreadyInUse(LoginAlreadyInUse value),
@@ -381,6 +559,7 @@ class _$ServerError with DiagnosticableTreeMixin implements ServerError {
     @required Result tokenExpired(TokenExpired value),
   }) {
     assert(canselledByuser != null);
+    assert(invalidFields != null);
     assert(serverError != null);
     assert(emailAreadyInUse != null);
     assert(loginAreadyInUse != null);
@@ -395,6 +574,7 @@ class _$ServerError with DiagnosticableTreeMixin implements ServerError {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result canselledByuser(CanselledByUser value),
+    Result invalidFields(InvalidFields value),
     Result serverError(ServerError value),
     Result emailAreadyInUse(EmailAlreadyInUse value),
     Result loginAreadyInUse(LoginAlreadyInUse value),
@@ -453,7 +633,8 @@ class _$EmailAlreadyInUse
           userNotFound: (v) => S.current.error_user_not_found,
           wrongPassword: (v) => S.current.error_auth_wrong_password,
           noInternetConnection: (v) => S.current.error_auth_no_internet,
-          tokenExpired: (v) => S.current.error_auth_invalid_session);
+          tokenExpired: (v) => S.current.error_auth_invalid_session,
+          invalidFields: (v) => S.current.error_auth_network_error);
     }
     return _message;
   }
@@ -483,6 +664,7 @@ class _$EmailAlreadyInUse
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result canselledByuser(),
+    @required Result invalidFields(),
     @required Result serverError(),
     @required Result emailAreadyInUse(),
     @required Result loginAreadyInUse(),
@@ -492,6 +674,7 @@ class _$EmailAlreadyInUse
     @required Result tokenExpired(),
   }) {
     assert(canselledByuser != null);
+    assert(invalidFields != null);
     assert(serverError != null);
     assert(emailAreadyInUse != null);
     assert(loginAreadyInUse != null);
@@ -506,6 +689,7 @@ class _$EmailAlreadyInUse
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result canselledByuser(),
+    Result invalidFields(),
     Result serverError(),
     Result emailAreadyInUse(),
     Result loginAreadyInUse(),
@@ -526,6 +710,7 @@ class _$EmailAlreadyInUse
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result canselledByuser(CanselledByUser value),
+    @required Result invalidFields(InvalidFields value),
     @required Result serverError(ServerError value),
     @required Result emailAreadyInUse(EmailAlreadyInUse value),
     @required Result loginAreadyInUse(LoginAlreadyInUse value),
@@ -535,6 +720,7 @@ class _$EmailAlreadyInUse
     @required Result tokenExpired(TokenExpired value),
   }) {
     assert(canselledByuser != null);
+    assert(invalidFields != null);
     assert(serverError != null);
     assert(emailAreadyInUse != null);
     assert(loginAreadyInUse != null);
@@ -549,6 +735,7 @@ class _$EmailAlreadyInUse
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result canselledByuser(CanselledByUser value),
+    Result invalidFields(InvalidFields value),
     Result serverError(ServerError value),
     Result emailAreadyInUse(EmailAlreadyInUse value),
     Result loginAreadyInUse(LoginAlreadyInUse value),
@@ -607,7 +794,8 @@ class _$LoginAlreadyInUse
           userNotFound: (v) => S.current.error_user_not_found,
           wrongPassword: (v) => S.current.error_auth_wrong_password,
           noInternetConnection: (v) => S.current.error_auth_no_internet,
-          tokenExpired: (v) => S.current.error_auth_invalid_session);
+          tokenExpired: (v) => S.current.error_auth_invalid_session,
+          invalidFields: (v) => S.current.error_auth_network_error);
     }
     return _message;
   }
@@ -637,6 +825,7 @@ class _$LoginAlreadyInUse
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result canselledByuser(),
+    @required Result invalidFields(),
     @required Result serverError(),
     @required Result emailAreadyInUse(),
     @required Result loginAreadyInUse(),
@@ -646,6 +835,7 @@ class _$LoginAlreadyInUse
     @required Result tokenExpired(),
   }) {
     assert(canselledByuser != null);
+    assert(invalidFields != null);
     assert(serverError != null);
     assert(emailAreadyInUse != null);
     assert(loginAreadyInUse != null);
@@ -660,6 +850,7 @@ class _$LoginAlreadyInUse
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result canselledByuser(),
+    Result invalidFields(),
     Result serverError(),
     Result emailAreadyInUse(),
     Result loginAreadyInUse(),
@@ -680,6 +871,7 @@ class _$LoginAlreadyInUse
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result canselledByuser(CanselledByUser value),
+    @required Result invalidFields(InvalidFields value),
     @required Result serverError(ServerError value),
     @required Result emailAreadyInUse(EmailAlreadyInUse value),
     @required Result loginAreadyInUse(LoginAlreadyInUse value),
@@ -689,6 +881,7 @@ class _$LoginAlreadyInUse
     @required Result tokenExpired(TokenExpired value),
   }) {
     assert(canselledByuser != null);
+    assert(invalidFields != null);
     assert(serverError != null);
     assert(emailAreadyInUse != null);
     assert(loginAreadyInUse != null);
@@ -703,6 +896,7 @@ class _$LoginAlreadyInUse
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result canselledByuser(CanselledByUser value),
+    Result invalidFields(InvalidFields value),
     Result serverError(ServerError value),
     Result emailAreadyInUse(EmailAlreadyInUse value),
     Result loginAreadyInUse(LoginAlreadyInUse value),
@@ -758,7 +952,8 @@ class _$UserNotFound with DiagnosticableTreeMixin implements UserNotFound {
           userNotFound: (v) => S.current.error_user_not_found,
           wrongPassword: (v) => S.current.error_auth_wrong_password,
           noInternetConnection: (v) => S.current.error_auth_no_internet,
-          tokenExpired: (v) => S.current.error_auth_invalid_session);
+          tokenExpired: (v) => S.current.error_auth_invalid_session,
+          invalidFields: (v) => S.current.error_auth_network_error);
     }
     return _message;
   }
@@ -788,6 +983,7 @@ class _$UserNotFound with DiagnosticableTreeMixin implements UserNotFound {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result canselledByuser(),
+    @required Result invalidFields(),
     @required Result serverError(),
     @required Result emailAreadyInUse(),
     @required Result loginAreadyInUse(),
@@ -797,6 +993,7 @@ class _$UserNotFound with DiagnosticableTreeMixin implements UserNotFound {
     @required Result tokenExpired(),
   }) {
     assert(canselledByuser != null);
+    assert(invalidFields != null);
     assert(serverError != null);
     assert(emailAreadyInUse != null);
     assert(loginAreadyInUse != null);
@@ -811,6 +1008,7 @@ class _$UserNotFound with DiagnosticableTreeMixin implements UserNotFound {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result canselledByuser(),
+    Result invalidFields(),
     Result serverError(),
     Result emailAreadyInUse(),
     Result loginAreadyInUse(),
@@ -831,6 +1029,7 @@ class _$UserNotFound with DiagnosticableTreeMixin implements UserNotFound {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result canselledByuser(CanselledByUser value),
+    @required Result invalidFields(InvalidFields value),
     @required Result serverError(ServerError value),
     @required Result emailAreadyInUse(EmailAlreadyInUse value),
     @required Result loginAreadyInUse(LoginAlreadyInUse value),
@@ -840,6 +1039,7 @@ class _$UserNotFound with DiagnosticableTreeMixin implements UserNotFound {
     @required Result tokenExpired(TokenExpired value),
   }) {
     assert(canselledByuser != null);
+    assert(invalidFields != null);
     assert(serverError != null);
     assert(emailAreadyInUse != null);
     assert(loginAreadyInUse != null);
@@ -854,6 +1054,7 @@ class _$UserNotFound with DiagnosticableTreeMixin implements UserNotFound {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result canselledByuser(CanselledByUser value),
+    Result invalidFields(InvalidFields value),
     Result serverError(ServerError value),
     Result emailAreadyInUse(EmailAlreadyInUse value),
     Result loginAreadyInUse(LoginAlreadyInUse value),
@@ -909,7 +1110,8 @@ class _$WrongPassword with DiagnosticableTreeMixin implements WrongPassword {
           userNotFound: (v) => S.current.error_user_not_found,
           wrongPassword: (v) => S.current.error_auth_wrong_password,
           noInternetConnection: (v) => S.current.error_auth_no_internet,
-          tokenExpired: (v) => S.current.error_auth_invalid_session);
+          tokenExpired: (v) => S.current.error_auth_invalid_session,
+          invalidFields: (v) => S.current.error_auth_network_error);
     }
     return _message;
   }
@@ -939,6 +1141,7 @@ class _$WrongPassword with DiagnosticableTreeMixin implements WrongPassword {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result canselledByuser(),
+    @required Result invalidFields(),
     @required Result serverError(),
     @required Result emailAreadyInUse(),
     @required Result loginAreadyInUse(),
@@ -948,6 +1151,7 @@ class _$WrongPassword with DiagnosticableTreeMixin implements WrongPassword {
     @required Result tokenExpired(),
   }) {
     assert(canselledByuser != null);
+    assert(invalidFields != null);
     assert(serverError != null);
     assert(emailAreadyInUse != null);
     assert(loginAreadyInUse != null);
@@ -962,6 +1166,7 @@ class _$WrongPassword with DiagnosticableTreeMixin implements WrongPassword {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result canselledByuser(),
+    Result invalidFields(),
     Result serverError(),
     Result emailAreadyInUse(),
     Result loginAreadyInUse(),
@@ -982,6 +1187,7 @@ class _$WrongPassword with DiagnosticableTreeMixin implements WrongPassword {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result canselledByuser(CanselledByUser value),
+    @required Result invalidFields(InvalidFields value),
     @required Result serverError(ServerError value),
     @required Result emailAreadyInUse(EmailAlreadyInUse value),
     @required Result loginAreadyInUse(LoginAlreadyInUse value),
@@ -991,6 +1197,7 @@ class _$WrongPassword with DiagnosticableTreeMixin implements WrongPassword {
     @required Result tokenExpired(TokenExpired value),
   }) {
     assert(canselledByuser != null);
+    assert(invalidFields != null);
     assert(serverError != null);
     assert(emailAreadyInUse != null);
     assert(loginAreadyInUse != null);
@@ -1005,6 +1212,7 @@ class _$WrongPassword with DiagnosticableTreeMixin implements WrongPassword {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result canselledByuser(CanselledByUser value),
+    Result invalidFields(InvalidFields value),
     Result serverError(ServerError value),
     Result emailAreadyInUse(EmailAlreadyInUse value),
     Result loginAreadyInUse(LoginAlreadyInUse value),
@@ -1063,7 +1271,8 @@ class _$NoInternetConnection
           userNotFound: (v) => S.current.error_user_not_found,
           wrongPassword: (v) => S.current.error_auth_wrong_password,
           noInternetConnection: (v) => S.current.error_auth_no_internet,
-          tokenExpired: (v) => S.current.error_auth_invalid_session);
+          tokenExpired: (v) => S.current.error_auth_invalid_session,
+          invalidFields: (v) => S.current.error_auth_network_error);
     }
     return _message;
   }
@@ -1093,6 +1302,7 @@ class _$NoInternetConnection
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result canselledByuser(),
+    @required Result invalidFields(),
     @required Result serverError(),
     @required Result emailAreadyInUse(),
     @required Result loginAreadyInUse(),
@@ -1102,6 +1312,7 @@ class _$NoInternetConnection
     @required Result tokenExpired(),
   }) {
     assert(canselledByuser != null);
+    assert(invalidFields != null);
     assert(serverError != null);
     assert(emailAreadyInUse != null);
     assert(loginAreadyInUse != null);
@@ -1116,6 +1327,7 @@ class _$NoInternetConnection
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result canselledByuser(),
+    Result invalidFields(),
     Result serverError(),
     Result emailAreadyInUse(),
     Result loginAreadyInUse(),
@@ -1136,6 +1348,7 @@ class _$NoInternetConnection
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result canselledByuser(CanselledByUser value),
+    @required Result invalidFields(InvalidFields value),
     @required Result serverError(ServerError value),
     @required Result emailAreadyInUse(EmailAlreadyInUse value),
     @required Result loginAreadyInUse(LoginAlreadyInUse value),
@@ -1145,6 +1358,7 @@ class _$NoInternetConnection
     @required Result tokenExpired(TokenExpired value),
   }) {
     assert(canselledByuser != null);
+    assert(invalidFields != null);
     assert(serverError != null);
     assert(emailAreadyInUse != null);
     assert(loginAreadyInUse != null);
@@ -1159,6 +1373,7 @@ class _$NoInternetConnection
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result canselledByuser(CanselledByUser value),
+    Result invalidFields(InvalidFields value),
     Result serverError(ServerError value),
     Result emailAreadyInUse(EmailAlreadyInUse value),
     Result loginAreadyInUse(LoginAlreadyInUse value),
@@ -1214,7 +1429,8 @@ class _$TokenExpired with DiagnosticableTreeMixin implements TokenExpired {
           userNotFound: (v) => S.current.error_user_not_found,
           wrongPassword: (v) => S.current.error_auth_wrong_password,
           noInternetConnection: (v) => S.current.error_auth_no_internet,
-          tokenExpired: (v) => S.current.error_auth_invalid_session);
+          tokenExpired: (v) => S.current.error_auth_invalid_session,
+          invalidFields: (v) => S.current.error_auth_network_error);
     }
     return _message;
   }
@@ -1244,6 +1460,7 @@ class _$TokenExpired with DiagnosticableTreeMixin implements TokenExpired {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result canselledByuser(),
+    @required Result invalidFields(),
     @required Result serverError(),
     @required Result emailAreadyInUse(),
     @required Result loginAreadyInUse(),
@@ -1253,6 +1470,7 @@ class _$TokenExpired with DiagnosticableTreeMixin implements TokenExpired {
     @required Result tokenExpired(),
   }) {
     assert(canselledByuser != null);
+    assert(invalidFields != null);
     assert(serverError != null);
     assert(emailAreadyInUse != null);
     assert(loginAreadyInUse != null);
@@ -1267,6 +1485,7 @@ class _$TokenExpired with DiagnosticableTreeMixin implements TokenExpired {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result canselledByuser(),
+    Result invalidFields(),
     Result serverError(),
     Result emailAreadyInUse(),
     Result loginAreadyInUse(),
@@ -1287,6 +1506,7 @@ class _$TokenExpired with DiagnosticableTreeMixin implements TokenExpired {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result canselledByuser(CanselledByUser value),
+    @required Result invalidFields(InvalidFields value),
     @required Result serverError(ServerError value),
     @required Result emailAreadyInUse(EmailAlreadyInUse value),
     @required Result loginAreadyInUse(LoginAlreadyInUse value),
@@ -1296,6 +1516,7 @@ class _$TokenExpired with DiagnosticableTreeMixin implements TokenExpired {
     @required Result tokenExpired(TokenExpired value),
   }) {
     assert(canselledByuser != null);
+    assert(invalidFields != null);
     assert(serverError != null);
     assert(emailAreadyInUse != null);
     assert(loginAreadyInUse != null);
@@ -1310,6 +1531,7 @@ class _$TokenExpired with DiagnosticableTreeMixin implements TokenExpired {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result canselledByuser(CanselledByUser value),
+    Result invalidFields(InvalidFields value),
     Result serverError(ServerError value),
     Result emailAreadyInUse(EmailAlreadyInUse value),
     Result loginAreadyInUse(LoginAlreadyInUse value),

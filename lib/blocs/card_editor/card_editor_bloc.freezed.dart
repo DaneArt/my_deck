@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
 
-part of 'add_card_bloc.dart';
+part of 'card_editor_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -9,8 +9,8 @@ part of 'add_card_bloc.dart';
 
 T _$identity<T>(T value) => value;
 
-class _$AddCardEventTearOff {
-  const _$AddCardEventTearOff();
+class _$CardEditorEventTearOff {
+  const _$CardEditorEventTearOff();
 
   RotateCard rotateCard() {
     return RotateCard();
@@ -18,6 +18,10 @@ class _$AddCardEventTearOff {
 
   DeleteCard deleteCard() {
     return DeleteCard();
+  }
+
+  AddCard addCard() {
+    return AddCard();
   }
 
   ChangeIndex changeIndex({@required int newIndex}) {
@@ -54,13 +58,14 @@ class _$AddCardEventTearOff {
 }
 
 // ignore: unused_element
-const $AddCardEvent = _$AddCardEventTearOff();
+const $CardEditorEvent = _$CardEditorEventTearOff();
 
-mixin _$AddCardEvent {
+mixin _$CardEditorEvent {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result rotateCard(),
     @required Result deleteCard(),
+    @required Result addCard(),
     @required Result changeIndex(int newIndex),
     @required Result questionChanged(MDFile newQuestion),
     @required Result answerChanged(MDFile newAnswer),
@@ -72,6 +77,7 @@ mixin _$AddCardEvent {
   Result maybeWhen<Result extends Object>({
     Result rotateCard(),
     Result deleteCard(),
+    Result addCard(),
     Result changeIndex(int newIndex),
     Result questionChanged(MDFile newQuestion),
     Result answerChanged(MDFile newAnswer),
@@ -84,6 +90,7 @@ mixin _$AddCardEvent {
   Result map<Result extends Object>({
     @required Result rotateCard(RotateCard value),
     @required Result deleteCard(DeleteCard value),
+    @required Result addCard(AddCard value),
     @required Result changeIndex(ChangeIndex value),
     @required Result questionChanged(QuestionChanged value),
     @required Result answerChanged(AnswerChanged value),
@@ -95,6 +102,7 @@ mixin _$AddCardEvent {
   Result maybeMap<Result extends Object>({
     Result rotateCard(RotateCard value),
     Result deleteCard(DeleteCard value),
+    Result addCard(AddCard value),
     Result changeIndex(ChangeIndex value),
     Result questionChanged(QuestionChanged value),
     Result answerChanged(AnswerChanged value),
@@ -105,18 +113,19 @@ mixin _$AddCardEvent {
   });
 }
 
-abstract class $AddCardEventCopyWith<$Res> {
-  factory $AddCardEventCopyWith(
-          AddCardEvent value, $Res Function(AddCardEvent) then) =
-      _$AddCardEventCopyWithImpl<$Res>;
+abstract class $CardEditorEventCopyWith<$Res> {
+  factory $CardEditorEventCopyWith(
+          CardEditorEvent value, $Res Function(CardEditorEvent) then) =
+      _$CardEditorEventCopyWithImpl<$Res>;
 }
 
-class _$AddCardEventCopyWithImpl<$Res> implements $AddCardEventCopyWith<$Res> {
-  _$AddCardEventCopyWithImpl(this._value, this._then);
+class _$CardEditorEventCopyWithImpl<$Res>
+    implements $CardEditorEventCopyWith<$Res> {
+  _$CardEditorEventCopyWithImpl(this._value, this._then);
 
-  final AddCardEvent _value;
+  final CardEditorEvent _value;
   // ignore: unused_field
-  final $Res Function(AddCardEvent) _then;
+  final $Res Function(CardEditorEvent) _then;
 }
 
 abstract class $RotateCardCopyWith<$Res> {
@@ -125,7 +134,7 @@ abstract class $RotateCardCopyWith<$Res> {
       _$RotateCardCopyWithImpl<$Res>;
 }
 
-class _$RotateCardCopyWithImpl<$Res> extends _$AddCardEventCopyWithImpl<$Res>
+class _$RotateCardCopyWithImpl<$Res> extends _$CardEditorEventCopyWithImpl<$Res>
     implements $RotateCardCopyWith<$Res> {
   _$RotateCardCopyWithImpl(RotateCard _value, $Res Function(RotateCard) _then)
       : super(_value, (v) => _then(v as RotateCard));
@@ -139,7 +148,7 @@ class _$RotateCard implements RotateCard {
 
   @override
   String toString() {
-    return 'AddCardEvent.rotateCard()';
+    return 'CardEditorEvent.rotateCard()';
   }
 
   @override
@@ -155,6 +164,7 @@ class _$RotateCard implements RotateCard {
   Result when<Result extends Object>({
     @required Result rotateCard(),
     @required Result deleteCard(),
+    @required Result addCard(),
     @required Result changeIndex(int newIndex),
     @required Result questionChanged(MDFile newQuestion),
     @required Result answerChanged(MDFile newAnswer),
@@ -164,6 +174,7 @@ class _$RotateCard implements RotateCard {
   }) {
     assert(rotateCard != null);
     assert(deleteCard != null);
+    assert(addCard != null);
     assert(changeIndex != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
@@ -178,6 +189,7 @@ class _$RotateCard implements RotateCard {
   Result maybeWhen<Result extends Object>({
     Result rotateCard(),
     Result deleteCard(),
+    Result addCard(),
     Result changeIndex(int newIndex),
     Result questionChanged(MDFile newQuestion),
     Result answerChanged(MDFile newAnswer),
@@ -198,6 +210,7 @@ class _$RotateCard implements RotateCard {
   Result map<Result extends Object>({
     @required Result rotateCard(RotateCard value),
     @required Result deleteCard(DeleteCard value),
+    @required Result addCard(AddCard value),
     @required Result changeIndex(ChangeIndex value),
     @required Result questionChanged(QuestionChanged value),
     @required Result answerChanged(AnswerChanged value),
@@ -207,6 +220,7 @@ class _$RotateCard implements RotateCard {
   }) {
     assert(rotateCard != null);
     assert(deleteCard != null);
+    assert(addCard != null);
     assert(changeIndex != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
@@ -221,6 +235,7 @@ class _$RotateCard implements RotateCard {
   Result maybeMap<Result extends Object>({
     Result rotateCard(RotateCard value),
     Result deleteCard(DeleteCard value),
+    Result addCard(AddCard value),
     Result changeIndex(ChangeIndex value),
     Result questionChanged(QuestionChanged value),
     Result answerChanged(AnswerChanged value),
@@ -237,7 +252,7 @@ class _$RotateCard implements RotateCard {
   }
 }
 
-abstract class RotateCard implements AddCardEvent {
+abstract class RotateCard implements CardEditorEvent {
   factory RotateCard() = _$RotateCard;
 }
 
@@ -247,7 +262,7 @@ abstract class $DeleteCardCopyWith<$Res> {
       _$DeleteCardCopyWithImpl<$Res>;
 }
 
-class _$DeleteCardCopyWithImpl<$Res> extends _$AddCardEventCopyWithImpl<$Res>
+class _$DeleteCardCopyWithImpl<$Res> extends _$CardEditorEventCopyWithImpl<$Res>
     implements $DeleteCardCopyWith<$Res> {
   _$DeleteCardCopyWithImpl(DeleteCard _value, $Res Function(DeleteCard) _then)
       : super(_value, (v) => _then(v as DeleteCard));
@@ -261,7 +276,7 @@ class _$DeleteCard implements DeleteCard {
 
   @override
   String toString() {
-    return 'AddCardEvent.deleteCard()';
+    return 'CardEditorEvent.deleteCard()';
   }
 
   @override
@@ -277,6 +292,7 @@ class _$DeleteCard implements DeleteCard {
   Result when<Result extends Object>({
     @required Result rotateCard(),
     @required Result deleteCard(),
+    @required Result addCard(),
     @required Result changeIndex(int newIndex),
     @required Result questionChanged(MDFile newQuestion),
     @required Result answerChanged(MDFile newAnswer),
@@ -286,6 +302,7 @@ class _$DeleteCard implements DeleteCard {
   }) {
     assert(rotateCard != null);
     assert(deleteCard != null);
+    assert(addCard != null);
     assert(changeIndex != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
@@ -300,6 +317,7 @@ class _$DeleteCard implements DeleteCard {
   Result maybeWhen<Result extends Object>({
     Result rotateCard(),
     Result deleteCard(),
+    Result addCard(),
     Result changeIndex(int newIndex),
     Result questionChanged(MDFile newQuestion),
     Result answerChanged(MDFile newAnswer),
@@ -320,6 +338,7 @@ class _$DeleteCard implements DeleteCard {
   Result map<Result extends Object>({
     @required Result rotateCard(RotateCard value),
     @required Result deleteCard(DeleteCard value),
+    @required Result addCard(AddCard value),
     @required Result changeIndex(ChangeIndex value),
     @required Result questionChanged(QuestionChanged value),
     @required Result answerChanged(AnswerChanged value),
@@ -329,6 +348,7 @@ class _$DeleteCard implements DeleteCard {
   }) {
     assert(rotateCard != null);
     assert(deleteCard != null);
+    assert(addCard != null);
     assert(changeIndex != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
@@ -343,6 +363,7 @@ class _$DeleteCard implements DeleteCard {
   Result maybeMap<Result extends Object>({
     Result rotateCard(RotateCard value),
     Result deleteCard(DeleteCard value),
+    Result addCard(AddCard value),
     Result changeIndex(ChangeIndex value),
     Result questionChanged(QuestionChanged value),
     Result answerChanged(AnswerChanged value),
@@ -359,8 +380,135 @@ class _$DeleteCard implements DeleteCard {
   }
 }
 
-abstract class DeleteCard implements AddCardEvent {
+abstract class DeleteCard implements CardEditorEvent {
   factory DeleteCard() = _$DeleteCard;
+}
+
+abstract class $AddCardCopyWith<$Res> {
+  factory $AddCardCopyWith(AddCard value, $Res Function(AddCard) then) =
+      _$AddCardCopyWithImpl<$Res>;
+}
+
+class _$AddCardCopyWithImpl<$Res> extends _$CardEditorEventCopyWithImpl<$Res>
+    implements $AddCardCopyWith<$Res> {
+  _$AddCardCopyWithImpl(AddCard _value, $Res Function(AddCard) _then)
+      : super(_value, (v) => _then(v as AddCard));
+
+  @override
+  AddCard get _value => super._value as AddCard;
+}
+
+class _$AddCard implements AddCard {
+  _$AddCard();
+
+  @override
+  String toString() {
+    return 'CardEditorEvent.addCard()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is AddCard);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result rotateCard(),
+    @required Result deleteCard(),
+    @required Result addCard(),
+    @required Result changeIndex(int newIndex),
+    @required Result questionChanged(MDFile newQuestion),
+    @required Result answerChanged(MDFile newAnswer),
+    @required Result setTextContent(),
+    @required Result setImageContent(File image),
+    @required Result saveChangesAndExit(),
+  }) {
+    assert(rotateCard != null);
+    assert(deleteCard != null);
+    assert(addCard != null);
+    assert(changeIndex != null);
+    assert(questionChanged != null);
+    assert(answerChanged != null);
+    assert(setTextContent != null);
+    assert(setImageContent != null);
+    assert(saveChangesAndExit != null);
+    return addCard();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result rotateCard(),
+    Result deleteCard(),
+    Result addCard(),
+    Result changeIndex(int newIndex),
+    Result questionChanged(MDFile newQuestion),
+    Result answerChanged(MDFile newAnswer),
+    Result setTextContent(),
+    Result setImageContent(File image),
+    Result saveChangesAndExit(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (addCard != null) {
+      return addCard();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result rotateCard(RotateCard value),
+    @required Result deleteCard(DeleteCard value),
+    @required Result addCard(AddCard value),
+    @required Result changeIndex(ChangeIndex value),
+    @required Result questionChanged(QuestionChanged value),
+    @required Result answerChanged(AnswerChanged value),
+    @required Result setTextContent(SetText value),
+    @required Result setImageContent(SetImage value),
+    @required Result saveChangesAndExit(SaveChangesAndExit value),
+  }) {
+    assert(rotateCard != null);
+    assert(deleteCard != null);
+    assert(addCard != null);
+    assert(changeIndex != null);
+    assert(questionChanged != null);
+    assert(answerChanged != null);
+    assert(setTextContent != null);
+    assert(setImageContent != null);
+    assert(saveChangesAndExit != null);
+    return addCard(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result rotateCard(RotateCard value),
+    Result deleteCard(DeleteCard value),
+    Result addCard(AddCard value),
+    Result changeIndex(ChangeIndex value),
+    Result questionChanged(QuestionChanged value),
+    Result answerChanged(AnswerChanged value),
+    Result setTextContent(SetText value),
+    Result setImageContent(SetImage value),
+    Result saveChangesAndExit(SaveChangesAndExit value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (addCard != null) {
+      return addCard(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class AddCard implements CardEditorEvent {
+  factory AddCard() = _$AddCard;
 }
 
 abstract class $ChangeIndexCopyWith<$Res> {
@@ -370,7 +518,8 @@ abstract class $ChangeIndexCopyWith<$Res> {
   $Res call({int newIndex});
 }
 
-class _$ChangeIndexCopyWithImpl<$Res> extends _$AddCardEventCopyWithImpl<$Res>
+class _$ChangeIndexCopyWithImpl<$Res>
+    extends _$CardEditorEventCopyWithImpl<$Res>
     implements $ChangeIndexCopyWith<$Res> {
   _$ChangeIndexCopyWithImpl(
       ChangeIndex _value, $Res Function(ChangeIndex) _then)
@@ -397,7 +546,7 @@ class _$ChangeIndex implements ChangeIndex {
 
   @override
   String toString() {
-    return 'AddCardEvent.changeIndex(newIndex: $newIndex)';
+    return 'CardEditorEvent.changeIndex(newIndex: $newIndex)';
   }
 
   @override
@@ -422,6 +571,7 @@ class _$ChangeIndex implements ChangeIndex {
   Result when<Result extends Object>({
     @required Result rotateCard(),
     @required Result deleteCard(),
+    @required Result addCard(),
     @required Result changeIndex(int newIndex),
     @required Result questionChanged(MDFile newQuestion),
     @required Result answerChanged(MDFile newAnswer),
@@ -431,6 +581,7 @@ class _$ChangeIndex implements ChangeIndex {
   }) {
     assert(rotateCard != null);
     assert(deleteCard != null);
+    assert(addCard != null);
     assert(changeIndex != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
@@ -445,6 +596,7 @@ class _$ChangeIndex implements ChangeIndex {
   Result maybeWhen<Result extends Object>({
     Result rotateCard(),
     Result deleteCard(),
+    Result addCard(),
     Result changeIndex(int newIndex),
     Result questionChanged(MDFile newQuestion),
     Result answerChanged(MDFile newAnswer),
@@ -465,6 +617,7 @@ class _$ChangeIndex implements ChangeIndex {
   Result map<Result extends Object>({
     @required Result rotateCard(RotateCard value),
     @required Result deleteCard(DeleteCard value),
+    @required Result addCard(AddCard value),
     @required Result changeIndex(ChangeIndex value),
     @required Result questionChanged(QuestionChanged value),
     @required Result answerChanged(AnswerChanged value),
@@ -474,6 +627,7 @@ class _$ChangeIndex implements ChangeIndex {
   }) {
     assert(rotateCard != null);
     assert(deleteCard != null);
+    assert(addCard != null);
     assert(changeIndex != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
@@ -488,6 +642,7 @@ class _$ChangeIndex implements ChangeIndex {
   Result maybeMap<Result extends Object>({
     Result rotateCard(RotateCard value),
     Result deleteCard(DeleteCard value),
+    Result addCard(AddCard value),
     Result changeIndex(ChangeIndex value),
     Result questionChanged(QuestionChanged value),
     Result answerChanged(AnswerChanged value),
@@ -504,7 +659,7 @@ class _$ChangeIndex implements ChangeIndex {
   }
 }
 
-abstract class ChangeIndex implements AddCardEvent {
+abstract class ChangeIndex implements CardEditorEvent {
   factory ChangeIndex({@required int newIndex}) = _$ChangeIndex;
 
   int get newIndex;
@@ -519,7 +674,7 @@ abstract class $QuestionChangedCopyWith<$Res> {
 }
 
 class _$QuestionChangedCopyWithImpl<$Res>
-    extends _$AddCardEventCopyWithImpl<$Res>
+    extends _$CardEditorEventCopyWithImpl<$Res>
     implements $QuestionChangedCopyWith<$Res> {
   _$QuestionChangedCopyWithImpl(
       QuestionChanged _value, $Res Function(QuestionChanged) _then)
@@ -547,7 +702,7 @@ class _$QuestionChanged implements QuestionChanged {
 
   @override
   String toString() {
-    return 'AddCardEvent.questionChanged(newQuestion: $newQuestion)';
+    return 'CardEditorEvent.questionChanged(newQuestion: $newQuestion)';
   }
 
   @override
@@ -572,6 +727,7 @@ class _$QuestionChanged implements QuestionChanged {
   Result when<Result extends Object>({
     @required Result rotateCard(),
     @required Result deleteCard(),
+    @required Result addCard(),
     @required Result changeIndex(int newIndex),
     @required Result questionChanged(MDFile newQuestion),
     @required Result answerChanged(MDFile newAnswer),
@@ -581,6 +737,7 @@ class _$QuestionChanged implements QuestionChanged {
   }) {
     assert(rotateCard != null);
     assert(deleteCard != null);
+    assert(addCard != null);
     assert(changeIndex != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
@@ -595,6 +752,7 @@ class _$QuestionChanged implements QuestionChanged {
   Result maybeWhen<Result extends Object>({
     Result rotateCard(),
     Result deleteCard(),
+    Result addCard(),
     Result changeIndex(int newIndex),
     Result questionChanged(MDFile newQuestion),
     Result answerChanged(MDFile newAnswer),
@@ -615,6 +773,7 @@ class _$QuestionChanged implements QuestionChanged {
   Result map<Result extends Object>({
     @required Result rotateCard(RotateCard value),
     @required Result deleteCard(DeleteCard value),
+    @required Result addCard(AddCard value),
     @required Result changeIndex(ChangeIndex value),
     @required Result questionChanged(QuestionChanged value),
     @required Result answerChanged(AnswerChanged value),
@@ -624,6 +783,7 @@ class _$QuestionChanged implements QuestionChanged {
   }) {
     assert(rotateCard != null);
     assert(deleteCard != null);
+    assert(addCard != null);
     assert(changeIndex != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
@@ -638,6 +798,7 @@ class _$QuestionChanged implements QuestionChanged {
   Result maybeMap<Result extends Object>({
     Result rotateCard(RotateCard value),
     Result deleteCard(DeleteCard value),
+    Result addCard(AddCard value),
     Result changeIndex(ChangeIndex value),
     Result questionChanged(QuestionChanged value),
     Result answerChanged(AnswerChanged value),
@@ -654,7 +815,7 @@ class _$QuestionChanged implements QuestionChanged {
   }
 }
 
-abstract class QuestionChanged implements AddCardEvent {
+abstract class QuestionChanged implements CardEditorEvent {
   factory QuestionChanged({@required MDFile newQuestion}) = _$QuestionChanged;
 
   MDFile get newQuestion;
@@ -668,7 +829,8 @@ abstract class $AnswerChangedCopyWith<$Res> {
   $Res call({MDFile newAnswer});
 }
 
-class _$AnswerChangedCopyWithImpl<$Res> extends _$AddCardEventCopyWithImpl<$Res>
+class _$AnswerChangedCopyWithImpl<$Res>
+    extends _$CardEditorEventCopyWithImpl<$Res>
     implements $AnswerChangedCopyWith<$Res> {
   _$AnswerChangedCopyWithImpl(
       AnswerChanged _value, $Res Function(AnswerChanged) _then)
@@ -695,7 +857,7 @@ class _$AnswerChanged implements AnswerChanged {
 
   @override
   String toString() {
-    return 'AddCardEvent.answerChanged(newAnswer: $newAnswer)';
+    return 'CardEditorEvent.answerChanged(newAnswer: $newAnswer)';
   }
 
   @override
@@ -720,6 +882,7 @@ class _$AnswerChanged implements AnswerChanged {
   Result when<Result extends Object>({
     @required Result rotateCard(),
     @required Result deleteCard(),
+    @required Result addCard(),
     @required Result changeIndex(int newIndex),
     @required Result questionChanged(MDFile newQuestion),
     @required Result answerChanged(MDFile newAnswer),
@@ -729,6 +892,7 @@ class _$AnswerChanged implements AnswerChanged {
   }) {
     assert(rotateCard != null);
     assert(deleteCard != null);
+    assert(addCard != null);
     assert(changeIndex != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
@@ -743,6 +907,7 @@ class _$AnswerChanged implements AnswerChanged {
   Result maybeWhen<Result extends Object>({
     Result rotateCard(),
     Result deleteCard(),
+    Result addCard(),
     Result changeIndex(int newIndex),
     Result questionChanged(MDFile newQuestion),
     Result answerChanged(MDFile newAnswer),
@@ -763,6 +928,7 @@ class _$AnswerChanged implements AnswerChanged {
   Result map<Result extends Object>({
     @required Result rotateCard(RotateCard value),
     @required Result deleteCard(DeleteCard value),
+    @required Result addCard(AddCard value),
     @required Result changeIndex(ChangeIndex value),
     @required Result questionChanged(QuestionChanged value),
     @required Result answerChanged(AnswerChanged value),
@@ -772,6 +938,7 @@ class _$AnswerChanged implements AnswerChanged {
   }) {
     assert(rotateCard != null);
     assert(deleteCard != null);
+    assert(addCard != null);
     assert(changeIndex != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
@@ -786,6 +953,7 @@ class _$AnswerChanged implements AnswerChanged {
   Result maybeMap<Result extends Object>({
     Result rotateCard(RotateCard value),
     Result deleteCard(DeleteCard value),
+    Result addCard(AddCard value),
     Result changeIndex(ChangeIndex value),
     Result questionChanged(QuestionChanged value),
     Result answerChanged(AnswerChanged value),
@@ -802,7 +970,7 @@ class _$AnswerChanged implements AnswerChanged {
   }
 }
 
-abstract class AnswerChanged implements AddCardEvent {
+abstract class AnswerChanged implements CardEditorEvent {
   factory AnswerChanged({@required MDFile newAnswer}) = _$AnswerChanged;
 
   MDFile get newAnswer;
@@ -814,7 +982,7 @@ abstract class $SetTextCopyWith<$Res> {
       _$SetTextCopyWithImpl<$Res>;
 }
 
-class _$SetTextCopyWithImpl<$Res> extends _$AddCardEventCopyWithImpl<$Res>
+class _$SetTextCopyWithImpl<$Res> extends _$CardEditorEventCopyWithImpl<$Res>
     implements $SetTextCopyWith<$Res> {
   _$SetTextCopyWithImpl(SetText _value, $Res Function(SetText) _then)
       : super(_value, (v) => _then(v as SetText));
@@ -828,7 +996,7 @@ class _$SetText implements SetText {
 
   @override
   String toString() {
-    return 'AddCardEvent.setTextContent()';
+    return 'CardEditorEvent.setTextContent()';
   }
 
   @override
@@ -844,6 +1012,7 @@ class _$SetText implements SetText {
   Result when<Result extends Object>({
     @required Result rotateCard(),
     @required Result deleteCard(),
+    @required Result addCard(),
     @required Result changeIndex(int newIndex),
     @required Result questionChanged(MDFile newQuestion),
     @required Result answerChanged(MDFile newAnswer),
@@ -853,6 +1022,7 @@ class _$SetText implements SetText {
   }) {
     assert(rotateCard != null);
     assert(deleteCard != null);
+    assert(addCard != null);
     assert(changeIndex != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
@@ -867,6 +1037,7 @@ class _$SetText implements SetText {
   Result maybeWhen<Result extends Object>({
     Result rotateCard(),
     Result deleteCard(),
+    Result addCard(),
     Result changeIndex(int newIndex),
     Result questionChanged(MDFile newQuestion),
     Result answerChanged(MDFile newAnswer),
@@ -887,6 +1058,7 @@ class _$SetText implements SetText {
   Result map<Result extends Object>({
     @required Result rotateCard(RotateCard value),
     @required Result deleteCard(DeleteCard value),
+    @required Result addCard(AddCard value),
     @required Result changeIndex(ChangeIndex value),
     @required Result questionChanged(QuestionChanged value),
     @required Result answerChanged(AnswerChanged value),
@@ -896,6 +1068,7 @@ class _$SetText implements SetText {
   }) {
     assert(rotateCard != null);
     assert(deleteCard != null);
+    assert(addCard != null);
     assert(changeIndex != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
@@ -910,6 +1083,7 @@ class _$SetText implements SetText {
   Result maybeMap<Result extends Object>({
     Result rotateCard(RotateCard value),
     Result deleteCard(DeleteCard value),
+    Result addCard(AddCard value),
     Result changeIndex(ChangeIndex value),
     Result questionChanged(QuestionChanged value),
     Result answerChanged(AnswerChanged value),
@@ -926,7 +1100,7 @@ class _$SetText implements SetText {
   }
 }
 
-abstract class SetText implements AddCardEvent {
+abstract class SetText implements CardEditorEvent {
   factory SetText() = _$SetText;
 }
 
@@ -936,7 +1110,7 @@ abstract class $SetImageCopyWith<$Res> {
   $Res call({File image});
 }
 
-class _$SetImageCopyWithImpl<$Res> extends _$AddCardEventCopyWithImpl<$Res>
+class _$SetImageCopyWithImpl<$Res> extends _$CardEditorEventCopyWithImpl<$Res>
     implements $SetImageCopyWith<$Res> {
   _$SetImageCopyWithImpl(SetImage _value, $Res Function(SetImage) _then)
       : super(_value, (v) => _then(v as SetImage));
@@ -962,7 +1136,7 @@ class _$SetImage implements SetImage {
 
   @override
   String toString() {
-    return 'AddCardEvent.setImageContent(image: $image)';
+    return 'CardEditorEvent.setImageContent(image: $image)';
   }
 
   @override
@@ -986,6 +1160,7 @@ class _$SetImage implements SetImage {
   Result when<Result extends Object>({
     @required Result rotateCard(),
     @required Result deleteCard(),
+    @required Result addCard(),
     @required Result changeIndex(int newIndex),
     @required Result questionChanged(MDFile newQuestion),
     @required Result answerChanged(MDFile newAnswer),
@@ -995,6 +1170,7 @@ class _$SetImage implements SetImage {
   }) {
     assert(rotateCard != null);
     assert(deleteCard != null);
+    assert(addCard != null);
     assert(changeIndex != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
@@ -1009,6 +1185,7 @@ class _$SetImage implements SetImage {
   Result maybeWhen<Result extends Object>({
     Result rotateCard(),
     Result deleteCard(),
+    Result addCard(),
     Result changeIndex(int newIndex),
     Result questionChanged(MDFile newQuestion),
     Result answerChanged(MDFile newAnswer),
@@ -1029,6 +1206,7 @@ class _$SetImage implements SetImage {
   Result map<Result extends Object>({
     @required Result rotateCard(RotateCard value),
     @required Result deleteCard(DeleteCard value),
+    @required Result addCard(AddCard value),
     @required Result changeIndex(ChangeIndex value),
     @required Result questionChanged(QuestionChanged value),
     @required Result answerChanged(AnswerChanged value),
@@ -1038,6 +1216,7 @@ class _$SetImage implements SetImage {
   }) {
     assert(rotateCard != null);
     assert(deleteCard != null);
+    assert(addCard != null);
     assert(changeIndex != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
@@ -1052,6 +1231,7 @@ class _$SetImage implements SetImage {
   Result maybeMap<Result extends Object>({
     Result rotateCard(RotateCard value),
     Result deleteCard(DeleteCard value),
+    Result addCard(AddCard value),
     Result changeIndex(ChangeIndex value),
     Result questionChanged(QuestionChanged value),
     Result answerChanged(AnswerChanged value),
@@ -1068,7 +1248,7 @@ class _$SetImage implements SetImage {
   }
 }
 
-abstract class SetImage implements AddCardEvent {
+abstract class SetImage implements CardEditorEvent {
   factory SetImage({@required File image}) = _$SetImage;
 
   File get image;
@@ -1082,7 +1262,7 @@ abstract class $SaveChangesAndExitCopyWith<$Res> {
 }
 
 class _$SaveChangesAndExitCopyWithImpl<$Res>
-    extends _$AddCardEventCopyWithImpl<$Res>
+    extends _$CardEditorEventCopyWithImpl<$Res>
     implements $SaveChangesAndExitCopyWith<$Res> {
   _$SaveChangesAndExitCopyWithImpl(
       SaveChangesAndExit _value, $Res Function(SaveChangesAndExit) _then)
@@ -1097,7 +1277,7 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
 
   @override
   String toString() {
-    return 'AddCardEvent.saveChangesAndExit()';
+    return 'CardEditorEvent.saveChangesAndExit()';
   }
 
   @override
@@ -1113,6 +1293,7 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
   Result when<Result extends Object>({
     @required Result rotateCard(),
     @required Result deleteCard(),
+    @required Result addCard(),
     @required Result changeIndex(int newIndex),
     @required Result questionChanged(MDFile newQuestion),
     @required Result answerChanged(MDFile newAnswer),
@@ -1122,6 +1303,7 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
   }) {
     assert(rotateCard != null);
     assert(deleteCard != null);
+    assert(addCard != null);
     assert(changeIndex != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
@@ -1136,6 +1318,7 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
   Result maybeWhen<Result extends Object>({
     Result rotateCard(),
     Result deleteCard(),
+    Result addCard(),
     Result changeIndex(int newIndex),
     Result questionChanged(MDFile newQuestion),
     Result answerChanged(MDFile newAnswer),
@@ -1156,6 +1339,7 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
   Result map<Result extends Object>({
     @required Result rotateCard(RotateCard value),
     @required Result deleteCard(DeleteCard value),
+    @required Result addCard(AddCard value),
     @required Result changeIndex(ChangeIndex value),
     @required Result questionChanged(QuestionChanged value),
     @required Result answerChanged(AnswerChanged value),
@@ -1165,6 +1349,7 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
   }) {
     assert(rotateCard != null);
     assert(deleteCard != null);
+    assert(addCard != null);
     assert(changeIndex != null);
     assert(questionChanged != null);
     assert(answerChanged != null);
@@ -1179,6 +1364,7 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
   Result maybeMap<Result extends Object>({
     Result rotateCard(RotateCard value),
     Result deleteCard(DeleteCard value),
+    Result addCard(AddCard value),
     Result changeIndex(ChangeIndex value),
     Result questionChanged(QuestionChanged value),
     Result answerChanged(AnswerChanged value),
@@ -1195,12 +1381,12 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
   }
 }
 
-abstract class SaveChangesAndExit implements AddCardEvent {
+abstract class SaveChangesAndExit implements CardEditorEvent {
   factory SaveChangesAndExit() = _$SaveChangesAndExit;
 }
 
-class _$AddCardStateTearOff {
-  const _$AddCardStateTearOff();
+class _$CardEditorStateTearOff {
+  const _$CardEditorStateTearOff();
 
   _AddCardState call(
       {@required List<Card> sourceCards,
@@ -1219,22 +1405,22 @@ class _$AddCardStateTearOff {
 }
 
 // ignore: unused_element
-const $AddCardState = _$AddCardStateTearOff();
+const $CardEditorState = _$CardEditorStateTearOff();
 
-mixin _$AddCardState {
+mixin _$CardEditorState {
   List<Card> get sourceCards;
   int get currentCardIndex;
   bool get isQuestion;
   bool get rebuild;
   bool get saveChangesAndExit;
 
-  $AddCardStateCopyWith<AddCardState> get copyWith;
+  $CardEditorStateCopyWith<CardEditorState> get copyWith;
 }
 
-abstract class $AddCardStateCopyWith<$Res> {
-  factory $AddCardStateCopyWith(
-          AddCardState value, $Res Function(AddCardState) then) =
-      _$AddCardStateCopyWithImpl<$Res>;
+abstract class $CardEditorStateCopyWith<$Res> {
+  factory $CardEditorStateCopyWith(
+          CardEditorState value, $Res Function(CardEditorState) then) =
+      _$CardEditorStateCopyWithImpl<$Res>;
   $Res call(
       {List<Card> sourceCards,
       int currentCardIndex,
@@ -1243,12 +1429,13 @@ abstract class $AddCardStateCopyWith<$Res> {
       bool saveChangesAndExit});
 }
 
-class _$AddCardStateCopyWithImpl<$Res> implements $AddCardStateCopyWith<$Res> {
-  _$AddCardStateCopyWithImpl(this._value, this._then);
+class _$CardEditorStateCopyWithImpl<$Res>
+    implements $CardEditorStateCopyWith<$Res> {
+  _$CardEditorStateCopyWithImpl(this._value, this._then);
 
-  final AddCardState _value;
+  final CardEditorState _value;
   // ignore: unused_field
-  final $Res Function(AddCardState) _then;
+  final $Res Function(CardEditorState) _then;
 
   @override
   $Res call({
@@ -1276,7 +1463,7 @@ class _$AddCardStateCopyWithImpl<$Res> implements $AddCardStateCopyWith<$Res> {
 }
 
 abstract class _$AddCardStateCopyWith<$Res>
-    implements $AddCardStateCopyWith<$Res> {
+    implements $CardEditorStateCopyWith<$Res> {
   factory _$AddCardStateCopyWith(
           _AddCardState value, $Res Function(_AddCardState) then) =
       __$AddCardStateCopyWithImpl<$Res>;
@@ -1289,7 +1476,8 @@ abstract class _$AddCardStateCopyWith<$Res>
       bool saveChangesAndExit});
 }
 
-class __$AddCardStateCopyWithImpl<$Res> extends _$AddCardStateCopyWithImpl<$Res>
+class __$AddCardStateCopyWithImpl<$Res>
+    extends _$CardEditorStateCopyWithImpl<$Res>
     implements _$AddCardStateCopyWith<$Res> {
   __$AddCardStateCopyWithImpl(
       _AddCardState _value, $Res Function(_AddCardState) _then)
@@ -1348,7 +1536,7 @@ class _$_AddCardState implements _AddCardState {
 
   @override
   String toString() {
-    return 'AddCardState(sourceCards: $sourceCards, currentCardIndex: $currentCardIndex, isQuestion: $isQuestion, rebuild: $rebuild, saveChangesAndExit: $saveChangesAndExit)';
+    return 'CardEditorState(sourceCards: $sourceCards, currentCardIndex: $currentCardIndex, isQuestion: $isQuestion, rebuild: $rebuild, saveChangesAndExit: $saveChangesAndExit)';
   }
 
   @override
@@ -1386,7 +1574,7 @@ class _$_AddCardState implements _AddCardState {
       __$AddCardStateCopyWithImpl<_AddCardState>(this, _$identity);
 }
 
-abstract class _AddCardState implements AddCardState {
+abstract class _AddCardState implements CardEditorState {
   const factory _AddCardState(
       {@required List<Card> sourceCards,
       @required int currentCardIndex,

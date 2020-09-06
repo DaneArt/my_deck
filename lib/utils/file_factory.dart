@@ -22,6 +22,8 @@ class TextFileFactory implements MDFileFactory {
     final dir = await getApplicationDocumentsDirectory();
     final dirPath = '${dir.path}/files';
     await Directory(dirPath).create(recursive: true);
-    return File('$dirPath/$id.txt');
+    final file = File('$dirPath/$id.txt');
+    file.create();
+    return file;
   }
 }

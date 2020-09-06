@@ -37,49 +37,51 @@ class _FeaturedDeckList extends State<FeaturedDeckList> {
           controller: _pageController,
           itemCount: widget.decks.length,
           scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) =>
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(16)),
-                  child: Stack(
-                    children: <Widget>[
-                      Container(
-                        width: size.width,
+          itemBuilder: (context, index) => Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(16)),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(16)),
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      width: size.width,
+                      height: size.height,
+                      color: Colors.white,
+                    ),
+                    ClipRRect(
+                      borderRadius: BorderRadius.only(
+                          topRight:
+                              Radius.elliptical(size.width, size.height * 2)),
+                      child: Container(
+                        color: Colors.pink,
                         height: size.height,
-                        color: Colors.lightBlue,
+                        width: size.width / 2,
                       ),
-                      ClipRRect(
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.elliptical(
-                                size.width, size.height * 2)),
-                        child: Container(
-                          color: Colors.pink,
-                          height: size.height,
-                          width: size.width / 2,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
+            ),
+          ),
         ),
         Padding(
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.all(40),
           child: Align(
             alignment: Alignment.bottomCenter,
             child: SmoothPageIndicator(
-              controller: _pageController, // PageController
-              count: widget.decks.length,
-              effect: ScrollingDotsEffect(
+                controller: _pageController, // PageController
+                count: widget.decks.length,
+                effect: ScrollingDotsEffect(
                     activeDotScale: 1,
                     dotHeight: 12,
                     dotWidth: 12,
-                    activeDotColor: Theme.of(context).primaryColor,
-                    dotColor: Colors.white.withOpacity(0.95)
-
-              )
-            ),
+                    activeDotColor: Theme.of(context).accentColor,
+                    dotColor: Theme.of(context).textTheme.subtitle1.color)),
           ),
         ),
       ],

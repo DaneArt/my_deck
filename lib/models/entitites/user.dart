@@ -1,25 +1,23 @@
 import 'dart:io';
 
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
+import 'package:mydeck/models/entitites/md_file.dart';
+import 'package:mydeck/models/entitites/unique_id.dart';
+import 'package:mydeck/models/value_objects/email_address.dart';
+import 'package:mydeck/models/value_objects/username.dart';
 
-class User extends Equatable {
-  final String userId;
-  final String userName;
-  final String email;
-  final File avatar;
-  final List<User> subscribers;
-  final List<User> subscribes;
+part 'user.freezed.dart';
 
-  User(
-      {@required this.userName,
-      @required this.email,
-      @required this.avatar,
-      @required this.subscribers,
-      @required this.subscribes,
-      @required this.userId});
+@freezed
+abstract class User implements _$User {
+  const User._();
 
-  @override
-  List<Object> get props =>
-      [userName, email, avatar, subscribers, subscribes, userId];
+  factory User(
+      {@required Username username,
+      @required EmailAddress email,
+      @required ImageFile avatar,
+      @required List<User> subscribers,
+      @required List<User> subscribes,
+      @required UniqueId userId}) = _User;
 }

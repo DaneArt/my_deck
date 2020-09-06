@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:mydeck/models/value_objects/user_model.dart';
+import 'package:mydeck/models/dtos/user_dto.dart';
 import 'package:mydeck/services/datasources/user_network_datasource.dart';
 
 import '../../main.dart';
@@ -10,14 +10,13 @@ const String kAccessTokenKey = 'current_user_access_token';
 const String kRefreshToken = 'current_user_refresh_token';
 
 class UserConfig {
-  static set currentUser(UserModel userModel) =>
+  static set currentUser(UserDto userModel) =>
       App.localStorage.setString(kUserDataKey, json.encode(userModel.toJson()));
 
-  static UserModel get currentUser =>
-      App.localStorage.getString(kUserDataKey) != null
-          ? UserModel.fromJson(
-              json.decode(App.localStorage?.getString(kUserDataKey)))
-          : null;
+  static UserDto get currentUser => App.localStorage.getString(kUserDataKey) !=
+          null
+      ? UserDto.fromJson(json.decode(App.localStorage?.getString(kUserDataKey)))
+      : null;
 
   static set accessToken(String newToken) =>
       App.localStorage.setString(kAccessTokenKey, newToken);

@@ -39,7 +39,9 @@ class _FeaturedDeckListSmallState extends State<FeaturedDeckListSmall> {
         Swiper(
           pagination: SwiperPagination(
               margin: const EdgeInsets.only(bottom: 16),
-              builder: SwiperPagination.dots),
+              builder: DotSwiperPaginationBuilder(
+                  activeColor: Theme.of(context).accentColor,
+                  color: Theme.of(context).textTheme.subtitle1.color)),
           viewportFraction: 0.85,
           scale: 0.9,
           scrollDirection: Axis.horizontal,
@@ -56,7 +58,7 @@ class _FeaturedDeckListSmallState extends State<FeaturedDeckListSmall> {
                     width: double.infinity,
                     height: size.height,
                     decoration: BoxDecoration(
-                        color: Colors.lightBlue,
+                        color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(8))),
                   ),
                   ClipRRect(

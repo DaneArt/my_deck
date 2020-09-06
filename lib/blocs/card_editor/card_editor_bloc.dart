@@ -7,22 +7,22 @@ import 'package:mydeck/models/entitites/md_file.dart';
 import 'package:mydeck/models/entitites/unique_id.dart';
 import 'package:mydeck/utils/file_factory.dart';
 
-part 'add_card_bloc.freezed.dart';
+part 'card_editor_bloc.freezed.dart';
 
-part 'add_card_event.dart';
+part 'card_editor_event.dart';
 
-part 'add_card_state.dart';
+part 'card_editor_state.dart';
 
-class AddCardBloc extends Bloc<AddCardEvent, AddCardState> {
+class CardEditorBloc extends Bloc<CardEditorEvent, CardEditorState> {
   final int currentCardIndex;
   final List<Card> sourceCards;
 
-  AddCardBloc({@required this.currentCardIndex, @required this.sourceCards})
-      : super(AddCardState.initial(
+  CardEditorBloc({@required this.currentCardIndex, @required this.sourceCards})
+      : super(CardEditorState.initial(
             currentCardIndex: currentCardIndex, sourceCards: sourceCards));
 
   @override
-  Stream<AddCardState> mapEventToState(AddCardEvent event) async* {
+  Stream<CardEditorState> mapEventToState(CardEditorEvent event) async* {
     yield* event.map(rotateCard: (e) async* {
       yield state.copyWith(
         isQuestion: !state.isQuestion,
@@ -99,6 +99,10 @@ class AddCardBloc extends Bloc<AddCardEvent, AddCardState> {
             currentCardIndex: state.currentCardIndex - 1,
             sourceCards: List.from(list));
       }
+    }, addCard: (e) async* {
+      yield state.copyWith(
+          currentCardIndex: state.currentCardIndex + 1,
+          sourceCards: List.from(state.sourceCards..add(Card.basic())));
     });
   }
 }

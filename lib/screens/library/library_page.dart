@@ -16,6 +16,7 @@ import 'package:mydeck/screens/deck_editor/add_deck_page.dart';
 import 'package:mydeck/models/entitites/deck.dart';
 import 'package:mydeck/screens/library/local_widgets/deck_card_view.dart';
 import 'package:mydeck/screens/library/local_widgets/deck_hub_idle_view.dart';
+import 'package:mydeck/widgets/no_scroll_glow_behaviour.dart';
 import 'package:mydeck/widgets/undo_snackbar.dart';
 import 'package:mydeck/services/datasources/user_config.dart';
 import 'package:mydeck/services/usecases/upload_online_deck.dart';
@@ -60,24 +61,28 @@ class _LibraryPageState extends State<LibraryPage>
     BlocProvider.of<LibraryBloc>(context).add(LibraryEvent.loadUserLibrary());
   }
 
-  Widget _decksList(List<Deck> decks) => CustomScrollView(
-        controller: _controller,
-        physics: const AlwaysScrollableScrollPhysics(),
-        slivers: <Widget>[
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-                (context, index) => DeckCard(
-                      deck: decks[index],
-                      isEditing: true,
-                      key: ValueKey(decks[index].deckId.getOrCrash),
-                      iconButton: IconButton(
-                        icon: Icon(CustomIcons.dumbbell),
-                        onPressed: () {},
+  Widget _decksList(List<Deck> decks) => ScrollConfiguration(
+        behavior: NoScrollGlowBehaviour(),
+        child: CustomScrollView(
+          controller: _controller,
+          physics: const AlwaysScrollableScrollPhysics(),
+          slivers: <Widget>[
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                  (context, index) => DeckCard(
+                        deck: decks[index],
+                        isEditing: true,
+                        key: ValueKey(decks[index].deckId.getOrCrash),
+                        iconButton: IconButton(
+                          icon: Icon(CustomIcons.dumbbell,
+                              color: Theme.of(context).accentColor),
+                          onPressed: () {},
+                        ),
                       ),
-                    ),
-                childCount: decks.length),
-          ),
-        ],
+                  childCount: decks.length),
+            ),
+          ],
+        ),
       );
 
   BlocBuilder<LibraryBloc, LibraryState> _buildBody(BuildContext context) {
@@ -151,22 +156,22 @@ class _LibraryPageState extends State<LibraryPage>
                     },
                   ),
                 ));
-              }
-
-              /* context.navigator.push(
-                MaterialPageRoute(
-                  builder: (ctx) => BlocProvider<AddDeckBloc>(
-                    create: (BuildContext context) => AddDeckBloc(
-                      deck: Deck.basic(),
-                      uploadOnlineDeckUsecase:
-                          sl.get<UploadOnlineDeckUsecase>(),
-                    ),
-                    child: AddDeckPage(
-                      goal: AddDeckGoal.create,
+              } else {
+                context.navigator.push(
+                  MaterialPageRoute(
+                    builder: (ctx) => BlocProvider<AddDeckBloc>(
+                      create: (BuildContext context) => AddDeckBloc(
+                        deck: Deck.basic(),
+                        uploadOnlineDeckUsecase:
+                            sl.get<UploadOnlineDeckUsecase>(),
+                      ),
+                      child: AddDeckPage(
+                        goal: AddDeckGoal.create,
+                      ),
                     ),
                   ),
-                ),
-              ); */
+                );
+              }
             },
           )
         ],

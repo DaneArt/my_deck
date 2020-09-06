@@ -39,8 +39,7 @@ class HomePage extends StatelessWidget {
             ),
             onPressed: () {},
           ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
+          floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
           bottomNavigationBar: MDBottomBar(
             activeTab: activeTab,
             onTabSelected: (tab) {
@@ -60,9 +59,9 @@ class HomePage extends StatelessWidget {
       case AppTab.social:
         return SocialPage();
         break;
-      case AppTab.stats:
+      /*  case AppTab.stats:
         return ProfilePage();
-        break;
+        break; */
       case AppTab.profile:
         return ProfilePage();
         break;

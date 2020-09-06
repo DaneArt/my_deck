@@ -9,7 +9,7 @@ import 'package:mydeck/models/dtos/card_dto.dart';
 
 import 'package:mydeck/models/dtos/deck_dto.dart';
 import 'package:mydeck/models/dtos/deck_dto_with_user_model.dart';
-import 'package:mydeck/models/value_objects/user_model.dart';
+import 'package:mydeck/models/dtos/user_dto.dart';
 
 import 'package:mydeck/services/datasources/user_config.dart';
 
@@ -85,7 +85,7 @@ class DeckNetworkDataSourceImpl implements DeckNetworkDataSource {
       final deckJson = jsonDecode(response.data);
       final deck = DeckDto.fromJson(deckJson['deck']);
       final Map<String, dynamic> aj = deckJson['author']['user'];
-      final author = UserModel.fromJson(aj);
+      final author = UserDto.fromJson(aj);
 
       return DeckDtoWithUserModel(deck, author);
     } on DioError catch (e) {

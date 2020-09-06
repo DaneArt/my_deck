@@ -21,7 +21,7 @@ class _$DeckDtoTearOff {
       @required @JsonKey(name: 'icon') MDFileDto avatar,
       @required String description,
       @JsonKey(name: 'subscribers_count', nullable: true) int subscribersCount,
-      @JsonKey(nullable: true) List<UserModel> subscribers,
+      @JsonKey(nullable: true, ignore: true) List<UserDto> subscribers,
       @JsonKey(name: 'cards_count', nullable: true) int cardsCount,
       @JsonKey(name: 'cards', nullable: true) List<CardDto> cardDtos,
       @required @JsonKey(name: 'category_name') String categoryName,
@@ -55,8 +55,8 @@ mixin _$DeckDto {
   String get description;
   @JsonKey(name: 'subscribers_count', nullable: true)
   int get subscribersCount;
-  @JsonKey(nullable: true)
-  List<UserModel> get subscribers;
+  @JsonKey(nullable: true, ignore: true)
+  List<UserDto> get subscribers;
   @JsonKey(name: 'cards_count', nullable: true)
   int get cardsCount;
   @JsonKey(name: 'cards', nullable: true)
@@ -81,7 +81,7 @@ abstract class $DeckDtoCopyWith<$Res> {
       @JsonKey(name: 'icon') MDFileDto avatar,
       String description,
       @JsonKey(name: 'subscribers_count', nullable: true) int subscribersCount,
-      @JsonKey(nullable: true) List<UserModel> subscribers,
+      @JsonKey(nullable: true, ignore: true) List<UserDto> subscribers,
       @JsonKey(name: 'cards_count', nullable: true) int cardsCount,
       @JsonKey(name: 'cards', nullable: true) List<CardDto> cardDtos,
       @JsonKey(name: 'category_name') String categoryName,
@@ -123,7 +123,7 @@ class _$DeckDtoCopyWithImpl<$Res> implements $DeckDtoCopyWith<$Res> {
           : subscribersCount as int,
       subscribers: subscribers == freezed
           ? _value.subscribers
-          : subscribers as List<UserModel>,
+          : subscribers as List<UserDto>,
       cardsCount: cardsCount == freezed ? _value.cardsCount : cardsCount as int,
       cardDtos:
           cardDtos == freezed ? _value.cardDtos : cardDtos as List<CardDto>,
@@ -156,7 +156,7 @@ abstract class _$DeckDtoCopyWith<$Res> implements $DeckDtoCopyWith<$Res> {
       @JsonKey(name: 'icon') MDFileDto avatar,
       String description,
       @JsonKey(name: 'subscribers_count', nullable: true) int subscribersCount,
-      @JsonKey(nullable: true) List<UserModel> subscribers,
+      @JsonKey(nullable: true, ignore: true) List<UserDto> subscribers,
       @JsonKey(name: 'cards_count', nullable: true) int cardsCount,
       @JsonKey(name: 'cards', nullable: true) List<CardDto> cardDtos,
       @JsonKey(name: 'category_name') String categoryName,
@@ -200,7 +200,7 @@ class __$DeckDtoCopyWithImpl<$Res> extends _$DeckDtoCopyWithImpl<$Res>
           : subscribersCount as int,
       subscribers: subscribers == freezed
           ? _value.subscribers
-          : subscribers as List<UserModel>,
+          : subscribers as List<UserDto>,
       cardsCount: cardsCount == freezed ? _value.cardsCount : cardsCount as int,
       cardDtos:
           cardDtos == freezed ? _value.cardDtos : cardDtos as List<CardDto>,
@@ -221,7 +221,7 @@ class _$_DeckDto extends _DeckDto with DiagnosticableTreeMixin {
       @required @JsonKey(name: 'icon') this.avatar,
       @required this.description,
       @JsonKey(name: 'subscribers_count', nullable: true) this.subscribersCount,
-      @JsonKey(nullable: true) this.subscribers,
+      @JsonKey(nullable: true, ignore: true) this.subscribers,
       @JsonKey(name: 'cards_count', nullable: true) this.cardsCount,
       @JsonKey(name: 'cards', nullable: true) this.cardDtos,
       @required @JsonKey(name: 'category_name') this.categoryName,
@@ -253,8 +253,8 @@ class _$_DeckDto extends _DeckDto with DiagnosticableTreeMixin {
   @JsonKey(name: 'subscribers_count', nullable: true)
   final int subscribersCount;
   @override
-  @JsonKey(nullable: true)
-  final List<UserModel> subscribers;
+  @JsonKey(nullable: true, ignore: true)
+  final List<UserDto> subscribers;
   @override
   @JsonKey(name: 'cards_count', nullable: true)
   final int cardsCount;
@@ -363,7 +363,7 @@ abstract class _DeckDto extends DeckDto {
       @required @JsonKey(name: 'icon') MDFileDto avatar,
       @required String description,
       @JsonKey(name: 'subscribers_count', nullable: true) int subscribersCount,
-      @JsonKey(nullable: true) List<UserModel> subscribers,
+      @JsonKey(nullable: true, ignore: true) List<UserDto> subscribers,
       @JsonKey(name: 'cards_count', nullable: true) int cardsCount,
       @JsonKey(name: 'cards', nullable: true) List<CardDto> cardDtos,
       @required @JsonKey(name: 'category_name') String categoryName,
@@ -386,8 +386,8 @@ abstract class _DeckDto extends DeckDto {
   @JsonKey(name: 'subscribers_count', nullable: true)
   int get subscribersCount;
   @override
-  @JsonKey(nullable: true)
-  List<UserModel> get subscribers;
+  @JsonKey(nullable: true, ignore: true)
+  List<UserDto> get subscribers;
   @override
   @JsonKey(name: 'cards_count', nullable: true)
   int get cardsCount;

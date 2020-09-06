@@ -6,10 +6,13 @@ import 'package:mydeck/errors/exception.dart';
 import 'package:mydeck/errors/storage_failure.dart';
 import 'package:mydeck/models/dtos/file_dto.dart';
 import 'package:mydeck/models/entitites/md_file.dart';
+import 'package:mydeck/models/entitites/user.dart';
 import 'package:mydeck/models/value_objects/deck_avatar.dart';
 import 'package:mydeck/models/value_objects/deck_description.dart';
 import 'package:mydeck/models/value_objects/deck_title.dart';
-import 'package:mydeck/models/value_objects/user_model.dart';
+import 'package:mydeck/models/dtos/user_dto.dart';
+import 'package:mydeck/models/value_objects/email_address.dart';
+import 'package:mydeck/models/value_objects/username.dart';
 import 'package:mydeck/utils/dependency_injection.dart';
 import 'package:mydeck/utils/network_connection.dart';
 
@@ -19,7 +22,6 @@ import 'package:mydeck/models/dtos/deck_dto.dart';
 import 'package:mydeck/models/entitites/card.dart';
 import 'package:mydeck/models/entitites/deck.dart';
 import 'package:mydeck/models/entitites/unique_id.dart';
-import 'package:rxdart/rxdart.dart';
 
 import 'file_repository.dart';
 
@@ -73,7 +75,8 @@ class DeckRepositoryImpl implements DeckRepository {
         final deck = await networkDataSource.getDeckById(id.getOrCrash);
         final deckDto = deck.deck;
         final deckAuthor = deck.user;
-        return right(deckDto.toDomain().copyWith(author: deckAuthor));
+        return right(
+            deckDto.toDomain().copyWith(author: deckAuthor.toDomain()));
       } else {
         return left(StorageFailure.networkFailure());
       }
@@ -195,8 +198,13 @@ class FakeDeckRepository implements DeckRepository {
       final deckAvatar = ImageFile(uniqueId: UniqueId());
       await fileRepository.getFileByMeta(UniqueId(), FileType.TEXT);
       result.add(Deck(
-          author: UserModel(UniqueId().getOrCrash, 'UserMuser', 'he@gmail.com',
-              'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQbGZWvtAbu8uQvxvm7LBZQHNDJU5SZJhAjqw&usqp=CAU'),
+          author: User(
+              avatar: ImageFile(uniqueId: UniqueId()),
+              email: EmailAddress(''),
+              subscribers: [],
+              subscribes: [],
+              userId: UniqueId(),
+              username: Username('')),
           avatar: DeckAvatar(deckAvatar),
           category: kDefaultCategories[
               Random().nextInt(kDefaultCategories.length - 1)],

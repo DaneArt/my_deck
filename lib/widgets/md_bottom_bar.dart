@@ -38,7 +38,6 @@ class MDBottomBarState extends State<MDBottomBar> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: AppTab.values
-                    .getRange(0, 2)
                     .map((tab) => Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 32.0),
                           child: IconButton(
@@ -90,66 +89,29 @@ class MDBottomBarState extends State<MDBottomBar> {
         ),
       );
   Widget _portraitBottomBar() => Padding(
-        padding: const EdgeInsets.all(4.0),
+        padding: const EdgeInsets.only(top: 4.0, bottom: 4.0, right: 64),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: AppTab.values
-                    .getRange(0, 2)
-                    .map((tab) => Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: IconButton(
-                            onPressed: () => onTabSelected(tab),
-                            icon: tab == activeTab
-                                ? IconShadowWidget(
-                                    Icon(
-                                      _iconFromTab(tab),
-                                      color: Theme.of(context).primaryColor,
-                                      size: 32,
-                                    ),
-                                  )
-                                : Icon(
-                                    _iconFromTab(tab),
-                                    color: Colors.blueGrey.withAlpha(150),
-                                  ),
-                          ),
-                        ))
-                    .toList(),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: AppTab.values
-                    .getRange(2, 4)
-                    .map((tab) => Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: IconButton(
-                            onPressed: () => onTabSelected(tab),
-                            icon: tab == activeTab
-                                ? IconShadowWidget(
-                                    Icon(
-                                      _iconFromTab(tab),
-                                      color: Theme.of(context).primaryColor,
-                                      size: 32,
-                                    ),
-                                  )
-                                : Icon(
-                                    _iconFromTab(tab),
-                                    color: Colors.blueGrey.withAlpha(150),
-                                  ),
-                          ),
-                        ))
-                    .toList(),
-              ),
-            ),
-          ],
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: AppTab.values
+              .map((tab) => Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: IconButton(
+                      onPressed: () => onTabSelected(tab),
+                      icon: tab == activeTab
+                          ? IconShadowWidget(
+                              Icon(
+                                _iconFromTab(tab),
+                                color: Theme.of(context).primaryColor,
+                                size: 32,
+                              ),
+                            )
+                          : Icon(
+                              _iconFromTab(tab),
+                              color: Colors.blueGrey.withAlpha(150),
+                            ),
+                    ),
+                  ))
+              .toList(),
         ),
       );
 
@@ -162,9 +124,9 @@ class MDBottomBarState extends State<MDBottomBar> {
       case AppTab.social:
         result = CustomIcons.search;
         break;
-      case AppTab.stats:
+      /*  case AppTab.stats:
         result = CustomIcons.chart_bar;
-        break;
+        break; */
       case AppTab.profile:
         result = Icons.person;
         break;

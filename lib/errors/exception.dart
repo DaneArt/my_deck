@@ -10,6 +10,30 @@ class NetworkException implements Exception {
   NetworkException([this.message = "Unhandled exception"]);
 }
 
+class EmailAlreadyInUseException implements NetworkException {
+  final String message;
+
+  EmailAlreadyInUseException([this.message = "Unhandled exception"]);
+}
+
+class UserNotFoundException implements NetworkException {
+  final String message;
+
+  UserNotFoundException([this.message = "Unhandled exception"]);
+}
+
+class InvalidPasswordException implements NetworkException {
+  final String message;
+
+  InvalidPasswordException([this.message = "Unhandled exception"]);
+}
+
+class UsernameAlreadyInUseException implements NetworkException {
+  final String message;
+
+  UsernameAlreadyInUseException([this.message = "Unhandled exception"]);
+}
+
 class NetworkTimeoutException implements NetworkException {
   final String message;
   final Duration duration;

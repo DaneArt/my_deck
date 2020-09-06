@@ -2,7 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:mydeck/screens/library/local_widgets/login_field.dart';
 
 class PasswordField extends StatefulWidget {
-  PasswordField({Key key}) : super(key: key);
+  final TextEditingController controller;
+  final FieldValidator validator;
+  final Function(String) onChanged;
+  final bool autovalidate;
+  final TextInputAction textInputAction;
+  final Function(String) onFieldSubmitted;
+  final FocusNode focusNode;
+  final GlobalKey<FormFieldState> fieldKey;
+  PasswordField(
+      {Key key,
+      @required FocusNode focusNode,
+      this.controller,
+      this.validator,
+      this.onChanged,
+      this.autovalidate,
+      this.textInputAction,
+      this.onFieldSubmitted,
+      this.fieldKey})
+      : assert(focusNode != null),
+        this.focusNode = focusNode,
+        super(key: key);
 
   @override
   _PasswordFieldState createState() => _PasswordFieldState();
@@ -25,6 +45,15 @@ class _PasswordFieldState extends State<PasswordField> {
           });
         },
       ),
+      onFieldSubmitted: widget.onFieldSubmitted,
+      onChanged: widget.onChanged,
+      controller: widget.controller,
+      fieldKey: widget.fieldKey,
+      autovalidate: widget.autovalidate,
+      key: widget.key,
+      textInputAction: widget.textInputAction,
+      validator: widget.validator,
+      focusNode: widget.focusNode,
     );
   }
 }

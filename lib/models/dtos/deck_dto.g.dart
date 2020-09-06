@@ -15,10 +15,6 @@ _$_DeckDto _$_$_DeckDtoFromJson(Map<String, dynamic> json) {
         : MDFileDto.fromJson(json['icon'] as Map<String, dynamic>),
     description: json['description'] as String,
     subscribersCount: json['subscribers_count'] as int,
-    subscribers: (json['subscribers'] as List)
-        ?.map((e) =>
-            e == null ? null : UserModel.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
     cardsCount: json['cards_count'] as int,
     cardDtos: (json['cards'] as List)
         ?.map((e) =>
@@ -37,7 +33,6 @@ Map<String, dynamic> _$_$_DeckDtoToJson(_$_DeckDto instance) =>
       'icon': instance.avatar,
       'description': instance.description,
       'subscribers_count': instance.subscribersCount,
-      'subscribers': instance.subscribers,
       'cards_count': instance.cardsCount,
       'cards': instance.cardDtos,
       'category_name': instance.categoryName,

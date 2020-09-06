@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:mydeck/generated/l10n.dart';
+import 'package:mydeck/widgets/image_picker_modal_bottom_sheet.dart';
 import 'package:mydeck/widgets/md_image.dart';
 
 class ImagePickerWidget extends StatefulWidget {
@@ -63,55 +64,8 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
               showModalBottomSheet(
                 backgroundColor: Colors.transparent,
                 context: context,
-                builder: (context) => Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(16)),
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      MaterialButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                            _pickImage(ImageSource.gallery);
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(Icons.image),
-                                SizedBox(
-                                  width: 32,
-                                ),
-                                Text('Gallery'),
-                              ],
-                            ),
-                          )),
-                      MaterialButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                          _pickImage(ImageSource.camera);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Icon(Icons.photo_camera),
-                              SizedBox(
-                                width: 32,
-                              ),
-                              Text('Photo'),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                builder: (context) => ImagePickerModalBottomSheet(
+                  onPickImage: _pickImage,
                 ),
               );
             },

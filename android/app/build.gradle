@@ -37,7 +37,7 @@ android {
         disable 'InvalidPackage'
         checkReleaseBuilds false
     }
-        
+
 
 
     defaultConfig {
@@ -47,6 +47,8 @@ android {
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+
+
     }
 
     buildTypes {

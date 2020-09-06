@@ -9,6 +9,7 @@ part 'auth_failure.freezed.dart';
 @freezed
 abstract class AuthFailure with _$AuthFailure {
   factory AuthFailure.canselledByuser() = CanselledByUser;
+  factory AuthFailure.invalidFields() = InvalidFields;
 
   factory AuthFailure.serverError() = ServerError;
 
@@ -32,5 +33,6 @@ abstract class AuthFailure with _$AuthFailure {
       userNotFound: (v) => S.current.error_user_not_found,
       wrongPassword: (v) => S.current.error_auth_wrong_password,
       noInternetConnection: (v) => S.current.error_auth_no_internet,
-      tokenExpired: (v) => S.current.error_auth_invalid_session);
+      tokenExpired: (v) => S.current.error_auth_invalid_session,
+      invalidFields: (v) => S.current.error_auth_network_error);
 }

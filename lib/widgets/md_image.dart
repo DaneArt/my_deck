@@ -37,7 +37,6 @@ class MDImage extends StatelessWidget {
       child: BlocBuilder<MDContentCubit, MDContentState>(
         builder: (context, state) => state.map(
             initial: (s) {
-              Logger().d('Initializing file');
               context.bloc<MDContentCubit>().initFile(sourceImage);
               return placeholder ??
                   Container(

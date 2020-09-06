@@ -17,13 +17,13 @@ class _$DeckTearOff {
       @required DeckTitle title,
       @required DeckAvatar avatar,
       @required DeckDescription description,
-      @required UserModel author,
+      @required User author,
       @required DeckCategory category,
       @required bool isPrivate,
       @required bool availableQuickTrain,
       int cardsCount,
       int subscribersCount,
-      List<UserModel> subscribers,
+      List<User> subscribers,
       List<Card> cardsList}) {
     return _Deck(
       deckId: deckId,
@@ -50,13 +50,13 @@ mixin _$Deck {
   DeckTitle get title;
   DeckAvatar get avatar;
   DeckDescription get description;
-  UserModel get author;
+  User get author;
   DeckCategory get category;
   bool get isPrivate;
   bool get availableQuickTrain;
   int get cardsCount;
   int get subscribersCount;
-  List<UserModel> get subscribers;
+  List<User> get subscribers;
   List<Card> get cardsList;
 
   $DeckCopyWith<Deck> get copyWith;
@@ -70,15 +70,16 @@ abstract class $DeckCopyWith<$Res> {
       DeckTitle title,
       DeckAvatar avatar,
       DeckDescription description,
-      UserModel author,
+      User author,
       DeckCategory category,
       bool isPrivate,
       bool availableQuickTrain,
       int cardsCount,
       int subscribersCount,
-      List<UserModel> subscribers,
+      List<User> subscribers,
       List<Card> cardsList});
 
+  $UserCopyWith<$Res> get author;
   $DeckCategoryCopyWith<$Res> get category;
 }
 
@@ -111,7 +112,7 @@ class _$DeckCopyWithImpl<$Res> implements $DeckCopyWith<$Res> {
       description: description == freezed
           ? _value.description
           : description as DeckDescription,
-      author: author == freezed ? _value.author : author as UserModel,
+      author: author == freezed ? _value.author : author as User,
       category:
           category == freezed ? _value.category : category as DeckCategory,
       isPrivate: isPrivate == freezed ? _value.isPrivate : isPrivate as bool,
@@ -124,10 +125,20 @@ class _$DeckCopyWithImpl<$Res> implements $DeckCopyWith<$Res> {
           : subscribersCount as int,
       subscribers: subscribers == freezed
           ? _value.subscribers
-          : subscribers as List<UserModel>,
+          : subscribers as List<User>,
       cardsList:
           cardsList == freezed ? _value.cardsList : cardsList as List<Card>,
     ));
+  }
+
+  @override
+  $UserCopyWith<$Res> get author {
+    if (_value.author == null) {
+      return null;
+    }
+    return $UserCopyWith<$Res>(_value.author, (value) {
+      return _then(_value.copyWith(author: value));
+    });
   }
 
   @override
@@ -150,15 +161,17 @@ abstract class _$DeckCopyWith<$Res> implements $DeckCopyWith<$Res> {
       DeckTitle title,
       DeckAvatar avatar,
       DeckDescription description,
-      UserModel author,
+      User author,
       DeckCategory category,
       bool isPrivate,
       bool availableQuickTrain,
       int cardsCount,
       int subscribersCount,
-      List<UserModel> subscribers,
+      List<User> subscribers,
       List<Card> cardsList});
 
+  @override
+  $UserCopyWith<$Res> get author;
   @override
   $DeckCategoryCopyWith<$Res> get category;
 }
@@ -193,7 +206,7 @@ class __$DeckCopyWithImpl<$Res> extends _$DeckCopyWithImpl<$Res>
       description: description == freezed
           ? _value.description
           : description as DeckDescription,
-      author: author == freezed ? _value.author : author as UserModel,
+      author: author == freezed ? _value.author : author as User,
       category:
           category == freezed ? _value.category : category as DeckCategory,
       isPrivate: isPrivate == freezed ? _value.isPrivate : isPrivate as bool,
@@ -206,7 +219,7 @@ class __$DeckCopyWithImpl<$Res> extends _$DeckCopyWithImpl<$Res>
           : subscribersCount as int,
       subscribers: subscribers == freezed
           ? _value.subscribers
-          : subscribers as List<UserModel>,
+          : subscribers as List<User>,
       cardsList:
           cardsList == freezed ? _value.cardsList : cardsList as List<Card>,
     ));
@@ -246,7 +259,7 @@ class _$_Deck extends _Deck {
   @override
   final DeckDescription description;
   @override
-  final UserModel author;
+  final User author;
   @override
   final DeckCategory category;
   @override
@@ -258,7 +271,7 @@ class _$_Deck extends _Deck {
   @override
   final int subscribersCount;
   @override
-  final List<UserModel> subscribers;
+  final List<User> subscribers;
   @override
   final List<Card> cardsList;
 
@@ -333,13 +346,13 @@ abstract class _Deck extends Deck {
       @required DeckTitle title,
       @required DeckAvatar avatar,
       @required DeckDescription description,
-      @required UserModel author,
+      @required User author,
       @required DeckCategory category,
       @required bool isPrivate,
       @required bool availableQuickTrain,
       int cardsCount,
       int subscribersCount,
-      List<UserModel> subscribers,
+      List<User> subscribers,
       List<Card> cardsList}) = _$_Deck;
 
   @override
@@ -351,7 +364,7 @@ abstract class _Deck extends Deck {
   @override
   DeckDescription get description;
   @override
-  UserModel get author;
+  User get author;
   @override
   DeckCategory get category;
   @override
@@ -363,7 +376,7 @@ abstract class _Deck extends Deck {
   @override
   int get subscribersCount;
   @override
-  List<UserModel> get subscribers;
+  List<User> get subscribers;
   @override
   List<Card> get cardsList;
   @override

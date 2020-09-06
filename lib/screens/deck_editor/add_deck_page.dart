@@ -5,8 +5,8 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 
-import 'package:mydeck/blocs/add_card/add_card_bloc.dart';
 import 'package:mydeck/blocs/add_deck/add_deck_bloc.dart';
+import 'package:mydeck/blocs/card_editor/card_editor_bloc.dart';
 import 'package:mydeck/models/entitites/md_file.dart';
 import 'package:mydeck/utils/custom_icons_icons.dart';
 import 'package:mydeck/screens/deck_editor/card_editor.dart';
@@ -14,6 +14,7 @@ import 'package:mydeck/screens/deck_editor/local_widgets/category_picker.dart';
 import 'package:mydeck/screens/deck_editor/local_widgets/in_deck_card_view.dart';
 import 'package:mydeck/screens/deck_editor/local_widgets/image_picker_widget.dart';
 import 'package:mydeck/models/entitites/card.dart' as Entity;
+import 'package:mydeck/utils/dependency_injection.dart';
 import 'package:mydeck/widgets/buttons.dart';
 import 'package:mydeck/generated/l10n.dart';
 
@@ -136,77 +137,80 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
 
   @override
   Widget build(BuildContext context) {
-    return ColorfulSafeArea(
-      color: Theme.of(context).primaryColorDark,
-      child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(
-                goal != AddDeckGoal.lookup ? Icons.clear : Icons.arrow_back,
-                color: Colors.white),
-            onPressed: () => Navigator.of(context).pop(),
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+              goal != AddDeckGoal.lookup ? Icons.clear : Icons.arrow_back,
+              color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(goal == AddDeckGoal.lookup ? Icons.edit : Icons.check),
+            onPressed: () {
+              //TODO: save changes
+            },
           ),
-          actions: <Widget>[
-            _showActions && bloc.state.loadingFailureOrSuccess.isNone()
-                ? IconButton(
-                    icon: Icon(Icons.add, color: Colors.white),
-                    onPressed: () async {
-                      final cards =
-                          await Navigator.of(context).push(MaterialPageRoute(
-                              builder: (BuildContext ctx) => blc.BlocProvider(
-                                    create: (c) => AddCardBloc(
-                                        currentCardIndex:
-                                            bloc.state.cardsList.length,
-                                        sourceCards:
-                                            List.from(bloc.state.cardsList)
-                                              ..add(Entity.Card.basic())),
-                                    child: CardEditor(
-                                      isCreating: true,
-                                    ),
-                                  )));
-                      if (cards != null)
-                        bloc.add(AddDeckEvent.updateCards(cards: cards));
-                    },
-                  )
-                : Container()
-          ],
-          bottom: TabBar(
-            indicatorSize: TabBarIndicatorSize.label,
-            labelColor: Colors.white,
-            unselectedLabelColor: Colors.white.withAlpha(125),
-            tabs: [
-              Tab(
-                text: S.of(context).meta_deck,
-                icon: Icon(
-                  CustomIcons.card_bulleted,
-                ),
+          _showActions && bloc.state.loadingFailureOrSuccess.isNone()
+              ? IconButton(
+                  icon: Icon(Icons.add, color: Colors.white),
+                  onPressed: () async {
+                    final cards =
+                        await Navigator.of(context).push(MaterialPageRoute(
+                            builder: (BuildContext ctx) => blc.BlocProvider(
+                                  create: (c) => CardEditorBloc(
+                                      currentCardIndex:
+                                          bloc.state.cardsList.length,
+                                      sourceCards:
+                                          List.from(bloc.state.cardsList)
+                                            ..add(Entity.Card.basic())),
+                                  child: CardEditor(
+                                    isCreating: true,
+                                  ),
+                                )));
+                    if (cards != null)
+                      bloc.add(AddDeckEvent.updateCards(cards: cards));
+                  },
+                )
+              : Container()
+        ],
+        bottom: TabBar(
+          indicatorSize: TabBarIndicatorSize.label,
+          labelColor: Colors.white,
+          unselectedLabelColor: Colors.white.withAlpha(125),
+          tabs: [
+            Tab(
+              text: S.of(context).meta_deck,
+              icon: Icon(
+                CustomIcons.card_bulleted,
               ),
-              Tab(
-                  text: S.of(context).meta_cards,
-                  icon: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(
-                        CustomIcons.cards,
-                      ),
-                      SizedBox(
-                        width: 8,
-                      ),
-                      Text(
-                          '${bloc.state.cardsList?.length != null && bloc.state.cardsList?.length != 0 ? bloc.state.cardsList?.length : bloc.deck.cardsCount ?? 0}')
-                    ],
-                  )),
-            ],
-            controller: tabController,
-          ),
+            ),
+            Tab(
+                text: S.of(context).meta_cards,
+                icon: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(
+                      CustomIcons.cards,
+                    ),
+                    SizedBox(
+                      width: 8,
+                    ),
+                    Text(
+                        '${bloc.state.cardsList?.length != null && bloc.state.cardsList?.length != 0 ? bloc.state.cardsList?.length : bloc.deck.cardsCount ?? 0}')
+                  ],
+                )),
+          ],
+          controller: tabController,
         ),
-        body: DefaultTabController(
-          length: 2, // This is the number of tabs.
-          child: TabBarView(controller: tabController, children: [
-            _DeckPage(goal: goal),
-            _CardsPage(goal: goal),
-          ]),
-        ),
+      ),
+      body: DefaultTabController(
+        length: 2, // This is the number of tabs.
+        child: TabBarView(controller: tabController, children: [
+          _DeckPage(goal: goal),
+          _CardsPage(goal: goal),
+        ]),
       ),
     );
   }
@@ -376,38 +380,38 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
   Widget buttonsWidget(AddDeckState state) => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          MDRoundedButton(
-            icon: Icon(state.isShared ? Icons.lock_open : Icons.lock),
-            onPressed: () {
-              bloc.add(AddDeckEvent.changePrivacy());
-            },
-            title: Text('PRIVACY'),
+          Padding(
+            padding: const EdgeInsets.only(left: 16.0),
+            child: MDRoundedButton(
+              icon: Icon(state.isShared ? Icons.lock_open : Icons.lock),
+              onPressed: () {
+                bloc.add(AddDeckEvent.changePrivacy());
+              },
+              title: Text('PRIVACY'),
+            ),
           ),
-          Row(
-            children: <Widget>[
-              MDRoundedButton(
-                icon: Icon(CustomIcons.dumbbell),
-                onPressed: () {},
-                title: Text('TRAIN'),
-              ),
-              SizedBox(
-                width: 16,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: Column(
-                  children: <Widget>[
-                    Text('Quick train'),
-                    Checkbox(
-                        value: state.availableQuickTrain,
-                        onChanged: (value) {
-                          bloc.add(AddDeckEvent.quickTrainStateChanged());
-                        }),
-                  ],
+          goal == AddDeckGoal.lookup
+              ? Padding(
+                  padding: const EdgeInsets.only(right: 64.0),
+                  child: MDRoundedButton(
+                    icon: Icon(CustomIcons.dumbbell),
+                    onPressed: () {},
+                    title: Text('TRAIN'),
+                  ),
+                )
+              : Padding(
+                  padding: const EdgeInsets.only(top: 16.0, right: 64),
+                  child: Column(
+                    children: <Widget>[
+                      Text('Quick train'),
+                      Checkbox(
+                          value: state.availableQuickTrain,
+                          onChanged: (value) {
+                            bloc.add(AddDeckEvent.quickTrainStateChanged());
+                          }),
+                    ],
+                  ),
                 ),
-              )
-            ],
-          ),
         ],
       );
 
@@ -428,7 +432,14 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
                   backgroundColor: Colors.grey,
                   child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(32)),
-                    child: Image.network(state.author.avatarPath),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(
+                              '$BASE_URL_DEV/mydeckapi/media/Media/${state.author.avatar}'),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -444,20 +455,19 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
           initialValue:
               state.description.value.fold((l) => l.failedValue, (r) => r),
           textInputAction: TextInputAction.done,
+          style: Theme.of(context).textTheme.bodyText1,
           onChanged: (input) =>
               bloc.add(AddDeckEvent.descriptionChanged(input)),
           textCapitalization: TextCapitalization.sentences,
           decoration: InputDecoration(
-            hintText: S.of(context).editor_description_enter,
-            hintMaxLines: 2,
-            filled: true,
-            alignLabelWithHint: true,
-            border: UnderlineInputBorder(),
-            labelText: S.of(context).editor_description,
-            contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-            hoverColor: Theme.of(context).accentColor,
-            labelStyle: Theme.of(context).textTheme.subtitle1,
-          ),
+              hintText: S.of(context).editor_description_enter,
+              hintMaxLines: 2,
+              alignLabelWithHint: true,
+              border: UnderlineInputBorder(),
+              labelText: S.of(context).editor_description,
+              contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+              hoverColor: Theme.of(context).accentColor,
+              labelStyle: Theme.of(context).textTheme.subtitle2),
           inputFormatters: [
             new LengthLimitingTextInputFormatter(_maxDescriptionCount),
           ],
@@ -496,13 +506,13 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
           onChanged: (input) {
             bloc.add(AddDeckEvent.titleChanged(input));
           },
+          style: Theme.of(context).textTheme.bodyText1,
           textInputAction: TextInputAction.done,
           textCapitalization: TextCapitalization.sentences,
           decoration: InputDecoration(
             hintText: S.of(context).editor_title_enter,
-            filled: true,
             labelText: S.of(context).editor_title + '*',
-            labelStyle: Theme.of(context).textTheme.subtitle1,
+            labelStyle: Theme.of(context).textTheme.subtitle2,
             contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
           ),
           inputFormatters: [
@@ -626,7 +636,7 @@ class _CardsPageState extends State<_CardsPage> {
                   final cards =
                       await Navigator.of(context).push(MaterialPageRoute(
                           builder: (BuildContext context) => blc.BlocProvider(
-                                create: (context) => AddCardBloc(
+                                create: (context) => CardEditorBloc(
                                     currentCardIndex: state.cardsList.length,
                                     sourceCards: List.from(state.cardsList)
                                       ..add(Entity.Card.basic())),
@@ -660,7 +670,7 @@ class _CardsPageState extends State<_CardsPage> {
                   final cards =
                       await Navigator.of(context).push(MaterialPageRoute(
                           builder: (BuildContext context) => blc.BlocProvider(
-                                create: (context) => AddCardBloc(
+                                create: (context) => CardEditorBloc(
                                   sourceCards: List.from(state.cardsList),
                                   currentCardIndex: index,
                                 ),

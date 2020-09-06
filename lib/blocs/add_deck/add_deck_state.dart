@@ -10,7 +10,7 @@ abstract class AddDeckState with _$AddDeckState {
     @required bool isShared,
     @required DeckCategory category,
     @required bool availableQuickTrain,
-    @required UserModel author,
+    @required UserDto author,
     @required Option<Either<StorageFailure, Unit>> loadingFailureOrSuccess,
     @required List<Card> cardsList,
   }) = _AddDeckState;
@@ -22,7 +22,7 @@ abstract class AddDeckState with _$AddDeckState {
         description: initialDeck.description,
         isShared: !initialDeck.isPrivate,
         title: initialDeck.title,
-        author: initialDeck.author,
+        author: UserDto.fromDomain(initialDeck.author),
         isLoading: false,
         loadingFailureOrSuccess: none(),
         availableQuickTrain: initialDeck.availableQuickTrain,

@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:crypto/crypto.dart';
 import 'package:dartz/dartz.dart';
 import 'package:jose/jose.dart';
 import 'package:mydeck/errors/value_failure.dart';
@@ -8,7 +10,7 @@ import 'package:mydeck/models/entitites/unique_id.dart';
 import 'package:mydeck/utils/file_extensions.dart';
 
 final _kPasswordRegexp =
-    RegExp(r'(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,24}');
+    RegExp(r'[~!"#$%&()*+,-./:;<=>?@[\]^_`{|}~0-9a-zA-Z]{8,32}');
 final _kEmailRegexp = RegExp(r'@');
 final _kLoginRegexp = RegExp(r'[a-zA-Z0-9_.]{1,30}$');
 final _kTitleRegexp = RegExp(r'[[\^$!?]');
@@ -16,7 +18,9 @@ final _kUUIDREgexp = RegExp(
     r'[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}');
 
 Either<ValueFailure<String>, String> validateEmailAddress(String input) {
-  if (_kEmailRegexp.hasMatch(input)) {
+  if (input == null || input.isEmpty) {
+    return left(ValueFailure.emptyEmail(failedValue: input));
+  } else if (_kEmailRegexp.hasMatch(input)) {
     return right(input);
   } else {
     return left(ValueFailure.invalidEmail(failedValue: input));
@@ -31,24 +35,32 @@ Either<ValueFailure<String>, String> validateUniqueId(String input) {
   }
 }
 
-Either<ValueFailure<String>, String> validatePassword(String input) {
-  if (input.length <= 8) {
-    return left(ValueFailure.shortPassword(failedValue: input));
+Either<ValueFailure<List<int>>, List<int>> validatePassword(String input) {
+  final encodedPass = sha256.convert(utf8.encode(input)).bytes;
+  if (input == null || input.isEmpty) {
+    return left(ValueFailure.emptyPassword(failedValue: encodedPass));
+  } else if (input.length < 8) {
+    return left(ValueFailure.shortPassword(failedValue: encodedPass));
   } else if (input.length > 24) {
-    return left(ValueFailure.longPassword(failedValue: input));
-  } else if (!_kPasswordRegexp.hasMatch(input)) {
-    return left(ValueFailure.invalidPassword(failedValue: input));
+    return left(ValueFailure.longPassword(failedValue: encodedPass));
+  } else if (!_kPasswordRegexp.hasMatch(input) ||
+      _kPasswordRegexp.firstMatch(input)[0] != input) {
+    return left(ValueFailure.invalidPassword(failedValue: encodedPass));
   } else {
-    return right(input);
+    return right(encodedPass);
   }
 }
 
-Either<ValueFailure<String>, String> validateLogin(String input) {
-  if (input.length >= 30) {
-    return left(ValueFailure.longLogin(failedValue: input));
+Either<ValueFailure<String>, String> validateUsername(String input) {
+  if (input == null || input.isEmpty) {
+    return left(ValueFailure.emptyUsername(failedValue: input));
+  } else if (input.length < 4) {
+    return left(ValueFailure.shortUsername(failedValue: input));
+  } else if (input.length > 30) {
+    return left(ValueFailure.longUsername(failedValue: input));
   } else if (!_kLoginRegexp.hasMatch(input) ||
       _kLoginRegexp.firstMatch(input)[0] != input) {
-    return left(ValueFailure.invalidLogin(failedValue: input));
+    return left(ValueFailure.invalidUsername(failedValue: input));
   } else {
     return right(input);
   }

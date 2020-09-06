@@ -1,58 +1,107 @@
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mydeck/blocs/sign_in/sign_in_bloc.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:mydeck/blocs/auth/auth_bloc.dart';
 import 'package:mydeck/screens/library/local_widgets/login_field.dart';
 import 'package:mydeck/screens/login/local_widgets/login_screen_hat.dart';
 import 'package:mydeck/screens/login/sign_up_page.dart';
+import 'package:mydeck/theme/my_deck_routes.dart';
 import 'package:mydeck/utils/custom_icons_icons.dart';
 import 'package:mydeck/utils/dependency_injection.dart';
 
 import 'local_widgets/password_field.dart';
 
 class SignInPage extends StatelessWidget {
-  const SignInPage({Key key}) : super(key: key);
+  SignInPage({Key key}) : super(key: key);
+  final _firstFocusNode = FocusNode();
+  final _passwordFocusNode = FocusNode();
+
+  _nextField(BuildContext context, FocusNode currentNode, FocusNode nextNode) {
+    currentNode.unfocus();
+    FocusScope.of(context).requestFocus(nextNode);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ColorfulSafeArea(
-      color: Theme.of(context).primaryColorDark,
+    return SafeArea(
+      bottom: false,
+      top: false,
       child: Scaffold(
         body: SingleChildScrollView(
           physics: NeverScrollableScrollPhysics(),
           child: Container(
             height: MediaQuery.of(context).size.height * 0.96,
-            child: BlocBuilder<SignInBloc, SignInState>(
+            child: BlocConsumer<AuthBloc, AuthState>(
+              listener: (context, state) =>
+                  state.authFailureOrSuccessOption.fold(
+                () => null,
+                (some) => some.fold(
+                  (failure) => showToast(failure.message),
+                  (r) => Navigator.of(context).pushNamedAndRemoveUntil(
+                      MyDeckRoutes.home, (Route<dynamic> route) => false),
+                ),
+              ),
               builder: (context, state) => Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  LoginScreenHat(),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16.0),
+                    child: LoginScreenHat(),
+                  ),
                   Column(
                     children: <Widget>[
-                      Card(
-                        elevation: 8,
-                        margin: EdgeInsets.all(16),
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(16))),
-                        child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 24, vertical: 32),
-                            child: state.submitting
-                                ? SignInLoadingIndicator()
-                                : Column(
-                                    children: <Widget>[
-                                      LoginField(
-                                        label: 'Email or username',
-                                        hint: 'Enter email or username',
-                                      ),
-                                      SizedBox(
-                                        height: 32,
-                                      ),
-                                      PasswordField(),
-                                    ],
-                                  )),
+                      Hero(
+                        tag: 'signCard',
+                        child: Card(
+                          elevation: 8,
+                          margin: EdgeInsets.all(16),
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(16))),
+                          child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 24, vertical: 32),
+                              child: state.submitting
+                                  ? SignInLoadingIndicator()
+                                  : Column(
+                                      children: <Widget>[
+                                        LoginField(
+                                          label: 'Email or username',
+                                          hint: 'Enter email or username',
+                                          focusNode: _firstFocusNode,
+                                          autovalidate: state.autovalidate,
+                                          textInputAction: TextInputAction.next,
+                                          onChanged: (value) {
+                                            context.bloc<AuthBloc>().add(
+                                                AuthEvent.emailOrLoginChanged(
+                                                    emailOrLoginStr: value));
+                                          },
+                                          onFieldSubmitted: (value) {
+                                            _nextField(context, _firstFocusNode,
+                                                _passwordFocusNode);
+                                          },
+                                        ),
+                                        SizedBox(
+                                          height: 32,
+                                        ),
+                                        PasswordField(
+                                          onChanged: (value) {
+                                            context.bloc<AuthBloc>().add(
+                                                AuthEvent.passwordChanged(
+                                                    passwordStr: value));
+                                          },
+                                          focusNode: _passwordFocusNode,
+                                          textInputAction: TextInputAction.done,
+                                          onFieldSubmitted: (value) {
+                                            _passwordFocusNode.unfocus();
+                                          },
+                                          autovalidate: state.autovalidate,
+                                        ),
+                                      ],
+                                    )),
+                        ),
                       ),
                       Text(
                         'Problems with access?',
@@ -71,7 +120,7 @@ class SignInPage extends StatelessWidget {
     );
   }
 
-  Widget _socialButtonSection(SignInState state, BuildContext context) {
+  Widget _socialButtonSection(AuthState state, BuildContext context) {
     return Column(
       children: <Widget>[
         Row(
@@ -104,8 +153,8 @@ class SignInPage extends StatelessWidget {
                 ? null
                 : () {
                     context
-                        .bloc<SignInBloc>()
-                        .add(SignInEvent.signInWithGooglePressed());
+                        .bloc<AuthBloc>()
+                        .add(AuthEvent.signInWithGooglePressed());
                   },
             child: Container(
               height: MediaQuery.of(context).size.width / 7 * 1.3,
@@ -122,30 +171,27 @@ class SignInPage extends StatelessWidget {
     );
   }
 
-  Widget _buttonsSection(SignInState state, BuildContext context) {
+  Widget _buttonsSection(AuthState state, BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
-        Hero(
-          tag: 'SignUp',
-          child: MaterialButton(
-            child: Text(
-              'SIGN UP',
-              style: Theme.of(context).textTheme.headline6,
-            ),
-            onPressed: state.submitting
-                ? null
-                : () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (ctx) => BlocProvider<SignInBloc>(
-                          child: SignUpPage(),
-                          create: (c) => sl.get<SignInBloc>(),
-                        ),
-                      ),
-                    );
-                  },
+        MaterialButton(
+          child: Text(
+            'SIGN UP',
+            style: Theme.of(context).textTheme.headline6,
           ),
+          onPressed: state.submitting
+              ? null
+              : () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (ctx) => BlocProvider<AuthBloc>(
+                        child: SignUpPage(),
+                        create: (c) => sl.get<AuthBloc>(),
+                      ),
+                    ),
+                  );
+                },
         ),
         Hero(
           tag: 'SignIn',
@@ -157,7 +203,7 @@ class SignInPage extends StatelessWidget {
             onPressed: state.submitting
                 ? null
                 : () {
-                    context.bloc<SignInBloc>().add(SignInEvent.signInPressed());
+                    context.bloc<AuthBloc>().add(AuthEvent.signInPressed());
                   },
           ),
         ),

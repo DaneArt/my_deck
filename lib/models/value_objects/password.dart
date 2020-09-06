@@ -4,9 +4,9 @@ import 'package:mydeck/utils/value_validators.dart';
 
 import 'package:dartz/dartz.dart';
 
-class Password extends ValueObject<String> {
+class Password extends ValueObject<List<int>> {
   @override
-  final Either<ValueFailure<String>, String> value;
+  final Either<ValueFailure<List<int>>, List<int>> value;
 
   factory Password(String input) {
     assert(input != null);

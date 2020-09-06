@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mydeck/blocs/add_deck/add_deck_bloc.dart';
 import 'package:mydeck/cubits/md_image/md_image_cubit.dart';
+import 'package:mydeck/theme/my_deck_theme.dart';
 import 'package:mydeck/utils/widget_extensions.dart';
 import 'package:mydeck/utils/custom_icons_icons.dart';
 import 'package:mydeck/utils/dependency_injection.dart';
@@ -179,22 +180,37 @@ class _DeckCardState extends State<DeckCard> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        Icon(CustomIcons.cards),
-                        SizedBox(
-                          width: 4,
+                        Icon(
+                          CustomIcons.cards,
+                          color: MyDeckTheme.of(context)
+                              .textTheme
+                              .subtitle1
+                              .color
+                              .withAlpha(96),
                         ),
-                        Text(
-                          deck.cardsCount.toString() ??
-                              deck.cardsList.length.toString() ??
-                              0,
-                          style: Theme.of(context).textTheme.subtitle1,
+                        Padding(
+                          padding:
+                              const EdgeInsets.only(bottom: 2.0, left: 4.0),
+                          child: Text(
+                            deck.cardsCount.toString() ??
+                                deck.cardsList.length.toString() ??
+                                0,
+                            style: Theme.of(context).textTheme.subtitle1,
+                          ),
                         )
                       ],
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        Icon(Icons.person),
+                        Icon(
+                          Icons.person,
+                          color: Theme.of(context)
+                              .textTheme
+                              .subtitle1
+                              .color
+                              .withAlpha(96),
+                        ),
                         Text(
                           deck.subscribersCount?.toString() ??
                               deck.subscribers?.length.toString() ??

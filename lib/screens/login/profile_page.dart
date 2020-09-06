@@ -4,6 +4,7 @@ import 'package:mydeck/screens/library/local_widgets/deck_card_view.dart';
 import 'package:mydeck/services/datasources/user_config.dart';
 import 'package:mydeck/generated/l10n.dart';
 import 'package:mydeck/utils/custom_icons_icons.dart';
+import 'package:mydeck/utils/dependency_injection.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({Key key}) : super(key: key);
@@ -110,7 +111,8 @@ class ProfilePageHat extends StatelessWidget {
               width: screenSize.width / 2.5,
               child: ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
-                child: Image.network(UserConfig.currentUser.avatarPath,
+                child: Image.network(
+                    '$BASE_URL_DEV/mydeckapi/Media/Media/${UserConfig.currentUser.avatar}',
                     fit: BoxFit.cover),
               ),
             ),

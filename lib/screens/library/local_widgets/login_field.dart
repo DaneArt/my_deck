@@ -15,6 +15,9 @@ class LoginField extends StatefulWidget {
   final Function(String) onChanged;
   final bool isObscureText;
   final bool autovalidate;
+  final TextInputAction textInputAction;
+  final Function(String) onFieldSubmitted;
+  final FocusNode focusNode;
   final GlobalKey<FormFieldState> fieldKey;
 
   LoginField({
@@ -29,15 +32,18 @@ class LoginField extends StatefulWidget {
     this.fieldKey,
     this.onChanged,
     @required this.label,
-  }) : super(key: key);
+    this.textInputAction,
+    this.onFieldSubmitted,
+    @required FocusNode focusNode,
+  })  : assert(focusNode != null),
+        this.focusNode = focusNode,
+        super(key: key);
 
   @override
   _LoginFieldState createState() => _LoginFieldState();
 }
 
 class _LoginFieldState extends State<LoginField> {
-  final fieldFocusNode = FocusNode();
-
   @override
   void initState() {
     super.initState();
@@ -60,16 +66,18 @@ class _LoginFieldState extends State<LoginField> {
           ),
         ),
         EnsureVisibleWhenFocused(
-          focusNode: fieldFocusNode,
+          focusNode: widget.focusNode,
           child: TextFormField(
             key: widget.fieldKey,
-            focusNode: fieldFocusNode,
+            focusNode: widget.focusNode,
             controller: widget.controller,
             onChanged: widget.onChanged,
             style: Theme.of(context).textTheme.bodyText2,
             validator: widget.validator,
             autovalidate: widget.autovalidate,
             obscureText: widget.isObscureText,
+            textInputAction: widget.textInputAction ?? TextInputAction.done,
+            onFieldSubmitted: widget.onFieldSubmitted,
             decoration: InputDecoration(
                 hintStyle: Theme.of(context).textTheme.caption.copyWith(
                     color: Theme.of(context).primaryColor, fontSize: 14),

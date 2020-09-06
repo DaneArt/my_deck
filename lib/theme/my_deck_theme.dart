@@ -20,7 +20,7 @@ class MyDeckTheme {
             FloatingActionButtonThemeData(foregroundColor: kThemeAccentColor),
         textTheme: TextTheme(
             subtitle2: TextStyle(color: kThemeTextColor),
-            subtitle1: TextStyle(color: kThemeTextColor),
+            subtitle1: TextStyle(color: kThemeTextColor.withAlpha(120)),
             overline: TextStyle(color: kThemeTextColor),
             headline6: TextStyle(color: kThemeTextColor),
             headline5: TextStyle(color: kThemeTextColor),

@@ -14,7 +14,8 @@ import 'package:mydeck/models/entitites/md_file.dart';
 import 'package:mydeck/models/value_objects/deck_avatar.dart';
 import 'package:mydeck/models/value_objects/deck_description.dart';
 import 'package:mydeck/models/value_objects/deck_title.dart';
-import 'package:mydeck/models/value_objects/user_model.dart';
+import 'package:mydeck/models/dtos/user_dto.dart';
+import 'package:mydeck/services/datasources/user_config.dart';
 
 import 'package:mydeck/services/usecases/upload_online_deck.dart';
 import 'package:mydeck/screens/deck_editor/add_deck_page.dart';
@@ -78,7 +79,7 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
                 description: r.description,
                 isShared: !r.isPrivate,
                 title: r.title,
-                author: r.author,
+                author: UserDto.fromDomain(r.author),
                 isLoading: false,
                 loadingFailureOrSuccess: Some(right(unit)),
               ));
