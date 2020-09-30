@@ -10,5 +10,7 @@ abstract class AddDeckEvent with _$AddDeckEvent {
   factory AddDeckEvent.changePrivacy() = PrivacyChanged;
   factory AddDeckEvent.quickTrainStateChanged() = QuickTrainStateChanged;
   factory AddDeckEvent.categoryChanged(DeckCategory category) = CategoryChanged;
+  factory AddDeckEvent.switchEditStatus() = SwitchEditState;
+  factory AddDeckEvent.saveChanges() = SaveChanges;
   factory AddDeckEvent.updateCards({@required List<Card> cards}) = UpdateCards;
 }

@@ -11,11 +11,9 @@ part 'md_image_state.dart';
 part 'md_image_cubit.freezed.dart';
 
 class MDContentCubit extends Cubit<MDContentState> {
-  final GetFileByMetaUseCase _getFileByMetaUseCase;
+  MDContentCubit() : super(MDContentState.initial());
 
-  MDContentCubit(this._getFileByMetaUseCase) : super(MDContentState.initial());
-
-  Future<void> initFile(MDFile sourceFile) async {
+  Future<void> initFile(ImageFile sourceFile) async {
     emit(MDContentState.loading());
     final result = await sourceFile.getFileValue();
     emit(

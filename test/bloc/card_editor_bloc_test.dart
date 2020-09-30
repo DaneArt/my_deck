@@ -30,7 +30,7 @@ void main() {
   blocTest('should decrease index on delete last card',
       build: () => CardEditorBloc(
             currentCardIndex: 1,
-            sourceCards: List.from(tCards)..add(Card.basic()),
+            sourceCards: List<Card>.from(tCards)..add(Card.basic()),
           ),
       act: (bloc) => (bloc as CardEditorBloc).add(CardEditorEvent.deleteCard()),
       expect: [

@@ -24,6 +24,10 @@ class _$AddDeckStateTearOff {
       @required
           bool isShared,
       @required
+          AddDeckStatus status,
+      @required
+          AddDeckGoal goal,
+      @required
           DeckCategory category,
       @required
           bool availableQuickTrain,
@@ -32,6 +36,10 @@ class _$AddDeckStateTearOff {
       @required
           Option<Either<StorageFailure<dynamic>, Unit>> loadingFailureOrSuccess,
       @required
+          Option<Either<StorageFailure<dynamic>, Unit>> savingFailurOrSuccess,
+      @required
+          bool isSaving,
+      @required
           List<Card> cardsList}) {
     return _AddDeckState(
       isLoading: isLoading,
@@ -39,10 +47,14 @@ class _$AddDeckStateTearOff {
       description: description,
       avatar: avatar,
       isShared: isShared,
+      status: status,
+      goal: goal,
       category: category,
       availableQuickTrain: availableQuickTrain,
       author: author,
       loadingFailureOrSuccess: loadingFailureOrSuccess,
+      savingFailurOrSuccess: savingFailurOrSuccess,
+      isSaving: isSaving,
       cardsList: cardsList,
     );
   }
@@ -57,10 +69,14 @@ mixin _$AddDeckState {
   DeckDescription get description;
   DeckAvatar get avatar;
   bool get isShared;
+  AddDeckStatus get status;
+  AddDeckGoal get goal;
   DeckCategory get category;
   bool get availableQuickTrain;
   UserDto get author;
   Option<Either<StorageFailure<dynamic>, Unit>> get loadingFailureOrSuccess;
+  Option<Either<StorageFailure<dynamic>, Unit>> get savingFailurOrSuccess;
+  bool get isSaving;
   List<Card> get cardsList;
 
   $AddDeckStateCopyWith<AddDeckState> get copyWith;
@@ -76,10 +92,14 @@ abstract class $AddDeckStateCopyWith<$Res> {
       DeckDescription description,
       DeckAvatar avatar,
       bool isShared,
+      AddDeckStatus status,
+      AddDeckGoal goal,
       DeckCategory category,
       bool availableQuickTrain,
       UserDto author,
       Option<Either<StorageFailure<dynamic>, Unit>> loadingFailureOrSuccess,
+      Option<Either<StorageFailure<dynamic>, Unit>> savingFailurOrSuccess,
+      bool isSaving,
       List<Card> cardsList});
 
   $DeckCategoryCopyWith<$Res> get category;
@@ -100,10 +120,14 @@ class _$AddDeckStateCopyWithImpl<$Res> implements $AddDeckStateCopyWith<$Res> {
     Object description = freezed,
     Object avatar = freezed,
     Object isShared = freezed,
+    Object status = freezed,
+    Object goal = freezed,
     Object category = freezed,
     Object availableQuickTrain = freezed,
     Object author = freezed,
     Object loadingFailureOrSuccess = freezed,
+    Object savingFailurOrSuccess = freezed,
+    Object isSaving = freezed,
     Object cardsList = freezed,
   }) {
     return _then(_value.copyWith(
@@ -114,6 +138,8 @@ class _$AddDeckStateCopyWithImpl<$Res> implements $AddDeckStateCopyWith<$Res> {
           : description as DeckDescription,
       avatar: avatar == freezed ? _value.avatar : avatar as DeckAvatar,
       isShared: isShared == freezed ? _value.isShared : isShared as bool,
+      status: status == freezed ? _value.status : status as AddDeckStatus,
+      goal: goal == freezed ? _value.goal : goal as AddDeckGoal,
       category:
           category == freezed ? _value.category : category as DeckCategory,
       availableQuickTrain: availableQuickTrain == freezed
@@ -124,6 +150,11 @@ class _$AddDeckStateCopyWithImpl<$Res> implements $AddDeckStateCopyWith<$Res> {
           ? _value.loadingFailureOrSuccess
           : loadingFailureOrSuccess
               as Option<Either<StorageFailure<dynamic>, Unit>>,
+      savingFailurOrSuccess: savingFailurOrSuccess == freezed
+          ? _value.savingFailurOrSuccess
+          : savingFailurOrSuccess
+              as Option<Either<StorageFailure<dynamic>, Unit>>,
+      isSaving: isSaving == freezed ? _value.isSaving : isSaving as bool,
       cardsList:
           cardsList == freezed ? _value.cardsList : cardsList as List<Card>,
     ));
@@ -162,10 +193,14 @@ abstract class _$AddDeckStateCopyWith<$Res>
       DeckDescription description,
       DeckAvatar avatar,
       bool isShared,
+      AddDeckStatus status,
+      AddDeckGoal goal,
       DeckCategory category,
       bool availableQuickTrain,
       UserDto author,
       Option<Either<StorageFailure<dynamic>, Unit>> loadingFailureOrSuccess,
+      Option<Either<StorageFailure<dynamic>, Unit>> savingFailurOrSuccess,
+      bool isSaving,
       List<Card> cardsList});
 
   @override
@@ -190,10 +225,14 @@ class __$AddDeckStateCopyWithImpl<$Res> extends _$AddDeckStateCopyWithImpl<$Res>
     Object description = freezed,
     Object avatar = freezed,
     Object isShared = freezed,
+    Object status = freezed,
+    Object goal = freezed,
     Object category = freezed,
     Object availableQuickTrain = freezed,
     Object author = freezed,
     Object loadingFailureOrSuccess = freezed,
+    Object savingFailurOrSuccess = freezed,
+    Object isSaving = freezed,
     Object cardsList = freezed,
   }) {
     return _then(_AddDeckState(
@@ -204,6 +243,8 @@ class __$AddDeckStateCopyWithImpl<$Res> extends _$AddDeckStateCopyWithImpl<$Res>
           : description as DeckDescription,
       avatar: avatar == freezed ? _value.avatar : avatar as DeckAvatar,
       isShared: isShared == freezed ? _value.isShared : isShared as bool,
+      status: status == freezed ? _value.status : status as AddDeckStatus,
+      goal: goal == freezed ? _value.goal : goal as AddDeckGoal,
       category:
           category == freezed ? _value.category : category as DeckCategory,
       availableQuickTrain: availableQuickTrain == freezed
@@ -214,6 +255,11 @@ class __$AddDeckStateCopyWithImpl<$Res> extends _$AddDeckStateCopyWithImpl<$Res>
           ? _value.loadingFailureOrSuccess
           : loadingFailureOrSuccess
               as Option<Either<StorageFailure<dynamic>, Unit>>,
+      savingFailurOrSuccess: savingFailurOrSuccess == freezed
+          ? _value.savingFailurOrSuccess
+          : savingFailurOrSuccess
+              as Option<Either<StorageFailure<dynamic>, Unit>>,
+      isSaving: isSaving == freezed ? _value.isSaving : isSaving as bool,
       cardsList:
           cardsList == freezed ? _value.cardsList : cardsList as List<Card>,
     ));
@@ -227,20 +273,28 @@ class _$_AddDeckState implements _AddDeckState {
       @required this.description,
       @required this.avatar,
       @required this.isShared,
+      @required this.status,
+      @required this.goal,
       @required this.category,
       @required this.availableQuickTrain,
       @required this.author,
       @required this.loadingFailureOrSuccess,
+      @required this.savingFailurOrSuccess,
+      @required this.isSaving,
       @required this.cardsList})
       : assert(isLoading != null),
         assert(title != null),
         assert(description != null),
         assert(avatar != null),
         assert(isShared != null),
+        assert(status != null),
+        assert(goal != null),
         assert(category != null),
         assert(availableQuickTrain != null),
         assert(author != null),
         assert(loadingFailureOrSuccess != null),
+        assert(savingFailurOrSuccess != null),
+        assert(isSaving != null),
         assert(cardsList != null);
 
   @override
@@ -254,6 +308,10 @@ class _$_AddDeckState implements _AddDeckState {
   @override
   final bool isShared;
   @override
+  final AddDeckStatus status;
+  @override
+  final AddDeckGoal goal;
+  @override
   final DeckCategory category;
   @override
   final bool availableQuickTrain;
@@ -262,11 +320,15 @@ class _$_AddDeckState implements _AddDeckState {
   @override
   final Option<Either<StorageFailure<dynamic>, Unit>> loadingFailureOrSuccess;
   @override
+  final Option<Either<StorageFailure<dynamic>, Unit>> savingFailurOrSuccess;
+  @override
+  final bool isSaving;
+  @override
   final List<Card> cardsList;
 
   @override
   String toString() {
-    return 'AddDeckState(isLoading: $isLoading, title: $title, description: $description, avatar: $avatar, isShared: $isShared, category: $category, availableQuickTrain: $availableQuickTrain, author: $author, loadingFailureOrSuccess: $loadingFailureOrSuccess, cardsList: $cardsList)';
+    return 'AddDeckState(isLoading: $isLoading, title: $title, description: $description, avatar: $avatar, isShared: $isShared, status: $status, goal: $goal, category: $category, availableQuickTrain: $availableQuickTrain, author: $author, loadingFailureOrSuccess: $loadingFailureOrSuccess, savingFailurOrSuccess: $savingFailurOrSuccess, isSaving: $isSaving, cardsList: $cardsList)';
   }
 
   @override
@@ -286,6 +348,10 @@ class _$_AddDeckState implements _AddDeckState {
             (identical(other.isShared, isShared) ||
                 const DeepCollectionEquality()
                     .equals(other.isShared, isShared)) &&
+            (identical(other.status, status) ||
+                const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.goal, goal) ||
+                const DeepCollectionEquality().equals(other.goal, goal)) &&
             (identical(other.category, category) ||
                 const DeepCollectionEquality()
                     .equals(other.category, category)) &&
@@ -298,6 +364,12 @@ class _$_AddDeckState implements _AddDeckState {
                     other.loadingFailureOrSuccess, loadingFailureOrSuccess) ||
                 const DeepCollectionEquality().equals(
                     other.loadingFailureOrSuccess, loadingFailureOrSuccess)) &&
+            (identical(other.savingFailurOrSuccess, savingFailurOrSuccess) ||
+                const DeepCollectionEquality().equals(
+                    other.savingFailurOrSuccess, savingFailurOrSuccess)) &&
+            (identical(other.isSaving, isSaving) ||
+                const DeepCollectionEquality()
+                    .equals(other.isSaving, isSaving)) &&
             (identical(other.cardsList, cardsList) ||
                 const DeepCollectionEquality()
                     .equals(other.cardsList, cardsList)));
@@ -311,10 +383,14 @@ class _$_AddDeckState implements _AddDeckState {
       const DeepCollectionEquality().hash(description) ^
       const DeepCollectionEquality().hash(avatar) ^
       const DeepCollectionEquality().hash(isShared) ^
+      const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(goal) ^
       const DeepCollectionEquality().hash(category) ^
       const DeepCollectionEquality().hash(availableQuickTrain) ^
       const DeepCollectionEquality().hash(author) ^
       const DeepCollectionEquality().hash(loadingFailureOrSuccess) ^
+      const DeepCollectionEquality().hash(savingFailurOrSuccess) ^
+      const DeepCollectionEquality().hash(isSaving) ^
       const DeepCollectionEquality().hash(cardsList);
 
   @override
@@ -335,6 +411,10 @@ abstract class _AddDeckState implements AddDeckState {
       @required
           bool isShared,
       @required
+          AddDeckStatus status,
+      @required
+          AddDeckGoal goal,
+      @required
           DeckCategory category,
       @required
           bool availableQuickTrain,
@@ -342,6 +422,10 @@ abstract class _AddDeckState implements AddDeckState {
           UserDto author,
       @required
           Option<Either<StorageFailure<dynamic>, Unit>> loadingFailureOrSuccess,
+      @required
+          Option<Either<StorageFailure<dynamic>, Unit>> savingFailurOrSuccess,
+      @required
+          bool isSaving,
       @required
           List<Card> cardsList}) = _$_AddDeckState;
 
@@ -356,6 +440,10 @@ abstract class _AddDeckState implements AddDeckState {
   @override
   bool get isShared;
   @override
+  AddDeckStatus get status;
+  @override
+  AddDeckGoal get goal;
+  @override
   DeckCategory get category;
   @override
   bool get availableQuickTrain;
@@ -363,6 +451,10 @@ abstract class _AddDeckState implements AddDeckState {
   UserDto get author;
   @override
   Option<Either<StorageFailure<dynamic>, Unit>> get loadingFailureOrSuccess;
+  @override
+  Option<Either<StorageFailure<dynamic>, Unit>> get savingFailurOrSuccess;
+  @override
+  bool get isSaving;
   @override
   List<Card> get cardsList;
   @override
@@ -408,6 +500,14 @@ class _$AddDeckEventTearOff {
     );
   }
 
+  SwitchEditState switchEditStatus() {
+    return SwitchEditState();
+  }
+
+  SaveChanges saveChanges() {
+    return SaveChanges();
+  }
+
   UpdateCards updateCards({@required List<Card> cards}) {
     return UpdateCards(
       cards: cards,
@@ -428,6 +528,8 @@ mixin _$AddDeckEvent {
     @required Result changePrivacy(),
     @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
+    @required Result switchEditStatus(),
+    @required Result saveChanges(),
     @required Result updateCards(List<Card> cards),
   });
   @optionalTypeArgs
@@ -439,6 +541,8 @@ mixin _$AddDeckEvent {
     Result changePrivacy(),
     Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
+    Result switchEditStatus(),
+    Result saveChanges(),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
   });
@@ -451,6 +555,8 @@ mixin _$AddDeckEvent {
     @required Result changePrivacy(PrivacyChanged value),
     @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
+    @required Result switchEditStatus(SwitchEditState value),
+    @required Result saveChanges(SaveChanges value),
     @required Result updateCards(UpdateCards value),
   });
   @optionalTypeArgs
@@ -462,6 +568,8 @@ mixin _$AddDeckEvent {
     Result changePrivacy(PrivacyChanged value),
     Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
+    Result switchEditStatus(SwitchEditState value),
+    Result saveChanges(SaveChanges value),
     Result updateCards(UpdateCards value),
     @required Result orElse(),
   });
@@ -524,6 +632,8 @@ class _$InitFromOnline implements InitFromOnline {
     @required Result changePrivacy(),
     @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
+    @required Result switchEditStatus(),
+    @required Result saveChanges(),
     @required Result updateCards(List<Card> cards),
   }) {
     assert(initFromOnline != null);
@@ -533,6 +643,8 @@ class _$InitFromOnline implements InitFromOnline {
     assert(changePrivacy != null);
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
+    assert(switchEditStatus != null);
+    assert(saveChanges != null);
     assert(updateCards != null);
     return initFromOnline();
   }
@@ -547,6 +659,8 @@ class _$InitFromOnline implements InitFromOnline {
     Result changePrivacy(),
     Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
+    Result switchEditStatus(),
+    Result saveChanges(),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
   }) {
@@ -567,6 +681,8 @@ class _$InitFromOnline implements InitFromOnline {
     @required Result changePrivacy(PrivacyChanged value),
     @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
+    @required Result switchEditStatus(SwitchEditState value),
+    @required Result saveChanges(SaveChanges value),
     @required Result updateCards(UpdateCards value),
   }) {
     assert(initFromOnline != null);
@@ -576,6 +692,8 @@ class _$InitFromOnline implements InitFromOnline {
     assert(changePrivacy != null);
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
+    assert(switchEditStatus != null);
+    assert(saveChanges != null);
     assert(updateCards != null);
     return initFromOnline(this);
   }
@@ -590,6 +708,8 @@ class _$InitFromOnline implements InitFromOnline {
     Result changePrivacy(PrivacyChanged value),
     Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
+    Result switchEditStatus(SwitchEditState value),
+    Result saveChanges(SaveChanges value),
     Result updateCards(UpdateCards value),
     @required Result orElse(),
   }) {
@@ -669,6 +789,8 @@ class _$TitleChanged implements TitleChanged {
     @required Result changePrivacy(),
     @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
+    @required Result switchEditStatus(),
+    @required Result saveChanges(),
     @required Result updateCards(List<Card> cards),
   }) {
     assert(initFromOnline != null);
@@ -678,6 +800,8 @@ class _$TitleChanged implements TitleChanged {
     assert(changePrivacy != null);
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
+    assert(switchEditStatus != null);
+    assert(saveChanges != null);
     assert(updateCards != null);
     return titleChanged(titleStr);
   }
@@ -692,6 +816,8 @@ class _$TitleChanged implements TitleChanged {
     Result changePrivacy(),
     Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
+    Result switchEditStatus(),
+    Result saveChanges(),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
   }) {
@@ -712,6 +838,8 @@ class _$TitleChanged implements TitleChanged {
     @required Result changePrivacy(PrivacyChanged value),
     @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
+    @required Result switchEditStatus(SwitchEditState value),
+    @required Result saveChanges(SaveChanges value),
     @required Result updateCards(UpdateCards value),
   }) {
     assert(initFromOnline != null);
@@ -721,6 +849,8 @@ class _$TitleChanged implements TitleChanged {
     assert(changePrivacy != null);
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
+    assert(switchEditStatus != null);
+    assert(saveChanges != null);
     assert(updateCards != null);
     return titleChanged(this);
   }
@@ -735,6 +865,8 @@ class _$TitleChanged implements TitleChanged {
     Result changePrivacy(PrivacyChanged value),
     Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
+    Result switchEditStatus(SwitchEditState value),
+    Result saveChanges(SaveChanges value),
     Result updateCards(UpdateCards value),
     @required Result orElse(),
   }) {
@@ -817,6 +949,8 @@ class _$DescriptionChanged implements DescriptionChanged {
     @required Result changePrivacy(),
     @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
+    @required Result switchEditStatus(),
+    @required Result saveChanges(),
     @required Result updateCards(List<Card> cards),
   }) {
     assert(initFromOnline != null);
@@ -826,6 +960,8 @@ class _$DescriptionChanged implements DescriptionChanged {
     assert(changePrivacy != null);
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
+    assert(switchEditStatus != null);
+    assert(saveChanges != null);
     assert(updateCards != null);
     return descriptionChanged(descStr);
   }
@@ -840,6 +976,8 @@ class _$DescriptionChanged implements DescriptionChanged {
     Result changePrivacy(),
     Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
+    Result switchEditStatus(),
+    Result saveChanges(),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
   }) {
@@ -860,6 +998,8 @@ class _$DescriptionChanged implements DescriptionChanged {
     @required Result changePrivacy(PrivacyChanged value),
     @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
+    @required Result switchEditStatus(SwitchEditState value),
+    @required Result saveChanges(SaveChanges value),
     @required Result updateCards(UpdateCards value),
   }) {
     assert(initFromOnline != null);
@@ -869,6 +1009,8 @@ class _$DescriptionChanged implements DescriptionChanged {
     assert(changePrivacy != null);
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
+    assert(switchEditStatus != null);
+    assert(saveChanges != null);
     assert(updateCards != null);
     return descriptionChanged(this);
   }
@@ -883,6 +1025,8 @@ class _$DescriptionChanged implements DescriptionChanged {
     Result changePrivacy(PrivacyChanged value),
     Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
+    Result switchEditStatus(SwitchEditState value),
+    Result saveChanges(SaveChanges value),
     Result updateCards(UpdateCards value),
     @required Result orElse(),
   }) {
@@ -964,6 +1108,8 @@ class _$AvatarChanged implements AvatarChanged {
     @required Result changePrivacy(),
     @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
+    @required Result switchEditStatus(),
+    @required Result saveChanges(),
     @required Result updateCards(List<Card> cards),
   }) {
     assert(initFromOnline != null);
@@ -973,6 +1119,8 @@ class _$AvatarChanged implements AvatarChanged {
     assert(changePrivacy != null);
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
+    assert(switchEditStatus != null);
+    assert(saveChanges != null);
     assert(updateCards != null);
     return avatarChanged(avatar);
   }
@@ -987,6 +1135,8 @@ class _$AvatarChanged implements AvatarChanged {
     Result changePrivacy(),
     Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
+    Result switchEditStatus(),
+    Result saveChanges(),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
   }) {
@@ -1007,6 +1157,8 @@ class _$AvatarChanged implements AvatarChanged {
     @required Result changePrivacy(PrivacyChanged value),
     @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
+    @required Result switchEditStatus(SwitchEditState value),
+    @required Result saveChanges(SaveChanges value),
     @required Result updateCards(UpdateCards value),
   }) {
     assert(initFromOnline != null);
@@ -1016,6 +1168,8 @@ class _$AvatarChanged implements AvatarChanged {
     assert(changePrivacy != null);
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
+    assert(switchEditStatus != null);
+    assert(saveChanges != null);
     assert(updateCards != null);
     return avatarChanged(this);
   }
@@ -1030,6 +1184,8 @@ class _$AvatarChanged implements AvatarChanged {
     Result changePrivacy(PrivacyChanged value),
     Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
+    Result switchEditStatus(SwitchEditState value),
+    Result saveChanges(SaveChanges value),
     Result updateCards(UpdateCards value),
     @required Result orElse(),
   }) {
@@ -1091,6 +1247,8 @@ class _$PrivacyChanged implements PrivacyChanged {
     @required Result changePrivacy(),
     @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
+    @required Result switchEditStatus(),
+    @required Result saveChanges(),
     @required Result updateCards(List<Card> cards),
   }) {
     assert(initFromOnline != null);
@@ -1100,6 +1258,8 @@ class _$PrivacyChanged implements PrivacyChanged {
     assert(changePrivacy != null);
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
+    assert(switchEditStatus != null);
+    assert(saveChanges != null);
     assert(updateCards != null);
     return changePrivacy();
   }
@@ -1114,6 +1274,8 @@ class _$PrivacyChanged implements PrivacyChanged {
     Result changePrivacy(),
     Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
+    Result switchEditStatus(),
+    Result saveChanges(),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
   }) {
@@ -1134,6 +1296,8 @@ class _$PrivacyChanged implements PrivacyChanged {
     @required Result changePrivacy(PrivacyChanged value),
     @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
+    @required Result switchEditStatus(SwitchEditState value),
+    @required Result saveChanges(SaveChanges value),
     @required Result updateCards(UpdateCards value),
   }) {
     assert(initFromOnline != null);
@@ -1143,6 +1307,8 @@ class _$PrivacyChanged implements PrivacyChanged {
     assert(changePrivacy != null);
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
+    assert(switchEditStatus != null);
+    assert(saveChanges != null);
     assert(updateCards != null);
     return changePrivacy(this);
   }
@@ -1157,6 +1323,8 @@ class _$PrivacyChanged implements PrivacyChanged {
     Result changePrivacy(PrivacyChanged value),
     Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
+    Result switchEditStatus(SwitchEditState value),
+    Result saveChanges(SaveChanges value),
     Result updateCards(UpdateCards value),
     @required Result orElse(),
   }) {
@@ -1215,6 +1383,8 @@ class _$QuickTrainStateChanged implements QuickTrainStateChanged {
     @required Result changePrivacy(),
     @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
+    @required Result switchEditStatus(),
+    @required Result saveChanges(),
     @required Result updateCards(List<Card> cards),
   }) {
     assert(initFromOnline != null);
@@ -1224,6 +1394,8 @@ class _$QuickTrainStateChanged implements QuickTrainStateChanged {
     assert(changePrivacy != null);
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
+    assert(switchEditStatus != null);
+    assert(saveChanges != null);
     assert(updateCards != null);
     return quickTrainStateChanged();
   }
@@ -1238,6 +1410,8 @@ class _$QuickTrainStateChanged implements QuickTrainStateChanged {
     Result changePrivacy(),
     Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
+    Result switchEditStatus(),
+    Result saveChanges(),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
   }) {
@@ -1258,6 +1432,8 @@ class _$QuickTrainStateChanged implements QuickTrainStateChanged {
     @required Result changePrivacy(PrivacyChanged value),
     @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
+    @required Result switchEditStatus(SwitchEditState value),
+    @required Result saveChanges(SaveChanges value),
     @required Result updateCards(UpdateCards value),
   }) {
     assert(initFromOnline != null);
@@ -1267,6 +1443,8 @@ class _$QuickTrainStateChanged implements QuickTrainStateChanged {
     assert(changePrivacy != null);
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
+    assert(switchEditStatus != null);
+    assert(saveChanges != null);
     assert(updateCards != null);
     return quickTrainStateChanged(this);
   }
@@ -1281,6 +1459,8 @@ class _$QuickTrainStateChanged implements QuickTrainStateChanged {
     Result changePrivacy(PrivacyChanged value),
     Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
+    Result switchEditStatus(SwitchEditState value),
+    Result saveChanges(SaveChanges value),
     Result updateCards(UpdateCards value),
     @required Result orElse(),
   }) {
@@ -1373,6 +1553,8 @@ class _$CategoryChanged implements CategoryChanged {
     @required Result changePrivacy(),
     @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
+    @required Result switchEditStatus(),
+    @required Result saveChanges(),
     @required Result updateCards(List<Card> cards),
   }) {
     assert(initFromOnline != null);
@@ -1382,6 +1564,8 @@ class _$CategoryChanged implements CategoryChanged {
     assert(changePrivacy != null);
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
+    assert(switchEditStatus != null);
+    assert(saveChanges != null);
     assert(updateCards != null);
     return categoryChanged(category);
   }
@@ -1396,6 +1580,8 @@ class _$CategoryChanged implements CategoryChanged {
     Result changePrivacy(),
     Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
+    Result switchEditStatus(),
+    Result saveChanges(),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
   }) {
@@ -1416,6 +1602,8 @@ class _$CategoryChanged implements CategoryChanged {
     @required Result changePrivacy(PrivacyChanged value),
     @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
+    @required Result switchEditStatus(SwitchEditState value),
+    @required Result saveChanges(SaveChanges value),
     @required Result updateCards(UpdateCards value),
   }) {
     assert(initFromOnline != null);
@@ -1425,6 +1613,8 @@ class _$CategoryChanged implements CategoryChanged {
     assert(changePrivacy != null);
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
+    assert(switchEditStatus != null);
+    assert(saveChanges != null);
     assert(updateCards != null);
     return categoryChanged(this);
   }
@@ -1439,6 +1629,8 @@ class _$CategoryChanged implements CategoryChanged {
     Result changePrivacy(PrivacyChanged value),
     Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
+    Result switchEditStatus(SwitchEditState value),
+    Result saveChanges(SaveChanges value),
     Result updateCards(UpdateCards value),
     @required Result orElse(),
   }) {
@@ -1455,6 +1647,277 @@ abstract class CategoryChanged implements AddDeckEvent {
 
   DeckCategory get category;
   $CategoryChangedCopyWith<CategoryChanged> get copyWith;
+}
+
+abstract class $SwitchEditStateCopyWith<$Res> {
+  factory $SwitchEditStateCopyWith(
+          SwitchEditState value, $Res Function(SwitchEditState) then) =
+      _$SwitchEditStateCopyWithImpl<$Res>;
+}
+
+class _$SwitchEditStateCopyWithImpl<$Res>
+    extends _$AddDeckEventCopyWithImpl<$Res>
+    implements $SwitchEditStateCopyWith<$Res> {
+  _$SwitchEditStateCopyWithImpl(
+      SwitchEditState _value, $Res Function(SwitchEditState) _then)
+      : super(_value, (v) => _then(v as SwitchEditState));
+
+  @override
+  SwitchEditState get _value => super._value as SwitchEditState;
+}
+
+class _$SwitchEditState implements SwitchEditState {
+  _$SwitchEditState();
+
+  @override
+  String toString() {
+    return 'AddDeckEvent.switchEditStatus()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is SwitchEditState);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result initFromOnline(),
+    @required Result titleChanged(String titleStr),
+    @required Result descriptionChanged(String descStr),
+    @required Result avatarChanged(ImageFile avatar),
+    @required Result changePrivacy(),
+    @required Result quickTrainStateChanged(),
+    @required Result categoryChanged(DeckCategory category),
+    @required Result switchEditStatus(),
+    @required Result saveChanges(),
+    @required Result updateCards(List<Card> cards),
+  }) {
+    assert(initFromOnline != null);
+    assert(titleChanged != null);
+    assert(descriptionChanged != null);
+    assert(avatarChanged != null);
+    assert(changePrivacy != null);
+    assert(quickTrainStateChanged != null);
+    assert(categoryChanged != null);
+    assert(switchEditStatus != null);
+    assert(saveChanges != null);
+    assert(updateCards != null);
+    return switchEditStatus();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result initFromOnline(),
+    Result titleChanged(String titleStr),
+    Result descriptionChanged(String descStr),
+    Result avatarChanged(ImageFile avatar),
+    Result changePrivacy(),
+    Result quickTrainStateChanged(),
+    Result categoryChanged(DeckCategory category),
+    Result switchEditStatus(),
+    Result saveChanges(),
+    Result updateCards(List<Card> cards),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (switchEditStatus != null) {
+      return switchEditStatus();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result initFromOnline(InitFromOnline value),
+    @required Result titleChanged(TitleChanged value),
+    @required Result descriptionChanged(DescriptionChanged value),
+    @required Result avatarChanged(AvatarChanged value),
+    @required Result changePrivacy(PrivacyChanged value),
+    @required Result quickTrainStateChanged(QuickTrainStateChanged value),
+    @required Result categoryChanged(CategoryChanged value),
+    @required Result switchEditStatus(SwitchEditState value),
+    @required Result saveChanges(SaveChanges value),
+    @required Result updateCards(UpdateCards value),
+  }) {
+    assert(initFromOnline != null);
+    assert(titleChanged != null);
+    assert(descriptionChanged != null);
+    assert(avatarChanged != null);
+    assert(changePrivacy != null);
+    assert(quickTrainStateChanged != null);
+    assert(categoryChanged != null);
+    assert(switchEditStatus != null);
+    assert(saveChanges != null);
+    assert(updateCards != null);
+    return switchEditStatus(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result initFromOnline(InitFromOnline value),
+    Result titleChanged(TitleChanged value),
+    Result descriptionChanged(DescriptionChanged value),
+    Result avatarChanged(AvatarChanged value),
+    Result changePrivacy(PrivacyChanged value),
+    Result quickTrainStateChanged(QuickTrainStateChanged value),
+    Result categoryChanged(CategoryChanged value),
+    Result switchEditStatus(SwitchEditState value),
+    Result saveChanges(SaveChanges value),
+    Result updateCards(UpdateCards value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (switchEditStatus != null) {
+      return switchEditStatus(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SwitchEditState implements AddDeckEvent {
+  factory SwitchEditState() = _$SwitchEditState;
+}
+
+abstract class $SaveChangesCopyWith<$Res> {
+  factory $SaveChangesCopyWith(
+          SaveChanges value, $Res Function(SaveChanges) then) =
+      _$SaveChangesCopyWithImpl<$Res>;
+}
+
+class _$SaveChangesCopyWithImpl<$Res> extends _$AddDeckEventCopyWithImpl<$Res>
+    implements $SaveChangesCopyWith<$Res> {
+  _$SaveChangesCopyWithImpl(
+      SaveChanges _value, $Res Function(SaveChanges) _then)
+      : super(_value, (v) => _then(v as SaveChanges));
+
+  @override
+  SaveChanges get _value => super._value as SaveChanges;
+}
+
+class _$SaveChanges implements SaveChanges {
+  _$SaveChanges();
+
+  @override
+  String toString() {
+    return 'AddDeckEvent.saveChanges()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is SaveChanges);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result initFromOnline(),
+    @required Result titleChanged(String titleStr),
+    @required Result descriptionChanged(String descStr),
+    @required Result avatarChanged(ImageFile avatar),
+    @required Result changePrivacy(),
+    @required Result quickTrainStateChanged(),
+    @required Result categoryChanged(DeckCategory category),
+    @required Result switchEditStatus(),
+    @required Result saveChanges(),
+    @required Result updateCards(List<Card> cards),
+  }) {
+    assert(initFromOnline != null);
+    assert(titleChanged != null);
+    assert(descriptionChanged != null);
+    assert(avatarChanged != null);
+    assert(changePrivacy != null);
+    assert(quickTrainStateChanged != null);
+    assert(categoryChanged != null);
+    assert(switchEditStatus != null);
+    assert(saveChanges != null);
+    assert(updateCards != null);
+    return saveChanges();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result initFromOnline(),
+    Result titleChanged(String titleStr),
+    Result descriptionChanged(String descStr),
+    Result avatarChanged(ImageFile avatar),
+    Result changePrivacy(),
+    Result quickTrainStateChanged(),
+    Result categoryChanged(DeckCategory category),
+    Result switchEditStatus(),
+    Result saveChanges(),
+    Result updateCards(List<Card> cards),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (saveChanges != null) {
+      return saveChanges();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result initFromOnline(InitFromOnline value),
+    @required Result titleChanged(TitleChanged value),
+    @required Result descriptionChanged(DescriptionChanged value),
+    @required Result avatarChanged(AvatarChanged value),
+    @required Result changePrivacy(PrivacyChanged value),
+    @required Result quickTrainStateChanged(QuickTrainStateChanged value),
+    @required Result categoryChanged(CategoryChanged value),
+    @required Result switchEditStatus(SwitchEditState value),
+    @required Result saveChanges(SaveChanges value),
+    @required Result updateCards(UpdateCards value),
+  }) {
+    assert(initFromOnline != null);
+    assert(titleChanged != null);
+    assert(descriptionChanged != null);
+    assert(avatarChanged != null);
+    assert(changePrivacy != null);
+    assert(quickTrainStateChanged != null);
+    assert(categoryChanged != null);
+    assert(switchEditStatus != null);
+    assert(saveChanges != null);
+    assert(updateCards != null);
+    return saveChanges(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result initFromOnline(InitFromOnline value),
+    Result titleChanged(TitleChanged value),
+    Result descriptionChanged(DescriptionChanged value),
+    Result avatarChanged(AvatarChanged value),
+    Result changePrivacy(PrivacyChanged value),
+    Result quickTrainStateChanged(QuickTrainStateChanged value),
+    Result categoryChanged(CategoryChanged value),
+    Result switchEditStatus(SwitchEditState value),
+    Result saveChanges(SaveChanges value),
+    Result updateCards(UpdateCards value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (saveChanges != null) {
+      return saveChanges(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SaveChanges implements AddDeckEvent {
+  factory SaveChanges() = _$SaveChanges;
 }
 
 abstract class $UpdateCardsCopyWith<$Res> {
@@ -1520,6 +1983,8 @@ class _$UpdateCards implements UpdateCards {
     @required Result changePrivacy(),
     @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
+    @required Result switchEditStatus(),
+    @required Result saveChanges(),
     @required Result updateCards(List<Card> cards),
   }) {
     assert(initFromOnline != null);
@@ -1529,6 +1994,8 @@ class _$UpdateCards implements UpdateCards {
     assert(changePrivacy != null);
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
+    assert(switchEditStatus != null);
+    assert(saveChanges != null);
     assert(updateCards != null);
     return updateCards(cards);
   }
@@ -1543,6 +2010,8 @@ class _$UpdateCards implements UpdateCards {
     Result changePrivacy(),
     Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
+    Result switchEditStatus(),
+    Result saveChanges(),
     Result updateCards(List<Card> cards),
     @required Result orElse(),
   }) {
@@ -1563,6 +2032,8 @@ class _$UpdateCards implements UpdateCards {
     @required Result changePrivacy(PrivacyChanged value),
     @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
+    @required Result switchEditStatus(SwitchEditState value),
+    @required Result saveChanges(SaveChanges value),
     @required Result updateCards(UpdateCards value),
   }) {
     assert(initFromOnline != null);
@@ -1572,6 +2043,8 @@ class _$UpdateCards implements UpdateCards {
     assert(changePrivacy != null);
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
+    assert(switchEditStatus != null);
+    assert(saveChanges != null);
     assert(updateCards != null);
     return updateCards(this);
   }
@@ -1586,6 +2059,8 @@ class _$UpdateCards implements UpdateCards {
     Result changePrivacy(PrivacyChanged value),
     Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
+    Result switchEditStatus(SwitchEditState value),
+    Result saveChanges(SaveChanges value),
     Result updateCards(UpdateCards value),
     @required Result orElse(),
   }) {

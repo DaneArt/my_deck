@@ -16,6 +16,9 @@ import 'package:mydeck/models/value_objects/deck_description.dart';
 import 'package:mydeck/models/value_objects/deck_title.dart';
 import 'package:mydeck/models/dtos/user_dto.dart';
 import 'package:mydeck/services/datasources/user_config.dart';
+import 'package:mydeck/services/usecases/add_deck_usecase.dart' as Add;
+import 'package:mydeck/services/usecases/save_deck_changes_usecase.dart'
+    as Save;
 
 import 'package:mydeck/services/usecases/upload_online_deck.dart';
 import 'package:mydeck/screens/deck_editor/add_deck_page.dart';
@@ -28,67 +31,113 @@ part 'add_deck_bloc.freezed.dart';
 
 class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
   final UploadOnlineDeckUsecase uploadOnlineDeckUsecase;
+  final Add.AddDeckUseCase addDeckUseCase;
+  final Save.SaveDeckChangesUsecase saveDeckChangesUsecase;
+
   final Deck deck;
-  AddDeckBloc({
-    @required this.uploadOnlineDeckUsecase,
-    @required this.deck,
-  }) : super(AddDeckState.initial(initialDeck: deck));
+  final AddDeckStatus status;
+  final AddDeckGoal goal;
+
+  AddDeckBloc(
+      {@required this.uploadOnlineDeckUsecase,
+      @required this.addDeckUseCase,
+      this.saveDeckChangesUsecase,
+      @required this.deck,
+      @required this.status,
+      @required this.goal})
+      : super(AddDeckState.initial(
+            initialDeck: deck, status: status, goal: goal));
+
+  Deck buildDeckForSave() {
+    return deck.copyWith(
+      author: UserConfig.currentUser.toDomain(),
+      availableQuickTrain: state.availableQuickTrain,
+      avatar: state.avatar,
+      category: state.category,
+      deckId: deck.deckId,
+      description: state.description,
+      isPrivate: !state.isShared,
+      title: state.title,
+      cardsList: state.cardsList,
+      cardsCount: state.cardsList.length,
+    );
+  }
 
   @override
   Stream<AddDeckState> mapEventToState(
     AddDeckEvent event,
   ) async* {
-    yield* event.map(titleChanged: (e) async* {
-      yield state.copyWith(
-        title: DeckTitle(e.titleStr),
-      );
-      Logger().d('Title changed: ${e.titleStr}');
-    }, descriptionChanged: (e) async* {
-      yield state.copyWith(
-        description: DeckDescription(e.descStr),
-      );
-      Logger().d('Description changed: ${e.descStr}');
-    }, avatarChanged: (e) async* {
-      yield state.copyWith(
-        avatar: DeckAvatar(e.avatar),
-      );
-      Logger().d('Avatar changed: ${e.avatar}');
-    }, changePrivacy: (e) async* {
-      yield state.copyWith(
-        isShared: !state.isShared,
-      );
-      Logger().d('Privacy changed: ${!state.isShared}');
-    }, categoryChanged: (e) async* {
-      yield state.copyWith(
-        category: e.category,
-      );
-      Logger().d('Caegory changed: ${e.category}');
-    }, initFromOnline: (e) async* {
-      yield state.copyWith(isLoading: true);
-      Logger().d('Started loading deck from net');
-      final onlineResult =
-          await uploadOnlineDeckUsecase(Params(deckId: deck.deckId));
-      Logger().d('Received loading result');
-      yield onlineResult.fold(
-          (l) => state.copyWith(
-              isLoading: false, loadingFailureOrSuccess: Some(left(l))),
-          (r) => state.copyWith(
-                avatar: r.avatar,
-                cardsList: r.cardsList,
-                category: r.category,
-                description: r.description,
-                isShared: !r.isPrivate,
-                title: r.title,
-                author: UserDto.fromDomain(r.author),
-                isLoading: false,
-                loadingFailureOrSuccess: Some(right(unit)),
-              ));
-    }, updateCards: (e) async* {
-      yield state.copyWith(cardsList: e.cards);
-      Logger().d('Cards updated');
-    }, quickTrainStateChanged: (e) async* {
-      yield state.copyWith(availableQuickTrain: !state.availableQuickTrain);
-      Logger().d('QuckTrain state changed: ${!state.availableQuickTrain}');
-    });
+    yield* event.map(
+      titleChanged: (e) async* {
+        yield state.copyWith(
+          title: DeckTitle(e.titleStr),
+        );
+        Logger().d('Title changed: ${e.titleStr}');
+      },
+      descriptionChanged: (e) async* {
+        yield state.copyWith(
+          description: DeckDescription(e.descStr),
+        );
+        Logger().d('Description changed: ${e.descStr}');
+      },
+      avatarChanged: (e) async* {
+        yield state.copyWith(
+          avatar: DeckAvatar(e.avatar),
+        );
+        Logger().d('Avatar changed: ${e.avatar}');
+      },
+      changePrivacy: (e) async* {
+        yield state.copyWith(
+          isShared: !state.isShared,
+        );
+        Logger().d('Privacy changed: ${!state.isShared}');
+      },
+      categoryChanged: (e) async* {
+        yield state.copyWith(
+          category: e.category,
+        );
+        Logger().d('Caegory changed: ${e.category}');
+      },
+      initFromOnline: (e) async* {
+        yield state.copyWith(isLoading: true);
+        Logger().d('Started loading deck from net');
+        final onlineResult =
+            await uploadOnlineDeckUsecase(Params(deckId: deck.deckId));
+        Logger().d('Received loading result');
+        yield onlineResult.fold(
+            (l) => state.copyWith(
+                isLoading: false, loadingFailureOrSuccess: Some(left(l))),
+            (r) => state.copyWith(
+                  avatar: r.avatar,
+                  cardsList: r.cardsList,
+                  category: r.category,
+                  description: r.description,
+                  isShared: !r.isPrivate,
+                  title: r.title,
+                  author: UserDto.fromDomain(r.author),
+                  isLoading: false,
+                  loadingFailureOrSuccess: Some(right(unit)),
+                ));
+      },
+      updateCards: (e) async* {
+        yield state.copyWith(cardsList: e.cards);
+        Logger().d('Cards updated');
+      },
+      quickTrainStateChanged: (e) async* {
+        yield state.copyWith(availableQuickTrain: !state.availableQuickTrain);
+        Logger().d('QuckTrain state changed: ${!state.availableQuickTrain}');
+      },
+      switchEditStatus: (e) async* {
+        yield state.copyWith(
+            status: state.status == AddDeckStatus.edit
+                ? AddDeckStatus.look
+                : AddDeckStatus.edit);
+      },
+      saveChanges: (e) async* {
+        yield state.copyWith(
+          isSaving: true,
+        );
+      },
+    );
   }
 }

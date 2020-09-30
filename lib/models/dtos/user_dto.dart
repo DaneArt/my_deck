@@ -24,7 +24,7 @@ abstract class UserDto implements _$UserDto {
   }) = _UserDto;
 
   User toDomain() => User(
-        avatar: ImageFile(uniqueId: UniqueId()),
+        avatar: ImageFile(uniqueId: UniqueId.fromString(avatar)),
         email: EmailAddress(email),
         subscribers: [],
         subscribes: [],

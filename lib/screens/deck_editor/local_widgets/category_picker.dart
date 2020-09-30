@@ -33,7 +33,11 @@ class _CategoryPickerState extends State<CategoryPicker> {
             child: Container(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(c.categoryName),
+                child: Text(c.categoryName,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        .copyWith(fontSize: 20)),
               ),
             ),
           ),

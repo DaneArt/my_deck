@@ -20,6 +20,6 @@ abstract class Card implements _$Card {
 
   factory Card.basic() => Card(
       id: UniqueId(),
-      answer: TextFile(uniqueId: UniqueId()),
-      question: TextFile(uniqueId: UniqueId()));
+      answer: TextFile(uniqueId: UniqueId(), text: ""),
+      question: TextFile(uniqueId: UniqueId(), text: ""));
 }

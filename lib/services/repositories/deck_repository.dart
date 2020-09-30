@@ -93,7 +93,7 @@ class DeckRepositoryImpl implements DeckRepository {
       //await localDataSource.addDeck(bothers.left.toModel());
 
       if (await networkConnection.isConnected) {
-        await networkDataSource.addDeck(DeckDto.fromDomain(deck));
+        await networkDataSource.addDeck(await DeckDto.fromDomain(deck));
       } else {
         return left(StorageFailure.networkFailure());
       }
@@ -112,7 +112,7 @@ class DeckRepositoryImpl implements DeckRepository {
       // await localDataSource.updateDeck(bothers.left.toModel());
 
       if (await sl.get<NetworkConnection>().isConnected) {
-        await networkDataSource.updateDeck(DeckDto.fromDomain(deck));
+        await networkDataSource.updateDeck(await DeckDto.fromDomain(deck));
       } else {
         return left(StorageFailure.networkFailure());
       }
@@ -136,7 +136,7 @@ class DeckRepositoryImpl implements DeckRepository {
       //       await localDataSource.deleteDeck(bother.left.toModel());
 
       if (await sl.get<NetworkConnection>().isConnected) {
-        networkDataSource.deleteDeck(DeckDto.fromDomain(deck));
+        networkDataSource.deleteDeck(await DeckDto.fromDomain(deck));
       } else {
         return some(StorageFailure.networkFailure());
       }

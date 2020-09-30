@@ -5,30 +5,32 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mydeck/blocs/card_editor/card_editor_bloc.dart';
+import 'package:mydeck/cubits/ce_card/ce_card_cubit.dart';
+import 'package:mydeck/models/dtos/file_dto.dart';
+import 'package:mydeck/models/entitites/md_file.dart';
+import 'package:mydeck/models/entitites/unique_id.dart';
 import 'package:mydeck/utils/images_util.dart';
 import 'package:mydeck/screens/deck_editor/local_widgets/card_fraction_pagination_builder.dart';
-import 'package:mydeck/models/entitites/card.dart' as Entity;
-import 'package:mydeck/models/entitites/md_file.dart';
+import 'package:mydeck/models/entitites/card.dart';
 
-import 'package:mydeck/generated/l10n.dart';
 import 'package:mydeck/widgets/image_picker_modal_bottom_sheet.dart';
-import 'package:mydeck/widgets/md_image.dart';
-import 'package:mydeck/widgets/md_text.dart';
 
-import 'local_widgets/md_edit_text.dart';
+import 'local_widgets/ce_card.dart';
 
-class CardEditor extends StatefulWidget {
+class CardEditorPage extends StatefulWidget {
   final bool isCreating;
 
-  const CardEditor({Key key, this.isCreating}) : super(key: key);
+  const CardEditorPage({Key key, this.isCreating}) : super(key: key);
 
   @override
-  _CardEditorState createState() => _CardEditorState();
+  _CardEditorPageState createState() => _CardEditorPageState();
 }
 
-class _CardEditorState extends State<CardEditor> {
+class _CardEditorPageState extends State<CardEditorPage> {
+  bool isCreating = false;
   @override
   void initState() {
+    isCreating = widget.isCreating ?? false;
     super.initState();
   }
 
@@ -45,7 +47,7 @@ class _CardEditorState extends State<CardEditor> {
         appBar: AppBar(
           elevation: 0,
           actions: <Widget>[
-            widget.isCreating
+            isCreating
                 ? IconButton(
                     onPressed: () {
                       BlocProvider.of<CardEditorBloc>(context)
@@ -55,19 +57,62 @@ class _CardEditorState extends State<CardEditor> {
                         color: Theme.of(context).iconTheme.color),
                   )
                 : Container(),
+            isCreating
+                ? IconButton(
+                    onPressed: () {
+                      BlocProvider.of<CardEditorBloc>(context)
+                          .add(CardEditorEvent.addCard());
+                    },
+                    icon: Icon(Icons.add,
+                        color: Theme.of(context).iconTheme.color),
+                  )
+                : Container(),
+            isCreating
+                ? IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isCreating = false;
+                      });
+                    },
+                    icon: Icon(Icons.check,
+                        color: Theme.of(context).iconTheme.color),
+                  )
+                : IconButton(
+                    onPressed: () {
+                      context
+                          .bloc<CardEditorBloc>()
+                          .add(CardEditorEvent.backupCubits());
+                      setState(() {
+                        isCreating = true;
+                      });
+                    },
+                    icon: Icon(Icons.edit,
+                        color: Theme.of(context).iconTheme.color),
+                  ),
           ],
           leading: IconButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              if (isCreating) {
+                setState(() {
+                  isCreating = false;
+                });
+                context.bloc<CardEditorBloc>().add(CardEditorEvent.undoEdits());
+              } else {
+                context
+                    .bloc<CardEditorBloc>()
+                    .add(CardEditorEvent.saveChangesAndExit());
+              }
             },
-            icon: Icon(Icons.clear, color: Theme.of(context).iconTheme.color),
+            icon: Icon(isCreating ? Icons.clear : Icons.arrow_back,
+                color: Theme.of(context).iconTheme.color),
           ),
           backgroundColor: Colors.transparent,
         ),
         body: BlocListener<CardEditorBloc, CardEditorState>(
           listener: (context, state) {
             if (state.saveChangesAndExit) {
-              Navigator.of(context).pop(state.sourceCards);
+              Navigator.of(context)
+                  .pop(state.cardCubits.map((c) => c.state.card).toList());
             }
           },
           child: _cardsWidget(),
@@ -87,9 +132,8 @@ class _CardEditorState extends State<CardEditor> {
         ? await ImagesUtil.pickImageFromCamera()
         : await ImagesUtil.pickImageFromGallery();
     if (image != null) {
-      context
-          .bloc<CardEditorBloc>()
-          .add(CardEditorEvent.setImageContent(image: image));
+      context.bloc<CardEditorBloc>().add(CardEditorEvent.setContent(
+          ImageFile(uniqueId: UniqueId(), file: image)));
     }
   }
 
@@ -122,75 +166,17 @@ class _CardEditorState extends State<CardEditor> {
                 color: Theme.of(context).iconTheme.color,
               ),
               onPressed: () {
-                context
-                    .bloc<CardEditorBloc>()
-                    .add(CardEditorEvent.setTextContent());
+                context.bloc<CardEditorBloc>().add(CardEditorEvent.setContent(
+                    TextFile(uniqueId: UniqueId(), text: "")));
               },
             ),
           ],
         ),
       );
 
-  Widget _renderQuestion(Entity.Card card) => card.question is ImageFile
-      ? MDImage(
-          height: MediaQuery.of(context).size.height * 0.6,
-          width: MediaQuery.of(context).size.width * 0.9,
-          image: card.question)
-      : MDEditText(
-          height: MediaQuery.of(context).size.height * 0.6,
-          width: MediaQuery.of(context).size.width * 0.9,
-          initialFile: card.question);
-
-  Widget _renderAnswer(Entity.Card card) => card.answer is ImageFile
-      ? MDImage(
-          height: MediaQuery.of(context).size.height * 0.6,
-          width: MediaQuery.of(context).size.width * 0.9,
-          image: card.answer)
-      : MDEditText(
-          height: MediaQuery.of(context).size.height * 0.6,
-          width: MediaQuery.of(context).size.width * 0.9,
-          initialFile: card.answer);
-
-  Widget _renderCard(CardEditorState state, int cardIndex) {
-    return Card(
-      elevation: 8,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(16))),
-      margin: const EdgeInsets.only(bottom: 56.0),
-      key: ValueKey(cardIndex),
-      child: Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                    state.isQuestion
-                        ? S.of(context).meta_question
-                        : S.of(context).meta_answer,
-                    style: Theme.of(context).textTheme.headline5),
-                IconButton(
-                  onPressed: () {
-                    BlocProvider.of<CardEditorBloc>(context)
-                        .add(CardEditorEvent.rotateCard());
-                  },
-                  icon: Icon(Icons.refresh,
-                      color: Theme.of(context).iconTheme.color, size: 32),
-                )
-              ],
-            ),
-          ),
-          state.isQuestion
-              ? _renderQuestion(state.sourceCards[cardIndex])
-              : _renderAnswer(state.sourceCards[cardIndex])
-        ],
-      ),
-    );
-  }
-
-  Widget _cardsWidget() =>
-      BlocBuilder<CardEditorBloc, CardEditorState>(builder: (context, state) {
+  Widget _cardsWidget() => BlocBuilder<CardEditorBloc, CardEditorState>(
+      buildWhen: (previous, current) => current.rebuild,
+      builder: (context, state) {
         return Swiper(
           key: UniqueKey(),
           //It fixes the 'ScrollController not attached to any scroll views. Dunno why))'
@@ -210,27 +196,12 @@ class _CardEditorState extends State<CardEditor> {
             ),
           ),
           index: state.currentCardIndex,
-          itemCount: state.sourceCards.length + 1,
-          itemBuilder: (context, index) => index == state.sourceCards.length
-              ? Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(16))),
-                  margin: const EdgeInsets.only(bottom: 56.0),
-                  elevation: 8,
-                  key: ValueKey(state.sourceCards.length),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    child: Center(
-                      child: Icon(
-                        Icons.add,
-                        color: Theme.of(context).iconTheme.color,
-                        size: 168,
-                      ),
-                    ),
-                  ),
-                )
-              : _renderCard(state, index),
+          itemCount: state.cardCubits.length,
+          itemBuilder: (context, index) => CECard(
+            key: ValueKey(index),
+            cardIndex: index,
+            cubit: state.cardCubits[index],
+          ),
         );
       });
 }

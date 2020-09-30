@@ -7,18 +7,8 @@ class MDText extends StatefulWidget {
   final Key key;
   final double width;
   final double height;
-  final Widget placeholder;
-  final Widget errorWidget;
-  final Widget loadIndicator;
   final TextFile sourceFile;
-  MDText(
-      {Key key,
-      double width,
-      double height,
-      this.placeholder,
-      this.errorWidget,
-      this.loadIndicator,
-      @required TextFile text})
+  MDText({Key key, double width, double height, @required TextFile text})
       : assert(text != null),
         sourceFile = text,
         this.width = width ?? 0,
@@ -31,58 +21,12 @@ class MDText extends StatefulWidget {
 }
 
 class _MDTextState extends State<MDText> {
-  File _sourceFile = null;
-  Widget _currentWidget;
-
-  Widget get placeholder =>
-      widget.placeholder ??
-      Container(
-        width: widget.width,
-        height: widget.height,
-        color: Colors.blueGrey,
-      );
-  Widget get errorWidget =>
-      widget.errorWidget ??
-      Center(
-        child: Icon(
-          Icons.error,
-        ),
-      );
-  Widget get loadIndicator =>
-      widget.loadIndicator ?? Center(child: CircularProgressIndicator());
-
-  @override
-  void initState() {
-    _currentWidget = widget.placeholder;
-
-    super.initState();
-    Future.delayed(Duration(milliseconds: 300), () => _initializeText());
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
       width: widget.width,
       height: widget.height,
-      child: _currentWidget,
+      child: Center(child: Text(widget.sourceFile.text)),
     );
-  }
-
-  Future<void> _initializeText() async {
-    setState(() {
-      _currentWidget = widget.loadIndicator;
-    });
-
-    final fileResult = await widget.sourceFile.getFileValue();
-    fileResult.fold((failure) {
-      setState(() {
-        _currentWidget = errorWidget;
-      });
-    }, (file) {
-      setState(() {
-        _sourceFile = file;
-        _currentWidget = Text(file.readAsStringSync());
-      });
-    });
   }
 }

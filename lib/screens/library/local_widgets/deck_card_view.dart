@@ -63,12 +63,14 @@ class _DeckCardState extends State<DeckCard> {
                         uploadOnlineDeckUsecase:
                             sl.get<UploadOnlineDeckUsecase>(),
                         deck: deck,
-                      ),
-                      child: AddDeckPage(
                         goal: widget.isEditing
-                            ? AddDeckGoal.edit
-                            : AddDeckGoal.lookup,
+                            ? AddDeckGoal.update
+                            : AddDeckGoal.look,
+                        status: widget.isEditing
+                            ? AddDeckStatus.edit
+                            : AddDeckStatus.look,
                       ),
+                      child: AddDeckPage(),
                     )));
 
             if (deckUpdate != null) {

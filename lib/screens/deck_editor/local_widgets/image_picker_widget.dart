@@ -17,10 +17,12 @@ import 'package:mydeck/widgets/md_image.dart';
 class ImagePickerWidget extends StatefulWidget {
   final Function(ImageFile image) onImagePicked;
   final DeckAvatar defaultAvatar;
+  final bool enabled;
   ImagePickerWidget({
     Key key,
     @required this.onImagePicked,
     @required this.defaultAvatar,
+    @required this.enabled,
   }) : super(key: key);
 
   @override
@@ -60,21 +62,23 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
           height: screenSize.width / 2.5 * 1.4,
           width: screenSize.width / 2.5,
           child: InkWell(
-            onTap: () {
-              showModalBottomSheet(
-                backgroundColor: Colors.transparent,
-                context: context,
-                builder: (context) => ImagePickerModalBottomSheet(
-                  onPickImage: _pickImage,
-                ),
-              );
-            },
+            onTap: widget.enabled
+                ? () {
+                    showModalBottomSheet(
+                      backgroundColor: Colors.transparent,
+                      context: context,
+                      builder: (context) => ImagePickerModalBottomSheet(
+                        onPickImage: _pickImage,
+                      ),
+                    );
+                  }
+                : null,
             child: widget.defaultAvatar.value.fold(
               (failure) => Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Center(
                   child: Text(
-                    'Tap to pick avatar',
+                    widget.enabled ? 'Tap to pick avatar' : 'No avatar',
                     textAlign: TextAlign.center,
                   ),
                 ),

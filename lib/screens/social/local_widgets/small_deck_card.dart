@@ -28,10 +28,10 @@ class SmallDeckCard extends StatelessWidget {
                       deck: deck,
                       uploadOnlineDeckUsecase:
                           sl.get<UploadOnlineDeckUsecase>(),
+                      goal: AddDeckGoal.look,
+                      status: AddDeckStatus.edit,
                     ),
-                    child: AddDeckPage(
-                      goal: AddDeckGoal.lookup,
-                    ),
+                    child: AddDeckPage(),
                   )));
         },
         child: ClipRRect(

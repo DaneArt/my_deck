@@ -115,19 +115,11 @@ class _LibraryPageState extends State<LibraryPage>
               create: (context) => AddDeckBloc(
                 deck: Deck.basic(),
                 uploadOnlineDeckUsecase: sl.get<UploadOnlineDeckUsecase>(),
-              ),
-              child: AddDeckPage(
                 goal: AddDeckGoal.create,
+                status: AddDeckStatus.edit,
               ),
+              child: AddDeckPage(),
             )));
-    // if (newDeck != null && newDeck is Deck) {
-    //   context.bloc<LibraryBloc>().add(LibraryEvent.addDeck(deck: newDeck));
-    //   _showUndoSnackBar(
-    //       S.of(context).library_deck_created,
-    //       () => context
-    //           .bloc<LibraryBloc>()
-    //           .add(LibraryEvent.undoAdding(deck: newDeck)));
-    // }
   }
 
   @override
@@ -161,13 +153,12 @@ class _LibraryPageState extends State<LibraryPage>
                   MaterialPageRoute(
                     builder: (ctx) => BlocProvider<AddDeckBloc>(
                       create: (BuildContext context) => AddDeckBloc(
-                        deck: Deck.basic(),
-                        uploadOnlineDeckUsecase:
-                            sl.get<UploadOnlineDeckUsecase>(),
-                      ),
-                      child: AddDeckPage(
-                        goal: AddDeckGoal.create,
-                      ),
+                          deck: Deck.basic(),
+                          uploadOnlineDeckUsecase:
+                              sl.get<UploadOnlineDeckUsecase>(),
+                          goal: AddDeckGoal.create,
+                          status: AddDeckStatus.edit),
+                      child: AddDeckPage(),
                     ),
                   ),
                 );

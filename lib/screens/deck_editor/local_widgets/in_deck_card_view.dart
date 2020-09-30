@@ -50,7 +50,7 @@ class _InDeckCardViewState extends State<InDeckCardView>
       );
     } else if (content is TextFile) {
       return Text(
-        content.getFileOrCrash().readAsStringSync(),
+        content.text,
         style: TextStyle(fontSize: 18),
         textAlign: TextAlign.center,
       );

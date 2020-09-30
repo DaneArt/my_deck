@@ -33,12 +33,12 @@ abstract class DeckDto implements _$DeckDto {
     @required @JsonKey(name: 'author') String authorId,
   }) = _DeckDto;
 
-  factory DeckDto.fromDomain(Deck deck) => DeckDto(
+  static Future<DeckDto> fromDomain(Deck deck) async => DeckDto(
       authorId: deck.author.userId.getOrCrash,
       categoryName: deck.category.categoryName,
       id: deck.deckId.getOrCrash,
       description: deck.description.getOrCrash,
-      avatar: MDFileDto.fromDomain(deck.avatar.getOrCrash),
+      avatar: await MDFileDto.fromDomain(deck.avatar.getOrCrash),
       isPrivate: deck.isPrivate,
       title: deck.title.getOrCrash,
       subscribers: deck.subscribers.map((e) => UserDto(
@@ -48,7 +48,8 @@ abstract class DeckDto implements _$DeckDto {
             password: [],
             username: e.username.getOrCrash,
           )),
-      cardDtos: deck.cardsList.map((card) => CardDto.fromDomain(card)).toList(),
+      cardDtos: await Future.wait(
+          deck.cardsList.map((card) async => await CardDto.fromDomain(card))),
       cardsCount: deck.cardsCount,
       subscribersCount: deck.subscribersCount);
 

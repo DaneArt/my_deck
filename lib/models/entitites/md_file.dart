@@ -14,6 +14,12 @@ import 'package:mydeck/utils/dependency_injection.dart';
 abstract class MDFile {
   final UniqueId uniqueId;
 
+  MDFile({this.uniqueId});
+}
+
+class ImageFile extends MDFile {
+  ImageFile({@required UniqueId uniqueId, File file})
+      : super(uniqueId: uniqueId);
   File _file;
 
   Future<Either<StorageFailure<File>, File>> getFileValue() async {
@@ -35,20 +41,12 @@ abstract class MDFile {
     if (_file == null) throw CacheException();
     return _file;
   }
-
-  MDFile({this.uniqueId, File file}) {
-    if (file != null) {
-      _file = file;
-    }
-  }
-}
-
-class ImageFile extends MDFile {
-  ImageFile({@required UniqueId uniqueId, File file})
-      : super(uniqueId: uniqueId, file: file);
 }
 
 class TextFile extends MDFile {
-  TextFile({@required UniqueId uniqueId, File file})
-      : super(uniqueId: uniqueId, file: file);
+  final String text;
+  TextFile({
+    @required UniqueId uniqueId,
+    this.text,
+  }) : super(uniqueId: uniqueId);
 }

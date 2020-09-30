@@ -138,7 +138,7 @@ void setUp() {
   sl.registerFactory(() => GetFileByMetaUseCase(fileRepository: sl()));
   //blocs
   sl.registerFactory(() => AuthBloc(sl()));
-  sl.registerFactory(() => MDContentCubit(sl()));
+  sl.registerFactory(() => MDContentCubit());
   sl.registerFactory(() => LibraryBloc(
         loadUserLibrary: sl(),
       ));

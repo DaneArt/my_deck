@@ -1,11 +1,9 @@
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:mydeck/cubits/ce_card/ce_card_cubit.dart';
+import 'package:mydeck/models/dtos/file_dto.dart';
 import 'package:mydeck/models/entitites/card.dart';
 import 'package:mydeck/models/entitites/md_file.dart';
-import 'package:mydeck/models/entitites/unique_id.dart';
-import 'package:mydeck/utils/file_factory.dart';
 
 part 'card_editor_bloc.freezed.dart';
 
@@ -23,86 +21,55 @@ class CardEditorBloc extends Bloc<CardEditorEvent, CardEditorState> {
 
   @override
   Stream<CardEditorState> mapEventToState(CardEditorEvent event) async* {
-    yield* event.map(rotateCard: (e) async* {
-      yield state.copyWith(
-        isQuestion: !state.isQuestion,
-      );
-    }, questionChanged: (e) async* {
-      final card = state.sourceCards[state.currentCardIndex].copyWith(
-        question: e.newQuestion,
-      );
-      state.sourceCards[state.currentCardIndex] = card;
-      yield state.copyWith(sourceCards: List.from(state.sourceCards));
-    }, answerChanged: (e) async* {
-      final card = state.sourceCards[state.currentCardIndex].copyWith(
-        answer: e.newAnswer,
-      );
-      state.sourceCards[state.currentCardIndex] = card;
-      yield state.copyWith(sourceCards: List.from(state.sourceCards));
-    }, saveChangesAndExit: (e) async* {
-      yield state.copyWith(
-        saveChangesAndExit: true,
-      );
-    }, setImageContent: (e) async* {
-      final card = state.isQuestion
-          ? state.sourceCards[state.currentCardIndex].copyWith(
-              question: ImageFile(
-                file: e.image,
-                uniqueId: UniqueId(),
-              ),
-            )
-          : state.sourceCards[state.currentCardIndex].copyWith(
-              answer: ImageFile(
-                file: e.image,
-                uniqueId: UniqueId(),
-              ),
-            );
-      state.sourceCards[state.currentCardIndex] = card;
-      yield state.copyWith(sourceCards: List.from(state.sourceCards));
-    }, setTextContent: (e) async* {
-      final card = state.isQuestion
-          ? state.sourceCards[state.currentCardIndex].copyWith(
-              question: TextFile(
-                file: await TextFileFactory().create(UniqueId().getOrCrash),
-                uniqueId: UniqueId(),
-              ),
-            )
-          : state.sourceCards[state.currentCardIndex].copyWith(
-              answer: TextFile(
-                file: await TextFileFactory().create(UniqueId().getOrCrash),
-                uniqueId: UniqueId(),
-              ),
-            );
-      state.sourceCards[state.currentCardIndex] = card;
-      yield state.copyWith(sourceCards: List.from(state.sourceCards));
+    yield* event.map(saveChangesAndExit: (e) async* {
+      yield state.copyWith(saveChangesAndExit: true, rebuild: false);
     }, changeIndex: (e) async* {
-      if (e.newIndex == state.sourceCards.length) {
-        final newCard = Card.basic();
-        state.sourceCards.add(newCard);
-      }
       yield state.copyWith(
           currentCardIndex: e.newIndex,
-          sourceCards: List.from(state.sourceCards));
+          cardCubits: List.from(state.cardCubits),
+          rebuild: false);
     }, deleteCard: (e) async* {
-      final list = List<Card>.from(state.sourceCards);
-      list.removeAt(state.currentCardIndex);
-      if (list.length == 0) {
-        yield state.copyWith(saveChangesAndExit: true, sourceCards: list);
-      } else if (list.length == 1) {
-        yield state.copyWith(currentCardIndex: 0, sourceCards: list);
+      final cubitList = List<CECardCubit>.from(state.cardCubits);
+
+      cubitList.removeAt(state.currentCardIndex);
+
+      if (cubitList.length == 0) {
+        yield state.copyWith(
+            saveChangesAndExit: true, cardCubits: cubitList, rebuild: true);
+      } else if (cubitList.length == 1) {
+        yield state.copyWith(
+            cardCubits: cubitList, currentCardIndex: 0, rebuild: true);
       } else if (state.currentCardIndex == 0) {
         yield state.copyWith(
+            cardCubits: cubitList,
             currentCardIndex: state.currentCardIndex + 1,
-            sourceCards: List.from(list));
+            rebuild: true);
       } else {
         yield state.copyWith(
+            cardCubits: cubitList,
             currentCardIndex: state.currentCardIndex - 1,
-            sourceCards: List.from(list));
+            rebuild: true);
       }
     }, addCard: (e) async* {
+      final newCard = Card.basic();
       yield state.copyWith(
           currentCardIndex: state.currentCardIndex + 1,
-          sourceCards: List.from(state.sourceCards..add(Card.basic())));
+          cardCubits: List.from(
+            state.cardCubits
+              ..add(
+                CECardCubit(card: newCard),
+              ),
+          ),
+          rebuild: true);
+    }, setContent: (e) async* {
+      state.cardCubits[state.currentCardIndex].setContent(e.file);
+      yield state.copyWith(rebuild: true);
+    }, backupCubits: (e) async* {
+      yield state.copyWith(
+          backedUpCubits: List.from(state.cardCubits), rebuild: true);
+    }, undoEdits: (e) async* {
+      yield state.copyWith(
+          cardCubits: List.from(state.backedUpCubits), rebuild: true);
     });
   }
 }

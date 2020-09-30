@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mydeck/models/entitites/md_file.dart';
 import 'package:mydeck/models/entitites/unique_id.dart';
+import 'package:mydeck/utils/file_factory.dart';
 
 part 'file_dto.freezed.dart';
 part 'file_dto.g.dart';
@@ -18,7 +19,7 @@ abstract class MDFileDto implements _$MDFileDto {
       @required @ContentTypeConverter() FileType type,
       @JsonKey(ignore: true) @required File file}) = _MyDeckFileDto;
 
-  factory MDFileDto.fromDomain(MDFile domain) {
+  static Future<MDFileDto> fromDomain(MDFile domain) async {
     if (domain is ImageFile) {
       return MDFileDto(
           id: domain.uniqueId.getOrCrash,
@@ -26,9 +27,11 @@ abstract class MDFileDto implements _$MDFileDto {
           file: domain.getFileOrCrash());
     } else {
       return MDFileDto(
-          id: domain.uniqueId.getOrCrash,
-          type: FileType.TEXT,
-          file: domain.getFileOrCrash());
+        id: domain.uniqueId.getOrCrash,
+        type: FileType.TEXT,
+        file: (await TextFileFactory().create(domain.uniqueId.getOrCrash))
+          ..writeAsStringSync((domain as TextFile).text),
+      );
     }
   }
 
@@ -39,7 +42,9 @@ abstract class MDFileDto implements _$MDFileDto {
     if (type == FileType.IMAGE) {
       return ImageFile(file: file, uniqueId: UniqueId.fromString(id));
     } else {
-      return TextFile(file: file, uniqueId: UniqueId.fromString(id));
+      return TextFile(
+          text: file.existsSync() ? file.readAsStringSync() : "",
+          uniqueId: UniqueId.fromString(id));
     }
   }
 }

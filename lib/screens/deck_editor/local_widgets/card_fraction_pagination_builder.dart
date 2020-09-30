@@ -47,7 +47,7 @@ class CardFractionPaginationBuilder extends SwiperPlugin {
                 style: TextStyle(color: color, fontSize: fontSize),
               ),
               new Text(
-                "${config.itemCount - 1}",
+                "${config.itemCount}",
                 style: TextStyle(color: color, fontSize: fontSize),
               )
             ],
@@ -71,7 +71,7 @@ class CardFractionPaginationBuilder extends SwiperPlugin {
             Padding(
               padding: const EdgeInsets.only(top: 24.0),
               child: Text(
-                " / ${config.itemCount - 1}",
+                " / ${config.itemCount}",
                 style: TextStyle(color: color, fontSize: fontSize),
               ),
             )

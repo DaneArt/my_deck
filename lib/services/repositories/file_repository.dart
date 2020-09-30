@@ -28,9 +28,9 @@ class FileRepositoryImpl implements FileRepository {
   @override
   Future<Option<StorageFailure>> addFile(MDFile file) async {
     try {
-      await fileLocalDataSource.addFile(MDFileDto.fromDomain(file));
+      await fileLocalDataSource.addFile(await MDFileDto.fromDomain(file));
       if (await networkConnection.isConnected) {
-        fileNetworkDataSource.addFile(MDFileDto.fromDomain(file));
+        fileNetworkDataSource.addFile(await MDFileDto.fromDomain(file));
       }
       return none();
     } on NetworkException {
