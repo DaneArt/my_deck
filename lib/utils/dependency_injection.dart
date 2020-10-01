@@ -50,7 +50,7 @@ const BASE_URL_DEV = 'https://10.0.2.2:4001';
 void setUp() {
   //data sources
   sl.registerLazySingleton<FileNetworkDataSource>(
-      () => FakeFileNetworkDataSource());
+      () => FileNetworkDataSourceImpl());
   sl.registerLazySingleton<FileLocalDataSource>(
       () => FileLocalDataSourceImpl());
   sl.registerLazySingleton<DeckNetworkDataSource>(
@@ -77,7 +77,7 @@ void setUp() {
   //RestApi
   sl.registerFactory(() => DataConnectionChecker());
   sl.registerFactory<IAuthFacade>(() => AuthFacadeImpl(sl(), sl(), sl()));
-  sl.registerFactory<NetworkConnection>(() => NetworkConnectionImpl(sl()));
+  sl.registerFactory<NetworkConnection>(() => FakeNetworkConnection());
   sl.registerFactory(() => GoogleSignIn());
   sl.registerFactory(() => SignUpUsecase(userNetworkDataSource: sl()));
   sl.registerFactory(() => AccessTokenValidator());
@@ -114,7 +114,10 @@ void setUp() {
   });
 
   //repository
-  sl.registerLazySingleton<DeckRepository>(() => FakeDeckRepository(sl()));
+  sl.registerLazySingleton<DeckRepository>(() => DeckRepositoryImpl(
+        networkConnection: sl(),
+        networkDataSource: sl(),
+      ));
   sl.registerLazySingleton<FileRepository>(
     () => FileRepositoryImpl(
       sl(),

@@ -42,7 +42,9 @@ class DeckNetworkDataSourceImpl implements DeckNetworkDataSource {
     try {
       await client.post(
         '/deck/insert',
-        data: FormData.fromMap(deckDto.toJson()),
+        data: FormData.fromMap(
+          deckDto.toJson(),
+        ),
       );
     } on DioError catch (e) {
       if (e.type == DioErrorType.CONNECT_TIMEOUT ||

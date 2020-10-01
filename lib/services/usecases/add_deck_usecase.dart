@@ -12,7 +12,7 @@ class AddDeckUseCase extends UseCase<StorageFailure<Deck>, Deck, Params> {
 
   @override
   Future<Either<StorageFailure<Deck>, Deck>> call(params) async {
-    return await myDeckRepository.addDeck(params.deck);
+    return myDeckRepository.addDeck(params.deck);
   }
 }
 

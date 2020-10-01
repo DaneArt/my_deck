@@ -12,7 +12,7 @@ class SaveDeckChangesUsecase extends UseCase<StorageFailure, Deck, Params> {
   SaveDeckChangesUsecase(this.myDeckRepository);
 
   @override
-  Future<Either<StorageFailure, Deck>> call(Params params) async {
+  Future<Either<StorageFailure<Deck>, Deck>> call(Params params) async {
     final oldCards = params.oldDeck.cardsList;
     final newCards = params.newDeck.cardsList;
     final cardsToDelete = _sortCardsToDelete(oldCards, newCards);

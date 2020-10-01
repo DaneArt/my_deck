@@ -36,7 +36,7 @@ class _$AddDeckStateTearOff {
       @required
           Option<Either<StorageFailure<dynamic>, Unit>> loadingFailureOrSuccess,
       @required
-          Option<Either<StorageFailure<dynamic>, Unit>> savingFailurOrSuccess,
+          Option<Either<StorageFailure<dynamic>, Unit>> savingFailureOrSuccess,
       @required
           bool isSaving,
       @required
@@ -53,7 +53,7 @@ class _$AddDeckStateTearOff {
       availableQuickTrain: availableQuickTrain,
       author: author,
       loadingFailureOrSuccess: loadingFailureOrSuccess,
-      savingFailurOrSuccess: savingFailurOrSuccess,
+      savingFailureOrSuccess: savingFailureOrSuccess,
       isSaving: isSaving,
       cardsList: cardsList,
     );
@@ -75,7 +75,7 @@ mixin _$AddDeckState {
   bool get availableQuickTrain;
   UserDto get author;
   Option<Either<StorageFailure<dynamic>, Unit>> get loadingFailureOrSuccess;
-  Option<Either<StorageFailure<dynamic>, Unit>> get savingFailurOrSuccess;
+  Option<Either<StorageFailure<dynamic>, Unit>> get savingFailureOrSuccess;
   bool get isSaving;
   List<Card> get cardsList;
 
@@ -98,7 +98,7 @@ abstract class $AddDeckStateCopyWith<$Res> {
       bool availableQuickTrain,
       UserDto author,
       Option<Either<StorageFailure<dynamic>, Unit>> loadingFailureOrSuccess,
-      Option<Either<StorageFailure<dynamic>, Unit>> savingFailurOrSuccess,
+      Option<Either<StorageFailure<dynamic>, Unit>> savingFailureOrSuccess,
       bool isSaving,
       List<Card> cardsList});
 
@@ -126,7 +126,7 @@ class _$AddDeckStateCopyWithImpl<$Res> implements $AddDeckStateCopyWith<$Res> {
     Object availableQuickTrain = freezed,
     Object author = freezed,
     Object loadingFailureOrSuccess = freezed,
-    Object savingFailurOrSuccess = freezed,
+    Object savingFailureOrSuccess = freezed,
     Object isSaving = freezed,
     Object cardsList = freezed,
   }) {
@@ -150,9 +150,9 @@ class _$AddDeckStateCopyWithImpl<$Res> implements $AddDeckStateCopyWith<$Res> {
           ? _value.loadingFailureOrSuccess
           : loadingFailureOrSuccess
               as Option<Either<StorageFailure<dynamic>, Unit>>,
-      savingFailurOrSuccess: savingFailurOrSuccess == freezed
-          ? _value.savingFailurOrSuccess
-          : savingFailurOrSuccess
+      savingFailureOrSuccess: savingFailureOrSuccess == freezed
+          ? _value.savingFailureOrSuccess
+          : savingFailureOrSuccess
               as Option<Either<StorageFailure<dynamic>, Unit>>,
       isSaving: isSaving == freezed ? _value.isSaving : isSaving as bool,
       cardsList:
@@ -199,7 +199,7 @@ abstract class _$AddDeckStateCopyWith<$Res>
       bool availableQuickTrain,
       UserDto author,
       Option<Either<StorageFailure<dynamic>, Unit>> loadingFailureOrSuccess,
-      Option<Either<StorageFailure<dynamic>, Unit>> savingFailurOrSuccess,
+      Option<Either<StorageFailure<dynamic>, Unit>> savingFailureOrSuccess,
       bool isSaving,
       List<Card> cardsList});
 
@@ -231,7 +231,7 @@ class __$AddDeckStateCopyWithImpl<$Res> extends _$AddDeckStateCopyWithImpl<$Res>
     Object availableQuickTrain = freezed,
     Object author = freezed,
     Object loadingFailureOrSuccess = freezed,
-    Object savingFailurOrSuccess = freezed,
+    Object savingFailureOrSuccess = freezed,
     Object isSaving = freezed,
     Object cardsList = freezed,
   }) {
@@ -255,9 +255,9 @@ class __$AddDeckStateCopyWithImpl<$Res> extends _$AddDeckStateCopyWithImpl<$Res>
           ? _value.loadingFailureOrSuccess
           : loadingFailureOrSuccess
               as Option<Either<StorageFailure<dynamic>, Unit>>,
-      savingFailurOrSuccess: savingFailurOrSuccess == freezed
-          ? _value.savingFailurOrSuccess
-          : savingFailurOrSuccess
+      savingFailureOrSuccess: savingFailureOrSuccess == freezed
+          ? _value.savingFailureOrSuccess
+          : savingFailureOrSuccess
               as Option<Either<StorageFailure<dynamic>, Unit>>,
       isSaving: isSaving == freezed ? _value.isSaving : isSaving as bool,
       cardsList:
@@ -279,7 +279,7 @@ class _$_AddDeckState implements _AddDeckState {
       @required this.availableQuickTrain,
       @required this.author,
       @required this.loadingFailureOrSuccess,
-      @required this.savingFailurOrSuccess,
+      @required this.savingFailureOrSuccess,
       @required this.isSaving,
       @required this.cardsList})
       : assert(isLoading != null),
@@ -293,7 +293,7 @@ class _$_AddDeckState implements _AddDeckState {
         assert(availableQuickTrain != null),
         assert(author != null),
         assert(loadingFailureOrSuccess != null),
-        assert(savingFailurOrSuccess != null),
+        assert(savingFailureOrSuccess != null),
         assert(isSaving != null),
         assert(cardsList != null);
 
@@ -320,7 +320,7 @@ class _$_AddDeckState implements _AddDeckState {
   @override
   final Option<Either<StorageFailure<dynamic>, Unit>> loadingFailureOrSuccess;
   @override
-  final Option<Either<StorageFailure<dynamic>, Unit>> savingFailurOrSuccess;
+  final Option<Either<StorageFailure<dynamic>, Unit>> savingFailureOrSuccess;
   @override
   final bool isSaving;
   @override
@@ -328,7 +328,7 @@ class _$_AddDeckState implements _AddDeckState {
 
   @override
   String toString() {
-    return 'AddDeckState(isLoading: $isLoading, title: $title, description: $description, avatar: $avatar, isShared: $isShared, status: $status, goal: $goal, category: $category, availableQuickTrain: $availableQuickTrain, author: $author, loadingFailureOrSuccess: $loadingFailureOrSuccess, savingFailurOrSuccess: $savingFailurOrSuccess, isSaving: $isSaving, cardsList: $cardsList)';
+    return 'AddDeckState(isLoading: $isLoading, title: $title, description: $description, avatar: $avatar, isShared: $isShared, status: $status, goal: $goal, category: $category, availableQuickTrain: $availableQuickTrain, author: $author, loadingFailureOrSuccess: $loadingFailureOrSuccess, savingFailureOrSuccess: $savingFailureOrSuccess, isSaving: $isSaving, cardsList: $cardsList)';
   }
 
   @override
@@ -364,9 +364,9 @@ class _$_AddDeckState implements _AddDeckState {
                     other.loadingFailureOrSuccess, loadingFailureOrSuccess) ||
                 const DeepCollectionEquality().equals(
                     other.loadingFailureOrSuccess, loadingFailureOrSuccess)) &&
-            (identical(other.savingFailurOrSuccess, savingFailurOrSuccess) ||
+            (identical(other.savingFailureOrSuccess, savingFailureOrSuccess) ||
                 const DeepCollectionEquality().equals(
-                    other.savingFailurOrSuccess, savingFailurOrSuccess)) &&
+                    other.savingFailureOrSuccess, savingFailureOrSuccess)) &&
             (identical(other.isSaving, isSaving) ||
                 const DeepCollectionEquality()
                     .equals(other.isSaving, isSaving)) &&
@@ -389,7 +389,7 @@ class _$_AddDeckState implements _AddDeckState {
       const DeepCollectionEquality().hash(availableQuickTrain) ^
       const DeepCollectionEquality().hash(author) ^
       const DeepCollectionEquality().hash(loadingFailureOrSuccess) ^
-      const DeepCollectionEquality().hash(savingFailurOrSuccess) ^
+      const DeepCollectionEquality().hash(savingFailureOrSuccess) ^
       const DeepCollectionEquality().hash(isSaving) ^
       const DeepCollectionEquality().hash(cardsList);
 
@@ -423,7 +423,7 @@ abstract class _AddDeckState implements AddDeckState {
       @required
           Option<Either<StorageFailure<dynamic>, Unit>> loadingFailureOrSuccess,
       @required
-          Option<Either<StorageFailure<dynamic>, Unit>> savingFailurOrSuccess,
+          Option<Either<StorageFailure<dynamic>, Unit>> savingFailureOrSuccess,
       @required
           bool isSaving,
       @required
@@ -452,7 +452,7 @@ abstract class _AddDeckState implements AddDeckState {
   @override
   Option<Either<StorageFailure<dynamic>, Unit>> get loadingFailureOrSuccess;
   @override
-  Option<Either<StorageFailure<dynamic>, Unit>> get savingFailurOrSuccess;
+  Option<Either<StorageFailure<dynamic>, Unit>> get savingFailureOrSuccess;
   @override
   bool get isSaving;
   @override

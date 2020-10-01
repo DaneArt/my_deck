@@ -11,5 +11,9 @@ class NetworkConnectionImpl implements NetworkConnection {
 
   @override
   Future<bool> get isConnected => connectionChecker.hasConnection;
+}
 
+class FakeNetworkConnection implements NetworkConnection {
+  @override
+  Future<bool> get isConnected async => true;
 }

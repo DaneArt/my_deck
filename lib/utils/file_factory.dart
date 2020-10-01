@@ -2,14 +2,16 @@ import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
 
+import '../main.dart';
+
 abstract class MDFileFactory {
-  Future<File> create(String id);
+  File create(String id);
 }
 
 class ImageFileFactory implements MDFileFactory {
   @override
-  Future<File> create(String id) async {
-    final dir = await getApplicationDocumentsDirectory();
+  File create(String id) {
+    final dir = App.appDirectory;
     final dirPath = '${dir.path}/files';
     Directory(dirPath).createSync(recursive: true);
     return File('$dirPath/$id.jpg');
@@ -18,10 +20,10 @@ class ImageFileFactory implements MDFileFactory {
 
 class TextFileFactory implements MDFileFactory {
   @override
-  Future<File> create(String id) async {
-    final dir = await getApplicationDocumentsDirectory();
+  File create(String id) {
+    final dir = App.appDirectory;
     final dirPath = '${dir.path}/files';
-    await Directory(dirPath).create(recursive: true);
+    Directory(dirPath).createSync(recursive: true);
     final file = File('$dirPath/$id.txt');
     file.create();
     return file;

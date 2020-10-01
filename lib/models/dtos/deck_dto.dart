@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -9,6 +12,8 @@ import 'package:mydeck/models/value_objects/deck_avatar.dart';
 import 'package:mydeck/models/value_objects/deck_description.dart';
 import 'package:mydeck/models/value_objects/deck_title.dart';
 import 'package:mydeck/models/dtos/user_dto.dart';
+import 'package:mydeck/utils/file_factory.dart';
+import 'package:mydeck/utils/md_multipart_file.dart';
 import 'card_dto.dart';
 import 'deck_category.dart';
 
@@ -33,23 +38,22 @@ abstract class DeckDto implements _$DeckDto {
     @required @JsonKey(name: 'author') String authorId,
   }) = _DeckDto;
 
-  static Future<DeckDto> fromDomain(Deck deck) async => DeckDto(
+  factory DeckDto.fromDomain(Deck deck) => DeckDto(
       authorId: deck.author.userId.getOrCrash,
       categoryName: deck.category.categoryName,
       id: deck.deckId.getOrCrash,
       description: deck.description.getOrCrash,
-      avatar: await MDFileDto.fromDomain(deck.avatar.getOrCrash),
+      avatar: MDFileDto.fromDomain(deck.avatar.getOrCrash),
       isPrivate: deck.isPrivate,
       title: deck.title.getOrCrash,
-      subscribers: deck.subscribers.map((e) => UserDto(
+      subscribers: deck?.subscribers?.map((e) => UserDto(
             userId: e.userId.getOrCrash,
             avatar: e.avatar.uniqueId.getOrCrash,
             email: e.email.getOrCrash,
             password: [],
             username: e.username.getOrCrash,
           )),
-      cardDtos: await Future.wait(
-          deck.cardsList.map((card) async => await CardDto.fromDomain(card))),
+      cardDtos: deck?.cardsList?.map((card) => CardDto.fromDomain(card)),
       cardsCount: deck.cardsCount,
       subscribersCount: deck.subscribersCount);
 
@@ -71,4 +75,20 @@ abstract class DeckDto implements _$DeckDto {
       _$DeckDtoFromJson(json);
 
   Map<String, dynamic> toJson() => _$_$_DeckDtoToJson(this);
+}
+
+class FileConverter implements JsonConverter<MDFileDto, MDMultipartFile> {
+  @override
+  MDFileDto fromJson(MDMultipartFile json) {
+    return MDFileDto(
+        file: ImageFileFactory().create(json.fileId),
+        id: json.fileId,
+        type: json.contentType.type == "text" ? FileType.TEXT : FileType.IMAGE);
+  }
+
+  @override
+  MDMultipartFile toJson(MDFileDto object) {
+    // TODO: implement toJson
+    throw UnimplementedError();
+  }
 }

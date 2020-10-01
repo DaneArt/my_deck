@@ -113,11 +113,12 @@ class _LibraryPageState extends State<LibraryPage>
     final newDeck = await context.navigator.push(MaterialPageRoute(
         builder: (context) => BlocProvider(
               create: (context) => AddDeckBloc(
-                deck: Deck.basic(),
-                uploadOnlineDeckUsecase: sl.get<UploadOnlineDeckUsecase>(),
-                goal: AddDeckGoal.create,
-                status: AddDeckStatus.edit,
-              ),
+                  deck: Deck.basic(),
+                  uploadOnlineDeckUsecase: sl.get<UploadOnlineDeckUsecase>(),
+                  goal: AddDeckGoal.create,
+                  status: AddDeckStatus.edit,
+                  addDeckUseCase: sl.get<AddDeckUseCase>(),
+                  saveDeckChangesUsecase: sl.get<SaveDeckChangesUsecase>()),
               child: AddDeckPage(),
             )));
   }
@@ -157,7 +158,10 @@ class _LibraryPageState extends State<LibraryPage>
                           uploadOnlineDeckUsecase:
                               sl.get<UploadOnlineDeckUsecase>(),
                           goal: AddDeckGoal.create,
-                          status: AddDeckStatus.edit),
+                          status: AddDeckStatus.edit,
+                          addDeckUseCase: sl.get<AddDeckUseCase>(),
+                          saveDeckChangesUsecase:
+                              sl.get<SaveDeckChangesUsecase>()),
                       child: AddDeckPage(),
                     ),
                   ),

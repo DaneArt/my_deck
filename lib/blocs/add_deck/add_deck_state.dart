@@ -17,7 +17,7 @@ abstract class AddDeckState with _$AddDeckState {
     @required bool availableQuickTrain,
     @required UserDto author,
     @required Option<Either<StorageFailure, Unit>> loadingFailureOrSuccess,
-    @required Option<Either<StorageFailure, Unit>> savingFailurOrSuccess,
+    @required Option<Either<StorageFailure, Unit>> savingFailureOrSuccess,
     @required bool isSaving,
     @required List<Card> cardsList,
   }) = _AddDeckState;
@@ -40,6 +40,6 @@ abstract class AddDeckState with _$AddDeckState {
         status: status,
         goal: goal,
         isSaving: false,
-        savingFailurOrSuccess: none(),
+        savingFailureOrSuccess: none(),
       );
 }

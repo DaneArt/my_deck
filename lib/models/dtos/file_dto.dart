@@ -19,7 +19,7 @@ abstract class MDFileDto implements _$MDFileDto {
       @required @ContentTypeConverter() FileType type,
       @JsonKey(ignore: true) @required File file}) = _MyDeckFileDto;
 
-  static Future<MDFileDto> fromDomain(MDFile domain) async {
+  factory MDFileDto.fromDomain(MDFile domain) {
     if (domain is ImageFile) {
       return MDFileDto(
           id: domain.uniqueId.getOrCrash,
@@ -29,7 +29,7 @@ abstract class MDFileDto implements _$MDFileDto {
       return MDFileDto(
         id: domain.uniqueId.getOrCrash,
         type: FileType.TEXT,
-        file: (await TextFileFactory().create(domain.uniqueId.getOrCrash))
+        file: TextFileFactory().create(domain.uniqueId.getOrCrash)
           ..writeAsStringSync((domain as TextFile).text),
       );
     }

@@ -21,10 +21,10 @@ abstract class CardDto implements _$CardDto {
     @required @CardContentConverter() MDFileDto question,
   }) = _CardDto;
 
-  static Future<CardDto> fromDomain(Card card) async => CardDto(
-        answer: await MDFileDto.fromDomain(card.answer),
+  factory CardDto.fromDomain(Card card) => CardDto(
+        answer: MDFileDto.fromDomain(card.answer),
         cardId: card.id.getOrCrash,
-        question: await MDFileDto.fromDomain(card.question),
+        question: MDFileDto.fromDomain(card.question),
       );
 
   Card toDomain() => Card(

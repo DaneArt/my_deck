@@ -7,6 +7,8 @@ import 'package:mydeck/models/entitites/md_file.dart';
 import 'package:mydeck/utils/file_factory.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../../main.dart';
+
 abstract class FileLocalDataSource {
   Future<MDFileDto> getFileByMeta(String id, FileType contentType);
   Future<void> addFile(MDFileDto file);
@@ -16,7 +18,7 @@ class FileLocalDataSourceImpl implements FileLocalDataSource {
   @override
   Future<void> addFile(MDFileDto file) async {
     try {
-      final dir = await getApplicationDocumentsDirectory();
+      final dir = App.appDirectory;
       file.file.copy("${dir.path}/files/${file.id}");
     } catch (e) {
       throw CacheException();

@@ -88,10 +88,6 @@ class DeckRepositoryImpl implements DeckRepository {
   @override
   Future<Either<StorageFailure<Deck>, Deck>> addDeck(Deck deck) async {
     try {
-//      final bothers = await entitiesSeparator.separateMediaContentOfDeck(deck);
-//      await mediaDataSource.addFileToAppCache(bothers.right);
-      //await localDataSource.addDeck(bothers.left.toModel());
-
       if (await networkConnection.isConnected) {
         await networkDataSource.addDeck(await DeckDto.fromDomain(deck));
       } else {
@@ -100,6 +96,8 @@ class DeckRepositoryImpl implements DeckRepository {
 
       return right(deck);
     } on CacheException {
+      return left(StorageFailure.insertFailure(failureObject: deck));
+    } catch (e) {
       return left(StorageFailure.insertFailure(failureObject: deck));
     }
   }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:colorful_safe_area/colorful_safe_area.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 import 'package:mydeck/blocs/add_deck/add_deck_bloc.dart';
 import 'package:mydeck/blocs/card_editor/card_editor_bloc.dart';
@@ -73,7 +74,15 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AddDeckBloc, AddDeckState>(
+    return BlocConsumer<AddDeckBloc, AddDeckState>(
+      listener: (context, state) {
+        state.savingFailureOrSuccess.fold(
+            () => null,
+            (some) => some.fold(
+                (failure) => showToast("Check internet connection and retry"),
+                (success) => showToast(
+                    "Deck ${state.goal == AddDeckGoal.create ? "" : state.goal == AddDeckGoal.update ? "changed" : ""} saved")));
+      },
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
@@ -394,8 +403,14 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
             Flexible(
               flex: 3,
               child: Padding(
-                padding:
-                    const EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
+                padding: EdgeInsets.only(
+                    left: 16.0,
+                    right: 16.0,
+                    top: 16.0,
+                    bottom:
+                        (state.isSaving || state.status == AddDeckStatus.look)
+                            ? 120
+                            : 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,

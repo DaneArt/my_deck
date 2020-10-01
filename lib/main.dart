@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:mydeck/theme/my_deck_theme.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'blocs/auth/auth_bloc.dart';
@@ -25,8 +26,10 @@ import 'generated/l10n.dart';
 
 class App {
   static SharedPreferences localStorage;
+  static Directory appDirectory;
 
   static Future init() async {
+    appDirectory = await getApplicationDocumentsDirectory();
     localStorage = await SharedPreferences.getInstance();
   }
 }

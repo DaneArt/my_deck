@@ -19,7 +19,8 @@ abstract class MDFile {
 
 class ImageFile extends MDFile {
   ImageFile({@required UniqueId uniqueId, File file})
-      : super(uniqueId: uniqueId);
+      : _file = file,
+        super(uniqueId: uniqueId);
   File _file;
 
   Future<Either<StorageFailure<File>, File>> getFileValue() async {
