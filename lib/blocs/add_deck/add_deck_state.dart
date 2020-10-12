@@ -34,7 +34,7 @@ abstract class AddDeckState with _$AddDeckState {
         isShared: !initialDeck.isPrivate,
         title: initialDeck.title,
         author: UserDto.fromDomain(initialDeck.author),
-        isLoading: false,
+        isLoading: goal != AddDeckGoal.create,
         loadingFailureOrSuccess: none(),
         availableQuickTrain: initialDeck.availableQuickTrain,
         status: status,

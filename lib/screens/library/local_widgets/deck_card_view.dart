@@ -57,23 +57,21 @@ class _DeckCardState extends State<DeckCard> {
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         child: InkWell(
           onTap: () async {
-            final deckUpdate = await context.navigator.push(MaterialPageRoute(
-                builder: (context) => BlocProvider(
-                      create: (context) => AddDeckBloc(
-                          uploadOnlineDeckUsecase:
-                              sl.get<UploadOnlineDeckUsecase>(),
-                          deck: deck,
-                          goal: widget.isEditing
-                              ? AddDeckGoal.update
-                              : AddDeckGoal.look,
-                          status: widget.isEditing
-                              ? AddDeckStatus.edit
-                              : AddDeckStatus.look,
-                          addDeckUseCase: sl.get<AddDeckUseCase>(),
-                          saveDeckChangesUsecase:
-                              sl.get<SaveDeckChangesUsecase>()),
-                      child: AddDeckPage(),
-                    )));
+            final deckUpdate = await context.navigator.push(
+              MaterialPageRoute(
+                builder: (ctx) => BlocProvider<AddDeckBloc>(
+                  create: (BuildContext context) => AddDeckBloc(
+                      deck: deck,
+                      uploadOnlineDeckUsecase:
+                          sl.get<UploadOnlineDeckUsecase>(),
+                      goal: AddDeckGoal.update,
+                      status: AddDeckStatus.look,
+                      addDeckUseCase: sl.get<AddDeckUseCase>(),
+                      saveDeckChangesUsecase: sl.get<SaveDeckChangesUsecase>()),
+                  child: AddDeckPage(),
+                ),
+              ),
+            );
 
             if (deckUpdate != null) {
               if (deckUpdate is Deck) {

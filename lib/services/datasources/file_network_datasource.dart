@@ -1,10 +1,10 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
-import 'package:http/http.dart';
 import 'package:mydeck/errors/exception.dart';
 import 'package:mydeck/models/dtos/file_dto.dart';
 import 'package:mydeck/utils/file_factory.dart';
@@ -13,19 +13,63 @@ import 'package:path_provider/path_provider.dart';
 abstract class FileNetworkDataSource {
   Future<MDFileDto> getFileById(String id);
   Future<void> addFile(MDFileDto file);
+  Future<void> addFiles(List<MDFileDto> files);
 }
 
 class FileNetworkDataSourceImpl implements FileNetworkDataSource {
+  final Dio dio;
+
+  FileNetworkDataSourceImpl(this.dio);
   @override
-  Future<void> addFile(MDFileDto file) {
-    // TODO: implement addFile
-    throw UnimplementedError();
+  Future<void> addFile(MDFileDto file) async {
+    try {
+      await dio.post('/Media/Insert',
+          data: FormData.fromMap({
+            'files': [file.toFormData()]
+          }));
+    } catch (e) {
+      throw NetworkException();
+    }
   }
 
   @override
-  Future<MDFileDto> getFileById(String id) {
-    // TODO: implement getFileById
-    throw UnimplementedError();
+  Future<MDFileDto> getFileById(String id) async {
+    try {
+      final response = await dio.download(
+          '/Media/Media/$id', ImageFileFactory().create(id).path);
+
+      final contentType = response.headers.map[Headers.contentTypeHeader][0];
+
+      if (contentType == 'image/jpeg') {
+        return MDFileDto(
+            file: ImageFileFactory().create(id), id: id, type: FileType.IMAGE);
+      } else {
+        return MDFileDto(
+            file: TextFileFactory().create(id), id: id, type: FileType.TEXT);
+      }
+    } on Exception catch (e) {
+      throw NetworkException();
+    }
+  }
+
+  @override
+  Future<void> addFiles(List<MDFileDto> files) async {
+    try {
+      await dio.post(
+        '/Media/Insert',
+        data: FormData.fromMap(
+          {
+            "files": files
+                .map(
+                  (file) => file.toFormData(),
+                )
+                .toList(),
+          },
+        ),
+      );
+    } catch (e) {
+      throw NetworkException();
+    }
   }
 }
 
@@ -50,12 +94,18 @@ class FakeFileNetworkDataSource implements FileNetworkDataSource {
   Future<MDFileDto> getFileById(String id) async {
     try {
       var url = imageUrls[Random().nextInt(imageUrls.length - 1)];
-      var response = await get(url);
-      File file2 = await ImageFileFactory().create(id);
-      file2.writeAsBytesSync(response.bodyBytes);
+      var response = await Dio().get(url);
+      File file2 = ImageFileFactory().create(id);
+      file2.writeAsBytesSync(response.data);
       return MDFileDto(file: file2, id: id, type: FileType.IMAGE);
     } catch (e) {
       throw NetworkException();
     }
+  }
+
+  @override
+  Future<void> addFiles(List<MDFileDto> files) {
+    // TODO: implement addFiles
+    throw UnimplementedError();
   }
 }

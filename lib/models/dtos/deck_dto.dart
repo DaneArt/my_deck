@@ -27,7 +27,7 @@ abstract class DeckDto implements _$DeckDto {
   const factory DeckDto({
     @required @JsonKey(name: 'deck_id') String id,
     @required String title,
-    @required @JsonKey(name: 'icon') MDFileDto avatar,
+    @required @DeckAvatarConverter() @JsonKey(name: 'icon') MDFileDto avatar,
     @required String description,
     @JsonKey(name: 'subscribers_count', nullable: true) int subscribersCount,
     @JsonKey(nullable: true, ignore: true) List<UserDto> subscribers,
@@ -53,7 +53,8 @@ abstract class DeckDto implements _$DeckDto {
             password: [],
             username: e.username.getOrCrash,
           )),
-      cardDtos: deck?.cardsList?.map((card) => CardDto.fromDomain(card)),
+      cardDtos:
+          deck?.cardsList?.map((card) => CardDto.fromDomain(card))?.toList(),
       cardsCount: deck.cardsCount,
       subscribersCount: deck.subscribersCount);
 
@@ -68,7 +69,7 @@ abstract class DeckDto implements _$DeckDto {
       isPrivate: isPrivate,
       cardsCount: cardsCount,
       subscribersCount: subscribersCount,
-      cardsList: cardDtos.map((card) => card.toDomain()).toList(),
+      cardsList: cardDtos?.map((card) => card.toDomain())?.toList(),
       availableQuickTrain: true);
 
   factory DeckDto.fromJson(Map<String, dynamic> json) =>
@@ -77,18 +78,15 @@ abstract class DeckDto implements _$DeckDto {
   Map<String, dynamic> toJson() => _$_$_DeckDtoToJson(this);
 }
 
-class FileConverter implements JsonConverter<MDFileDto, MDMultipartFile> {
+class DeckAvatarConverter implements JsonConverter<MDFileDto, Object> {
+  const DeckAvatarConverter();
+
   @override
-  MDFileDto fromJson(MDMultipartFile json) {
+  MDFileDto fromJson(Object json) {
     return MDFileDto(
-        file: ImageFileFactory().create(json.fileId),
-        id: json.fileId,
-        type: json.contentType.type == "text" ? FileType.TEXT : FileType.IMAGE);
+        file: ImageFileFactory().create(json), id: json, type: FileType.IMAGE);
   }
 
   @override
-  MDMultipartFile toJson(MDFileDto object) {
-    // TODO: implement toJson
-    throw UnimplementedError();
-  }
+  Object toJson(MDFileDto fieldValue) => fieldValue.id;
 }

@@ -56,14 +56,12 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
     tabController.addListener(() {
       FocusScope.of(context).unfocus();
       setState(() {
-        _showActions = tabController.index == 1 &&
+        /*  _showActions = tabController.index == 1 &&
             bloc.state.status == AddDeckStatus.edit &&
             !bloc.state.isSaving &&
-            !bloc.state.isLoading;
+            !bloc.state.isLoading; */
       });
     });
-    if (bloc.state.goal != AddDeckGoal.create)
-      bloc.add(AddDeckEvent.initFromOnline());
   }
 
   @override
@@ -76,10 +74,13 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
   Widget build(BuildContext context) {
     return BlocConsumer<AddDeckBloc, AddDeckState>(
       listener: (context, state) {
+        if (state.goal != AddDeckGoal.create) {
+          bloc.add(AddDeckEvent.initFromOnline());
+        }
         state.savingFailureOrSuccess.fold(
             () => null,
             (some) => some.fold(
-                (failure) => showToast("Check internet connection and retry"),
+                (failure) => showToast(failure.message),
                 (success) => showToast(
                     "Deck ${state.goal == AddDeckGoal.create ? "" : state.goal == AddDeckGoal.update ? "changed" : ""} saved")));
       },
@@ -434,16 +435,28 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(left: 16.0),
-            child: MDRoundedButton(
-              icon: Icon(state.isShared ? Icons.lock_open : Icons.lock),
-              onPressed: state.status == AddDeckStatus.edit && !state.isSaving
-                  ? () {
-                      bloc.add(AddDeckEvent.changePrivacy());
-                    }
-                  : null,
-              title: Text('PRIVACY'),
-            ),
+            padding: EdgeInsets.only(
+                left: state.status == AddDeckStatus.edit && !state.isSaving
+                    ? 16.0
+                    : 40.0),
+            child: state.status == AddDeckStatus.edit && !state.isSaving
+                ? MDRoundedButton(
+                    icon: Icon(state.isShared ? Icons.lock_open : Icons.lock),
+                    onPressed:
+                        state.status == AddDeckStatus.edit && !state.isSaving
+                            ? () {
+                                bloc.add(AddDeckEvent.changePrivacy());
+                              }
+                            : null,
+                    title: Text('PRIVACY'),
+                  )
+                : Column(
+                    children: [
+                      Text('PRIVACY'),
+                      Container(height: 8),
+                      Icon(state.isShared ? Icons.lock_open : Icons.lock),
+                    ],
+                  ),
           ),
           state.status == AddDeckStatus.look
               ? Padding(

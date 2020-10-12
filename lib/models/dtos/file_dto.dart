@@ -1,9 +1,12 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mydeck/models/entitites/md_file.dart';
 import 'package:mydeck/models/entitites/unique_id.dart';
 import 'package:mydeck/utils/file_factory.dart';
+import 'package:http_parser/http_parser.dart';
+import 'package:mydeck/utils/md_multipart_file.dart';
 
 part 'file_dto.freezed.dart';
 part 'file_dto.g.dart';
@@ -46,6 +49,17 @@ abstract class MDFileDto implements _$MDFileDto {
           text: file.existsSync() ? file.readAsStringSync() : "",
           uniqueId: UniqueId.fromString(id));
     }
+  }
+
+ Map<String, Object> toFormData()  {
+    return {
+      'id': this.id,
+      'type': this.type == FileType.IMAGE ? 'image' : 'text',
+      'file':  MultipartFile.fromFileSync(this.file.path,
+          filename: this.id + '.' + this.file.path.split('.').last,
+          contentType: MediaType.parse(
+              this.type == FileType.IMAGE ? 'image/png' : 'text/plain'))
+    };
   }
 }
 

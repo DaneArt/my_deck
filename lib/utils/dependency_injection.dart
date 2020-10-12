@@ -15,6 +15,7 @@ import 'package:mydeck/services/repositories/file_repository.dart';
 import 'package:mydeck/services/usecases/get_file_by_meta_usecase.dart';
 import 'package:mydeck/services/usecases/sign_in_usecase.dart';
 import 'package:mydeck/services/usecases/sign_up_usecase.dart';
+import 'package:mydeck/utils/file_factory.dart';
 import 'package:mydeck/utils/google_token_factory.dart';
 import 'package:mydeck/utils/token_interceptor.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
@@ -50,9 +51,9 @@ const BASE_URL_DEV = 'https://10.0.2.2:4001';
 void setUp() {
   //data sources
   sl.registerLazySingleton<FileNetworkDataSource>(
-      () => FileNetworkDataSourceImpl());
+      () => FileNetworkDataSourceImpl(sl()));
   sl.registerLazySingleton<FileLocalDataSource>(
-      () => FileLocalDataSourceImpl());
+      () => FileLocalDataSourceImpl(sl(), sl()));
   sl.registerLazySingleton<DeckNetworkDataSource>(
       () => DeckNetworkDataSourceImpl(
             client: sl(),
@@ -125,6 +126,8 @@ void setUp() {
       sl(),
     ),
   );
+  sl.registerFactory(() => ImageFileFactory());
+  sl.registerFactory(() => TextFileFactory());
 
   //use cases
   sl.registerFactory(() => UploadOnlineDeckUsecase(myDeckRepository: sl()));
@@ -136,7 +139,8 @@ void setUp() {
   sl.registerFactory(() => UpdateDeckUsecase(myDeckRepository: sl()));
   sl.registerFactory(() => GetDecksForTrain());
   sl.registerFactory(() => LoadUserLibraryUseCase(repository: sl()));
-  sl.registerFactory(() => AddDeckUseCase(myDeckRepository: sl()));
+  sl.registerFactory(
+      () => AddDeckUseCase(myDeckRepository: sl(), fileRepository: sl()));
   sl.registerFactory(() => UpdateTrainedCards(repository: sl()));
   sl.registerFactory(() => GetFileByMetaUseCase(fileRepository: sl()));
   //blocs

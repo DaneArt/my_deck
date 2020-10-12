@@ -10,9 +10,7 @@ _$_DeckDto _$_$_DeckDtoFromJson(Map<String, dynamic> json) {
   return _$_DeckDto(
     id: json['deck_id'] as String,
     title: json['title'] as String,
-    avatar: json['icon'] == null
-        ? null
-        : MDFileDto.fromJson(json['icon'] as Map<String, dynamic>),
+    avatar: const DeckAvatarConverter().fromJson(json['icon']),
     description: json['description'] as String,
     subscribersCount: json['subscribers_count'] as int,
     cardsCount: json['cards_count'] as int,
@@ -30,7 +28,7 @@ Map<String, dynamic> _$_$_DeckDtoToJson(_$_DeckDto instance) =>
     <String, dynamic>{
       'deck_id': instance.id,
       'title': instance.title,
-      'icon': instance.avatar,
+      'icon': const DeckAvatarConverter().toJson(instance.avatar),
       'description': instance.description,
       'subscribers_count': instance.subscribersCount,
       'cards_count': instance.cardsCount,

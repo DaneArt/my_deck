@@ -18,7 +18,7 @@ class _$DeckDtoTearOff {
   _DeckDto call(
       {@required @JsonKey(name: 'deck_id') String id,
       @required String title,
-      @required @JsonKey(name: 'icon') MDFileDto avatar,
+      @required @DeckAvatarConverter() @JsonKey(name: 'icon') MDFileDto avatar,
       @required String description,
       @JsonKey(name: 'subscribers_count', nullable: true) int subscribersCount,
       @JsonKey(nullable: true, ignore: true) List<UserDto> subscribers,
@@ -50,6 +50,7 @@ mixin _$DeckDto {
   @JsonKey(name: 'deck_id')
   String get id;
   String get title;
+  @DeckAvatarConverter()
   @JsonKey(name: 'icon')
   MDFileDto get avatar;
   String get description;
@@ -78,7 +79,7 @@ abstract class $DeckDtoCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'deck_id') String id,
       String title,
-      @JsonKey(name: 'icon') MDFileDto avatar,
+      @DeckAvatarConverter() @JsonKey(name: 'icon') MDFileDto avatar,
       String description,
       @JsonKey(name: 'subscribers_count', nullable: true) int subscribersCount,
       @JsonKey(nullable: true, ignore: true) List<UserDto> subscribers,
@@ -153,7 +154,7 @@ abstract class _$DeckDtoCopyWith<$Res> implements $DeckDtoCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'deck_id') String id,
       String title,
-      @JsonKey(name: 'icon') MDFileDto avatar,
+      @DeckAvatarConverter() @JsonKey(name: 'icon') MDFileDto avatar,
       String description,
       @JsonKey(name: 'subscribers_count', nullable: true) int subscribersCount,
       @JsonKey(nullable: true, ignore: true) List<UserDto> subscribers,
@@ -218,7 +219,7 @@ class _$_DeckDto extends _DeckDto with DiagnosticableTreeMixin {
   const _$_DeckDto(
       {@required @JsonKey(name: 'deck_id') this.id,
       @required this.title,
-      @required @JsonKey(name: 'icon') this.avatar,
+      @required @DeckAvatarConverter() @JsonKey(name: 'icon') this.avatar,
       @required this.description,
       @JsonKey(name: 'subscribers_count', nullable: true) this.subscribersCount,
       @JsonKey(nullable: true, ignore: true) this.subscribers,
@@ -245,6 +246,7 @@ class _$_DeckDto extends _DeckDto with DiagnosticableTreeMixin {
   @override
   final String title;
   @override
+  @DeckAvatarConverter()
   @JsonKey(name: 'icon')
   final MDFileDto avatar;
   @override
@@ -360,7 +362,7 @@ abstract class _DeckDto extends DeckDto {
   const factory _DeckDto(
       {@required @JsonKey(name: 'deck_id') String id,
       @required String title,
-      @required @JsonKey(name: 'icon') MDFileDto avatar,
+      @required @DeckAvatarConverter() @JsonKey(name: 'icon') MDFileDto avatar,
       @required String description,
       @JsonKey(name: 'subscribers_count', nullable: true) int subscribersCount,
       @JsonKey(nullable: true, ignore: true) List<UserDto> subscribers,
@@ -378,6 +380,7 @@ abstract class _DeckDto extends DeckDto {
   @override
   String get title;
   @override
+  @DeckAvatarConverter()
   @JsonKey(name: 'icon')
   MDFileDto get avatar;
   @override

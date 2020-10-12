@@ -13,6 +13,7 @@ import 'package:mydeck/utils/network_connection.dart';
 
 abstract class FileRepository {
   Future<Option<StorageFailure>> addFile(MDFile file);
+  Future<Option<StorageFailure>> addFiles(List<MDFile> file);
   Future<Either<StorageFailure<File>, File>> getFileByMeta(
       UniqueId id, FileType contentType);
 }
@@ -28,15 +29,15 @@ class FileRepositoryImpl implements FileRepository {
   @override
   Future<Option<StorageFailure>> addFile(MDFile file) async {
     try {
-      await fileLocalDataSource.addFile(await MDFileDto.fromDomain(file));
+      await fileLocalDataSource.addFile(MDFileDto.fromDomain(file));
       if (await networkConnection.isConnected) {
-        fileNetworkDataSource.addFile(await MDFileDto.fromDomain(file));
+        fileNetworkDataSource.addFile(MDFileDto.fromDomain(file));
       }
       return none();
     } on NetworkException {
       return some(StorageFailure.networkFailure());
     } on CacheException {
-      return some(StorageFailure.insertFailure());
+      return some(StorageFailure.insertFailure(failureObject: file));
     }
   }
 
@@ -65,7 +66,24 @@ class FileRepositoryImpl implements FileRepository {
       return left(StorageFailure.networkFailure());
     } on CacheException {
       Logger().e('FileRepository: CacheException');
-      return left(StorageFailure.insertFailure());
+      return left(StorageFailure.getFailure());
+    }
+  }
+
+  @override
+  Future<Option<StorageFailure>> addFiles(List<MDFile> files) async {
+    try {
+      await fileLocalDataSource
+          .addFiles(files.map((file) => MDFileDto.fromDomain(file)).toList());
+      if (await networkConnection.isConnected) {
+        fileNetworkDataSource
+            .addFiles(files.map((file) => MDFileDto.fromDomain(file)).toList());
+      }
+      return none();
+    } on NetworkException {
+      return some(StorageFailure.networkFailure());
+    } on CacheException {
+      return some(StorageFailure.insertFailure(failureObject: files));
     }
   }
 }

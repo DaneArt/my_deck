@@ -24,8 +24,6 @@ class TextFileFactory implements MDFileFactory {
     final dir = App.appDirectory;
     final dirPath = '${dir.path}/files';
     Directory(dirPath).createSync(recursive: true);
-    final file = File('$dirPath/$id.txt');
-    file.create();
-    return file;
+    return File('$dirPath/$id.txt');
   }
 }

@@ -1,7 +1,5 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:meta/meta.dart';
+
 import 'package:mydeck/generated/l10n.dart';
 
 part 'value_failure.freezed.dart';

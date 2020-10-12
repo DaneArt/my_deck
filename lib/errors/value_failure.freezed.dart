@@ -263,9 +263,7 @@ class _$InvalidEmailCopyWithImpl<T, $Res>
   }
 }
 
-class _$InvalidEmail<T>
-    with DiagnosticableTreeMixin
-    implements InvalidEmail<T> {
+class _$InvalidEmail<T> implements InvalidEmail<T> {
   _$InvalidEmail({@required this.failedValue}) : assert(failedValue != null);
 
   @override
@@ -303,17 +301,8 @@ class _$InvalidEmail<T>
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ValueFailure<$T>.invalidEmail(failedValue: $failedValue, message: $message)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.invalidEmail'))
-      ..add(DiagnosticsProperty('failedValue', failedValue))
-      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -513,7 +502,7 @@ class _$EmptyEmailCopyWithImpl<T, $Res>
   }
 }
 
-class _$EmptyEmail<T> with DiagnosticableTreeMixin implements EmptyEmail<T> {
+class _$EmptyEmail<T> implements EmptyEmail<T> {
   _$EmptyEmail({@required this.failedValue}) : assert(failedValue != null);
 
   @override
@@ -551,17 +540,8 @@ class _$EmptyEmail<T> with DiagnosticableTreeMixin implements EmptyEmail<T> {
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ValueFailure<$T>.emptyEmail(failedValue: $failedValue, message: $message)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.emptyEmail'))
-      ..add(DiagnosticsProperty('failedValue', failedValue))
-      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -761,9 +741,7 @@ class _$ShortUsernameCopyWithImpl<T, $Res>
   }
 }
 
-class _$ShortUsername<T>
-    with DiagnosticableTreeMixin
-    implements ShortUsername<T> {
+class _$ShortUsername<T> implements ShortUsername<T> {
   _$ShortUsername({@required this.failedValue}) : assert(failedValue != null);
 
   @override
@@ -801,17 +779,8 @@ class _$ShortUsername<T>
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ValueFailure<$T>.shortUsername(failedValue: $failedValue, message: $message)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.shortUsername'))
-      ..add(DiagnosticsProperty('failedValue', failedValue))
-      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -1011,9 +980,7 @@ class _$EmptyUsernameCopyWithImpl<T, $Res>
   }
 }
 
-class _$EmptyUsername<T>
-    with DiagnosticableTreeMixin
-    implements EmptyUsername<T> {
+class _$EmptyUsername<T> implements EmptyUsername<T> {
   _$EmptyUsername({@required this.failedValue}) : assert(failedValue != null);
 
   @override
@@ -1051,17 +1018,8 @@ class _$EmptyUsername<T>
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ValueFailure<$T>.emptyUsername(failedValue: $failedValue, message: $message)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.emptyUsername'))
-      ..add(DiagnosticsProperty('failedValue', failedValue))
-      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -1261,9 +1219,7 @@ class _$ShortPasswordCopyWithImpl<T, $Res>
   }
 }
 
-class _$ShortPassword<T>
-    with DiagnosticableTreeMixin
-    implements ShortPassword<T> {
+class _$ShortPassword<T> implements ShortPassword<T> {
   _$ShortPassword({@required this.failedValue}) : assert(failedValue != null);
 
   @override
@@ -1301,17 +1257,8 @@ class _$ShortPassword<T>
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ValueFailure<$T>.shortPassword(failedValue: $failedValue, message: $message)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.shortPassword'))
-      ..add(DiagnosticsProperty('failedValue', failedValue))
-      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -1511,9 +1458,7 @@ class _$EmptyPasswordCopyWithImpl<T, $Res>
   }
 }
 
-class _$EmptyPassword<T>
-    with DiagnosticableTreeMixin
-    implements EmptyPassword<T> {
+class _$EmptyPassword<T> implements EmptyPassword<T> {
   _$EmptyPassword({@required this.failedValue}) : assert(failedValue != null);
 
   @override
@@ -1551,17 +1496,8 @@ class _$EmptyPassword<T>
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ValueFailure<$T>.emptyPassword(failedValue: $failedValue, message: $message)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.emptyPassword'))
-      ..add(DiagnosticsProperty('failedValue', failedValue))
-      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -1761,9 +1697,7 @@ class _$InvalidUniqueIdCopyWithImpl<T, $Res>
   }
 }
 
-class _$InvalidUniqueId<T>
-    with DiagnosticableTreeMixin
-    implements InvalidUniqueId<T> {
+class _$InvalidUniqueId<T> implements InvalidUniqueId<T> {
   _$InvalidUniqueId({@required this.failedValue}) : assert(failedValue != null);
 
   @override
@@ -1801,17 +1735,8 @@ class _$InvalidUniqueId<T>
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ValueFailure<$T>.invalidUniqueId(failedValue: $failedValue, message: $message)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.invalidUniqueId'))
-      ..add(DiagnosticsProperty('failedValue', failedValue))
-      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -2011,9 +1936,7 @@ class _$LongPasswordCopyWithImpl<T, $Res>
   }
 }
 
-class _$LongPassword<T>
-    with DiagnosticableTreeMixin
-    implements LongPassword<T> {
+class _$LongPassword<T> implements LongPassword<T> {
   _$LongPassword({@required this.failedValue}) : assert(failedValue != null);
 
   @override
@@ -2051,17 +1974,8 @@ class _$LongPassword<T>
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ValueFailure<$T>.longPassword(failedValue: $failedValue, message: $message)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.longPassword'))
-      ..add(DiagnosticsProperty('failedValue', failedValue))
-      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -2261,9 +2175,7 @@ class _$InvalidUsernameCopyWithImpl<T, $Res>
   }
 }
 
-class _$InvalidUsername<T>
-    with DiagnosticableTreeMixin
-    implements InvalidUsername<T> {
+class _$InvalidUsername<T> implements InvalidUsername<T> {
   _$InvalidUsername({@required this.failedValue}) : assert(failedValue != null);
 
   @override
@@ -2301,17 +2213,8 @@ class _$InvalidUsername<T>
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ValueFailure<$T>.invalidUsername(failedValue: $failedValue, message: $message)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.invalidUsername'))
-      ..add(DiagnosticsProperty('failedValue', failedValue))
-      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -2511,9 +2414,7 @@ class _$LongUsernameCopyWithImpl<T, $Res>
   }
 }
 
-class _$LongUsername<T>
-    with DiagnosticableTreeMixin
-    implements LongUsername<T> {
+class _$LongUsername<T> implements LongUsername<T> {
   _$LongUsername({@required this.failedValue}) : assert(failedValue != null);
 
   @override
@@ -2551,17 +2452,8 @@ class _$LongUsername<T>
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ValueFailure<$T>.longUsername(failedValue: $failedValue, message: $message)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.longUsername'))
-      ..add(DiagnosticsProperty('failedValue', failedValue))
-      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -2761,9 +2653,7 @@ class _$InvalidPasswordCopyWithImpl<T, $Res>
   }
 }
 
-class _$InvalidPassword<T>
-    with DiagnosticableTreeMixin
-    implements InvalidPassword<T> {
+class _$InvalidPassword<T> implements InvalidPassword<T> {
   _$InvalidPassword({@required this.failedValue}) : assert(failedValue != null);
 
   @override
@@ -2801,17 +2691,8 @@ class _$InvalidPassword<T>
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ValueFailure<$T>.invalidPassword(failedValue: $failedValue, message: $message)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.invalidPassword'))
-      ..add(DiagnosticsProperty('failedValue', failedValue))
-      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -3011,9 +2892,7 @@ class _$FileDoesNotExistsCopyWithImpl<T, $Res>
   }
 }
 
-class _$FileDoesNotExists<T>
-    with DiagnosticableTreeMixin
-    implements FileDoesNotExists<T> {
+class _$FileDoesNotExists<T> implements FileDoesNotExists<T> {
   _$FileDoesNotExists({@required this.failedValue})
       : assert(failedValue != null);
 
@@ -3052,17 +2931,8 @@ class _$FileDoesNotExists<T>
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ValueFailure<$T>.fileDoesNotExists(failedValue: $failedValue, message: $message)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.fileDoesNotExists'))
-      ..add(DiagnosticsProperty('failedValue', failedValue))
-      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -3263,9 +3133,7 @@ class _$ShortDeckTitleCopyWithImpl<T, $Res>
   }
 }
 
-class _$ShortDeckTitle<T>
-    with DiagnosticableTreeMixin
-    implements ShortDeckTitle<T> {
+class _$ShortDeckTitle<T> implements ShortDeckTitle<T> {
   _$ShortDeckTitle({@required this.failedValue}) : assert(failedValue != null);
 
   @override
@@ -3303,17 +3171,8 @@ class _$ShortDeckTitle<T>
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ValueFailure<$T>.shortDeckTitle(failedValue: $failedValue, message: $message)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.shortDeckTitle'))
-      ..add(DiagnosticsProperty('failedValue', failedValue))
-      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -3513,9 +3372,7 @@ class _$InvalidDeckTitleCopyWithImpl<T, $Res>
   }
 }
 
-class _$InvalidDeckTitle<T>
-    with DiagnosticableTreeMixin
-    implements InvalidDeckTitle<T> {
+class _$InvalidDeckTitle<T> implements InvalidDeckTitle<T> {
   _$InvalidDeckTitle({@required this.failedValue})
       : assert(failedValue != null);
 
@@ -3554,17 +3411,8 @@ class _$InvalidDeckTitle<T>
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ValueFailure<$T>.invalidDeckTitle(failedValue: $failedValue, message: $message)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.invalidDeckTitle'))
-      ..add(DiagnosticsProperty('failedValue', failedValue))
-      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -3764,9 +3612,7 @@ class _$ExpiredTokenCopyWithImpl<T, $Res>
   }
 }
 
-class _$ExpiredToken<T>
-    with DiagnosticableTreeMixin
-    implements ExpiredToken<T> {
+class _$ExpiredToken<T> implements ExpiredToken<T> {
   _$ExpiredToken({@required this.failedValue}) : assert(failedValue != null);
 
   @override
@@ -3804,17 +3650,8 @@ class _$ExpiredToken<T>
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ValueFailure<$T>.expiredToken(failedValue: $failedValue, message: $message)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.expiredToken'))
-      ..add(DiagnosticsProperty('failedValue', failedValue))
-      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -4014,9 +3851,7 @@ class _$WrongFileExtensionCopyWithImpl<T, $Res>
   }
 }
 
-class _$WrongFileExtension<T>
-    with DiagnosticableTreeMixin
-    implements WrongFileExtension<T> {
+class _$WrongFileExtension<T> implements WrongFileExtension<T> {
   _$WrongFileExtension({@required this.failedValue})
       : assert(failedValue != null);
 
@@ -4055,17 +3890,8 @@ class _$WrongFileExtension<T>
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ValueFailure<$T>.wrongFileExtension(failedValue: $failedValue, message: $message)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.wrongFileExtension'))
-      ..add(DiagnosticsProperty('failedValue', failedValue))
-      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -4267,9 +4093,7 @@ class _$LongDeckTitleCopyWithImpl<T, $Res>
   }
 }
 
-class _$LongDeckTitle<T>
-    with DiagnosticableTreeMixin
-    implements LongDeckTitle<T> {
+class _$LongDeckTitle<T> implements LongDeckTitle<T> {
   _$LongDeckTitle({@required this.failedValue}) : assert(failedValue != null);
 
   @override
@@ -4307,17 +4131,8 @@ class _$LongDeckTitle<T>
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ValueFailure<$T>.longDeckTitle(failedValue: $failedValue, message: $message)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.longDeckTitle'))
-      ..add(DiagnosticsProperty('failedValue', failedValue))
-      ..add(DiagnosticsProperty('message', message));
   }
 
   @override

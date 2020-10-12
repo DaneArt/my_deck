@@ -43,7 +43,7 @@ class CardContentConverter implements JsonConverter<MDFileDto, Object> {
 
   @override
   MDFileDto fromJson(Object json) {
-    return MDFileDto.fromJson(json);
+    return MDFileDto(file: null, id: json, type: null);
   }
 
   @override

@@ -53,18 +53,17 @@ class DeckRepositoryImpl implements DeckRepository {
   Future<Either<StorageFailure, List<Deck>>> getCurrentUserAllDecks() async {
     try {
       if (await networkConnection.isConnected) {
-        final networkDecks = await networkDataSource.getAllDecksOfCurrentUser();
+        final networkDecks = networkDataSource.getAllDecksOfCurrentUser();
         final deckEntities =
-            networkDecks.map((deck) => deck.toDomain()).toList();
+            (await networkDecks).map((deck) => deck.toDomain()).toList();
         return right(deckEntities);
       } else {
-        return left(
-            StorageFailure.networkFailure(message: "No internet connection"));
+        return left(StorageFailure.networkFailure());
       }
+    } on NetworkTimeoutException catch (e) {
+      return left(StorageFailure.networkFailure());
     } catch (exception) {
       return left(StorageFailure.getFailure());
-    } on NetworkTimeoutException catch (e) {
-      return left(StorageFailure.networkFailure(message: e.message));
     }
   }
 
@@ -89,16 +88,16 @@ class DeckRepositoryImpl implements DeckRepository {
   Future<Either<StorageFailure<Deck>, Deck>> addDeck(Deck deck) async {
     try {
       if (await networkConnection.isConnected) {
-        await networkDataSource.addDeck(await DeckDto.fromDomain(deck));
+        await networkDataSource.addDeck(DeckDto.fromDomain(deck));
       } else {
         return left(StorageFailure.networkFailure());
       }
 
       return right(deck);
-    } on CacheException {
+    } on NetworkException {
       return left(StorageFailure.insertFailure(failureObject: deck));
     } catch (e) {
-      return left(StorageFailure.insertFailure(failureObject: deck));
+      return left(StorageFailure.serverFailure());
     }
   }
 

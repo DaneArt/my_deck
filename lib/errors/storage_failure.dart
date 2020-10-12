@@ -5,35 +5,31 @@ part 'storage_failure.freezed.dart';
 @freezed
 abstract class StorageFailure<T> with _$StorageFailure<T> {
   //addDeckScreen failure
-  const factory StorageFailure.fieldsInvalid({T failureObject}) =
+  factory StorageFailure.fieldsInvalid({@required T failureObject}) =
       FieldsInvalid<T>;
-  const factory StorageFailure.unsaveableDraft({T failureObject}) =
+  factory StorageFailure.unsaveableDraft({@required T failureObject}) =
       UnsaveableDraft<T>;
 
   //local failures
-  const factory StorageFailure.insertFailure({T failureObject}) =
+  factory StorageFailure.insertFailure({@required T failureObject}) =
       InsertFailure<T>;
-  const factory StorageFailure.updateFailure({T failureObject}) =
+  factory StorageFailure.updateFailure({@required T failureObject}) =
       UpdateFailure<T>;
-  const factory StorageFailure.deleteFailure({T failureObject}) =
+  factory StorageFailure.deleteFailure({@required T failureObject}) =
       DeleteFailure<T>;
-  const factory StorageFailure.getFailure({T failureObject}) = GetFailure<T>;
+  factory StorageFailure.getFailure() = GetFailure<T>;
 
-  //network failures
-  const factory StorageFailure.insertToServerFailure({
-    T failureObject,
-  }) = InsertToServerFailure<T>;
-  const factory StorageFailure.updateToServerFailure({
-    T failureObject,
-  }) = UpdateToServerFailure<T>;
-  const factory StorageFailure.deleteFromServerFailure({
-    T failureObject,
-  }) = DeleteFromServerFailure<T>;
-  const factory StorageFailure.getFromServerFailure({T failureObject}) =
-      GetFromServerFailure<T>;
+  factory StorageFailure.serverFailure() = ServerFailure<T>;
+  factory StorageFailure.networkFailure() = NetworkFailure<T>;
 
-  const factory StorageFailure.serverFailure({T failureObject}) =
-      ServerFailure<T>;
-  const factory StorageFailure.networkFailure({String message}) =
-      NetworkFailure<T>;
+  @late
+  String get message => this.map(
+      fieldsInvalid: (value) => 'Check fields values and retry.',
+      unsaveableDraft: (value) => 'Check fields values and retry.',
+      insertFailure: (value) => 'Error due adding.',
+      updateFailure: (value) => 'Error due updating.',
+      deleteFailure: (value) => 'Error due deleting.',
+      getFailure: (value) => 'Error due getting.',
+      serverFailure: (value) => 'Unhandled error.',
+      networkFailure: (value) => 'Check internet connection and retry.');
 }

@@ -151,16 +151,24 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
           isSaving: true,
           savingFailureOrSuccess: none(),
         );
-        yield await _saveChanges(
-            state.goal == AddDeckGoal.create
-                ? addDeckUseCase.call
-                : saveDeckChangesUsecase.call,
-            state.goal == AddDeckGoal.create
-                ? Add.Params(buildDeckForSave())
-                : Save.Params(deck, buildDeckForSave()));
+        if (_validateFields()) {
+          yield await _saveChanges(
+              state.goal == AddDeckGoal.create
+                  ? addDeckUseCase.call
+                  : saveDeckChangesUsecase.call,
+              state.goal == AddDeckGoal.create
+                  ? Add.Params(buildDeckForSave())
+                  : Save.Params(deck, buildDeckForSave()));
+        } else
+          yield state.copyWith(
+              isSaving: false,
+              savingFailureOrSuccess: some(
+                  left(StorageFailure.fieldsInvalid(failureObject: deck))));
       },
     );
   }
+
+  bool _validateFields() => state.avatar.isValid && state.title.isValid;
 
   Future<AddDeckState> _saveChanges(SaveWork save, Equatable params) async {
     final saveResult = await save(params);
@@ -171,6 +179,7 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
             ),
         (r) => state.copyWith(
               isSaving: false,
+              status: AddDeckStatus.look,
               savingFailureOrSuccess: some(right(unit)),
             ));
   }
