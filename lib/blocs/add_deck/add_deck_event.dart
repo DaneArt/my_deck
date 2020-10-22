@@ -12,5 +12,6 @@ abstract class AddDeckEvent with _$AddDeckEvent {
   factory AddDeckEvent.categoryChanged(DeckCategory category) = CategoryChanged;
   factory AddDeckEvent.switchEditStatus() = SwitchEditState;
   factory AddDeckEvent.saveChanges() = SaveChanges;
+  factory AddDeckEvent.deleteDeck() = DeleteDeck;
   factory AddDeckEvent.updateCards({@required List<Card> cards}) = UpdateCards;
 }

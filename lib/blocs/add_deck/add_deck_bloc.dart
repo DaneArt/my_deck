@@ -11,12 +11,13 @@ import 'package:mydeck/models/dtos/deck_category.dart';
 import 'package:mydeck/models/entitites/card.dart';
 import 'package:mydeck/models/entitites/deck.dart';
 import 'package:mydeck/models/entitites/md_file.dart';
+import 'package:mydeck/models/entitites/user.dart';
 import 'package:mydeck/models/value_objects/deck_avatar.dart';
 import 'package:mydeck/models/value_objects/deck_description.dart';
 import 'package:mydeck/models/value_objects/deck_title.dart';
-import 'package:mydeck/models/dtos/user_dto.dart';
 import 'package:mydeck/services/datasources/user_config.dart';
 import 'package:mydeck/services/usecases/add_deck_usecase.dart' as Add;
+import 'package:mydeck/services/usecases/delete_deck_usecase.dart';
 import 'package:mydeck/services/usecases/save_deck_changes_usecase.dart'
     as Save;
 
@@ -33,6 +34,7 @@ typedef Future<Either<StorageFailure<Deck>, Deck>> SaveWork(Equatable);
 class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
   final UploadOnlineDeckUsecase uploadOnlineDeckUsecase;
   final Add.AddDeckUseCase addDeckUseCase;
+  final DeleteDeckUseCase deleteDeckUseCase;
   final Save.SaveDeckChangesUsecase saveDeckChangesUsecase;
 
   final Deck deck;
@@ -42,7 +44,8 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
   AddDeckBloc(
       {@required this.uploadOnlineDeckUsecase,
       @required this.addDeckUseCase,
-      this.saveDeckChangesUsecase,
+      @required this.saveDeckChangesUsecase,
+      @required this.deleteDeckUseCase,
       @required this.deck,
       @required this.status,
       @required this.goal})
@@ -122,10 +125,19 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
                   description: r.description,
                   isShared: !r.isPrivate,
                   title: r.title,
-                  author: UserDto.fromDomain(r.author),
+                  author: r.author,
                   isLoading: false,
                   savingFailureOrSuccess: none(),
                   loadingFailureOrSuccess: Some(right(unit)),
+                  freezedDeck: state.freezedDeck.copyWith(
+                    avatar: r.avatar,
+                    cardsList: r.cardsList,
+                    category: r.category,
+                    description: r.description,
+                    isPrivate: r.isPrivate,
+                    title: r.title,
+                    author: r.author,
+                  ),
                 ));
       },
       updateCards: (e) async* {
@@ -140,15 +152,23 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
         Logger().d('QuckTrain state changed: ${!state.availableQuickTrain}');
       },
       switchEditStatus: (e) async* {
-        yield state.copyWith(
-            savingFailureOrSuccess: none(),
-            status: state.status == AddDeckStatus.edit
-                ? AddDeckStatus.look
-                : AddDeckStatus.edit);
+        if (state.status == AddDeckStatus.edit) {
+          yield state.copyWith(
+              savingFailureOrSuccess: none(),
+              status: state.status == AddDeckStatus.edit
+                  ? AddDeckStatus.look
+                  : AddDeckStatus.edit);
+        } else {
+          yield state.copyWith(
+              savingFailureOrSuccess: none(),
+              status: state.status == AddDeckStatus.edit
+                  ? AddDeckStatus.look
+                  : AddDeckStatus.edit);
+        }
       },
       saveChanges: (e) async* {
         yield state.copyWith(
-          isSaving: true,
+          isPending: true,
           savingFailureOrSuccess: none(),
         );
         if (_validateFields()) {
@@ -158,12 +178,25 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
                   : saveDeckChangesUsecase.call,
               state.goal == AddDeckGoal.create
                   ? Add.Params(buildDeckForSave())
-                  : Save.Params(deck, buildDeckForSave()));
+                  : Save.Params(state.freezedDeck, buildDeckForSave()));
         } else
           yield state.copyWith(
-              isSaving: false,
+              isPending: false,
               savingFailureOrSuccess: some(
                   left(StorageFailure.fieldsInvalid(failureObject: deck))));
+      },
+      deleteDeck: (e) async* {
+        yield state.copyWith(
+          isPending: true,
+          deleteFailureOrSuccess: none(),
+          savingFailureOrSuccess: none(),
+        );
+        final deleteResult =
+            await deleteDeckUseCase(Add.Params(state.freezedDeck));
+        yield state.copyWith(
+          deleteFailureOrSuccess:
+              some(deleteResult.fold((l) => left(l), (r) => right(unit))),
+        );
       },
     );
   }
@@ -174,12 +207,14 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
     final saveResult = await save(params);
     return saveResult.fold(
         (l) => state.copyWith(
-              isSaving: false,
+              isPending: false,
               savingFailureOrSuccess: some(left(l)),
             ),
         (r) => state.copyWith(
-              isSaving: false,
+              isPending: false,
+              goal: AddDeckGoal.update,
               status: AddDeckStatus.look,
+              freezedDeck: r,
               savingFailureOrSuccess: some(right(unit)),
             ));
   }

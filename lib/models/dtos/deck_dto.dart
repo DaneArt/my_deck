@@ -36,6 +36,7 @@ abstract class DeckDto implements _$DeckDto {
     @required @JsonKey(name: 'category_name') String categoryName,
     @required @JsonKey(name: 'is_private') bool isPrivate,
     @required @JsonKey(name: 'author') String authorId,
+    @required @JsonKey(name: 'available_quick_train') bool availableQuickTrain,
   }) = _DeckDto;
 
   factory DeckDto.fromDomain(Deck deck) => DeckDto(
@@ -56,7 +57,8 @@ abstract class DeckDto implements _$DeckDto {
       cardDtos:
           deck?.cardsList?.map((card) => CardDto.fromDomain(card))?.toList(),
       cardsCount: deck.cardsCount,
-      subscribersCount: deck.subscribersCount);
+      subscribersCount: deck.subscribersCount,
+      availableQuickTrain: deck.availableQuickTrain);
 
   Deck toDomain() => Deck(
       deckId: UniqueId.fromString(id),
@@ -70,7 +72,7 @@ abstract class DeckDto implements _$DeckDto {
       cardsCount: cardsCount,
       subscribersCount: subscribersCount,
       cardsList: cardDtos?.map((card) => card.toDomain())?.toList(),
-      availableQuickTrain: true);
+      availableQuickTrain: availableQuickTrain);
 
   factory DeckDto.fromJson(Map<String, dynamic> json) =>
       _$DeckDtoFromJson(json);

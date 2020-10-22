@@ -13,6 +13,8 @@ import '../../main.dart';
 abstract class FileLocalDataSource {
   Future<MDFileDto> getFileByMeta(String id, FileType contentType);
   Future<void> addFile(MDFileDto file);
+  Future<void> deleteFile(MDFileDto file);
+  Future<void> deleteFiles(List<MDFileDto> file);
   Future<void> addFiles(List<MDFileDto> files);
 }
 
@@ -55,6 +57,26 @@ class FileLocalDataSourceImpl implements FileLocalDataSource {
     try {
       for (var file in files) {
         await addFile(file);
+      }
+    } catch (e) {
+      throw CacheException();
+    }
+  }
+
+  @override
+  Future<void> deleteFile(MDFileDto file) {
+    try {
+      return file.file.existsSync()? file.file.delete():null;
+    } catch (e) {
+      throw CacheException();
+    }
+  }
+
+  @override
+  Future<void> deleteFiles(List<MDFileDto> file) {
+    try {
+      for (MDFileDto f in file) {
+        deleteFile(f);
       }
     } catch (e) {
       throw CacheException();

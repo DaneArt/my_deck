@@ -33,7 +33,6 @@ class CECard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Card(
-            key: ValueKey(cardIndex),
             elevation: 8,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(16))),
@@ -124,6 +123,7 @@ class CECard extends StatelessWidget {
                 child: BlocProvider(
                   create: (context) => sl.get<MDContentCubit>(),
                   child: MDImage(
+                    key: ValueKey(content.uniqueId),
                     image: content,
                     width: width,
                     height: height,
@@ -132,6 +132,7 @@ class CECard extends StatelessWidget {
               ),
             )
           : MDEditText(
+              key: ValueKey(content.uniqueId),
               initialFile: content,
               height: height,
               width: width,

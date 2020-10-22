@@ -13,6 +13,9 @@ import 'package:mydeck/utils/network_connection.dart';
 
 abstract class FileRepository {
   Future<Option<StorageFailure>> addFile(MDFile file);
+  Future<Option<StorageFailure>> deleteFile(MDFile file);
+  Future<Option<StorageFailure>> deleteFiles(List<MDFile> file);
+  Future<Option<StorageFailure>> updateFiles(List<MDFile> file);
   Future<Option<StorageFailure>> addFiles(List<MDFile> file);
   Future<Either<StorageFailure<File>, File>> getFileByMeta(
       UniqueId id, FileType contentType);
@@ -31,7 +34,7 @@ class FileRepositoryImpl implements FileRepository {
     try {
       await fileLocalDataSource.addFile(MDFileDto.fromDomain(file));
       if (await networkConnection.isConnected) {
-        fileNetworkDataSource.addFile(MDFileDto.fromDomain(file));
+        await fileNetworkDataSource.addFile(MDFileDto.fromDomain(file));
       }
       return none();
     } on NetworkException {
@@ -76,7 +79,7 @@ class FileRepositoryImpl implements FileRepository {
       await fileLocalDataSource
           .addFiles(files.map((file) => MDFileDto.fromDomain(file)).toList());
       if (await networkConnection.isConnected) {
-        fileNetworkDataSource
+        await fileNetworkDataSource
             .addFiles(files.map((file) => MDFileDto.fromDomain(file)).toList());
       }
       return none();
@@ -84,6 +87,48 @@ class FileRepositoryImpl implements FileRepository {
       return some(StorageFailure.networkFailure());
     } on CacheException {
       return some(StorageFailure.insertFailure(failureObject: files));
+    }
+  }
+
+  @override
+  Future<Option<StorageFailure>> deleteFile(MDFile file) async {
+    try {
+      fileLocalDataSource.deleteFile(MDFileDto.fromDomain(file));
+
+      return none();
+    } on NetworkException {
+      return Some(StorageFailure.deleteFailure(failureObject: file));
+    } on CacheException {
+      return Some(StorageFailure.deleteFailure(failureObject: file));
+    }
+  }
+
+  @override
+  Future<Option<StorageFailure>> deleteFiles(List<MDFile> file) async {
+    try {
+      fileLocalDataSource
+          .deleteFiles(file.map((e) => MDFileDto.fromDomain(e)).toList());
+
+      return none();
+    } on NetworkException {
+      return Some(StorageFailure.deleteFailure(failureObject: file));
+    } on CacheException {
+      return Some(StorageFailure.deleteFailure(failureObject: file));
+    }
+  }
+
+  @override
+  Future<Option<StorageFailure>> updateFiles(List<MDFile> file) async {
+    try {
+      if (await networkConnection.isConnected)
+        fileNetworkDataSource
+            .updateFiles(file.map((e) => MDFileDto.fromDomain(e)).toList());
+
+      return none();
+    } on NetworkException {
+      return Some(StorageFailure.deleteFailure(failureObject: file));
+    } on CacheException {
+      return Some(StorageFailure.deleteFailure(failureObject: file));
     }
   }
 }

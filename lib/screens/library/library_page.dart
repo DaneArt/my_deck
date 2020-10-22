@@ -114,6 +114,7 @@ class _LibraryPageState extends State<LibraryPage>
         builder: (context) => BlocProvider(
               create: (context) => AddDeckBloc(
                   deck: Deck.basic(),
+                  deleteDeckUseCase: sl.get<DeleteDeckUseCase>(),
                   uploadOnlineDeckUsecase: sl.get<UploadOnlineDeckUsecase>(),
                   goal: AddDeckGoal.create,
                   status: AddDeckStatus.edit,
@@ -155,6 +156,7 @@ class _LibraryPageState extends State<LibraryPage>
                     builder: (ctx) => BlocProvider<AddDeckBloc>(
                       create: (BuildContext context) => AddDeckBloc(
                           deck: Deck.basic(),
+                          deleteDeckUseCase: sl.get<DeleteDeckUseCase>(),
                           uploadOnlineDeckUsecase:
                               sl.get<UploadOnlineDeckUsecase>(),
                           goal: AddDeckGoal.create,

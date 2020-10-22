@@ -56,12 +56,16 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
     tabController.addListener(() {
       FocusScope.of(context).unfocus();
       setState(() {
-        /*  _showActions = tabController.index == 1 &&
+        _showActions = tabController.index == 1 &&
             bloc.state.status == AddDeckStatus.edit &&
-            !bloc.state.isSaving &&
-            !bloc.state.isLoading; */
+            !bloc.state.isPending &&
+            !bloc.state.isLoading;
       });
     });
+    if (bloc.state.goal != AddDeckGoal.create &&
+        bloc.state.loadingFailureOrSuccess.isNone()) {
+      bloc.add(AddDeckEvent.initFromOnline());
+    }
   }
 
   @override
@@ -74,39 +78,45 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
   Widget build(BuildContext context) {
     return BlocConsumer<AddDeckBloc, AddDeckState>(
       listener: (context, state) {
-        if (state.goal != AddDeckGoal.create) {
-          bloc.add(AddDeckEvent.initFromOnline());
-        }
         state.savingFailureOrSuccess.fold(
             () => null,
             (some) => some.fold(
                 (failure) => showToast(failure.message),
                 (success) => showToast(
                     "Deck ${state.goal == AddDeckGoal.create ? "" : state.goal == AddDeckGoal.update ? "changed" : ""} saved")));
+        state.deleteFailureOrSuccess.fold(
+            () => null,
+            (some) =>
+                some.fold((failure) => showToast(failure.message), (success) {
+                  showToast('Deck deleted');
+                  Navigator.of(context).pop();
+                }));
       },
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            leading: IconButton(
-              icon: Icon(
-                  state.status == AddDeckStatus.edit
-                      ? Icons.clear
-                      : Icons.arrow_back,
-                  color: Colors.white),
-              onPressed: () {
-                if (state.goal == AddDeckGoal.create) {
-                  Navigator.of(context).pop();
-                } else if (state.status == AddDeckStatus.edit) {
-                  bloc.add(AddDeckEvent.switchEditStatus());
-                  setState(() {});
-                } else {
-                  Navigator.of(context).pop(bloc.buildDeckForSave());
-                }
-              },
-            ),
+            leading: !state.isPending
+                ? IconButton(
+                    icon: Icon(
+                        state.status == AddDeckStatus.edit
+                            ? Icons.clear
+                            : Icons.arrow_back,
+                        color: Colors.white),
+                    onPressed: () {
+                      if (state.goal == AddDeckGoal.create) {
+                        Navigator.of(context).pop();
+                      } else if (state.status == AddDeckStatus.edit) {
+                        bloc.add(AddDeckEvent.switchEditStatus());
+                        setState(() {});
+                      } else {
+                        Navigator.of(context).pop(bloc.buildDeckForSave());
+                      }
+                    },
+                  )
+                : null,
             actions: <Widget>[
               state.goal != AddDeckGoal.look &&
-                      !state.isSaving &&
+                      !state.isPending &&
                       !state.isLoading
                   ? IconButton(
                       icon: Icon(state.status == AddDeckStatus.look
@@ -126,7 +136,7 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                       },
                     )
                   : Container(),
-              state.isSaving
+              state.isPending
                   ? Container(
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 16),
@@ -146,7 +156,7 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                                               List.from(bloc.state.cardsList)
                                                 ..add(Entity.Card.basic())),
                                       child: CardEditorPage(
-                                        isCreating: true,
+                                        goal: AddDeckGoal.create,
                                       ),
                                     )));
                         if (cards != null)
@@ -372,7 +382,9 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
                           'DELETE DECK',
                           style: TextStyle(color: Colors.red),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          bloc.add(AddDeckEvent.deleteDeck());
+                        },
                       )
                     : Container(),
               ],
@@ -399,7 +411,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
                     bloc.add(AddDeckEvent.avatarChanged(image));
                   },
                   enabled:
-                      state.status == AddDeckStatus.edit && !state.isSaving),
+                      state.status == AddDeckStatus.edit && !state.isPending),
             ),
             Flexible(
               flex: 3,
@@ -409,7 +421,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
                     right: 16.0,
                     top: 16.0,
                     bottom:
-                        (state.isSaving || state.status == AddDeckStatus.look)
+                        (state.isPending || state.status == AddDeckStatus.look)
                             ? 120
                             : 0),
                 child: Column(
@@ -436,14 +448,14 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
         children: <Widget>[
           Padding(
             padding: EdgeInsets.only(
-                left: state.status == AddDeckStatus.edit && !state.isSaving
+                left: state.status == AddDeckStatus.edit && !state.isPending
                     ? 16.0
                     : 40.0),
-            child: state.status == AddDeckStatus.edit && !state.isSaving
+            child: state.status == AddDeckStatus.edit && !state.isPending
                 ? MDRoundedButton(
                     icon: Icon(state.isShared ? Icons.lock_open : Icons.lock),
                     onPressed:
-                        state.status == AddDeckStatus.edit && !state.isSaving
+                        state.status == AddDeckStatus.edit && !state.isPending
                             ? () {
                                 bloc.add(AddDeckEvent.changePrivacy());
                               }
@@ -474,7 +486,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
                       Text('Quick train'),
                       Checkbox(
                           value: state.availableQuickTrain,
-                          onChanged: !state.isSaving
+                          onChanged: !state.isPending
                               ? (value) {
                                   bloc.add(
                                       AddDeckEvent.quickTrainStateChanged());
@@ -495,7 +507,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
             Text('Author', style: Theme.of(context).textTheme.headline5),
             Row(
               children: <Widget>[
-                Text(state.author.username),
+                Text(state.author.username.getOrCrash),
                 SizedBox(
                   width: 8,
                 ),
@@ -507,7 +519,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: NetworkImage(
-                              '$BASE_URL_DEV/mydeckapi/media/Media/${state.author.avatar}'),
+                              '$BASE_URL_DEV/mydeckapi/media/media/${state.author.avatar.uniqueId.getOrCrash}'),
                         ),
                       ),
                     ),
@@ -520,7 +532,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
       );
 
   Widget descriptionWidget(AddDeckState state) =>
-      state.status == AddDeckStatus.edit && !state.isSaving
+      state.status == AddDeckStatus.edit && !state.isPending
           ? TextFormField(
               key: _descriptionFieldKey,
               autovalidate: true,
@@ -569,7 +581,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
             );
 
   Widget titleWidget(AddDeckState state) =>
-      state.status == AddDeckStatus.edit && !state.isSaving
+      state.status == AddDeckStatus.edit && !state.isPending
           ? TextFormField(
               key: _titleFieldKey,
               autovalidate: true,
@@ -625,7 +637,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
             S.of(context).editor_category,
             style: Theme.of(context).textTheme.headline5,
           ),
-          state.status == AddDeckStatus.edit && !state.isSaving
+          state.status == AddDeckStatus.edit && !state.isPending
               ? CategoryPicker(
                   onChanged: (value) {
                     bloc.add(AddDeckEvent.categoryChanged(value));
@@ -702,7 +714,7 @@ class _CardsPageState extends State<_CardsPage> {
                   ),
                 ),
                 color: Theme.of(context).accentColor,
-                onPressed: !state.isSaving
+                onPressed: !state.isPending
                     ? () async {
                         final cards =
                             await Navigator.of(context).push(MaterialPageRoute(
@@ -714,7 +726,7 @@ class _CardsPageState extends State<_CardsPage> {
                                               List.from(state.cardsList)
                                                 ..add(Entity.Card.basic())),
                                       child: CardEditorPage(
-                                        isCreating: true,
+                                        goal: AddDeckGoal.create,
                                       ),
                                     )));
                         if (cards != null)
@@ -739,26 +751,21 @@ class _CardsPageState extends State<_CardsPage> {
         state.cardsList.length,
         (index) => InDeckCardView(
           key: ValueKey(state.cardsList[index].id),
-          onTap: state.status == AddDeckStatus.edit && !state.isSaving
-              ? () async {
-                  final cards =
-                      await Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) => BlocProvider(
-                                create: (context) => CardEditorBloc(
-                                  sourceCards: List.from(state.cardsList),
-                                  currentCardIndex: index,
-                                ),
-                                child: CardEditorPage(
-                                    isCreating:
-                                        state.status == AddDeckStatus.edit),
-                              )));
-                  if (cards != null) {
-                    context
-                        .bloc<AddDeckBloc>()
-                        .add(AddDeckEvent.updateCards(cards: cards));
-                  }
-                }
-              : () {},
+          onTap: () async {
+            final cards = await Navigator.of(context).push(MaterialPageRoute(
+                builder: (BuildContext context) => BlocProvider(
+                      create: (context) => CardEditorBloc(
+                        sourceCards: List.from(state.cardsList),
+                        currentCardIndex: index,
+                      ),
+                      child: CardEditorPage(goal: state.goal),
+                    )));
+            if (cards != null) {
+              context
+                  .bloc<AddDeckBloc>()
+                  .add(AddDeckEvent.updateCards(cards: cards));
+            }
+          },
           sourceCard: state.cardsList[index],
         ),
       ),

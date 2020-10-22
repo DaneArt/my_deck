@@ -104,12 +104,8 @@ class DeckRepositoryImpl implements DeckRepository {
   @override
   Future<Either<StorageFailure<Deck>, Deck>> updateDeck(Deck deck) async {
     try {
-//      final bothers = await entitiesSeparator.separateMediaContentOfDeck(deck);
-//      await mediaDataSource.addFileToAppCache(bothers.right);
-      // await localDataSource.updateDeck(bothers.left.toModel());
-
       if (await sl.get<NetworkConnection>().isConnected) {
-        await networkDataSource.updateDeck(await DeckDto.fromDomain(deck));
+        await networkDataSource.updateDeck(DeckDto.fromDomain(deck));
       } else {
         return left(StorageFailure.networkFailure());
       }
@@ -123,17 +119,8 @@ class DeckRepositoryImpl implements DeckRepository {
   @override
   Future<Option<StorageFailure<Deck>>> deleteDeck(Deck deck) async {
     try {
-//      final bother = await entitiesSeparator.separateMediaContentOfDeck(deck);
-//      await mediaDataSource.deleteFileFromAppCache(bother.right.right);
-
-      // await deleteCards(bother.left.cardsList
-      //           .map((c) => c.toModel(bother.left.deckId))
-      //          .toList());
-      //
-      //       await localDataSource.deleteDeck(bother.left.toModel());
-
       if (await sl.get<NetworkConnection>().isConnected) {
-        networkDataSource.deleteDeck(await DeckDto.fromDomain(deck));
+        await networkDataSource.deleteDeck(DeckDto.fromDomain(deck));
       } else {
         return some(StorageFailure.networkFailure());
       }

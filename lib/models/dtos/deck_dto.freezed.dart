@@ -16,17 +16,37 @@ class _$DeckDtoTearOff {
   const _$DeckDtoTearOff();
 
   _DeckDto call(
-      {@required @JsonKey(name: 'deck_id') String id,
-      @required String title,
-      @required @DeckAvatarConverter() @JsonKey(name: 'icon') MDFileDto avatar,
-      @required String description,
-      @JsonKey(name: 'subscribers_count', nullable: true) int subscribersCount,
-      @JsonKey(nullable: true, ignore: true) List<UserDto> subscribers,
-      @JsonKey(name: 'cards_count', nullable: true) int cardsCount,
-      @JsonKey(name: 'cards', nullable: true) List<CardDto> cardDtos,
-      @required @JsonKey(name: 'category_name') String categoryName,
-      @required @JsonKey(name: 'is_private') bool isPrivate,
-      @required @JsonKey(name: 'author') String authorId}) {
+      {@required
+      @JsonKey(name: 'deck_id')
+          String id,
+      @required
+          String title,
+      @required
+      @DeckAvatarConverter()
+      @JsonKey(name: 'icon')
+          MDFileDto avatar,
+      @required
+          String description,
+      @JsonKey(name: 'subscribers_count', nullable: true)
+          int subscribersCount,
+      @JsonKey(nullable: true, ignore: true)
+          List<UserDto> subscribers,
+      @JsonKey(name: 'cards_count', nullable: true)
+          int cardsCount,
+      @JsonKey(name: 'cards', nullable: true)
+          List<CardDto> cardDtos,
+      @required
+      @JsonKey(name: 'category_name')
+          String categoryName,
+      @required
+      @JsonKey(name: 'is_private')
+          bool isPrivate,
+      @required
+      @JsonKey(name: 'author')
+          String authorId,
+      @required
+      @JsonKey(name: 'available_quick_train')
+          bool availableQuickTrain}) {
     return _DeckDto(
       id: id,
       title: title,
@@ -39,6 +59,7 @@ class _$DeckDtoTearOff {
       categoryName: categoryName,
       isPrivate: isPrivate,
       authorId: authorId,
+      availableQuickTrain: availableQuickTrain,
     );
   }
 }
@@ -68,6 +89,8 @@ mixin _$DeckDto {
   bool get isPrivate;
   @JsonKey(name: 'author')
   String get authorId;
+  @JsonKey(name: 'available_quick_train')
+  bool get availableQuickTrain;
 
   Map<String, dynamic> toJson();
   $DeckDtoCopyWith<DeckDto> get copyWith;
@@ -87,7 +110,8 @@ abstract class $DeckDtoCopyWith<$Res> {
       @JsonKey(name: 'cards', nullable: true) List<CardDto> cardDtos,
       @JsonKey(name: 'category_name') String categoryName,
       @JsonKey(name: 'is_private') bool isPrivate,
-      @JsonKey(name: 'author') String authorId});
+      @JsonKey(name: 'author') String authorId,
+      @JsonKey(name: 'available_quick_train') bool availableQuickTrain});
 
   $MDFileDtoCopyWith<$Res> get avatar;
 }
@@ -112,6 +136,7 @@ class _$DeckDtoCopyWithImpl<$Res> implements $DeckDtoCopyWith<$Res> {
     Object categoryName = freezed,
     Object isPrivate = freezed,
     Object authorId = freezed,
+    Object availableQuickTrain = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as String,
@@ -133,6 +158,9 @@ class _$DeckDtoCopyWithImpl<$Res> implements $DeckDtoCopyWith<$Res> {
           : categoryName as String,
       isPrivate: isPrivate == freezed ? _value.isPrivate : isPrivate as bool,
       authorId: authorId == freezed ? _value.authorId : authorId as String,
+      availableQuickTrain: availableQuickTrain == freezed
+          ? _value.availableQuickTrain
+          : availableQuickTrain as bool,
     ));
   }
 
@@ -162,7 +190,8 @@ abstract class _$DeckDtoCopyWith<$Res> implements $DeckDtoCopyWith<$Res> {
       @JsonKey(name: 'cards', nullable: true) List<CardDto> cardDtos,
       @JsonKey(name: 'category_name') String categoryName,
       @JsonKey(name: 'is_private') bool isPrivate,
-      @JsonKey(name: 'author') String authorId});
+      @JsonKey(name: 'author') String authorId,
+      @JsonKey(name: 'available_quick_train') bool availableQuickTrain});
 
   @override
   $MDFileDtoCopyWith<$Res> get avatar;
@@ -189,6 +218,7 @@ class __$DeckDtoCopyWithImpl<$Res> extends _$DeckDtoCopyWithImpl<$Res>
     Object categoryName = freezed,
     Object isPrivate = freezed,
     Object authorId = freezed,
+    Object availableQuickTrain = freezed,
   }) {
     return _then(_DeckDto(
       id: id == freezed ? _value.id : id as String,
@@ -210,6 +240,9 @@ class __$DeckDtoCopyWithImpl<$Res> extends _$DeckDtoCopyWithImpl<$Res>
           : categoryName as String,
       isPrivate: isPrivate == freezed ? _value.isPrivate : isPrivate as bool,
       authorId: authorId == freezed ? _value.authorId : authorId as String,
+      availableQuickTrain: availableQuickTrain == freezed
+          ? _value.availableQuickTrain
+          : availableQuickTrain as bool,
     ));
   }
 }
@@ -217,17 +250,37 @@ class __$DeckDtoCopyWithImpl<$Res> extends _$DeckDtoCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_DeckDto extends _DeckDto with DiagnosticableTreeMixin {
   const _$_DeckDto(
-      {@required @JsonKey(name: 'deck_id') this.id,
-      @required this.title,
-      @required @DeckAvatarConverter() @JsonKey(name: 'icon') this.avatar,
-      @required this.description,
-      @JsonKey(name: 'subscribers_count', nullable: true) this.subscribersCount,
-      @JsonKey(nullable: true, ignore: true) this.subscribers,
-      @JsonKey(name: 'cards_count', nullable: true) this.cardsCount,
-      @JsonKey(name: 'cards', nullable: true) this.cardDtos,
-      @required @JsonKey(name: 'category_name') this.categoryName,
-      @required @JsonKey(name: 'is_private') this.isPrivate,
-      @required @JsonKey(name: 'author') this.authorId})
+      {@required
+      @JsonKey(name: 'deck_id')
+          this.id,
+      @required
+          this.title,
+      @required
+      @DeckAvatarConverter()
+      @JsonKey(name: 'icon')
+          this.avatar,
+      @required
+          this.description,
+      @JsonKey(name: 'subscribers_count', nullable: true)
+          this.subscribersCount,
+      @JsonKey(nullable: true, ignore: true)
+          this.subscribers,
+      @JsonKey(name: 'cards_count', nullable: true)
+          this.cardsCount,
+      @JsonKey(name: 'cards', nullable: true)
+          this.cardDtos,
+      @required
+      @JsonKey(name: 'category_name')
+          this.categoryName,
+      @required
+      @JsonKey(name: 'is_private')
+          this.isPrivate,
+      @required
+      @JsonKey(name: 'author')
+          this.authorId,
+      @required
+      @JsonKey(name: 'available_quick_train')
+          this.availableQuickTrain})
       : assert(id != null),
         assert(title != null),
         assert(avatar != null),
@@ -235,6 +288,7 @@ class _$_DeckDto extends _DeckDto with DiagnosticableTreeMixin {
         assert(categoryName != null),
         assert(isPrivate != null),
         assert(authorId != null),
+        assert(availableQuickTrain != null),
         super._();
 
   factory _$_DeckDto.fromJson(Map<String, dynamic> json) =>
@@ -272,10 +326,13 @@ class _$_DeckDto extends _DeckDto with DiagnosticableTreeMixin {
   @override
   @JsonKey(name: 'author')
   final String authorId;
+  @override
+  @JsonKey(name: 'available_quick_train')
+  final bool availableQuickTrain;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'DeckDto(id: $id, title: $title, avatar: $avatar, description: $description, subscribersCount: $subscribersCount, subscribers: $subscribers, cardsCount: $cardsCount, cardDtos: $cardDtos, categoryName: $categoryName, isPrivate: $isPrivate, authorId: $authorId)';
+    return 'DeckDto(id: $id, title: $title, avatar: $avatar, description: $description, subscribersCount: $subscribersCount, subscribers: $subscribers, cardsCount: $cardsCount, cardDtos: $cardDtos, categoryName: $categoryName, isPrivate: $isPrivate, authorId: $authorId, availableQuickTrain: $availableQuickTrain)';
   }
 
   @override
@@ -293,7 +350,8 @@ class _$_DeckDto extends _DeckDto with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('cardDtos', cardDtos))
       ..add(DiagnosticsProperty('categoryName', categoryName))
       ..add(DiagnosticsProperty('isPrivate', isPrivate))
-      ..add(DiagnosticsProperty('authorId', authorId));
+      ..add(DiagnosticsProperty('authorId', authorId))
+      ..add(DiagnosticsProperty('availableQuickTrain', availableQuickTrain));
   }
 
   @override
@@ -329,7 +387,10 @@ class _$_DeckDto extends _DeckDto with DiagnosticableTreeMixin {
                     .equals(other.isPrivate, isPrivate)) &&
             (identical(other.authorId, authorId) ||
                 const DeepCollectionEquality()
-                    .equals(other.authorId, authorId)));
+                    .equals(other.authorId, authorId)) &&
+            (identical(other.availableQuickTrain, availableQuickTrain) ||
+                const DeepCollectionEquality()
+                    .equals(other.availableQuickTrain, availableQuickTrain)));
   }
 
   @override
@@ -345,7 +406,8 @@ class _$_DeckDto extends _DeckDto with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(cardDtos) ^
       const DeepCollectionEquality().hash(categoryName) ^
       const DeepCollectionEquality().hash(isPrivate) ^
-      const DeepCollectionEquality().hash(authorId);
+      const DeepCollectionEquality().hash(authorId) ^
+      const DeepCollectionEquality().hash(availableQuickTrain);
 
   @override
   _$DeckDtoCopyWith<_DeckDto> get copyWith =>
@@ -360,17 +422,37 @@ class _$_DeckDto extends _DeckDto with DiagnosticableTreeMixin {
 abstract class _DeckDto extends DeckDto {
   const _DeckDto._() : super._();
   const factory _DeckDto(
-      {@required @JsonKey(name: 'deck_id') String id,
-      @required String title,
-      @required @DeckAvatarConverter() @JsonKey(name: 'icon') MDFileDto avatar,
-      @required String description,
-      @JsonKey(name: 'subscribers_count', nullable: true) int subscribersCount,
-      @JsonKey(nullable: true, ignore: true) List<UserDto> subscribers,
-      @JsonKey(name: 'cards_count', nullable: true) int cardsCount,
-      @JsonKey(name: 'cards', nullable: true) List<CardDto> cardDtos,
-      @required @JsonKey(name: 'category_name') String categoryName,
-      @required @JsonKey(name: 'is_private') bool isPrivate,
-      @required @JsonKey(name: 'author') String authorId}) = _$_DeckDto;
+      {@required
+      @JsonKey(name: 'deck_id')
+          String id,
+      @required
+          String title,
+      @required
+      @DeckAvatarConverter()
+      @JsonKey(name: 'icon')
+          MDFileDto avatar,
+      @required
+          String description,
+      @JsonKey(name: 'subscribers_count', nullable: true)
+          int subscribersCount,
+      @JsonKey(nullable: true, ignore: true)
+          List<UserDto> subscribers,
+      @JsonKey(name: 'cards_count', nullable: true)
+          int cardsCount,
+      @JsonKey(name: 'cards', nullable: true)
+          List<CardDto> cardDtos,
+      @required
+      @JsonKey(name: 'category_name')
+          String categoryName,
+      @required
+      @JsonKey(name: 'is_private')
+          bool isPrivate,
+      @required
+      @JsonKey(name: 'author')
+          String authorId,
+      @required
+      @JsonKey(name: 'available_quick_train')
+          bool availableQuickTrain}) = _$_DeckDto;
 
   factory _DeckDto.fromJson(Map<String, dynamic> json) = _$_DeckDto.fromJson;
 
@@ -406,6 +488,9 @@ abstract class _DeckDto extends DeckDto {
   @override
   @JsonKey(name: 'author')
   String get authorId;
+  @override
+  @JsonKey(name: 'available_quick_train')
+  bool get availableQuickTrain;
   @override
   _$DeckDtoCopyWith<_DeckDto> get copyWith;
 }

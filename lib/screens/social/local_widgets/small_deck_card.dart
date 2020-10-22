@@ -26,6 +26,7 @@ class SmallDeckCard extends StatelessWidget {
               builder: (context) => BlocProvider(
                     create: (context) => AddDeckBloc(
                         deck: deck,
+                        deleteDeckUseCase: sl.get<DeleteDeckUseCase>(),
                         uploadOnlineDeckUsecase:
                             sl.get<UploadOnlineDeckUsecase>(),
                         goal: AddDeckGoal.look,

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
@@ -7,6 +8,7 @@ import 'package:mydeck/models/dtos/file_dto.dart';
 import 'package:mydeck/models/entitites/card.dart';
 import 'package:mydeck/models/entitites/md_file.dart';
 import 'package:mydeck/models/entitites/unique_id.dart';
+import 'package:mydeck/utils/file_factory.dart';
 
 part 'card_dto.freezed.dart';
 part 'card_dto.g.dart';
@@ -43,7 +45,14 @@ class CardContentConverter implements JsonConverter<MDFileDto, Object> {
 
   @override
   MDFileDto fromJson(Object json) {
-    return MDFileDto(file: null, id: json, type: null);
+    final type = (json as Map)['type'];
+    final id = (json as Map)['id'];
+    return MDFileDto(
+        file: type == 'image'
+            ? ImageFileFactory().create(id)
+            : TextFileFactory().create(id),
+        id: id,
+        type: type == 'image' ? FileType.IMAGE : FileType.TEXT);
   }
 
   @override

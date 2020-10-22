@@ -60,7 +60,7 @@ class DeckNetworkDataSourceImpl implements DeckNetworkDataSource {
   @override
   Future<void> deleteDeck(DeckDto deckDto) async {
     try {
-      await client.delete(
+      return client.delete(
         '/deck/deletebyid/${deckDto.id}',
       );
     } on DioError catch (e) {
@@ -84,8 +84,7 @@ class DeckNetworkDataSourceImpl implements DeckNetworkDataSource {
       );
       final deckJson = jsonDecode(response.data);
       final deck = DeckDto.fromJson(deckJson['deck']);
-      final Map<String, dynamic> aj = deckJson['author']['user'];
-      final author = UserDto.fromJson(aj);
+      final author = UserDto.fromJson(deckJson['author']);
 
       return DeckDtoWithUserModel(deck, author);
     } on DioError catch (e) {
@@ -106,7 +105,7 @@ class DeckNetworkDataSourceImpl implements DeckNetworkDataSource {
     try {
       await client.put(
         '/deck/update',
-        data: FormData.fromMap(deckDto.toJson()),
+        data: jsonEncode(deckDto.toJson()),
       );
     } on DioError catch (e) {
       if (e.type == DioErrorType.CONNECT_TIMEOUT ||

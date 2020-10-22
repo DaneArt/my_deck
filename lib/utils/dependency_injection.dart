@@ -134,8 +134,8 @@ void setUp() {
   sl.registerFactory(() => GoogleSignInUsecase(sl(), sl(), sl()));
   sl.registerFactory(() => SignInUsecase(sl()));
   sl.registerFactory(() => LoadDecksPageForCategoryUsecase(sl()));
-  sl.registerFactory(() => SaveDeckChangesUsecase(sl()));
-  sl.registerFactory(() => DeleteDeckUseCase(sl()));
+  sl.registerFactory(() => SaveDeckChangesUsecase(sl(), sl()));
+  sl.registerFactory(() => DeleteDeckUseCase(sl(), sl()));
   sl.registerFactory(() => UpdateDeckUsecase(myDeckRepository: sl()));
   sl.registerFactory(() => GetDecksForTrain());
   sl.registerFactory(() => LoadUserLibraryUseCase(repository: sl()));

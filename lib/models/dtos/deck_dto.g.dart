@@ -21,6 +21,7 @@ _$_DeckDto _$_$_DeckDtoFromJson(Map<String, dynamic> json) {
     categoryName: json['category_name'] as String,
     isPrivate: json['is_private'] as bool,
     authorId: json['author'] as String,
+    availableQuickTrain: json['available_quick_train'] as bool,
   );
 }
 
@@ -36,4 +37,5 @@ Map<String, dynamic> _$_$_DeckDtoToJson(_$_DeckDto instance) =>
       'category_name': instance.categoryName,
       'is_private': instance.isPrivate,
       'author': instance.authorId,
+      'available_quick_train': instance.availableQuickTrain,
     };

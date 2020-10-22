@@ -14,6 +14,7 @@ abstract class FileNetworkDataSource {
   Future<MDFileDto> getFileById(String id);
   Future<void> addFile(MDFileDto file);
   Future<void> addFiles(List<MDFileDto> files);
+  Future<void> updateFiles(List<MDFileDto> files);
 }
 
 class FileNetworkDataSourceImpl implements FileNetworkDataSource {
@@ -71,6 +72,26 @@ class FileNetworkDataSourceImpl implements FileNetworkDataSource {
       throw NetworkException();
     }
   }
+
+  @override
+  Future<void> updateFiles(List<MDFileDto> files) async {
+    try {
+      await dio.put(
+        '/Media/Update',
+        data: FormData.fromMap(
+          {
+            "files": files
+                .map(
+                  (file) => file.toFormData(),
+                )
+                .toList(),
+          },
+        ),
+      );
+    } catch (e) {
+      throw NetworkException();
+    }
+  }
 }
 
 class FakeFileNetworkDataSource implements FileNetworkDataSource {
@@ -106,6 +127,12 @@ class FakeFileNetworkDataSource implements FileNetworkDataSource {
   @override
   Future<void> addFiles(List<MDFileDto> files) {
     // TODO: implement addFiles
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> updateFiles(List<MDFileDto> files) {
+    // TODO: implement updateFiles
     throw UnimplementedError();
   }
 }

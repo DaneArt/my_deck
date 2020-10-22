@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mydeck/blocs/add_deck/add_deck_bloc.dart';
 import 'package:mydeck/blocs/card_editor/card_editor_bloc.dart';
 import 'package:mydeck/cubits/ce_card/ce_card_cubit.dart';
 import 'package:mydeck/models/dtos/file_dto.dart';
@@ -18,19 +19,24 @@ import 'package:mydeck/widgets/image_picker_modal_bottom_sheet.dart';
 import 'local_widgets/ce_card.dart';
 
 class CardEditorPage extends StatefulWidget {
-  final bool isCreating;
+  final AddDeckGoal goal;
 
-  const CardEditorPage({Key key, this.isCreating}) : super(key: key);
+  const CardEditorPage({Key key, this.goal}) : super(key: key);
 
   @override
   _CardEditorPageState createState() => _CardEditorPageState();
 }
 
 class _CardEditorPageState extends State<CardEditorPage> {
-  bool isCreating = false;
+  var status = AddDeckStatus.look;
+
   @override
   void initState() {
-    isCreating = widget.isCreating ?? false;
+    if (widget.goal == AddDeckGoal.create) {
+      status = AddDeckStatus.edit;
+    } else {
+      status = AddDeckStatus.look;
+    }
     super.initState();
   }
 
@@ -46,55 +52,60 @@ class _CardEditorPageState extends State<CardEditorPage> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          actions: <Widget>[
-            isCreating
-                ? IconButton(
-                    onPressed: () {
-                      BlocProvider.of<CardEditorBloc>(context)
-                          .add(CardEditorEvent.deleteCard());
-                    },
-                    icon: Icon(Icons.delete,
-                        color: Theme.of(context).iconTheme.color),
-                  )
-                : Container(),
-            isCreating
-                ? IconButton(
-                    onPressed: () {
-                      BlocProvider.of<CardEditorBloc>(context)
-                          .add(CardEditorEvent.addCard());
-                    },
-                    icon: Icon(Icons.add,
-                        color: Theme.of(context).iconTheme.color),
-                  )
-                : Container(),
-            isCreating
-                ? IconButton(
-                    onPressed: () {
-                      setState(() {
-                        isCreating = false;
-                      });
-                    },
-                    icon: Icon(Icons.check,
-                        color: Theme.of(context).iconTheme.color),
-                  )
-                : IconButton(
-                    onPressed: () {
-                      context
-                          .bloc<CardEditorBloc>()
-                          .add(CardEditorEvent.backupCubits());
-                      setState(() {
-                        isCreating = true;
-                      });
-                    },
-                    icon: Icon(Icons.edit,
-                        color: Theme.of(context).iconTheme.color),
-                  ),
-          ],
+          actions: widget.goal != AddDeckGoal.look
+              ? <Widget>[
+                  widget.goal != AddDeckGoal.look &&
+                          status == AddDeckStatus.edit
+                      ? IconButton(
+                          onPressed: () {
+                            BlocProvider.of<CardEditorBloc>(context)
+                                .add(CardEditorEvent.deleteCard());
+                          },
+                          icon: Icon(Icons.delete,
+                              color: Theme.of(context).iconTheme.color),
+                        )
+                      : Container(),
+                  widget.goal != AddDeckGoal.look &&
+                          status == AddDeckStatus.edit
+                      ? IconButton(
+                          onPressed: () {
+                            BlocProvider.of<CardEditorBloc>(context)
+                                .add(CardEditorEvent.addCard());
+                          },
+                          icon: Icon(Icons.add,
+                              color: Theme.of(context).iconTheme.color),
+                        )
+                      : Container(),
+                  widget.goal != AddDeckGoal.look &&
+                          status == AddDeckStatus.edit
+                      ? IconButton(
+                          onPressed: () {
+                            setState(() {
+                              status = AddDeckStatus.look;
+                            });
+                          },
+                          icon: Icon(Icons.check,
+                              color: Theme.of(context).iconTheme.color),
+                        )
+                      : IconButton(
+                          onPressed: () {
+                            context
+                                .bloc<CardEditorBloc>()
+                                .add(CardEditorEvent.backupCubits());
+                            setState(() {
+                              status = AddDeckStatus.edit;
+                            });
+                          },
+                          icon: Icon(Icons.edit,
+                              color: Theme.of(context).iconTheme.color),
+                        ),
+                ]
+              : null,
           leading: IconButton(
             onPressed: () {
-              if (isCreating) {
+              if (status == AddDeckStatus.edit) {
                 setState(() {
-                  isCreating = false;
+                  status = AddDeckStatus.look;
                 });
                 context.bloc<CardEditorBloc>().add(CardEditorEvent.undoEdits());
               } else {
@@ -103,7 +114,8 @@ class _CardEditorPageState extends State<CardEditorPage> {
                     .add(CardEditorEvent.saveChangesAndExit());
               }
             },
-            icon: Icon(isCreating ? Icons.clear : Icons.arrow_back,
+            icon: Icon(
+                status == AddDeckStatus.edit ? Icons.clear : Icons.arrow_back,
                 color: Theme.of(context).iconTheme.color),
           ),
           backgroundColor: Colors.transparent,
