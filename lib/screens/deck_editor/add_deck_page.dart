@@ -41,7 +41,11 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
     with TickerProviderStateMixin<AddDeckTabView>, WidgetsBindingObserver {
   TabController tabController;
 
-  bool _showActions = false;
+  bool get _showActions =>
+      tabController.index == 1 &&
+      bloc.state.status == AddDeckStatus.edit &&
+      !bloc.state.isPending &&
+      !bloc.state.isLoading;
 
   AddDeckBloc get bloc => BlocProvider.of<AddDeckBloc>(context);
 
@@ -55,12 +59,7 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
     );
     tabController.addListener(() {
       FocusScope.of(context).unfocus();
-      setState(() {
-        _showActions = tabController.index == 1 &&
-            bloc.state.status == AddDeckStatus.edit &&
-            !bloc.state.isPending &&
-            !bloc.state.isLoading;
-      });
+      setState(() {});
     });
     if (bloc.state.goal != AddDeckGoal.create &&
         bloc.state.loadingFailureOrSuccess.isNone()) {
@@ -107,7 +106,6 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                         Navigator.of(context).pop();
                       } else if (state.status == AddDeckStatus.edit) {
                         bloc.add(AddDeckEvent.switchEditStatus());
-                        setState(() {});
                       } else {
                         Navigator.of(context).pop(bloc.buildDeckForSave());
                       }
@@ -128,11 +126,6 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                         } else {
                           bloc.add(AddDeckEvent.switchEditStatus());
                         }
-
-                        setState(() {
-                          _showActions = tabController.index == 1 &&
-                              state.status == AddDeckStatus.look;
-                        });
                       },
                     )
                   : Container(),
@@ -142,7 +135,9 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                           vertical: 10, horizontal: 16),
                       child: CircularProgressIndicator())
                   : Container(),
-              _showActions && state.loadingFailureOrSuccess.isNone()
+              _showActions &&
+                      state.loadingFailureOrSuccess.fold(
+                          () => true, (a) => a.fold((l) => false, (r) => true))
                   ? IconButton(
                       icon: Icon(Icons.add, color: Colors.white),
                       onPressed: () async {
@@ -154,10 +149,10 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                                               state.cardsList.length,
                                           sourceCards:
                                               List.from(bloc.state.cardsList)
-                                                ..add(Entity.Card.basic())),
-                                      child: CardEditorPage(
-                                        goal: AddDeckGoal.create,
-                                      ),
+                                                ..add(Entity.Card.basic()),
+                                          status: state.status,
+                                          goal: state.goal),
+                                      child: CardEditorPage(),
                                     )));
                         if (cards != null)
                           bloc.add(AddDeckEvent.updateCards(cards: cards));
@@ -188,7 +183,7 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                           width: 8,
                         ),
                         Text(
-                            '${state.cardsList?.length != null && state.cardsList?.length != 0 ? state.cardsList?.length : bloc.deck.cardsCount ?? 0}')
+                            '${state.cardsList?.length != null && state.cardsList?.length != 0 ? state.cardsList?.length : state.freezedDeck.cardsCount ?? 0}')
                       ],
                     )),
               ],
@@ -584,7 +579,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
       state.status == AddDeckStatus.edit && !state.isPending
           ? TextFormField(
               key: _titleFieldKey,
-              autovalidate: true,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               initialValue:
                   state.title.value.fold((l) => l.failedValue, (r) => r),
               onChanged: (input) {
@@ -724,10 +719,10 @@ class _CardsPageState extends State<_CardsPage> {
                                               state.cardsList.length,
                                           sourceCards:
                                               List.from(state.cardsList)
-                                                ..add(Entity.Card.basic())),
-                                      child: CardEditorPage(
-                                        goal: AddDeckGoal.create,
-                                      ),
+                                                ..add(Entity.Card.basic()),
+                                          status: state.status,
+                                          goal: state.goal),
+                                      child: CardEditorPage(),
                                     )));
                         if (cards != null)
                           bloc.add(AddDeckEvent.updateCards(cards: cards));
@@ -757,8 +752,10 @@ class _CardsPageState extends State<_CardsPage> {
                       create: (context) => CardEditorBloc(
                         sourceCards: List.from(state.cardsList),
                         currentCardIndex: index,
+                        status: state.status,
+                        goal: state.goal,
                       ),
-                      child: CardEditorPage(goal: state.goal),
+                      child: CardEditorPage(),
                     )));
             if (cards != null) {
               context

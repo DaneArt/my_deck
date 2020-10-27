@@ -16,6 +16,8 @@ import 'package:mydeck/screens/deck_editor/add_deck_page.dart';
 import 'package:mydeck/models/entitites/deck.dart';
 import 'package:mydeck/screens/library/local_widgets/deck_card_view.dart';
 import 'package:mydeck/screens/library/local_widgets/deck_hub_idle_view.dart';
+import 'package:mydeck/widgets/login_message_widget.dart';
+import 'package:mydeck/widgets/login_to_cont_widget.dart';
 import 'package:mydeck/widgets/no_scroll_glow_behaviour.dart';
 import 'package:mydeck/widgets/undo_snackbar.dart';
 import 'package:mydeck/services/datasources/user_config.dart';
@@ -88,7 +90,9 @@ class _LibraryPageState extends State<LibraryPage>
   BlocBuilder<LibraryBloc, LibraryState> _buildBody(BuildContext context) {
     return BlocBuilder<LibraryBloc, LibraryState>(
       builder: (context, state) {
-        if (state.isLoading) {
+        if (UserConfig.currentUser == null) {
+          return LoginMessageWidget();
+        } else if (state.isLoading) {
           return Center(child: CircularProgressIndicator());
         } else if (state.decks.isEmpty) {
           return DeckLibraryIdleView(
@@ -141,15 +145,8 @@ class _LibraryPageState extends State<LibraryPage>
             ),
             onPressed: () {
               if (UserConfig.currentUser == null) {
-                Scaffold.of(context).showSnackBar(SnackBar(
-                  content: Text(S.of(context).library_sign_in_to_create),
-                  action: SnackBarAction(
-                    label: S.of(context).login_sign_in,
-                    onPressed: () {
-                      context.navigator.pushNamed(MyDeckRoutes.login);
-                    },
-                  ),
-                ));
+                Scaffold.of(context)
+                    .showSnackBar(LoginToContSnackbar(context: context));
               } else {
                 context.navigator.push(
                   MaterialPageRoute(
@@ -173,7 +170,9 @@ class _LibraryPageState extends State<LibraryPage>
           )
         ],
         title: Text("${S.of(context).library_title}",
-            style: Theme.of(context).textTheme.headline4),
+            style: Theme.of(context).textTheme.headline6.copyWith(
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).primaryColor)),
       ),
       body: SafeArea(
         top: true,

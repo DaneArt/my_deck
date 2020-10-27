@@ -19,70 +19,63 @@ import 'package:mydeck/widgets/image_picker_modal_bottom_sheet.dart';
 import 'local_widgets/ce_card.dart';
 
 class CardEditorPage extends StatefulWidget {
-  final AddDeckGoal goal;
-
-  const CardEditorPage({Key key, this.goal}) : super(key: key);
+  const CardEditorPage({Key key}) : super(key: key);
 
   @override
   _CardEditorPageState createState() => _CardEditorPageState();
 }
 
 class _CardEditorPageState extends State<CardEditorPage> {
-  var status = AddDeckStatus.look;
-
-  @override
-  void initState() {
-    if (widget.goal == AddDeckGoal.create) {
-      status = AddDeckStatus.edit;
-    } else {
-      status = AddDeckStatus.look;
-    }
-    super.initState();
-  }
-
   @override
   Widget build(context) {
-    return WillPopScope(
-      onWillPop: () async {
-        context
-            .bloc<CardEditorBloc>()
-            .add(CardEditorEvent.saveChangesAndExit());
-        return false;
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          actions: widget.goal != AddDeckGoal.look
-              ? <Widget>[
-                  widget.goal != AddDeckGoal.look &&
-                          status == AddDeckStatus.edit
-                      ? IconButton(
-                          onPressed: () {
-                            BlocProvider.of<CardEditorBloc>(context)
-                                .add(CardEditorEvent.deleteCard());
-                          },
-                          icon: Icon(Icons.delete,
-                              color: Theme.of(context).iconTheme.color),
-                        )
-                      : Container(),
-                  widget.goal != AddDeckGoal.look &&
-                          status == AddDeckStatus.edit
-                      ? IconButton(
-                          onPressed: () {
-                            BlocProvider.of<CardEditorBloc>(context)
-                                .add(CardEditorEvent.addCard());
+    return BlocConsumer<CardEditorBloc, CardEditorState>(
+      buildWhen: (previous, current) => current.rebuild,
+      listener: (context, state) {
+            if (state.saveChangesAndExit) {
+              Navigator.of(context)
+                  .pop(state.cardCubits.map((c) => c.state.card).toList());
+            }
+          },
+      builder: (context, state) {
+        return WillPopScope(
+          onWillPop: () async {
+            context
+                .bloc<CardEditorBloc>()
+                .add(CardEditorEvent.saveChangesAndExit());
+            return false;
+          },
+          child: Scaffold(
+            appBar: AppBar(
+              elevation: 0,
+              actions: state.goal != AddDeckGoal.look
+                  ? <Widget>[
+                      state.goal != AddDeckGoal.look &&
+                              state.status == AddDeckStatus.edit
+                          ? IconButton(
+                              onPressed: () {
+                                BlocProvider.of<CardEditorBloc>(context)
+                                    .add(CardEditorEvent.deleteCard());
+                              },
+                              icon: Icon(Icons.delete,
+                                  color: Theme.of(context).iconTheme.color),
+                            )
+                          : Container(),
+                      state.goal != AddDeckGoal.look &&
+                              state.status == AddDeckStatus.edit
+                          ? IconButton(
+                              onPressed: () {
+                                BlocProvider.of<CardEditorBloc>(context)
+                                    .add(CardEditorEvent.addCard());
                           },
                           icon: Icon(Icons.add,
                               color: Theme.of(context).iconTheme.color),
                         )
                       : Container(),
-                  widget.goal != AddDeckGoal.look &&
-                          status == AddDeckStatus.edit
+                  state.goal != AddDeckGoal.look &&
+                          state.status == AddDeckStatus.edit
                       ? IconButton(
                           onPressed: () {
-                            setState(() {
-                              status = AddDeckStatus.look;
-                            });
+                            context.bloc<CardEditorBloc>().add(CardEditorEvent.changeStatus());
                           },
                           icon: Icon(Icons.check,
                               color: Theme.of(context).iconTheme.color),
@@ -92,9 +85,7 @@ class _CardEditorPageState extends State<CardEditorPage> {
                             context
                                 .bloc<CardEditorBloc>()
                                 .add(CardEditorEvent.backupCubits());
-                            setState(() {
-                              status = AddDeckStatus.edit;
-                            });
+                            context.bloc<CardEditorBloc>().add(CardEditorEvent.changeStatus());
                           },
                           icon: Icon(Icons.edit,
                               color: Theme.of(context).iconTheme.color),
@@ -103,11 +94,8 @@ class _CardEditorPageState extends State<CardEditorPage> {
               : null,
           leading: IconButton(
             onPressed: () {
-              if (status == AddDeckStatus.edit) {
-                setState(() {
-                  status = AddDeckStatus.look;
-                });
-                context.bloc<CardEditorBloc>().add(CardEditorEvent.undoEdits());
+              if (state.status == AddDeckStatus.edit) {
+                context.bloc<CardEditorBloc>().add(CardEditorEvent.changeStatus());context.bloc<CardEditorBloc>().add(CardEditorEvent.undoEdits());
               } else {
                 context
                     .bloc<CardEditorBloc>()
@@ -115,20 +103,14 @@ class _CardEditorPageState extends State<CardEditorPage> {
               }
             },
             icon: Icon(
-                status == AddDeckStatus.edit ? Icons.clear : Icons.arrow_back,
+                state.status == AddDeckStatus.edit ? Icons.clear : Icons.arrow_back,
                 color: Theme.of(context).iconTheme.color),
           ),
           backgroundColor: Colors.transparent,
         ),
-        body: BlocListener<CardEditorBloc, CardEditorState>(
-          listener: (context, state) {
-            if (state.saveChangesAndExit) {
-              Navigator.of(context)
-                  .pop(state.cardCubits.map((c) => c.state.card).toList());
-            }
-          },
-          child: _cardsWidget(),
-        ),
+        body:
+          _cardsWidget(state),
+
         bottomNavigationBar: BottomAppBar(
           elevation: 8,
           child: _controls(),
@@ -137,7 +119,7 @@ class _CardEditorPageState extends State<CardEditorPage> {
         ),
       ),
     );
-  }
+      },);}
 
   _getImage(ImageSource source) async {
     final image = source == ImageSource.camera
@@ -186,10 +168,8 @@ class _CardEditorPageState extends State<CardEditorPage> {
         ),
       );
 
-  Widget _cardsWidget() => BlocBuilder<CardEditorBloc, CardEditorState>(
-      buildWhen: (previous, current) => current.rebuild,
-      builder: (context, state) {
-        return Swiper(
+  Widget _cardsWidget(CardEditorState state) =>
+         Swiper(
           key: UniqueKey(),
           //It fixes the 'ScrollController not attached to any scroll views. Dunno why))'
           loop: false,
@@ -213,7 +193,7 @@ class _CardEditorPageState extends State<CardEditorPage> {
             key: ValueKey(index),
             cardIndex: index,
             cubit: state.cardCubits[index],
+            editable: state.status == AddDeckStatus.edit,
           ),
         );
-      });
 }

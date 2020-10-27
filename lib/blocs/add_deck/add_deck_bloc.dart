@@ -37,28 +37,24 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
   final DeleteDeckUseCase deleteDeckUseCase;
   final Save.SaveDeckChangesUsecase saveDeckChangesUsecase;
 
-  final Deck deck;
-  final AddDeckStatus status;
-  final AddDeckGoal goal;
-
   AddDeckBloc(
       {@required this.uploadOnlineDeckUsecase,
       @required this.addDeckUseCase,
       @required this.saveDeckChangesUsecase,
       @required this.deleteDeckUseCase,
-      @required this.deck,
-      @required this.status,
-      @required this.goal})
+      @required Deck deck,
+      @required AddDeckStatus status,
+      @required AddDeckGoal goal})
       : super(AddDeckState.initial(
             initialDeck: deck, status: status, goal: goal));
 
   Deck buildDeckForSave() {
-    return deck.copyWith(
+    return state.freezedDeck.copyWith(
       author: UserConfig.currentUser.toDomain(),
       availableQuickTrain: state.availableQuickTrain,
       avatar: state.avatar,
       category: state.category,
-      deckId: deck.deckId,
+      deckId: state.freezedDeck.deckId,
       description: state.description,
       isPrivate: !state.isShared,
       title: state.title,
@@ -110,8 +106,8 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
       initFromOnline: (e) async* {
         yield state.copyWith(savingFailureOrSuccess: none(), isLoading: true);
         Logger().d('Started loading deck from net');
-        final onlineResult =
-            await uploadOnlineDeckUsecase(Params(deckId: deck.deckId));
+        final onlineResult = await uploadOnlineDeckUsecase(
+            Params(deckId: state.freezedDeck.deckId));
         Logger().d('Received loading result');
         yield onlineResult.fold(
             (l) => state.copyWith(
@@ -182,8 +178,8 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
         } else
           yield state.copyWith(
               isPending: false,
-              savingFailureOrSuccess: some(
-                  left(StorageFailure.fieldsInvalid(failureObject: deck))));
+              savingFailureOrSuccess: some(left(StorageFailure.fieldsInvalid(
+                  failureObject: state.freezedDeck))));
       },
       deleteDeck: (e) async* {
         yield state.copyWith(

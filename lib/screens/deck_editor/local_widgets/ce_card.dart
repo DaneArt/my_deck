@@ -20,9 +20,14 @@ import 'package:mydeck/widgets/no_scroll_glow_behaviour.dart';
 class CECard extends StatelessWidget {
   final int cardIndex;
   final CECardCubit cubit;
+  final bool editable;
   final Function(entity.Card updatedCard) onUpdate;
   const CECard(
-      {Key key, @required this.cardIndex, @required this.cubit, this.onUpdate})
+      {Key key,
+      @required this.cardIndex,
+      @required this.cubit,
+      this.onUpdate,
+      @required this.editable})
       : super(key: key);
 
   @override
@@ -126,6 +131,7 @@ class CECard extends StatelessWidget {
                     key: ValueKey(content.uniqueId),
                     image: content,
                     width: width,
+                    editable: editable,
                     height: height,
                   ),
                 ),
@@ -135,6 +141,7 @@ class CECard extends StatelessWidget {
               key: ValueKey(content.uniqueId),
               initialFile: content,
               height: height,
+              editable: editable,
               width: width,
               onChanged: (value) {
                 cubit.updateText(value);

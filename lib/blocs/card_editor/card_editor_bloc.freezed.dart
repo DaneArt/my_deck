@@ -26,6 +26,10 @@ class _$CardEditorEventTearOff {
     );
   }
 
+  ChangeStatus changeStatus() {
+    return ChangeStatus();
+  }
+
   SetContent setContent(MDFile file) {
     return SetContent(
       file,
@@ -54,6 +58,7 @@ mixin _$CardEditorEvent {
     @required Result deleteCard(),
     @required Result addCard(),
     @required Result changeIndex(int newIndex),
+    @required Result changeStatus(),
     @required Result setContent(MDFile file),
     @required Result backupCubits(),
     @required Result undoEdits(),
@@ -64,6 +69,7 @@ mixin _$CardEditorEvent {
     Result deleteCard(),
     Result addCard(),
     Result changeIndex(int newIndex),
+    Result changeStatus(),
     Result setContent(MDFile file),
     Result backupCubits(),
     Result undoEdits(),
@@ -75,6 +81,7 @@ mixin _$CardEditorEvent {
     @required Result deleteCard(DeleteCard value),
     @required Result addCard(AddCard value),
     @required Result changeIndex(ChangeIndex value),
+    @required Result changeStatus(ChangeStatus value),
     @required Result setContent(SetContent value),
     @required Result backupCubits(BackupCubits value),
     @required Result undoEdits(UndoEdits value),
@@ -85,6 +92,7 @@ mixin _$CardEditorEvent {
     Result deleteCard(DeleteCard value),
     Result addCard(AddCard value),
     Result changeIndex(ChangeIndex value),
+    Result changeStatus(ChangeStatus value),
     Result setContent(SetContent value),
     Result backupCubits(BackupCubits value),
     Result undoEdits(UndoEdits value),
@@ -145,6 +153,7 @@ class _$DeleteCard implements DeleteCard {
     @required Result deleteCard(),
     @required Result addCard(),
     @required Result changeIndex(int newIndex),
+    @required Result changeStatus(),
     @required Result setContent(MDFile file),
     @required Result backupCubits(),
     @required Result undoEdits(),
@@ -153,6 +162,7 @@ class _$DeleteCard implements DeleteCard {
     assert(deleteCard != null);
     assert(addCard != null);
     assert(changeIndex != null);
+    assert(changeStatus != null);
     assert(setContent != null);
     assert(backupCubits != null);
     assert(undoEdits != null);
@@ -166,6 +176,7 @@ class _$DeleteCard implements DeleteCard {
     Result deleteCard(),
     Result addCard(),
     Result changeIndex(int newIndex),
+    Result changeStatus(),
     Result setContent(MDFile file),
     Result backupCubits(),
     Result undoEdits(),
@@ -185,6 +196,7 @@ class _$DeleteCard implements DeleteCard {
     @required Result deleteCard(DeleteCard value),
     @required Result addCard(AddCard value),
     @required Result changeIndex(ChangeIndex value),
+    @required Result changeStatus(ChangeStatus value),
     @required Result setContent(SetContent value),
     @required Result backupCubits(BackupCubits value),
     @required Result undoEdits(UndoEdits value),
@@ -193,6 +205,7 @@ class _$DeleteCard implements DeleteCard {
     assert(deleteCard != null);
     assert(addCard != null);
     assert(changeIndex != null);
+    assert(changeStatus != null);
     assert(setContent != null);
     assert(backupCubits != null);
     assert(undoEdits != null);
@@ -206,6 +219,7 @@ class _$DeleteCard implements DeleteCard {
     Result deleteCard(DeleteCard value),
     Result addCard(AddCard value),
     Result changeIndex(ChangeIndex value),
+    Result changeStatus(ChangeStatus value),
     Result setContent(SetContent value),
     Result backupCubits(BackupCubits value),
     Result undoEdits(UndoEdits value),
@@ -260,6 +274,7 @@ class _$AddCard implements AddCard {
     @required Result deleteCard(),
     @required Result addCard(),
     @required Result changeIndex(int newIndex),
+    @required Result changeStatus(),
     @required Result setContent(MDFile file),
     @required Result backupCubits(),
     @required Result undoEdits(),
@@ -268,6 +283,7 @@ class _$AddCard implements AddCard {
     assert(deleteCard != null);
     assert(addCard != null);
     assert(changeIndex != null);
+    assert(changeStatus != null);
     assert(setContent != null);
     assert(backupCubits != null);
     assert(undoEdits != null);
@@ -281,6 +297,7 @@ class _$AddCard implements AddCard {
     Result deleteCard(),
     Result addCard(),
     Result changeIndex(int newIndex),
+    Result changeStatus(),
     Result setContent(MDFile file),
     Result backupCubits(),
     Result undoEdits(),
@@ -300,6 +317,7 @@ class _$AddCard implements AddCard {
     @required Result deleteCard(DeleteCard value),
     @required Result addCard(AddCard value),
     @required Result changeIndex(ChangeIndex value),
+    @required Result changeStatus(ChangeStatus value),
     @required Result setContent(SetContent value),
     @required Result backupCubits(BackupCubits value),
     @required Result undoEdits(UndoEdits value),
@@ -308,6 +326,7 @@ class _$AddCard implements AddCard {
     assert(deleteCard != null);
     assert(addCard != null);
     assert(changeIndex != null);
+    assert(changeStatus != null);
     assert(setContent != null);
     assert(backupCubits != null);
     assert(undoEdits != null);
@@ -321,6 +340,7 @@ class _$AddCard implements AddCard {
     Result deleteCard(DeleteCard value),
     Result addCard(AddCard value),
     Result changeIndex(ChangeIndex value),
+    Result changeStatus(ChangeStatus value),
     Result setContent(SetContent value),
     Result backupCubits(BackupCubits value),
     Result undoEdits(UndoEdits value),
@@ -400,6 +420,7 @@ class _$ChangeIndex implements ChangeIndex {
     @required Result deleteCard(),
     @required Result addCard(),
     @required Result changeIndex(int newIndex),
+    @required Result changeStatus(),
     @required Result setContent(MDFile file),
     @required Result backupCubits(),
     @required Result undoEdits(),
@@ -408,6 +429,7 @@ class _$ChangeIndex implements ChangeIndex {
     assert(deleteCard != null);
     assert(addCard != null);
     assert(changeIndex != null);
+    assert(changeStatus != null);
     assert(setContent != null);
     assert(backupCubits != null);
     assert(undoEdits != null);
@@ -421,6 +443,7 @@ class _$ChangeIndex implements ChangeIndex {
     Result deleteCard(),
     Result addCard(),
     Result changeIndex(int newIndex),
+    Result changeStatus(),
     Result setContent(MDFile file),
     Result backupCubits(),
     Result undoEdits(),
@@ -440,6 +463,7 @@ class _$ChangeIndex implements ChangeIndex {
     @required Result deleteCard(DeleteCard value),
     @required Result addCard(AddCard value),
     @required Result changeIndex(ChangeIndex value),
+    @required Result changeStatus(ChangeStatus value),
     @required Result setContent(SetContent value),
     @required Result backupCubits(BackupCubits value),
     @required Result undoEdits(UndoEdits value),
@@ -448,6 +472,7 @@ class _$ChangeIndex implements ChangeIndex {
     assert(deleteCard != null);
     assert(addCard != null);
     assert(changeIndex != null);
+    assert(changeStatus != null);
     assert(setContent != null);
     assert(backupCubits != null);
     assert(undoEdits != null);
@@ -461,6 +486,7 @@ class _$ChangeIndex implements ChangeIndex {
     Result deleteCard(DeleteCard value),
     Result addCard(AddCard value),
     Result changeIndex(ChangeIndex value),
+    Result changeStatus(ChangeStatus value),
     Result setContent(SetContent value),
     Result backupCubits(BackupCubits value),
     Result undoEdits(UndoEdits value),
@@ -480,6 +506,130 @@ abstract class ChangeIndex implements CardEditorEvent {
 
   int get newIndex;
   $ChangeIndexCopyWith<ChangeIndex> get copyWith;
+}
+
+abstract class $ChangeStatusCopyWith<$Res> {
+  factory $ChangeStatusCopyWith(
+          ChangeStatus value, $Res Function(ChangeStatus) then) =
+      _$ChangeStatusCopyWithImpl<$Res>;
+}
+
+class _$ChangeStatusCopyWithImpl<$Res>
+    extends _$CardEditorEventCopyWithImpl<$Res>
+    implements $ChangeStatusCopyWith<$Res> {
+  _$ChangeStatusCopyWithImpl(
+      ChangeStatus _value, $Res Function(ChangeStatus) _then)
+      : super(_value, (v) => _then(v as ChangeStatus));
+
+  @override
+  ChangeStatus get _value => super._value as ChangeStatus;
+}
+
+class _$ChangeStatus implements ChangeStatus {
+  _$ChangeStatus();
+
+  @override
+  String toString() {
+    return 'CardEditorEvent.changeStatus()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is ChangeStatus);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result deleteCard(),
+    @required Result addCard(),
+    @required Result changeIndex(int newIndex),
+    @required Result changeStatus(),
+    @required Result setContent(MDFile file),
+    @required Result backupCubits(),
+    @required Result undoEdits(),
+    @required Result saveChangesAndExit(),
+  }) {
+    assert(deleteCard != null);
+    assert(addCard != null);
+    assert(changeIndex != null);
+    assert(changeStatus != null);
+    assert(setContent != null);
+    assert(backupCubits != null);
+    assert(undoEdits != null);
+    assert(saveChangesAndExit != null);
+    return changeStatus();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result deleteCard(),
+    Result addCard(),
+    Result changeIndex(int newIndex),
+    Result changeStatus(),
+    Result setContent(MDFile file),
+    Result backupCubits(),
+    Result undoEdits(),
+    Result saveChangesAndExit(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (changeStatus != null) {
+      return changeStatus();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result deleteCard(DeleteCard value),
+    @required Result addCard(AddCard value),
+    @required Result changeIndex(ChangeIndex value),
+    @required Result changeStatus(ChangeStatus value),
+    @required Result setContent(SetContent value),
+    @required Result backupCubits(BackupCubits value),
+    @required Result undoEdits(UndoEdits value),
+    @required Result saveChangesAndExit(SaveChangesAndExit value),
+  }) {
+    assert(deleteCard != null);
+    assert(addCard != null);
+    assert(changeIndex != null);
+    assert(changeStatus != null);
+    assert(setContent != null);
+    assert(backupCubits != null);
+    assert(undoEdits != null);
+    assert(saveChangesAndExit != null);
+    return changeStatus(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result deleteCard(DeleteCard value),
+    Result addCard(AddCard value),
+    Result changeIndex(ChangeIndex value),
+    Result changeStatus(ChangeStatus value),
+    Result setContent(SetContent value),
+    Result backupCubits(BackupCubits value),
+    Result undoEdits(UndoEdits value),
+    Result saveChangesAndExit(SaveChangesAndExit value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (changeStatus != null) {
+      return changeStatus(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ChangeStatus implements CardEditorEvent {
+  factory ChangeStatus() = _$ChangeStatus;
 }
 
 abstract class $SetContentCopyWith<$Res> {
@@ -540,6 +690,7 @@ class _$SetContent implements SetContent {
     @required Result deleteCard(),
     @required Result addCard(),
     @required Result changeIndex(int newIndex),
+    @required Result changeStatus(),
     @required Result setContent(MDFile file),
     @required Result backupCubits(),
     @required Result undoEdits(),
@@ -548,6 +699,7 @@ class _$SetContent implements SetContent {
     assert(deleteCard != null);
     assert(addCard != null);
     assert(changeIndex != null);
+    assert(changeStatus != null);
     assert(setContent != null);
     assert(backupCubits != null);
     assert(undoEdits != null);
@@ -561,6 +713,7 @@ class _$SetContent implements SetContent {
     Result deleteCard(),
     Result addCard(),
     Result changeIndex(int newIndex),
+    Result changeStatus(),
     Result setContent(MDFile file),
     Result backupCubits(),
     Result undoEdits(),
@@ -580,6 +733,7 @@ class _$SetContent implements SetContent {
     @required Result deleteCard(DeleteCard value),
     @required Result addCard(AddCard value),
     @required Result changeIndex(ChangeIndex value),
+    @required Result changeStatus(ChangeStatus value),
     @required Result setContent(SetContent value),
     @required Result backupCubits(BackupCubits value),
     @required Result undoEdits(UndoEdits value),
@@ -588,6 +742,7 @@ class _$SetContent implements SetContent {
     assert(deleteCard != null);
     assert(addCard != null);
     assert(changeIndex != null);
+    assert(changeStatus != null);
     assert(setContent != null);
     assert(backupCubits != null);
     assert(undoEdits != null);
@@ -601,6 +756,7 @@ class _$SetContent implements SetContent {
     Result deleteCard(DeleteCard value),
     Result addCard(AddCard value),
     Result changeIndex(ChangeIndex value),
+    Result changeStatus(ChangeStatus value),
     Result setContent(SetContent value),
     Result backupCubits(BackupCubits value),
     Result undoEdits(UndoEdits value),
@@ -661,6 +817,7 @@ class _$BackupCubits implements BackupCubits {
     @required Result deleteCard(),
     @required Result addCard(),
     @required Result changeIndex(int newIndex),
+    @required Result changeStatus(),
     @required Result setContent(MDFile file),
     @required Result backupCubits(),
     @required Result undoEdits(),
@@ -669,6 +826,7 @@ class _$BackupCubits implements BackupCubits {
     assert(deleteCard != null);
     assert(addCard != null);
     assert(changeIndex != null);
+    assert(changeStatus != null);
     assert(setContent != null);
     assert(backupCubits != null);
     assert(undoEdits != null);
@@ -682,6 +840,7 @@ class _$BackupCubits implements BackupCubits {
     Result deleteCard(),
     Result addCard(),
     Result changeIndex(int newIndex),
+    Result changeStatus(),
     Result setContent(MDFile file),
     Result backupCubits(),
     Result undoEdits(),
@@ -701,6 +860,7 @@ class _$BackupCubits implements BackupCubits {
     @required Result deleteCard(DeleteCard value),
     @required Result addCard(AddCard value),
     @required Result changeIndex(ChangeIndex value),
+    @required Result changeStatus(ChangeStatus value),
     @required Result setContent(SetContent value),
     @required Result backupCubits(BackupCubits value),
     @required Result undoEdits(UndoEdits value),
@@ -709,6 +869,7 @@ class _$BackupCubits implements BackupCubits {
     assert(deleteCard != null);
     assert(addCard != null);
     assert(changeIndex != null);
+    assert(changeStatus != null);
     assert(setContent != null);
     assert(backupCubits != null);
     assert(undoEdits != null);
@@ -722,6 +883,7 @@ class _$BackupCubits implements BackupCubits {
     Result deleteCard(DeleteCard value),
     Result addCard(AddCard value),
     Result changeIndex(ChangeIndex value),
+    Result changeStatus(ChangeStatus value),
     Result setContent(SetContent value),
     Result backupCubits(BackupCubits value),
     Result undoEdits(UndoEdits value),
@@ -776,6 +938,7 @@ class _$UndoEdits implements UndoEdits {
     @required Result deleteCard(),
     @required Result addCard(),
     @required Result changeIndex(int newIndex),
+    @required Result changeStatus(),
     @required Result setContent(MDFile file),
     @required Result backupCubits(),
     @required Result undoEdits(),
@@ -784,6 +947,7 @@ class _$UndoEdits implements UndoEdits {
     assert(deleteCard != null);
     assert(addCard != null);
     assert(changeIndex != null);
+    assert(changeStatus != null);
     assert(setContent != null);
     assert(backupCubits != null);
     assert(undoEdits != null);
@@ -797,6 +961,7 @@ class _$UndoEdits implements UndoEdits {
     Result deleteCard(),
     Result addCard(),
     Result changeIndex(int newIndex),
+    Result changeStatus(),
     Result setContent(MDFile file),
     Result backupCubits(),
     Result undoEdits(),
@@ -816,6 +981,7 @@ class _$UndoEdits implements UndoEdits {
     @required Result deleteCard(DeleteCard value),
     @required Result addCard(AddCard value),
     @required Result changeIndex(ChangeIndex value),
+    @required Result changeStatus(ChangeStatus value),
     @required Result setContent(SetContent value),
     @required Result backupCubits(BackupCubits value),
     @required Result undoEdits(UndoEdits value),
@@ -824,6 +990,7 @@ class _$UndoEdits implements UndoEdits {
     assert(deleteCard != null);
     assert(addCard != null);
     assert(changeIndex != null);
+    assert(changeStatus != null);
     assert(setContent != null);
     assert(backupCubits != null);
     assert(undoEdits != null);
@@ -837,6 +1004,7 @@ class _$UndoEdits implements UndoEdits {
     Result deleteCard(DeleteCard value),
     Result addCard(AddCard value),
     Result changeIndex(ChangeIndex value),
+    Result changeStatus(ChangeStatus value),
     Result setContent(SetContent value),
     Result backupCubits(BackupCubits value),
     Result undoEdits(UndoEdits value),
@@ -894,6 +1062,7 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
     @required Result deleteCard(),
     @required Result addCard(),
     @required Result changeIndex(int newIndex),
+    @required Result changeStatus(),
     @required Result setContent(MDFile file),
     @required Result backupCubits(),
     @required Result undoEdits(),
@@ -902,6 +1071,7 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
     assert(deleteCard != null);
     assert(addCard != null);
     assert(changeIndex != null);
+    assert(changeStatus != null);
     assert(setContent != null);
     assert(backupCubits != null);
     assert(undoEdits != null);
@@ -915,6 +1085,7 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
     Result deleteCard(),
     Result addCard(),
     Result changeIndex(int newIndex),
+    Result changeStatus(),
     Result setContent(MDFile file),
     Result backupCubits(),
     Result undoEdits(),
@@ -934,6 +1105,7 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
     @required Result deleteCard(DeleteCard value),
     @required Result addCard(AddCard value),
     @required Result changeIndex(ChangeIndex value),
+    @required Result changeStatus(ChangeStatus value),
     @required Result setContent(SetContent value),
     @required Result backupCubits(BackupCubits value),
     @required Result undoEdits(UndoEdits value),
@@ -942,6 +1114,7 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
     assert(deleteCard != null);
     assert(addCard != null);
     assert(changeIndex != null);
+    assert(changeStatus != null);
     assert(setContent != null);
     assert(backupCubits != null);
     assert(undoEdits != null);
@@ -955,6 +1128,7 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
     Result deleteCard(DeleteCard value),
     Result addCard(AddCard value),
     Result changeIndex(ChangeIndex value),
+    Result changeStatus(ChangeStatus value),
     Result setContent(SetContent value),
     Result backupCubits(BackupCubits value),
     Result undoEdits(UndoEdits value),
@@ -981,12 +1155,16 @@ class _$CardEditorStateTearOff {
       @required List<CECardCubit> cardCubits,
       @required List<CECardCubit> backedUpCubits,
       @required bool rebuild,
+      @required AddDeckStatus status,
+      @required AddDeckGoal goal,
       @required bool saveChangesAndExit}) {
     return _CardEditorState(
       currentCardIndex: currentCardIndex,
       cardCubits: cardCubits,
       backedUpCubits: backedUpCubits,
       rebuild: rebuild,
+      status: status,
+      goal: goal,
       saveChangesAndExit: saveChangesAndExit,
     );
   }
@@ -1000,6 +1178,8 @@ mixin _$CardEditorState {
   List<CECardCubit> get cardCubits;
   List<CECardCubit> get backedUpCubits;
   bool get rebuild;
+  AddDeckStatus get status;
+  AddDeckGoal get goal;
   bool get saveChangesAndExit;
 
   $CardEditorStateCopyWith<CardEditorState> get copyWith;
@@ -1014,6 +1194,8 @@ abstract class $CardEditorStateCopyWith<$Res> {
       List<CECardCubit> cardCubits,
       List<CECardCubit> backedUpCubits,
       bool rebuild,
+      AddDeckStatus status,
+      AddDeckGoal goal,
       bool saveChangesAndExit});
 }
 
@@ -1031,6 +1213,8 @@ class _$CardEditorStateCopyWithImpl<$Res>
     Object cardCubits = freezed,
     Object backedUpCubits = freezed,
     Object rebuild = freezed,
+    Object status = freezed,
+    Object goal = freezed,
     Object saveChangesAndExit = freezed,
   }) {
     return _then(_value.copyWith(
@@ -1044,6 +1228,8 @@ class _$CardEditorStateCopyWithImpl<$Res>
           ? _value.backedUpCubits
           : backedUpCubits as List<CECardCubit>,
       rebuild: rebuild == freezed ? _value.rebuild : rebuild as bool,
+      status: status == freezed ? _value.status : status as AddDeckStatus,
+      goal: goal == freezed ? _value.goal : goal as AddDeckGoal,
       saveChangesAndExit: saveChangesAndExit == freezed
           ? _value.saveChangesAndExit
           : saveChangesAndExit as bool,
@@ -1062,6 +1248,8 @@ abstract class _$CardEditorStateCopyWith<$Res>
       List<CECardCubit> cardCubits,
       List<CECardCubit> backedUpCubits,
       bool rebuild,
+      AddDeckStatus status,
+      AddDeckGoal goal,
       bool saveChangesAndExit});
 }
 
@@ -1081,6 +1269,8 @@ class __$CardEditorStateCopyWithImpl<$Res>
     Object cardCubits = freezed,
     Object backedUpCubits = freezed,
     Object rebuild = freezed,
+    Object status = freezed,
+    Object goal = freezed,
     Object saveChangesAndExit = freezed,
   }) {
     return _then(_CardEditorState(
@@ -1094,6 +1284,8 @@ class __$CardEditorStateCopyWithImpl<$Res>
           ? _value.backedUpCubits
           : backedUpCubits as List<CECardCubit>,
       rebuild: rebuild == freezed ? _value.rebuild : rebuild as bool,
+      status: status == freezed ? _value.status : status as AddDeckStatus,
+      goal: goal == freezed ? _value.goal : goal as AddDeckGoal,
       saveChangesAndExit: saveChangesAndExit == freezed
           ? _value.saveChangesAndExit
           : saveChangesAndExit as bool,
@@ -1107,11 +1299,15 @@ class _$_CardEditorState implements _CardEditorState {
       @required this.cardCubits,
       @required this.backedUpCubits,
       @required this.rebuild,
+      @required this.status,
+      @required this.goal,
       @required this.saveChangesAndExit})
       : assert(currentCardIndex != null),
         assert(cardCubits != null),
         assert(backedUpCubits != null),
         assert(rebuild != null),
+        assert(status != null),
+        assert(goal != null),
         assert(saveChangesAndExit != null);
 
   @override
@@ -1123,11 +1319,15 @@ class _$_CardEditorState implements _CardEditorState {
   @override
   final bool rebuild;
   @override
+  final AddDeckStatus status;
+  @override
+  final AddDeckGoal goal;
+  @override
   final bool saveChangesAndExit;
 
   @override
   String toString() {
-    return 'CardEditorState(currentCardIndex: $currentCardIndex, cardCubits: $cardCubits, backedUpCubits: $backedUpCubits, rebuild: $rebuild, saveChangesAndExit: $saveChangesAndExit)';
+    return 'CardEditorState(currentCardIndex: $currentCardIndex, cardCubits: $cardCubits, backedUpCubits: $backedUpCubits, rebuild: $rebuild, status: $status, goal: $goal, saveChangesAndExit: $saveChangesAndExit)';
   }
 
   @override
@@ -1146,6 +1346,10 @@ class _$_CardEditorState implements _CardEditorState {
             (identical(other.rebuild, rebuild) ||
                 const DeepCollectionEquality()
                     .equals(other.rebuild, rebuild)) &&
+            (identical(other.status, status) ||
+                const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.goal, goal) ||
+                const DeepCollectionEquality().equals(other.goal, goal)) &&
             (identical(other.saveChangesAndExit, saveChangesAndExit) ||
                 const DeepCollectionEquality()
                     .equals(other.saveChangesAndExit, saveChangesAndExit)));
@@ -1158,6 +1362,8 @@ class _$_CardEditorState implements _CardEditorState {
       const DeepCollectionEquality().hash(cardCubits) ^
       const DeepCollectionEquality().hash(backedUpCubits) ^
       const DeepCollectionEquality().hash(rebuild) ^
+      const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(goal) ^
       const DeepCollectionEquality().hash(saveChangesAndExit);
 
   @override
@@ -1171,6 +1377,8 @@ abstract class _CardEditorState implements CardEditorState {
       @required List<CECardCubit> cardCubits,
       @required List<CECardCubit> backedUpCubits,
       @required bool rebuild,
+      @required AddDeckStatus status,
+      @required AddDeckGoal goal,
       @required bool saveChangesAndExit}) = _$_CardEditorState;
 
   @override
@@ -1181,6 +1389,10 @@ abstract class _CardEditorState implements CardEditorState {
   List<CECardCubit> get backedUpCubits;
   @override
   bool get rebuild;
+  @override
+  AddDeckStatus get status;
+  @override
+  AddDeckGoal get goal;
   @override
   bool get saveChangesAndExit;
   @override

@@ -14,6 +14,7 @@ class MDImage extends StatelessWidget {
   final Widget errorWidget;
   final Widget loadIndicator;
   final ImageFile sourceImage;
+  final bool editable;
   MDImage(
       {Key key,
       double width,
@@ -21,7 +22,8 @@ class MDImage extends StatelessWidget {
       this.placeholder,
       this.errorWidget,
       this.loadIndicator,
-      @required ImageFile image})
+      @required ImageFile image,
+      this.editable})
       : assert(image != null),
         sourceImage = image,
         this.width = width ?? 0,

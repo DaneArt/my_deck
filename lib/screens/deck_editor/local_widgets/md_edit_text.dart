@@ -10,8 +10,14 @@ class MDEditText extends StatefulWidget {
   final Function(String) onChanged;
   final double height;
   final double width;
+  final bool editable;
   MDEditText(
-      {Key key, this.initialFile, this.onChanged, this.height, this.width})
+      {Key key,
+      this.initialFile,
+      this.onChanged,
+      this.height,
+      this.width,
+      this.editable})
       : super(key: key);
 
   @override
@@ -43,16 +49,24 @@ class _MDEditTextState extends State<MDEditText> {
           child: Padding(
             padding:
                 const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 8.0),
-            child: TextFormField(
-              focusNode: fieldFocusNode,
-              maxLines: 99999,
-              onChanged: widget.onChanged,
-              maxLength: 140,
-              decoration: InputDecoration(
-                  border: UnderlineInputBorder(borderSide: BorderSide.none)),
-              initialValue: _textFile.text,
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
+            child: widget.editable
+                ? TextFormField(
+                    focusNode: fieldFocusNode,
+                    maxLines: 99999,
+                    onChanged: widget.onChanged,
+                    maxLength: 140,
+                    decoration: InputDecoration(
+                        border:
+                            UnderlineInputBorder(borderSide: BorderSide.none)),
+                    initialValue: _textFile.text,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  )
+                : Center(
+                    child: Text(
+                      _textFile.text,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                  ),
           ),
         ),
       ),

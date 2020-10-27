@@ -5,21 +5,27 @@ import 'package:mydeck/blocs/tab/tab_bloc.dart';
 import 'package:mydeck/blocs/tab/tab_event.dart';
 
 import 'package:mydeck/blocs/tab/app_tab.dart';
+import 'package:mydeck/generated/l10n.dart';
 
 import 'package:mydeck/screens/library/library_page.dart';
+import 'package:mydeck/services/datasources/user_config.dart';
+import 'package:mydeck/theme/my_deck_routes.dart';
 import 'package:mydeck/utils/custom_icons_icons.dart';
+import 'package:mydeck/widgets/login_to_cont_widget.dart';
 import 'package:mydeck/widgets/md_bottom_bar.dart';
 import 'package:mydeck/screens/login/profile_page.dart';
 import 'package:mydeck/screens/social/social_page.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key key}) : super(key: key);
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+  HomePage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TabBloc, AppTab>(
       builder: (context, activeTab) {
         return Scaffold(
+          key: scaffoldKey,
           body: PageTransitionSwitcher(
             transitionBuilder: (Widget child,
                 Animation<double> primaryAnimation,
@@ -37,7 +43,15 @@ class HomePage extends StatelessWidget {
               CustomIcons.dumbbell,
               color: Theme.of(context).accentIconTheme.color,
             ),
-            onPressed: () {},
+            onPressed: () {
+              if (UserConfig.currentUser == null) {
+                scaffoldKey.currentState.showSnackBar(
+                  LoginToContSnackbar(context: context),
+                );
+              } else {
+                Navigator.of(context).pushNamed(MyDeckRoutes.train);
+              }
+            },
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
           bottomNavigationBar: MDBottomBar(

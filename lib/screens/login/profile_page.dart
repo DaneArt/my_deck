@@ -5,6 +5,7 @@ import 'package:mydeck/services/datasources/user_config.dart';
 import 'package:mydeck/generated/l10n.dart';
 import 'package:mydeck/utils/custom_icons_icons.dart';
 import 'package:mydeck/utils/dependency_injection.dart';
+import 'package:mydeck/widgets/login_message_widget.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({Key key}) : super(key: key);
@@ -18,12 +19,23 @@ class ProfilePage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(
-            "${UserConfig.currentUser.username[0].toUpperCase()}${UserConfig.currentUser.username.substring(1)} ${S.of(context).profile_title}",
+            UserConfig.currentUser == null
+                ? "Profile page"
+                : "${UserConfig.currentUser.username[0].toUpperCase()}${UserConfig.currentUser.username.substring(1)} ${S.of(context).profile_title}",
             style: Theme.of(context).textTheme.headline6.copyWith(
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).primaryColor)),
       ),
-      body: Column(
+      body: _buildBody(context),
+    );
+  }
+
+  Widget _buildBody(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    if (UserConfig.currentUser == null) {
+      return LoginMessageWidget();
+    } else {
+      Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           ProfilePageHat(screenSize: screenSize),
@@ -37,8 +49,8 @@ class ProfilePage extends StatelessWidget {
           ),
           DecksListWidget(decks: [])
         ],
-      ),
-    );
+      );
+    }
   }
 }
 

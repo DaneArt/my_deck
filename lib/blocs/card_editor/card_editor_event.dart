@@ -6,7 +6,7 @@ abstract class CardEditorEvent with _$CardEditorEvent {
   factory CardEditorEvent.addCard() = AddCard;
 
   factory CardEditorEvent.changeIndex({@required int newIndex}) = ChangeIndex;
-
+  factory CardEditorEvent.changeStatus() = ChangeStatus;
   factory CardEditorEvent.setContent(MDFile file) = SetContent;
   factory CardEditorEvent.backupCubits() = BackupCubits;
   factory CardEditorEvent.undoEdits() = UndoEdits;

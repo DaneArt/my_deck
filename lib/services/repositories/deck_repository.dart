@@ -113,6 +113,8 @@ class DeckRepositoryImpl implements DeckRepository {
       return right(deck);
     } on CacheException {
       return left(StorageFailure.updateFailure(failureObject: deck));
+    } on NetworkException {
+      return left(StorageFailure.updateFailure(failureObject: deck));
     }
   }
 
