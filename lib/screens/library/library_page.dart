@@ -145,6 +145,7 @@ class _LibraryPageState extends State<LibraryPage>
             ),
             onPressed: () {
               if (UserConfig.currentUser == null) {
+                Scaffold.of(context).hideCurrentSnackBar();
                 Scaffold.of(context)
                     .showSnackBar(LoginToContSnackbar(context: context));
               } else {

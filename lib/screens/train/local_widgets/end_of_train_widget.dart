@@ -126,9 +126,9 @@ class _EndOfTrainViewState extends State<EndOfTrainView> {
               ),
         BlocListener<TrainBloc, TrainState>(
             listener: (context, state) {
-              if (state is TrainStopped) {
-                Navigator.pop(context, state.trainedCards);
-              }
+              // if (state is TrainStopped) {
+              //   Navigator.pop(context, state.trainedCards);
+              // }
             },
             child: Container())
       ],

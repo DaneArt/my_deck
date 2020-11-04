@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mydeck/models/dtos/file_dto.dart';
+import 'package:mydeck/models/dtos/statistics_dto.dart';
 import 'package:mydeck/models/entitites/card.dart';
 import 'package:mydeck/models/entitites/md_file.dart';
 import 'package:mydeck/models/entitites/unique_id.dart';
@@ -21,18 +22,22 @@ abstract class CardDto implements _$CardDto {
     @JsonKey(name: 'card_id') @required String cardId,
     @required @CardContentConverter() MDFileDto answer,
     @required @CardContentConverter() MDFileDto question,
+    StatisticsDto statisticsDto,
   }) = _CardDto;
 
   factory CardDto.fromDomain(Card card) => CardDto(
         answer: MDFileDto.fromDomain(card.answer),
         cardId: card.id.getOrCrash,
         question: MDFileDto.fromDomain(card.question),
+        statisticsDto:
+            StatisticsDto?.fromDomain(domain: card.statistics, cardId: card.id),
       );
 
   Card toDomain() => Card(
       answer: answer.toDomain(),
       id: UniqueId.fromString(cardId),
-      question: question.toDomain());
+      question: question.toDomain(),
+      statistics: statisticsDto?.toDomain());
 
   factory CardDto.fromJson(Map<String, dynamic> json) =>
       _$CardDtoFromJson(json);

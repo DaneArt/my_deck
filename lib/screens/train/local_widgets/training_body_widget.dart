@@ -5,11 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 class TrainingBody extends StatefulWidget {
-  final TrainInProgress stateData;
   final TrainBloc trainBloc;
 
-  TrainingBody({Key key, @required this.stateData, @required this.trainBloc})
-      : super(key: key);
+  TrainingBody({Key key, @required this.trainBloc}) : super(key: key);
 
   @override
   _TrainingBodyState createState() => _TrainingBodyState();
@@ -40,15 +38,15 @@ class _TrainingBodyState extends State<TrainingBody> {
             ],
           ),
         ),
-        CustomStackList(
-          cards: widget.stateData.currentDeck.cardsList,
-          bloc: widget.trainBloc,
-        ),
-        LinearProgressIndicator(
-          backgroundColor: Colors.black12,
-          value: widget.stateData.currentCardIndex /
-              widget.stateData.currentDeck.cardsList.length,
-        ),
+        // CustomStackList(
+        //   cards: widget.stateData.currentDeck.cardsList,
+        //   bloc: widget.trainBloc,
+        // ),
+        // LinearProgressIndicator(
+        //   backgroundColor: Colors.black12,
+        //   value: widget.stateData.currentCardIndex /
+        //       widget.stateData.currentDeck.cardsList.length,
+        // ),
       ],
     );
   }

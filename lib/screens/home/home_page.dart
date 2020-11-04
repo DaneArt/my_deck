@@ -45,6 +45,7 @@ class HomePage extends StatelessWidget {
             ),
             onPressed: () {
               if (UserConfig.currentUser == null) {
+                scaffoldKey.currentState.hideCurrentSnackBar();
                 scaffoldKey.currentState.showSnackBar(
                   LoginToContSnackbar(context: context),
                 );

@@ -12,7 +12,6 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -21,7 +20,7 @@ class ProfilePage extends StatelessWidget {
         title: Text(
             UserConfig.currentUser == null
                 ? "Profile page"
-                : "${UserConfig.currentUser.username[0].toUpperCase()}${UserConfig.currentUser.username.substring(1)} ${S.of(context).profile_title}",
+                : "${UserConfig.currentUser.username[0].toUpperCase()}${UserConfig.currentUser.username.substring(1)}${S.of(context).profile_title}",
             style: Theme.of(context).textTheme.headline6.copyWith(
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).primaryColor)),
@@ -35,7 +34,7 @@ class ProfilePage extends StatelessWidget {
     if (UserConfig.currentUser == null) {
       return LoginMessageWidget();
     } else {
-      Column(
+      return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           ProfilePageHat(screenSize: screenSize),

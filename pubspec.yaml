@@ -53,7 +53,6 @@ dependencies:
   uuid: ^2.0.4
 
 dev_dependencies:
-  
   flutter_driver:
     sdk: flutter
   flutter_localizations:

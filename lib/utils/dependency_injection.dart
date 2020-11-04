@@ -134,10 +134,10 @@ void setUp() {
   sl.registerFactory(() => GoogleSignInUsecase(sl(), sl(), sl()));
   sl.registerFactory(() => SignInUsecase(sl()));
   sl.registerFactory(() => LoadDecksPageForCategoryUsecase(sl()));
+  sl.registerFactory(() => GetDecksForTrainUseCase());
   sl.registerFactory(() => SaveDeckChangesUsecase(sl(), sl()));
   sl.registerFactory(() => DeleteDeckUseCase(sl(), sl()));
   sl.registerFactory(() => UpdateDeckUsecase(myDeckRepository: sl()));
-  sl.registerFactory(() => GetDecksForTrain());
   sl.registerFactory(() => LoadUserLibraryUseCase(repository: sl()));
   sl.registerFactory(
       () => AddDeckUseCase(myDeckRepository: sl(), fileRepository: sl()));
@@ -150,5 +150,4 @@ void setUp() {
         loadUserLibrary: sl(),
       ));
   sl.registerFactory(() => TabBloc());
-  sl.registerFactory(() => TrainBloc(updateTrainedCards: sl()));
 }

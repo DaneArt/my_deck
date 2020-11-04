@@ -12,11 +12,13 @@ import 'package:mydeck/models/dtos/deck_dto_with_user_model.dart';
 import 'package:mydeck/models/dtos/user_dto.dart';
 
 import 'package:mydeck/services/datasources/user_config.dart';
+import 'package:mydeck/services/usecases/get_decks_for_train_usecase.dart';
 
 typedef Future<T> HttpRequest<T>();
 
 abstract class DeckNetworkDataSource {
   Future<List<DeckDto>> getAllDecksOfCurrentUser();
+  Future<List<DeckDto>> getDecksForTrain();
 
   Future<DeckDtoWithUserModel> getDeckById(String deckUuid);
 
@@ -44,6 +46,27 @@ class DeckNetworkDataSourceImpl implements DeckNetworkDataSource {
         '/deck/insert',
         data: jsonEncode(deckDto.toJson()),
       );
+    } on DioError catch (e) {
+      if (e.type == DioErrorType.CONNECT_TIMEOUT ||
+          e.type == DioErrorType.RECEIVE_TIMEOUT) {
+        throw NetworkTimeoutException(
+          e.message,
+        );
+      }
+      throw NetworkException(e.message);
+    } catch (e) {
+      throw NetworkException();
+    }
+  }
+
+  @override
+  Future<List<DeckDto>> getDecksForTrain() async {
+    try {
+      final response = await client.post(
+        '/deck/FindDecksForTrain/${UserConfig.currentUser.userId}',
+      );
+
+      return (response.data as List).map((e) => DeckDto.fromJson(e));
     } on DioError catch (e) {
       if (e.type == DioErrorType.CONNECT_TIMEOUT ||
           e.type == DioErrorType.RECEIVE_TIMEOUT) {

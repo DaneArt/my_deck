@@ -36,8 +36,10 @@ class SaveDeckChangesUsecase extends UseCase<StorageFailure, Deck, Params> {
         deleteFilesResult = _fileRepository.deleteFiles(filesToDelete);
       }
 
-      if ((await updateFilesResult).isSome() ||
-          (await deleteFilesResult).isSome()) {
+      if (((updateFilesResult != null) &&
+              ((await updateFilesResult).isSome())) ||
+          ((deleteFilesResult != null) &&
+              ((await deleteFilesResult).isSome()))) {
         return left(
             StorageFailure.updateFailure(failureObject: params.newDeck));
       } else {

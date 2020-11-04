@@ -15,15 +15,15 @@ class TrainingPage extends StatelessWidget {
       appBar: AppBar(
         title: BlocBuilder<TrainBloc, TrainState>(
           builder: (context, state) {
-            if (state is TrainInProgress) {
-              return Text(
-                state.currentDeck.title.toString(),
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6
-                    .copyWith(color: Colors.white),
-              );
-            }
+            // if (state is TrainInProgress) {
+            //   return Text(
+            //     state.currentDeck.title.toString(),
+            //     style: Theme.of(context)
+            //         .textTheme
+            //         .headline6
+            //         .copyWith(color: Colors.white),
+            //   );
+            // }
             return (Text(''));
           },
         ),
@@ -73,29 +73,29 @@ class _TrainingPageBodyState extends State<_TrainingPageBody> {
   }
 
   Widget _buildUi(BuildContext context, TrainState state) {
-    if (state is TrainInProgress) {
-      return TrainingBody(
-        stateData: state,
-        trainBloc: _trainBloc,
-      );
-    } else if (state is EndTrainOfDeck) {
-      return EndOfTrainView(
-        isEndOfDeck: true,
-        deck: state.deck,
-        successfullTrainedCardsCount: state.successfullTrainedCardsCount,
-        trainBloc: _trainBloc,
-      );
-    } else if (state is TrainEnded) {
-      return EndOfTrainView(
-        isEndOfDeck: false,
-        successfullTrainedCardsCount: state.successfullTrainedCardsCount,
-        decksCount: state.decksCount,
-        trainBloc: _trainBloc,
-      );
-    } else if (state is InitialTrainState) {
-      final List<Deck> decksToTrain = ModalRoute.of(context).settings.arguments;
-      BlocProvider.of<TrainBloc>(context).add(LoadTrainableDecks(decksToTrain));
-      return Container();
-    }
+    // if (state is TrainInProgress) {
+    //   return TrainingBody(
+    //     stateData: state,
+    //     trainBloc: _trainBloc,
+    //   );
+    // } else if (state is EndTrainOfDeck) {
+    //   return EndOfTrainView(
+    //     isEndOfDeck: true,
+    //     deck: state.deck,
+    //     successfullTrainedCardsCount: state.successfullTrainedCardsCount,
+    //     trainBloc: _trainBloc,
+    //   );
+    // } else if (state is TrainEnded) {
+    //   return EndOfTrainView(
+    //     isEndOfDeck: false,
+    //     successfullTrainedCardsCount: state.successfullTrainedCardsCount,
+    //     decksCount: state.decksCount,
+    //     trainBloc: _trainBloc,
+    //   );
+    // } else if (state is InitialTrainState) {
+    //   final List<Deck> decksToTrain = ModalRoute.of(context).settings.arguments;
+    //   BlocProvider.of<TrainBloc>(context).add(LoadTrainableDecks(decksToTrain));
+    //   return Container();
+    // }
   }
 }

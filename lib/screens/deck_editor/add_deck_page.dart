@@ -82,7 +82,7 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
             (some) => some.fold(
                 (failure) => showToast(failure.message),
                 (success) => showToast(
-                    "Deck ${state.goal == AddDeckGoal.create ? "" : state.goal == AddDeckGoal.update ? "changed" : ""} saved")));
+                    "Deck ${state.goal == AddDeckGoal.create ? "saved" : state.goal == AddDeckGoal.update ? "changed" : ""}")));
         state.deleteFailureOrSuccess.fold(
             () => null,
             (some) =>
@@ -113,6 +113,11 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                   )
                 : null,
             actions: <Widget>[
+              _showActions &&
+                      state.loadingFailureOrSuccess.fold(
+                          () => true, (a) => a.fold((l) => false, (r) => true))
+                  ? _buildAddCardIcon(state)
+                  : Container(),
               state.goal != AddDeckGoal.look &&
                       !state.isPending &&
                       !state.isLoading
@@ -135,30 +140,6 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                           vertical: 10, horizontal: 16),
                       child: CircularProgressIndicator())
                   : Container(),
-              _showActions &&
-                      state.loadingFailureOrSuccess.fold(
-                          () => true, (a) => a.fold((l) => false, (r) => true))
-                  ? IconButton(
-                      icon: Icon(Icons.add, color: Colors.white),
-                      onPressed: () async {
-                        final cards =
-                            await Navigator.of(context).push(MaterialPageRoute(
-                                builder: (BuildContext ctx) => BlocProvider(
-                                      create: (c) => CardEditorBloc(
-                                          currentCardIndex:
-                                              state.cardsList.length,
-                                          sourceCards:
-                                              List.from(bloc.state.cardsList)
-                                                ..add(Entity.Card.basic()),
-                                          status: state.status,
-                                          goal: state.goal),
-                                      child: CardEditorPage(),
-                                    )));
-                        if (cards != null)
-                          bloc.add(AddDeckEvent.updateCards(cards: cards));
-                      },
-                    )
-                  : Container()
             ],
             bottom: TabBar(
               indicatorSize: TabBarIndicatorSize.label,
@@ -206,6 +187,25 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
             ),
           ),
         );
+      },
+    );
+  }
+
+  Widget _buildAddCardIcon(AddDeckState state) {
+    return IconButton(
+      icon: Icon(Icons.add, color: Colors.white),
+      onPressed: () async {
+        final cards = await Navigator.of(context).push(MaterialPageRoute(
+            builder: (BuildContext ctx) => BlocProvider(
+                  create: (c) => CardEditorBloc(
+                      currentCardIndex: state.cardsList.length,
+                      sourceCards: List.from(bloc.state.cardsList)
+                        ..add(Entity.Card.basic()),
+                      status: state.status,
+                      goal: state.goal),
+                  child: CardEditorPage(),
+                )));
+        if (cards != null) bloc.add(AddDeckEvent.updateCards(cards: cards));
       },
     );
   }
@@ -345,96 +345,90 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
     );
   }
 
-  Widget deckWidget(AddDeckState state) => SingleChildScrollView(
-        child: Container(
-          child: Expanded(
+  Widget deckWidget(AddDeckState state) => Container(
+        constraints:
+            BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
+        child: SingleChildScrollView(
+          child: Container(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+             mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                SizedBox(
-                  height: 16,
-                ),
-                deckOverviewWidget(state),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 24.0, vertical: 24.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      buttonsWidget(state),
-                      SizedBox(
-                        height: 24,
-                      ),
-                      categoryWidget(state),
-                      authorWidget(state),
-                    ],
-                  ),
-                ),
-                state.goal == AddDeckGoal.update
-                    ? MaterialButton(
-                        minWidth: double.infinity,
-                        child: Text(
-                          'DELETE DECK',
-                          style: TextStyle(color: Colors.red),
+                 deckOverviewWidget(state),
+                 Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24.0, vertical: 24.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        buttonsWidget(state),
+                        SizedBox(
+                          height: 24,
                         ),
-                        onPressed: () {
-                          bloc.add(AddDeckEvent.deleteDeck());
-                        },
-                      )
-                    : Container(),
+                        categoryWidget(state),
+                        authorWidget(state),
+                      ],
+                    ),
+                  ),
+                state.goal == AddDeckGoal.update
+                      ? MaterialButton(
+                          minWidth: double.infinity,
+                          child: Text(
+                            'DELETE DECK',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                          onPressed: () {
+                            bloc.add(AddDeckEvent.deleteDeck());
+                          },
+                        )
+                      : Container(),
               ],
             ),
           ),
         ),
       );
 
-  Widget deckOverviewWidget(AddDeckState state) => Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16.0,
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            Flexible(
-              flex: 2,
-              child: ImagePickerWidget(
-                  key: Key(state.avatar.value.fold(
-                      (l) => l.failedValue.uniqueId.getOrCrash,
-                      (r) => r.uniqueId.getOrCrash)),
-                  defaultAvatar: state.avatar,
-                  onImagePicked: (ImageFile image) {
-                    bloc.add(AddDeckEvent.avatarChanged(image));
-                  },
-                  enabled:
-                      state.status == AddDeckStatus.edit && !state.isPending),
-            ),
-            Flexible(
-              flex: 3,
-              child: Padding(
-                padding: EdgeInsets.only(
-                    left: 16.0,
-                    right: 16.0,
-                    top: 16.0,
-                    bottom:
-                        (state.isPending || state.status == AddDeckStatus.look)
-                            ? 120
-                            : 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Flexible(
-                      child: titleWidget(state),
-                    ),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    descriptionWidget(state)
-                  ],
+  Widget deckOverviewWidget(AddDeckState state) => ConstrainedBox(
+        constraints:
+            BoxConstraints(maxHeight: MediaQuery.of(context).size.height / 3),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16.0,
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                width: MediaQuery.of(context).size.width / 2 - 32,
+                child: ImagePickerWidget(
+                    key: Key(state.avatar.value.fold(
+                        (l) => l.failedValue.uniqueId.getOrCrash,
+                        (r) => r.uniqueId.getOrCrash)),
+                    defaultAvatar: state.avatar,
+                    onImagePicked: (ImageFile image) {
+                      bloc.add(AddDeckEvent.avatarChanged(image));
+                    },
+                    enabled:
+                        state.status == AddDeckStatus.edit && !state.isPending),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      titleWidget(state),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      descriptionWidget(state)
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
 
@@ -445,7 +439,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
             padding: EdgeInsets.only(
                 left: state.status == AddDeckStatus.edit && !state.isPending
                     ? 16.0
-                    : 40.0),
+                    : 32.0),
             child: state.status == AddDeckStatus.edit && !state.isPending
                 ? MDRoundedButton(
                     icon: Icon(state.isShared ? Icons.lock_open : Icons.lock),
@@ -467,7 +461,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
           ),
           state.status == AddDeckStatus.look
               ? Padding(
-                  padding: const EdgeInsets.only(right: 64.0),
+                  padding: const EdgeInsets.only(right: 32.0),
                   child: MDRoundedButton(
                     icon: Icon(CustomIcons.dumbbell),
                     onPressed: () {},
@@ -475,7 +469,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
                   ),
                 )
               : Padding(
-                  padding: const EdgeInsets.only(top: 16.0, right: 64),
+                  padding: const EdgeInsets.only(top: 16.0, right: 32.0),
                   child: Column(
                     children: <Widget>[
                       Text('Quick train'),
@@ -530,7 +524,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
       state.status == AddDeckStatus.edit && !state.isPending
           ? TextFormField(
               key: _descriptionFieldKey,
-              autovalidate: true,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               initialValue:
                   state.description.value.fold((l) => l.failedValue, (r) => r),
               textInputAction: TextInputAction.done,
@@ -569,7 +563,7 @@ class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
                       (l) => l.failedValue.isNotEmpty
                           ? l.failedValue
                           : S.of(context).editor_no_description,
-                      (r) => r),
+                      (r) => r.isNotEmpty ? r : "No description"),
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
               ],

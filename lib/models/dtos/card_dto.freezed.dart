@@ -18,11 +18,13 @@ class _$CardDtoTearOff {
   _CardDto call(
       {@required @JsonKey(name: 'card_id') String cardId,
       @required @CardContentConverter() MDFileDto answer,
-      @required @CardContentConverter() MDFileDto question}) {
+      @required @CardContentConverter() MDFileDto question,
+      StatisticsDto statisticsDto}) {
     return _CardDto(
       cardId: cardId,
       answer: answer,
       question: question,
+      statisticsDto: statisticsDto,
     );
   }
 }
@@ -37,6 +39,7 @@ mixin _$CardDto {
   MDFileDto get answer;
   @CardContentConverter()
   MDFileDto get question;
+  StatisticsDto get statisticsDto;
 
   Map<String, dynamic> toJson();
   $CardDtoCopyWith<CardDto> get copyWith;
@@ -48,10 +51,12 @@ abstract class $CardDtoCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'card_id') String cardId,
       @CardContentConverter() MDFileDto answer,
-      @CardContentConverter() MDFileDto question});
+      @CardContentConverter() MDFileDto question,
+      StatisticsDto statisticsDto});
 
   $MDFileDtoCopyWith<$Res> get answer;
   $MDFileDtoCopyWith<$Res> get question;
+  $StatisticsDtoCopyWith<$Res> get statisticsDto;
 }
 
 class _$CardDtoCopyWithImpl<$Res> implements $CardDtoCopyWith<$Res> {
@@ -66,11 +71,15 @@ class _$CardDtoCopyWithImpl<$Res> implements $CardDtoCopyWith<$Res> {
     Object cardId = freezed,
     Object answer = freezed,
     Object question = freezed,
+    Object statisticsDto = freezed,
   }) {
     return _then(_value.copyWith(
       cardId: cardId == freezed ? _value.cardId : cardId as String,
       answer: answer == freezed ? _value.answer : answer as MDFileDto,
       question: question == freezed ? _value.question : question as MDFileDto,
+      statisticsDto: statisticsDto == freezed
+          ? _value.statisticsDto
+          : statisticsDto as StatisticsDto,
     ));
   }
 
@@ -93,6 +102,16 @@ class _$CardDtoCopyWithImpl<$Res> implements $CardDtoCopyWith<$Res> {
       return _then(_value.copyWith(question: value));
     });
   }
+
+  @override
+  $StatisticsDtoCopyWith<$Res> get statisticsDto {
+    if (_value.statisticsDto == null) {
+      return null;
+    }
+    return $StatisticsDtoCopyWith<$Res>(_value.statisticsDto, (value) {
+      return _then(_value.copyWith(statisticsDto: value));
+    });
+  }
 }
 
 abstract class _$CardDtoCopyWith<$Res> implements $CardDtoCopyWith<$Res> {
@@ -102,12 +121,15 @@ abstract class _$CardDtoCopyWith<$Res> implements $CardDtoCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'card_id') String cardId,
       @CardContentConverter() MDFileDto answer,
-      @CardContentConverter() MDFileDto question});
+      @CardContentConverter() MDFileDto question,
+      StatisticsDto statisticsDto});
 
   @override
   $MDFileDtoCopyWith<$Res> get answer;
   @override
   $MDFileDtoCopyWith<$Res> get question;
+  @override
+  $StatisticsDtoCopyWith<$Res> get statisticsDto;
 }
 
 class __$CardDtoCopyWithImpl<$Res> extends _$CardDtoCopyWithImpl<$Res>
@@ -123,11 +145,15 @@ class __$CardDtoCopyWithImpl<$Res> extends _$CardDtoCopyWithImpl<$Res>
     Object cardId = freezed,
     Object answer = freezed,
     Object question = freezed,
+    Object statisticsDto = freezed,
   }) {
     return _then(_CardDto(
       cardId: cardId == freezed ? _value.cardId : cardId as String,
       answer: answer == freezed ? _value.answer : answer as MDFileDto,
       question: question == freezed ? _value.question : question as MDFileDto,
+      statisticsDto: statisticsDto == freezed
+          ? _value.statisticsDto
+          : statisticsDto as StatisticsDto,
     ));
   }
 }
@@ -137,7 +163,8 @@ class _$_CardDto extends _CardDto {
   const _$_CardDto(
       {@required @JsonKey(name: 'card_id') this.cardId,
       @required @CardContentConverter() this.answer,
-      @required @CardContentConverter() this.question})
+      @required @CardContentConverter() this.question,
+      this.statisticsDto})
       : assert(cardId != null),
         assert(answer != null),
         assert(question != null),
@@ -155,10 +182,12 @@ class _$_CardDto extends _CardDto {
   @override
   @CardContentConverter()
   final MDFileDto question;
+  @override
+  final StatisticsDto statisticsDto;
 
   @override
   String toString() {
-    return 'CardDto(cardId: $cardId, answer: $answer, question: $question)';
+    return 'CardDto(cardId: $cardId, answer: $answer, question: $question, statisticsDto: $statisticsDto)';
   }
 
   @override
@@ -171,7 +200,10 @@ class _$_CardDto extends _CardDto {
                 const DeepCollectionEquality().equals(other.answer, answer)) &&
             (identical(other.question, question) ||
                 const DeepCollectionEquality()
-                    .equals(other.question, question)));
+                    .equals(other.question, question)) &&
+            (identical(other.statisticsDto, statisticsDto) ||
+                const DeepCollectionEquality()
+                    .equals(other.statisticsDto, statisticsDto)));
   }
 
   @override
@@ -179,7 +211,8 @@ class _$_CardDto extends _CardDto {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(cardId) ^
       const DeepCollectionEquality().hash(answer) ^
-      const DeepCollectionEquality().hash(question);
+      const DeepCollectionEquality().hash(question) ^
+      const DeepCollectionEquality().hash(statisticsDto);
 
   @override
   _$CardDtoCopyWith<_CardDto> get copyWith =>
@@ -196,7 +229,8 @@ abstract class _CardDto extends CardDto {
   const factory _CardDto(
       {@required @JsonKey(name: 'card_id') String cardId,
       @required @CardContentConverter() MDFileDto answer,
-      @required @CardContentConverter() MDFileDto question}) = _$_CardDto;
+      @required @CardContentConverter() MDFileDto question,
+      StatisticsDto statisticsDto}) = _$_CardDto;
 
   factory _CardDto.fromJson(Map<String, dynamic> json) = _$_CardDto.fromJson;
 
@@ -209,6 +243,8 @@ abstract class _CardDto extends CardDto {
   @override
   @CardContentConverter()
   MDFileDto get question;
+  @override
+  StatisticsDto get statisticsDto;
   @override
   _$CardDtoCopyWith<_CardDto> get copyWith;
 }

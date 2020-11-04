@@ -195,9 +195,9 @@ class _DismissibleCardState extends State<DismissibleCard>
       children: <Widget>[
         BlocListener<TrainBloc, TrainState>(
           listener: (context, state) {
-            if (state is TrainInProgress) {
-              _dropParameters();
-            }
+            // if (state is TrainInProgress) {
+            //   _dropParameters();
+            // }
           },
           child: GestureDetector(
             onHorizontalDragStart: (startDetails) {

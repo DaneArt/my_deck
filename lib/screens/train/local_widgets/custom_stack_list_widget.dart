@@ -47,9 +47,9 @@ class _CustomStackListState extends State<CustomStackList>
 
     onDismissCallback = (guess) {
       if (guess == Guess.right) {
-        widget.bloc.add(ConfirmAnswer());
+        // widget.bloc.add(ConfirmAnswer());
       } else if (guess == Guess.left) {
-        widget.bloc.add(DeclineAnswer());
+        // widget.bloc.add(DeclineAnswer());
       }
 
       setState(() {
@@ -150,9 +150,9 @@ class _CustomStackListState extends State<CustomStackList>
     return Center(
         child: BlocListener<TrainBloc, TrainState>(
       listener: (context, state) {
-        if (state is TrainInProgress) {
-          _currentIndex = state.currentCardIndex;
-        }
+        // if (state is TrainInProgress) {
+        //   _currentIndex = state.currentCardIndex;
+        // }
       },
       child: Stack(
         alignment: Alignment.topCenter,
