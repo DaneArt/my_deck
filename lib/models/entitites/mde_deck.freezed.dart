@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
 
-part of 'deck.dart';
+part of 'mde_deck.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -9,23 +9,23 @@ part of 'deck.dart';
 
 T _$identity<T>(T value) => value;
 
-class _$DeckTearOff {
-  const _$DeckTearOff();
+class _$MDEDeckTearOff {
+  const _$MDEDeckTearOff();
 
-  _Deck call(
+  _MDEDeck call(
       {@required UniqueId deckId,
       @required DeckTitle title,
       @required DeckAvatar avatar,
       @required DeckDescription description,
-      @required User author,
+      @required MDEUser author,
       @required DeckCategory category,
       @required bool isPrivate,
       @required bool availableQuickTrain,
       int cardsCount,
       int subscribersCount,
-      List<User> subscribers,
-      List<Card> cardsList}) {
-    return _Deck(
+      List<MDEUser> subscribers,
+      List<MDECard> cardsList}) {
+    return _MDEDeck(
       deckId: deckId,
       title: title,
       avatar: avatar,
@@ -43,52 +43,52 @@ class _$DeckTearOff {
 }
 
 // ignore: unused_element
-const $Deck = _$DeckTearOff();
+const $MDEDeck = _$MDEDeckTearOff();
 
-mixin _$Deck {
+mixin _$MDEDeck {
   UniqueId get deckId;
   DeckTitle get title;
   DeckAvatar get avatar;
   DeckDescription get description;
-  User get author;
+  MDEUser get author;
   DeckCategory get category;
   bool get isPrivate;
   bool get availableQuickTrain;
   int get cardsCount;
   int get subscribersCount;
-  List<User> get subscribers;
-  List<Card> get cardsList;
+  List<MDEUser> get subscribers;
+  List<MDECard> get cardsList;
 
-  $DeckCopyWith<Deck> get copyWith;
+  $MDEDeckCopyWith<MDEDeck> get copyWith;
 }
 
-abstract class $DeckCopyWith<$Res> {
-  factory $DeckCopyWith(Deck value, $Res Function(Deck) then) =
-      _$DeckCopyWithImpl<$Res>;
+abstract class $MDEDeckCopyWith<$Res> {
+  factory $MDEDeckCopyWith(MDEDeck value, $Res Function(MDEDeck) then) =
+      _$MDEDeckCopyWithImpl<$Res>;
   $Res call(
       {UniqueId deckId,
       DeckTitle title,
       DeckAvatar avatar,
       DeckDescription description,
-      User author,
+      MDEUser author,
       DeckCategory category,
       bool isPrivate,
       bool availableQuickTrain,
       int cardsCount,
       int subscribersCount,
-      List<User> subscribers,
-      List<Card> cardsList});
+      List<MDEUser> subscribers,
+      List<MDECard> cardsList});
 
-  $UserCopyWith<$Res> get author;
+  $MDEUserCopyWith<$Res> get author;
   $DeckCategoryCopyWith<$Res> get category;
 }
 
-class _$DeckCopyWithImpl<$Res> implements $DeckCopyWith<$Res> {
-  _$DeckCopyWithImpl(this._value, this._then);
+class _$MDEDeckCopyWithImpl<$Res> implements $MDEDeckCopyWith<$Res> {
+  _$MDEDeckCopyWithImpl(this._value, this._then);
 
-  final Deck _value;
+  final MDEDeck _value;
   // ignore: unused_field
-  final $Res Function(Deck) _then;
+  final $Res Function(MDEDeck) _then;
 
   @override
   $Res call({
@@ -112,7 +112,7 @@ class _$DeckCopyWithImpl<$Res> implements $DeckCopyWith<$Res> {
       description: description == freezed
           ? _value.description
           : description as DeckDescription,
-      author: author == freezed ? _value.author : author as User,
+      author: author == freezed ? _value.author : author as MDEUser,
       category:
           category == freezed ? _value.category : category as DeckCategory,
       isPrivate: isPrivate == freezed ? _value.isPrivate : isPrivate as bool,
@@ -125,18 +125,18 @@ class _$DeckCopyWithImpl<$Res> implements $DeckCopyWith<$Res> {
           : subscribersCount as int,
       subscribers: subscribers == freezed
           ? _value.subscribers
-          : subscribers as List<User>,
+          : subscribers as List<MDEUser>,
       cardsList:
-          cardsList == freezed ? _value.cardsList : cardsList as List<Card>,
+          cardsList == freezed ? _value.cardsList : cardsList as List<MDECard>,
     ));
   }
 
   @override
-  $UserCopyWith<$Res> get author {
+  $MDEUserCopyWith<$Res> get author {
     if (_value.author == null) {
       return null;
     }
-    return $UserCopyWith<$Res>(_value.author, (value) {
+    return $MDEUserCopyWith<$Res>(_value.author, (value) {
       return _then(_value.copyWith(author: value));
     });
   }
@@ -152,37 +152,37 @@ class _$DeckCopyWithImpl<$Res> implements $DeckCopyWith<$Res> {
   }
 }
 
-abstract class _$DeckCopyWith<$Res> implements $DeckCopyWith<$Res> {
-  factory _$DeckCopyWith(_Deck value, $Res Function(_Deck) then) =
-      __$DeckCopyWithImpl<$Res>;
+abstract class _$MDEDeckCopyWith<$Res> implements $MDEDeckCopyWith<$Res> {
+  factory _$MDEDeckCopyWith(_MDEDeck value, $Res Function(_MDEDeck) then) =
+      __$MDEDeckCopyWithImpl<$Res>;
   @override
   $Res call(
       {UniqueId deckId,
       DeckTitle title,
       DeckAvatar avatar,
       DeckDescription description,
-      User author,
+      MDEUser author,
       DeckCategory category,
       bool isPrivate,
       bool availableQuickTrain,
       int cardsCount,
       int subscribersCount,
-      List<User> subscribers,
-      List<Card> cardsList});
+      List<MDEUser> subscribers,
+      List<MDECard> cardsList});
 
   @override
-  $UserCopyWith<$Res> get author;
+  $MDEUserCopyWith<$Res> get author;
   @override
   $DeckCategoryCopyWith<$Res> get category;
 }
 
-class __$DeckCopyWithImpl<$Res> extends _$DeckCopyWithImpl<$Res>
-    implements _$DeckCopyWith<$Res> {
-  __$DeckCopyWithImpl(_Deck _value, $Res Function(_Deck) _then)
-      : super(_value, (v) => _then(v as _Deck));
+class __$MDEDeckCopyWithImpl<$Res> extends _$MDEDeckCopyWithImpl<$Res>
+    implements _$MDEDeckCopyWith<$Res> {
+  __$MDEDeckCopyWithImpl(_MDEDeck _value, $Res Function(_MDEDeck) _then)
+      : super(_value, (v) => _then(v as _MDEDeck));
 
   @override
-  _Deck get _value => super._value as _Deck;
+  _MDEDeck get _value => super._value as _MDEDeck;
 
   @override
   $Res call({
@@ -199,14 +199,14 @@ class __$DeckCopyWithImpl<$Res> extends _$DeckCopyWithImpl<$Res>
     Object subscribers = freezed,
     Object cardsList = freezed,
   }) {
-    return _then(_Deck(
+    return _then(_MDEDeck(
       deckId: deckId == freezed ? _value.deckId : deckId as UniqueId,
       title: title == freezed ? _value.title : title as DeckTitle,
       avatar: avatar == freezed ? _value.avatar : avatar as DeckAvatar,
       description: description == freezed
           ? _value.description
           : description as DeckDescription,
-      author: author == freezed ? _value.author : author as User,
+      author: author == freezed ? _value.author : author as MDEUser,
       category:
           category == freezed ? _value.category : category as DeckCategory,
       isPrivate: isPrivate == freezed ? _value.isPrivate : isPrivate as bool,
@@ -219,15 +219,15 @@ class __$DeckCopyWithImpl<$Res> extends _$DeckCopyWithImpl<$Res>
           : subscribersCount as int,
       subscribers: subscribers == freezed
           ? _value.subscribers
-          : subscribers as List<User>,
+          : subscribers as List<MDEUser>,
       cardsList:
-          cardsList == freezed ? _value.cardsList : cardsList as List<Card>,
+          cardsList == freezed ? _value.cardsList : cardsList as List<MDECard>,
     ));
   }
 }
 
-class _$_Deck extends _Deck {
-  const _$_Deck(
+class _$_MDEDeck extends _MDEDeck {
+  const _$_MDEDeck(
       {@required this.deckId,
       @required this.title,
       @required this.avatar,
@@ -259,7 +259,7 @@ class _$_Deck extends _Deck {
   @override
   final DeckDescription description;
   @override
-  final User author;
+  final MDEUser author;
   @override
   final DeckCategory category;
   @override
@@ -271,19 +271,19 @@ class _$_Deck extends _Deck {
   @override
   final int subscribersCount;
   @override
-  final List<User> subscribers;
+  final List<MDEUser> subscribers;
   @override
-  final List<Card> cardsList;
+  final List<MDECard> cardsList;
 
   @override
   String toString() {
-    return 'Deck(deckId: $deckId, title: $title, avatar: $avatar, description: $description, author: $author, category: $category, isPrivate: $isPrivate, availableQuickTrain: $availableQuickTrain, cardsCount: $cardsCount, subscribersCount: $subscribersCount, subscribers: $subscribers, cardsList: $cardsList)';
+    return 'MDEDeck(deckId: $deckId, title: $title, avatar: $avatar, description: $description, author: $author, category: $category, isPrivate: $isPrivate, availableQuickTrain: $availableQuickTrain, cardsCount: $cardsCount, subscribersCount: $subscribersCount, subscribers: $subscribers, cardsList: $cardsList)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Deck &&
+        (other is _MDEDeck &&
             (identical(other.deckId, deckId) ||
                 const DeepCollectionEquality().equals(other.deckId, deckId)) &&
             (identical(other.title, title) ||
@@ -335,25 +335,25 @@ class _$_Deck extends _Deck {
       const DeepCollectionEquality().hash(cardsList);
 
   @override
-  _$DeckCopyWith<_Deck> get copyWith =>
-      __$DeckCopyWithImpl<_Deck>(this, _$identity);
+  _$MDEDeckCopyWith<_MDEDeck> get copyWith =>
+      __$MDEDeckCopyWithImpl<_MDEDeck>(this, _$identity);
 }
 
-abstract class _Deck extends Deck {
-  const _Deck._() : super._();
-  const factory _Deck(
+abstract class _MDEDeck extends MDEDeck {
+  const _MDEDeck._() : super._();
+  const factory _MDEDeck(
       {@required UniqueId deckId,
       @required DeckTitle title,
       @required DeckAvatar avatar,
       @required DeckDescription description,
-      @required User author,
+      @required MDEUser author,
       @required DeckCategory category,
       @required bool isPrivate,
       @required bool availableQuickTrain,
       int cardsCount,
       int subscribersCount,
-      List<User> subscribers,
-      List<Card> cardsList}) = _$_Deck;
+      List<MDEUser> subscribers,
+      List<MDECard> cardsList}) = _$_MDEDeck;
 
   @override
   UniqueId get deckId;
@@ -364,7 +364,7 @@ abstract class _Deck extends Deck {
   @override
   DeckDescription get description;
   @override
-  User get author;
+  MDEUser get author;
   @override
   DeckCategory get category;
   @override
@@ -376,9 +376,9 @@ abstract class _Deck extends Deck {
   @override
   int get subscribersCount;
   @override
-  List<User> get subscribers;
+  List<MDEUser> get subscribers;
   @override
-  List<Card> get cardsList;
+  List<MDECard> get cardsList;
   @override
-  _$DeckCopyWith<_Deck> get copyWith;
+  _$MDEDeckCopyWith<_MDEDeck> get copyWith;
 }

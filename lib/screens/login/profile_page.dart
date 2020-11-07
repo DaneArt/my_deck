@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:mydeck/models/entitites/deck.dart';
+import 'package:mydeck/models/entitites/mde_deck.dart';
 import 'package:mydeck/screens/library/local_widgets/deck_card_view.dart';
 import 'package:mydeck/services/datasources/user_config.dart';
 import 'package:mydeck/generated/l10n.dart';
 import 'package:mydeck/utils/custom_icons_icons.dart';
 import 'package:mydeck/utils/dependency_injection.dart';
-import 'package:mydeck/widgets/login_message_widget.dart';
+import 'package:mydeck/widgets/md_login_message_widget.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({Key key}) : super(key: key);
@@ -32,7 +32,7 @@ class ProfilePage extends StatelessWidget {
   Widget _buildBody(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     if (UserConfig.currentUser == null) {
-      return LoginMessageWidget();
+      return MDLoginMessageWidget();
     } else {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,7 +54,7 @@ class ProfilePage extends StatelessWidget {
 }
 
 class DecksListWidget extends StatefulWidget {
-  final List<Deck> decks;
+  final List<MDEDeck> decks;
 
   const DecksListWidget({
     Key key,
@@ -68,7 +68,7 @@ class DecksListWidget extends StatefulWidget {
 class _DecksListWidgetState extends State<DecksListWidget> {
   final ScrollController _controller = ScrollController();
 
-  List<Deck> get decks => widget.decks;
+  List<MDEDeck> get decks => widget.decks;
 
   @override
   Widget build(BuildContext context) {

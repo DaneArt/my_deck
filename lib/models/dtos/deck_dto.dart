@@ -1,19 +1,17 @@
-import 'dart:io';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'package:mydeck/models/dtos/file_dto.dart';
-import 'package:mydeck/models/entitites/deck.dart';
-import 'package:mydeck/models/entitites/unique_id.dart';
+import 'package:mydeck/models/entitites/mde_deck.dart';
 import 'package:mydeck/models/value_objects/deck_avatar.dart';
 import 'package:mydeck/models/value_objects/deck_description.dart';
 import 'package:mydeck/models/value_objects/deck_title.dart';
 import 'package:mydeck/models/dtos/user_dto.dart';
+import 'package:mydeck/models/value_objects/unique_id.dart';
 import 'package:mydeck/utils/file_factory.dart';
-import 'package:mydeck/utils/md_multipart_file.dart';
+
 import 'card_dto.dart';
 import 'deck_category.dart';
 
@@ -39,7 +37,7 @@ abstract class DeckDto implements _$DeckDto {
     @required @JsonKey(name: 'available_quick_train') bool availableQuickTrain,
   }) = _DeckDto;
 
-  factory DeckDto.fromDomain(Deck deck) => DeckDto(
+  factory DeckDto.fromDomain(MDEDeck deck) => DeckDto(
       authorId: deck.author.userId.getOrCrash,
       categoryName: deck.category.categoryName,
       id: deck.deckId.getOrCrash,
@@ -60,7 +58,7 @@ abstract class DeckDto implements _$DeckDto {
       subscribersCount: deck.subscribersCount,
       availableQuickTrain: deck.availableQuickTrain);
 
-  Deck toDomain() => Deck(
+  MDEDeck toDomain() => MDEDeck(
       deckId: UniqueId.fromString(id),
       title: DeckTitle(title),
       avatar: DeckAvatar(avatar.toDomain()),

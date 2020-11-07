@@ -1,9 +1,9 @@
-import 'package:mydeck/models/entitites/deck.dart';
 import 'package:flutter/material.dart';
+import 'package:mydeck/models/entitites/mde_deck.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class FeaturedDeckList extends StatefulWidget {
-  final List<Deck> decks;
+  final List<MDEDeck> decks;
   final int initialPage;
 
   const FeaturedDeckList({Key key, this.decks, this.initialPage = 0})

@@ -78,7 +78,7 @@ class _$LibraryStateTearOff {
   const _$LibraryStateTearOff();
 
   _LibraryState call(
-      {@required List<Deck> decks,
+      {@required List<MDEDeck> decks,
       @required bool isLoading,
       @required Option<Either<String, Unit>> loadingFailureOrSuccess}) {
     return _LibraryState(
@@ -93,7 +93,7 @@ class _$LibraryStateTearOff {
 const $LibraryState = _$LibraryStateTearOff();
 
 mixin _$LibraryState {
-  List<Deck> get decks;
+  List<MDEDeck> get decks;
   bool get isLoading;
   Option<Either<String, Unit>> get loadingFailureOrSuccess;
 
@@ -105,7 +105,7 @@ abstract class $LibraryStateCopyWith<$Res> {
           LibraryState value, $Res Function(LibraryState) then) =
       _$LibraryStateCopyWithImpl<$Res>;
   $Res call(
-      {List<Deck> decks,
+      {List<MDEDeck> decks,
       bool isLoading,
       Option<Either<String, Unit>> loadingFailureOrSuccess});
 }
@@ -124,7 +124,7 @@ class _$LibraryStateCopyWithImpl<$Res> implements $LibraryStateCopyWith<$Res> {
     Object loadingFailureOrSuccess = freezed,
   }) {
     return _then(_value.copyWith(
-      decks: decks == freezed ? _value.decks : decks as List<Deck>,
+      decks: decks == freezed ? _value.decks : decks as List<MDEDeck>,
       isLoading: isLoading == freezed ? _value.isLoading : isLoading as bool,
       loadingFailureOrSuccess: loadingFailureOrSuccess == freezed
           ? _value.loadingFailureOrSuccess
@@ -140,7 +140,7 @@ abstract class _$LibraryStateCopyWith<$Res>
       __$LibraryStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {List<Deck> decks,
+      {List<MDEDeck> decks,
       bool isLoading,
       Option<Either<String, Unit>> loadingFailureOrSuccess});
 }
@@ -161,7 +161,7 @@ class __$LibraryStateCopyWithImpl<$Res> extends _$LibraryStateCopyWithImpl<$Res>
     Object loadingFailureOrSuccess = freezed,
   }) {
     return _then(_LibraryState(
-      decks: decks == freezed ? _value.decks : decks as List<Deck>,
+      decks: decks == freezed ? _value.decks : decks as List<MDEDeck>,
       isLoading: isLoading == freezed ? _value.isLoading : isLoading as bool,
       loadingFailureOrSuccess: loadingFailureOrSuccess == freezed
           ? _value.loadingFailureOrSuccess
@@ -180,7 +180,7 @@ class _$_LibraryState implements _LibraryState {
         assert(loadingFailureOrSuccess != null);
 
   @override
-  final List<Deck> decks;
+  final List<MDEDeck> decks;
   @override
   final bool isLoading;
   @override
@@ -220,13 +220,13 @@ class _$_LibraryState implements _LibraryState {
 
 abstract class _LibraryState implements LibraryState {
   const factory _LibraryState(
-          {@required List<Deck> decks,
+          {@required List<MDEDeck> decks,
           @required bool isLoading,
           @required Option<Either<String, Unit>> loadingFailureOrSuccess}) =
       _$_LibraryState;
 
   @override
-  List<Deck> get decks;
+  List<MDEDeck> get decks;
   @override
   bool get isLoading;
   @override

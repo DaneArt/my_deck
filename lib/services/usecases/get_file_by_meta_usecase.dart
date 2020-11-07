@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 
 import 'package:mydeck/errors/storage_failure.dart';
 import 'package:mydeck/models/dtos/file_dto.dart';
-import 'package:mydeck/models/entitites/unique_id.dart';
+import 'package:mydeck/models/value_objects/unique_id.dart';
 import 'package:mydeck/services/repositories/file_repository.dart';
 import 'package:mydeck/services/usecases/usecase.dart';
 

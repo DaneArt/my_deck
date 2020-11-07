@@ -1,13 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mydeck/errors/storage_failure.dart';
+import 'package:mydeck/models/entitites/mde_deck.dart';
 import 'package:mydeck/services/repositories/deck_repository.dart';
-import 'package:mydeck/models/entitites/deck.dart';
 import 'package:mydeck/services/repositories/file_repository.dart';
 import 'package:mydeck/services/usecases/usecase.dart';
 import 'package:meta/meta.dart';
 
-class AddDeckUseCase extends UseCase<StorageFailure<Deck>, Deck, Params> {
+class AddDeckUseCase extends UseCase<StorageFailure<MDEDeck>, MDEDeck, Params> {
   final DeckRepository myDeckRepository;
   final FileRepository fileRepository;
 
@@ -15,7 +15,7 @@ class AddDeckUseCase extends UseCase<StorageFailure<Deck>, Deck, Params> {
       {@required this.fileRepository, @required this.myDeckRepository});
 
   @override
-  Future<Either<StorageFailure<Deck>, Deck>> call(params) async {
+  Future<Either<StorageFailure<MDEDeck>, MDEDeck>> call(params) async {
     final addAvatarResult =
         fileRepository.addFile(params.deck.avatar.getOrCrash);
     final addCardFilesResult = fileRepository.addFiles(
@@ -32,7 +32,7 @@ class AddDeckUseCase extends UseCase<StorageFailure<Deck>, Deck, Params> {
 }
 
 class Params extends Equatable {
-  final Deck deck;
+  final MDEDeck deck;
 
   Params(this.deck);
 

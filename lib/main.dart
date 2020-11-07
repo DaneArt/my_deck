@@ -34,6 +34,8 @@ class App {
   }
 }
 
+
+//This class needs for testing on http localhost
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext context) {
@@ -73,6 +75,7 @@ class MyDeckApp extends StatelessWidget {
       animDuration: Duration(seconds: 1),
       dismissOtherOnShow: true,
       movingOnWindowChange: true,
+      
       child: MaterialApp(
         localizationsDelegates: [
           S.delegate,

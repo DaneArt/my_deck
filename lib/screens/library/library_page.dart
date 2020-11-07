@@ -5,21 +5,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:mydeck/blocs/add_deck/add_deck_bloc.dart';
 import 'package:mydeck/blocs/library/library_bloc.dart';
+import 'package:mydeck/models/entitites/mde_deck.dart';
 import 'package:mydeck/utils/custom_icons_icons.dart';
 import 'package:mydeck/utils/widget_extensions.dart';
 import 'package:mydeck/utils/dependency_injection.dart';
-import 'package:mydeck/theme/my_deck_routes.dart';
 import 'package:mydeck/services/usecases/add_deck_usecase.dart';
 import 'package:mydeck/services/usecases/delete_deck_usecase.dart';
 import 'package:mydeck/services/usecases/save_deck_changes_usecase.dart';
 import 'package:mydeck/screens/deck_editor/add_deck_page.dart';
-import 'package:mydeck/models/entitites/deck.dart';
 import 'package:mydeck/screens/library/local_widgets/deck_card_view.dart';
 import 'package:mydeck/screens/library/local_widgets/deck_hub_idle_view.dart';
-import 'package:mydeck/widgets/login_message_widget.dart';
-import 'package:mydeck/widgets/login_to_cont_widget.dart';
-import 'package:mydeck/widgets/no_scroll_glow_behaviour.dart';
-import 'package:mydeck/widgets/undo_snackbar.dart';
+import 'package:mydeck/widgets/md_login_message_widget.dart';
+import 'package:mydeck/widgets/md_login_to_cont_widget.dart';
+import 'package:mydeck/widgets/md_no_scroll_glow_behaviour.dart';
 import 'package:mydeck/services/datasources/user_config.dart';
 import 'package:mydeck/services/usecases/upload_online_deck.dart';
 import 'package:mydeck/generated/l10n.dart';
@@ -63,8 +61,8 @@ class _LibraryPageState extends State<LibraryPage>
     BlocProvider.of<LibraryBloc>(context).add(LibraryEvent.loadUserLibrary());
   }
 
-  Widget _decksList(List<Deck> decks) => ScrollConfiguration(
-        behavior: NoScrollGlowBehaviour(),
+  Widget _decksList(List<MDEDeck> decks) => ScrollConfiguration(
+        behavior: MDNoScrollGlowBehaviour(),
         child: CustomScrollView(
           controller: _controller,
           physics: const AlwaysScrollableScrollPhysics(),
@@ -91,7 +89,7 @@ class _LibraryPageState extends State<LibraryPage>
     return BlocBuilder<LibraryBloc, LibraryState>(
       builder: (context, state) {
         if (UserConfig.currentUser == null) {
-          return LoginMessageWidget();
+          return MDLoginMessageWidget();
         } else if (state.isLoading) {
           return Center(child: CircularProgressIndicator());
         } else if (state.decks.isEmpty) {
@@ -117,7 +115,7 @@ class _LibraryPageState extends State<LibraryPage>
     final newDeck = await context.navigator.push(MaterialPageRoute(
         builder: (context) => BlocProvider(
               create: (context) => AddDeckBloc(
-                  deck: Deck.basic(),
+                  deck: MDEDeck.basic(),
                   deleteDeckUseCase: sl.get<DeleteDeckUseCase>(),
                   uploadOnlineDeckUsecase: sl.get<UploadOnlineDeckUsecase>(),
                   goal: AddDeckGoal.create,
@@ -147,13 +145,13 @@ class _LibraryPageState extends State<LibraryPage>
               if (UserConfig.currentUser == null) {
                 Scaffold.of(context).hideCurrentSnackBar();
                 Scaffold.of(context)
-                    .showSnackBar(LoginToContSnackbar(context: context));
+                    .showSnackBar(MDLoginToContSnackbar(context: context));
               } else {
                 context.navigator.push(
                   MaterialPageRoute(
                     builder: (ctx) => BlocProvider<AddDeckBloc>(
                       create: (BuildContext context) => AddDeckBloc(
-                          deck: Deck.basic(),
+                          deck: MDEDeck.basic(),
                           deleteDeckUseCase: sl.get<DeleteDeckUseCase>(),
                           uploadOnlineDeckUsecase:
                               sl.get<UploadOnlineDeckUsecase>(),
@@ -177,34 +175,7 @@ class _LibraryPageState extends State<LibraryPage>
       ),
       body: SafeArea(
         top: true,
-        child:
-/*         UserConfig.currentUser == null
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      S.of(context).deck_call_to_sign_up,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyText2,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  RaisedButton(
-                      color: Theme.of(context).accentColor,
-                      child: Text(
-                        S.of(context).login_sign_up.toUpperCase(),
-                        style: Theme.of(context).textTheme.button,
-                      ),
-                      onPressed: () {
-                        context.navigator.pushNamed(MyDeckRoutes.login);
-                        //TODO: implement registration
-                      }),
-                ],
-              )
-            : */
-            _buildBody(context),
+        child: _buildBody(context),
       ),
     );
   }

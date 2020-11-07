@@ -7,8 +7,6 @@ import 'package:mydeck/blocs/auth/auth_bloc.dart';
 import 'package:mydeck/blocs/library/library_bloc.dart';
 
 import 'package:mydeck/blocs/tab/tab_bloc.dart';
-import 'package:mydeck/blocs/train/train_bloc.dart';
-import 'package:mydeck/cubits/md_image/md_image_cubit.dart';
 import 'package:mydeck/services/datasources/file_local_datasource.dart';
 import 'package:mydeck/services/datasources/file_network_datasource.dart';
 import 'package:mydeck/services/repositories/file_repository.dart';
@@ -145,7 +143,7 @@ void setUp() {
   sl.registerFactory(() => GetFileByMetaUseCase(fileRepository: sl()));
   //blocs
   sl.registerFactory(() => AuthBloc(sl()));
-  sl.registerFactory(() => MDContentCubit());
+
   sl.registerFactory(() => LibraryBloc(
         loadUserLibrary: sl(),
       ));

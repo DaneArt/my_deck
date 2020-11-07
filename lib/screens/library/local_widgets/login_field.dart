@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
-import 'package:mydeck/widgets/ensure_field_visibility.dart';
 import 'package:flutter/material.dart';
+import 'package:mydeck/widgets/md_ensure_field_visibility.dart';
 
 typedef String FieldValidator(String param);
 
@@ -65,7 +65,7 @@ class _LoginFieldState extends State<LoginField> {
                 .copyWith(fontWeight: FontWeight.bold),
           ),
         ),
-        EnsureVisibleWhenFocused(
+        MDEnsureVisibleWhenFocused(
           focusNode: widget.focusNode,
           child: TextFormField(
             key: widget.fieldKey,

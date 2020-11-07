@@ -1,14 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mydeck/errors/storage_failure.dart';
-import 'package:mydeck/models/entitites/card.dart';
-import 'package:mydeck/models/entitites/md_file.dart';
-import 'package:mydeck/models/entitites/deck.dart';
+import 'package:mydeck/models/entitites/mde_deck.dart';
 import 'package:mydeck/services/usecases/usecase.dart';
 
-class GetDecksForTrainUseCase extends UseCase<StorageFailure, List<Deck>, NoParams> {
+class GetDecksForTrainUseCase extends UseCase<StorageFailure, List<MDEDeck>, NoParams> {
   @override
-  Future<Either<StorageFailure, List<Deck>>> call(NoParams params) async {
+  Future<Either<StorageFailure, List<MDEDeck>>> call(NoParams params) async {
     // params.decks.removeWhere((d) =>
     //     !d.title.isValid ||
     //     d.avatar.isValid ||

@@ -30,7 +30,7 @@ class _$CardEditorEventTearOff {
     return ChangeStatus();
   }
 
-  SetContent setContent(MDFile file) {
+  SetContent setContent(MDEFile file) {
     return SetContent(
       file,
     );
@@ -59,7 +59,7 @@ mixin _$CardEditorEvent {
     @required Result addCard(),
     @required Result changeIndex(int newIndex),
     @required Result changeStatus(),
-    @required Result setContent(MDFile file),
+    @required Result setContent(MDEFile file),
     @required Result backupCubits(),
     @required Result undoEdits(),
     @required Result saveChangesAndExit(),
@@ -70,7 +70,7 @@ mixin _$CardEditorEvent {
     Result addCard(),
     Result changeIndex(int newIndex),
     Result changeStatus(),
-    Result setContent(MDFile file),
+    Result setContent(MDEFile file),
     Result backupCubits(),
     Result undoEdits(),
     Result saveChangesAndExit(),
@@ -154,7 +154,7 @@ class _$DeleteCard implements DeleteCard {
     @required Result addCard(),
     @required Result changeIndex(int newIndex),
     @required Result changeStatus(),
-    @required Result setContent(MDFile file),
+    @required Result setContent(MDEFile file),
     @required Result backupCubits(),
     @required Result undoEdits(),
     @required Result saveChangesAndExit(),
@@ -177,7 +177,7 @@ class _$DeleteCard implements DeleteCard {
     Result addCard(),
     Result changeIndex(int newIndex),
     Result changeStatus(),
-    Result setContent(MDFile file),
+    Result setContent(MDEFile file),
     Result backupCubits(),
     Result undoEdits(),
     Result saveChangesAndExit(),
@@ -275,7 +275,7 @@ class _$AddCard implements AddCard {
     @required Result addCard(),
     @required Result changeIndex(int newIndex),
     @required Result changeStatus(),
-    @required Result setContent(MDFile file),
+    @required Result setContent(MDEFile file),
     @required Result backupCubits(),
     @required Result undoEdits(),
     @required Result saveChangesAndExit(),
@@ -298,7 +298,7 @@ class _$AddCard implements AddCard {
     Result addCard(),
     Result changeIndex(int newIndex),
     Result changeStatus(),
-    Result setContent(MDFile file),
+    Result setContent(MDEFile file),
     Result backupCubits(),
     Result undoEdits(),
     Result saveChangesAndExit(),
@@ -421,7 +421,7 @@ class _$ChangeIndex implements ChangeIndex {
     @required Result addCard(),
     @required Result changeIndex(int newIndex),
     @required Result changeStatus(),
-    @required Result setContent(MDFile file),
+    @required Result setContent(MDEFile file),
     @required Result backupCubits(),
     @required Result undoEdits(),
     @required Result saveChangesAndExit(),
@@ -444,7 +444,7 @@ class _$ChangeIndex implements ChangeIndex {
     Result addCard(),
     Result changeIndex(int newIndex),
     Result changeStatus(),
-    Result setContent(MDFile file),
+    Result setContent(MDEFile file),
     Result backupCubits(),
     Result undoEdits(),
     Result saveChangesAndExit(),
@@ -548,7 +548,7 @@ class _$ChangeStatus implements ChangeStatus {
     @required Result addCard(),
     @required Result changeIndex(int newIndex),
     @required Result changeStatus(),
-    @required Result setContent(MDFile file),
+    @required Result setContent(MDEFile file),
     @required Result backupCubits(),
     @required Result undoEdits(),
     @required Result saveChangesAndExit(),
@@ -571,7 +571,7 @@ class _$ChangeStatus implements ChangeStatus {
     Result addCard(),
     Result changeIndex(int newIndex),
     Result changeStatus(),
-    Result setContent(MDFile file),
+    Result setContent(MDEFile file),
     Result backupCubits(),
     Result undoEdits(),
     Result saveChangesAndExit(),
@@ -636,7 +636,7 @@ abstract class $SetContentCopyWith<$Res> {
   factory $SetContentCopyWith(
           SetContent value, $Res Function(SetContent) then) =
       _$SetContentCopyWithImpl<$Res>;
-  $Res call({MDFile file});
+  $Res call({MDEFile file});
 }
 
 class _$SetContentCopyWithImpl<$Res> extends _$CardEditorEventCopyWithImpl<$Res>
@@ -652,7 +652,7 @@ class _$SetContentCopyWithImpl<$Res> extends _$CardEditorEventCopyWithImpl<$Res>
     Object file = freezed,
   }) {
     return _then(SetContent(
-      file == freezed ? _value.file : file as MDFile,
+      file == freezed ? _value.file : file as MDEFile,
     ));
   }
 }
@@ -661,7 +661,7 @@ class _$SetContent implements SetContent {
   _$SetContent(this.file) : assert(file != null);
 
   @override
-  final MDFile file;
+  final MDEFile file;
 
   @override
   String toString() {
@@ -691,7 +691,7 @@ class _$SetContent implements SetContent {
     @required Result addCard(),
     @required Result changeIndex(int newIndex),
     @required Result changeStatus(),
-    @required Result setContent(MDFile file),
+    @required Result setContent(MDEFile file),
     @required Result backupCubits(),
     @required Result undoEdits(),
     @required Result saveChangesAndExit(),
@@ -714,7 +714,7 @@ class _$SetContent implements SetContent {
     Result addCard(),
     Result changeIndex(int newIndex),
     Result changeStatus(),
-    Result setContent(MDFile file),
+    Result setContent(MDEFile file),
     Result backupCubits(),
     Result undoEdits(),
     Result saveChangesAndExit(),
@@ -772,9 +772,9 @@ class _$SetContent implements SetContent {
 }
 
 abstract class SetContent implements CardEditorEvent {
-  factory SetContent(MDFile file) = _$SetContent;
+  factory SetContent(MDEFile file) = _$SetContent;
 
-  MDFile get file;
+  MDEFile get file;
   $SetContentCopyWith<SetContent> get copyWith;
 }
 
@@ -818,7 +818,7 @@ class _$BackupCubits implements BackupCubits {
     @required Result addCard(),
     @required Result changeIndex(int newIndex),
     @required Result changeStatus(),
-    @required Result setContent(MDFile file),
+    @required Result setContent(MDEFile file),
     @required Result backupCubits(),
     @required Result undoEdits(),
     @required Result saveChangesAndExit(),
@@ -841,7 +841,7 @@ class _$BackupCubits implements BackupCubits {
     Result addCard(),
     Result changeIndex(int newIndex),
     Result changeStatus(),
-    Result setContent(MDFile file),
+    Result setContent(MDEFile file),
     Result backupCubits(),
     Result undoEdits(),
     Result saveChangesAndExit(),
@@ -939,7 +939,7 @@ class _$UndoEdits implements UndoEdits {
     @required Result addCard(),
     @required Result changeIndex(int newIndex),
     @required Result changeStatus(),
-    @required Result setContent(MDFile file),
+    @required Result setContent(MDEFile file),
     @required Result backupCubits(),
     @required Result undoEdits(),
     @required Result saveChangesAndExit(),
@@ -962,7 +962,7 @@ class _$UndoEdits implements UndoEdits {
     Result addCard(),
     Result changeIndex(int newIndex),
     Result changeStatus(),
-    Result setContent(MDFile file),
+    Result setContent(MDEFile file),
     Result backupCubits(),
     Result undoEdits(),
     Result saveChangesAndExit(),
@@ -1063,7 +1063,7 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
     @required Result addCard(),
     @required Result changeIndex(int newIndex),
     @required Result changeStatus(),
-    @required Result setContent(MDFile file),
+    @required Result setContent(MDEFile file),
     @required Result backupCubits(),
     @required Result undoEdits(),
     @required Result saveChangesAndExit(),
@@ -1086,7 +1086,7 @@ class _$SaveChangesAndExit implements SaveChangesAndExit {
     Result addCard(),
     Result changeIndex(int newIndex),
     Result changeStatus(),
-    Result setContent(MDFile file),
+    Result setContent(MDEFile file),
     Result backupCubits(),
     Result undoEdits(),
     Result saveChangesAndExit(),
@@ -1154,7 +1154,6 @@ class _$CardEditorStateTearOff {
       {@required int currentCardIndex,
       @required List<CECardCubit> cardCubits,
       @required List<CECardCubit> backedUpCubits,
-      @required bool rebuild,
       @required AddDeckStatus status,
       @required AddDeckGoal goal,
       @required bool saveChangesAndExit}) {
@@ -1162,7 +1161,6 @@ class _$CardEditorStateTearOff {
       currentCardIndex: currentCardIndex,
       cardCubits: cardCubits,
       backedUpCubits: backedUpCubits,
-      rebuild: rebuild,
       status: status,
       goal: goal,
       saveChangesAndExit: saveChangesAndExit,
@@ -1177,7 +1175,6 @@ mixin _$CardEditorState {
   int get currentCardIndex;
   List<CECardCubit> get cardCubits;
   List<CECardCubit> get backedUpCubits;
-  bool get rebuild;
   AddDeckStatus get status;
   AddDeckGoal get goal;
   bool get saveChangesAndExit;
@@ -1193,7 +1190,6 @@ abstract class $CardEditorStateCopyWith<$Res> {
       {int currentCardIndex,
       List<CECardCubit> cardCubits,
       List<CECardCubit> backedUpCubits,
-      bool rebuild,
       AddDeckStatus status,
       AddDeckGoal goal,
       bool saveChangesAndExit});
@@ -1212,7 +1208,6 @@ class _$CardEditorStateCopyWithImpl<$Res>
     Object currentCardIndex = freezed,
     Object cardCubits = freezed,
     Object backedUpCubits = freezed,
-    Object rebuild = freezed,
     Object status = freezed,
     Object goal = freezed,
     Object saveChangesAndExit = freezed,
@@ -1227,7 +1222,6 @@ class _$CardEditorStateCopyWithImpl<$Res>
       backedUpCubits: backedUpCubits == freezed
           ? _value.backedUpCubits
           : backedUpCubits as List<CECardCubit>,
-      rebuild: rebuild == freezed ? _value.rebuild : rebuild as bool,
       status: status == freezed ? _value.status : status as AddDeckStatus,
       goal: goal == freezed ? _value.goal : goal as AddDeckGoal,
       saveChangesAndExit: saveChangesAndExit == freezed
@@ -1247,7 +1241,6 @@ abstract class _$CardEditorStateCopyWith<$Res>
       {int currentCardIndex,
       List<CECardCubit> cardCubits,
       List<CECardCubit> backedUpCubits,
-      bool rebuild,
       AddDeckStatus status,
       AddDeckGoal goal,
       bool saveChangesAndExit});
@@ -1268,7 +1261,6 @@ class __$CardEditorStateCopyWithImpl<$Res>
     Object currentCardIndex = freezed,
     Object cardCubits = freezed,
     Object backedUpCubits = freezed,
-    Object rebuild = freezed,
     Object status = freezed,
     Object goal = freezed,
     Object saveChangesAndExit = freezed,
@@ -1283,7 +1275,6 @@ class __$CardEditorStateCopyWithImpl<$Res>
       backedUpCubits: backedUpCubits == freezed
           ? _value.backedUpCubits
           : backedUpCubits as List<CECardCubit>,
-      rebuild: rebuild == freezed ? _value.rebuild : rebuild as bool,
       status: status == freezed ? _value.status : status as AddDeckStatus,
       goal: goal == freezed ? _value.goal : goal as AddDeckGoal,
       saveChangesAndExit: saveChangesAndExit == freezed
@@ -1298,14 +1289,12 @@ class _$_CardEditorState implements _CardEditorState {
       {@required this.currentCardIndex,
       @required this.cardCubits,
       @required this.backedUpCubits,
-      @required this.rebuild,
       @required this.status,
       @required this.goal,
       @required this.saveChangesAndExit})
       : assert(currentCardIndex != null),
         assert(cardCubits != null),
         assert(backedUpCubits != null),
-        assert(rebuild != null),
         assert(status != null),
         assert(goal != null),
         assert(saveChangesAndExit != null);
@@ -1317,8 +1306,6 @@ class _$_CardEditorState implements _CardEditorState {
   @override
   final List<CECardCubit> backedUpCubits;
   @override
-  final bool rebuild;
-  @override
   final AddDeckStatus status;
   @override
   final AddDeckGoal goal;
@@ -1327,7 +1314,7 @@ class _$_CardEditorState implements _CardEditorState {
 
   @override
   String toString() {
-    return 'CardEditorState(currentCardIndex: $currentCardIndex, cardCubits: $cardCubits, backedUpCubits: $backedUpCubits, rebuild: $rebuild, status: $status, goal: $goal, saveChangesAndExit: $saveChangesAndExit)';
+    return 'CardEditorState(currentCardIndex: $currentCardIndex, cardCubits: $cardCubits, backedUpCubits: $backedUpCubits, status: $status, goal: $goal, saveChangesAndExit: $saveChangesAndExit)';
   }
 
   @override
@@ -1343,9 +1330,6 @@ class _$_CardEditorState implements _CardEditorState {
             (identical(other.backedUpCubits, backedUpCubits) ||
                 const DeepCollectionEquality()
                     .equals(other.backedUpCubits, backedUpCubits)) &&
-            (identical(other.rebuild, rebuild) ||
-                const DeepCollectionEquality()
-                    .equals(other.rebuild, rebuild)) &&
             (identical(other.status, status) ||
                 const DeepCollectionEquality().equals(other.status, status)) &&
             (identical(other.goal, goal) ||
@@ -1361,7 +1345,6 @@ class _$_CardEditorState implements _CardEditorState {
       const DeepCollectionEquality().hash(currentCardIndex) ^
       const DeepCollectionEquality().hash(cardCubits) ^
       const DeepCollectionEquality().hash(backedUpCubits) ^
-      const DeepCollectionEquality().hash(rebuild) ^
       const DeepCollectionEquality().hash(status) ^
       const DeepCollectionEquality().hash(goal) ^
       const DeepCollectionEquality().hash(saveChangesAndExit);
@@ -1376,7 +1359,6 @@ abstract class _CardEditorState implements CardEditorState {
       {@required int currentCardIndex,
       @required List<CECardCubit> cardCubits,
       @required List<CECardCubit> backedUpCubits,
-      @required bool rebuild,
       @required AddDeckStatus status,
       @required AddDeckGoal goal,
       @required bool saveChangesAndExit}) = _$_CardEditorState;
@@ -1387,8 +1369,6 @@ abstract class _CardEditorState implements CardEditorState {
   List<CECardCubit> get cardCubits;
   @override
   List<CECardCubit> get backedUpCubits;
-  @override
-  bool get rebuild;
   @override
   AddDeckStatus get status;
   @override

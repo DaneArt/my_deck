@@ -1,24 +1,21 @@
 import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mydeck/cubits/md_image/md_image_cubit.dart';
-import 'package:mydeck/models/entitites/md_file.dart';
-import 'package:mydeck/models/entitites/unique_id.dart';
-import 'package:mydeck/models/value_objects/deck_avatar.dart';
-import 'package:mydeck/utils/dependency_injection.dart';
-import 'package:mydeck/utils/images_util.dart';
 import 'package:flutter/material.dart';
-
 import 'package:image_picker/image_picker.dart';
-import 'package:mydeck/generated/l10n.dart';
-import 'package:mydeck/widgets/image_picker_modal_bottom_sheet.dart';
-import 'package:mydeck/widgets/md_image.dart';
 
-class ImagePickerWidget extends StatefulWidget {
-  final Function(ImageFile image) onImagePicked;
+import 'package:mydeck/cubits/md_content/md_content_cubit.dart';
+import 'package:mydeck/models/entitites/mde_file.dart';
+import 'package:mydeck/models/value_objects/deck_avatar.dart';
+import 'package:mydeck/models/value_objects/unique_id.dart';
+import 'md_image.dart';
+import 'md_image_picker_modal_bottom_sheet.dart';
+
+class MDImagePicker extends StatefulWidget {
+  final Function(MDImageFile image) onImagePicked;
   final DeckAvatar defaultAvatar;
   final bool enabled;
-  ImagePickerWidget({
+  MDImagePicker({
     Key key,
     @required this.onImagePicked,
     @required this.defaultAvatar,
@@ -26,10 +23,10 @@ class ImagePickerWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ImagePickerWidgetState createState() => _ImagePickerWidgetState();
+  _MDImagePickerState createState() => _MDImagePickerState();
 }
 
-class _ImagePickerWidgetState extends State<ImagePickerWidget> {
+class _MDImagePickerState extends State<MDImagePicker> {
   @override
   void initState() {
     super.initState();
@@ -41,7 +38,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
     if (file != null) {
       setState(() {
         widget.onImagePicked(
-            ImageFile(uniqueId: UniqueId(), file: File(file.path)));
+            MDImageFile(uniqueId: UniqueId(), file: File(file.path)));
       });
     }
   }
@@ -67,7 +64,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                     showModalBottomSheet(
                       backgroundColor: Colors.transparent,
                       context: context,
-                      builder: (context) => ImagePickerModalBottomSheet(
+                      builder: (context) => MDImagePickerModalBottomSheet(
                         onPickImage: _pickImage,
                       ),
                     );
@@ -83,8 +80,8 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                   ),
                 ),
               ),
-              (value) => BlocProvider<MDContentCubit>(
-                create: (context) => sl.get<MDContentCubit>(),
+              (value) => BlocProvider<MDContentCubit<File>>(
+                create: (context) => MDContentCubit<File>(),
                 child: MDImage(
                   image: value,
                   height: screenSize.width / 2.5 * 1.4,

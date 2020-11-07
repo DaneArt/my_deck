@@ -6,7 +6,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:mydeck/errors/failures.dart';
 import 'package:mydeck/models/dtos/deck_category.dart';
-import 'package:mydeck/models/entitites/deck.dart';
+import 'package:mydeck/models/entitites/mde_deck.dart';
 import 'package:mydeck/services/usecases/load_decks_page_for_category_usecase.dart';
 
 part 'decks_feed_tile_event.dart';
@@ -52,7 +52,7 @@ class FeedTileBloc extends Bloc<FeedTileEvent, FeedTileState> {
                 isLoading: false,
                 loadingPageFailureOrSuccess: some(failure),
               ), (result) {
-        final decks = List<Deck>.from(state.decksList);
+        final decks = List<MDEDeck>.from(state.decksList);
         decks.addAll(result);
         return state.copyWith(
           isLoading: false,

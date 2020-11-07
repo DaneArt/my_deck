@@ -1,10 +1,7 @@
-import 'package:mydeck/blocs/train/train_bloc.dart';
-import 'package:mydeck/models/entitites/deck.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:mydeck/screens/train/local_widgets/end_of_train_widget.dart';
-import 'package:mydeck/screens/train/local_widgets/training_body_widget.dart';
+import 'package:mydeck/blocs/train/train_bloc.dart';
 
 class TrainingPage extends StatelessWidget {
   const TrainingPage({Key key}) : super(key: key);

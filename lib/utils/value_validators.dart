@@ -5,8 +5,9 @@ import 'package:crypto/crypto.dart';
 import 'package:dartz/dartz.dart';
 import 'package:jose/jose.dart';
 import 'package:mydeck/errors/value_failure.dart';
-import 'package:mydeck/models/entitites/md_file.dart';
-import 'package:mydeck/models/entitites/unique_id.dart';
+import 'package:mydeck/models/entitites/mde_file.dart';
+import 'package:mydeck/models/value_objects/unique_id.dart';
+
 import 'package:mydeck/utils/file_extensions.dart';
 
 final _kPasswordRegexp =
@@ -80,11 +81,11 @@ Either<ValueFailure<String>, String> validateDeckTitle(String input) {
   }
 }
 
-Either<ValueFailure<ImageFile>, ImageFile> validateDeckAvatar(File input) {
+Either<ValueFailure<MDImageFile>, MDImageFile> validateDeckAvatar(File input) {
   if (input == null) {
     return left(
       ValueFailure.fileDoesNotExists(
-        failedValue: ImageFile(
+        failedValue: MDImageFile(
           file: input,
           uniqueId: UniqueId(),
         ),
@@ -93,7 +94,7 @@ Either<ValueFailure<ImageFile>, ImageFile> validateDeckAvatar(File input) {
   } else if (!input.existsSync()) {
     return left(
       ValueFailure.fileDoesNotExists(
-        failedValue: ImageFile(
+        failedValue: MDImageFile(
           file: input,
           uniqueId: UniqueId(),
         ),
@@ -104,7 +105,7 @@ Either<ValueFailure<ImageFile>, ImageFile> validateDeckAvatar(File input) {
       input.extension != 'jpeg') {
     return left(
       ValueFailure.wrongFileExtension(
-        failedValue: ImageFile(
+        failedValue: MDImageFile(
           file: input,
           uniqueId: UniqueId(),
         ),
@@ -112,7 +113,7 @@ Either<ValueFailure<ImageFile>, ImageFile> validateDeckAvatar(File input) {
     );
   } else {
     return right(
-      ImageFile(
+      MDImageFile(
         file: input,
         uniqueId: UniqueId(),
       ),

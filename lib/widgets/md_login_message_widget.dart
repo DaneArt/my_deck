@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mydeck/theme/my_deck_routes.dart';
 
-class LoginMessageWidget extends StatelessWidget {
-  const LoginMessageWidget({
+class MDLoginMessageWidget extends StatelessWidget {
+  const MDLoginMessageWidget({
     Key key,
   }) : super(key: key);
 

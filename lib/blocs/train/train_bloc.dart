@@ -7,8 +7,8 @@ import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:mydeck/errors/train_failure.dart';
-import 'package:mydeck/models/entitites/card.dart';
-import 'package:mydeck/models/entitites/deck.dart';
+import 'package:mydeck/models/entitites/mde_card.dart';
+import 'package:mydeck/models/entitites/mde_deck.dart';
 import 'package:mydeck/services/usecases/get_decks_for_train_usecase.dart';
 import 'package:mydeck/services/usecases/update_trained_cards.dart';
 
@@ -26,7 +26,7 @@ class TrainBloc extends Bloc<TrainEvent, TrainState> {
   final GetDecksForTrainUseCase getDecksForTrain;
 
   TrainBloc({
-    @required Queue<Deck> decksToTrain,
+    @required Queue<MDEDeck> decksToTrain,
     @required this.updateTrainedCards,
     @required this.getDecksForTrain,
   }) : super(TrainState.initial(decksToTrain));

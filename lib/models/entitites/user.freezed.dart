@@ -9,17 +9,17 @@ part of 'user.dart';
 
 T _$identity<T>(T value) => value;
 
-class _$UserTearOff {
-  const _$UserTearOff();
+class _$MDEUserTearOff {
+  const _$MDEUserTearOff();
 
-  _User call(
+  _MDEUser call(
       {@required Username username,
       @required EmailAddress email,
-      @required ImageFile avatar,
-      @required List<User> subscribers,
-      @required List<User> subscribes,
+      @required MDImageFile avatar,
+      @required List<MDEUser> subscribers,
+      @required List<MDEUser> subscribes,
       @required UniqueId userId}) {
-    return _User(
+    return _MDEUser(
       username: username,
       email: email,
       avatar: avatar,
@@ -31,37 +31,37 @@ class _$UserTearOff {
 }
 
 // ignore: unused_element
-const $User = _$UserTearOff();
+const $MDEUser = _$MDEUserTearOff();
 
-mixin _$User {
+mixin _$MDEUser {
   Username get username;
   EmailAddress get email;
-  ImageFile get avatar;
-  List<User> get subscribers;
-  List<User> get subscribes;
+  MDImageFile get avatar;
+  List<MDEUser> get subscribers;
+  List<MDEUser> get subscribes;
   UniqueId get userId;
 
-  $UserCopyWith<User> get copyWith;
+  $MDEUserCopyWith<MDEUser> get copyWith;
 }
 
-abstract class $UserCopyWith<$Res> {
-  factory $UserCopyWith(User value, $Res Function(User) then) =
-      _$UserCopyWithImpl<$Res>;
+abstract class $MDEUserCopyWith<$Res> {
+  factory $MDEUserCopyWith(MDEUser value, $Res Function(MDEUser) then) =
+      _$MDEUserCopyWithImpl<$Res>;
   $Res call(
       {Username username,
       EmailAddress email,
-      ImageFile avatar,
-      List<User> subscribers,
-      List<User> subscribes,
+      MDImageFile avatar,
+      List<MDEUser> subscribers,
+      List<MDEUser> subscribes,
       UniqueId userId});
 }
 
-class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
-  _$UserCopyWithImpl(this._value, this._then);
+class _$MDEUserCopyWithImpl<$Res> implements $MDEUserCopyWith<$Res> {
+  _$MDEUserCopyWithImpl(this._value, this._then);
 
-  final User _value;
+  final MDEUser _value;
   // ignore: unused_field
-  final $Res Function(User) _then;
+  final $Res Function(MDEUser) _then;
 
   @override
   $Res call({
@@ -75,37 +75,38 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
     return _then(_value.copyWith(
       username: username == freezed ? _value.username : username as Username,
       email: email == freezed ? _value.email : email as EmailAddress,
-      avatar: avatar == freezed ? _value.avatar : avatar as ImageFile,
+      avatar: avatar == freezed ? _value.avatar : avatar as MDImageFile,
       subscribers: subscribers == freezed
           ? _value.subscribers
-          : subscribers as List<User>,
-      subscribes:
-          subscribes == freezed ? _value.subscribes : subscribes as List<User>,
+          : subscribers as List<MDEUser>,
+      subscribes: subscribes == freezed
+          ? _value.subscribes
+          : subscribes as List<MDEUser>,
       userId: userId == freezed ? _value.userId : userId as UniqueId,
     ));
   }
 }
 
-abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
-  factory _$UserCopyWith(_User value, $Res Function(_User) then) =
-      __$UserCopyWithImpl<$Res>;
+abstract class _$MDEUserCopyWith<$Res> implements $MDEUserCopyWith<$Res> {
+  factory _$MDEUserCopyWith(_MDEUser value, $Res Function(_MDEUser) then) =
+      __$MDEUserCopyWithImpl<$Res>;
   @override
   $Res call(
       {Username username,
       EmailAddress email,
-      ImageFile avatar,
-      List<User> subscribers,
-      List<User> subscribes,
+      MDImageFile avatar,
+      List<MDEUser> subscribers,
+      List<MDEUser> subscribes,
       UniqueId userId});
 }
 
-class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
-    implements _$UserCopyWith<$Res> {
-  __$UserCopyWithImpl(_User _value, $Res Function(_User) _then)
-      : super(_value, (v) => _then(v as _User));
+class __$MDEUserCopyWithImpl<$Res> extends _$MDEUserCopyWithImpl<$Res>
+    implements _$MDEUserCopyWith<$Res> {
+  __$MDEUserCopyWithImpl(_MDEUser _value, $Res Function(_MDEUser) _then)
+      : super(_value, (v) => _then(v as _MDEUser));
 
   @override
-  _User get _value => super._value as _User;
+  _MDEUser get _value => super._value as _MDEUser;
 
   @override
   $Res call({
@@ -116,22 +117,23 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
     Object subscribes = freezed,
     Object userId = freezed,
   }) {
-    return _then(_User(
+    return _then(_MDEUser(
       username: username == freezed ? _value.username : username as Username,
       email: email == freezed ? _value.email : email as EmailAddress,
-      avatar: avatar == freezed ? _value.avatar : avatar as ImageFile,
+      avatar: avatar == freezed ? _value.avatar : avatar as MDImageFile,
       subscribers: subscribers == freezed
           ? _value.subscribers
-          : subscribers as List<User>,
-      subscribes:
-          subscribes == freezed ? _value.subscribes : subscribes as List<User>,
+          : subscribers as List<MDEUser>,
+      subscribes: subscribes == freezed
+          ? _value.subscribes
+          : subscribes as List<MDEUser>,
       userId: userId == freezed ? _value.userId : userId as UniqueId,
     ));
   }
 }
 
-class _$_User extends _User {
-  _$_User(
+class _$_MDEUser extends _MDEUser {
+  _$_MDEUser(
       {@required this.username,
       @required this.email,
       @required this.avatar,
@@ -151,23 +153,23 @@ class _$_User extends _User {
   @override
   final EmailAddress email;
   @override
-  final ImageFile avatar;
+  final MDImageFile avatar;
   @override
-  final List<User> subscribers;
+  final List<MDEUser> subscribers;
   @override
-  final List<User> subscribes;
+  final List<MDEUser> subscribes;
   @override
   final UniqueId userId;
 
   @override
   String toString() {
-    return 'User(username: $username, email: $email, avatar: $avatar, subscribers: $subscribers, subscribes: $subscribes, userId: $userId)';
+    return 'MDEUser(username: $username, email: $email, avatar: $avatar, subscribers: $subscribers, subscribes: $subscribes, userId: $userId)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _User &&
+        (other is _MDEUser &&
             (identical(other.username, username) ||
                 const DeepCollectionEquality()
                     .equals(other.username, username)) &&
@@ -196,32 +198,32 @@ class _$_User extends _User {
       const DeepCollectionEquality().hash(userId);
 
   @override
-  _$UserCopyWith<_User> get copyWith =>
-      __$UserCopyWithImpl<_User>(this, _$identity);
+  _$MDEUserCopyWith<_MDEUser> get copyWith =>
+      __$MDEUserCopyWithImpl<_MDEUser>(this, _$identity);
 }
 
-abstract class _User extends User {
-  _User._() : super._();
-  factory _User(
+abstract class _MDEUser extends MDEUser {
+  _MDEUser._() : super._();
+  factory _MDEUser(
       {@required Username username,
       @required EmailAddress email,
-      @required ImageFile avatar,
-      @required List<User> subscribers,
-      @required List<User> subscribes,
-      @required UniqueId userId}) = _$_User;
+      @required MDImageFile avatar,
+      @required List<MDEUser> subscribers,
+      @required List<MDEUser> subscribes,
+      @required UniqueId userId}) = _$_MDEUser;
 
   @override
   Username get username;
   @override
   EmailAddress get email;
   @override
-  ImageFile get avatar;
+  MDImageFile get avatar;
   @override
-  List<User> get subscribers;
+  List<MDEUser> get subscribers;
   @override
-  List<User> get subscribes;
+  List<MDEUser> get subscribes;
   @override
   UniqueId get userId;
   @override
-  _$UserCopyWith<_User> get copyWith;
+  _$MDEUserCopyWith<_MDEUser> get copyWith;
 }

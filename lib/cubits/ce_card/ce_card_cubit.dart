@@ -3,19 +3,16 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:mydeck/models/dtos/file_dto.dart';
-import 'package:mydeck/models/entitites/card.dart';
-import 'package:mydeck/models/entitites/md_file.dart';
-import 'package:mydeck/models/entitites/unique_id.dart';
-import 'package:mydeck/utils/file_factory.dart';
+import 'package:mydeck/models/entitites/mde_card.dart';
+import 'package:mydeck/models/entitites/mde_file.dart';
 import 'ce_card_state.dart';
 
 class CECardCubit extends Cubit<CECardState> {
-  CECardCubit({@required Card card})
+  CECardCubit({@required MDECard card})
       : assert(card != null),
         super(CECardState.initial(card: card));
 
-  Future<void> setContent(MDFile file) async {
+  Future<void> setContent(MDEFile file) async {
     if (state.isQuestion) {
       final updateResult = _updateContent(state.card.question, file);
       emit((await updateResult).fold(
@@ -35,13 +32,13 @@ class CECardCubit extends Cubit<CECardState> {
     if (state.isQuestion) {
       emit(state.copyWith(
           card: state.card.copyWith(
-              question: TextFile(
+              question: MDTextFile(
                   uniqueId: state.card.question.uniqueId, text: text))));
     } else {
       emit(state.copyWith(
           card: state.card.copyWith(
               answer:
-                  TextFile(uniqueId: state.card.answer.uniqueId, text: text))));
+                  MDTextFile(uniqueId: state.card.answer.uniqueId, text: text))));
     }
   }
 
@@ -49,19 +46,19 @@ class CECardCubit extends Cubit<CECardState> {
     if (state.isQuestion) {
       emit(state.copyWith(
           card: state.card.copyWith(
-              question: ImageFile(
+              question: MDImageFile(
                   uniqueId: state.card.question.uniqueId, file: image))));
     } else {
       emit(state.copyWith(
           card: state.card.copyWith(
-              answer: ImageFile(
+              answer: MDImageFile(
                   uniqueId: state.card.answer.uniqueId, file: image))));
     }
   }
 
-  Future<Option<MDFile>> _updateContent(
-      MDFile currentFile, MDFile newContent) async {
-    if (newContent is TextFile && currentFile is TextFile) {
+  Future<Option<MDEFile>> _updateContent(
+      MDEFile currentFile, MDEFile newContent) async {
+    if (newContent is MDTextFile && currentFile is MDTextFile) {
       return none();
     } else {
       return some(newContent);

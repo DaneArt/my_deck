@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:mydeck/blocs/add_deck/add_deck_bloc.dart';
+import 'package:mydeck/models/entitites/mde_deck.dart';
 import 'package:mydeck/utils/custom_icons_icons.dart';
 import 'package:mydeck/utils/dependency_injection.dart';
 import 'package:mydeck/screens/deck_editor/add_deck_page.dart';
-import 'package:mydeck/models/entitites/deck.dart';
 import 'package:mydeck/services/usecases/add_deck_usecase.dart';
 import 'package:mydeck/services/usecases/delete_deck_usecase.dart';
 import 'package:mydeck/services/usecases/save_deck_changes_usecase.dart';
 import 'package:mydeck/services/usecases/upload_online_deck.dart';
 
 class SmallDeckCard extends StatelessWidget {
-  final Deck deck;
+  final MDEDeck deck;
 
   const SmallDeckCard({Key key, this.deck}) : super(key: key);
 

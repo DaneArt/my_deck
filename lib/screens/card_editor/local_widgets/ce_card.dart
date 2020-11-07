@@ -1,28 +1,13 @@
-import 'dart:io';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:mydeck/cubits/ce_card/ce_card_cubit.dart';
-import 'package:mydeck/cubits/ce_card/ce_card_state.dart';
-import 'package:mydeck/cubits/md_image/md_image_cubit.dart';
-import 'package:mydeck/generated/l10n.dart';
-import 'package:mydeck/models/entitites/md_file.dart';
-import 'package:mydeck/screens/deck_editor/local_widgets/md_edit_text.dart';
-import 'package:mydeck/utils/custom_icons_icons.dart';
-import 'package:mydeck/models/entitites/card.dart' as entity;
-import 'package:mydeck/utils/dependency_injection.dart';
-import 'package:mydeck/widgets/image_picker_modal_bottom_sheet.dart';
-import 'package:mydeck/widgets/md_image.dart';
-import 'package:mydeck/widgets/no_scroll_glow_behaviour.dart';
+part of '../card_editor.dart';
 
-class CECard extends StatelessWidget {
+class _CECard extends StatelessWidget {
   final int cardIndex;
   final CECardCubit cubit;
   final bool editable;
-  final Function(entity.Card updatedCard) onUpdate;
-  const CECard(
+  final Function(MDECard updatedCard) onUpdate;
+
+  const _CECard(
       {Key key,
       @required this.cardIndex,
       @required this.cubit,
@@ -33,14 +18,12 @@ class CECard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScrollConfiguration(
-      behavior: NoScrollGlowBehaviour(),
+      behavior: MDNoScrollGlowBehaviour(),
       child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Card(
-            elevation: 8,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(16))),
+  
             child: BlocBuilder<CECardCubit, CECardState>(
               cubit: cubit,
               builder: (context, state) {
@@ -100,17 +83,17 @@ class CECard extends StatelessWidget {
   }
 
   Widget _renderContent(
-      BuildContext context, MDFile content, double height, double width) {
+      BuildContext context, MDEFile content, double height, double width) {
     return Container(
-      key: ValueKey(content.uniqueId.getOrCrash),
+      key: ValueKey(content.uniqueId.toString() + editable.toString()),
       width: width,
       height: height,
-      child: content is ImageFile
+      child: content is MDImageFile
           ? GestureDetector(
               onTap: () {
                 showModalBottomSheet(
                     context: context,
-                    builder: (context) => ImagePickerModalBottomSheet(
+                    builder: (context) => MDImagePickerModalBottomSheet(
                           onPickImage: (ImageSource imageSource) async {
                             final newImage = await ImagePicker()
                                 .getImage(source: imageSource);
@@ -125,10 +108,10 @@ class CECard extends StatelessWidget {
               child: ClipRRect(
                 borderRadius:
                     const BorderRadius.vertical(bottom: Radius.circular(8)),
-                child: BlocProvider(
-                  create: (context) => sl.get<MDContentCubit>(),
+                child: BlocProvider<MDContentCubit<File>>(
+                  create: (context) => MDContentCubit<File>(),
                   child: MDImage(
-                    key: ValueKey(content.uniqueId),
+                    key: ValueKey(content.uniqueId.getOrCrash + " Image"),
                     image: content,
                     width: width,
                     editable: editable,
@@ -137,16 +120,23 @@ class CECard extends StatelessWidget {
                 ),
               ),
             )
-          : MDEditText(
-              key: ValueKey(content.uniqueId),
-              initialFile: content,
-              height: height,
-              editable: editable,
-              width: width,
-              onChanged: (value) {
-                cubit.updateText(value);
-              },
-            ),
+          : BlocProvider<MDContentCubit<String>>(
+            create: (context) => MDContentCubit<String>(),
+            child: editable
+              ? MDEditText(
+                  key: ValueKey(content.uniqueId.getOrCrash + " EditText"),
+                  initialFile: content,
+                  height: height,
+                  width: width,
+                  onChanged: (value) {
+                    cubit.updateText(value);
+                  },
+                )
+              : MDText(
+                  key: ValueKey(content.uniqueId.getOrCrash + " Text"),
+                  text: content,
+                ),
+          ),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(8))),
     );

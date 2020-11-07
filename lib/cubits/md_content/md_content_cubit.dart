@@ -1,24 +1,27 @@
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:mydeck/models/dtos/file_dto.dart';
-import 'package:mydeck/models/entitites/md_file.dart';
+import 'package:mydeck/models/entitites/mde_file.dart';
 
-
-part 'md_content_state.dart';
 part 'md_content_cubit.freezed.dart';
+part 'md_content_state.dart';
 
-class MDContentCubit extends Cubit<MDContentState> {
+class MDContentCubit<T> extends Cubit<MDContentState<T>> {
   MDContentCubit() : super(MDContentState.initial());
 
-  Future<void> initFile(ImageFile sourceFile) async {
+  Future<void> initFile(MDEFile sourceFile) async {
     emit(MDContentState.loading());
-    final result = await sourceFile.getFileValue();
+   Either result;
+    if (sourceFile is MDImageFile) {
+      result = await sourceFile.getFileValue();
+    } else if (sourceFile is MDTextFile) {
+      result = await sourceFile.cachedTextValue;
+    }
+
     emit(
       result.fold(
         (error) => MDContentState.error(),
-        (file) => MDContentState.loaded(file),
+        (success) => MDContentState.loaded(success),
       ),
     );
   }

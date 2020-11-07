@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-class EnsureVisibleWhenFocused extends StatefulWidget {
-  const EnsureVisibleWhenFocused({
+class MDEnsureVisibleWhenFocused extends StatefulWidget {
+  const MDEnsureVisibleWhenFocused({
     Key key,
     @required this.child,
     @required this.focusNode,
@@ -26,11 +26,11 @@ class EnsureVisibleWhenFocused extends StatefulWidget {
   /// Defaults to 100 milliseconds.
   final Duration duration;
 
-  EnsureVisibleWhenFocusedState createState() =>
-      new EnsureVisibleWhenFocusedState();
+  MDEnsureVisibleWhenFocusedState createState() =>
+      new MDEnsureVisibleWhenFocusedState();
 }
 
-class EnsureVisibleWhenFocusedState extends State<EnsureVisibleWhenFocused> {
+class MDEnsureVisibleWhenFocusedState extends State<MDEnsureVisibleWhenFocused> {
   @override
   void initState() {
     super.initState();

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mydeck/generated/l10n.dart';
 import 'package:mydeck/theme/my_deck_routes.dart';
 
-class LoginToContSnackbar extends SnackBar {
-  LoginToContSnackbar({
+class MDLoginToContSnackbar extends SnackBar {
+  MDLoginToContSnackbar({
     Key key,
     @required BuildContext context,
   }) : super(

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class ImagePickerModalBottomSheet extends StatelessWidget {
+class MDImagePickerModalBottomSheet extends StatelessWidget {
   final Function(ImageSource imageSource) onPickImage;
-  const ImagePickerModalBottomSheet({
+  const MDImagePickerModalBottomSheet({
     Key key,
     @required this.onPickImage,
   }) : super(key: key);

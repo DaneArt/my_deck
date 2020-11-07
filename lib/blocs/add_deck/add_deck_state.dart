@@ -10,28 +10,28 @@ abstract class AddDeckState with _$AddDeckState {
     @required DeckTitle title,
     @required DeckDescription description,
     @required DeckAvatar avatar,
-    @required Deck freezedDeck, //Last saved deck state
+    @required MDEDeck freezedDeck, //Last saved deck state
     @required bool isShared,
     @required AddDeckStatus status,
     @required AddDeckGoal goal,
     @required DeckCategory category,
     @required bool availableQuickTrain,
-    @required User author,
+    @required MDEUser author,
     @required Option<Either<StorageFailure, Unit>> loadingFailureOrSuccess,
     @required Option<Either<StorageFailure, Unit>> savingFailureOrSuccess,
     @required Option<Either<StorageFailure, Unit>> deleteFailureOrSuccess,
     @required bool isPending,
-    @required List<Card> cardsList,
+    @required List<MDECard> cardsList,
   }) = _AddDeckState;
 
   factory AddDeckState.initial(
-          {@required Deck initialDeck,
+          {@required MDEDeck initialDeck,
           @required AddDeckStatus status,
           @required AddDeckGoal goal}) =>
       AddDeckState(
         avatar: initialDeck.avatar,
         freezedDeck: initialDeck,
-        cardsList: initialDeck is Deck ? [] : initialDeck.cardsList,
+        cardsList: initialDeck is MDEDeck ? [] : initialDeck.cardsList,
         category: initialDeck.category,
         description: initialDeck.description,
         isShared: !initialDeck.isPrivate,

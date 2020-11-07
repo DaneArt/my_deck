@@ -1,11 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:mydeck/models/dtos/deck_category.dart';
+part of '../add_deck_page.dart';
 
-class CategoryPicker extends StatefulWidget {
+class _CategoryPicker extends StatefulWidget {
   final DeckCategory baseCategory;
   final ValueChanged<dynamic> onChanged;
 
-  const CategoryPicker(
+  const _CategoryPicker(
       {Key key, @required this.baseCategory, @required this.onChanged})
       : super(key: key);
 
@@ -13,7 +12,7 @@ class CategoryPicker extends StatefulWidget {
   _CategoryPickerState createState() => _CategoryPickerState();
 }
 
-class _CategoryPickerState extends State<CategoryPicker> {
+class _CategoryPickerState extends State<_CategoryPicker> {
   DeckCategory pickedCategory;
 
   @override
@@ -37,7 +36,7 @@ class _CategoryPickerState extends State<CategoryPicker> {
                     style: Theme.of(context)
                         .textTheme
                         .bodyText1
-                        .copyWith(fontSize: 20)),
+                        ),
               ),
             ),
           ),

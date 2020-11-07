@@ -23,13 +23,12 @@ dependencies:
   colorful_safe_area: ^0.2.0
   crypto: ^2.1.5
   cupertino_icons: ^0.1.2
-  dartkt: ^1.0.4
+  kt_dart: ^0.8.0
   dartz: ^0.8.9
   data_connection_checker: ^0.3.4
   dio: ^3.0.9
   dio_cookie_manager: ^1.0.0
   equatable: ^1.2.3
-  floor: ^0.11.0
   flutter_bloc: ^6.0.1
   flutter_styled_toast: ^1.2.1
   flutter_swiper: ^1.1.6

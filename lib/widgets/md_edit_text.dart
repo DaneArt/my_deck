@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:mydeck/models/entitites/md_file.dart';
-import 'package:mydeck/models/entitites/unique_id.dart';
-import 'package:mydeck/widgets/ensure_field_visibility.dart';
-import 'package:mydeck/widgets/no_scroll_glow_behaviour.dart';
+import 'package:mydeck/models/entitites/mde_file.dart';
+import 'package:mydeck/models/value_objects/unique_id.dart';
+
+import 'md_no_scroll_glow_behaviour.dart';
 
 class MDEditText extends StatefulWidget {
-  final TextFile initialFile;
+  final MDTextFile initialFile;
   final Function(String) onChanged;
   final double height;
   final double width;
-  final bool editable;
+
   MDEditText(
       {Key key,
       this.initialFile,
       this.onChanged,
       this.height,
       this.width,
-      this.editable})
+     })
       : super(key: key);
 
   @override
@@ -25,12 +25,12 @@ class MDEditText extends StatefulWidget {
 }
 
 class _MDEditTextState extends State<MDEditText> {
-  TextFile _textFile;
+  MDTextFile _textFile;
   final fieldFocusNode = FocusNode();
 
   @override
   void initState() {
-    _textFile = widget.initialFile ?? TextFile(uniqueId: UniqueId(), text: "");
+    _textFile = widget.initialFile ?? MDTextFile(uniqueId: UniqueId(), text: "");
     super.initState();
   }
 
@@ -45,12 +45,11 @@ class _MDEditTextState extends State<MDEditText> {
         width: widget.width,
         height: widget.height,
         child: ScrollConfiguration(
-          behavior: NoScrollGlowBehaviour(),
+          behavior: MDNoScrollGlowBehaviour(),
           child: Padding(
             padding:
                 const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 8.0),
-            child: widget.editable
-                ? TextFormField(
+            child: TextFormField(
                     focusNode: fieldFocusNode,
                     maxLines: 99999,
                     onChanged: widget.onChanged,
@@ -58,14 +57,8 @@ class _MDEditTextState extends State<MDEditText> {
                     decoration: InputDecoration(
                         border:
                             UnderlineInputBorder(borderSide: BorderSide.none)),
-                    initialValue: _textFile.text,
+                    initialValue: _textFile.cachedTextOrNull??'',
                     style: Theme.of(context).textTheme.bodyText1,
-                  )
-                : Center(
-                    child: Text(
-                      _textFile.text,
-                      style: Theme.of(context).textTheme.bodyText1,
-                    ),
                   ),
           ),
         ),

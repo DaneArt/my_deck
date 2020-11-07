@@ -6,13 +6,12 @@ abstract class CardEditorState with _$CardEditorState {
       {@required int currentCardIndex,
       @required List<CECardCubit> cardCubits,
       @required List<CECardCubit> backedUpCubits,
-      @required bool rebuild,
       @required AddDeckStatus status,
       @required AddDeckGoal goal,
       @required bool saveChangesAndExit}) = _CardEditorState;
 
   factory CardEditorState.initial({
-    @required List<Card> sourceCards,
+    @required List<MDECard> sourceCards,
     @required int currentCardIndex,
     @required AddDeckStatus status,
     @required AddDeckGoal goal,
@@ -24,7 +23,7 @@ abstract class CardEditorState with _$CardEditorState {
         backedUpCubits:
             sourceCards.map((card) => CECardCubit(card: card)).toList(),
         cardCubits: sourceCards.map((card) => CECardCubit(card: card)).toList(),
-        rebuild: true,
+        
         status: status,
       );
 }

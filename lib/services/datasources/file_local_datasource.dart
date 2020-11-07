@@ -1,12 +1,9 @@
-import 'dart:io';
 
 import 'package:mydeck/errors/exception.dart';
 import 'package:mydeck/models/dtos/file_dto.dart';
-import 'package:mydeck/models/entitites/unique_id.dart';
+import 'package:mydeck/models/value_objects/unique_id.dart';
 import 'package:mydeck/utils/file_extensions.dart';
-import 'package:mydeck/models/entitites/md_file.dart';
 import 'package:mydeck/utils/file_factory.dart';
-import 'package:path_provider/path_provider.dart';
 
 import '../../main.dart';
 

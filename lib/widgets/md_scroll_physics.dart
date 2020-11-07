@@ -1,14 +1,14 @@
 import 'package:flutter/widgets.dart';
 
-class CustomScrollPhysics extends ScrollPhysics {
+class MDScrollPhysics extends ScrollPhysics {
   final double itemDimension;
 
-  CustomScrollPhysics({this.itemDimension, ScrollPhysics parent})
+  MDScrollPhysics({this.itemDimension, ScrollPhysics parent})
       : super(parent: parent);
 
   @override
-  CustomScrollPhysics applyTo(ScrollPhysics ancestor) {
-    return CustomScrollPhysics(
+  MDScrollPhysics applyTo(ScrollPhysics ancestor) {
+    return MDScrollPhysics(
         itemDimension: itemDimension, parent: buildParent(ancestor));
   }
 

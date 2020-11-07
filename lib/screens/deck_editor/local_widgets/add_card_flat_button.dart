@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:mydeck/generated/l10n.dart';
+part of '../add_deck_page.dart';
 
-class AddCardFlatButton extends StatelessWidget {
+
+class _AddCardFlatButton extends StatelessWidget {
   final Function() onPressed;
 
-  const AddCardFlatButton({Key key, @required this.onPressed})
+  const _AddCardFlatButton({Key key, @required this.onPressed})
       : super(key: key);
 
   @override

@@ -5,18 +5,18 @@ import 'package:logger/logger.dart';
 import 'package:mydeck/errors/exception.dart';
 import 'package:mydeck/errors/storage_failure.dart';
 import 'package:mydeck/models/dtos/file_dto.dart';
-import 'package:mydeck/models/entitites/md_file.dart';
-import 'package:mydeck/models/entitites/unique_id.dart';
+import 'package:mydeck/models/entitites/mde_file.dart';
+import 'package:mydeck/models/value_objects/unique_id.dart';
 import 'package:mydeck/services/datasources/file_local_datasource.dart';
 import 'package:mydeck/services/datasources/file_network_datasource.dart';
 import 'package:mydeck/utils/network_connection.dart';
 
 abstract class FileRepository {
-  Future<Option<StorageFailure>> addFile(MDFile file);
-  Future<Option<StorageFailure>> deleteFile(MDFile file);
-  Future<Option<StorageFailure>> deleteFiles(List<MDFile> file);
-  Future<Option<StorageFailure>> updateFiles(List<MDFile> file);
-  Future<Option<StorageFailure>> addFiles(List<MDFile> file);
+  Future<Option<StorageFailure>> addFile(MDEFile file);
+  Future<Option<StorageFailure>> deleteFile(MDEFile file);
+  Future<Option<StorageFailure>> deleteFiles(List<MDEFile> file);
+  Future<Option<StorageFailure>> updateFiles(List<MDEFile> file);
+  Future<Option<StorageFailure>> addFiles(List<MDEFile> file);
   Future<Either<StorageFailure<File>, File>> getFileByMeta(
       UniqueId id, FileType contentType);
 }
@@ -30,7 +30,7 @@ class FileRepositoryImpl implements FileRepository {
       this.fileNetworkDataSource);
 
   @override
-  Future<Option<StorageFailure>> addFile(MDFile file) async {
+  Future<Option<StorageFailure>> addFile(MDEFile file) async {
     try {
       await fileLocalDataSource.addFile(MDFileDto.fromDomain(file));
       if (await networkConnection.isConnected) {
@@ -74,7 +74,7 @@ class FileRepositoryImpl implements FileRepository {
   }
 
   @override
-  Future<Option<StorageFailure>> addFiles(List<MDFile> files) async {
+  Future<Option<StorageFailure>> addFiles(List<MDEFile> files) async {
     try {
       await fileLocalDataSource
           .addFiles(files.map((file) => MDFileDto.fromDomain(file)).toList());
@@ -91,7 +91,7 @@ class FileRepositoryImpl implements FileRepository {
   }
 
   @override
-  Future<Option<StorageFailure>> deleteFile(MDFile file) async {
+  Future<Option<StorageFailure>> deleteFile(MDEFile file) async {
     try {
       fileLocalDataSource.deleteFile(MDFileDto.fromDomain(file));
 
@@ -104,7 +104,7 @@ class FileRepositoryImpl implements FileRepository {
   }
 
   @override
-  Future<Option<StorageFailure>> deleteFiles(List<MDFile> file) async {
+  Future<Option<StorageFailure>> deleteFiles(List<MDEFile> file) async {
     try {
       fileLocalDataSource
           .deleteFiles(file.map((e) => MDFileDto.fromDomain(e)).toList());
@@ -118,7 +118,7 @@ class FileRepositoryImpl implements FileRepository {
   }
 
   @override
-  Future<Option<StorageFailure>> updateFiles(List<MDFile> file) async {
+  Future<Option<StorageFailure>> updateFiles(List<MDEFile> file) async {
     try {
       if (await networkConnection.isConnected)
         fileNetworkDataSource

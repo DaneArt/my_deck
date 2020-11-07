@@ -833,7 +833,7 @@ class _$TrainStateTearOff {
   _TrainState call(
       {@required bool isPending,
       @required Option<Either<TrainFailure, Unit>> loadingDecksStatus,
-      @required Queue<Deck> decksToTrain}) {
+      @required Queue<MDEDeck> decksToTrain}) {
     return _TrainState(
       isPending: isPending,
       loadingDecksStatus: loadingDecksStatus,
@@ -848,7 +848,7 @@ const $TrainState = _$TrainStateTearOff();
 mixin _$TrainState {
   bool get isPending;
   Option<Either<TrainFailure, Unit>> get loadingDecksStatus;
-  Queue<Deck> get decksToTrain;
+  Queue<MDEDeck> get decksToTrain;
 
   $TrainStateCopyWith<TrainState> get copyWith;
 }
@@ -860,7 +860,7 @@ abstract class $TrainStateCopyWith<$Res> {
   $Res call(
       {bool isPending,
       Option<Either<TrainFailure, Unit>> loadingDecksStatus,
-      Queue<Deck> decksToTrain});
+      Queue<MDEDeck> decksToTrain});
 }
 
 class _$TrainStateCopyWithImpl<$Res> implements $TrainStateCopyWith<$Res> {
@@ -883,7 +883,7 @@ class _$TrainStateCopyWithImpl<$Res> implements $TrainStateCopyWith<$Res> {
           : loadingDecksStatus as Option<Either<TrainFailure, Unit>>,
       decksToTrain: decksToTrain == freezed
           ? _value.decksToTrain
-          : decksToTrain as Queue<Deck>,
+          : decksToTrain as Queue<MDEDeck>,
     ));
   }
 }
@@ -896,7 +896,7 @@ abstract class _$TrainStateCopyWith<$Res> implements $TrainStateCopyWith<$Res> {
   $Res call(
       {bool isPending,
       Option<Either<TrainFailure, Unit>> loadingDecksStatus,
-      Queue<Deck> decksToTrain});
+      Queue<MDEDeck> decksToTrain});
 }
 
 class __$TrainStateCopyWithImpl<$Res> extends _$TrainStateCopyWithImpl<$Res>
@@ -921,7 +921,7 @@ class __$TrainStateCopyWithImpl<$Res> extends _$TrainStateCopyWithImpl<$Res>
           : loadingDecksStatus as Option<Either<TrainFailure, Unit>>,
       decksToTrain: decksToTrain == freezed
           ? _value.decksToTrain
-          : decksToTrain as Queue<Deck>,
+          : decksToTrain as Queue<MDEDeck>,
     ));
   }
 }
@@ -940,7 +940,7 @@ class _$_TrainState with DiagnosticableTreeMixin implements _TrainState {
   @override
   final Option<Either<TrainFailure, Unit>> loadingDecksStatus;
   @override
-  final Queue<Deck> decksToTrain;
+  final Queue<MDEDeck> decksToTrain;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -988,14 +988,14 @@ abstract class _TrainState implements TrainState {
   const factory _TrainState(
       {@required bool isPending,
       @required Option<Either<TrainFailure, Unit>> loadingDecksStatus,
-      @required Queue<Deck> decksToTrain}) = _$_TrainState;
+      @required Queue<MDEDeck> decksToTrain}) = _$_TrainState;
 
   @override
   bool get isPending;
   @override
   Option<Either<TrainFailure, Unit>> get loadingDecksStatus;
   @override
-  Queue<Deck> get decksToTrain;
+  Queue<MDEDeck> get decksToTrain;
   @override
   _$TrainStateCopyWith<_TrainState> get copyWith;
 }

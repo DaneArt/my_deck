@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
 
-class IconRoundButton extends StatelessWidget {
+class MDIconRoundButton extends StatelessWidget {
   final Icon icon;
   final VoidCallback onTap;
   final Color backgroundColor;
   final TextStyle style;
 
-  IconRoundButton({
+  MDIconRoundButton({
     Key key,
     @required this.icon,
     @required this.onTap,
@@ -69,12 +70,12 @@ class MDRoundedButton extends StatelessWidget {
   }
 }
 
-class LoginButton extends StatelessWidget {
+class MDLoginButton extends StatelessWidget {
   final bool enabled;
   final Widget content;
   final VoidCallback onPressed;
 
-  const LoginButton(
+  const MDLoginButton(
       {Key key, this.content, this.onPressed, this.enabled = true})
       : super(key: key);
 
@@ -89,5 +90,51 @@ class LoginButton extends StatelessWidget {
       ),
       child: content,
     );
+  }
+}
+
+class MDErrorButton extends StatelessWidget {
+  final VoidCallback _onPressed;
+  const MDErrorButton({Key key, @required VoidCallback onPressed})
+      : assert(onPressed != null),
+        _onPressed = onPressed,
+        super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text('Failure'),
+          MaterialButton(
+            child: Text('Retry'),
+            onPressed:_onPressed,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+class MDDeleteButton extends StatelessWidget {
+  final String _text;
+  final VoidCallback _onPressed;
+  const MDDeleteButton({Key key, String text, @required VoidCallback onPressed}) : assert(onPressed != null), 
+  _onPressed = onPressed,
+  _text = text ?? 'DELETE',
+  super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialButton(
+                        minWidth: double.infinity,
+                        child: Text(
+                          _text,
+                          style: TextStyle(color: Colors.red),
+                        ),
+                        onPressed:_onPressed
+                      );
   }
 }

@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mydeck/blocs/add_deck/add_deck_bloc.dart';
-import 'package:mydeck/cubits/md_image/md_image_cubit.dart';
+import 'package:mydeck/cubits/md_content/md_content_cubit.dart';
+import 'package:mydeck/models/entitites/mde_deck.dart';
+
 import 'package:mydeck/theme/my_deck_theme.dart';
 import 'package:mydeck/utils/widget_extensions.dart';
 import 'package:mydeck/utils/custom_icons_icons.dart';
@@ -10,17 +14,15 @@ import 'package:mydeck/services/usecases/add_deck_usecase.dart';
 import 'package:mydeck/services/usecases/delete_deck_usecase.dart';
 import 'package:mydeck/services/usecases/save_deck_changes_usecase.dart';
 import 'package:mydeck/screens/deck_editor/add_deck_page.dart';
-import 'package:mydeck/models/entitites/deck.dart';
 import 'package:mydeck/widgets/md_image.dart';
-import 'package:mydeck/widgets/triangle_clipper.dart';
-import 'package:mydeck/services/datasources/user_config.dart';
+
 import 'package:mydeck/services/usecases/upload_online_deck.dart';
 
 class DeckCard extends StatefulWidget {
-  final Deck deck;
+  final MDEDeck deck;
   final bool isEditing;
   final Function() onDelete;
-  final Function(Deck, Deck) onUpdate;
+  final Function(MDEDeck, MDEDeck) onUpdate;
   final IconButton iconButton;
 
   const DeckCard(
@@ -39,10 +41,10 @@ class DeckCard extends StatefulWidget {
 }
 
 class _DeckCardState extends State<DeckCard> {
-  Deck get deck => widget.deck;
+  MDEDeck get deck => widget.deck;
 
   bool get _isDraft =>
-      (deck is Deck) && (!deck.title.isValid || !deck.avatar.isValid);
+      (deck is MDEDeck) && (!deck.title.isValid || !deck.avatar.isValid);
 
   @override
   Widget build(BuildContext context) {
@@ -75,8 +77,8 @@ class _DeckCardState extends State<DeckCard> {
             );
 
             if (deckUpdate != null) {
-              if (deckUpdate is Deck) {
-                widget.onUpdate(deck, deckUpdate);
+              if (deckUpdate is MDEDeck) {
+              //  widget.onUpdate(deck, deckUpdate);
               } else if (deckUpdate) {
                 widget.onDelete();
               }
@@ -124,8 +126,8 @@ class _DeckCardState extends State<DeckCard> {
   _imageWidget(double cardHeight) => ClipRRect(
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(8), bottomLeft: Radius.circular(8)),
-        child: BlocProvider<MDContentCubit>(
-          create: (context) => sl.get<MDContentCubit>(),
+        child: BlocProvider<MDContentCubit<File>>(
+          create: (context) => MDContentCubit<File>(),
           child: MDImage(
             image: deck.avatar.getOrCrash,
             height: cardHeight,

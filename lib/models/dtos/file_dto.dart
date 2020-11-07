@@ -2,11 +2,10 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:mydeck/models/entitites/md_file.dart';
-import 'package:mydeck/models/entitites/unique_id.dart';
+import 'package:mydeck/models/entitites/mde_file.dart';
+import 'package:mydeck/models/value_objects/unique_id.dart';
 import 'package:mydeck/utils/file_factory.dart';
 import 'package:http_parser/http_parser.dart';
-import 'package:mydeck/utils/md_multipart_file.dart';
 
 part 'file_dto.freezed.dart';
 part 'file_dto.g.dart';
@@ -22,8 +21,8 @@ abstract class MDFileDto implements _$MDFileDto {
       @required @ContentTypeConverter() FileType type,
       @JsonKey(ignore: true) @required File file}) = _MyDeckFileDto;
 
-  factory MDFileDto.fromDomain(MDFile domain) {
-    if (domain is ImageFile) {
+  factory MDFileDto.fromDomain(MDEFile domain) {
+    if (domain is MDImageFile) {
       return MDFileDto(
           id: domain.uniqueId.getOrCrash,
           type: FileType.IMAGE,
@@ -33,7 +32,7 @@ abstract class MDFileDto implements _$MDFileDto {
         id: domain.uniqueId.getOrCrash,
         type: FileType.TEXT,
         file: TextFileFactory().create(domain.uniqueId.getOrCrash)
-          ..writeAsStringSync((domain as TextFile).text),
+          ..writeAsStringSync((domain as MDTextFile).cachedTextOrNull),
       );
     }
   }
@@ -41,11 +40,11 @@ abstract class MDFileDto implements _$MDFileDto {
   factory MDFileDto.fromJson(Map<String, Object> json) =>
       _$MDFileDtoFromJson(json);
 
-  MDFile toDomain() {
+  MDEFile toDomain() {
     if (type == FileType.IMAGE) {
-      return ImageFile(file: file, uniqueId: UniqueId.fromString(id));
+      return MDImageFile(file: file, uniqueId: UniqueId.fromString(id));
     } else {
-      return TextFile(
+      return MDTextFile(
           text: file.existsSync() ? file.readAsStringSync() : "",
           uniqueId: UniqueId.fromString(id));
     }

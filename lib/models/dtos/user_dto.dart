@@ -1,9 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
-import 'package:mydeck/models/entitites/md_file.dart';
-import 'package:mydeck/models/entitites/unique_id.dart';
+
+import 'package:mydeck/models/entitites/mde_file.dart';
 import 'package:mydeck/models/entitites/user.dart';
 import 'package:mydeck/models/value_objects/email_address.dart';
+import 'package:mydeck/models/value_objects/unique_id.dart';
 import 'package:mydeck/models/value_objects/username.dart';
 
 part 'user_dto.freezed.dart';
@@ -23,8 +24,8 @@ abstract class UserDto implements _$UserDto {
     @JsonKey(name: 'refresh_token') String refreshToken,
   }) = _UserDto;
 
-  User toDomain() => User(
-        avatar: ImageFile(uniqueId: UniqueId.fromString(avatar)),
+  MDEUser toDomain() => MDEUser(
+        avatar: MDImageFile(uniqueId: UniqueId.fromString(avatar)),
         email: EmailAddress(email),
         subscribers: [],
         subscribes: [],
@@ -32,7 +33,7 @@ abstract class UserDto implements _$UserDto {
         username: Username(username),
       );
 
-  factory UserDto.fromDomain(User domain) => UserDto(
+  factory UserDto.fromDomain(MDEUser domain) => UserDto(
       avatar: domain.avatar.uniqueId.getOrCrash,
       email: domain.email.getOrCrash,
       password: [],

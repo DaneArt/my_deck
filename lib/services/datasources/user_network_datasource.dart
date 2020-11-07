@@ -1,22 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:crypto/crypto.dart';
+import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dartz/dartz.dart';
-import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
-import 'package:dio_cookie_manager/dio_cookie_manager.dart';
-import 'package:floor/floor.dart';
 import 'package:logger/logger.dart';
 import 'package:mydeck/errors/auth_failure.dart';
 import 'package:mydeck/errors/exception.dart';
-import 'package:mydeck/models/entitites/unique_id.dart';
-import 'package:mydeck/models/value_objects/email_address.dart';
-import 'package:mydeck/models/value_objects/password.dart';
 import 'package:mydeck/models/dtos/user_dto.dart';
-import 'package:mydeck/models/value_objects/username.dart';
+import 'package:mydeck/models/value_objects/unique_id.dart';
 import 'package:mydeck/services/datasources/user_config.dart';
-import 'package:cookie_jar/cookie_jar.dart';
 import 'package:mydeck/utils/dependency_injection.dart';
 import 'package:uuid/uuid.dart';
 

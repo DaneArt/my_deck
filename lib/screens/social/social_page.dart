@@ -1,19 +1,17 @@
-import 'dart:io';
-
-import 'package:colorful_safe_area/colorful_safe_area.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mydeck/blocs/decks_feed_tile/decks_feed_tile_bloc.dart';
-import 'package:mydeck/utils/dependency_injection.dart';
-import 'package:mydeck/models/dtos/deck_category.dart';
-import 'package:mydeck/models/entitites/deck.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mydeck/blocs/decks_feed_tile/decks_feed_tile_bloc.dart';
+import 'package:mydeck/models/entitites/mde_deck.dart';
+import 'package:mydeck/utils/dependency_injection.dart';
+import 'package:mydeck/models/dtos/deck_category.dart';
 import 'package:mydeck/services/usecases/load_decks_page_for_category_usecase.dart';
 import 'package:mydeck/screens/social/local_widgets/deck_chart_tile.dart';
 import 'package:mydeck/screens/social/local_widgets/featured_decks_widget.dart';
 import 'package:mydeck/screens/social/local_widgets/featured_decks_widget_small.dart';
 import 'package:mydeck/generated/l10n.dart';
-import 'package:mydeck/widgets/no_scroll_glow_behaviour.dart';
+import 'package:mydeck/widgets/md_no_scroll_glow_behaviour.dart';
 
 class SocialPage extends StatelessWidget {
   @override
@@ -38,7 +36,7 @@ class _SocialPageBodyState extends State<_SocialPageBody> {
           Stack(
             children: <Widget>[
               FeaturedDeckList(
-                decks: List.generate(5, (index) => Deck.basic()),
+                decks: List.generate(5, (index) => MDEDeck.basic()),
               ),
               Align(
                 alignment: Alignment.topCenter,
@@ -71,7 +69,7 @@ class _SocialPageBodyState extends State<_SocialPageBody> {
             ],
           ),
           ScrollConfiguration(
-            behavior: NoScrollGlowBehaviour(),
+            behavior: MDNoScrollGlowBehaviour(),
             child: CustomScrollView(
               slivers: <Widget>[
                 SliverList(
@@ -80,7 +78,7 @@ class _SocialPageBodyState extends State<_SocialPageBody> {
                       width: 300,
                       height: 250,
                       child: FeaturedDeckListSmall(
-                        decks: List.generate(5, (index) => Deck.basic()),
+                        decks: List.generate(5, (index) => MDEDeck.basic()),
                       ),
                     ),
                     Padding(

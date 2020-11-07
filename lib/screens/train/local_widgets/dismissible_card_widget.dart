@@ -1,18 +1,18 @@
 import 'dart:math';
 
-import 'package:mydeck/blocs/train/train_bloc.dart';
-import 'package:mydeck/models/entitites/card.dart' as Entity;
-import 'package:mydeck/models/entitites/md_file.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:mydeck/blocs/train/train_bloc.dart';
+import 'package:mydeck/models/entitites/mde_card.dart';
+import 'package:mydeck/models/entitites/mde_file.dart';
 
 enum Guess { left, center, right }
 
 class DismissibleCard extends StatefulWidget {
   final Function(Guess) onGuess;
   final Function(Guess) onDismiss;
-  final Entity.Card card;
+  final MDECard card;
   final Size screenSize;
 
   DismissibleCard(
@@ -178,7 +178,7 @@ class _DismissibleCardState extends State<DismissibleCard>
     _dismissController.forward();
   }
 
-  Widget createWidgetFromContent(MDFile content, BuildContext context) =>
+  Widget createWidgetFromContent(MDEFile content, BuildContext context) =>
       Container();
   //content is ImageFile
   //    ? ImageCardContentWidget(

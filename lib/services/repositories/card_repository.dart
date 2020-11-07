@@ -1,15 +1,16 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:mydeck/errors/exception.dart';
 import 'package:mydeck/errors/storage_failure.dart';
 import 'package:mydeck/models/dtos/card_dto.dart';
-import 'package:mydeck/models/entitites/card.dart';
+import 'package:mydeck/models/entitites/mde_card.dart';
 import 'package:mydeck/services/datasources/card_network_datasource.dart';
 import 'package:mydeck/utils/network_connection.dart';
 
 abstract class CardRepository {
-  Future<Either<StorageFailure, List<Card>>> addCards(List<Card> cards);
-  Future<Either<StorageFailure, List<Card>>> deleteCards(List<Card> cards);
-  Future<Either<StorageFailure, List<Card>>> updateCards(List<Card> cards);
+  Future<Either<StorageFailure, List<MDECard>>> addCards(List<MDECard> cards);
+  Future<Either<StorageFailure, List<MDECard>>> deleteCards(List<MDECard> cards);
+  Future<Either<StorageFailure, List<MDECard>>> updateCards(List<MDECard> cards);
 }
 
 class CardRepositoryImpl implements CardRepository {
@@ -19,7 +20,7 @@ class CardRepositoryImpl implements CardRepository {
   CardRepositoryImpl(this.cardNetworkDataSource, this.networkConnection);
 
   @override
-  Future<Either<StorageFailure, List<Card>>> addCards(List<Card> cards) async {
+  Future<Either<StorageFailure, List<MDECard>>> addCards(List<MDECard> cards) async {
     try {
       if (await networkConnection.isConnected) {
         await cardNetworkDataSource
@@ -34,8 +35,8 @@ class CardRepositoryImpl implements CardRepository {
   }
 
   @override
-  Future<Either<StorageFailure, List<Card>>> deleteCards(
-      List<Card> cards) async {
+  Future<Either<StorageFailure, List<MDECard>>> deleteCards(
+      List<MDECard> cards) async {
     try {
       if (await networkConnection.isConnected) {
         await cardNetworkDataSource
@@ -50,8 +51,8 @@ class CardRepositoryImpl implements CardRepository {
   }
 
   @override
-  Future<Either<StorageFailure, List<Card>>> updateCards(
-      List<Card> cards) async {
+  Future<Either<StorageFailure, List<MDECard>>> updateCards(
+      List<MDECard> cards) async {
     try {
       if (await networkConnection.isConnected) {
         await cardNetworkDataSource

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:mydeck/models/entitites/deck.dart';
+import 'package:mydeck/models/entitites/mde_deck.dart';
 
 class FeaturedDeckListSmall extends StatefulWidget {
-  final List<Deck> decks;
+  final List<MDEDeck> decks;
   final int initialPage;
 
   const FeaturedDeckListSmall({Key key, this.decks, this.initialPage = 0})

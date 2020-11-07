@@ -22,7 +22,7 @@ class _$AddDeckStateTearOff {
       @required
           DeckAvatar avatar,
       @required
-          Deck freezedDeck,
+          MDEDeck freezedDeck,
       @required
           bool isShared,
       @required
@@ -34,7 +34,7 @@ class _$AddDeckStateTearOff {
       @required
           bool availableQuickTrain,
       @required
-          User author,
+          MDEUser author,
       @required
           Option<Either<StorageFailure<dynamic>, Unit>> loadingFailureOrSuccess,
       @required
@@ -44,7 +44,7 @@ class _$AddDeckStateTearOff {
       @required
           bool isPending,
       @required
-          List<Card> cardsList}) {
+          List<MDECard> cardsList}) {
     return _AddDeckState(
       isLoading: isLoading,
       title: title,
@@ -74,18 +74,18 @@ mixin _$AddDeckState {
   DeckTitle get title;
   DeckDescription get description;
   DeckAvatar get avatar;
-  Deck get freezedDeck;
+  MDEDeck get freezedDeck;
   bool get isShared;
   AddDeckStatus get status;
   AddDeckGoal get goal;
   DeckCategory get category;
   bool get availableQuickTrain;
-  User get author;
+  MDEUser get author;
   Option<Either<StorageFailure<dynamic>, Unit>> get loadingFailureOrSuccess;
   Option<Either<StorageFailure<dynamic>, Unit>> get savingFailureOrSuccess;
   Option<Either<StorageFailure<dynamic>, Unit>> get deleteFailureOrSuccess;
   bool get isPending;
-  List<Card> get cardsList;
+  List<MDECard> get cardsList;
 
   $AddDeckStateCopyWith<AddDeckState> get copyWith;
 }
@@ -99,22 +99,22 @@ abstract class $AddDeckStateCopyWith<$Res> {
       DeckTitle title,
       DeckDescription description,
       DeckAvatar avatar,
-      Deck freezedDeck,
+      MDEDeck freezedDeck,
       bool isShared,
       AddDeckStatus status,
       AddDeckGoal goal,
       DeckCategory category,
       bool availableQuickTrain,
-      User author,
+      MDEUser author,
       Option<Either<StorageFailure<dynamic>, Unit>> loadingFailureOrSuccess,
       Option<Either<StorageFailure<dynamic>, Unit>> savingFailureOrSuccess,
       Option<Either<StorageFailure<dynamic>, Unit>> deleteFailureOrSuccess,
       bool isPending,
-      List<Card> cardsList});
+      List<MDECard> cardsList});
 
-  $DeckCopyWith<$Res> get freezedDeck;
+  $MDEDeckCopyWith<$Res> get freezedDeck;
   $DeckCategoryCopyWith<$Res> get category;
-  $UserCopyWith<$Res> get author;
+  $MDEUserCopyWith<$Res> get author;
 }
 
 class _$AddDeckStateCopyWithImpl<$Res> implements $AddDeckStateCopyWith<$Res> {
@@ -151,7 +151,7 @@ class _$AddDeckStateCopyWithImpl<$Res> implements $AddDeckStateCopyWith<$Res> {
           : description as DeckDescription,
       avatar: avatar == freezed ? _value.avatar : avatar as DeckAvatar,
       freezedDeck:
-          freezedDeck == freezed ? _value.freezedDeck : freezedDeck as Deck,
+          freezedDeck == freezed ? _value.freezedDeck : freezedDeck as MDEDeck,
       isShared: isShared == freezed ? _value.isShared : isShared as bool,
       status: status == freezed ? _value.status : status as AddDeckStatus,
       goal: goal == freezed ? _value.goal : goal as AddDeckGoal,
@@ -160,7 +160,7 @@ class _$AddDeckStateCopyWithImpl<$Res> implements $AddDeckStateCopyWith<$Res> {
       availableQuickTrain: availableQuickTrain == freezed
           ? _value.availableQuickTrain
           : availableQuickTrain as bool,
-      author: author == freezed ? _value.author : author as User,
+      author: author == freezed ? _value.author : author as MDEUser,
       loadingFailureOrSuccess: loadingFailureOrSuccess == freezed
           ? _value.loadingFailureOrSuccess
           : loadingFailureOrSuccess
@@ -175,16 +175,16 @@ class _$AddDeckStateCopyWithImpl<$Res> implements $AddDeckStateCopyWith<$Res> {
               as Option<Either<StorageFailure<dynamic>, Unit>>,
       isPending: isPending == freezed ? _value.isPending : isPending as bool,
       cardsList:
-          cardsList == freezed ? _value.cardsList : cardsList as List<Card>,
+          cardsList == freezed ? _value.cardsList : cardsList as List<MDECard>,
     ));
   }
 
   @override
-  $DeckCopyWith<$Res> get freezedDeck {
+  $MDEDeckCopyWith<$Res> get freezedDeck {
     if (_value.freezedDeck == null) {
       return null;
     }
-    return $DeckCopyWith<$Res>(_value.freezedDeck, (value) {
+    return $MDEDeckCopyWith<$Res>(_value.freezedDeck, (value) {
       return _then(_value.copyWith(freezedDeck: value));
     });
   }
@@ -200,11 +200,11 @@ class _$AddDeckStateCopyWithImpl<$Res> implements $AddDeckStateCopyWith<$Res> {
   }
 
   @override
-  $UserCopyWith<$Res> get author {
+  $MDEUserCopyWith<$Res> get author {
     if (_value.author == null) {
       return null;
     }
-    return $UserCopyWith<$Res>(_value.author, (value) {
+    return $MDEUserCopyWith<$Res>(_value.author, (value) {
       return _then(_value.copyWith(author: value));
     });
   }
@@ -221,25 +221,25 @@ abstract class _$AddDeckStateCopyWith<$Res>
       DeckTitle title,
       DeckDescription description,
       DeckAvatar avatar,
-      Deck freezedDeck,
+      MDEDeck freezedDeck,
       bool isShared,
       AddDeckStatus status,
       AddDeckGoal goal,
       DeckCategory category,
       bool availableQuickTrain,
-      User author,
+      MDEUser author,
       Option<Either<StorageFailure<dynamic>, Unit>> loadingFailureOrSuccess,
       Option<Either<StorageFailure<dynamic>, Unit>> savingFailureOrSuccess,
       Option<Either<StorageFailure<dynamic>, Unit>> deleteFailureOrSuccess,
       bool isPending,
-      List<Card> cardsList});
+      List<MDECard> cardsList});
 
   @override
-  $DeckCopyWith<$Res> get freezedDeck;
+  $MDEDeckCopyWith<$Res> get freezedDeck;
   @override
   $DeckCategoryCopyWith<$Res> get category;
   @override
-  $UserCopyWith<$Res> get author;
+  $MDEUserCopyWith<$Res> get author;
 }
 
 class __$AddDeckStateCopyWithImpl<$Res> extends _$AddDeckStateCopyWithImpl<$Res>
@@ -278,7 +278,7 @@ class __$AddDeckStateCopyWithImpl<$Res> extends _$AddDeckStateCopyWithImpl<$Res>
           : description as DeckDescription,
       avatar: avatar == freezed ? _value.avatar : avatar as DeckAvatar,
       freezedDeck:
-          freezedDeck == freezed ? _value.freezedDeck : freezedDeck as Deck,
+          freezedDeck == freezed ? _value.freezedDeck : freezedDeck as MDEDeck,
       isShared: isShared == freezed ? _value.isShared : isShared as bool,
       status: status == freezed ? _value.status : status as AddDeckStatus,
       goal: goal == freezed ? _value.goal : goal as AddDeckGoal,
@@ -287,7 +287,7 @@ class __$AddDeckStateCopyWithImpl<$Res> extends _$AddDeckStateCopyWithImpl<$Res>
       availableQuickTrain: availableQuickTrain == freezed
           ? _value.availableQuickTrain
           : availableQuickTrain as bool,
-      author: author == freezed ? _value.author : author as User,
+      author: author == freezed ? _value.author : author as MDEUser,
       loadingFailureOrSuccess: loadingFailureOrSuccess == freezed
           ? _value.loadingFailureOrSuccess
           : loadingFailureOrSuccess
@@ -302,7 +302,7 @@ class __$AddDeckStateCopyWithImpl<$Res> extends _$AddDeckStateCopyWithImpl<$Res>
               as Option<Either<StorageFailure<dynamic>, Unit>>,
       isPending: isPending == freezed ? _value.isPending : isPending as bool,
       cardsList:
-          cardsList == freezed ? _value.cardsList : cardsList as List<Card>,
+          cardsList == freezed ? _value.cardsList : cardsList as List<MDECard>,
     ));
   }
 }
@@ -351,7 +351,7 @@ class _$_AddDeckState implements _AddDeckState {
   @override
   final DeckAvatar avatar;
   @override
-  final Deck freezedDeck;
+  final MDEDeck freezedDeck;
   @override
   final bool isShared;
   @override
@@ -363,7 +363,7 @@ class _$_AddDeckState implements _AddDeckState {
   @override
   final bool availableQuickTrain;
   @override
-  final User author;
+  final MDEUser author;
   @override
   final Option<Either<StorageFailure<dynamic>, Unit>> loadingFailureOrSuccess;
   @override
@@ -373,7 +373,7 @@ class _$_AddDeckState implements _AddDeckState {
   @override
   final bool isPending;
   @override
-  final List<Card> cardsList;
+  final List<MDECard> cardsList;
 
   @override
   String toString() {
@@ -466,7 +466,7 @@ abstract class _AddDeckState implements AddDeckState {
       @required
           DeckAvatar avatar,
       @required
-          Deck freezedDeck,
+          MDEDeck freezedDeck,
       @required
           bool isShared,
       @required
@@ -478,7 +478,7 @@ abstract class _AddDeckState implements AddDeckState {
       @required
           bool availableQuickTrain,
       @required
-          User author,
+          MDEUser author,
       @required
           Option<Either<StorageFailure<dynamic>, Unit>> loadingFailureOrSuccess,
       @required
@@ -488,7 +488,7 @@ abstract class _AddDeckState implements AddDeckState {
       @required
           bool isPending,
       @required
-          List<Card> cardsList}) = _$_AddDeckState;
+          List<MDECard> cardsList}) = _$_AddDeckState;
 
   @override
   bool get isLoading;
@@ -499,7 +499,7 @@ abstract class _AddDeckState implements AddDeckState {
   @override
   DeckAvatar get avatar;
   @override
-  Deck get freezedDeck;
+  MDEDeck get freezedDeck;
   @override
   bool get isShared;
   @override
@@ -511,7 +511,7 @@ abstract class _AddDeckState implements AddDeckState {
   @override
   bool get availableQuickTrain;
   @override
-  User get author;
+  MDEUser get author;
   @override
   Option<Either<StorageFailure<dynamic>, Unit>> get loadingFailureOrSuccess;
   @override
@@ -521,7 +521,7 @@ abstract class _AddDeckState implements AddDeckState {
   @override
   bool get isPending;
   @override
-  List<Card> get cardsList;
+  List<MDECard> get cardsList;
   @override
   _$AddDeckStateCopyWith<_AddDeckState> get copyWith;
 }
@@ -545,7 +545,7 @@ class _$AddDeckEventTearOff {
     );
   }
 
-  AvatarChanged avatarChanged(ImageFile avatar) {
+  AvatarChanged avatarChanged(MDImageFile avatar) {
     return AvatarChanged(
       avatar,
     );
@@ -569,6 +569,10 @@ class _$AddDeckEventTearOff {
     return SwitchEditState();
   }
 
+  UndoEdits undoEdits() {
+    return UndoEdits();
+  }
+
   SaveChanges saveChanges() {
     return SaveChanges();
   }
@@ -577,7 +581,7 @@ class _$AddDeckEventTearOff {
     return DeleteDeck();
   }
 
-  UpdateCards updateCards({@required List<Card> cards}) {
+  UpdateCards updateCards({@required List<MDECard> cards}) {
     return UpdateCards(
       cards: cards,
     );
@@ -593,28 +597,30 @@ mixin _$AddDeckEvent {
     @required Result initFromOnline(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(ImageFile avatar),
+    @required Result avatarChanged(MDImageFile avatar),
     @required Result changePrivacy(),
     @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
     @required Result switchEditStatus(),
+    @required Result undoEdits(),
     @required Result saveChanges(),
     @required Result deleteDeck(),
-    @required Result updateCards(List<Card> cards),
+    @required Result updateCards(List<MDECard> cards),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result initFromOnline(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(ImageFile avatar),
+    Result avatarChanged(MDImageFile avatar),
     Result changePrivacy(),
     Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
     Result switchEditStatus(),
+    Result undoEdits(),
     Result saveChanges(),
     Result deleteDeck(),
-    Result updateCards(List<Card> cards),
+    Result updateCards(List<MDECard> cards),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -627,6 +633,7 @@ mixin _$AddDeckEvent {
     @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
     @required Result switchEditStatus(SwitchEditState value),
+    @required Result undoEdits(UndoEdits value),
     @required Result saveChanges(SaveChanges value),
     @required Result deleteDeck(DeleteDeck value),
     @required Result updateCards(UpdateCards value),
@@ -641,6 +648,7 @@ mixin _$AddDeckEvent {
     Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
     Result switchEditStatus(SwitchEditState value),
+    Result undoEdits(UndoEdits value),
     Result saveChanges(SaveChanges value),
     Result deleteDeck(DeleteDeck value),
     Result updateCards(UpdateCards value),
@@ -701,14 +709,15 @@ class _$InitFromOnline implements InitFromOnline {
     @required Result initFromOnline(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(ImageFile avatar),
+    @required Result avatarChanged(MDImageFile avatar),
     @required Result changePrivacy(),
     @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
     @required Result switchEditStatus(),
+    @required Result undoEdits(),
     @required Result saveChanges(),
     @required Result deleteDeck(),
-    @required Result updateCards(List<Card> cards),
+    @required Result updateCards(List<MDECard> cards),
   }) {
     assert(initFromOnline != null);
     assert(titleChanged != null);
@@ -718,6 +727,7 @@ class _$InitFromOnline implements InitFromOnline {
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(switchEditStatus != null);
+    assert(undoEdits != null);
     assert(saveChanges != null);
     assert(deleteDeck != null);
     assert(updateCards != null);
@@ -730,14 +740,15 @@ class _$InitFromOnline implements InitFromOnline {
     Result initFromOnline(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(ImageFile avatar),
+    Result avatarChanged(MDImageFile avatar),
     Result changePrivacy(),
     Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
     Result switchEditStatus(),
+    Result undoEdits(),
     Result saveChanges(),
     Result deleteDeck(),
-    Result updateCards(List<Card> cards),
+    Result updateCards(List<MDECard> cards),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -758,6 +769,7 @@ class _$InitFromOnline implements InitFromOnline {
     @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
     @required Result switchEditStatus(SwitchEditState value),
+    @required Result undoEdits(UndoEdits value),
     @required Result saveChanges(SaveChanges value),
     @required Result deleteDeck(DeleteDeck value),
     @required Result updateCards(UpdateCards value),
@@ -770,6 +782,7 @@ class _$InitFromOnline implements InitFromOnline {
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(switchEditStatus != null);
+    assert(undoEdits != null);
     assert(saveChanges != null);
     assert(deleteDeck != null);
     assert(updateCards != null);
@@ -787,6 +800,7 @@ class _$InitFromOnline implements InitFromOnline {
     Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
     Result switchEditStatus(SwitchEditState value),
+    Result undoEdits(UndoEdits value),
     Result saveChanges(SaveChanges value),
     Result deleteDeck(DeleteDeck value),
     Result updateCards(UpdateCards value),
@@ -864,14 +878,15 @@ class _$TitleChanged implements TitleChanged {
     @required Result initFromOnline(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(ImageFile avatar),
+    @required Result avatarChanged(MDImageFile avatar),
     @required Result changePrivacy(),
     @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
     @required Result switchEditStatus(),
+    @required Result undoEdits(),
     @required Result saveChanges(),
     @required Result deleteDeck(),
-    @required Result updateCards(List<Card> cards),
+    @required Result updateCards(List<MDECard> cards),
   }) {
     assert(initFromOnline != null);
     assert(titleChanged != null);
@@ -881,6 +896,7 @@ class _$TitleChanged implements TitleChanged {
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(switchEditStatus != null);
+    assert(undoEdits != null);
     assert(saveChanges != null);
     assert(deleteDeck != null);
     assert(updateCards != null);
@@ -893,14 +909,15 @@ class _$TitleChanged implements TitleChanged {
     Result initFromOnline(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(ImageFile avatar),
+    Result avatarChanged(MDImageFile avatar),
     Result changePrivacy(),
     Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
     Result switchEditStatus(),
+    Result undoEdits(),
     Result saveChanges(),
     Result deleteDeck(),
-    Result updateCards(List<Card> cards),
+    Result updateCards(List<MDECard> cards),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -921,6 +938,7 @@ class _$TitleChanged implements TitleChanged {
     @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
     @required Result switchEditStatus(SwitchEditState value),
+    @required Result undoEdits(UndoEdits value),
     @required Result saveChanges(SaveChanges value),
     @required Result deleteDeck(DeleteDeck value),
     @required Result updateCards(UpdateCards value),
@@ -933,6 +951,7 @@ class _$TitleChanged implements TitleChanged {
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(switchEditStatus != null);
+    assert(undoEdits != null);
     assert(saveChanges != null);
     assert(deleteDeck != null);
     assert(updateCards != null);
@@ -950,6 +969,7 @@ class _$TitleChanged implements TitleChanged {
     Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
     Result switchEditStatus(SwitchEditState value),
+    Result undoEdits(UndoEdits value),
     Result saveChanges(SaveChanges value),
     Result deleteDeck(DeleteDeck value),
     Result updateCards(UpdateCards value),
@@ -1030,14 +1050,15 @@ class _$DescriptionChanged implements DescriptionChanged {
     @required Result initFromOnline(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(ImageFile avatar),
+    @required Result avatarChanged(MDImageFile avatar),
     @required Result changePrivacy(),
     @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
     @required Result switchEditStatus(),
+    @required Result undoEdits(),
     @required Result saveChanges(),
     @required Result deleteDeck(),
-    @required Result updateCards(List<Card> cards),
+    @required Result updateCards(List<MDECard> cards),
   }) {
     assert(initFromOnline != null);
     assert(titleChanged != null);
@@ -1047,6 +1068,7 @@ class _$DescriptionChanged implements DescriptionChanged {
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(switchEditStatus != null);
+    assert(undoEdits != null);
     assert(saveChanges != null);
     assert(deleteDeck != null);
     assert(updateCards != null);
@@ -1059,14 +1081,15 @@ class _$DescriptionChanged implements DescriptionChanged {
     Result initFromOnline(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(ImageFile avatar),
+    Result avatarChanged(MDImageFile avatar),
     Result changePrivacy(),
     Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
     Result switchEditStatus(),
+    Result undoEdits(),
     Result saveChanges(),
     Result deleteDeck(),
-    Result updateCards(List<Card> cards),
+    Result updateCards(List<MDECard> cards),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1087,6 +1110,7 @@ class _$DescriptionChanged implements DescriptionChanged {
     @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
     @required Result switchEditStatus(SwitchEditState value),
+    @required Result undoEdits(UndoEdits value),
     @required Result saveChanges(SaveChanges value),
     @required Result deleteDeck(DeleteDeck value),
     @required Result updateCards(UpdateCards value),
@@ -1099,6 +1123,7 @@ class _$DescriptionChanged implements DescriptionChanged {
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(switchEditStatus != null);
+    assert(undoEdits != null);
     assert(saveChanges != null);
     assert(deleteDeck != null);
     assert(updateCards != null);
@@ -1116,6 +1141,7 @@ class _$DescriptionChanged implements DescriptionChanged {
     Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
     Result switchEditStatus(SwitchEditState value),
+    Result undoEdits(UndoEdits value),
     Result saveChanges(SaveChanges value),
     Result deleteDeck(DeleteDeck value),
     Result updateCards(UpdateCards value),
@@ -1140,7 +1166,7 @@ abstract class $AvatarChangedCopyWith<$Res> {
   factory $AvatarChangedCopyWith(
           AvatarChanged value, $Res Function(AvatarChanged) then) =
       _$AvatarChangedCopyWithImpl<$Res>;
-  $Res call({ImageFile avatar});
+  $Res call({MDImageFile avatar});
 }
 
 class _$AvatarChangedCopyWithImpl<$Res> extends _$AddDeckEventCopyWithImpl<$Res>
@@ -1157,7 +1183,7 @@ class _$AvatarChangedCopyWithImpl<$Res> extends _$AddDeckEventCopyWithImpl<$Res>
     Object avatar = freezed,
   }) {
     return _then(AvatarChanged(
-      avatar == freezed ? _value.avatar : avatar as ImageFile,
+      avatar == freezed ? _value.avatar : avatar as MDImageFile,
     ));
   }
 }
@@ -1166,7 +1192,7 @@ class _$AvatarChanged implements AvatarChanged {
   _$AvatarChanged(this.avatar) : assert(avatar != null);
 
   @override
-  final ImageFile avatar;
+  final MDImageFile avatar;
 
   @override
   String toString() {
@@ -1195,14 +1221,15 @@ class _$AvatarChanged implements AvatarChanged {
     @required Result initFromOnline(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(ImageFile avatar),
+    @required Result avatarChanged(MDImageFile avatar),
     @required Result changePrivacy(),
     @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
     @required Result switchEditStatus(),
+    @required Result undoEdits(),
     @required Result saveChanges(),
     @required Result deleteDeck(),
-    @required Result updateCards(List<Card> cards),
+    @required Result updateCards(List<MDECard> cards),
   }) {
     assert(initFromOnline != null);
     assert(titleChanged != null);
@@ -1212,6 +1239,7 @@ class _$AvatarChanged implements AvatarChanged {
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(switchEditStatus != null);
+    assert(undoEdits != null);
     assert(saveChanges != null);
     assert(deleteDeck != null);
     assert(updateCards != null);
@@ -1224,14 +1252,15 @@ class _$AvatarChanged implements AvatarChanged {
     Result initFromOnline(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(ImageFile avatar),
+    Result avatarChanged(MDImageFile avatar),
     Result changePrivacy(),
     Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
     Result switchEditStatus(),
+    Result undoEdits(),
     Result saveChanges(),
     Result deleteDeck(),
-    Result updateCards(List<Card> cards),
+    Result updateCards(List<MDECard> cards),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1252,6 +1281,7 @@ class _$AvatarChanged implements AvatarChanged {
     @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
     @required Result switchEditStatus(SwitchEditState value),
+    @required Result undoEdits(UndoEdits value),
     @required Result saveChanges(SaveChanges value),
     @required Result deleteDeck(DeleteDeck value),
     @required Result updateCards(UpdateCards value),
@@ -1264,6 +1294,7 @@ class _$AvatarChanged implements AvatarChanged {
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(switchEditStatus != null);
+    assert(undoEdits != null);
     assert(saveChanges != null);
     assert(deleteDeck != null);
     assert(updateCards != null);
@@ -1281,6 +1312,7 @@ class _$AvatarChanged implements AvatarChanged {
     Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
     Result switchEditStatus(SwitchEditState value),
+    Result undoEdits(UndoEdits value),
     Result saveChanges(SaveChanges value),
     Result deleteDeck(DeleteDeck value),
     Result updateCards(UpdateCards value),
@@ -1295,9 +1327,9 @@ class _$AvatarChanged implements AvatarChanged {
 }
 
 abstract class AvatarChanged implements AddDeckEvent {
-  factory AvatarChanged(ImageFile avatar) = _$AvatarChanged;
+  factory AvatarChanged(MDImageFile avatar) = _$AvatarChanged;
 
-  ImageFile get avatar;
+  MDImageFile get avatar;
   $AvatarChangedCopyWith<AvatarChanged> get copyWith;
 }
 
@@ -1340,14 +1372,15 @@ class _$PrivacyChanged implements PrivacyChanged {
     @required Result initFromOnline(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(ImageFile avatar),
+    @required Result avatarChanged(MDImageFile avatar),
     @required Result changePrivacy(),
     @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
     @required Result switchEditStatus(),
+    @required Result undoEdits(),
     @required Result saveChanges(),
     @required Result deleteDeck(),
-    @required Result updateCards(List<Card> cards),
+    @required Result updateCards(List<MDECard> cards),
   }) {
     assert(initFromOnline != null);
     assert(titleChanged != null);
@@ -1357,6 +1390,7 @@ class _$PrivacyChanged implements PrivacyChanged {
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(switchEditStatus != null);
+    assert(undoEdits != null);
     assert(saveChanges != null);
     assert(deleteDeck != null);
     assert(updateCards != null);
@@ -1369,14 +1403,15 @@ class _$PrivacyChanged implements PrivacyChanged {
     Result initFromOnline(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(ImageFile avatar),
+    Result avatarChanged(MDImageFile avatar),
     Result changePrivacy(),
     Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
     Result switchEditStatus(),
+    Result undoEdits(),
     Result saveChanges(),
     Result deleteDeck(),
-    Result updateCards(List<Card> cards),
+    Result updateCards(List<MDECard> cards),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1397,6 +1432,7 @@ class _$PrivacyChanged implements PrivacyChanged {
     @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
     @required Result switchEditStatus(SwitchEditState value),
+    @required Result undoEdits(UndoEdits value),
     @required Result saveChanges(SaveChanges value),
     @required Result deleteDeck(DeleteDeck value),
     @required Result updateCards(UpdateCards value),
@@ -1409,6 +1445,7 @@ class _$PrivacyChanged implements PrivacyChanged {
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(switchEditStatus != null);
+    assert(undoEdits != null);
     assert(saveChanges != null);
     assert(deleteDeck != null);
     assert(updateCards != null);
@@ -1426,6 +1463,7 @@ class _$PrivacyChanged implements PrivacyChanged {
     Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
     Result switchEditStatus(SwitchEditState value),
+    Result undoEdits(UndoEdits value),
     Result saveChanges(SaveChanges value),
     Result deleteDeck(DeleteDeck value),
     Result updateCards(UpdateCards value),
@@ -1482,14 +1520,15 @@ class _$QuickTrainStateChanged implements QuickTrainStateChanged {
     @required Result initFromOnline(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(ImageFile avatar),
+    @required Result avatarChanged(MDImageFile avatar),
     @required Result changePrivacy(),
     @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
     @required Result switchEditStatus(),
+    @required Result undoEdits(),
     @required Result saveChanges(),
     @required Result deleteDeck(),
-    @required Result updateCards(List<Card> cards),
+    @required Result updateCards(List<MDECard> cards),
   }) {
     assert(initFromOnline != null);
     assert(titleChanged != null);
@@ -1499,6 +1538,7 @@ class _$QuickTrainStateChanged implements QuickTrainStateChanged {
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(switchEditStatus != null);
+    assert(undoEdits != null);
     assert(saveChanges != null);
     assert(deleteDeck != null);
     assert(updateCards != null);
@@ -1511,14 +1551,15 @@ class _$QuickTrainStateChanged implements QuickTrainStateChanged {
     Result initFromOnline(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(ImageFile avatar),
+    Result avatarChanged(MDImageFile avatar),
     Result changePrivacy(),
     Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
     Result switchEditStatus(),
+    Result undoEdits(),
     Result saveChanges(),
     Result deleteDeck(),
-    Result updateCards(List<Card> cards),
+    Result updateCards(List<MDECard> cards),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1539,6 +1580,7 @@ class _$QuickTrainStateChanged implements QuickTrainStateChanged {
     @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
     @required Result switchEditStatus(SwitchEditState value),
+    @required Result undoEdits(UndoEdits value),
     @required Result saveChanges(SaveChanges value),
     @required Result deleteDeck(DeleteDeck value),
     @required Result updateCards(UpdateCards value),
@@ -1551,6 +1593,7 @@ class _$QuickTrainStateChanged implements QuickTrainStateChanged {
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(switchEditStatus != null);
+    assert(undoEdits != null);
     assert(saveChanges != null);
     assert(deleteDeck != null);
     assert(updateCards != null);
@@ -1568,6 +1611,7 @@ class _$QuickTrainStateChanged implements QuickTrainStateChanged {
     Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
     Result switchEditStatus(SwitchEditState value),
+    Result undoEdits(UndoEdits value),
     Result saveChanges(SaveChanges value),
     Result deleteDeck(DeleteDeck value),
     Result updateCards(UpdateCards value),
@@ -1658,14 +1702,15 @@ class _$CategoryChanged implements CategoryChanged {
     @required Result initFromOnline(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(ImageFile avatar),
+    @required Result avatarChanged(MDImageFile avatar),
     @required Result changePrivacy(),
     @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
     @required Result switchEditStatus(),
+    @required Result undoEdits(),
     @required Result saveChanges(),
     @required Result deleteDeck(),
-    @required Result updateCards(List<Card> cards),
+    @required Result updateCards(List<MDECard> cards),
   }) {
     assert(initFromOnline != null);
     assert(titleChanged != null);
@@ -1675,6 +1720,7 @@ class _$CategoryChanged implements CategoryChanged {
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(switchEditStatus != null);
+    assert(undoEdits != null);
     assert(saveChanges != null);
     assert(deleteDeck != null);
     assert(updateCards != null);
@@ -1687,14 +1733,15 @@ class _$CategoryChanged implements CategoryChanged {
     Result initFromOnline(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(ImageFile avatar),
+    Result avatarChanged(MDImageFile avatar),
     Result changePrivacy(),
     Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
     Result switchEditStatus(),
+    Result undoEdits(),
     Result saveChanges(),
     Result deleteDeck(),
-    Result updateCards(List<Card> cards),
+    Result updateCards(List<MDECard> cards),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1715,6 +1762,7 @@ class _$CategoryChanged implements CategoryChanged {
     @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
     @required Result switchEditStatus(SwitchEditState value),
+    @required Result undoEdits(UndoEdits value),
     @required Result saveChanges(SaveChanges value),
     @required Result deleteDeck(DeleteDeck value),
     @required Result updateCards(UpdateCards value),
@@ -1727,6 +1775,7 @@ class _$CategoryChanged implements CategoryChanged {
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(switchEditStatus != null);
+    assert(undoEdits != null);
     assert(saveChanges != null);
     assert(deleteDeck != null);
     assert(updateCards != null);
@@ -1744,6 +1793,7 @@ class _$CategoryChanged implements CategoryChanged {
     Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
     Result switchEditStatus(SwitchEditState value),
+    Result undoEdits(UndoEdits value),
     Result saveChanges(SaveChanges value),
     Result deleteDeck(DeleteDeck value),
     Result updateCards(UpdateCards value),
@@ -1803,14 +1853,15 @@ class _$SwitchEditState implements SwitchEditState {
     @required Result initFromOnline(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(ImageFile avatar),
+    @required Result avatarChanged(MDImageFile avatar),
     @required Result changePrivacy(),
     @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
     @required Result switchEditStatus(),
+    @required Result undoEdits(),
     @required Result saveChanges(),
     @required Result deleteDeck(),
-    @required Result updateCards(List<Card> cards),
+    @required Result updateCards(List<MDECard> cards),
   }) {
     assert(initFromOnline != null);
     assert(titleChanged != null);
@@ -1820,6 +1871,7 @@ class _$SwitchEditState implements SwitchEditState {
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(switchEditStatus != null);
+    assert(undoEdits != null);
     assert(saveChanges != null);
     assert(deleteDeck != null);
     assert(updateCards != null);
@@ -1832,14 +1884,15 @@ class _$SwitchEditState implements SwitchEditState {
     Result initFromOnline(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(ImageFile avatar),
+    Result avatarChanged(MDImageFile avatar),
     Result changePrivacy(),
     Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
     Result switchEditStatus(),
+    Result undoEdits(),
     Result saveChanges(),
     Result deleteDeck(),
-    Result updateCards(List<Card> cards),
+    Result updateCards(List<MDECard> cards),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1860,6 +1913,7 @@ class _$SwitchEditState implements SwitchEditState {
     @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
     @required Result switchEditStatus(SwitchEditState value),
+    @required Result undoEdits(UndoEdits value),
     @required Result saveChanges(SaveChanges value),
     @required Result deleteDeck(DeleteDeck value),
     @required Result updateCards(UpdateCards value),
@@ -1872,6 +1926,7 @@ class _$SwitchEditState implements SwitchEditState {
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(switchEditStatus != null);
+    assert(undoEdits != null);
     assert(saveChanges != null);
     assert(deleteDeck != null);
     assert(updateCards != null);
@@ -1889,6 +1944,7 @@ class _$SwitchEditState implements SwitchEditState {
     Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
     Result switchEditStatus(SwitchEditState value),
+    Result undoEdits(UndoEdits value),
     Result saveChanges(SaveChanges value),
     Result deleteDeck(DeleteDeck value),
     Result updateCards(UpdateCards value),
@@ -1904,6 +1960,151 @@ class _$SwitchEditState implements SwitchEditState {
 
 abstract class SwitchEditState implements AddDeckEvent {
   factory SwitchEditState() = _$SwitchEditState;
+}
+
+abstract class $UndoEditsCopyWith<$Res> {
+  factory $UndoEditsCopyWith(UndoEdits value, $Res Function(UndoEdits) then) =
+      _$UndoEditsCopyWithImpl<$Res>;
+}
+
+class _$UndoEditsCopyWithImpl<$Res> extends _$AddDeckEventCopyWithImpl<$Res>
+    implements $UndoEditsCopyWith<$Res> {
+  _$UndoEditsCopyWithImpl(UndoEdits _value, $Res Function(UndoEdits) _then)
+      : super(_value, (v) => _then(v as UndoEdits));
+
+  @override
+  UndoEdits get _value => super._value as UndoEdits;
+}
+
+class _$UndoEdits implements UndoEdits {
+  _$UndoEdits();
+
+  @override
+  String toString() {
+    return 'AddDeckEvent.undoEdits()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is UndoEdits);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result initFromOnline(),
+    @required Result titleChanged(String titleStr),
+    @required Result descriptionChanged(String descStr),
+    @required Result avatarChanged(MDImageFile avatar),
+    @required Result changePrivacy(),
+    @required Result quickTrainStateChanged(),
+    @required Result categoryChanged(DeckCategory category),
+    @required Result switchEditStatus(),
+    @required Result undoEdits(),
+    @required Result saveChanges(),
+    @required Result deleteDeck(),
+    @required Result updateCards(List<MDECard> cards),
+  }) {
+    assert(initFromOnline != null);
+    assert(titleChanged != null);
+    assert(descriptionChanged != null);
+    assert(avatarChanged != null);
+    assert(changePrivacy != null);
+    assert(quickTrainStateChanged != null);
+    assert(categoryChanged != null);
+    assert(switchEditStatus != null);
+    assert(undoEdits != null);
+    assert(saveChanges != null);
+    assert(deleteDeck != null);
+    assert(updateCards != null);
+    return undoEdits();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result initFromOnline(),
+    Result titleChanged(String titleStr),
+    Result descriptionChanged(String descStr),
+    Result avatarChanged(MDImageFile avatar),
+    Result changePrivacy(),
+    Result quickTrainStateChanged(),
+    Result categoryChanged(DeckCategory category),
+    Result switchEditStatus(),
+    Result undoEdits(),
+    Result saveChanges(),
+    Result deleteDeck(),
+    Result updateCards(List<MDECard> cards),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (undoEdits != null) {
+      return undoEdits();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result initFromOnline(InitFromOnline value),
+    @required Result titleChanged(TitleChanged value),
+    @required Result descriptionChanged(DescriptionChanged value),
+    @required Result avatarChanged(AvatarChanged value),
+    @required Result changePrivacy(PrivacyChanged value),
+    @required Result quickTrainStateChanged(QuickTrainStateChanged value),
+    @required Result categoryChanged(CategoryChanged value),
+    @required Result switchEditStatus(SwitchEditState value),
+    @required Result undoEdits(UndoEdits value),
+    @required Result saveChanges(SaveChanges value),
+    @required Result deleteDeck(DeleteDeck value),
+    @required Result updateCards(UpdateCards value),
+  }) {
+    assert(initFromOnline != null);
+    assert(titleChanged != null);
+    assert(descriptionChanged != null);
+    assert(avatarChanged != null);
+    assert(changePrivacy != null);
+    assert(quickTrainStateChanged != null);
+    assert(categoryChanged != null);
+    assert(switchEditStatus != null);
+    assert(undoEdits != null);
+    assert(saveChanges != null);
+    assert(deleteDeck != null);
+    assert(updateCards != null);
+    return undoEdits(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result initFromOnline(InitFromOnline value),
+    Result titleChanged(TitleChanged value),
+    Result descriptionChanged(DescriptionChanged value),
+    Result avatarChanged(AvatarChanged value),
+    Result changePrivacy(PrivacyChanged value),
+    Result quickTrainStateChanged(QuickTrainStateChanged value),
+    Result categoryChanged(CategoryChanged value),
+    Result switchEditStatus(SwitchEditState value),
+    Result undoEdits(UndoEdits value),
+    Result saveChanges(SaveChanges value),
+    Result deleteDeck(DeleteDeck value),
+    Result updateCards(UpdateCards value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (undoEdits != null) {
+      return undoEdits(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UndoEdits implements AddDeckEvent {
+  factory UndoEdits() = _$UndoEdits;
 }
 
 abstract class $SaveChangesCopyWith<$Res> {
@@ -1944,14 +2145,15 @@ class _$SaveChanges implements SaveChanges {
     @required Result initFromOnline(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(ImageFile avatar),
+    @required Result avatarChanged(MDImageFile avatar),
     @required Result changePrivacy(),
     @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
     @required Result switchEditStatus(),
+    @required Result undoEdits(),
     @required Result saveChanges(),
     @required Result deleteDeck(),
-    @required Result updateCards(List<Card> cards),
+    @required Result updateCards(List<MDECard> cards),
   }) {
     assert(initFromOnline != null);
     assert(titleChanged != null);
@@ -1961,6 +2163,7 @@ class _$SaveChanges implements SaveChanges {
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(switchEditStatus != null);
+    assert(undoEdits != null);
     assert(saveChanges != null);
     assert(deleteDeck != null);
     assert(updateCards != null);
@@ -1973,14 +2176,15 @@ class _$SaveChanges implements SaveChanges {
     Result initFromOnline(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(ImageFile avatar),
+    Result avatarChanged(MDImageFile avatar),
     Result changePrivacy(),
     Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
     Result switchEditStatus(),
+    Result undoEdits(),
     Result saveChanges(),
     Result deleteDeck(),
-    Result updateCards(List<Card> cards),
+    Result updateCards(List<MDECard> cards),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -2001,6 +2205,7 @@ class _$SaveChanges implements SaveChanges {
     @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
     @required Result switchEditStatus(SwitchEditState value),
+    @required Result undoEdits(UndoEdits value),
     @required Result saveChanges(SaveChanges value),
     @required Result deleteDeck(DeleteDeck value),
     @required Result updateCards(UpdateCards value),
@@ -2013,6 +2218,7 @@ class _$SaveChanges implements SaveChanges {
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(switchEditStatus != null);
+    assert(undoEdits != null);
     assert(saveChanges != null);
     assert(deleteDeck != null);
     assert(updateCards != null);
@@ -2030,6 +2236,7 @@ class _$SaveChanges implements SaveChanges {
     Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
     Result switchEditStatus(SwitchEditState value),
+    Result undoEdits(UndoEdits value),
     Result saveChanges(SaveChanges value),
     Result deleteDeck(DeleteDeck value),
     Result updateCards(UpdateCards value),
@@ -2084,14 +2291,15 @@ class _$DeleteDeck implements DeleteDeck {
     @required Result initFromOnline(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(ImageFile avatar),
+    @required Result avatarChanged(MDImageFile avatar),
     @required Result changePrivacy(),
     @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
     @required Result switchEditStatus(),
+    @required Result undoEdits(),
     @required Result saveChanges(),
     @required Result deleteDeck(),
-    @required Result updateCards(List<Card> cards),
+    @required Result updateCards(List<MDECard> cards),
   }) {
     assert(initFromOnline != null);
     assert(titleChanged != null);
@@ -2101,6 +2309,7 @@ class _$DeleteDeck implements DeleteDeck {
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(switchEditStatus != null);
+    assert(undoEdits != null);
     assert(saveChanges != null);
     assert(deleteDeck != null);
     assert(updateCards != null);
@@ -2113,14 +2322,15 @@ class _$DeleteDeck implements DeleteDeck {
     Result initFromOnline(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(ImageFile avatar),
+    Result avatarChanged(MDImageFile avatar),
     Result changePrivacy(),
     Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
     Result switchEditStatus(),
+    Result undoEdits(),
     Result saveChanges(),
     Result deleteDeck(),
-    Result updateCards(List<Card> cards),
+    Result updateCards(List<MDECard> cards),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -2141,6 +2351,7 @@ class _$DeleteDeck implements DeleteDeck {
     @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
     @required Result switchEditStatus(SwitchEditState value),
+    @required Result undoEdits(UndoEdits value),
     @required Result saveChanges(SaveChanges value),
     @required Result deleteDeck(DeleteDeck value),
     @required Result updateCards(UpdateCards value),
@@ -2153,6 +2364,7 @@ class _$DeleteDeck implements DeleteDeck {
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(switchEditStatus != null);
+    assert(undoEdits != null);
     assert(saveChanges != null);
     assert(deleteDeck != null);
     assert(updateCards != null);
@@ -2170,6 +2382,7 @@ class _$DeleteDeck implements DeleteDeck {
     Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
     Result switchEditStatus(SwitchEditState value),
+    Result undoEdits(UndoEdits value),
     Result saveChanges(SaveChanges value),
     Result deleteDeck(DeleteDeck value),
     Result updateCards(UpdateCards value),
@@ -2191,7 +2404,7 @@ abstract class $UpdateCardsCopyWith<$Res> {
   factory $UpdateCardsCopyWith(
           UpdateCards value, $Res Function(UpdateCards) then) =
       _$UpdateCardsCopyWithImpl<$Res>;
-  $Res call({List<Card> cards});
+  $Res call({List<MDECard> cards});
 }
 
 class _$UpdateCardsCopyWithImpl<$Res> extends _$AddDeckEventCopyWithImpl<$Res>
@@ -2208,7 +2421,7 @@ class _$UpdateCardsCopyWithImpl<$Res> extends _$AddDeckEventCopyWithImpl<$Res>
     Object cards = freezed,
   }) {
     return _then(UpdateCards(
-      cards: cards == freezed ? _value.cards : cards as List<Card>,
+      cards: cards == freezed ? _value.cards : cards as List<MDECard>,
     ));
   }
 }
@@ -2217,7 +2430,7 @@ class _$UpdateCards implements UpdateCards {
   _$UpdateCards({@required this.cards}) : assert(cards != null);
 
   @override
-  final List<Card> cards;
+  final List<MDECard> cards;
 
   @override
   String toString() {
@@ -2246,14 +2459,15 @@ class _$UpdateCards implements UpdateCards {
     @required Result initFromOnline(),
     @required Result titleChanged(String titleStr),
     @required Result descriptionChanged(String descStr),
-    @required Result avatarChanged(ImageFile avatar),
+    @required Result avatarChanged(MDImageFile avatar),
     @required Result changePrivacy(),
     @required Result quickTrainStateChanged(),
     @required Result categoryChanged(DeckCategory category),
     @required Result switchEditStatus(),
+    @required Result undoEdits(),
     @required Result saveChanges(),
     @required Result deleteDeck(),
-    @required Result updateCards(List<Card> cards),
+    @required Result updateCards(List<MDECard> cards),
   }) {
     assert(initFromOnline != null);
     assert(titleChanged != null);
@@ -2263,6 +2477,7 @@ class _$UpdateCards implements UpdateCards {
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(switchEditStatus != null);
+    assert(undoEdits != null);
     assert(saveChanges != null);
     assert(deleteDeck != null);
     assert(updateCards != null);
@@ -2275,14 +2490,15 @@ class _$UpdateCards implements UpdateCards {
     Result initFromOnline(),
     Result titleChanged(String titleStr),
     Result descriptionChanged(String descStr),
-    Result avatarChanged(ImageFile avatar),
+    Result avatarChanged(MDImageFile avatar),
     Result changePrivacy(),
     Result quickTrainStateChanged(),
     Result categoryChanged(DeckCategory category),
     Result switchEditStatus(),
+    Result undoEdits(),
     Result saveChanges(),
     Result deleteDeck(),
-    Result updateCards(List<Card> cards),
+    Result updateCards(List<MDECard> cards),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -2303,6 +2519,7 @@ class _$UpdateCards implements UpdateCards {
     @required Result quickTrainStateChanged(QuickTrainStateChanged value),
     @required Result categoryChanged(CategoryChanged value),
     @required Result switchEditStatus(SwitchEditState value),
+    @required Result undoEdits(UndoEdits value),
     @required Result saveChanges(SaveChanges value),
     @required Result deleteDeck(DeleteDeck value),
     @required Result updateCards(UpdateCards value),
@@ -2315,6 +2532,7 @@ class _$UpdateCards implements UpdateCards {
     assert(quickTrainStateChanged != null);
     assert(categoryChanged != null);
     assert(switchEditStatus != null);
+    assert(undoEdits != null);
     assert(saveChanges != null);
     assert(deleteDeck != null);
     assert(updateCards != null);
@@ -2332,6 +2550,7 @@ class _$UpdateCards implements UpdateCards {
     Result quickTrainStateChanged(QuickTrainStateChanged value),
     Result categoryChanged(CategoryChanged value),
     Result switchEditStatus(SwitchEditState value),
+    Result undoEdits(UndoEdits value),
     Result saveChanges(SaveChanges value),
     Result deleteDeck(DeleteDeck value),
     Result updateCards(UpdateCards value),
@@ -2346,8 +2565,8 @@ class _$UpdateCards implements UpdateCards {
 }
 
 abstract class UpdateCards implements AddDeckEvent {
-  factory UpdateCards({@required List<Card> cards}) = _$UpdateCards;
+  factory UpdateCards({@required List<MDECard> cards}) = _$UpdateCards;
 
-  List<Card> get cards;
+  List<MDECard> get cards;
   $UpdateCardsCopyWith<UpdateCards> get copyWith;
 }

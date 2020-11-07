@@ -12,7 +12,7 @@ T _$identity<T>(T value) => value;
 class _$CECardStateTearOff {
   const _$CECardStateTearOff();
 
-  _CECardState call({@required Card card, @required bool isQuestion}) {
+  _CECardState call({@required MDECard card, @required bool isQuestion}) {
     return _CECardState(
       card: card,
       isQuestion: isQuestion,
@@ -24,7 +24,7 @@ class _$CECardStateTearOff {
 const $CECardState = _$CECardStateTearOff();
 
 mixin _$CECardState {
-  Card get card;
+  MDECard get card;
   bool get isQuestion;
 
   $CECardStateCopyWith<CECardState> get copyWith;
@@ -34,9 +34,9 @@ abstract class $CECardStateCopyWith<$Res> {
   factory $CECardStateCopyWith(
           CECardState value, $Res Function(CECardState) then) =
       _$CECardStateCopyWithImpl<$Res>;
-  $Res call({Card card, bool isQuestion});
+  $Res call({MDECard card, bool isQuestion});
 
-  $CardCopyWith<$Res> get card;
+  $MDECardCopyWith<$Res> get card;
 }
 
 class _$CECardStateCopyWithImpl<$Res> implements $CECardStateCopyWith<$Res> {
@@ -52,18 +52,18 @@ class _$CECardStateCopyWithImpl<$Res> implements $CECardStateCopyWith<$Res> {
     Object isQuestion = freezed,
   }) {
     return _then(_value.copyWith(
-      card: card == freezed ? _value.card : card as Card,
+      card: card == freezed ? _value.card : card as MDECard,
       isQuestion:
           isQuestion == freezed ? _value.isQuestion : isQuestion as bool,
     ));
   }
 
   @override
-  $CardCopyWith<$Res> get card {
+  $MDECardCopyWith<$Res> get card {
     if (_value.card == null) {
       return null;
     }
-    return $CardCopyWith<$Res>(_value.card, (value) {
+    return $MDECardCopyWith<$Res>(_value.card, (value) {
       return _then(_value.copyWith(card: value));
     });
   }
@@ -75,10 +75,10 @@ abstract class _$CECardStateCopyWith<$Res>
           _CECardState value, $Res Function(_CECardState) then) =
       __$CECardStateCopyWithImpl<$Res>;
   @override
-  $Res call({Card card, bool isQuestion});
+  $Res call({MDECard card, bool isQuestion});
 
   @override
-  $CardCopyWith<$Res> get card;
+  $MDECardCopyWith<$Res> get card;
 }
 
 class __$CECardStateCopyWithImpl<$Res> extends _$CECardStateCopyWithImpl<$Res>
@@ -96,7 +96,7 @@ class __$CECardStateCopyWithImpl<$Res> extends _$CECardStateCopyWithImpl<$Res>
     Object isQuestion = freezed,
   }) {
     return _then(_CECardState(
-      card: card == freezed ? _value.card : card as Card,
+      card: card == freezed ? _value.card : card as MDECard,
       isQuestion:
           isQuestion == freezed ? _value.isQuestion : isQuestion as bool,
     ));
@@ -109,7 +109,7 @@ class _$_CECardState implements _CECardState {
         assert(isQuestion != null);
 
   @override
-  final Card card;
+  final MDECard card;
   @override
   final bool isQuestion;
 
@@ -141,11 +141,11 @@ class _$_CECardState implements _CECardState {
 }
 
 abstract class _CECardState implements CECardState {
-  const factory _CECardState({@required Card card, @required bool isQuestion}) =
-      _$_CECardState;
+  const factory _CECardState(
+      {@required MDECard card, @required bool isQuestion}) = _$_CECardState;
 
   @override
-  Card get card;
+  MDECard get card;
   @override
   bool get isQuestion;
   @override

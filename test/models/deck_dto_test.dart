@@ -17,7 +17,7 @@ import 'package:mydeck/models/entitites/deck.dart';
 main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   final Deck tDeck = Deck(
-      author: User(
+      author: MDEUser(
           avatar: ImageFile(uniqueId: UniqueId(), file: File("")),
           email: EmailAddress(" "),
           subscribers: [],

@@ -11,13 +11,12 @@ import 'package:mydeck/screens/library/library_page.dart';
 import 'package:mydeck/services/datasources/user_config.dart';
 import 'package:mydeck/theme/my_deck_routes.dart';
 import 'package:mydeck/utils/custom_icons_icons.dart';
-import 'package:mydeck/widgets/login_to_cont_widget.dart';
 import 'package:mydeck/widgets/md_bottom_bar.dart';
 import 'package:mydeck/screens/login/profile_page.dart';
 import 'package:mydeck/screens/social/social_page.dart';
+import 'package:mydeck/widgets/md_login_to_cont_widget.dart';
 
 class HomePage extends StatelessWidget {
-  final scaffoldKey = GlobalKey<ScaffoldState>();
   HomePage({Key key}) : super(key: key);
 
   @override
@@ -25,7 +24,7 @@ class HomePage extends StatelessWidget {
     return BlocBuilder<TabBloc, AppTab>(
       builder: (context, activeTab) {
         return Scaffold(
-          key: scaffoldKey,
+          
           body: PageTransitionSwitcher(
             transitionBuilder: (Widget child,
                 Animation<double> primaryAnimation,
@@ -45,9 +44,9 @@ class HomePage extends StatelessWidget {
             ),
             onPressed: () {
               if (UserConfig.currentUser == null) {
-                scaffoldKey.currentState.hideCurrentSnackBar();
-                scaffoldKey.currentState.showSnackBar(
-                  LoginToContSnackbar(context: context),
+                Scaffold.of(context).hideCurrentSnackBar();
+                Scaffold.of(context).showSnackBar(
+                  MDLoginToContSnackbar(context: context),
                 );
               } else {
                 Navigator.of(context).pushNamed(MyDeckRoutes.train);

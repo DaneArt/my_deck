@@ -3,8 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
-import 'package:mydeck/cubits/md_image/md_image_cubit.dart';
-import 'package:mydeck/models/entitites/md_file.dart';
+import 'package:mydeck/cubits/md_content/md_content_cubit.dart';
+import 'package:mydeck/models/entitites/mde_file.dart';
+
 
 class MDImage extends StatelessWidget {
   final Key key;
@@ -13,7 +14,7 @@ class MDImage extends StatelessWidget {
   final Widget placeholder;
   final Widget errorWidget;
   final Widget loadIndicator;
-  final ImageFile sourceImage;
+  final MDImageFile sourceImage;
   final bool editable;
   MDImage(
       {Key key,
@@ -22,7 +23,7 @@ class MDImage extends StatelessWidget {
       this.placeholder,
       this.errorWidget,
       this.loadIndicator,
-      @required ImageFile image,
+      @required MDImageFile image,
       this.editable})
       : assert(image != null),
         sourceImage = image,
@@ -36,24 +37,24 @@ class MDImage extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      child: BlocBuilder<MDContentCubit, MDContentState>(
+      child: BlocBuilder<MDContentCubit<File>, MDContentState<File>>(
         builder: (context, state) => state.map(
             initial: (s) {
-              context.bloc<MDContentCubit>().initFile(sourceImage);
+              context.bloc<MDContentCubit<File>>().initFile(sourceImage);
               return placeholder ??
                   Container(
                       width: double.infinity,
                       height: double.infinity,
-                      color: Colors.blueGrey);
+                    );
             },
             loading: (s) =>
                 Center(child: loadIndicator ?? CircularProgressIndicator()),
             error: (s) => errorWidget ?? Icon(Icons.error),
             loaded: (s) => Image.file(
-                  s.file,
+                  s.content,
                   key: Key('MDImage'),
                   fit: BoxFit.cover,
-                )),
+                ),),
       ),
     );
   }

@@ -1,13 +1,14 @@
 import 'package:mydeck/blocs/train/train_bloc.dart';
-import 'package:mydeck/models/entitites/card.dart' as Entity;
-import 'package:mydeck/models/entitites/md_file.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mydeck/models/entitites/mde_card.dart';
+import 'package:mydeck/models/entitites/mde_file.dart';
 
 import '../../../features/train/presentation/widgets/../../../../screens/train/local_widgets/dismissible_card_widget.dart';
 
 class CustomStackList extends StatefulWidget {
-  final List<Entity.Card> cards;
+  final List<MDECard> cards;
   final TrainBloc bloc;
 
   CustomStackList({
@@ -27,7 +28,7 @@ class _CustomStackListState extends State<CustomStackList>
   int _currentIndex = 0;
   double _cardOffsety = 5;
 
-  List<Entity.Card> get _cards => widget.cards;
+  List<MDECard> get _cards => widget.cards;
   Function(Guess) onGuessCallback;
   Function(Guess) onDismissCallback;
 
@@ -59,7 +60,7 @@ class _CustomStackListState extends State<CustomStackList>
     };
   }
 
-  Widget createWidgetFromContent(MDFile content, BuildContext context) =>
+  Widget createWidgetFromContent(MDEFile content, BuildContext context) =>
       Container();
   // content is ImageFile
   //     ? ImageCardContentWidget(

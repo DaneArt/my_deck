@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mydeck/blocs/train/train_bloc.dart';
-import 'package:transparent_image/transparent_image.dart';
 import 'package:meta/meta.dart';
+import 'package:mydeck/models/entitites/mde_deck.dart';
 
 import 'package:mydeck/utils/custom_icons_icons.dart';
-import 'package:mydeck/models/entitites/deck.dart';
-
-import 'package:mydeck/widgets/buttons.dart';
+import 'package:mydeck/blocs/train/train_bloc.dart';
+import 'package:mydeck/widgets/md_buttons.dart';
 
 class EndOfTrainView extends StatefulWidget {
   final bool isEndOfDeck;
   final int decksCount;
   final int successfullTrainedCardsCount;
-  final Deck deck;
+  final MDEDeck deck;
   final TrainBloc trainBloc;
 
   EndOfTrainView({
@@ -89,7 +87,7 @@ class _EndOfTrainViewState extends State<EndOfTrainView> {
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  IconRoundButton(
+                  MDIconRoundButton(
                     backgroundColor: Colors.orange,
                     icon: Icon(
                       CustomIcons.arrow_back,
@@ -99,7 +97,7 @@ class _EndOfTrainViewState extends State<EndOfTrainView> {
                       _trainingBloc.add(StopTrain());
                     },
                   ),
-                  IconRoundButton(
+                  MDIconRoundButton(
                     backgroundColor: Colors.orange,
                     icon: Icon(
                       CustomIcons.arrow_forward,
@@ -113,7 +111,7 @@ class _EndOfTrainViewState extends State<EndOfTrainView> {
               )
             : Align(
                 alignment: Alignment.center,
-                child: IconRoundButton(
+                child: MDIconRoundButton(
                   backgroundColor: Colors.orange,
                   icon: Icon(
                     CustomIcons.arrow_back,
