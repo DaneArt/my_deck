@@ -1,4 +1,4 @@
-part of 'md_image_cubit.dart';
+part of 'md_content_cubit.dart';
 
 @freezed
 abstract class MDContentState with _$MDContentState {
