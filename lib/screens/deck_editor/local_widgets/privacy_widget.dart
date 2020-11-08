@@ -1,8 +1,8 @@
 part of '../add_deck_page.dart';
 
-class MDPrivacyWidget extends StatelessWidget {
+class _MDPrivacyWidget extends StatelessWidget {
   final bool _isShared;
-  const MDPrivacyWidget({Key key, @required bool isShared}) : _isShared = isShared, super(key: key);
+  const _MDPrivacyWidget({Key key, @required bool isShared}) : _isShared = isShared, super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -11,7 +11,7 @@ import 'package:mydeck/utils/file_factory.dart';
 import 'package:path_provider/path_provider.dart';
 
 abstract class FileNetworkDataSource {
-  Future<MDFileDto> getFileById(String id);
+  Future<MDFileDto> getFileById(String id, FileType fileType);
   Future<void> addFile(MDFileDto file);
   Future<void> addFiles(List<MDFileDto> files);
   Future<void> updateFiles(List<MDFileDto> files);
@@ -34,20 +34,16 @@ class FileNetworkDataSourceImpl implements FileNetworkDataSource {
   }
 
   @override
-  Future<MDFileDto> getFileById(String id) async {
+  Future<MDFileDto> getFileById(String id, FileType fileType) async {
     try {
+      
+      final file = fileType == FileType.IMAGE ?ImageFileFactory().create(id):TextFileFactory().create(id);
+    
       final response = await dio.download(
-          '/Media/Media/$id', ImageFileFactory().create(id).path);
+          '/Media/Media/$id', file.path);
 
-      final contentType = response.headers.map[Headers.contentTypeHeader][0];
+      return MDFileDto(file: file,id:id,type:fileType);
 
-      if (contentType == 'image/jpeg') {
-        return MDFileDto(
-            file: ImageFileFactory().create(id), id: id, type: FileType.IMAGE);
-      } else {
-        return MDFileDto(
-            file: TextFileFactory().create(id), id: id, type: FileType.TEXT);
-      }
     } on Exception catch (e) {
       throw NetworkException();
     }
@@ -112,7 +108,7 @@ class FakeFileNetworkDataSource implements FileNetworkDataSource {
   }
 
   @override
-  Future<MDFileDto> getFileById(String id) async {
+  Future<MDFileDto> getFileById(String id, FileType fileType) async {
     try {
       var url = imageUrls[Random().nextInt(imageUrls.length - 1)];
       var response = await Dio().get(url);

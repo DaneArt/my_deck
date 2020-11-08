@@ -6,14 +6,15 @@ class _InDeckCardWidget extends StatelessWidget {
 
   _InDeckCardWidget({Key key, this.sourceCard, this.onTap}) : super(key: key);
 
-  Widget _createWidgetFromContent(MDEFile content,BuildContext context) {
+  Widget _createWidgetFromContent(MDEFile content, BuildContext context) {
     if (content is MDImageFile) {
-      return Image.file(
-        content.getFileOrCrash(),
-        width: MediaQuery.of(context).size.width / 2,
+      return BlocProvider<MDContentCubit<File>>(
+        create: (context) => MDContentCubit<File>(),
+        child: MDImage(
+          image: content,
+          width: MediaQuery.of(context).size.width / 2,
           height: MediaQuery.of(context).size.width / 1.6 - 54,
-       
-        fit: BoxFit.cover,
+        ),
       );
     } else if (content is MDTextFile) {
       return BlocProvider<MDContentCubit<String>>(
@@ -37,7 +38,7 @@ class _InDeckCardWidget extends StatelessWidget {
         width: MediaQuery.of(context).size.width / 2,
         height: MediaQuery.of(context).size.width / 1.6,
         child: Card(
-            child: ClipRRect(
+          child: ClipRRect(
             borderRadius: BorderRadius.circular(4.0),
             child: InkWell(
               onTap: onTap,
@@ -62,7 +63,7 @@ class _InDeckCardWidget extends StatelessWidget {
                     ),
                   ),
                   Spacer(),
-                  _createWidgetFromContent(sourceCard.question,context),
+                  _createWidgetFromContent(sourceCard.question, context),
                   Spacer(),
                 ],
               ),

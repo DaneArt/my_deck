@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,6 +18,7 @@ import 'package:mydeck/screens/card_editor/card_editor.dart';
 import 'package:mydeck/utils/dependency_injection.dart';
 import 'package:mydeck/generated/l10n.dart';
 import 'package:mydeck/widgets/md_buttons.dart';
+import 'package:mydeck/widgets/md_image.dart';
 import 'package:mydeck/widgets/md_image_picker.dart';
 import 'package:mydeck/widgets/md_loading_indicator.dart';
 import 'package:mydeck/widgets/md_text.dart';
@@ -26,6 +28,8 @@ part './local_widgets/cards_grid_widget.dart';
 part './local_widgets/privacy_widget.dart';
 part './local_widgets/add_card_flat_button.dart';
 part './local_widgets/category_picker.dart';
+part './local_widgets/title_field_widget.dart';
+part './local_widgets/description_field.dart';
 part './local_widgets/in_deck_card_widget.dart';
 
 
@@ -51,17 +55,21 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
     with TickerProviderStateMixin<AddDeckTabView>, WidgetsBindingObserver {
   TabController tabController;
 
+  AddDeckBloc get  _bloc => context.read<AddDeckBloc>();
+
   bool get _showActions =>
       tabController.index == 1 &&
-      bloc.state.status == AddDeckStatus.edit &&
-      !bloc.state.isPending &&
-      !bloc.state.isLoading;
+      _bloc.state.status == AddDeckStatus.edit &&
+      !_bloc.state.isPending &&
+      !_bloc.state.isLoading;
 
-  AddDeckBloc get bloc => BlocProvider.of<AddDeckBloc>(context);
+  
 
   @override
   void initState() {
     super.initState();
+
+  
 
     tabController = TabController(
       length: 2,
@@ -71,9 +79,9 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
       FocusScope.of(context).unfocus();
       setState(() {});
     });
-    if (bloc.state.goal != AddDeckGoal.create &&
-        bloc.state.loadingFailureOrSuccess.isNone()) {
-      bloc.add(AddDeckEvent.initFromOnline());
+    if (_bloc.state.goal != AddDeckGoal.create &&
+        _bloc.state.loadingFailureOrSuccess.isNone()) {
+      _bloc.add(AddDeckEvent.initFromOnline());
     }
   }
 
@@ -115,9 +123,9 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                       if (state.goal == AddDeckGoal.create) {
                         Navigator.of(context).pop();
                       } else if (state.status == AddDeckStatus.edit) {
-                        bloc.add(AddDeckEvent.undoEdits());
+                        _bloc.add(AddDeckEvent.undoEdits());
                       } else {
-                        Navigator.of(context).pop(bloc.buildDeckForSave());
+                        Navigator.of(context).pop(_bloc.buildDeckForSave());
                       }
                     },
                   )
@@ -137,9 +145,9 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                           : Icons.check),
                       onPressed: () {
                         if (state.status == AddDeckStatus.edit) {
-                          bloc.add(AddDeckEvent.saveChanges());
+                          _bloc.add(AddDeckEvent.saveChanges());
                         } else {
-                          bloc.add(AddDeckEvent.switchEditStatus());
+                          _bloc.add(AddDeckEvent.switchEditStatus());
                         }
                       },
                     )
@@ -184,15 +192,15 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
           body: WillPopScope(
             onWillPop: () async {
               if (state.goal != AddDeckGoal.look) {
-                Navigator.of(context).pop(bloc.buildDeckForSave());
+                Navigator.of(context).pop(_bloc.buildDeckForSave());
               }
               return false;
             },
             child: DefaultTabController(
               length: 2, // This is the number of tabs.
               child: TabBarView(controller: tabController, children: [
-                _DeckWidget(addDeckBloc: bloc,),
-                _CardsGridWidget(),
+                _DeckWidget(addDeckBloc: _bloc,),
+                _CardsPage(),
               ]),
             ),
           ),
@@ -210,7 +218,7 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                 builder: (BuildContext ctx) => BlocProvider(
                       create: (c) => CardEditorBloc(
                           currentCardIndex: state.cardsList.length,
-                          sourceCards: List.from(bloc.state.cardsList)
+                          sourceCards: List.from(_bloc.state.cardsList)
                             ..add(MDECard.basic()),
                           status: state.status,
                           goal: state.goal),
@@ -218,7 +226,7 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
                     )));
 
         if (cardsEditorResult != null)
-          bloc.add(AddDeckEvent.updateCards(cards: cardsEditorResult));
+          _bloc.add(AddDeckEvent.updateCards(cards: cardsEditorResult));
       },
     );
   }
@@ -286,374 +294,6 @@ class _AddDeckTabViewState extends State<AddDeckTabView>
               ));
 }
 
-class _DeckPage extends StatefulWidget {
-  _DeckPage({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  _DeckPageState createState() => _DeckPageState();
-}
-
-class _DeckPageState extends State<_DeckPage> with WidgetsBindingObserver {
-  final _formKey = GlobalKey<FormState>();
-  final _titleFieldKey = GlobalKey<FormFieldState>();
-  final _descriptionFieldKey = GlobalKey<FormFieldState>();
-
-  static const _maxDescriptionCount = 70;
-  static const _maxTitleCount = 30;
-
-  AddDeckBloc get bloc => context.bloc<AddDeckBloc>();
-
-  @override
-  void initState() {
-    WidgetsBinding.instance.addObserver(this);
-
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.paused) {
-      FocusScope.of(context).unfocus();
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<AddDeckBloc, AddDeckState>(
-      builder: (context, state) {
-        if (state.isLoading) {
-          return Center(child: CircularProgressIndicator());
-        } else {
-          return state.loadingFailureOrSuccess.fold(
-            () => deckWidget(state),
-            (result) => result.fold(
-              (failure) => Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text('Failure'),
-                    MaterialButton(
-                      child: Text('Retry'),
-                      onPressed: () {
-                        bloc.add(AddDeckEvent.initFromOnline());
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              (success) => deckWidget(state),
-            ),
-          );
-        }
-      },
-    );
-  }
-
-  Widget deckWidget(AddDeckState state) => Container(
-        constraints:
-            BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
-        child: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                SizedBox(
-                  height: 8.0
-                ),
-                deckOverviewWidget(state),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 24.0, vertical: 24.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      buttonsWidget(state),
-                      SizedBox(
-                        height: 24,
-                      ),
-                      categoryWidget(state),
-                      authorWidget(state),
-                    ],
-                  ),
-                ),
-                state.goal == AddDeckGoal.update
-                    ? MaterialButton(
-                        minWidth: double.infinity,
-                        child: Text(
-                          'DELETE DECK',
-                          style: TextStyle(color: Colors.red),
-                        ),
-                        onPressed: () {
-                          bloc.add(AddDeckEvent.deleteDeck());
-                        },
-                      )
-                    : Container(),
-              ],
-            ),
-          ),
-        ),
-      );
-
-  Widget deckOverviewWidget(AddDeckState state) => ConstrainedBox(
-        constraints:
-            BoxConstraints(maxHeight: MediaQuery.of(context).size.height / 3),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16.0
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                width: MediaQuery.of(context).size.width / 2 - 32,
-                child: MDImagePicker(
-                    key: Key(state.avatar.value.fold(
-                        (l) => l.failedValue.uniqueId.getOrCrash,
-                        (r) => r.uniqueId.getOrCrash)),
-                    defaultAvatar: state.avatar,
-                    onImagePicked: (MDImageFile image) {
-                      bloc.add(AddDeckEvent.avatarChanged(image));
-                    },
-                    enabled:
-                        state.status == AddDeckStatus.edit && !state.isPending),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      titleWidget(state),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      descriptionWidget(state)
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-
-  Widget buttonsWidget(AddDeckState state) => Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(
-                left: state.status == AddDeckStatus.edit && !state.isPending
-                    ? 16.0
-                    : 32.0),
-            child: state.status == AddDeckStatus.edit && !state.isPending
-                ? MDRoundedButton(
-                    icon: Icon(state.isShared ? Icons.lock_open : Icons.lock),
-                    onPressed:
-                        state.status == AddDeckStatus.edit && !state.isPending
-                            ? () {
-                                bloc.add(AddDeckEvent.changePrivacy());
-                              }
-                            : null,
-                    title: Text('PRIVACY'),
-                  )
-                : Column(
-                    children: [
-                      Text('PRIVACY'),
-                      Container(height: 8),
-                      Icon(state.isShared ? Icons.lock_open : Icons.lock),
-                    ],
-                  ),
-          ),
-          state.status == AddDeckStatus.look
-              ? Padding(
-                  padding: const EdgeInsets.only(right: 32.0),
-                  child: MDRoundedButton(
-                    icon: Icon(CustomIcons.dumbbell),
-                    onPressed: () {},
-                    title: Text('TRAIN'),
-                  ),
-                )
-              : Padding(
-                  padding: const EdgeInsets.only(top: 16.0, right: 32.0),
-                  child: Column(
-                    children: <Widget>[
-                      Text('Quick train'),
-                      Checkbox(
-                          value: state.availableQuickTrain,
-                          onChanged: !state.isPending
-                              ? (value) {
-                                  bloc.add(
-                                      AddDeckEvent.quickTrainStateChanged());
-                                }
-                              : null),
-                    ],
-                  ),
-                ),
-        ],
-      );
-
-  Widget authorWidget(AddDeckState state) => Padding(
-        padding: const EdgeInsets.only(top: 16.0),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Text('Author', style: Theme.of(context).textTheme.headline5),
-            Row(
-              children: <Widget>[
-                Text(state.author.username.getOrCrash),
-                SizedBox(
-                  width: 8,
-                ),
-                CircleAvatar(
-                  backgroundColor: Colors.grey,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(32)),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage(
-                              '$BASE_URL_DEV/mydeckapi/media/media/${state.author.avatar.uniqueId.getOrCrash}'),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      );
-
-  Widget descriptionWidget(AddDeckState state) =>
-      state.status == AddDeckStatus.edit && !state.isPending
-          ? TextFormField(
-              key: _descriptionFieldKey,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              initialValue:
-                  state.description.value.fold((l) => l.failedValue, (r) => r),
-              textInputAction: TextInputAction.done,
-              style: Theme.of(context).textTheme.bodyText1,
-              onChanged: (input) =>
-                  bloc.add(AddDeckEvent.descriptionChanged(input)),
-              textCapitalization: TextCapitalization.sentences,
-              decoration: InputDecoration(
-                  hintText: S.of(context).editor_description_enter,
-                  hintMaxLines: 2,
-                  alignLabelWithHint: true,
-                  border: UnderlineInputBorder(),
-                  labelText: S.of(context).editor_description,
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-                  hoverColor: Theme.of(context).accentColor,
-                  labelStyle: Theme.of(context).textTheme.subtitle2),
-              inputFormatters: [
-                new LengthLimitingTextInputFormatter(_maxDescriptionCount),
-              ],
-              maxLines: 3,
-              maxLength: _maxDescriptionCount,
-            )
-          : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  '${S.of(context).editor_description}:',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(4),
-                ),
-                Text(
-                  state.description.value.fold(
-                      (l) => l.failedValue.isNotEmpty
-                          ? l.failedValue
-                          : S.of(context).editor_no_description,
-                      (r) => r.isNotEmpty ? r : "No description"),
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-              ],
-            );
-
-  Widget titleWidget(AddDeckState state) =>
-      state.status == AddDeckStatus.edit && !state.isPending
-          ? TextFormField(
-              key: _titleFieldKey,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              initialValue:
-                  state.title.value.fold((l) => l.failedValue, (r) => r),
-              onChanged: (input) {
-                bloc.add(AddDeckEvent.titleChanged(input));
-              },
-              style: Theme.of(context).textTheme.bodyText1,
-              textInputAction: TextInputAction.done,
-              textCapitalization: TextCapitalization.sentences,
-              decoration: InputDecoration(
-                hintText: S.of(context).editor_title_enter,
-                labelText: S.of(context).editor_title + '*',
-                labelStyle: Theme.of(context).textTheme.subtitle2,
-                contentPadding:
-                    EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-              ),
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(_maxTitleCount),
-              ],
-              maxLines: null,
-              maxLength: _maxTitleCount,
-            )
-          : Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  '${S.of(context).editor_title}:',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(4),
-                ),
-                Text(
-                  state.title.value.fold(
-                      (l) => l.failedValue.isNotEmpty
-                          ? l.failedValue
-                          : S.of(context).editor_no_title,
-                      (r) => r),
-                  style: Theme.of(context).textTheme.subtitle1,
-                  maxLines: null,
-                  softWrap: false,
-                ),
-              ],
-            );
-
-  Widget categoryWidget(AddDeckState state) => Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Text(
-            S.of(context).editor_category,
-            style: Theme.of(context).textTheme.headline5,
-          ),
-          state.status == AddDeckStatus.edit && !state.isPending
-              ? _CategoryPicker(
-                  onChanged: (value) {
-                    bloc.add(AddDeckEvent.categoryChanged(value));
-                  },
-                  baseCategory: state.category,
-                )
-              : Text(state.category.categoryName),
-        ],
-      );
-}
-
 class _CardsPage extends StatefulWidget {
   _CardsPage({Key key}) : super(key: key);
 
@@ -662,20 +302,17 @@ class _CardsPage extends StatefulWidget {
 }
 
 class _CardsPageState extends State<_CardsPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
-  AddDeckBloc get bloc => BlocProvider.of<AddDeckBloc>(context);
+  
+
+  AddDeckBloc get _bloc => context.read<AddDeckBloc>();
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AddDeckBloc, AddDeckState>(
       builder: (context, state) {
         if (state.isLoading) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+          return MDLoadingIndicator();
         } else {
           return state.loadingFailureOrSuccess.fold(
               () => state.cardsList.isNotEmpty
@@ -690,7 +327,7 @@ class _CardsPageState extends State<_CardsPage> {
                           MaterialButton(
                             child: Text('Retry'),
                             onPressed: () {
-                              bloc.add(AddDeckEvent.initFromOnline());
+                              _bloc.add(AddDeckEvent.initFromOnline());
                             },
                           ),
                         ],
@@ -735,7 +372,7 @@ class _CardsPageState extends State<_CardsPage> {
                                       child: CardEditor(),
                                     )));
                         if (cards != null)
-                          bloc.add(AddDeckEvent.updateCards(cards: cards));
+                          _bloc.add(AddDeckEvent.updateCards(cards: cards));
                       }
                     : null,
                 child: Text(
@@ -750,14 +387,13 @@ class _CardsPageState extends State<_CardsPage> {
 
   Widget _cardsGrid(AddDeckState state) {
     return GridView.count(
-      //key:UniqueKey(),
       crossAxisCount: 2,
       childAspectRatio: 0.8,
       children: List.generate(
         state.cardsList.length,
         (index) => _InDeckCardWidget(
- key:ValueKey(Random().nextInt(100000)),
-          onTap: () async {
+ key:ObjectKey(state.cardsList[index].question),
+          onTap: !state.isPending? () async {
             final cardsEditorResult =
                 await Navigator.of(context).push(MaterialPageRoute(
                     builder: (BuildContext context) => BlocProvider(
@@ -772,11 +408,9 @@ class _CardsPageState extends State<_CardsPage> {
 
        
             if (cardsEditorResult != null) {
-              context
-                  .bloc<AddDeckBloc>()
-                  .add(AddDeckEvent.updateCards(cards: cardsEditorResult));
+              _bloc.add(AddDeckEvent.updateCards(cards: cardsEditorResult));
             }
-          },
+          }:null,
           sourceCard: state.cardsList[index],
         ),
       ),

@@ -28,11 +28,12 @@ abstract class MDFileDto implements _$MDFileDto {
           type: FileType.IMAGE,
           file: domain.getFileOrCrash());
     } else {
+      
       return MDFileDto(
         id: domain.uniqueId.getOrCrash,
         type: FileType.TEXT,
         file: TextFileFactory().create(domain.uniqueId.getOrCrash)
-          ..writeAsStringSync((domain as MDTextFile).cachedTextOrNull),
+          ..writeAsStringSync((domain as MDTextFile).cachedTextOrNull??""),
       );
     }
   }
@@ -45,7 +46,7 @@ abstract class MDFileDto implements _$MDFileDto {
       return MDImageFile(file: file, uniqueId: UniqueId.fromString(id));
     } else {
       return MDTextFile(
-          text: file.existsSync() ? file.readAsStringSync() : "",
+          text: file.existsSync() ? file.readAsStringSync() : null,
           uniqueId: UniqueId.fromString(id));
     }
   }

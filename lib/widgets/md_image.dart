@@ -40,7 +40,7 @@ class MDImage extends StatelessWidget {
       child: BlocBuilder<MDContentCubit<File>, MDContentState<File>>(
         builder: (context, state) => state.map(
             initial: (s) {
-              context.bloc<MDContentCubit<File>>().initFile(sourceImage);
+              context.watch<MDContentCubit<File>>().initFile(sourceImage);
               return placeholder ??
                   Container(
                       width: double.infinity,
@@ -52,7 +52,7 @@ class MDImage extends StatelessWidget {
             error: (s) => errorWidget ?? Icon(Icons.error),
             loaded: (s) => Image.file(
                   s.content,
-                  key: Key('MDImage'),
+                  key: Key("MDImage"),
                   fit: BoxFit.cover,
                 ),),
       ),

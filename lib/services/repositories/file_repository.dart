@@ -53,7 +53,7 @@ class FileRepositoryImpl implements FileRepository {
       if (localFile == null && await networkConnection.isConnected) {
         Logger().d('FileRepository: no cached file but can get it from net');
         final networkFile =
-            await fileNetworkDataSource.getFileById(id.getOrCrash);
+            await fileNetworkDataSource.getFileById(id.getOrCrash, contentType);
         return right(networkFile.file);
       } else if (localFile != null) {
         Logger()

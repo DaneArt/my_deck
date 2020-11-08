@@ -34,7 +34,7 @@ class _MDTextState extends State<MDText> {
       child: BlocBuilder<MDContentCubit<String>, MDContentState<String>>(
         builder: (context, state) => state.map(
           initial: (s) {
-            context.bloc<MDContentCubit<String>>().initFile(widget.sourceFile);
+            context.watch<MDContentCubit<String>>().initFile(widget.sourceFile);
             return Container(
                 width: widget.width, height: widget.height,);
           },

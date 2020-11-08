@@ -74,7 +74,7 @@ class SignInPage extends StatelessWidget {
                                           autovalidate: state.autovalidate,
                                           textInputAction: TextInputAction.next,
                                           onChanged: (value) {
-                                            context.bloc<AuthBloc>().add(
+                                            context.read<AuthBloc>().add(
                                                 AuthEvent.emailOrLoginChanged(
                                                     emailOrLoginStr: value));
                                           },
@@ -88,7 +88,7 @@ class SignInPage extends StatelessWidget {
                                         ),
                                         PasswordField(
                                           onChanged: (value) {
-                                            context.bloc<AuthBloc>().add(
+                                            context.read<AuthBloc>().add(
                                                 AuthEvent.passwordChanged(
                                                     passwordStr: value));
                                           },
@@ -203,7 +203,7 @@ class SignInPage extends StatelessWidget {
             onPressed: state.submitting
                 ? null
                 : () {
-                    context.bloc<AuthBloc>().add(AuthEvent.signInPressed());
+                    context.read<AuthBloc>().add(AuthEvent.signInPressed());
                   },
           ),
         ),

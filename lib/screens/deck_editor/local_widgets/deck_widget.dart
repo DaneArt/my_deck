@@ -1,9 +1,10 @@
-
 part of '../add_deck_page.dart';
 
 class _DeckWidget extends StatefulWidget {
   final AddDeckBloc _addDeckBloc;
-  const _DeckWidget({Key key,@required AddDeckBloc addDeckBloc}) : _addDeckBloc = addDeckBloc, super(key: key);
+  const _DeckWidget({Key key, @required AddDeckBloc addDeckBloc})
+      : _addDeckBloc = addDeckBloc,
+        super(key: key);
 
   @override
   __DeckWidgetState createState() => __DeckWidgetState();
@@ -12,11 +13,8 @@ class _DeckWidget extends StatefulWidget {
 class __DeckWidgetState extends State<_DeckWidget> with WidgetsBindingObserver {
   final _titleFieldKey = GlobalKey<FormFieldState>();
   final _descriptionFieldKey = GlobalKey<FormFieldState>();
-  
-  AddDeckBloc get bloc => widget._addDeckBloc;
 
-  static const _maxDescriptionCount = 70;
-  static const _maxTitleCount = 30;
+  AddDeckBloc get bloc => widget._addDeckBloc;
 
   @override
   void initState() {
@@ -47,7 +45,7 @@ class __DeckWidgetState extends State<_DeckWidget> with WidgetsBindingObserver {
           return state.loadingFailureOrSuccess.fold(
             () => deckWidget(state),
             (result) => result.fold(
-              (failure) => MDErrorButton(onPressed: _initDeckFromOnline ),
+              (failure) => MDErrorButton(onPressed: _initDeckFromOnline),
               (success) => deckWidget(state),
             ),
           );
@@ -55,8 +53,6 @@ class __DeckWidgetState extends State<_DeckWidget> with WidgetsBindingObserver {
       },
     );
   }
-
-
 
   //** BEGINING OF WIDGET BUILDING FUNCTIONS
 
@@ -68,9 +64,7 @@ class __DeckWidgetState extends State<_DeckWidget> with WidgetsBindingObserver {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                SizedBox(
-                  height: 8.0
-                ),
+                SizedBox(height: 8.0),
                 deckOverviewWidget(state),
                 Padding(
                   padding: const EdgeInsets.symmetric(
@@ -83,13 +77,16 @@ class __DeckWidgetState extends State<_DeckWidget> with WidgetsBindingObserver {
                         height: 24,
                       ),
                       categoryWidget(state),
-                      authorWidget(state),
+                      state.goal != AddDeckGoal.create? authorWidget(state):Container(),
                     ],
                   ),
                 ),
-                state.goal == AddDeckGoal.update
-                    ? MDDeleteButton(onPressed: _deleteDeck,)
-                    : null,
+                state.goal == AddDeckGoal.update && !state.isPending && state.status == AddDeckStatus.edit
+                    ? MDDeleteButton(
+                      text: "DELETE DECK",
+                        onPressed: _deleteDeck,
+                      )
+                    : Container(),
               ],
             ),
           ),
@@ -100,9 +97,7 @@ class __DeckWidgetState extends State<_DeckWidget> with WidgetsBindingObserver {
         constraints:
             BoxConstraints(maxHeight: MediaQuery.of(context).size.height / 3),
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16.0
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -127,11 +122,11 @@ class __DeckWidgetState extends State<_DeckWidget> with WidgetsBindingObserver {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      titleWidget(state),
+                      _buildTitleWidget(state),
                       SizedBox(
                         height: 16,
                       ),
-                      descriptionWidget(state)
+                      _buildDescriptionWidget(state)
                     ],
                   ),
                 ),
@@ -145,23 +140,22 @@ class __DeckWidgetState extends State<_DeckWidget> with WidgetsBindingObserver {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.only(
-                left: state.status == AddDeckStatus.edit && !state.isPending
-                    ? 16.0
-                    : 32.0),
-            child: state.status == AddDeckStatus.edit && !state.isPending
-                ? MDRoundedButton(
-                    icon: Icon(state.isShared ? Icons.lock_open : Icons.lock),
-                    onPressed:
-                        state.status == AddDeckStatus.edit && !state.isPending
-                            ? () {
-                                bloc.add(AddDeckEvent.changePrivacy());
-                              }
-                            : null,
-                    title: Text('PRIVACY'),
-                  )
-                : null
-          ),
+              padding: EdgeInsets.only(
+                  left: state.status == AddDeckStatus.edit && !state.isPending
+                      ? 16.0
+                      : 32.0),
+              child: state.status == AddDeckStatus.edit && !state.isPending
+                  ? MDRoundedButton(
+                      icon: Icon(state.isShared ? Icons.lock_open : Icons.lock),
+                      onPressed:
+                          state.status == AddDeckStatus.edit && !state.isPending
+                              ? () {
+                                  bloc.add(AddDeckEvent.changePrivacy());
+                                }
+                              : null,
+                      title: Text('PRIVACY'),
+                    )
+                  : _MDPrivacyWidget(isShared: state.isShared)),
           state.status == AddDeckStatus.look
               ? Padding(
                   padding: const EdgeInsets.only(right: 32.0),
@@ -223,104 +217,69 @@ class __DeckWidgetState extends State<_DeckWidget> with WidgetsBindingObserver {
         ),
       );
 
-  Widget descriptionWidget(AddDeckState state) =>
+  Widget _buildDescriptionWidget(AddDeckState state) =>
       state.status == AddDeckStatus.edit && !state.isPending
-          ? TextFormField(
+          ? _DescriptionField(
               key: _descriptionFieldKey,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              initialValue:
-                  state.description.value.fold((l) => l.failedValue, (r) => r),
-              textInputAction: TextInputAction.done,
-              style: Theme.of(context).textTheme.bodyText1,
-              onChanged: (input) =>
-                  bloc.add(AddDeckEvent.descriptionChanged(input)),
-              textCapitalization: TextCapitalization.sentences,
-              decoration: InputDecoration(
-                  hintText: S.of(context).editor_description_enter,
-                  hintMaxLines: 2,
-                  alignLabelWithHint: true,
-                  border: UnderlineInputBorder(),
-                  labelText: S.of(context).editor_description,
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-                  hoverColor: Theme.of(context).accentColor,
-                  labelStyle: Theme.of(context).textTheme.subtitle2),
-              inputFormatters: [
-                new LengthLimitingTextInputFormatter(_maxDescriptionCount),
-              ],
-              maxLines: 3,
-              maxLength: _maxDescriptionCount,
+              initialValue: state.description.value.fold((l) => '', (r) => r),
+              onChanged: (value) =>
+                  bloc.add(AddDeckEvent.descriptionChanged(value)),
             )
-          : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  '${S.of(context).editor_description}:',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(4),
-                ),
-                Text(
-                  state.description.value.fold(
-                      (l) => l.failedValue.isNotEmpty
-                          ? l.failedValue
-                          : S.of(context).editor_no_description,
-                      (r) => r.isNotEmpty ? r : "No description"),
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-              ],
-            );
+          : _buildDescriptionText(state.description.value.fold(
+              (l) => l.failedValue.isNotEmpty
+                  ? l.failedValue
+                  : S.of(context).editor_no_description,
+              (r) => r.isNotEmpty ? r : "No description"));
 
-  Widget titleWidget(AddDeckState state) =>
+  Widget _buildDescriptionText(String description) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            '${S.of(context).editor_description}:',
+            style: Theme.of(context).textTheme.headline6,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(4),
+          ),
+          Text(
+            description,
+            style: Theme.of(context).textTheme.subtitle1,
+          ),
+        ],
+      );
+
+  Widget _buildTitleWidget(AddDeckState state) =>
       state.status == AddDeckStatus.edit && !state.isPending
-          ? TextFormField(
+          ? _TitleFieldWidget(
               key: _titleFieldKey,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              initialValue:
-                  state.title.value.fold((l) => l.failedValue, (r) => r),
-              onChanged: (input) {
-                bloc.add(AddDeckEvent.titleChanged(input));
-              },
-              style: Theme.of(context).textTheme.bodyText1,
-              textInputAction: TextInputAction.done,
-              textCapitalization: TextCapitalization.sentences,
-              decoration: InputDecoration(
-                hintText: S.of(context).editor_title_enter,
-                labelText: S.of(context).editor_title + '*',
-                labelStyle: Theme.of(context).textTheme.subtitle2,
-                contentPadding:
-                    EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-              ),
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(_maxTitleCount),
-              ],
-              maxLines: null,
-              maxLength: _maxTitleCount,
+              initialValue: state.title.value.fold((l) => '', (r) => r),
+              onChanged: (value) => bloc.add(AddDeckEvent.titleChanged(value)),
             )
-          : Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  '${S.of(context).editor_title}:',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(4),
-                ),
-                Text(
-                  state.title.value.fold(
-                      (l) => l.failedValue.isNotEmpty
-                          ? l.failedValue
-                          : S.of(context).editor_no_title,
-                      (r) => r),
-                  style: Theme.of(context).textTheme.subtitle1,
-                  maxLines: null,
-                  softWrap: false,
-                ),
-              ],
-            );
+          : _buildTitleText(state.title.value.fold(
+              (l) => l.failedValue.isNotEmpty
+                  ? l.failedValue
+                  : S.of(context).editor_no_title,
+              (r) => r));
+
+  Widget _buildTitleText(String title) => Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            '${S.of(context).editor_title}:',
+            style: Theme.of(context).textTheme.headline6,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(4),
+          ),
+          Text(
+            title,
+            style: Theme.of(context).textTheme.subtitle1,
+            maxLines: null,
+            softWrap: false,
+          ),
+        ],
+      );
 
   Widget categoryWidget(AddDeckState state) => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

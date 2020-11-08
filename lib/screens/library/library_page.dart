@@ -58,7 +58,7 @@ class _LibraryPageState extends State<LibraryPage>
   }
 
   void _loadDecksData(BuildContext context) {
-    BlocProvider.of<LibraryBloc>(context).add(LibraryEvent.loadUserLibrary());
+    context.read<LibraryBloc>().add(LibraryEvent.loadUserLibrary());
   }
 
   Widget _decksList(List<MDEDeck> decks) => ScrollConfiguration(

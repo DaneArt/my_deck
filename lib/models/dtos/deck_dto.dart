@@ -53,7 +53,7 @@ abstract class DeckDto implements _$DeckDto {
             username: e.username.getOrCrash,
           )),
       cardDtos:
-          deck?.cardsList?.map((card) => CardDto.fromDomain(card))?.toList(),
+          deck.cardsList?.map((card) => CardDto.fromDomain(card))?.toList(),
       cardsCount: deck.cardsCount,
       subscribersCount: deck.subscribersCount,
       availableQuickTrain: deck.availableQuickTrain);

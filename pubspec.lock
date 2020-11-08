@@ -306,7 +306,7 @@ packages:
       name: flutter_bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.6"
+    version: "6.1.0"
   flutter_device_locale:
     dependency: transitive
     description:
@@ -723,7 +723,7 @@ packages:
       name: quiver
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.4+1"
+    version: "2.1.5"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -973,7 +973,7 @@ packages:
       name: vm_service
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.4.0"
+    version: "5.5.0"
   vm_service_client:
     dependency: transitive
     description:
@@ -1008,7 +1008,7 @@ packages:
       name: webkit_inspection_protocol
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.3"
+    version: "0.7.4"
   win32:
     dependency: transitive
     description:

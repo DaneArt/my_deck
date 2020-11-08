@@ -127,6 +127,7 @@ class _DeckCardState extends State<DeckCard> {
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(8), bottomLeft: Radius.circular(8)),
         child: BlocProvider<MDContentCubit<File>>(
+          lazy:false,
           create: (context) => MDContentCubit<File>(),
           child: MDImage(
             image: deck.avatar.getOrCrash,

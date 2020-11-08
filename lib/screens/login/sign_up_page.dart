@@ -180,7 +180,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 color: Theme.of(context).accentColor,
               ),
               onPressed: () {
-                context.bloc<AuthBloc>().add(AuthEvent.obscurePassword());
+                context.read<AuthBloc>().add(AuthEvent.obscurePassword());
               },
             ),
             isObscureText: state.obscurePassword,
