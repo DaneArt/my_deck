@@ -1,3 +1,4 @@
 # mydeck
 
-This is educational service based on Flashcards concept.
+# Описание проекта
+Образовательная соц.сеть основанная на концепции флеш-карточек
