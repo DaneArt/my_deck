@@ -53,7 +53,7 @@ class SaveDeckChangesUsecase extends UseCase<StorageFailure, MDEDeck, Params> {
 
   List<MDEFile> _sortFilesToUpdate(List<MDEFile> oldFiles, List<MDEFile> newFiles) {
     final tempList = List.of(newFiles);
-    tempList.retainWhere((e) => oldFiles
+    tempList.retainWhere((e) => !oldFiles
         .map((e) => e.uniqueId.getOrCrash)
         .contains(e.uniqueId.getOrCrash));
     return tempList;

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mydeck/models/entitites/mde_card.dart';
 import 'package:mydeck/models/entitites/mde_file.dart';
+import 'package:mydeck/utils/md_constants.dart';
 
 import '../../../features/train/presentation/widgets/../../../../screens/train/local_widgets/dismissible_card_widget.dart';
 
@@ -81,7 +82,7 @@ class _CustomStackListState extends State<CustomStackList>
                 color: Colors.white,
                 elevation: _cardOffsety != 5 ? 4 : 2,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(4),
+                  borderRadius: const BorderRadius.all(Constants.smallBorderRadius),
                   child: Container(
                     width: cardWidth,
                     height: cardHeight,
@@ -169,7 +170,7 @@ class _CustomStackListState extends State<CustomStackList>
                 width: cardWidth,
                 height: cardHeight,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(4),
+                  borderRadius:const BorderRadius.all(Constants.smallBorderRadius),
                   child: _currentIndex < _cards.length - 2
                       ? Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

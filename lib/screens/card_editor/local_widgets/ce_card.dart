@@ -23,7 +23,6 @@ class _CECard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Card(
-  
             child: BlocBuilder<CECardCubit, CECardState>(
               cubit: cubit,
               builder: (context, state) {
@@ -85,12 +84,12 @@ class _CECard extends StatelessWidget {
   Widget _renderContent(
       BuildContext context, MDEFile content, double height, double width) {
     return Container(
-      key: ValueKey(content.uniqueId.toString() + editable.toString()),
+      key: ValueKey(content.uniqueId.getOrCrash),
       width: width,
       height: height,
       child: content is MDImageFile
           ? GestureDetector(
-              onTap: () {
+              onTap:editable? () {
                 showModalBottomSheet(
                     context: context,
                     builder: (context) => MDImagePickerModalBottomSheet(
@@ -104,14 +103,14 @@ class _CECard extends StatelessWidget {
                             }
                           },
                         ));
-              },
+              }:null,
               child: ClipRRect(
                 borderRadius:
-                    const BorderRadius.vertical(bottom: Radius.circular(8)),
+                    const BorderRadius.vertical(bottom: Constants.smallBorderRadius),
                 child: BlocProvider<MDContentCubit<File>>(
                   create: (context) => MDContentCubit<File>(),
                   child: MDImage(
-                    key: ValueKey(content.uniqueId.getOrCrash + " Image"),
+                      key: ObjectKey(content),
                     image: content,
                     width: width,
                     editable: editable,

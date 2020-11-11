@@ -39,10 +39,10 @@ class _InDeckCardWidget extends StatelessWidget {
         height: MediaQuery.of(context).size.width / 1.6,
         child: Card(
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(4.0),
+            borderRadius:const BorderRadius.all(Constants.smallBorderRadius),
             child: InkWell(
               onTap: onTap,
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: const BorderRadius.all(Constants.smallBorderRadius),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[

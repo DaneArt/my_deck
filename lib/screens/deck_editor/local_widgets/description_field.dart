@@ -5,7 +5,7 @@ class _DescriptionField extends StatelessWidget {
   final Function(String) _onChanged;
   static const _maxDescriptionCount = 70;
 
-  const _DescriptionField({Key key, String initialValue, Function(String) onChanged}) :
+  const _DescriptionField({Key key,Key fieldKey, String initialValue, Function(String) onChanged}) :
   _initialValue = initialValue,
   _onChanged = onChanged,
    super(key: key);

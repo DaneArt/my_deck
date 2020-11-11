@@ -5,6 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mydeck/models/entitites/mde_card.dart';
 import 'package:mydeck/models/entitites/mde_file.dart';
+import 'package:mydeck/models/value_objects/unique_id.dart';
 import 'ce_card_state.dart';
 
 class CECardCubit extends Cubit<CECardState> {
@@ -47,12 +48,12 @@ class CECardCubit extends Cubit<CECardState> {
       emit(state.copyWith(
           card: state.card.copyWith(
               question: MDImageFile(
-                  uniqueId: state.card.question.uniqueId, file: image))));
+                  uniqueId: UniqueId(), file: image))));
     } else {
       emit(state.copyWith(
           card: state.card.copyWith(
               answer: MDImageFile(
-                  uniqueId: state.card.answer.uniqueId, file: image))));
+                  uniqueId: UniqueId(), file: image))));
     }
   }
 

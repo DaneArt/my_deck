@@ -58,7 +58,7 @@ dev_dependencies:
     sdk: flutter
   flutter_test:
     sdk: flutter
-  bloc_test: ^7.0.0
+  bloc_test: ^7.1.0
   #tests
   build_runner: ^1.8.0
   freezed: ^0.10.4

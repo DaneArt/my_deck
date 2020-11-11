@@ -17,6 +17,7 @@ import 'package:mydeck/models/entitites/mde_card.dart';
 import 'package:mydeck/models/entitites/mde_file.dart';
 import 'package:mydeck/models/value_objects/unique_id.dart';
 import 'package:mydeck/utils/images_util.dart';
+import 'package:mydeck/utils/md_constants.dart';
 import 'package:mydeck/widgets/md_edit_text.dart';
 import 'package:mydeck/widgets/md_image.dart';
 import 'package:mydeck/widgets/md_image_picker_modal_bottom_sheet.dart';
@@ -26,17 +27,18 @@ import 'package:mydeck/widgets/md_text.dart';
 part './local_widgets/ce_card.dart';
 part './local_widgets/card_fraction_pagination_builder.dart';
 
-
 class CardEditor extends StatefulWidget {
-   CardEditor({Key key}) : super(key: key);
+  CardEditor({Key key}) : super(key: key);
 
   @override
   _CardEditorState createState() => _CardEditorState();
 }
 
 class _CardEditorState extends State<CardEditor> {
-
   final _scaffoldKey = GlobalKey();
+
+  CardEditorBloc get _bloc =>
+      _scaffoldKey.currentContext.read<CardEditorBloc>();
 
   @override
   Widget build(context) {
@@ -51,18 +53,17 @@ class _CardEditorState extends State<CardEditor> {
         Logger().d("Rebuild whole list");
         return WillPopScope(
           onWillPop: () async {
-            _scaffoldKey.currentContext
-                .bloc<CardEditorBloc>()
-                .add(CardEditorEvent.saveChangesAndExit());
+            _bloc.add(CardEditorEvent.saveChangesAndExit());
             return false;
           },
           child: Scaffold(
-            key:_scaffoldKey,
+            key: _scaffoldKey,
             appBar: _buildAppBar(state),
             body: _buildCardsList(state),
             bottomNavigationBar: BottomAppBar(
               elevation: 8,
-              child: state.status == AddDeckStatus.edit? _buildControls(): null,
+              child:
+                  state.status == AddDeckStatus.edit ? _buildControls() : null,
               shape: CircularNotchedRectangle(),
               color: Colors.white,
             ),
@@ -78,21 +79,17 @@ class _CardEditorState extends State<CardEditor> {
         leading: IconButton(
           onPressed: () {
             if (state.status == AddDeckStatus.edit) {
-             _scaffoldKey.currentContext
-                  .bloc<CardEditorBloc>()
-                  .add(CardEditorEvent.changeStatus());
-             _scaffoldKey.currentContext.bloc<CardEditorBloc>().add(CardEditorEvent.undoEdits());
+              _bloc.add(CardEditorEvent.changeStatus());
+              _bloc.add(CardEditorEvent.undoEdits());
             } else {
-             _scaffoldKey.currentContext
-                  .bloc<CardEditorBloc>()
-                  .add(CardEditorEvent.saveChangesAndExit());
+              _bloc.add(CardEditorEvent.saveChangesAndExit());
             }
           },
           icon: Icon(
               state.status == AddDeckStatus.edit
                   ? Icons.clear
                   : Icons.arrow_back,
-              color: Theme.of( context).iconTheme.color),
+              color: Theme.of(context).iconTheme.color),
         ),
         backgroundColor: Colors.transparent,
       );
@@ -102,8 +99,9 @@ class _CardEditorState extends State<CardEditor> {
         ? await ImagesUtil.pickImageFromCamera()
         : await ImagesUtil.pickImageFromGallery();
     if (image != null) {
-      BlocProvider.of<CardEditorBloc>(_scaffoldKey.currentContext).add(CardEditorEvent.setContent(
-          MDImageFile(uniqueId: UniqueId(), file: File(image.path))));
+      BlocProvider.of<CardEditorBloc>(_scaffoldKey.currentContext).add(
+          CardEditorEvent.setContent(
+              MDImageFile(uniqueId: UniqueId(), file: File(image.path))));
     }
   }
 
@@ -124,7 +122,7 @@ class _CardEditorState extends State<CardEditor> {
           color: Theme.of(context).iconTheme.color,
         ),
         onPressed: () {
-          _scaffoldKey.currentContext.bloc<CardEditorBloc>().add(CardEditorEvent.setContent(
+          _bloc.add(CardEditorEvent.setContent(
               MDTextFile(uniqueId: UniqueId(), text: "")));
         },
       );
@@ -154,12 +152,10 @@ class _CardEditorState extends State<CardEditor> {
         loop: false,
         viewportFraction: 0.8,
         scale: 0.9,
-        
         itemWidth: MediaQuery.of(context).size.width,
         itemHeight: MediaQuery.of(context).size.height,
         onIndexChanged: (newIndex) {
-          BlocProvider.of<CardEditorBloc>( _scaffoldKey.currentContext)
-              .add(CardEditorEvent.changeIndex(newIndex: newIndex));
+          _bloc.add(CardEditorEvent.changeIndex(newIndex: newIndex));
         },
         pagination: SwiperPagination(
           builder: _CardFractionPaginationBuilder(
@@ -179,8 +175,7 @@ class _CardEditorState extends State<CardEditor> {
         ),
       );
 
-  List<Widget> _buildAppBarActions(
-          CardEditorState state) =>
+  List<Widget> _buildAppBarActions(CardEditorState state) =>
       state.goal != AddDeckGoal.look
           ? <Widget>[
               _buildDeleteIconButton(state),
@@ -193,8 +188,7 @@ class _CardEditorState extends State<CardEditor> {
       state.goal != AddDeckGoal.look && state.status == AddDeckStatus.edit
           ? IconButton(
               onPressed: () {
-                BlocProvider.of<CardEditorBloc>( _scaffoldKey.currentContext)
-                    .add(CardEditorEvent.deleteCard());
+                _bloc.add(CardEditorEvent.deleteCard());
               },
               icon:
                   Icon(Icons.delete, color: Theme.of(context).iconTheme.color),
@@ -205,8 +199,7 @@ class _CardEditorState extends State<CardEditor> {
       state.goal != AddDeckGoal.look && state.status == AddDeckStatus.edit
           ? IconButton(
               onPressed: () {
-                BlocProvider.of<CardEditorBloc>( _scaffoldKey.currentContext)
-                    .add(CardEditorEvent.addCard());
+                _bloc.add(CardEditorEvent.addCard());
               },
               icon: Icon(Icons.add, color: Theme.of(context).iconTheme.color),
             )
@@ -216,20 +209,14 @@ class _CardEditorState extends State<CardEditor> {
       state.goal != AddDeckGoal.look && state.status == AddDeckStatus.edit
           ? IconButton(
               onPressed: () {
-               _scaffoldKey.currentContext
-                    .bloc<CardEditorBloc>()
-                    .add(CardEditorEvent.changeStatus());
+                _bloc.add(CardEditorEvent.changeStatus());
               },
               icon: Icon(Icons.check, color: Theme.of(context).iconTheme.color),
             )
           : IconButton(
               onPressed: () {
-                _scaffoldKey.currentContext
-                     .bloc<CardEditorBloc>()
-                     .add(CardEditorEvent.backupCubits());
-               _scaffoldKey.currentContext
-                    .bloc<CardEditorBloc>()
-                    .add(CardEditorEvent.changeStatus());
+                _bloc.add(CardEditorEvent.backupCubits());
+                _bloc.add(CardEditorEvent.changeStatus());
               },
               icon: Icon(Icons.edit, color: Theme.of(context).iconTheme.color),
             );

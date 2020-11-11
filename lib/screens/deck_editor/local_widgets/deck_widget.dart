@@ -122,7 +122,7 @@ class __DeckWidgetState extends State<_DeckWidget> with WidgetsBindingObserver {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      _buildTitleWidget(state),
+                        _buildTitleWidget(state),
                       SizedBox(
                         height: 16,
                       ),
@@ -220,7 +220,7 @@ class __DeckWidgetState extends State<_DeckWidget> with WidgetsBindingObserver {
   Widget _buildDescriptionWidget(AddDeckState state) =>
       state.status == AddDeckStatus.edit && !state.isPending
           ? _DescriptionField(
-              key: _descriptionFieldKey,
+              fieldKey: _descriptionFieldKey,
               initialValue: state.description.value.fold((l) => '', (r) => r),
               onChanged: (value) =>
                   bloc.add(AddDeckEvent.descriptionChanged(value)),
@@ -251,7 +251,7 @@ class __DeckWidgetState extends State<_DeckWidget> with WidgetsBindingObserver {
   Widget _buildTitleWidget(AddDeckState state) =>
       state.status == AddDeckStatus.edit && !state.isPending
           ? _TitleFieldWidget(
-              key: _titleFieldKey,
+              fieldKey: _titleFieldKey,
               initialValue: state.title.value.fold((l) => '', (r) => r),
               onChanged: (value) => bloc.add(AddDeckEvent.titleChanged(value)),
             )

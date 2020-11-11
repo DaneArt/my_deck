@@ -6,7 +6,7 @@ class _TitleFieldWidget extends StatelessWidget {
   
   static const int _maxTitleCount = 30;
 
-  const _TitleFieldWidget({Key key, String initialValue, Function(String) onChanged}) :
+  const _TitleFieldWidget({Key key, String initialValue, Function(String) onChanged, Key fieldKey}) :
   _initialValue = initialValue,
   _onChanged = onChanged,
    super(key: key);
