@@ -138,9 +138,10 @@ class AddDeckBloc extends Bloc<AddDeckEvent, AddDeckState> {
       },
       updateCards: (e) async* {
         yield state.copyWith(
-            status: e.cards.every((element) => state.cardsList.contains(element))
-                ? AddDeckStatus.look
-                : AddDeckStatus.edit,
+            status:
+                e.cards.every((element) => state.cardsList.contains(element))
+                    ? AddDeckStatus.look
+                    : AddDeckStatus.edit,
             savingFailureOrSuccess: none(),
             cardsList: e.cards);
         Logger().d('Cards updated');

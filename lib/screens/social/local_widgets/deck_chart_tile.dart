@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mydeck/blocs/add_deck/add_deck_bloc.dart';
 import 'package:mydeck/blocs/decks_feed_tile/decks_feed_tile_bloc.dart';
+import 'package:mydeck/models/entitites/mde_deck.dart';
+import 'package:mydeck/screens/deck_editor/add_deck_page.dart';
+import 'package:mydeck/services/datasources/user_config.dart';
+import 'package:mydeck/services/usecases/add_deck_usecase.dart';
+import 'package:mydeck/services/usecases/delete_deck_usecase.dart';
+import 'package:mydeck/services/usecases/save_deck_changes_usecase.dart';
+import 'package:mydeck/services/usecases/upload_online_deck.dart';
+import 'package:mydeck/theme/my_deck_routes.dart';
 import 'package:mydeck/utils/dependency_injection.dart';
 import 'package:mydeck/services/usecases/load_decks_page_for_category_usecase.dart';
 import 'package:mydeck/screens/social/category_feed_page.dart';
@@ -143,11 +152,16 @@ class _DeckChartTileFeedState extends State<DeckChartTileFeed> {
                           )
                         : Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Center(
-                              child: Text(
-                                S.of(context).meta_no_decks,
-                                style: Theme.of(context).textTheme.subtitle2,
-                              ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  S.of(context).meta_no_decks,
+                                  style: Theme.of(context).textTheme.subtitle2,
+                                ),
+                                _buildCreateButton()
+                              ],
                             ),
                           ),
           ),
@@ -155,4 +169,40 @@ class _DeckChartTileFeedState extends State<DeckChartTileFeed> {
       );
     });
   }
+
+  Widget _buildCreateButton() => UserConfig.currentUser == null
+      ? FlatButton(
+          onPressed: () {
+            Navigator.of(context).pushNamed(MyDeckRoutes.login);
+          },
+          child: Text(
+            'Sign in and \n create',
+            style:
+                Theme.of(context).textTheme.button.copyWith(color: Colors.blue),
+          ),
+        )
+      : FlatButton(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                  builder: (context) => BlocProvider<AddDeckBloc>(
+                        create: (context) => AddDeckBloc(
+                            addDeckUseCase: sl.get<AddDeckUseCase>(),
+                            deck: MDEDeck.basic(),
+                            deleteDeckUseCase: sl.get<DeleteDeckUseCase>(),
+                            goal: AddDeckGoal.create,
+                            saveDeckChangesUsecase:
+                                sl.get<SaveDeckChangesUsecase>(),
+                            status: AddDeckStatus.edit,
+                            uploadOnlineDeckUsecase:
+                                sl.get<UploadOnlineDeckUsecase>()),
+                        child: AddDeckPage(),
+                      )),
+            );
+          },
+          child: Text(
+            'Create one',
+            style:
+                Theme.of(context).textTheme.button.copyWith(color: Colors.blue),
+          ));
 }

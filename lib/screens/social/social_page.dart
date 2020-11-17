@@ -30,86 +30,119 @@ class _SocialPageBodyState extends State<_SocialPageBody> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return SafeArea(
-      child: PageView(
-        scrollDirection: Axis.vertical,
-        children: <Widget>[
-          Stack(
-            children: <Widget>[
-              FeaturedDeckList(
-                decks: List.generate(5, (index) => MDEDeck.basic()),
-              ),
-              Align(
-                alignment: Alignment.topCenter,
-                child: Padding(
-                  padding: const EdgeInsets.all(48),
-                  child: Text(
-                    S.of(context).social_decks_chart,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline5
-                        .copyWith(fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
+      child: Scaffold(
+        body: ScrollConfiguration(
+          behavior: MDNoScrollGlowBehaviour(),
+          child: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                title: Text(
+                  "Community decks",
+                  style: Theme.of(context).textTheme.headline6.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).primaryColor),
                 ),
+                elevation: 0,
+                backgroundColor: Colors.transparent,
               ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 24, left: 32),
-                child: Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text('Swipe'),
-                      Icon(Icons.keyboard_arrow_down),
-                    ],
-                  ),
-                ),
+              SliverList(
+                delegate: SliverChildListDelegate(kDefaultCategories
+                    .map((category) => BlocProvider(
+                          create: (context) => FeedTileBloc(
+                            categoryModel: category,
+                            loadDecksPageForCategoryUsecase:
+                                sl.get<LoadDecksPageForCategoryUsecase>(),
+                          ),
+                          child: DeckChartTile(),
+                        ))
+                    .toList()),
               ),
             ],
           ),
-          ScrollConfiguration(
-            behavior: MDNoScrollGlowBehaviour(),
-            child: CustomScrollView(
-              slivers: <Widget>[
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    Container(
-                      width: 300,
-                      height: 250,
-                      child: FeaturedDeckListSmall(
-                        decks: List.generate(5, (index) => MDEDeck.basic()),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Text(
-                        S.of(context).social_decks_chart,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline3
-                            .copyWith(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ]),
-                ),
-                SliverList(
-                  delegate: SliverChildListDelegate(kDefaultCategories
-                      .map((category) => BlocProvider(
-                            create: (context) => FeedTileBloc(
-                              categoryModel: category,
-                              loadDecksPageForCategoryUsecase:
-                                  sl.get<LoadDecksPageForCategoryUsecase>(),
-                            ),
-                            child: DeckChartTile(),
-                          ))
-                      .toList()),
-                ),
-              ],
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
 }
+
+//Code for future
+//  PageView(
+//         scrollDirection: Axis.vertical,
+//         children: <Widget>[
+//           Stack(
+//             children: <Widget>[
+//               FeaturedDeckList(
+//                 decks: List.generate(5, (index) => MDEDeck.basic()),
+//               ),
+//               Align(
+//                 alignment: Alignment.topCenter,
+//                 child: Padding(
+//                   padding: const EdgeInsets.all(48),
+//                   child: Text(
+//                     S.of(context).social_decks_chart,
+//                     style: Theme.of(context)
+//                         .textTheme
+//                         .headline5
+//                         .copyWith(fontWeight: FontWeight.bold),
+//                     textAlign: TextAlign.center,
+//                   ),
+//                 ),
+//               ),
+//               Padding(
+//                 padding: const EdgeInsets.only(bottom: 24, left: 32),
+//                 child: Align(
+//                   alignment: Alignment.bottomLeft,
+//                   child: Column(
+//                     mainAxisAlignment: MainAxisAlignment.end,
+//                     crossAxisAlignment: CrossAxisAlignment.center,
+//                     children: [
+//                       Text('Swipe'),
+//                       Icon(Icons.keyboard_arrow_down),
+//                     ],
+//                   ),
+//                 ),
+//               ),
+//             ],
+//           ),
+//           ScrollConfiguration(
+//             behavior: MDNoScrollGlowBehaviour(),
+//             child: CustomScrollView(
+//               slivers: <Widget>[
+//                 SliverList(
+//                   delegate: SliverChildListDelegate([
+//                     Container(
+//                       width: 300,
+//                       height: 250,
+//                       child: FeaturedDeckListSmall(
+//                         decks: List.generate(5, (index) => MDEDeck.basic()),
+//                       ),
+//                     ),
+//                     Padding(
+//                       padding: const EdgeInsets.all(8),
+//                       child: Text(
+//                         S.of(context).social_decks_chart,
+//                         style: Theme.of(context)
+//                             .textTheme
+//                             .headline3
+//                             .copyWith(fontWeight: FontWeight.bold),
+//                       ),
+//                     ),
+//                   ]),
+//                 ),
+//                 SliverList(
+//                   delegate: SliverChildListDelegate(kDefaultCategories
+//                       .map((category) => BlocProvider(
+//                             create: (context) => FeedTileBloc(
+//                               categoryModel: category,
+//                               loadDecksPageForCategoryUsecase:
+//                                   sl.get<LoadDecksPageForCategoryUsecase>(),
+//                             ),
+//                             child: DeckChartTile(),
+//                           ))
+//                       .toList()),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ],
+//       ),

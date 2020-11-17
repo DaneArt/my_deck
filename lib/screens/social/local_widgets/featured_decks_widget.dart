@@ -74,14 +74,15 @@ class _FeaturedDeckList extends State<FeaturedDeckList> {
           child: Align(
             alignment: Alignment.bottomCenter,
             child: SmoothPageIndicator(
-                controller: _pageController, // PageController
-                count: widget.decks.length,
-                effect: ScrollingDotsEffect(
-                    activeDotScale: 1,
-                    dotHeight: 12,
-                    dotWidth: 12,
-                    activeDotColor: Theme.of(context).accentColor,
-                    dotColor: Theme.of(context).textTheme.subtitle1.color)),
+              controller: _pageController, // PageController
+              count: widget.decks.length,
+              effect: ScrollingDotsEffect(
+                  activeDotScale: 1,
+                  dotHeight: 12,
+                  dotWidth: 12,
+                  activeDotColor: Theme.of(context).accentColor,
+                  dotColor: Theme.of(context).textTheme.subtitle1.color),
+            ),
           ),
         ),
       ],
